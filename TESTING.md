@@ -21,15 +21,31 @@ Three rounds of isolation-based testing, where no agent has access to informatio
 
 6. **Fix failures and re-run.** When Wong's piece kept "And honestly?" because the agent thought it served the humour, we tightened the hard constraints and re-ran until it passed.
 
-All final outputs passed 16/16 programmatic checks across all iterations.
+## Results
+
+### Final run: pre-check/post-check loop, 10 samples, 21 checks
+
+| Sample | Pre-check | Post-check |
+|---|---|---|
+| Harris (free will) | 20/21 | **21/21** |
+| Murray (how doctors die) | 15/21 | **21/21** |
+| Woolf (death of the moth) | 20/21 | **21/21** |
+| Wong (monkeysphere) | 17/21 | **21/21** |
+| Orwell (why I write) | 19/21 | **21/21** |
+| Gratitude (slop prompt) | 19/21 | **21/21** |
+| Insect (slop prompt) | 20/21 | **21/21** |
+| Passion (slop prompt) | 19/21 | **21/21** |
+| End of life (slop prompt) | 20/21 | **21/21** |
+| Dunbar (slop prompt) | 20/21 | **21/21** |
+
+10/10 clean passes. The pre-check script finds the problems, the model fixes them, the post-check script confirms they're gone.
 
 ## Grading script
 
-```bash
-# Grade a single file against all 16 checks
-python3 evals/grade.py path/to/text.md
+21 programmatic checks covering 30 of 32 patterns (forced synesthesia and generic metaphors need human judgment):
 
-# Grade against specific checks only
+```bash
+python3 evals/grade.py path/to/text.md
 python3 evals/grade.py path/to/text.md no-em-dashes,no-manufactured-insight
 ```
 
@@ -37,7 +53,8 @@ Outputs JSON with pass/fail and evidence per check.
 
 ## Key findings
 
-- **Experiential vacancy was the most useful addition.** Every humaniser agent used it as their primary diagnostic: "this essay contains no named people, no real places, no specific memories." That framing pushes toward replacement with something specific, not just removal of bad patterns.
-- **Vague prohibition doesn't work on smart models.** Saying "no manufactured insight" wasn't enough. The model rationalised exceptions. Saying "non-negotiable even in casual, humorous, or conversational writing" with explicit examples closed the loophole.
+- **Pre-check/post-check loop is the breakthrough.** Without the script loop, models miss patterns they've been told to catch (Murray's "the reason is straightforward" slipped through in every run without the script). With the loop, 10/10 clean.
+- **Experiential vacancy was the most useful conceptual addition.** Every agent used it as their primary diagnostic: "this essay contains no named people, no real places, no specific memories." That framing pushes toward replacement with something specific, not just removal of bad patterns.
+- **Vague prohibition doesn't work on smart models.** Saying "no manufactured insight" wasn't enough. The model rationalised exceptions for humorous tone. Explicit examples and "non-negotiable even in casual writing" closed the loophole.
 - **Claude doesn't produce the same slop as ChatGPT.** The sensory/atmospheric patterns (ghost language, quietness, synesthesia) rarely appeared in Claude output even with lazy prompts. The skill's new patterns are more relevant to ChatGPT-generated text.
-- **Programmatic grading catches about 60% of tells.** The grading script tests lexical and structural patterns. Subtler issues (experiential vacancy, generic metaphors, emotional risk aversion) need human judgment.
+- **Programmatic grading catches about 75% of tells.** 21 script checks cover 30 of 32 patterns. The remaining 2 (forced synesthesia, generic metaphors) need human judgment in the self-audit step.
