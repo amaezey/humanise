@@ -6,6 +6,8 @@ Ran 8 AI-generated text samples through `grade.py` — each designed to trigger 
 
 ## Results
 
+### Before bugfixes (original grade.py)
+
 | # | Sample | Type | Score | Failures |
 |---|--------|------|-------|----------|
 | 1 | Public libraries essay | Long-form essay | 18/21 | em dashes, AI vocab clustering, forced triads |
@@ -17,15 +19,39 @@ Ran 8 AI-generated text samples through `grade.py` — each designed to trigger 
 | 7 | Boutique hotel description | Product copy | 19/21 | em dashes, copula avoidance |
 | 8 | Meeting decline email | Short email | 19/21 | em dashes, sentence-length-variance |
 
-**Average score: 19.5/21 (93%).** Every sample is obviously AI-generated. The grader barely notices.
+**Average: 19.5/21 (93%).** Every sample is obviously AI-generated. The grader barely notices.
 
-The cover letter — stereotypical AI corporate prose ("With extensive experience designing and delivering scalable, production-grade systems, I bring a pragmatic approach") — scored a perfect 21/21.
+### After bugfixes (patched grade.py)
+
+| # | Sample | Type | Score | Failures |
+|---|--------|------|-------|----------|
+| 1 | Public libraries essay | Long-form essay | 17/21 | em dashes, AI vocab clustering, copula avoidance, forced triads |
+| 2 | Learn to cook blog | Blog post | 18/21 | em dashes, negative parallelisms, filler phrases |
+| 3 | Remote work listicle | Listicle | 17/21 | em dashes, anaphora, negative parallelisms, forced triads |
+| 4 | Travel reflection | Personal reflection | 17/21 | em dashes, negative parallelisms, filler phrases, forced triads |
+| 5 | Quantum computing explainer | Technical explainer | 19/21 | em dashes, collaborative artifacts |
+| 6 | Cover letter | Professional email | **21/21** | **none — still a blind spot** |
+| 7 | Boutique hotel description | Product copy | 19/21 | em dashes, copula avoidance |
+| 8 | Meeting decline email | Short email | 19/21 | em dashes, sentence-length-variance |
+
+**Average: 18.4/21 (87%).** Improved from 93%, but cover letter still passes clean.
+
+### Bugs fixed
+
+1. **COPULA_AVOIDANCE** only had singular verb forms ("serves as"). Missed "serve as", "function as" (plural). Fixed with `serves? as` etc.
+2. **AI_VOCABULARY** used substring matching for "align with", which doesn't match "aligns with" (the `s` breaks the substring). Added regex-based matching for inflected multi-word phrases.
+3. **no-negative-parallelisms** only matched within a single sentence. "Not about X. It is about Y" spans two sentences. Added cross-sentence patterns.
+4. **COLLABORATIVE_ARTIFACTS** missed soft offer-to-continue patterns ("if needed, the explanation can be reframed"). Added.
+5. **FILLER_PHRASES** had "it is worth noting" but not "it is worth recognising/mentioning/emphasising". Also missed "is often framed as". Added.
+6. **no-forced-triads** suffix list only had -ing/-tion/-ment/-ness/-ity. Missed -ence/-ance/-ency/-ancy/-cy/-ism/-sion. Added.
+7. **no-rhetorical-questions** pattern matched "It's" but not bare "It" as an answer opener. Fixed.
 
 ## What the grader catches well
 
-- **Em dashes**: caught in 7/8 samples. This is the most reliable signal.
-- **Forced triads**: caught abstract "X, Y, and Z" patterns in 2 samples.
-- **Copula avoidance**: caught "features" in the hotel description.
+- **Em dashes**: caught in 7/8 samples. Most reliable signal.
+- **Forced triads**: caught in 4/8 samples (up from 2 after suffix fix).
+- **Copula avoidance**: now catches plural forms too.
+- **Negative parallelisms**: now catches cross-sentence reframing.
 
 ## What the grader misses
 
