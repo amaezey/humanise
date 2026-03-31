@@ -1,0 +1,137 @@
+{
+  "skill_name": "humanise",
+  "evals": [
+    {
+      "id": 0,
+      "name": "harris-free-will",
+      "prompt": "Humanise the following essay about free will and moral responsibility.",
+      "expected_output": "Text that reads like a thoughtful philosophical essay with personal voice, varied sentence rhythm, and no AI tells",
+      "files": ["eval-harris-free-will/ai_output/essay.md"],
+      "assertions": [
+        {
+          "name": "no-em-dashes",
+          "type": "programmatic",
+          "description": "Output contains zero em dash characters",
+          "check": "count of '—' == 0"
+        },
+        {
+          "name": "no-ai-vocabulary-clustering",
+          "type": "programmatic",
+          "description": "No paragraph contains 3+ high-frequency AI words (delve, crucial, pivotal, landscape, tapestry, testament, underscore, vibrant, foster, enhance, garner, showcase, intricate, interplay, enduring, additionally, align with, valuable)",
+          "check": "max AI words per paragraph < 3"
+        },
+        {
+          "name": "no-manufactured-insight",
+          "type": "programmatic",
+          "description": "No instances of manufactured insight phrases (what's really, the real answer, let that sink in, read that again, if you know you know, and that changes everything, what nobody is talking about, contrary to popular belief, the uncomfortable truth, quietly revolutionary)",
+          "check": "count of manufactured insight phrases == 0"
+        },
+        {
+          "name": "no-staccato-sequences",
+          "type": "programmatic",
+          "description": "No sequences of 3+ consecutive sentences under 6 words each",
+          "check": "max consecutive short sentences < 3"
+        },
+        {
+          "name": "no-collaborative-artifacts",
+          "type": "programmatic",
+          "description": "No chatbot artifacts (I hope this helps, Great question, Let me know, Here is a, Would you like)",
+          "check": "count of collaborative artifacts == 0"
+        },
+        {
+          "name": "no-curly-quotes",
+          "type": "programmatic",
+          "description": "No curly quotation marks",
+          "check": "count of curly quotes == 0"
+        },
+        {
+          "name": "sentence-length-variance",
+          "type": "programmatic",
+          "description": "Standard deviation of sentence word counts is > 4 (indicates varied rhythm)",
+          "check": "stdev of sentence lengths > 4"
+        },
+        {
+          "name": "meaning-preservation",
+          "type": "qualitative",
+          "description": "The humanised text covers the same key arguments as the original: free will objection, good/evil distinction, surgeon example, lack of ultimate control over desires"
+        },
+        {
+          "name": "voice-naturalness",
+          "type": "qualitative",
+          "description": "The text reads as though a specific human wrote it, not as a generic overview. It has opinions, acknowledges uncertainty, or uses first person where appropriate"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "murray-doctors-die",
+      "prompt": "Humanise the following essay about how doctors approach their own end-of-life care.",
+      "expected_output": "Text that reads like a personal medical essay with storytelling, direct observations, and no AI tells",
+      "files": ["eval-murray-doctors-die/ai_output/essay.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '—' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied sentence rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers Charlie's anecdote, doctors choosing less treatment, knowledge of medicine's limits, fear of dying in pain/alone"},
+        {"name": "voice-naturalness", "type": "qualitative", "description": "Reads like personal medical essay, not a health article overview"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "woolf-moth",
+      "prompt": "Humanise the following descriptive essay about watching a moth at a window.",
+      "expected_output": "Text that reads like literary observation with sensory detail and natural rhythm, not a nature article",
+      "files": ["eval-woolf-moth/ai_output/essay.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '—' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words (breathtaking, stunning, nestled, vibrant, profound, showcasing, exemplifies)", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Captures the moth at the window, the September morning, the outdoor energy, the moth as embodiment of life force"},
+        {"name": "literary-quality", "type": "qualitative", "description": "Uses concrete sensory detail rather than atmospheric adjectives. Shows rather than tells"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "wong-monkeysphere",
+      "prompt": "Humanise the following humorous essay about Dunbar's number and the Monkeysphere.",
+      "expected_output": "Text that retains irreverent humor, specific details (monkey names, pirate costume), and conversational tone without AI patterns",
+      "files": ["eval-wong-monkeysphere/ai_output/essay.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '—' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-significance-inflation", "type": "programmatic", "description": "No significance inflation (pivotal, crucial, vital role, testament, evolving landscape, indelible mark)", "check": "count == 0"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "humor-preserved", "type": "qualitative", "description": "The irreverent, conversational tone survives humanisation. Specific funny details (monkey names, pirate costume, jokes) are intact or replaced with equally specific humor"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers Dunbar's number, the monkey thought experiment, brain-size research, the 150 limit, and why this matters for how we treat strangers"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "orwell-why-write",
+      "prompt": "Humanise the following autobiographical essay about knowing from childhood you would be a writer.",
+      "expected_output": "Text that reads like honest autobiography with self-deprecation, specific memories, and direct prose",
+      "files": ["eval-orwell-why-write/ai_output/essay.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '—' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No 'not just...but' or 'not only...but also' constructions", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers childhood conviction of being a writer, lonely upbringing, early poems, the continuous mental story/internal narration habit"},
+        {"name": "voice-naturalness", "type": "qualitative", "description": "First-person, self-deprecating, honest about failures and limitations. Not a 'journey of self-discovery' narrative"}
+      ]
+    }
+  ]
+}
