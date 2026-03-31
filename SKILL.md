@@ -126,25 +126,53 @@ grep -i "promotional" references/patterns.md
 
 ## Process
 
-1. Read the input text carefully
-2. **Hard constraints first:** scan for em dashes, manufactured insight, and staccato fragments
-3. Read [references/patterns.md](references/patterns.md) and identify all matching patterns
-4. Rewrite each problematic section
-5. **Self-audit loop:**
-   - Ask: "What makes this so obviously AI generated?"
-   - List remaining tells
-   - Revise to eliminate them
-   - Ask again. If tells remain, revise again
-   - Continue until no obvious tells remain or changes are cosmetic only
-6. **Final scan:** search output explicitly for the em dash character. Count must be zero
-7. Verify the text sounds natural read aloud, uses specific details over vague claims, and maintains appropriate tone
+### Step 1: Pre-check (script finds the problems)
+
+Save the input text to a temp file, then run the grading script on it:
+
+```bash
+python3 evals/grade.py /tmp/input.md
+```
+
+The script checks 21 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading a 426-line reference file.
+
+If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. But prefer the script when possible.
+
+### Step 2: Fix (you rewrite)
+
+1. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern
+2. Fix every failure from the pre-check report
+3. Also check for patterns the script cannot catch: forced synesthesia (28), generic metaphors (30), experiential vacancy, and density without purpose. These need judgment.
+4. Add personality and voice per the Personality and soul section
+5. Preserve meaning and match the intended tone
+
+### Step 3: Self-audit
+
+- Ask: "What makes this so obviously AI generated?"
+- List remaining tells
+- Revise to eliminate them
+- Repeat until no obvious tells remain or changes are cosmetic only
+
+### Step 4: Post-check (script verifies the fix)
+
+Run the grading script on your output:
+
+```bash
+python3 evals/grade.py /tmp/output.md
+```
+
+If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 21 checks should pass.
+
+If the script is not available, manually verify: search output for the em dash character (count must be zero), scan for any manufactured insight phrases, check for staccato sequences.
 
 ## Output format
 
-1. Draft rewrite
-2. "What makes this so obviously AI generated?" (brief remaining-tells assessment)
-3. Final rewrite (revised after the audit loop)
-4. Brief summary of changes made (optional, if helpful)
+1. Pre-check report (which patterns the script found in the input)
+2. Draft rewrite
+3. "What makes this so obviously AI generated?" (self-audit)
+4. Final rewrite (revised after audit)
+5. Post-check report (confirming all checks pass)
+6. Brief summary of changes made (optional, if helpful)
 
 ---
 
