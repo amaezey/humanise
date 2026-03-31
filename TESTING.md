@@ -51,6 +51,16 @@ python3 evals/grade.py path/to/text.md no-em-dashes,no-manufactured-insight
 
 Outputs JSON with pass/fail and evidence per check.
 
+## Self-tests
+
+42-assertion test suite verifying each check catches known-bad text and passes known-clean text:
+
+```bash
+python3 evals/test_grade.py
+```
+
+Run this after any change to `grade.py` to prevent silent regex breakage. See [ISSUES.md](ISSUES.md) for technical gotchas (e.g. substring vs regex matching for multi-word phrases, cross-sentence pattern matching).
+
 ## Key findings
 
 - **Pre-check/post-check loop is the breakthrough.** Without the script loop, models miss patterns they've been told to catch (Murray's "the reason is straightforward" slipped through in every run without the script). With the loop, 10/10 clean.

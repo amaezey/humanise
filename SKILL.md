@@ -142,7 +142,15 @@ If the script is not available (e.g. no Python, or running in Claude.ai), fall b
 
 1. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern
 2. Fix every failure from the pre-check report
-3. Also check for patterns the script cannot catch: forced synesthesia (28), generic metaphors (30), experiential vacancy, and density without purpose. These need judgment.
+3. Also check for patterns the script cannot catch. These need judgment:
+   - **Forced synesthesia (28)** and **generic metaphors (30)**
+   - **Experiential vacancy** and **density without purpose**
+   - **Formulaic paragraph openers:** "At a foundational level,", "Beyond X,", "At its core,", "There is also a...", "It is also worth recognising that...", "From a [noun] perspective". Replace with direct statements or cut entirely.
+   - **Signposted conclusions:** "In summary,", "In conclusion,", "To summarise,", or "Conclusion" as a heading. Human writers rarely label their endings. Just end.
+   - **Markdown heading structure in prose:** AI essays almost always use `# Title` and `## Section` headings. Real essays use paragraph breaks and transitions, not document structure markup.
+   - **Corporate AI register:** "deliver impact", "measurable outcomes", "scalable systems", "end-to-end development", "drives outcomes", "cross-functional". These are invisible to the grading script.
+   - **Impersonal "This" chains:** 3+ sentences in a paragraph starting with "This [verb]" ("This exposes...", "This conditions...", "This shifts..."). Break the pattern by varying sentence subjects.
+   - **Structural monotony:** every paragraph follows topic sentence → elaboration → restatement. Vary paragraph lengths and structures. Some paragraphs should be one sentence. Some should start with evidence, not claims.
 4. Add personality and voice per the Personality and soul section
 5. Preserve meaning and match the intended tone
 
