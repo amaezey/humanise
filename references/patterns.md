@@ -99,9 +99,9 @@ Formulaic "Challenges" sections that acknowledge a problem then immediately reas
 
 ### 7. AI vocabulary words
 
-**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly
+**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands (as metaphor for "how something is received"), unspoken, hidden (when used to inflate significance of something ordinary)
 
-**AI transition phrases** (a whole category AI overuses): "that being said", "at its core", "to put it simply", "a key takeaway is", "from a broader perspective", "in today's fast-paced world", "as technology continues to evolve"
+**AI transition phrases** (a whole category AI overuses): "that being said", "at its core", "to put it simply", "a key takeaway is", "from a broader perspective", "in today's fast-paced world", "as technology continues to evolve", "but here's..."
 
 These words and phrases appear far more frequently in post-2023 text than in human writing from earlier periods. They often cluster in the same paragraph, which is a strong tell. No single word is proof, but density is: three or more in one paragraph is a fingerprint.
 
@@ -344,7 +344,7 @@ These patterns are especially common in descriptive, creative, and reflective wr
 
 ### 26. Ghost/spectral language
 
-**Words to watch:** ghost(s), spectral, shadow(s), whisper(s), echo(es), phantom, haunting/haunted, lingering, remnant(s), trace(s) used atmospherically
+**Words to watch:** ghost(s), spectral, shadow(s), whisper(s), echo(es), phantom, haunting/haunted, lingering, remnant(s), trace(s) used atmospherically, unspoken, hidden (when inflating the significance of something ordinary)
 
 AI defaults to spectral, ghostly, shadowy imagery for anything it wants to make feel deep. Everything becomes a shadow, a memory, a whisper, or an echo. One "ghost" is fine. Four in two paragraphs is a tell.
 
@@ -384,7 +384,7 @@ AI blends senses inappropriately to simulate literary depth: emotions get tastes
 
 ### 29. Mid-sentence rhetorical questions
 
-Short questions dropped mid-paragraph as a pacing device, followed by a declarative answer. Borrowed from long-form journalism but deployed indiscriminately.
+Short questions dropped mid-paragraph as a pacing device, followed by a declarative answer. Borrowed from long-form journalism but deployed indiscriminately. Includes the "The real X?" pattern: "The real insight?", "The real challenge?", "The takeaway?", "The kicker?" These perform revelation through question format.
 
 **Before:**
 > But now? You won't be able to unsee this one. The solution? It's simpler than you think. The real question? Whether we're ready to face it.

@@ -20,6 +20,8 @@ AI_VOCABULARY = [
     "realm", "harness", "illuminate", "facilitate", "bolster",
     "streamline", "shed light on", "revolutionize", "innovative",
     "cutting-edge", "game-changing", "transformative", "seamlessly",
+    # Added from user observations
+    "genuinely", "unspoken",
 ]
 
 # Broad set: catches both the obvious ("let that sink in") and the subtler
@@ -41,7 +43,9 @@ MANUFACTURED_INSIGHT = [
     # Formulaic depth framing
     r"what's strange is", r"what's interesting is", r"what's remarkable is",
     r"the reason is straightforward", r"the reason is simple",
-    r"here's the thing:?", r"here's why:?",
+    r"here's the thing:?", r"here's why:?", r"but here's",
+    # "The real X?" rhetorical revelation
+    r"the real (?:insight|challenge|takeaway|kicker|question)\??",
     # Performed revelation closings
     r"a (?:quiet|powerful|important|profound) lesson",
     r"a (?:quiet|powerful|important|profound) reminder",
@@ -346,7 +350,7 @@ def check_ghost_spectral(text):
     """Detect ghost/spectral language density (pattern 26)."""
     words = ["ghost", "ghosts", "spectral", "shadow", "shadows", "whisper",
              "whispers", "echo", "echoes", "phantom", "haunting", "haunted",
-             "lingering", "remnant", "remnants"]
+             "lingering", "remnant", "remnants", "unspoken", "hidden"]
     text_lower = text.lower()
     found = [w for w in words if w in text_lower]
     count = sum(text_lower.count(w) for w in found)
