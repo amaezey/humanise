@@ -196,7 +196,7 @@ def check_anaphora(text):
     for i in range(1, len(sentences)):
         prev_start = sentences[i - 1].split()[0].lower() if sentences[i - 1].split() else ""
         curr_start = sentences[i].split()[0].lower() if sentences[i].split() else ""
-        if prev_start == curr_start and prev_start not in ("i", "a", "the"):
+        if prev_start == curr_start and prev_start not in ("i", "a", "the", "it's", "it"):
             current_run += 1
             if current_run > max_run:
                 max_run = current_run

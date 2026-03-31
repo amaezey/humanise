@@ -48,6 +48,7 @@ Eliminate all framing that performs the act of having a deeper take. AI cannot h
 - **Contrived contrarianism:** "What nobody is talking about...", "Contrary to popular belief...", "The uncomfortable truth is..."
 - **Pseudo-profundity:** "quietly revolutionary", "the quiet part", "subtly", "understated", "unassuming" when used to inflate significance
 - **Performed knowingness:** "If you know, you know", "And that changes everything", "Let that sink in", "Read that again", "And honestly?", "Here's the thing:"
+- **Formulaic depth framing:** "The reason is straightforward:", "The reason is simple:", "Here's why:", "What's strange is", "What's interesting is", "What's remarkable is". These perform the act of having an explanation before delivering one.
 - **Dramatic narrative transitions:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me." These claim a turning point without earning it.
 - **Contrived contrast:** "This isn't X. It's Y." as a standalone dramatic beat (e.g. "This isn't a bug. It's a feature." or "This isn't a character flaw. It's hardware."). The two-sentence snap format is a reliable AI fingerprint regardless of content.
 
