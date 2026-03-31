@@ -46,72 +46,17 @@ Pattern had `It's` in the alternation for answer-openers but not `It`. A rhetori
 
 ---
 
+## Grader gaps (implemented)
+
+These were patterns the grader had no check for. Now implemented and covered by `test_grade.py`.
+
+- **`no-formulaic-openers`** — "At a foundational level,", "Beyond X,", "At its core,", "There is also a...", "From a [noun] perspective", etc. Caught in 6/8 original slop samples.
+- **`no-signposted-conclusions`** — "In summary,", "In conclusion,", "Conclusion" headings. Caught in 7/13 samples.
+- **`no-markdown-headings`** — `#` and `##` heading syntax in prose. Caught in all 5 essay-topic samples.
+- **`no-corporate-ai-speak`** — "deliver impact", "measurable outcomes", "end-to-end development", etc. Finally catches the cover letter (was 21/21, now 25/26).
+- **`no-this-chains`** — 3+ consecutive "This [verb]" sentences in a paragraph.
+
 ## Grader gaps (not yet implemented)
-
-These are patterns the grader has no check for at all. Ordered by priority.
-
-### HIGH: Formulaic paragraph openers
-
-AI text opens paragraphs with a small rotation of transition formulae. Appeared in 6/8 slop samples, triggered zero checks.
-
-Examples:
-- "At a foundational level,"
-- "Beyond access and curation,"
-- "Beyond practicality,"
-- "At its core,"
-- "There is also a practical dimension"
-- "There is a social dimension"
-- "It is also worth recognising that"
-- "From a [noun] perspective"
-
-**Proposed check: `no-formulaic-openers`** — regex list of paragraph-initial phrases.
-
-### HIGH: Signposted conclusions
-
-AI nearly always labels its conclusion. Human writers rarely do this outside academic papers.
-
-Examples:
-- "In summary, public libraries are not legacy institutions"
-- "Conclusion" as a section heading
-- "In conclusion,"
-- "To summarise,"
-
-**Proposed check: `no-signposted-conclusions`** — regex for "In summary,", "In conclusion,", "To summarise,", "To sum up,", and "## Conclusion" / "Conclusion\n" as headings.
-
-### HIGH: H1/H2 heading structure in prose
-
-AI-generated essays almost always use markdown headings (`# Title`, `## Section`). Real essays don't have `##` subheadings. All 5 essay-topic slop samples used H1 + H2 structure. This is trivially detectable and a strong signal.
-
-**Proposed check: `no-markdown-headings`** — flag if text contains `#` heading syntax (with possible exception for documents that legitimately need it).
-
-### MEDIUM: Corporate AI register
-
-The cover letter scored 21/21. None of the existing word lists cover this register.
-
-Examples:
-- "deliver impact"
-- "measurable outcomes"
-- "deliverable outcomes"
-- "scalable.*systems"
-- "pragmatic approach"
-- "drives.*outcomes"
-- "cross-functional"
-- "end-to-end development"
-
-**Proposed check: `no-corporate-ai-speak`** — word list.
-
-### MEDIUM: Impersonal "This" chains
-
-AI starts consecutive sentences with "This [verb]" to simulate logical progression. The anaphora check doesn't catch it because "this" is implicitly excluded (similar to "the", "it").
-
-Examples:
-- "This exposes how much of identity is contingent"
-- "This conditions decision-making under constraint"
-- "This characteristic is significant."
-
-**Proposed check: `no-this-chains`** — flag 3+ sentences in a paragraph starting with "This [verb]".
-
-**Technical note:** The anaphora check explicitly excludes common starters including "it" and "the". "This" would need to either be removed from that exclusion list or handled in a separate check.
 
 ### MEDIUM: Short-form text handling
 
@@ -181,25 +126,27 @@ The 5 original human-written texts and their AI-generated + humanised versions a
 
 ## Slop sample inventory
 
+All scores below are against the current 26-check grader.
+
 ### Essay-topic samples (matching original 5 evals)
 
-| File | Topic | Score (fixed grader) | Key failures |
-|------|-------|---------------------|--------------|
-| `harris-free-will.md` | Free will is an illusion | 18/21 | em dashes, promotional, significance inflation |
-| `murray-doctors-die.md` | How doctors choose to die | 16/21 | em dashes, manufactured insight, anaphora, promotional, significance inflation |
-| `woolf-moth.md` | Moth struggling against window | 17/21 | em dashes, manufactured insight, promotional, copula avoidance |
-| `wong-monkeysphere.md` | Dunbar's number explains everything | 18/21 | em dashes, anaphora, significance inflation |
-| `orwell-why-write.md` | Motivations for writing | 18/21 | em dashes, promotional, negative parallelisms |
+| File | Topic | Score | Key failures |
+|------|-------|-------|--------------|
+| `harris-free-will.md` | Free will is an illusion | 20/26 | em dashes, promotional, significance inflation, formulaic openers, signposted conclusions, markdown headings |
+| `murray-doctors-die.md` | How doctors choose to die | 19/26 | em dashes, manufactured insight, anaphora, promotional, significance inflation, signposted conclusions, markdown headings |
+| `woolf-moth.md` | Moth struggling against window | 20/26 | em dashes, manufactured insight, promotional, copula avoidance, signposted conclusions, markdown headings |
+| `wong-monkeysphere.md` | Dunbar's number explains everything | 21/26 | em dashes, anaphora, significance inflation, signposted conclusions, markdown headings |
+| `orwell-why-write.md` | Motivations for writing | 21/26 | em dashes, promotional, negative parallelisms, signposted conclusions, markdown headings |
 
 ### Format-diversity samples
 
-| File | Type | Score (fixed grader) | Key failures |
-|------|------|---------------------|--------------|
-| `1-essay-libraries.md` | Long-form essay | 17/21 | em dashes, AI vocab, copula avoidance, triads |
-| `2-blog-cooking.md` | Blog post | 18/21 | em dashes, negative parallelisms, filler |
-| `3-listicle-remote.md` | Listicle | 17/21 | em dashes, anaphora, negative parallelisms, triads |
-| `4-reflection-travel.md` | Personal reflection | 17/21 | em dashes, negative parallelisms, filler, triads |
-| `5-explainer-quantum.md` | Technical explainer | 19/21 | em dashes, collaborative artifacts |
-| `6-cover-letter.md` | Cover letter | **21/21** | **nothing — biggest blind spot** |
-| `7-hotel-description.md` | Product copy | 19/21 | em dashes, copula avoidance |
-| `8-email-decline.md` | Short email | 19/21 | em dashes, sentence variance (false positive on short text) |
+| File | Type | Score | Key failures |
+|------|------|-------|--------------|
+| `1-essay-libraries.md` | Long-form essay | 20/26 | em dashes, AI vocab, copula avoidance, triads, formulaic openers, signposted conclusions |
+| `2-blog-cooking.md` | Blog post | 22/26 | em dashes, negative parallelisms, filler, formulaic openers |
+| `3-listicle-remote.md` | Listicle | 20/26 | em dashes, anaphora, negative parallelisms, triads, signposted conclusions, corporate AI speak |
+| `4-reflection-travel.md` | Personal reflection | 21/26 | em dashes, negative parallelisms, filler, triads, signposted conclusions |
+| `5-explainer-quantum.md` | Technical explainer | 24/26 | em dashes, collaborative artifacts |
+| `6-cover-letter.md` | Cover letter | 25/26 | corporate AI speak |
+| `7-hotel-description.md` | Product copy | 24/26 | em dashes, copula avoidance |
+| `8-email-decline.md` | Short email | 24/26 | em dashes, sentence variance (false positive on short text) |

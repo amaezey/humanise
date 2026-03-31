@@ -469,6 +469,136 @@ def check_dramatic_transitions(text):
     }
 
 
+def check_formulaic_openers(text):
+    """Detect formulaic paragraph-opening phrases typical of AI text."""
+    patterns = [
+        r"^at (?:a|the) (?:foundational|fundamental|basic|practical|structural) level[,:]",
+        r"^beyond (?:this|that|these|those|\w+(?:tion|ment|ness|ity|ance|ence)),",
+        r"^at its core[,:]",
+        r"^there is (?:also )?(?:a|an) \w+ (?:dimension|aspect|element|component|factor)",
+        r"^it is (?:also )?worth (?:recognising|noting|mentioning|emphasising|acknowledging|highlighting)",
+        r"^from (?:a|an|the) \w+ (?:perspective|standpoint|point of view)[,:]",
+        r"^on a (?:\w+ )?level[,:]",
+        r"^in (?:a|the) (?:broader|wider|larger|similar) (?:context|sense|vein)[,:]",
+        r"^perhaps (?:most )?(?:importantly|significantly|notably|crucially)[,:]",
+        r"^what (?:is|makes) (?:this|it) (?:particularly|especially|uniquely) \w+",
+    ]
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    found = []
+    for para in paragraphs:
+        first_line = para.split('\n')[0].strip()
+        first_lower = first_line.lower()
+        for pat in patterns:
+            if re.search(pat, first_lower):
+                # Truncate to first 60 chars for evidence
+                found.append(first_line[:60])
+                break
+    return {
+        "text": "no-formulaic-openers",
+        "passed": len(found) == 0,
+        "evidence": (
+            f"Found {len(found)} formulaic opener(s): {found}"
+            if found
+            else "No formulaic openers"
+        ),
+    }
+
+
+def check_signposted_conclusions(text):
+    """Detect explicitly labelled conclusions typical of AI text."""
+    patterns = [
+        r"^in (?:summary|conclusion)[,:]",
+        r"^to (?:summarise|summarize|conclude|sum up|wrap up)[,:]",
+        r"^(?:#+\s*)?conclusion\s*$",
+        r"^(?:#+\s*)?final thoughts\s*$",
+        r"^(?:#+\s*)?key takeaways?\s*$",
+        r"^(?:#+\s*)?summing up\s*$",
+    ]
+    lines = text.strip().split('\n')
+    found = []
+    for line in lines:
+        line_lower = line.strip().lower()
+        for pat in patterns:
+            if re.search(pat, line_lower):
+                found.append(line.strip()[:60])
+                break
+    return {
+        "text": "no-signposted-conclusions",
+        "passed": len(found) == 0,
+        "evidence": (
+            f"Found {len(found)}: {found}"
+            if found
+            else "No signposted conclusions"
+        ),
+    }
+
+
+def check_markdown_headings(text):
+    """Detect markdown heading structure in prose (AI essays use ## sections)."""
+    headings = re.findall(r'^#{1,3}\s+.+', text, re.MULTILINE)
+    return {
+        "text": "no-markdown-headings",
+        "passed": len(headings) == 0,
+        "evidence": (
+            f"Found {len(headings)} heading(s): {[h[:50] for h in headings[:5]]}"
+            if headings
+            else "No markdown headings"
+        ),
+    }
+
+
+def check_corporate_ai_speak(text):
+    """Detect corporate/LinkedIn AI register."""
+    patterns = [
+        r"deliver(?:ing|s|ed)? impact\b",
+        r"measurable outcomes?\b",
+        r"deliverable outcomes?\b",
+        r"scalable[,\s]+production[- ]grade",
+        r"pragmatic approach\b",
+        r"drives? (?:\w+ )?outcomes?\b",
+        r"cross-functional\b",
+        r"end-to-end (?:development|delivery|solution)",
+        r"translate[sd]? (?:\w+ )?requirements into (?:\w+ )?(?:outcomes|deliverables|solutions|results)",
+        r"stakeholder (?:alignment|engagement|management)\b",
+        r"actionable insights?\b",
+        r"leverage[sd]? (?:my |our |the )?\w+ (?:experience|expertise)\b",
+    ]
+    count, matches = count_pattern_matches(text, patterns)
+    return {
+        "text": "no-corporate-ai-speak",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count}: {matches}"
+            if count > 0
+            else "No corporate AI speak"
+        ),
+    }
+
+
+def check_this_chains(text):
+    """Detect 3+ consecutive sentences starting with 'This [verb]'."""
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    worst_run = 0
+    for para in paragraphs:
+        sentences = split_sentences(para)
+        current_run = 0
+        for s in sentences:
+            if re.match(r'^this\s+(?!is\b)\w+', s.strip().lower()):
+                current_run += 1
+                worst_run = max(worst_run, current_run)
+            else:
+                current_run = 0
+    return {
+        "text": "no-this-chains",
+        "passed": worst_run < 3,
+        "evidence": (
+            f"Found {worst_run} consecutive 'This [verb]' sentences"
+            if worst_run >= 3
+            else f"Max 'This [verb]' run: {worst_run}"
+        ),
+    }
+
+
 # --- Registry ---
 
 ALL_CHECKS = {
@@ -493,6 +623,11 @@ ALL_CHECKS = {
     "no-rhetorical-questions": check_rhetorical_questions,
     "no-excessive-lists": check_list_density,
     "no-dramatic-transitions": check_dramatic_transitions,
+    "no-formulaic-openers": check_formulaic_openers,
+    "no-signposted-conclusions": check_signposted_conclusions,
+    "no-markdown-headings": check_markdown_headings,
+    "no-corporate-ai-speak": check_corporate_ai_speak,
+    "no-this-chains": check_this_chains,
 }
 
 

@@ -307,6 +307,82 @@ expect_pass("no-dramatic-transitions",
     "factual transition")
 
 
+# --- no-formulaic-openers ---
+
+print("\n=== no-formulaic-openers ===")
+expect_fail("no-formulaic-openers",
+    "At a foundational level, libraries provide access to information.\n\nBeyond this, they also serve communities.",
+    "two formulaic openers")
+expect_fail("no-formulaic-openers",
+    "At its core, cooking is about autonomy.",
+    "at its core")
+expect_fail("no-formulaic-openers",
+    "There is also a practical dimension that is difficult to ignore.",
+    "there is also a")
+expect_fail("no-formulaic-openers",
+    "From a governance perspective, libraries support democratic participation.",
+    "from a X perspective")
+expect_pass("no-formulaic-openers",
+    "Libraries provide access to information.\n\nThey also serve communities.",
+    "plain direct openers")
+
+
+# --- no-signposted-conclusions ---
+
+print("\n=== no-signposted-conclusions ===")
+expect_fail("no-signposted-conclusions",
+    "The data supports this view.\n\nIn summary, the project was a success.",
+    "In summary")
+expect_fail("no-signposted-conclusions",
+    "Some more text here.\n\n## Conclusion\n\nThe results were clear.",
+    "Conclusion heading")
+expect_fail("no-signposted-conclusions",
+    "First point.\n\nTo summarise, the evidence is strong.",
+    "To summarise")
+expect_pass("no-signposted-conclusions",
+    "The evidence points in one direction. I doubt this will change.",
+    "natural ending without signpost")
+
+
+# --- no-markdown-headings ---
+
+print("\n=== no-markdown-headings ===")
+expect_fail("no-markdown-headings",
+    "# The Importance of Libraries\n\n## Access to Information\n\nLibraries provide free access.",
+    "H1 + H2 headings")
+expect_pass("no-markdown-headings",
+    "Libraries provide free access to information. They also host community events.",
+    "plain prose, no headings")
+
+
+# --- no-corporate-ai-speak ---
+
+print("\n=== no-corporate-ai-speak ===")
+expect_fail("no-corporate-ai-speak",
+    "I deliver impact quickly and drive measurable outcomes across cross-functional teams.",
+    "deliver impact + measurable outcomes + cross-functional")
+expect_fail("no-corporate-ai-speak",
+    "I translate ambiguous requirements into deliverable outcomes.",
+    "translate requirements into deliverable outcomes")
+expect_fail("no-corporate-ai-speak",
+    "I have led end-to-end development across backend services.",
+    "end-to-end development")
+expect_pass("no-corporate-ai-speak",
+    "I built the payment service and mentored two junior engineers.",
+    "plain description of work")
+
+
+# --- no-this-chains ---
+
+print("\n=== no-this-chains ===")
+expect_fail("no-this-chains",
+    "The policy changed in 2020. This exposed gaps in planning. This shifted the debate. This forced a rethink of priorities.",
+    "3 consecutive This [verb] sentences")
+expect_pass("no-this-chains",
+    "The policy changed in 2020. This exposed gaps in planning. The government responded with new funding.",
+    "only 1 This [verb], then a different subject")
+
+
 # --- Summary ---
 
 print(f"\n{'='*40}")

@@ -46,12 +46,31 @@ Ran 8 AI-generated text samples through `grade.py` — each designed to trigger 
 6. **no-forced-triads** suffix list only had -ing/-tion/-ment/-ness/-ity. Missed -ence/-ance/-ency/-ancy/-cy/-ism/-sion. Added.
 7. **no-rhetorical-questions** pattern matched "It's" but not bare "It" as an answer opener. Fixed.
 
+### After new checks (26-check grader)
+
+| # | Sample | Type | Score | Failures |
+|---|--------|------|-------|----------|
+| 1 | Public libraries essay | Long-form essay | 20/26 | em dashes, AI vocab, copula avoidance, triads, formulaic openers, signposted conclusions |
+| 2 | Learn to cook blog | Blog post | 22/26 | em dashes, negative parallelisms, filler, formulaic openers |
+| 3 | Remote work listicle | Listicle | 20/26 | em dashes, anaphora, negative parallelisms, triads, signposted conclusions, corporate AI speak |
+| 4 | Travel reflection | Personal reflection | 21/26 | em dashes, negative parallelisms, filler, triads, signposted conclusions |
+| 5 | Quantum computing explainer | Technical explainer | 24/26 | em dashes, collaborative artifacts |
+| 6 | Cover letter | Professional email | 25/26 | corporate AI speak |
+| 7 | Boutique hotel description | Product copy | 24/26 | em dashes, copula avoidance |
+| 8 | Meeting decline email | Short email | 24/26 | em dashes, sentence-length-variance |
+
+**Average: 22.0/26 (85%).** Down from 93% (original) and 87% (bugfixed). Cover letter now caught.
+
 ## What the grader catches well
 
 - **Em dashes**: caught in 7/8 samples. Most reliable signal.
 - **Forced triads**: caught in 4/8 samples (up from 2 after suffix fix).
 - **Copula avoidance**: now catches plural forms too.
 - **Negative parallelisms**: now catches cross-sentence reframing.
+- **Formulaic openers**: caught in 3/8 format samples + 1/5 essay samples.
+- **Signposted conclusions**: caught in 4/8 format samples + all 5 essay samples.
+- **Markdown headings**: caught in all 5 essay-topic samples.
+- **Corporate AI speak**: finally catches the cover letter.
 
 ## What the grader misses
 

@@ -23,7 +23,7 @@ Three rounds of isolation-based testing, where no agent has access to informatio
 
 ## Results
 
-### Final run: pre-check/post-check loop, 10 samples, 21 checks
+### Original run: pre-check/post-check loop, 10 samples, 21 checks
 
 | Sample | Pre-check | Post-check |
 |---|---|---|
@@ -40,9 +40,11 @@ Three rounds of isolation-based testing, where no agent has access to informatio
 
 10/10 clean passes. The pre-check script finds the problems, the model fixes them, the post-check script confirms they're gone.
 
+**Note:** These results were against the original 21-check grader. The grader has since been expanded to 26 checks (fixing 7 bugs in existing checks and adding 5 new checks). The original 10 samples need re-running against the updated grader to confirm they still pass. See [ISSUES.md](ISSUES.md) for details.
+
 ## Grading script
 
-21 programmatic checks covering 30 of 32 patterns (forced synesthesia and generic metaphors need human judgment):
+26 programmatic checks covering 32 patterns plus 5 structural tells (forced synesthesia and generic metaphors still need human judgment):
 
 ```bash
 python3 evals/grade.py path/to/text.md
