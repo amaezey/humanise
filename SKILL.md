@@ -2,9 +2,10 @@
 name: humanise
 description: >-
   Edits existing text to remove signs of AI generation and make it sound
-  human-written. Detects and fixes 32 patterns including em dashes, AI vocabulary
-  clustering, manufactured insight, staccato fragments, ghost/spectral language,
-  forced synesthesia, generic metaphors, and experiential vacancy. Triggers when
+  human-written. Detects and fixes 32 patterns plus 5 structural tells including
+  em dashes, AI vocabulary clustering, manufactured insight, staccato fragments,
+  ghost/spectral language, formulaic openers, signposted conclusions, markdown
+  heading structure, corporate AI register, and experiential vacancy. Triggers when
   the user wants to humanise, de-AI, de-slop, or clean up text that "reads like
   AI", "sounds like ChatGPT wrote it", "sounds robotic", or has visible AI tells.
   Also triggers for "make this sound like a person wrote it", "strip the AI out",
@@ -134,7 +135,7 @@ Save the input text to a temp file, then run the grading script on it:
 python3 evals/grade.py /tmp/input.md
 ```
 
-The script checks 21 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading a 426-line reference file.
+The script checks 26 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading a 426-line reference file.
 
 If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. But prefer the script when possible.
 
@@ -142,7 +143,10 @@ If the script is not available (e.g. no Python, or running in Claude.ai), fall b
 
 1. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern
 2. Fix every failure from the pre-check report
-3. Also check for patterns the script cannot catch: forced synesthesia (28), generic metaphors (30), experiential vacancy, and density without purpose. These need judgment.
+3. Also check for patterns the script cannot catch. These need judgment:
+   - **Forced synesthesia (28)** and **generic metaphors (30)**
+   - **Experiential vacancy** and **density without purpose**
+   - **Structural monotony:** every paragraph follows topic sentence → elaboration → restatement. Vary paragraph lengths and structures. Some paragraphs should be one sentence. Some should start with evidence, not claims.
 4. Add personality and voice per the Personality and soul section
 5. Preserve meaning and match the intended tone
 
@@ -161,7 +165,7 @@ Run the grading script on your output:
 python3 evals/grade.py /tmp/output.md
 ```
 
-If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 21 checks should pass.
+If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 26 checks should pass.
 
 If the script is not available, manually verify: search output for the em dash character (count must be zero), scan for any manufactured insight phrases, check for staccato sequences.
 
