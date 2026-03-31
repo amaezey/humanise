@@ -342,6 +342,99 @@ def check_superficial_ing(text):
     }
 
 
+def check_ghost_spectral(text):
+    """Detect ghost/spectral language density (pattern 26)."""
+    words = ["ghost", "ghosts", "spectral", "shadow", "shadows", "whisper",
+             "whispers", "echo", "echoes", "phantom", "haunting", "haunted",
+             "lingering", "remnant", "remnants"]
+    text_lower = text.lower()
+    found = [w for w in words if w in text_lower]
+    count = sum(text_lower.count(w) for w in found)
+    return {
+        "text": "no-ghost-spectral-density",
+        "passed": count < 3,
+        "evidence": (
+            f"Found {count} ghost/spectral words: {found}"
+            if count >= 3
+            else f"Ghost/spectral words: {count}"
+        ),
+    }
+
+
+def check_quietness(text):
+    """Detect quietness obsession density (pattern 27)."""
+    words = ["quiet", "quietly", "softly", "stillness", "hushed",
+             "murmur", "gentle", "tender", "settled"]
+    text_lower = text.lower()
+    count = sum(text_lower.count(w) for w in words)
+    # Allow some usage. Flag at 4+ in a piece, which suggests obsession.
+    word_count = len(text_lower.split())
+    density = count / max(word_count, 1) * 1000  # per 1000 words
+    return {
+        "text": "no-quietness-obsession",
+        "passed": count < 4,
+        "evidence": (
+            f"Found {count} quietness words ({density:.1f} per 1000 words)"
+            if count >= 4
+            else f"Quietness words: {count}"
+        ),
+    }
+
+
+def check_rhetorical_questions(text):
+    """Detect mid-sentence rhetorical questions (pattern 29)."""
+    # Pattern: short question (under 8 words) followed by a declarative answer
+    pattern = r'[.!]\s+([^.?!]{3,50}\?)\s+(?:It\'s|They\'re|You|We|The|This|That|And)\b'
+    matches = re.findall(pattern, text)
+    count = len(matches)
+    return {
+        "text": "no-rhetorical-questions",
+        "passed": count < 2,
+        "evidence": (
+            f"Found {count} mid-sentence rhetorical question(s): {matches[:3]}"
+            if count >= 2
+            else f"Rhetorical questions: {count}"
+        ),
+    }
+
+
+def check_list_density(text):
+    """Detect excessive list-making (pattern 31)."""
+    lines = text.strip().split('\n')
+    bullet_lines = sum(1 for line in lines if re.match(r'\s*[-*]\s', line) or re.match(r'\s*\d+\.\s', line))
+    total_lines = max(len(lines), 1)
+    ratio = bullet_lines / total_lines
+    return {
+        "text": "no-excessive-lists",
+        "passed": ratio < 0.3,
+        "evidence": (
+            f"List ratio: {ratio:.0%} ({bullet_lines}/{total_lines} lines are bullets)"
+            if ratio >= 0.3
+            else f"List ratio: {ratio:.0%}"
+        ),
+    }
+
+
+def check_dramatic_transitions(text):
+    """Detect dramatic narrative transitions (pattern 32)."""
+    patterns = [
+        r"something shifted", r"everything changed", r"everything clicked",
+        r"that's when it hit me", r"and that made all the difference",
+        r"that changed everything", r"nothing was the same",
+        r"the beginning of everything", r"the real turning point",
+    ]
+    count, matches = count_pattern_matches(text, patterns)
+    return {
+        "text": "no-dramatic-transitions",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count}: {matches}"
+            if count > 0
+            else "No dramatic transitions"
+        ),
+    }
+
+
 # --- Registry ---
 
 ALL_CHECKS = {
@@ -361,6 +454,11 @@ ALL_CHECKS = {
     "no-generic-conclusions": check_generic_conclusions,
     "no-forced-triads": check_rule_of_three,
     "no-superficial-ing": check_superficial_ing,
+    "no-ghost-spectral-density": check_ghost_spectral,
+    "no-quietness-obsession": check_quietness,
+    "no-rhetorical-questions": check_rhetorical_questions,
+    "no-excessive-lists": check_list_density,
+    "no-dramatic-transitions": check_dramatic_transitions,
 }
 
 
