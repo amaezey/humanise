@@ -66,6 +66,12 @@ expect_pass("no-ai-vocabulary-clustering",
 expect_pass("no-ai-vocabulary-clustering",
     "This aligns with our goals. In a separate paragraph.\n\nThe landscape is flat.",
     "'aligns with' and 'landscape' in different paragraphs (max 1 per para)")
+expect_fail("no-ai-vocabulary-clustering",
+    "The seamless integration genuinely fosters a transformative experience.",
+    "'seamless' + 'genuinely' + 'fosters' + 'transformative' = 4 AI words")
+expect_pass("no-ai-vocabulary-clustering",
+    "I actually went to the store and bought some hidden gems of local produce.",
+    "'actually' without filler pattern and 'hidden' without significance pattern are not flagged")
 
 
 # --- no-manufactured-insight ---
@@ -136,11 +142,14 @@ expect_pass("no-curly-quotes",
 
 print("\n=== sentence-length-variance ===")
 expect_fail("sentence-length-variance",
-    "I went home. She went home. We all went home. They went home too. Everyone left.",
-    "uniform short sentences, low variance")
+    "I went home after work. She went home after work. We all went home after work. They went home after work too. Everyone left work early today. He went home after work as well. They all went home after that. We went together after the meeting. She came along with the team. He tagged along with us too. I drove home alone after. She took the bus home today. We all ended up leaving early. They went to get some food first. Everyone was tired from work today. He walked all the way back home. They caught the train after five.",
+    "uniform short sentences, low variance, 17 sentences over 100 words")
 expect_pass("sentence-length-variance",
     "I went home. The extraordinarily complex municipal infrastructure project that had been debated for nearly a decade was finally approved by the city council after a marathon session. Yes. The report covered demographic shifts across three continents over a forty-year period using novel statistical methods.",
     "high variance between short and long")
+expect_pass("sentence-length-variance",
+    "Thanks for the invite. I can't make Tuesday but could do Thursday afternoon.",
+    "short-form text skipped (under 100 words, under 6 sentences)")
 
 
 # --- no-promotional-language ---

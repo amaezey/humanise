@@ -21,7 +21,7 @@ AI_VOCABULARY = [
     "streamline", "shed light on", "revolutionize", "innovative",
     "cutting-edge", "game-changing", "transformative", "seamlessly",
     # Added from user observations
-    "genuinely", "unspoken",
+    "genuinely", "unspoken", "seamless",
 ]
 
 # Multi-word phrases where the first word may be inflected (e.g. "align with" ->
@@ -30,6 +30,15 @@ AI_VOCABULARY_REGEX = [
     r"aligns? with\b",
     r"aligned with\b",
     r"aligning with\b",
+    # "actually" as filler intensifier (not "actually happened", "actually did")
+    r"\bactually[,.]",
+    r"\band actually\b",
+    r"\bbut actually\b",
+    # "land/lands" as metaphor for reception (not physical land)
+    r"\bhow (?:it|that|this) lands?\b",
+    r"\blands? (?:well|differently|flat|poorly|awkwardly)\b",
+    # "hidden" when inflating significance of the ordinary
+    r"\bhidden (?:truth|depth|meaning|complexity|beauty|power|gem|lesson|cost)\b",
 ]
 
 # Broad set: catches both the obvious ("let that sink in") and the subtler
@@ -262,6 +271,14 @@ def check_curly_quotes(text):
 
 def check_sentence_variance(text):
     sentences = split_sentences(text)
+    word_count = len(text.split())
+    # Skip for short-form text where low variance is expected, not an AI tell
+    if len(sentences) < 6 and word_count < 100:
+        return {
+            "text": "sentence-length-variance",
+            "passed": True,
+            "evidence": f"Skipped: short text ({word_count} words, {len(sentences)} sentences)",
+        }
     if len(sentences) < 3:
         return {
             "text": "sentence-length-variance",

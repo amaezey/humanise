@@ -58,11 +58,9 @@ These were patterns the grader had no check for. Now implemented and covered by 
 
 ## Grader gaps (not yet implemented)
 
-### MEDIUM: Short-form text handling
+### ~~MEDIUM: Short-form text handling~~ (FIXED)
 
-The 4-sentence email failed `sentence-length-variance` (stdev 3.1 vs target >4). A short email can't have high variance — this is a false positive, not a real AI tell.
-
-**Proposed fix:** Skip `sentence-length-variance` for texts under 100 words or under 6 sentences.
+The 4-sentence email failed `sentence-length-variance` (stdev 3.1 vs target >4). Fixed: `sentence-length-variance` now skips texts under 100 words with fewer than 6 sentences. Email sample improved from 24/26 to 25/26.
 
 ### LOW: Passive impersonal hedging density
 
@@ -149,4 +147,4 @@ All scores below are against the current 26-check grader.
 | `5-explainer-quantum.md` | Technical explainer | 24/26 | em dashes, collaborative artifacts |
 | `6-cover-letter.md` | Cover letter | 25/26 | corporate AI speak |
 | `7-hotel-description.md` | Product copy | 24/26 | em dashes, copula avoidance |
-| `8-email-decline.md` | Short email | 24/26 | em dashes, sentence variance (false positive on short text) |
+| `8-email-decline.md` | Short email | 25/26 | em dashes |

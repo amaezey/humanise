@@ -4,93 +4,52 @@ Issues remaining after the grader bugfix/expansion merge. Cross-referenced again
 
 ---
 
-## 1. TESTING.md line 18 still says "16-check script"
+## Resolved in this branch
 
-**File:** `TESTING.md:18`
+### 1. TESTING.md stale references (was issue 1, 7)
 
-The rest of the doc correctly references 26 checks, but line 18 still reads: `16-check script (`evals/grade.py`)`. Should be `26-check script`.
+Line 18 said "16-check script", key findings said "21 script checks cover 30 of 32 patterns". Both updated to reflect the current 26-check grader.
 
-**Severity:** Low (stale copy)
-**Fix:** One-line edit.
+### 2. AI vocabulary sync between SKILL.md and grade.py (was issue 2)
 
----
+Added `seamless` to `AI_VOCABULARY`. Added context-sensitive regex patterns to `AI_VOCABULARY_REGEX` for `actually` (filler intensifier), `land/lands` (reception metaphor), and `hidden` (significance inflation). These avoid false positives on common English usage.
 
-## 2. AI vocabulary words in SKILL.md missing from grade.py
+### 3. Broken eval file paths (was issue 4)
 
-**File:** `SKILL.md:102-104`, `evals/grade.py:13-33`
+Updated all 5 original eval file paths from non-existent `eval-harris-free-will/ai_output/essay.md` to the actual files in `evals/samples/`.
 
-SKILL.md lists these words that aren't in grade.py's `AI_VOCABULARY` or `AI_VOCABULARY_REGEX`:
+### 4. Missing eval definitions (was issue 3)
 
-- `actually` (as filler intensifier)
-- `land` / `lands` (as metaphor for reception)
-- `hidden` (when inflating significance)
-- `seamless` (only `seamlessly` is present)
+Added 8 format-diversity sample evals to `evals.json` (essays 5-12), each with targeted programmatic assertions matching their content type. Total: 13 evals, up from 5.
 
-These were added to the skill docs in commit `43e882b` but only `genuinely` and `unspoken` made it into the grading script.
+### 5. Short-form text false positive (was issue 5, part 1)
 
-**Severity:** Medium (grader misses words the skill says to catch)
-**Plan:** Add to `AI_VOCABULARY`. For `actually`, `land`, and `hidden`, consider false-positive risk since they're common English words. May need context-sensitive regex in `AI_VOCABULARY_REGEX` rather than simple substring matching.
+`sentence-length-variance` now skips texts under 100 words with fewer than 6 sentences. Fixes the false positive on the 4-sentence email (8-email-decline.md: 24/26 -> 25/26).
 
 ---
 
-## 3. evals.json only defines 5 of 10+ test samples
+## Still outstanding
 
-**File:** `evals/evals.json`
+### MEDIUM: Passive impersonal hedging density
 
-- Only 5 evals (Harris, Murray, Woolf, Wong, Orwell)
-- The 5 slop prompt samples from the original TESTING.md results aren't defined
-- The 8 new format-diversity samples in `evals/samples/` aren't wired in either
-- ISSUES.md explicitly notes: "The 8 samples in `evals/samples/` cover some of these but aren't wired into `evals.json`"
+From ISSUES.md "not yet implemented". AI hedges with impersonal passive constructions at higher density than human writing. Needs threshold tuning.
 
-**Severity:** Medium (eval infrastructure exists but can't run the full test suite)
-**Plan:** Add eval definitions for the 8 format-diversity samples and the 5 slop prompt samples.
+### LOW: Structural monotony detection
 
----
+From ISSUES.md "not yet implemented". Every AI paragraph follows topic sentence -> elaboration -> restatement. Hardest gap to close programmatically.
 
-## 4. Original 5 eval file paths are broken
+### MEDIUM: No regression test for original 10/10 results
 
-**File:** `evals/evals.json`
+TESTING.md notes the original 10 humanised outputs need re-running against the 26-check grader. Requires the original output files (still in Obsidian vault, not version-controlled).
 
-The existing 5 evals reference paths like `eval-harris-free-will/ai_output/essay.md` which don't exist. ISSUES.md notes: "The 5 original human-written texts and their AI-generated + humanised versions are in an Obsidian vault, not version-controlled."
+### LOW: No pass-through test
 
-**Severity:** Medium (evals can't be reproduced)
-**Plan:** Either commit the files or update paths to point to the samples in `evals/samples/` (which do contain these essays, e.g. `evals/samples/harris-free-will.md`).
+What happens when input is already human-written? Untested.
 
----
+### LOW: No cross-model samples
 
-## 5. ISSUES.md has three "not yet implemented" proposals
+No GPT/Gemini/Llama samples to verify checks work across models.
 
-**File:** `ISSUES.md`
+### LOW: No CI or regression tracking
 
-Three grader gaps are documented but not implemented:
-
-| Proposal | Difficulty | Notes |
-|---|---|---|
-| Short-form text handling (skip variance for <100 words) | Easy | Prevents false positives on emails |
-| Passive impersonal hedging density | Medium | Threshold tuning needed |
-| Structural monotony (paragraph template detection) | Hard | Strongest AI signal but hardest to code |
-
-**Severity:** Low-Medium
-**Plan:** Implement the short-form text fix (easy win). The other two are lower priority.
-
----
-
-## 6. No regression test for the original 10/10 results
-
-**File:** `TESTING.md:43`
-
-TESTING.md now notes: "These results were against the original 21-check grader. The grader has since been expanded to 26 checks... The original 10 samples need re-running against the updated grader to confirm they still pass."
-
-**Severity:** Medium (expanded grader may fail previously-passing output)
-**Plan:** Re-run the 10 original humanised outputs through the 26-check grader. This requires the original output files (see issue 4).
-
----
-
-## 7. TESTING.md key findings section is stale
-
-**File:** `TESTING.md:66-72`
-
-The key findings still say "21 script checks cover 30 of 32 patterns" but the grader now has 26 checks. The coverage claim needs updating.
-
-**Severity:** Low (stale copy)
-**Fix:** Update to reflect 26 checks and current coverage.
+No automated pipeline. A SKILL.md edit could regress quality silently.
