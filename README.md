@@ -36,51 +36,47 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 
 32 patterns across 7 categories. Full before/after examples in `references/patterns.md`.
 
-**Content (1-6)**
-1. Significance inflation ("a pivotal moment in the evolution of...")
-2. Notability claims (listing media mentions as proof of importance)
-3. Superficial -ing analyses ("highlighting...", "underscoring...", "reflecting...")
-4. Promotional language ("nestled in the heart of...", "vibrant", "stunning")
-5. Vague attributions ("Experts argue...", "Industry reports suggest...")
-6. Formulaic challenges sections ("Despite these challenges... continues to thrive")
-
-**Language and grammar (7-12)**
-7. AI vocabulary words (37+ words: "delve", "landscape", "tapestry", "harness", "facilitate", "streamline", etc.)
-8. Copula avoidance ("serves as", "stands as", "functions as" instead of "is")
-9. Negative parallelisms ("It's not just X; it's Y")
-10. Rule of three (forcing ideas into triads)
-11. Synonym cycling ("the protagonist... the main character... the central figure... the hero")
-12. False ranges ("from X to Y, from A to B")
-
-**Style (13-18)**
-13. Boldface overuse
-14. Inline-header lists (bolded label + colon turning prose into slides)
-15. Title case in headings
-16. Emojis in professional content
-17. Curly quotation marks
-18. Hyphenated compound modifier clusters (3+ in one sentence)
-
-**Communication (19-21)**
-19. Collaborative artifacts ("I hope this helps!", "Let me know if...")
-20. Knowledge-cutoff disclaimers ("as of my last training update...")
-21. Sycophantic/servile tone ("Great question!", "You're absolutely right!")
-
-**Filler and hedging (22-25)**
-22. Filler phrases ("In today's fast-paced world", "At the end of the day", "Generally speaking")
-23. Excessive hedging ("It could potentially possibly be argued...")
-24. Generic positive conclusions ("The future looks bright", "Exciting times lie ahead")
-25. Staccato rhythm in extended contexts (short sentences placed at predictable positions)
-
-**Sensory and atmospheric (26-28)**
-26. Ghost/spectral language (everything becomes shadows, whispers, echoes, phantoms)
-27. Quietness obsession ("quiet" 10 times in 759 words about pebbles)
-28. Forced synesthesia ("grief tasting of metal", "hands humming with the colour of...")
-
-**Structural tells (29-32)**
-29. Mid-sentence rhetorical questions ("The solution? It's simpler than you think.")
-30. Generic/ungrounded metaphors (plausible but specific to nobody)
-31. Excessive list-making (converting prose to bullets unnecessarily)
-32. Dramatic narrative transitions ("Something shifted.", "Everything changed.")
+| # | Pattern | Example |
+|---|---|---|
+| | **Content** | |
+| 1 | Significance inflation | "a pivotal moment in the evolution of..." |
+| 2 | Notability claims | Listing media mentions as proof of importance |
+| 3 | Superficial -ing analyses | "highlighting...", "underscoring...", "reflecting..." |
+| 4 | Promotional language | "nestled in the heart of...", "vibrant", "stunning" |
+| 5 | Vague attributions | "Experts argue...", "Industry reports suggest..." |
+| 6 | Formulaic challenges sections | "Despite these challenges... continues to thrive" |
+| | **Language and grammar** | |
+| 7 | AI vocabulary words (37+) | "delve", "landscape", "tapestry", "harness", "facilitate" |
+| 8 | Copula avoidance | "serves as", "stands as" instead of "is" |
+| 9 | Negative parallelisms | "It's not just X; it's Y" |
+| 10 | Rule of three | Forcing ideas into triads |
+| 11 | Synonym cycling | "the protagonist... the main character... the central figure" |
+| 12 | False ranges | "from X to Y, from A to B" |
+| | **Style** | |
+| 13 | Boldface overuse | Mechanical bolding of terms that don't need emphasis |
+| 14 | Inline-header lists | Bolded label + colon turning prose into slides |
+| 15 | Title case in headings | "Strategic Negotiations And Global Partnerships" |
+| 16 | Emojis in professional content | Emoji-led bullet points |
+| 17 | Curly quotation marks | \u201c...\u201d instead of "..." |
+| 18 | Hyphenated modifier clusters | 3+ hyphenated compounds in one sentence |
+| | **Communication** | |
+| 19 | Collaborative artifacts | "I hope this helps!", "Let me know if..." |
+| 20 | Knowledge-cutoff disclaimers | "as of my last training update..." |
+| 21 | Sycophantic/servile tone | "Great question!", "You're absolutely right!" |
+| | **Filler and hedging** | |
+| 22 | Filler phrases | "In today's fast-paced world", "Generally speaking" |
+| 23 | Excessive hedging | "It could potentially possibly be argued..." |
+| 24 | Generic positive conclusions | "The future looks bright", "Exciting times lie ahead" |
+| 25 | Staccato rhythm | Short sentences at predictable positions (hooks, landings) |
+| | **Sensory and atmospheric** | |
+| 26 | Ghost/spectral language | Everything becomes shadows, whispers, echoes, phantoms |
+| 27 | Quietness obsession | "quiet" 10 times in 759 words about pebbles |
+| 28 | Forced synesthesia | "grief tasting of metal", "hands humming with colour" |
+| | **Structural tells** | |
+| 29 | Mid-sentence rhetorical questions | "The solution? It's simpler than you think." |
+| 30 | Generic/ungrounded metaphors | Plausible but specific to nobody |
+| 31 | Excessive list-making | Converting prose to bullets unnecessarily |
+| 32 | Dramatic narrative transitions | "Something shifted.", "Everything changed." |
 
 ## File structure
 
