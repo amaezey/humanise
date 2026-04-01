@@ -15,7 +15,7 @@ Three rounds of isolation-based testing, where no agent has access to informatio
 
 3. **Humanise with isolated agents.** Separate agents applied the skill blind (no access to originals), exactly as it works in real use.
 
-4. **Grade programmatically.** 29-check script (`evals/grade.py`) tests for em dashes, AI vocabulary clustering, manufactured insight, staccato sequences, anaphora, hedging density, and 21 other patterns.
+4. **Grade programmatically.** 31-check script (`evals/grade.py`) tests for em dashes, AI vocabulary clustering, manufactured insight, staccato sequences, anaphora, hedging density, and 23 other patterns.
 
 5. **Compare to originals.** Read the humanised output alongside the original human text to check voice, meaning, and plausibility.
 
@@ -40,11 +40,11 @@ Three rounds of isolation-based testing, where no agent has access to informatio
 
 10/10 clean passes. The pre-check script finds the problems, the model fixes them, the post-check script confirms they're gone.
 
-**Note:** These results were against the original 21-check grader. The grader has since been expanded to 29 checks (fixing 7 bugs in existing checks and adding 6 new checks). The original 10 samples need re-running against the updated grader to confirm they still pass. See [ISSUES.md](ISSUES.md) for details.
+**Note:** These results were against the original 21-check grader. The grader has since been expanded to 31 checks (fixing 7 bugs in existing checks and adding 8 new checks). The original 10 samples need re-running against the updated grader to confirm they still pass. See [ISSUES.md](ISSUES.md) for details.
 
 ## Grading script
 
-29 programmatic checks covering 37 patterns plus structural tells (forced synesthesia and generic metaphors still need human judgment):
+31 programmatic checks covering 38 patterns plus structural tells (forced synesthesia and generic metaphors still need human judgment):
 
 ```bash
 python3 evals/grade.py path/to/text.md
@@ -55,7 +55,7 @@ Outputs JSON with pass/fail and evidence per check.
 
 ## Self-tests
 
-66-assertion test suite verifying each check catches known-bad text and passes known-clean text:
+104-assertion test suite verifying each check catches known-bad text and passes known-clean text:
 
 ```bash
 python3 evals/test_grade.py
@@ -69,4 +69,4 @@ Run this after any change to `grade.py` to prevent silent regex breakage. See [I
 - **Experiential vacancy was the most useful conceptual addition.** Every agent used it as their primary diagnostic: "this essay contains no named people, no real places, no specific memories." That framing pushes toward replacement with something specific, not just removal of bad patterns.
 - **Vague prohibition doesn't work on smart models.** Saying "no manufactured insight" wasn't enough. The model rationalised exceptions for humorous tone. Explicit examples and "non-negotiable even in casual writing" closed the loophole.
 - **Claude doesn't produce the same slop as ChatGPT.** The sensory/atmospheric patterns (ghost language, quietness, synesthesia) rarely appeared in Claude output even with lazy prompts. The skill's new patterns are more relevant to ChatGPT-generated text.
-- **Programmatic grading catches about 80% of tells.** 29 script checks cover 37 patterns. Forced synesthesia, generic metaphors, tonal uniformity, faux specificity, and neutrality collapse still need human judgment in the self-audit step.
+- **Programmatic grading catches about 80% of tells.** 31 script checks cover 38 patterns. Forced synesthesia, generic metaphors, tonal uniformity, faux specificity, and neutrality collapse still need human judgment in the self-audit step.

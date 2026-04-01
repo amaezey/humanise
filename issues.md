@@ -8,7 +8,7 @@ Issues remaining after the grader bugfix/expansion merge. Cross-referenced again
 
 ### 1. TESTING.md stale references (was issue 1, 7)
 
-Line 18 said "16-check script", key findings said "21 script checks cover 30 of 32 patterns". Both updated to reflect the current 27-check grader.
+Line 18 said "16-check script", key findings said "21 script checks cover 30 of 32 patterns". Both updated to reflect the current 31-check grader.
 
 ### 2. AI vocabulary sync between SKILL.md and grade.py (was issue 2)
 
@@ -34,33 +34,43 @@ Implemented `no-excessive-hedging` check. Detects impersonal passive hedging at 
 
 Added `9-passthrough-human.md`: human-written personal essay with named people, specific memories, and personal voice. Scores 26/27 (only fails staccato). Wired into evals.json as eval 13.
 
+### 8. Vocabulary list reconciliation (was MEDIUM)
+
+All flagged items (`fostering`, `showcasing`, `unparalleled`, `invaluable`, `bolstered`, `meticulous`) are already in grade.py's `AI_VOCABULARY`. Resolved in prior PRs.
+
+### 9. Structural monotony detection (was LOW)
+
+Two new grader checks (`no-triad-density`, `no-section-scaffolding`), one extended check (`no-countdown-negation` with pronoun variants). SKILL.md process restructured with mandatory structural self-audit. Resolution density deferred as not programmatically tractable.
+
 ---
 
 ## Still outstanding
 
 ### HIGH: Subtraction framing and skill restructure (from April 2026 research)
 
-Abdulhai et al. (2026) show LLMs subtract meaning (~70% neutrality increase, 50% pronoun depletion), not just add patterns. The skill's architecture is almost entirely additive detection. Needs:
-- Restructure "Personality and soul" to lead with the subtraction framing
-- Add semantic preservation warning to the Process section
-- Expand self-audit with Abdulhai-informed questions
-- Add 5 new patterns (33–37): countdown negation, miniature conclusions, tonal uniformity, faux specificity, neutrality collapse
-- Add new programmatic checks: countdown negation regex, type-token ratio, vocabulary items
-- New "Voice and register" category (8th)
+Abdulhai et al. (2026) show LLMs subtract meaning (~70% neutrality increase, 50% pronoun depletion), not just add patterns. The skill's architecture is almost entirely additive detection.
 
-Full analysis in ISSUES.md under "Research findings (April 2026 web survey)". Best practices compliance checked — new qualitative content should go in patterns.md, not SKILL.md body, to stay under 500-line limit.
+**Resolved (prior PR #3):**
+- ~~Restructure "Personality and soul" to lead with the subtraction framing~~
+- ~~Add semantic preservation warning to the Process section~~
+- ~~Add 5 new patterns (33–37): countdown negation, miniature conclusions, tonal uniformity, faux specificity, neutrality collapse~~
+- ~~New "Voice and register" category (8th)~~
+- ~~Add new programmatic checks: countdown negation regex, type-token ratio, vocabulary items~~
+
+**Resolved (this branch):**
+- ~~Expand self-audit with Abdulhai-informed questions~~ — SKILL.md process restructured with mandatory structural self-audit
+
+**Still outstanding:**
+- Semantic preservation testing (verify the rewriting step doesn't itself neutralise stance)
+- Subtraction-oriented evals (see LOW item below)
 
 ### MEDIUM: No regression test for original 10/10 results
 
-TESTING.md notes the original 10 humanised outputs need re-running against the 27-check grader. Requires the original output files (still in Obsidian vault, not version-controlled).
+TESTING.md notes the original 10 humanised outputs need re-running against the 31-check grader. Requires the original output files (still in Obsidian vault, not version-controlled).
 
-### MEDIUM: Vocabulary list reconciliation
+### LOW: Wire new checks into evals.json eval assertions
 
-`fostering` and `showcasing` are in patterns.md words-to-watch but not in grade.py. New items to add: `unparalleled`, `invaluable`, `bolstered`, `meticulous`. Temporal note: vocabulary shifts with model versions — "delve" peaked 2023–24, new words emerge with each model generation.
-
-### LOW: Structural monotony detection
-
-From ISSUES.md "not yet implemented". Every AI paragraph follows topic sentence -> elaboration -> restatement. Hardest gap to close programmatically. Now documented in SKILL.md Step 2 as a manual check. Research adds "per-paragraph miniature conclusions" as a related signal — prototype paragraph-final sentence length heuristic.
+The 2 new grader checks (`no-triad-density`, `no-section-scaffolding`) and the extended `no-countdown-negation` (pronoun variants) need corresponding `expect_fail` / `expect_pass` assertions wired into the eval definitions in `evals.json`.
 
 ### LOW: No cross-model samples
 

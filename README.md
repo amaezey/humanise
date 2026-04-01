@@ -7,11 +7,11 @@ Created by [Billie-Mae Kennedy](https://github.com/amaezey).
 ## What changed from the original
 
 - Restructured per [Anthropic's skill best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): split into SKILL.md + reference file for progressive disclosure
-- Expanded from 25 to 37 patterns using research from NYT, Substack, Grammarly, Nature, and Abdulhai et al. (2026)
+- Expanded from 25 to 38 patterns using research from NYT, Substack, Grammarly, Nature, and Abdulhai et al. (2026)
 - Added experiential vacancy, density-without-purpose, and subtraction framing (neutrality collapse, faux specificity, tonal uniformity) as structural diagnostics
 - Tightened hard constraints after test failures showed agents rationalising exceptions
 - Rewrote description to match how people actually ask for this ("reads like AI", "sounds like ChatGPT")
-- Added a 29-check grading script and isolation-based eval pipeline
+- Added a 31-check grading script and isolation-based eval pipeline
 - Renamed to `humanise` (Australian English)
 
 ## Install
@@ -27,14 +27,14 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 ## What it does
 
 1. Checks three hard constraints: zero em dashes, no manufactured insight framing, no staccato fragment sequences
-2. Scans 37 patterns across 8 categories
+2. Scans 38 patterns across 8 categories
 3. Rewrites problematic sections while keeping meaning intact
 4. Runs a self-audit loop and revises until clean
 5. Flags experiential vacancy: the absence of specific details and personal stakes that makes AI writing feel generic
 
 ## Patterns
 
-37 patterns across 8 categories. Full before/after examples in `references/patterns.md`.
+38 patterns across 8 categories. Full before/after examples in `references/patterns.md`.
 
 | # | Pattern | Example |
 |---|---|---|
@@ -83,13 +83,14 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 | 35 | Tonal uniformity / register lock | One register throughout, no human drift or breaks |
 | 36 | Faux specificity | "The smell of coffee on a Sunday morning" — specific to nobody |
 | 37 | Neutrality collapse | Stripping the author's stance, defaulting to balanced/neutral |
+| 38 | Section scaffolding | "Let's explore...", "Let's dive into...", "Now let's look at..." |
 
 ## File structure
 
 ```
 humanise/
 ├── SKILL.md                       Main skill instructions
-├── references/patterns.md         37 patterns with before/after examples
+├── references/patterns.md         38 patterns with before/after examples
 ├── evals/                         Testing infrastructure (see TESTING.md)
 └── research/                      Analysis of source articles and studies
 ```
