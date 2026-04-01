@@ -58,23 +58,13 @@ These were patterns the grader had no check for. Now implemented and covered by 
 
 ## Grader gaps (not yet implemented)
 
-### MEDIUM: Short-form text handling
+### ~~MEDIUM: Short-form text handling~~ (FIXED)
 
-The 4-sentence email failed `sentence-length-variance` (stdev 3.1 vs target >4). A short email can't have high variance — this is a false positive, not a real AI tell.
+The 4-sentence email failed `sentence-length-variance` (stdev 3.1 vs target >4). Fixed: `sentence-length-variance` now skips texts under 100 words with fewer than 6 sentences. Email sample improved from 24/26 to 25/26.
 
-**Proposed fix:** Skip `sentence-length-variance` for texts under 100 words or under 6 sentences.
+### ~~LOW: Passive impersonal hedging density~~ (IMPLEMENTED)
 
-### LOW: Passive impersonal hedging density
-
-AI hedges with impersonal passive constructions at higher density than human writing. Individually these are fine; it's the density that's the tell.
-
-Examples from one sample:
-- "is often framed as"
-- "is difficult to ignore"
-- "is not a compromise but a requirement"
-- "is contingent on"
-
-**Proposed check: `no-excessive-hedging`** — count per paragraph, flag above threshold.
+Added `no-excessive-hedging` check. Detects impersonal passive hedging constructions ("is often framed as", "is contingent on", "cannot be overstated", "is overstated", "is less about...more about", "a common assumption is", etc.) and flags at 4+ across the whole text. Cooking blog correctly caught with 6 hedging constructions. Human passthrough scores 0.
 
 ### LOW: Structural monotony
 
@@ -90,9 +80,9 @@ Every paragraph in AI samples follows the same template: topic sentence → elab
 
 All 5 original evals are long-form essays. People actually humanise emails, cover letters, product descriptions, LinkedIn posts, blog intros. The 8 samples in `evals/samples/` cover some of these but aren't wired into `evals.json`.
 
-### No pass-through test
+### ~~No pass-through test~~ (ADDED)
 
-What happens when input is already human-written? The skill should leave it mostly alone. This is untested.
+Added `9-passthrough-human.md`: a human-written personal essay with named people, specific memories, and personal voice. Scores 26/27 (only fails staccato, which is a known acceptable false positive on short conversational sentences). Wired into `evals.json` as eval 13.
 
 ### No cross-model samples
 
@@ -126,27 +116,33 @@ The 5 original human-written texts and their AI-generated + humanised versions a
 
 ## Slop sample inventory
 
-All scores below are against the current 26-check grader.
+All scores below are against the current 27-check grader.
 
 ### Essay-topic samples (matching original 5 evals)
 
 | File | Topic | Score | Key failures |
 |------|-------|-------|--------------|
-| `harris-free-will.md` | Free will is an illusion | 20/26 | em dashes, promotional, significance inflation, formulaic openers, signposted conclusions, markdown headings |
-| `murray-doctors-die.md` | How doctors choose to die | 19/26 | em dashes, manufactured insight, anaphora, promotional, significance inflation, signposted conclusions, markdown headings |
-| `woolf-moth.md` | Moth struggling against window | 20/26 | em dashes, manufactured insight, promotional, copula avoidance, signposted conclusions, markdown headings |
-| `wong-monkeysphere.md` | Dunbar's number explains everything | 21/26 | em dashes, anaphora, significance inflation, signposted conclusions, markdown headings |
-| `orwell-why-write.md` | Motivations for writing | 21/26 | em dashes, promotional, negative parallelisms, signposted conclusions, markdown headings |
+| `harris-free-will.md` | Free will is an illusion | 21/27 | em dashes, promotional, significance inflation, formulaic openers, signposted conclusions, markdown headings |
+| `murray-doctors-die.md` | How doctors choose to die | 20/27 | em dashes, manufactured insight, anaphora, promotional, significance inflation, signposted conclusions, markdown headings |
+| `woolf-moth.md` | Moth struggling against window | 21/27 | em dashes, manufactured insight, promotional, copula avoidance, signposted conclusions, markdown headings |
+| `wong-monkeysphere.md` | Dunbar's number explains everything | 22/27 | em dashes, anaphora, significance inflation, signposted conclusions, markdown headings |
+| `orwell-why-write.md` | Motivations for writing | 22/27 | em dashes, promotional, negative parallelisms, signposted conclusions, markdown headings |
 
 ### Format-diversity samples
 
 | File | Type | Score | Key failures |
 |------|------|-------|--------------|
-| `1-essay-libraries.md` | Long-form essay | 20/26 | em dashes, AI vocab, copula avoidance, triads, formulaic openers, signposted conclusions |
-| `2-blog-cooking.md` | Blog post | 22/26 | em dashes, negative parallelisms, filler, formulaic openers |
-| `3-listicle-remote.md` | Listicle | 20/26 | em dashes, anaphora, negative parallelisms, triads, signposted conclusions, corporate AI speak |
-| `4-reflection-travel.md` | Personal reflection | 21/26 | em dashes, negative parallelisms, filler, triads, signposted conclusions |
-| `5-explainer-quantum.md` | Technical explainer | 24/26 | em dashes, collaborative artifacts |
-| `6-cover-letter.md` | Cover letter | 25/26 | corporate AI speak |
-| `7-hotel-description.md` | Product copy | 24/26 | em dashes, copula avoidance |
-| `8-email-decline.md` | Short email | 24/26 | em dashes, sentence variance (false positive on short text) |
+| `1-essay-libraries.md` | Long-form essay | 21/27 | em dashes, AI vocab, copula avoidance, triads, formulaic openers, signposted conclusions |
+| `2-blog-cooking.md` | Blog post | 22/27 | em dashes, negative parallelisms, filler, formulaic openers, excessive hedging |
+| `3-listicle-remote.md` | Listicle | 21/27 | em dashes, anaphora, negative parallelisms, triads, signposted conclusions, corporate AI speak |
+| `4-reflection-travel.md` | Personal reflection | 22/27 | em dashes, negative parallelisms, filler, triads, signposted conclusions |
+| `5-explainer-quantum.md` | Technical explainer | 25/27 | em dashes, collaborative artifacts |
+| `6-cover-letter.md` | Cover letter | 26/27 | corporate AI speak |
+| `7-hotel-description.md` | Product copy | 25/27 | em dashes, copula avoidance |
+| `8-email-decline.md` | Short email | 26/27 | em dashes |
+
+### Pass-through sample
+
+| File | Type | Score | Key failures |
+|------|------|-------|--------------|
+| `9-passthrough-human.md` | Human-written personal essay | 26/27 | staccato (false positive on short human sentences) |

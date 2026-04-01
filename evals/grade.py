@@ -21,7 +21,7 @@ AI_VOCABULARY = [
     "streamline", "shed light on", "revolutionize", "innovative",
     "cutting-edge", "game-changing", "transformative", "seamlessly",
     # Added from user observations
-    "genuinely", "unspoken",
+    "genuinely", "unspoken", "seamless",
 ]
 
 # Multi-word phrases where the first word may be inflected (e.g. "align with" ->
@@ -30,6 +30,15 @@ AI_VOCABULARY_REGEX = [
     r"aligns? with\b",
     r"aligned with\b",
     r"aligning with\b",
+    # "actually" as filler intensifier (not "actually happened", "actually did")
+    r"\bactually[,.]",
+    r"\band actually\b",
+    r"\bbut actually\b",
+    # "land/lands" as metaphor for reception (not physical land)
+    r"\bhow (?:it|that|this) lands?\b",
+    r"\blands? (?:well|differently|flat|poorly|awkwardly)\b",
+    # "hidden" when inflating significance of the ordinary
+    r"\bhidden (?:truth|depth|meaning|complexity|beauty|power|gem|lesson|cost)\b",
 ]
 
 # Broad set: catches both the obvious ("let that sink in") and the subtler
@@ -262,6 +271,14 @@ def check_curly_quotes(text):
 
 def check_sentence_variance(text):
     sentences = split_sentences(text)
+    word_count = len(text.split())
+    # Skip for short-form text where low variance is expected, not an AI tell
+    if len(sentences) < 6 and word_count < 100:
+        return {
+            "text": "sentence-length-variance",
+            "passed": True,
+            "evidence": f"Skipped: short text ({word_count} words, {len(sentences)} sentences)",
+        }
     if len(sentences) < 3:
         return {
             "text": "sentence-length-variance",
@@ -599,6 +616,45 @@ def check_this_chains(text):
     }
 
 
+HEDGING_PATTERNS = [
+    r"\bis (?:often|frequently|widely|commonly|generally|typically) (?:framed|seen|viewed|regarded|considered|described|understood|presented|perceived|characterized|characterised)\b",
+    r"\bis (?:increasingly|often) (?:measured|prioritised|prioritized|recognized|recognised|valued|questioned)\b",
+    r"\bis (?:contingent|predicated|dependent) on\b",
+    r"\bcannot be (?:overstated|understated|ignored|dismissed|overlooked)\b",
+    r"\bis (?:difficult|hard|impossible) to (?:overstate|ignore|deny|dismiss|overlook)\b",
+    r"\bremains (?:to be seen|unclear|uncertain|an open question)\b",
+    r"\bit (?:could|might|may) be argued\b",
+    r"\bis not (?:guaranteed|without)\b",
+    r"\bis (?:overstated|understated|underestimated|overestimated)\b",
+    r"\bis less about\b.*\bmore about\b",
+    r"\ba common (?:assumption|misconception|objection|criticism) is\b",
+]
+
+
+def check_hedging_density(text):
+    """Detect excessive impersonal passive hedging density."""
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    total_matches = 0
+    all_found = []
+    for para in paragraphs:
+        para_lower = para.lower()
+        for pat in HEDGING_PATTERNS:
+            found = re.findall(pat, para_lower)
+            if found:
+                total_matches += len(found)
+                all_found.extend(found)
+    # Flag at 4+ hedging constructions across the whole text
+    return {
+        "text": "no-excessive-hedging",
+        "passed": total_matches < 4,
+        "evidence": (
+            f"Found {total_matches} hedging constructions: {all_found[:5]}"
+            if total_matches >= 4
+            else f"Hedging constructions: {total_matches}"
+        ),
+    }
+
+
 # --- Registry ---
 
 ALL_CHECKS = {
@@ -628,6 +684,7 @@ ALL_CHECKS = {
     "no-markdown-headings": check_markdown_headings,
     "no-corporate-ai-speak": check_corporate_ai_speak,
     "no-this-chains": check_this_chains,
+    "no-excessive-hedging": check_hedging_density,
 }
 
 
