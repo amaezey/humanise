@@ -198,6 +198,8 @@ Answer each question below with a specific count or finding. Do not skip any. Sh
 5. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
 6. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
 
+After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures and that grader-backed structural checks (triad density, section scaffolding, countdown negation) now pass. If any fail, fix and re-audit until both the self-audit answers and the grader are clean.
+
 ### Step 4: Post-check (script verifies the fix)
 
 Run the grading script on your output:
