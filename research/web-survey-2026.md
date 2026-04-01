@@ -120,3 +120,61 @@ Patterns that are genuinely new (not reinforcing existing ones) and have strong 
 - showcasing
 - align with
 - enhance (in the "enhance X" construction)
+
+---
+
+## Source 4: "How LLMs Distort Our Written Language" (Abdulhai et al., March 2026)
+
+**Source:** https://arxiv.org/abs/2603.18161
+**Authors:** Marwa Abdulhai, Isadora White, Yanming Wan, Ibrahim Qureshi, Joel Z. Leibo, Max Kleiman-Weiner, Natasha Jaques (UC Berkeley, UCSD, UW, Google DeepMind)
+**Published:** 18 March 2026
+**Type:** Peer-reviewed research (arXiv + OpenReview)
+**Companion site:** https://sites.google.com/view/llmwritingdistortion/home
+**Code:** https://github.com/abdulhaim/llm_writing_distortion
+
+### Study design
+
+Three evaluation settings:
+
+1. **Randomised controlled trial** — participants wrote argumentative essays with or without LLM access
+2. **ArgRewrite counterfactual** — 86 human-written essays (collected 2021, pre-ChatGPT) with expert feedback; compared human revisions to revisions by GPT-5-mini, Gemini-2.5-Flash, and Claude-3.5-Haiku
+3. **ICLR 2026 review analysis** — 18,000 peer reviews; 21% found to be LLM-generated
+
+### Key findings
+
+**Neutrality collapse**
+- Extensive LLM use led to a **~70% increase** in essays that remained neutral rather than taking a for/against position.
+- LLMs systematically remove content making particular claims, editing essays to be more neutral or positive.
+- Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+
+**Voice and creativity loss**
+- Heavy LLM users reported writing was **less creative** and **not in their voice**.
+- Essays had **50% fewer pronouns**, representing a shift toward impersonal language with fewer anecdotes and references to human experiences.
+- LLMs use both more emotional *and* more argumentative language than human editors — but paradoxically strip out the author's actual argument.
+
+**The paradox of preferences**
+- Users who heavily relied on LLMs reported **similar satisfaction** with their output despite acknowledging it was less creative and less in their voice. People like the polish even as it erases them.
+
+**Semantic distortion even in minimal edits**
+- LLM edits meaningfully alter semantics even when tasked with only grammar corrections. The intended meaning shifts, not just the style.
+- LLM revisions are structurally very different from how humans revise the same text given the same feedback.
+
+**Peer review distortion (ICLR 2026)**
+- 21% of reviews were LLM-generated.
+- AI reviews systematically **deprioritised clarity and relevance** while over-emphasising reproducibility and scalability.
+- AI reviews assigned scores **a full point higher on average** — an inflationary bias.
+
+### New patterns for humanise
+
+| Pattern | Status vs existing list |
+|---|---|
+| Neutrality collapse — stripping argumentative stance, defaulting to balanced/neutral | **New** — distinct from "generic positive conclusions" (#24); this is about removing opinion entirely |
+| Pronoun depletion — 50% fewer first/second-person pronouns | **New measurable signal** — complements "experiential vacancy" but is quantifiable |
+| Semantic drift in minimal edits — meaning changes even in grammar-only passes | **New insight** — relevant to the skill's self-audit loop |
+| Satisfaction paradox — users like the output but know it's not them | **Contextual** — not a detection pattern but explains why AI writing persists |
+| Peer review score inflation (+1 point average) | **Contextual** — domain-specific but demonstrates systematic bias |
+| Impersonal language shift — fewer anecdotes, fewer human experience references | **Reinforces** existing "experiential vacancy" with experimental evidence |
+
+### Why this matters for humanise
+
+This is the strongest empirical evidence yet that LLMs don't just add detectable surface patterns — they **subtract meaning**. The existing humanise skill focuses heavily on what AI *adds* (vocabulary, formatting, rhetorical devices). This paper shows the equally important flip side: what AI *removes* (stance, pronouns, personal experience, argumentative commitment). The neutrality collapse finding is particularly actionable — a humanised text should preserve or restore the author's actual position rather than defaulting to both-sides balance.
