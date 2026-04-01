@@ -421,6 +421,21 @@ expect_pass("no-countdown-negation",
 expect_pass("no-countdown-negation",
     "The building was not damaged. It was inspected the following day.",
     "factual negation, not a countdown pattern")
+expect_fail("no-countdown-negation",
+    "You can't rush this. You can't shortcut it. You can't fake it.",
+    "Branch 2: 3 consecutive same-subject negation sentences")
+expect_pass("no-countdown-negation",
+    "You can't rush this. You can't shortcut it.",
+    "Branch 2: only 2 consecutive, below threshold")
+expect_fail("no-countdown-negation",
+    "It wasn't the data. It wasn't the model. It was the prompt.",
+    "Branch 1 regression: classic countdown still detected")
+expect_pass("no-countdown-negation",
+    "You can't rush this. We can't shortcut it. They can't fake it.",
+    "mixed pronouns: not consecutive same-subject")
+expect_fail("no-countdown-negation",
+    "People cannot rush this. People cannot shortcut it. People cannot fake it.",
+    "Branch 2: 'people cannot' full form, 3 consecutive")
 
 
 # --- vocabulary-diversity ---
@@ -454,6 +469,87 @@ print("\n=== new vocabulary items (spot check) ===")
 expect_fail("no-ai-vocabulary-clustering",
     "The unparalleled results were invaluable to the meticulous research team.",
     "'unparalleled' + 'invaluable' + 'meticulous' = 3 new AI vocab items")
+
+
+# --- no-triad-density ---
+
+print("\n=== no-triad-density ===")
+
+# Build a 400+ word text with 5 triads
+_triad_heavy = (
+    "The team needed apples, bananas, and oranges for the project. "
+    "They also brought cats, dogs, and birds to the demonstration event. "
+    "The walls were painted red, blue, and green to match the brand. "
+    "Options came in small, medium, or large depending on the client. "
+    "The pace was fast, slow, and steady throughout the quarter. "
+    + "This is filler text to reach the word count threshold. " * 30
+)
+expect_fail("no-triad-density",
+    _triad_heavy,
+    "5 triads in 400+ words")
+
+# 1 triad in 400+ words should pass
+_triad_light = (
+    "The team needed apples, bananas, and oranges for the project. "
+    + "This is filler text to reach the word count threshold. " * 30
+)
+expect_pass("no-triad-density",
+    _triad_light,
+    "only 1 triad in 400+ words")
+
+# Short text with 5 triads should skip (pass)
+_triad_short = (
+    "Apples, bananas, and oranges. Cats, dogs, and birds. "
+    "Red, blue, and green. Small, medium, or large. Fast, slow, and steady."
+)
+expect_pass("no-triad-density",
+    _triad_short,
+    "short text (under 300 words) with 5 triads should skip")
+
+# Empty/minimal text should pass
+expect_pass("no-triad-density",
+    "",
+    "empty text")
+expect_pass("no-triad-density",
+    "A single sentence.",
+    "minimal text")
+
+
+# --- no-section-scaffolding ---
+
+print("\n=== no-section-scaffolding ===")
+expect_fail("no-section-scaffolding",
+    "How to make this work:\nSome content here.\n\nHow to make this work:\nMore content.\n\nHow to make this work:\nEven more.",
+    "3 repeated labels")
+expect_pass("no-section-scaffolding",
+    "Step 1:\nFirst thing to do.\n\nStep 2:\nSecond thing to do.\n\nStep 3:\nThird thing to do.",
+    "different labels")
+expect_pass("no-section-scaffolding",
+    "How to make this work:\nSome content here.\n\nHow to make this work:\nMore content.\n\nSomething else entirely:\nDifferent content.",
+    "label appears only 2 times")
+expect_pass("no-section-scaffolding",
+    "This is a long sentence that repeats because the writer needed to fill space in the document for some reason or another.\nSome content.\n\nThis is a long sentence that repeats because the writer needed to fill space in the document for some reason or another.\nMore content.\n\nThis is a long sentence that repeats because the writer needed to fill space in the document for some reason or another.\nEven more.",
+    "repeated line over 60 characters (prose, not a label)")
+expect_fail("no-section-scaffolding",
+    "### How to apply:\nContent.\n\n### How to apply:\nContent.\n\nHow to apply:\nContent.",
+    "markdown heading stripped, matches plain version")
+
+
+# --- Human passthrough: opinion piece ---
+print("\n=== human-opinion-passthrough ===")
+opinion_text = Path(__file__).parent.joinpath("samples/10-human-opinion.md").read_text()
+for check_name in ALL_CHECKS:
+    if check_name == "no-staccato-sequences":
+        continue  # existing human sample also fails this, known limitation
+    expect_pass(check_name, opinion_text, f"human opinion piece ({check_name})")
+
+# --- Human passthrough: instructional piece ---
+print("\n=== human-instructional-passthrough ===")
+instructional_text = Path(__file__).parent.joinpath("samples/11-human-instructional.md").read_text()
+for check_name in ALL_CHECKS:
+    if check_name == "no-staccato-sequences":
+        continue
+    expect_pass(check_name, instructional_text, f"human instructional piece ({check_name})")
 
 
 # --- Summary ---

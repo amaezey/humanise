@@ -1,6 +1,6 @@
 # AI writing patterns
 
-32 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
+38 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
 
 ## Contents
 
@@ -10,7 +10,7 @@
 - [Communication (19-21)](#communication)
 - [Filler and hedging (22-25)](#filler-and-hedging)
 - [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
-- [Structural tells (29-32)](#structural-tells)
+- [Structural tells (29-32, 38)](#structural-tells)
 
 ---
 
@@ -424,6 +424,35 @@ Standalone sentences that claim a narrative turning point without earning it. Th
 
 **After:**
 > I stopped trying to do more in less time and started paying attention to when I had energy and when I did not. The change was not dramatic, but over a few months the difference was obvious in my work.
+
+### 38. Section scaffolding
+
+**Words to watch:** Identical subheadings repeated across sections ("How to make this work:", "Key takeaways:", "Why this matters:")
+
+AI-generated articles with numbered sections often repeat the same structural label in each section, creating a cookie-cutter template. The repetition itself is the tell — human writers vary their section structure and rarely use identical action labels across multiple sections.
+
+**Before:**
+> 1. Build trust early
+> How to make this work:
+> Start with small wins...
+>
+> 2. Communicate clearly  
+> How to make this work:
+> Hold regular standups...
+>
+> 3. Measure outcomes
+> How to make this work:
+> Define success metrics...
+
+**After:**
+> 1. Build trust early
+> Start with small wins and let the team see results before asking for bigger commitments...
+>
+> 2. Communicate clearly
+> The teams that got this right held short daily standups, but the format mattered less than consistency...
+>
+> 3. Measure outcomes
+> We learned the hard way that vanity metrics kill momentum. Define what actually matters before you start tracking anything.
 
 ---
 

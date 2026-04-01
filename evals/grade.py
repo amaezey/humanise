@@ -619,18 +619,86 @@ def check_this_chains(text):
 
 
 def check_countdown_negation(text):
-    """Detect dramatic countdown negation: 'It wasn't X. It wasn't Y. It was Z.'"""
-    # Match 2+ negation sentences followed by an affirmative reveal
+    """Detect dramatic countdown negation.
+
+    Branch 1: 'It wasn't X. It wasn't Y. It was Z.' — 2+ negation sentences
+    with it/this/that followed by an affirmative reveal.
+
+    Branch 2: 'You can't X. You can't Y. You can't Z.' — 3+ consecutive
+    sentences where the same subject pronoun is followed by a negated verb.
+    No affirmative reveal required. Threshold is 3 because 2 consecutive
+    same-subject negations are common in opinion writing.
+    """
+    # Branch 1: existing countdown-then-reveal pattern (do not change)
     pattern = r'(?:(?:it|this|that) (?:wasn\'t|isn\'t|was not|is not) [^.?!]+[.]\s*){2,}(?:it|this|that) (?:was|is) [^.?!]+[.]'
     matches = re.findall(pattern, text.lower())
-    count = len(matches)
+    if matches:
+        return {
+            "text": "no-countdown-negation",
+            "passed": False,
+            "evidence": f"Found {len(matches)} countdown negation sequence(s)",
+        }
+
+    # Branch 2: 3+ consecutive same-subject pronoun-negation sentences
+    negated_verbs = r"(?:can't|won't|don't|shouldn't|couldn't|cannot|will not|do not|should not|could not)"
+    subjects = ("you", "we", "they", "people")
+    sentences = split_sentences(text)
+    max_run = 0
+    current_run = 0
+    current_subject = None
+    for s in sentences:
+        s_lower = s.strip().lower()
+        matched_subject = None
+        for subj in subjects:
+            if re.match(rf'^{subj}\s+{negated_verbs}\b', s_lower):
+                matched_subject = subj
+                break
+        if matched_subject and matched_subject == current_subject:
+            current_run += 1
+            max_run = max(max_run, current_run)
+        elif matched_subject:
+            current_subject = matched_subject
+            current_run = 1
+        else:
+            current_subject = None
+            current_run = 0
+
+    if max_run >= 3:
+        return {
+            "text": "no-countdown-negation",
+            "passed": False,
+            "evidence": f"Found {max_run} consecutive same-subject negation sentences",
+        }
+
     return {
         "text": "no-countdown-negation",
-        "passed": count == 0,
+        "passed": True,
+        "evidence": "No countdown negation",
+    }
+
+
+def check_triad_density(text):
+    """Detect high density of three-item lists ('X, Y, and/or Z') regardless of word type."""
+    words = text.split()
+    if len(words) < 300:
+        return {
+            "text": "no-triad-density",
+            "passed": True,
+            "evidence": f"Skipped: short text ({len(words)} words, need 300+)",
+        }
+    # Each item: 1-4 words (handles "peer learning", "decision-making structures")
+    _item = r'\w+(?:[- ]\w+){0,3}'
+    pattern = rf'({_item}),\s+({_item}),?\s+(?:and|or)\s+({_item})'
+    matches = re.findall(pattern, text.lower())
+    count = len(matches)
+    match_strs = [', '.join(m) for m in matches]
+    return {
+        "text": "no-triad-density",
+        "passed": count < 4,
         "evidence": (
-            f"Found {count} countdown negation sequence(s)"
-            if count > 0
-            else "No countdown negation"
+            f"Found {count} triad(s): {match_strs}"
+            if count >= 4
+            else f"Triads: {count}"
         ),
     }
 
@@ -668,6 +736,37 @@ HEDGING_PATTERNS = [
     r"\bis less about\b.*\bmore about\b",
     r"\ba common (?:assumption|misconception|objection|criticism) is\b",
 ]
+
+
+def check_section_scaffolding(text):
+    """Detect repeated identical subheadings across sections (pattern 38)."""
+    lines = text.split('\n')
+    counts = {}
+    for line in lines:
+        stripped = line.strip()
+        # Strip leading markdown heading markers
+        stripped = re.sub(r'^#+\s*', '', stripped)
+        normalised = stripped.lower().strip()
+        # Skip empty lines and lines that are only punctuation/markdown markers
+        if not normalised or re.match(r'^[#*_\-=~`>|]+$', normalised):
+            continue
+        # Only count short lines (under 60 chars) — these are labels, not prose
+        if len(normalised) < 60:
+            counts[normalised] = counts.get(normalised, 0) + 1
+    # Flag if any normalised line appears 3+ times
+    repeated = {label: n for label, n in counts.items() if n >= 3}
+    if repeated:
+        worst = max(repeated, key=repeated.get)
+        return {
+            "text": "no-section-scaffolding",
+            "passed": False,
+            "evidence": f"'{worst}' repeated {repeated[worst]} times",
+        }
+    return {
+        "text": "no-section-scaffolding",
+        "passed": True,
+        "evidence": "No repeated section labels",
+    }
 
 
 def check_hedging_density(text):
@@ -726,6 +825,8 @@ ALL_CHECKS = {
     "no-excessive-hedging": check_hedging_density,
     "no-countdown-negation": check_countdown_negation,
     "vocabulary-diversity": check_type_token_ratio,
+    "no-triad-density": check_triad_density,
+    "no-section-scaffolding": check_section_scaffolding,
 }
 
 
