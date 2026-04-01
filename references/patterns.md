@@ -99,7 +99,7 @@ Formulaic "Challenges" sections that acknowledge a problem then immediately reas
 
 ### 7. AI vocabulary words
 
-**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands (as metaphor for "how something is received"), unspoken, hidden (when used to inflate significance of something ordinary)
+**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands (as metaphor for "how something is received"), unspoken, hidden (when used to inflate significance of something ordinary), unparalleled, invaluable, bolstered, meticulous
 
 **AI transition phrases** (a whole category AI overuses): "that being said", "at its core", "to put it simply", "a key takeaway is", "from a broader perspective", "in today's fast-paced world", "as technology continues to evolve", "but here's..."
 
@@ -424,3 +424,90 @@ Standalone sentences that claim a narrative turning point without earning it. Th
 
 **After:**
 > I stopped trying to do more in less time and started paying attention to when I had energy and when I did not. The change was not dramatic, but over a few months the difference was obvious in my work.
+
+---
+
+## Voice and register
+
+These patterns concern what AI **removes** from writing — stance, personality, specificity — rather than what it adds. Based on Abdulhai et al. (2026), "How LLMs Distort Our Written Language", which showed LLMs systematically strip argumentative commitment (~70% neutrality increase) and personal voice (50% pronoun depletion) even in minimal edits.
+
+### 33. Countdown negation
+
+**Words to watch:** "It wasn't X. It wasn't Y. It was Z.", "This isn't about... This isn't about... This is about..."
+
+A multi-sentence rhetorical arc where AI negates two or more things before revealing the actual point, creating false suspense. Distinct from negative parallelism (#9), which is "not X; it's Y" in a single sentence. This is a sustained dramatic build.
+
+**Before:**
+> It wasn't the algorithm. It wasn't the data. It wasn't the compute budget. It was the prompt. Three words, chosen carefully, changed everything.
+
+**After:**
+> The improvement came from rewriting the prompt, not from changes to the model or data. The team had spent weeks on architecture changes before trying this.
+
+**Before:**
+> This isn't about technology. This isn't about efficiency. This is about what it means to be human in an automated world.
+
+**After:**
+> The automation question is less about the technology itself and more about how it changes the day-to-day work that people build their identity around.
+
+
+### 34. Per-paragraph miniature conclusions
+
+Every paragraph wraps up with a tidy summary sentence that transitions perfectly to the next. Humans digress, leave threads hanging, circle back later. AI's paragraph-level tidiness is itself a tell.
+
+**Before:**
+> The study surveyed 400 teachers across 12 districts. Most reported increased workload since 2020. The takeaway is clear: teachers are stretched thin and the trend shows no signs of reversing.
+>
+> The funding picture compounds this pressure. Per-pupil spending has risen by 4% nominally but fallen in real terms. This financial squeeze makes the workload problem even harder to address.
+
+**After:**
+> The study surveyed 400 teachers across 12 districts. Most reported increased workload since 2020, with marking and administrative tasks growing fastest.
+>
+> Per-pupil spending has risen by 4% nominally but fallen in real terms. Whether the two trends are connected is debatable, though several principals I spoke to thought so.
+
+When you spot a paragraph where the final sentence restates the paragraph's point or transitions smoothly to the next topic, consider cutting it or replacing it with something that leaves a thread open.
+
+
+### 35. Tonal uniformity / register lock
+
+AI picks a register — professional-casual, academic-accessible, warm-but-authoritative — and never breaks from it. Human writers drift between registers: they start formal, get colloquial, make a joke that does not quite land, recover. The consistency is the tell, not any particular register.
+
+**Before:**
+> The architecture of the system reflects careful consideration of user needs. Each component has been designed with modularity in mind, allowing for straightforward maintenance. The team has prioritised clarity in the API surface, ensuring that developers can integrate with minimal friction.
+
+**After:**
+> The system is modular, which mostly works well. The API is clean — I got a prototype running in an afternoon, though I hit a wall with the auth flow that took longer to sort out. The docs say "straightforward" but that is doing some heavy lifting.
+
+This pattern cannot be caught programmatically. During the self-audit, ask: does the whole text sit in one register? If it reads like a single voice speaking at a single speed about everything, introduce at least one register break — a moment of informality, a parenthetical doubt, a shift in sentence rhythm.
+
+
+### 36. Faux specificity
+
+AI provides examples that feel specific without actually being specific. "The smell of coffee on a Sunday morning" or "the way the light hits your kitchen table" — plausible, relatable, grounded in nobody's actual experience. AI constructs these from genre conventions rather than lived experience.
+
+Related to experiential vacancy (see Personality and soul in SKILL.md) but names the active mechanism: AI **performs** specificity rather than achieving it.
+
+**Before:**
+> There is something about the way a handwritten letter feels in your hands — the weight of the paper, the slight smudge of ink, the care in every stroke. It reminds you that someone took the time to sit down and think of you.
+
+**After:**
+> My grandmother wrote to me every month until she died. Her handwriting got worse each year — by the end I could only read about half the words. I kept every letter in a shoebox under my bed.
+
+When you spot a "specific" detail, ask: could anyone have written this, or does it come from a particular person's experience? If it reads like a stock photo in prose form, replace it with something that could not have been generated from genre conventions.
+
+
+### 37. Neutrality collapse
+
+LLMs systematically strip argumentative stance, defaulting to balanced treatment of everything. "There are compelling arguments on both sides" where the original had a clear position. Distinct from generic positive conclusions (#24) — this is about the **removal** of opinion, not the addition of optimism.
+
+Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral when writers used LLMs extensively, and that LLMs frequently changed the writer's conclusions even when instructed to only fix grammar.
+
+**Before (human original):**
+> Remote work is better for most knowledge workers. The evidence is overwhelming and the objections are mostly about control, not productivity.
+
+**After AI "editing":**
+> Remote work offers several advantages for knowledge workers, though in-office collaboration also has its merits. The evidence suggests benefits in both directions, and the optimal approach likely depends on the specific context and team dynamics.
+
+**How to fix:**
+> Remote work is better for most knowledge workers. The productivity data from Stanford and Owl Labs both point the same way, and the main counterarguments — spontaneous collaboration, mentorship, culture — have not held up well in studies that actually measured them.
+
+When humanising, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
