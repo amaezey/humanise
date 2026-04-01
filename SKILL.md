@@ -2,7 +2,7 @@
 name: humanise
 description: >-
   Edits existing text to remove signs of AI generation and make it sound
-  human-written. Detects and fixes 37 patterns across 8 categories including
+  human-written. Detects and fixes 38 patterns across 8 categories including
   em dashes, AI vocabulary clustering, manufactured insight, staccato fragments,
   ghost/spectral language, formulaic openers, signposted conclusions, markdown
   heading structure, corporate AI register, neutrality collapse, tonal uniformity,
@@ -24,7 +24,7 @@ Edit text to remove signs of AI generation while preserving meaning and the auth
 When given text to humanise:
 
 1. Check hard constraints first (below)
-2. Read [references/patterns.md](references/patterns.md) and scan for all 32 patterns
+2. Read [references/patterns.md](references/patterns.md) and scan for all 38 patterns
 3. Rewrite problematic sections with natural alternatives
 4. Preserve the meaning and match the intended tone
 5. Add genuine personality (see Personality and soul)
@@ -123,7 +123,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 
 ## Pattern catalogue
 
-Read [references/patterns.md](references/patterns.md) for all 37 AI writing patterns with words-to-watch and before/after examples, organised as:
+Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
 
 - **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
 - **Language and grammar (7-12):** AI vocabulary words (41+), copula avoidance, negative parallelisms, rule of three, synonym cycling, false ranges
@@ -131,7 +131,7 @@ Read [references/patterns.md](references/patterns.md) for all 37 AI writing patt
 - **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
 - **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
 - **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
-- **Structural tells (29-34):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, countdown negation, per-paragraph miniature conclusions
+- **Structural tells (29-32, 38):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, section scaffolding
 - **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
 
 Search for specific patterns when needed:
@@ -151,24 +151,33 @@ Save the input text to a temp file, then run the grading script on it:
 python3 evals/grade.py /tmp/input.md
 ```
 
-The script checks 29 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading the reference file.
+The script checks 31 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading the reference file.
+
+**Depth signal:** If the pre-check shows multiple structural failures (triad density, section scaffolding, countdown negation), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
 
 If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. But prefer the script when possible.
 
 ### Step 2: Fix (you rewrite)
 
-1. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern
-2. Fix every failure from the pre-check report
-3. Also check for patterns the script cannot catch. These need judgment:
-   - **Forced synesthesia (28)** and **generic metaphors (30)**
-   - **Experiential vacancy** and **density without purpose**
-   - **Structural monotony:** every paragraph follows topic sentence → elaboration → restatement. Vary paragraph lengths and structures. Some paragraphs should be one sentence. Some should start with evidence, not claims.
-   - **Tonal uniformity (35):** does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break.
-   - **Faux specificity (36):** are the "specific" examples actually specific to anyone, or genre-convention filler? "The smell of coffee on a Sunday morning" is a stock photo in prose form.
-   - **Neutrality collapse (37):** does the text take a position? If the input had a stance, make sure the output keeps it. "There are pros and cons" is not a rewrite of an opinion.
-   - **Even jargon distribution:** humans clump technical terms when introducing a concept then relax into plain language. AI distributes jargon uniformly. If technical vocabulary is spread too evenly, clump it.
-4. Add personality and voice per the Personality and soul section
-5. Preserve meaning and match the intended tone
+Address structural patterns first, then surface patterns. The grader catches surface patterns well but cannot enforce structural rewriting. You must do that work here.
+
+**Structural patterns (address first):**
+
+1. **Structural monotony:** Do all sections follow the same arc (problem, evidence, anecdote, advice)? Vary paragraph structures. Some paragraphs should be one sentence. Some should start with evidence, not claims. Break at least one section out of the template.
+2. **Tonal uniformity (35):** Does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break — a moment of informality, a parenthetical doubt, a shift in rhythm.
+3. **Resolution density (34):** Do most paragraphs end with a tidy summary sentence? Leave some threads open. Cut paragraph-final sentences that merely restate the paragraph's point.
+4. **Faux specificity (36):** Are the "specific" examples actually specific to anyone, or genre-convention filler? "The smell of coffee on a Sunday morning" is a stock photo in prose form.
+5. **Neutrality collapse (37):** Does the text take a position? If the input had a stance, make sure the output keeps it. "There are pros and cons" is not a rewrite of an opinion.
+6. **Even jargon distribution:** Humans clump technical terms when introducing a concept then relax into plain language. AI distributes jargon uniformly. If technical vocabulary is spread too evenly, clump it.
+7. **Forced synesthesia (28)** and **generic metaphors (30)** — replace with concrete details.
+8. **Section scaffolding (38):** If all sections use the same structural label or follow the same template, vary them.
+
+**Surface patterns (address second):**
+
+9. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the pre-check
+10. Fix every failure from the pre-check report (vocabulary, formatting, sentence-level patterns)
+11. Add personality and voice per the Personality and soul section
+12. Preserve meaning and match the intended tone
 
 ### Step 2.5: Semantic preservation check
 
@@ -178,14 +187,16 @@ Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (
 - Are there fewer pronouns in the output than the input? If so, why?
 - Did specific claims get softened into "on the other hand" balance?
 
-### Step 3: Self-audit
+### Step 3: Structural self-audit (mandatory)
 
-- Ask: "What makes this so obviously AI generated?"
-- Ask: "Did I preserve the author's original position, or did I neutralise it?"
-- Ask: "Does every paragraph end neatly, or do some leave threads open?"
-- List remaining tells
-- Revise to eliminate them
-- Repeat until no obvious tells remain or changes are cosmetic only
+Answer each question below with a specific count or finding. Do not skip any. Show your answers in the output (see Output format).
+
+1. **Section arcs:** Do all sections follow the same arc? Count how many do. If more than half follow the same template, restructure at least one.
+2. **Resolution density:** Count paragraphs that end with a summary sentence. If more than half do, rewrite some to leave threads open.
+3. **Register breaks:** Is there at least one register break (moment of doubt, informality, or tonal shift)? If not, add one.
+4. **Triad count:** Count the triads. If there are more than 4, redistribute some as pairs or longer lists.
+5. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
+6. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
 
 ### Step 4: Post-check (script verifies the fix)
 
@@ -195,7 +206,7 @@ Run the grading script on your output:
 python3 evals/grade.py /tmp/output.md
 ```
 
-If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 29 checks should pass.
+If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 31 checks should pass.
 
 If the script is not available, manually verify: search output for the em dash character (count must be zero), scan for any manufactured insight phrases, check for staccato sequences.
 
@@ -203,9 +214,15 @@ If the script is not available, manually verify: search output for the em dash c
 
 1. Pre-check report (which patterns the script found in the input)
 2. Draft rewrite
-3. "What makes this so obviously AI generated?" (self-audit)
+3. Structural self-audit answers (mandatory, with counts):
+   - Section arcs: N/M following same template — [what you changed]
+   - Resolution density: N/M paragraphs end with summary — [what you changed]
+   - Register breaks: [where you added one, or "already present at..."]
+   - Triads: N found — reduced to M by [method]
+   - Stance: [preserved / shifted — restored by...]
+   - Remaining tells: [list, or "none identified"]
 4. Final rewrite (revised after audit)
-5. Post-check report (confirming all checks pass)
+5. Post-check report (confirming all 31 checks pass)
 6. Brief summary of changes made (optional, if helpful)
 
 ---

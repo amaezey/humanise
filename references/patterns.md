@@ -11,6 +11,7 @@
 - [Filler and hedging (22-25)](#filler-and-hedging)
 - [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
 - [Structural tells (29-32, 38)](#structural-tells)
+- [Voice and register (33-37)](#voice-and-register)
 
 ---
 
