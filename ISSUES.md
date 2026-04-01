@@ -74,6 +74,117 @@ Every paragraph in AI samples follows the same template: topic sentence → elab
 
 ---
 
+## Research findings (April 2026 web survey)
+
+Full analysis in `research/web-survey-2026.md`. Covers four source clusters: Nature biomedical abstracts study, stylometry research papers, practitioner detection guides, and Abdulhai et al. (2026) "How LLMs Distort Our Written Language".
+
+### Architectural insight: subtraction, not just addition
+
+The skill's current architecture is almost entirely **additive detection** — find things AI put in, take them out. Abdulhai et al. (2026) provide the strongest empirical evidence yet that AI also **subtracts**: stance (~70% neutrality increase), pronouns (50% depletion), personal experience, and argumentative commitment. The skill already gestures at this with "experiential vacancy" and the "soulless writing" checklist, but it's framed as secondary. The research says it's closer to the primary problem.
+
+**Implication for the skill:** The "Personality and soul" section needs restructuring to lead with the subtraction framing. Not a bolt-on — this is the theoretical foundation for why experiential vacancy, neutrality collapse, and pronoun depletion happen.
+
+**Self-referential risk:** Abdulhai showed LLMs shift meaning even in grammar-only passes. The humanise skill is itself an LLM rewriting text. Without an explicit semantic preservation step, the skill could introduce the same neutrality collapse it's trying to detect.
+
+### New patterns to add (planned for implementation)
+
+| # | Pattern | Category | Source | Programmatic? |
+|---|---|---|---|---|
+| 33 | Dramatic countdown negation | Structural tells | Practitioner consensus | Yes — regex for 2+ "It wasn't X" sentences + affirmative "It was Y" |
+| 34 | Per-paragraph miniature conclusions | Structural tells | Practitioner consensus | Experimental — paragraph-final sentence length heuristic |
+| 35 | Tonal uniformity / register lock | Voice and register (new category) | Practitioner + Abdulhai | No — requires register classification |
+| 36 | Faux specificity | Content | Practitioner consensus | No — requires semantic judgment |
+| 37 | Neutrality collapse | Content | Abdulhai et al. 2026 | No — requires argumentative structure analysis |
+
+### New vocabulary items to add
+
+`unparalleled`, `invaluable`, `bolstered`, `meticulous`. Also reconcile: `fostering` and `showcasing` are in patterns.md words-to-watch but not in grade.py's `AI_VOCABULARY` list.
+
+### New programmatic checks to add
+
+| Check | Method | Confidence |
+|---|---|---|
+| `no-countdown-negation` | Regex for serial "It wasn't / It isn't / This wasn't" + affirmative | High — clean signal, low false-positive |
+| `no-low-vocabulary-diversity` | Type-token ratio (`len(set(tokens)) / len(tokens)`), flag below threshold for texts 150+ words | High — well-studied metric, simple math |
+| Pronoun ratio (informational) | Count I/me/my/we/our/you/your as fraction of total words | Medium — can't be pass/fail (technical writing legitimately has few pronouns), but useful as informational signal in the report |
+| Paragraph-final sentence length | If final sentence of most paragraphs is shorter than paragraph average | Low — needs prototyping to assess false-positive rate |
+| Function word distribution evenness | Stdev of "the", "of", "and", "is" frequency across paragraphs | Low — interesting from stylometry research but may not add value over existing checks |
+
+### Qualitative additions to SKILL.md (no grade.py change)
+
+These require judgment and belong in the manual-check list (Step 2) and self-audit questions (Step 3):
+
+| Pattern | Where to add | Notes |
+|---|---|---|
+| Tonal uniformity | Step 2 manual checks | Does the whole text sit in one register? Humans drift between registers. |
+| Faux specificity | Step 2 manual checks | Are "specific" examples actually specific to anyone, or genre-convention filler? |
+| Neutrality collapse | Step 2 manual checks + self-audit | Does the text take a position? Did the rewrite preserve or neutralise the original stance? |
+| Even jargon distribution | Step 2 manual checks | Humans clump technical terms then relax into plain language. AI distributes evenly. |
+| Semantic preservation warning | New step between Step 2 and Step 3 | Compare rewrite's conclusions to input's conclusions. If stance shifted toward neutral, restore it. |
+
+### Insights not being implemented (documented for context)
+
+These findings are valuable context but don't translate to skill changes:
+
+**Stylometric classification features (Przystalski et al., Zaitsu et al. 2025)**
+- Function word unigrams, POS bigrams, and phrase patterns achieve .98 binary accuracy on 10-sentence samples.
+- Perfect discrimination using three integrated features in the Japanese study.
+- Only Llama 3.1 showed distinct characteristics vs other commercial LLMs.
+- **Why not implementing:** These are classification features for a detector, not patterns for a rewriting tool. The skill isn't trying to classify text as AI/human — it's trying to remove tells. The insight that matters is already captured: commercial LLMs cluster together, validating the skill's approach of targeting shared patterns.
+
+**Code stylometry (Bisztray et al., ACM AISec 2025)**
+- Comment phrasing is the richest signal for model attribution (removing comments drops accuracy from 92.65% to 85.45%).
+- LLMs leave distinct coding fingerprints enabling model attribution.
+- **Why not implementing:** The skill targets prose, not code. However, if humanise ever expands to code comments or technical documentation, comment phrasing would be the first thing to check.
+
+**Stylometric watermarking proposals**
+- Models could embed watermarks via consistent synonym preferences or unusual syntactic structures — too subtle for readers but statistically detectable.
+- **Why not implementing:** Speculative/theoretical. No production watermarking to detect yet. Worth monitoring.
+
+**Temporal vocabulary fingerprints (Nature study)**
+- GPT-4 era favoured "tapestry", "pivotal", "meticulous", "testament". GPT-4o shifted to "align with", "enhance", "showcasing". "Delve" peaked 2023–2024, dropped sharply by 2025.
+- **Why not implementing as a pattern:** Useful for periodic maintenance of the vocabulary list, not a detectable pattern in itself. The vocabulary list should be reviewed periodically against current model output. Note: some items ("meticulous", "unparalleled") are being added to the vocabulary list.
+
+**Satisfaction paradox (Abdulhai et al.)**
+- Heavy LLM users reported similar satisfaction despite acknowledging loss of creativity and voice.
+- **Why not implementing:** Explains why AI writing persists (people like the polish even as it erases them) but doesn't change what the skill detects or fixes. Good context for README or documentation.
+
+**Peer review score inflation (Abdulhai et al., ICLR 2026)**
+- AI reviews assigned scores a full point higher on average, deprioritised clarity/relevance, over-emphasised reproducibility/scalability.
+- **Why not implementing:** Domain-specific to academic peer review. Demonstrates systematic AI bias but outside the skill's scope.
+
+**55% increase in factual errors (Nature/NeurIPS study)**
+- Researchers using AI publish more but with more mistakes.
+- **Why not implementing:** The skill can't fact-check — it detects stylistic patterns. Reinforces the existing "vague attributions" pattern but doesn't add a new check.
+
+**15% of Reddit posts AI-generated, 21% of ICLR reviews AI-generated**
+- Scale statistics showing prevalence.
+- **Why not implementing:** Context for the problem space, not actionable for the skill.
+
+---
+
+## SKILL.md best practices compliance
+
+Checked against [Anthropic's skill best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices). Current status and actions needed:
+
+### Compliant
+- Progressive disclosure: SKILL.md → references/patterns.md (one level deep)
+- Reference file has table of contents
+- Feedback loop: pre-check → fix → self-audit → post-check
+- Workflow with clear steps
+- Utility script (grade.py) with explicit error output
+- Description includes both what the skill does and when/how to trigger it
+- Consistent terminology throughout
+- Examples are concrete with before/after pairs
+
+### Needs attention
+- **SKILL.md is 250 lines** — well under the 500-line limit, but adding 5 new patterns plus the subtraction framing will push it. Monitor: new qualitative guidance should go in patterns.md or a new reference file, not SKILL.md body.
+- **Description is third-person** — good, but could add more trigger terms from the research (e.g. "neutralised voice", "sounds too balanced").
+- **No time-sensitive information** — the vocabulary list is inherently time-sensitive (words rise and fall with model versions). Consider noting this in a maintenance section rather than embedding dates.
+- **Token budget for new content** — the 5 new patterns with before/after examples belong in patterns.md (already the detail file). SKILL.md should only get: updated pattern count, new category name in the catalogue listing, and expanded Step 2/Step 3 guidance. Estimate: +30–40 lines to SKILL.md, staying well under 500.
+
+---
+
 ## Broader testing gaps
 
 ### No short-form evals

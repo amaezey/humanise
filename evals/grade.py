@@ -22,6 +22,8 @@ AI_VOCABULARY = [
     "cutting-edge", "game-changing", "transformative", "seamlessly",
     # Added from user observations
     "genuinely", "unspoken", "seamless",
+    # Added from April 2026 research (Nature biomedical study, practitioner guides)
+    "unparalleled", "invaluable", "bolstered", "meticulous",
 ]
 
 # Multi-word phrases where the first word may be inflected (e.g. "align with" ->
@@ -616,6 +618,43 @@ def check_this_chains(text):
     }
 
 
+def check_countdown_negation(text):
+    """Detect dramatic countdown negation: 'It wasn't X. It wasn't Y. It was Z.'"""
+    # Match 2+ negation sentences followed by an affirmative reveal
+    pattern = r'(?:(?:it|this|that) (?:wasn\'t|isn\'t|was not|is not) [^.?!]+[.]\s*){2,}(?:it|this|that) (?:was|is) [^.?!]+[.]'
+    matches = re.findall(pattern, text.lower())
+    count = len(matches)
+    return {
+        "text": "no-countdown-negation",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} countdown negation sequence(s)"
+            if count > 0
+            else "No countdown negation"
+        ),
+    }
+
+
+def check_type_token_ratio(text):
+    """Detect low vocabulary diversity via type-token ratio."""
+    # Strip markdown and punctuation, extract words
+    clean = re.sub(r'[^a-zA-Z\s]', '', text.lower())
+    words = clean.split()
+    if len(words) < 150:
+        return {
+            "text": "vocabulary-diversity",
+            "passed": True,
+            "evidence": f"Skipped: short text ({len(words)} words, need 150+)",
+        }
+    unique = len(set(words))
+    ratio = unique / len(words)
+    return {
+        "text": "vocabulary-diversity",
+        "passed": ratio > 0.40,
+        "evidence": f"Type-token ratio: {ratio:.3f} ({unique} unique / {len(words)} total, target: >0.40)",
+    }
+
+
 HEDGING_PATTERNS = [
     r"\bis (?:often|frequently|widely|commonly|generally|typically) (?:framed|seen|viewed|regarded|considered|described|understood|presented|perceived|characterized|characterised)\b",
     r"\bis (?:increasingly|often) (?:measured|prioritised|prioritized|recognized|recognised|valued|questioned)\b",
@@ -685,6 +724,8 @@ ALL_CHECKS = {
     "no-corporate-ai-speak": check_corporate_ai_speak,
     "no-this-chains": check_this_chains,
     "no-excessive-hedging": check_hedging_density,
+    "no-countdown-negation": check_countdown_negation,
+    "vocabulary-diversity": check_type_token_ratio,
 }
 
 

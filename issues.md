@@ -38,18 +38,38 @@ Added `9-passthrough-human.md`: human-written personal essay with named people, 
 
 ## Still outstanding
 
+### HIGH: Subtraction framing and skill restructure (from April 2026 research)
+
+Abdulhai et al. (2026) show LLMs subtract meaning (~70% neutrality increase, 50% pronoun depletion), not just add patterns. The skill's architecture is almost entirely additive detection. Needs:
+- Restructure "Personality and soul" to lead with the subtraction framing
+- Add semantic preservation warning to the Process section
+- Expand self-audit with Abdulhai-informed questions
+- Add 5 new patterns (33–37): countdown negation, miniature conclusions, tonal uniformity, faux specificity, neutrality collapse
+- Add new programmatic checks: countdown negation regex, type-token ratio, vocabulary items
+- New "Voice and register" category (8th)
+
+Full analysis in ISSUES.md under "Research findings (April 2026 web survey)". Best practices compliance checked — new qualitative content should go in patterns.md, not SKILL.md body, to stay under 500-line limit.
+
 ### MEDIUM: No regression test for original 10/10 results
 
 TESTING.md notes the original 10 humanised outputs need re-running against the 27-check grader. Requires the original output files (still in Obsidian vault, not version-controlled).
 
+### MEDIUM: Vocabulary list reconciliation
+
+`fostering` and `showcasing` are in patterns.md words-to-watch but not in grade.py. New items to add: `unparalleled`, `invaluable`, `bolstered`, `meticulous`. Temporal note: vocabulary shifts with model versions — "delve" peaked 2023–24, new words emerge with each model generation.
+
 ### LOW: Structural monotony detection
 
-From ISSUES.md "not yet implemented". Every AI paragraph follows topic sentence -> elaboration -> restatement. Hardest gap to close programmatically. Now documented in SKILL.md Step 2 as a manual check.
+From ISSUES.md "not yet implemented". Every AI paragraph follows topic sentence -> elaboration -> restatement. Hardest gap to close programmatically. Now documented in SKILL.md Step 2 as a manual check. Research adds "per-paragraph miniature conclusions" as a related signal — prototype paragraph-final sentence length heuristic.
 
 ### LOW: No cross-model samples
 
-No GPT/Gemini/Llama samples to verify checks work across models.
+No GPT/Gemini/Llama samples to verify checks work across models. Stylometry research (Zaitsu et al. 2025) confirms most commercial LLMs cluster together stylistically — only Llama 3.1 was distinct. This validates the current approach of targeting shared patterns but cross-model samples would confirm.
 
 ### LOW: No CI or regression tracking
 
 No automated pipeline. A SKILL.md edit could regress quality silently.
+
+### LOW: Subtraction-oriented evals
+
+Current evals test "did the AI tells get removed?" (additive). No evals test "did the author's stance survive?" (subtractive). Consider: take opinionated input, humanise it, check the opinion survived. Different eval type from current approach.

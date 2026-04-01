@@ -1,17 +1,17 @@
 # humanise
 
-A fork of [blader/humanizer](https://github.com/blader/humanizer) by [@blader](https://github.com/blader), restructured, research-expanded, and tested. The original skill drew from [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (WikiProject AI Cleanup). This version adds 7 new pattern categories, triples the vocabulary list, and introduces an eval pipeline for verifying the skill works.
+A fork of [blader/humanizer](https://github.com/blader/humanizer) by [@blader](https://github.com/blader), restructured, research-expanded, and tested. The original skill drew from [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (WikiProject AI Cleanup). This version adds 8 pattern categories, triples the vocabulary list, introduces an eval pipeline, and incorporates the "subtraction framing" from Abdulhai et al. (2026) — recognising that AI removes stance, pronouns, and specificity, not just adds detectable patterns.
 
 Created by [Billie-Mae Kennedy](https://github.com/amaezey).
 
 ## What changed from the original
 
 - Restructured per [Anthropic's skill best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices): split into SKILL.md + reference file for progressive disclosure
-- Expanded from 25 to 32 patterns using research from NYT, Substack, and Grammarly
-- Added experiential vacancy and density-without-purpose as structural diagnostics
+- Expanded from 25 to 37 patterns using research from NYT, Substack, Grammarly, Nature, and Abdulhai et al. (2026)
+- Added experiential vacancy, density-without-purpose, and subtraction framing (neutrality collapse, faux specificity, tonal uniformity) as structural diagnostics
 - Tightened hard constraints after test failures showed agents rationalising exceptions
 - Rewrote description to match how people actually ask for this ("reads like AI", "sounds like ChatGPT")
-- Added a 16-check grading script and isolation-based eval pipeline
+- Added a 29-check grading script and isolation-based eval pipeline
 - Renamed to `humanise` (Australian English)
 
 ## Install
@@ -27,14 +27,14 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 ## What it does
 
 1. Checks three hard constraints: zero em dashes, no manufactured insight framing, no staccato fragment sequences
-2. Scans 32 patterns across 7 categories
+2. Scans 37 patterns across 8 categories
 3. Rewrites problematic sections while keeping meaning intact
 4. Runs a self-audit loop and revises until clean
 5. Flags experiential vacancy: the absence of specific details and personal stakes that makes AI writing feel generic
 
 ## Patterns
 
-32 patterns across 7 categories. Full before/after examples in `references/patterns.md`.
+37 patterns across 8 categories. Full before/after examples in `references/patterns.md`.
 
 | # | Pattern | Example |
 |---|---|---|
@@ -46,7 +46,7 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 | 5 | Vague attributions | "Experts argue...", "Industry reports suggest..." |
 | 6 | Formulaic challenges sections | "Despite these challenges... continues to thrive" |
 | | **Language and grammar** | |
-| 7 | AI vocabulary words (37+) | "delve", "landscape", "tapestry", "harness", "facilitate" |
+| 7 | AI vocabulary words (41+) | "delve", "landscape", "tapestry", "harness", "unparalleled" |
 | 8 | Copula avoidance | "serves as", "stands as" instead of "is" |
 | 9 | Negative parallelisms | "It's not just X; it's Y" |
 | 10 | Rule of three | Forcing ideas into triads |
@@ -77,23 +77,30 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 | 30 | Generic/ungrounded metaphors | Plausible but specific to nobody |
 | 31 | Excessive list-making | Converting prose to bullets unnecessarily |
 | 32 | Dramatic narrative transitions | "Something shifted.", "Everything changed." |
+| | **Voice and register** | |
+| 33 | Countdown negation | "It wasn't X. It wasn't Y. It was Z." |
+| 34 | Per-paragraph miniature conclusions | Every paragraph wraps up neatly with a summary sentence |
+| 35 | Tonal uniformity / register lock | One register throughout, no human drift or breaks |
+| 36 | Faux specificity | "The smell of coffee on a Sunday morning" — specific to nobody |
+| 37 | Neutrality collapse | Stripping the author's stance, defaulting to balanced/neutral |
 
 ## File structure
 
 ```
 humanise/
 ├── SKILL.md                       Main skill instructions
-├── references/patterns.md         32 patterns with before/after examples
+├── references/patterns.md         37 patterns with before/after examples
 ├── evals/                         Testing infrastructure (see TESTING.md)
-└── research/                      Analysis of 4 source articles
+└── research/                      Analysis of source articles and studies
 ```
 
 ## Known limitations
 
 - **Can't reconstruct what was never there.** Removes AI patterns but can't invent an author's real memories or relationships.
 - **Claude and ChatGPT produce different slop.** The sensory patterns (ghost language, quietness, synesthesia) show up more in ChatGPT output.
-- **Programmatic grading catches about 60% of tells.** Subtler issues need human judgment in the self-audit loop.
-- **Patterns are transient.** The catalogue will need periodic updates as models evolve.
+- **Programmatic grading catches about 60% of tells.** Subtler issues (tonal uniformity, faux specificity, neutrality collapse) need human judgment in the self-audit loop.
+- **Patterns are transient.** The catalogue will need periodic updates as models evolve. AI vocabulary shifts with model versions — "delve" peaked 2023–24, newer words emerge each generation.
+- **The skill can introduce what it detects.** As an LLM rewriting text, it can itself neutralise stance or strip pronouns (Abdulhai et al. 2026). The semantic preservation step (Step 2.5) mitigates this but requires attention.
 
 ## Sources
 
@@ -103,6 +110,8 @@ humanise/
 - Sam Kriss, ["Why Does A.I. Write Like ... That?"](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), NYT Magazine
 - Charlie Guo, ["The Field Guide to AI Slop"](https://www.ignorance.ai/p/the-field-guide-to-ai-slop)
 - [Grammarly, "Common Words and Phrases in AI-Generated Content"](https://www.grammarly.com/blog/ai/common-ai-words/)
+- [Abdulhai et al., "How LLMs Distort Our Written Language"](https://arxiv.org/abs/2603.18161), 2026
+- [Nature, "Signs of AI-generated text found in 14% of biomedical abstracts"](https://www.nature.com/articles/d41586-025-02097-6), 2025
 
 ## Licence
 

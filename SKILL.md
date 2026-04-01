@@ -2,21 +2,22 @@
 name: humanise
 description: >-
   Edits existing text to remove signs of AI generation and make it sound
-  human-written. Detects and fixes 32 patterns plus 5 structural tells including
+  human-written. Detects and fixes 37 patterns across 8 categories including
   em dashes, AI vocabulary clustering, manufactured insight, staccato fragments,
   ghost/spectral language, formulaic openers, signposted conclusions, markdown
-  heading structure, corporate AI register, and experiential vacancy. Triggers when
-  the user wants to humanise, de-AI, de-slop, or clean up text that "reads like
-  AI", "sounds like ChatGPT wrote it", "sounds robotic", or has visible AI tells.
-  Also triggers for "make this sound like a person wrote it", "strip the AI out",
-  "flag AI patterns", or reviewing text for AI fingerprints. Does NOT trigger for
-  writing from scratch, proofreading, translating, summarising, or general style
-  editing unrelated to AI patterns.
+  heading structure, corporate AI register, neutrality collapse, tonal uniformity,
+  and experiential vacancy. Triggers when the user wants to humanise, de-AI,
+  de-slop, or clean up text that "reads like AI", "sounds like ChatGPT wrote it",
+  "sounds robotic", "sounds too balanced", "voice got neutralised", or has visible
+  AI tells. Also triggers for "make this sound like a person wrote it", "strip the
+  AI out", "flag AI patterns", or reviewing text for AI fingerprints. Does NOT
+  trigger for writing from scratch, proofreading, translating, summarising, or
+  general style editing unrelated to AI patterns.
 ---
 
 # Humanise: Remove AI writing patterns
 
-Edit text to remove signs of AI generation while preserving meaning and adding genuine voice. Based on Wikipedia's "Signs of AI writing" guide, maintained by WikiProject AI Cleanup.
+Edit text to remove signs of AI generation while preserving meaning and the author's voice. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
 
 ## Your task
 
@@ -71,20 +72,32 @@ A sentence should be as long as the thought it contains. When you find fragments
 
 ## Personality and soul
 
-Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as obvious as slop.
+### The real problem: subtraction
 
-The root problem is **experiential vacancy**: AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+Most AI tells are things AI **adds** — vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
 
-A related problem is **density without purpose**. A good writer uses em dashes, triads, and parallelism sparingly, with intention. AI litters them throughout indiscriminately. The issue is not that any single device appears, but that they cluster and serve no rhetorical purpose. When scanning for patterns, watch for pileups.
+Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
+
+### Experiential vacancy
+
+AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related move is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
+
+Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+
+### Density without purpose
+
+A good writer uses em dashes, triads, and parallelism sparingly, with intention. AI litters them throughout indiscriminately. The issue is not that any single device appears, but that they cluster and serve no rhetorical purpose. When scanning for patterns, watch for pileups.
 
 ### Signs of soulless writing (even if technically clean):
 - Every sentence follows the same length and structure
-- No opinions, just neutral reporting
+- No opinions, just neutral reporting — stance has been stripped or was never there
 - No acknowledgment of uncertainty or mixed feelings
-- No appropriate point-of-view presence
+- No appropriate point-of-view presence; pronouns depleted
 - No humour, no edge, no personality
-- Observations are universally relatable but never personally specific
-- Emotionally safe: never takes an uncomfortable position or risks making the reader feel something difficult
+- Observations are universally relatable but never personally specific (faux specificity)
+- Emotionally safe: never takes an uncomfortable position
+- Tonal uniformity: one register throughout, no drift or register breaks (pattern 35)
+- Every paragraph wraps up neatly with a miniature conclusion (pattern 34)
 
 ### How to add voice:
 
@@ -98,6 +111,8 @@ A related problem is **density without purpose**. A good writer uses em dashes, 
 
 **Be specific rather than atmospheric.** Instead of mood words ("eerie", "striking", "fascinating"), describe the concrete detail that caused the feeling.
 
+**Break register.** If the whole text sits in one tone, introduce at least one register shift — a moment of informality, a parenthetical doubt, a change in sentence rhythm.
+
 ### Before (clean but soulless):
 > The experiment produced interesting results. The agents generated 3 million lines of code. Some developers were impressed while others were sceptical. The implications remain unclear.
 
@@ -108,15 +123,16 @@ A related problem is **density without purpose**. A good writer uses em dashes, 
 
 ## Pattern catalogue
 
-Read [references/patterns.md](references/patterns.md) for all 32 AI writing patterns with words-to-watch and before/after examples, organised as:
+Read [references/patterns.md](references/patterns.md) for all 37 AI writing patterns with words-to-watch and before/after examples, organised as:
 
 - **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
-- **Language and grammar (7-12):** AI vocabulary words, copula avoidance, negative parallelisms, rule of three, synonym cycling, false ranges
+- **Language and grammar (7-12):** AI vocabulary words (41+), copula avoidance, negative parallelisms, rule of three, synonym cycling, false ranges
 - **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
 - **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
 - **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
 - **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
-- **Structural tells (29-32):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions
+- **Structural tells (29-34):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, countdown negation, per-paragraph miniature conclusions
+- **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
 
 Search for specific patterns when needed:
 ```bash
@@ -135,7 +151,7 @@ Save the input text to a temp file, then run the grading script on it:
 python3 evals/grade.py /tmp/input.md
 ```
 
-The script checks 26 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading a 426-line reference file.
+The script checks 29 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading the reference file.
 
 If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. But prefer the script when possible.
 
@@ -147,12 +163,26 @@ If the script is not available (e.g. no Python, or running in Claude.ai), fall b
    - **Forced synesthesia (28)** and **generic metaphors (30)**
    - **Experiential vacancy** and **density without purpose**
    - **Structural monotony:** every paragraph follows topic sentence → elaboration → restatement. Vary paragraph lengths and structures. Some paragraphs should be one sentence. Some should start with evidence, not claims.
+   - **Tonal uniformity (35):** does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break.
+   - **Faux specificity (36):** are the "specific" examples actually specific to anyone, or genre-convention filler? "The smell of coffee on a Sunday morning" is a stock photo in prose form.
+   - **Neutrality collapse (37):** does the text take a position? If the input had a stance, make sure the output keeps it. "There are pros and cons" is not a rewrite of an opinion.
+   - **Even jargon distribution:** humans clump technical terms when introducing a concept then relax into plain language. AI distributes jargon uniformly. If technical vocabulary is spread too evenly, clump it.
 4. Add personality and voice per the Personality and soul section
 5. Preserve meaning and match the intended tone
+
+### Step 2.5: Semantic preservation check
+
+Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (2026) showed that LLMs shift meaning even in grammar-only passes — and this skill is itself an LLM rewriting text. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position. Check:
+
+- Did the input have an opinion? Does the output still have it?
+- Are there fewer pronouns in the output than the input? If so, why?
+- Did specific claims get softened into "on the other hand" balance?
 
 ### Step 3: Self-audit
 
 - Ask: "What makes this so obviously AI generated?"
+- Ask: "Did I preserve the author's original position, or did I neutralise it?"
+- Ask: "Does every paragraph end neatly, or do some leave threads open?"
 - List remaining tells
 - Revise to eliminate them
 - Repeat until no obvious tells remain or changes are cosmetic only
@@ -165,7 +195,7 @@ Run the grading script on your output:
 python3 evals/grade.py /tmp/output.md
 ```
 
-If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 26 checks should pass.
+If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 29 checks should pass.
 
 If the script is not available, manually verify: search output for the em dash character (count must be zero), scan for any manufactured insight phrases, check for staccato sequences.
 
@@ -248,3 +278,5 @@ If the script is not available, manually verify: search output for the em dash c
 - [Sam Kriss, "Why Does A.I. Write Like ... That?"](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), NYT Magazine (patterns 26-28: ghost language, quietness, synesthesia)
 - [Charlie Guo, "The Field Guide to AI Slop"](https://www.ignorance.ai/p/the-field-guide-to-ai-slop) (patterns 29-32: rhetorical questions, metaphors, list-making, dramatic transitions; density framing)
 - [Grammarly, "Common Words and Phrases in AI-Generated Content"](https://www.grammarly.com/blog/ai/common-ai-words/) (expanded vocabulary list)
+- [Abdulhai et al., "How LLMs Distort Our Written Language"](https://arxiv.org/abs/2603.18161), 2026 (subtraction framing: neutrality collapse, pronoun depletion, semantic drift; patterns 35-37)
+- [Nature, "Signs of AI-generated text found in 14% of biomedical abstracts"](https://www.nature.com/articles/d41586-025-02097-6), 2025 (vocabulary items, temporal fingerprinting)

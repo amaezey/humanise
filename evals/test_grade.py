@@ -406,6 +406,56 @@ expect_pass("no-excessive-hedging",
     "2 hedging constructions (under threshold)")
 
 
+# --- no-countdown-negation ---
+
+print("\n=== no-countdown-negation ===")
+expect_fail("no-countdown-negation",
+    "It wasn't the data. It wasn't the model. It was the prompt.",
+    "classic countdown negation: two negations then reveal")
+expect_fail("no-countdown-negation",
+    "This isn't about money. This isn't about power. This is about principle.",
+    "countdown with 'this isn't'")
+expect_pass("no-countdown-negation",
+    "It wasn't ready on Monday. The team finished it by Wednesday.",
+    "single negation followed by unrelated statement")
+expect_pass("no-countdown-negation",
+    "The building was not damaged. It was inspected the following day.",
+    "factual negation, not a countdown pattern")
+
+
+# --- vocabulary-diversity ---
+
+print("\n=== vocabulary-diversity ===")
+expect_pass("vocabulary-diversity",
+    "Short text with only a few words.",
+    "short text skipped (under 150 words)")
+expect_fail("vocabulary-diversity",
+    " ".join(["the system is very good and the system is very effective and the system is very reliable"] * 20),
+    "extremely repetitive text with low TTR")
+expect_pass("vocabulary-diversity",
+    "The cathedral was built between 1163 and 1345 on the Ile de la Cite in Paris. "
+    "Its flying buttresses were among the first in Gothic architecture, allowing thinner walls "
+    "and larger stained glass windows. During the French Revolution, much of the religious imagery "
+    "was damaged or destroyed, and the building served briefly as a warehouse. Victor Hugo's 1831 "
+    "novel drew public attention to its deteriorating condition, prompting a major restoration led "
+    "by architect Eugene Viollet-le-Duc. The spire he added collapsed during the 2019 fire, which "
+    "also destroyed the oak roof frame known as 'the forest' because of the number of trees used "
+    "in its construction. Rebuilding efforts have drawn craftspeople from across Europe using both "
+    "traditional and modern techniques. The limestone facade has been cleaned for the first time in "
+    "decades, revealing the original pale colour beneath centuries of pollution. Historians debate "
+    "whether the restoration should preserve Viollet-le-Duc's additions or return to an earlier "
+    "medieval form. The cathedral reopened in December 2024 after five years of intensive work.",
+    "varied human prose with diverse vocabulary")
+
+
+# --- new vocabulary items ---
+
+print("\n=== new vocabulary items (spot check) ===")
+expect_fail("no-ai-vocabulary-clustering",
+    "The unparalleled results were invaluable to the meticulous research team.",
+    "'unparalleled' + 'invaluable' + 'meticulous' = 3 new AI vocab items")
+
+
 # --- Summary ---
 
 print(f"\n{'='*40}")
