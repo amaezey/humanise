@@ -1,7 +1,7 @@
 ---
 title: "feat: Add structural AI detection and depth-aware rewriting"
 type: feat
-status: active
+status: completed
 date: 2026-04-01
 ---
 
