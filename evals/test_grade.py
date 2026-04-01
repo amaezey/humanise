@@ -392,6 +392,20 @@ expect_pass("no-this-chains",
     "only 1 This [verb], then a different subject")
 
 
+# --- no-excessive-hedging ---
+
+print("\n=== no-excessive-hedging ===")
+expect_fail("no-excessive-hedging",
+    "The impact is often framed as transformative. The role is widely regarded as essential. The outcome cannot be overstated. Success is contingent on execution.",
+    "4 hedging constructions in one text")
+expect_pass("no-excessive-hedging",
+    "The bridge was built in 1937. It cost twelve million dollars. Construction took four years.",
+    "no hedging")
+expect_pass("no-excessive-hedging",
+    "Cooking is often framed as a chore. The value is increasingly recognised. But most people just want dinner.",
+    "2 hedging constructions (under threshold)")
+
+
 # --- Summary ---
 
 print(f"\n{'='*40}")

@@ -243,6 +243,25 @@
         {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
         {"name": "meaning-preservation", "type": "qualitative", "description": "Declines the meeting and proposes alternative times"}
       ]
+    },
+    {
+      "id": 13,
+      "name": "passthrough-human",
+      "prompt": "Humanise the following personal essay.",
+      "expected_output": "Text should be left mostly unchanged since it is already human-written with no AI tells",
+      "files": ["evals/samples/9-passthrough-human.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-excessive-hedging", "type": "programmatic", "description": "No excessive hedging", "check": "count < 4"},
+        {"name": "passthrough-quality", "type": "qualitative", "description": "Output should be minimally changed from input since the input has no AI tells. Named people, specific memories, and personal voice should be preserved intact."}
+      ]
     }
   ]
 }

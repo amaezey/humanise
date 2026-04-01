@@ -616,6 +616,45 @@ def check_this_chains(text):
     }
 
 
+HEDGING_PATTERNS = [
+    r"\bis (?:often|frequently|widely|commonly|generally|typically) (?:framed|seen|viewed|regarded|considered|described|understood|presented|perceived|characterized|characterised)\b",
+    r"\bis (?:increasingly|often) (?:measured|prioritised|prioritized|recognized|recognised|valued|questioned)\b",
+    r"\bis (?:contingent|predicated|dependent) on\b",
+    r"\bcannot be (?:overstated|understated|ignored|dismissed|overlooked)\b",
+    r"\bis (?:difficult|hard|impossible) to (?:overstate|ignore|deny|dismiss|overlook)\b",
+    r"\bremains (?:to be seen|unclear|uncertain|an open question)\b",
+    r"\bit (?:could|might|may) be argued\b",
+    r"\bis not (?:guaranteed|without)\b",
+    r"\bis (?:overstated|understated|underestimated|overestimated)\b",
+    r"\bis less about\b.*\bmore about\b",
+    r"\ba common (?:assumption|misconception|objection|criticism) is\b",
+]
+
+
+def check_hedging_density(text):
+    """Detect excessive impersonal passive hedging density."""
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    total_matches = 0
+    all_found = []
+    for para in paragraphs:
+        para_lower = para.lower()
+        for pat in HEDGING_PATTERNS:
+            found = re.findall(pat, para_lower)
+            if found:
+                total_matches += len(found)
+                all_found.extend(found)
+    # Flag at 4+ hedging constructions across the whole text
+    return {
+        "text": "no-excessive-hedging",
+        "passed": total_matches < 4,
+        "evidence": (
+            f"Found {total_matches} hedging constructions: {all_found[:5]}"
+            if total_matches >= 4
+            else f"Hedging constructions: {total_matches}"
+        ),
+    }
+
+
 # --- Registry ---
 
 ALL_CHECKS = {
@@ -645,6 +684,7 @@ ALL_CHECKS = {
     "no-markdown-headings": check_markdown_headings,
     "no-corporate-ai-speak": check_corporate_ai_speak,
     "no-this-chains": check_this_chains,
+    "no-excessive-hedging": check_hedging_density,
 }
 
 
