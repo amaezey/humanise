@@ -1,0 +1,867 @@
+#!/usr/bin/env python3
+"""Grade humanised text against programmatic assertions."""
+
+import json
+import re
+import sys
+from pathlib import Path
+from statistics import stdev
+
+
+# --- Pattern lists ---
+
+AI_VOCABULARY = [
+    "additionally", "crucial", "delve", "emphasizing",
+    "enduring", "enhance", "fostering", "garner", "interplay",
+    "intricate", "intricacies", "landscape", "pivotal", "showcase",
+    "showcasing", "tapestry", "testament", "underscore", "underscoring",
+    "valuable", "vibrant", "foster", "highlighting",
+    # Added from Grammarly research
+    "realm", "harness", "illuminate", "facilitate", "bolster",
+    "streamline", "shed light on", "revolutionize", "innovative",
+    "cutting-edge", "game-changing", "transformative", "seamlessly",
+    # Added from user observations
+    "genuinely", "unspoken", "seamless",
+    # Added from April 2026 research (Nature biomedical study, practitioner guides)
+    "unparalleled", "invaluable", "bolstered", "meticulous",
+]
+
+# Multi-word phrases where the first word may be inflected (e.g. "align with" ->
+# "aligns with", "aligned with"). Checked via regex, not substring.
+AI_VOCABULARY_REGEX = [
+    r"aligns? with\b",
+    r"aligned with\b",
+    r"aligning with\b",
+    # "actually" as filler intensifier (not "actually happened", "actually did")
+    r"\bactually[,.]",
+    r"\band actually\b",
+    r"\bbut actually\b",
+    # "land/lands" as metaphor for reception (not physical land)
+    r"\bhow (?:it|that|this) lands?\b",
+    r"\blands? (?:well|differently|flat|poorly|awkwardly)\b",
+    # "hidden" when inflating significance of the ordinary
+    r"\bhidden (?:truth|depth|meaning|complexity|beauty|power|gem|lesson|cost)\b",
+]
+
+# Broad set: catches both the obvious ("let that sink in") and the subtler
+# framing moves ("the reason is straightforward", "what's strange is")
+MANUFACTURED_INSIGHT = [
+    # False revelation
+    r"what's really", r"the real answer", r"here's what's really",
+    r"the real story is", r"what's actually happening",
+    # Contrived contrarianism
+    r"what nobody is talking about", r"what no one seems to realize",
+    r"contrary to popular belief", r"the uncomfortable truth",
+    r"what gets lost in the conversation", r"what most people miss",
+    # Performed knowingness
+    r"let that sink in", r"read that again", r"if you know,? you know",
+    r"and that changes everything", r"which tells you everything",
+    r"and that's the point", r"and honestly\??",
+    # Pseudo-profundity
+    r"quietly revolutionary", r"quietly becoming", r"the quiet part",
+    # Formulaic depth framing
+    r"what's strange is", r"what's interesting is", r"what's remarkable is",
+    r"the reason is straightforward", r"the reason is simple",
+    r"here's the thing:?", r"here's why:?", r"but here's",
+    # "The real X?" rhetorical revelation
+    r"the real (?:insight|challenge|takeaway|kicker|question)\??",
+    # Performed revelation closings
+    r"a (?:quiet|powerful|important|profound) lesson",
+    r"a (?:quiet|powerful|important|profound) reminder",
+    r"sometimes the (?:bravest|hardest|most important)",
+    # Contrived contrast as insight
+    r"this isn't [\w\s]+\. it's ",
+    r"that's not [\w\s]+\. that's ",
+]
+
+COLLABORATIVE_ARTIFACTS = [
+    r"\bi hope this helps", r"\bgreat question", r"\blet me know",
+    r"\bhere is a\b", r"\bwould you like", r"\bcertainly!",
+    r"\bof course!", r"\byou're absolutely right",
+    # Soft offer-to-continue variants
+    r"if needed,?\s+(?:I can|the .* can be|this can be)\b",
+    r"if (?:you'd like|you need|you want),?\s+I can\b",
+    r"\bfeel free to\b", r"\bdon't hesitate to\b",
+]
+
+PROMOTIONAL = [
+    "breathtaking", "stunning", "nestled", "profound",
+    "showcasing", "exemplifies", "must-visit", "groundbreaking",
+    "renowned",
+]
+
+SIGNIFICANCE_INFLATION = [
+    "pivotal", "crucial", "vital role", "testament",
+    "evolving landscape", "indelible mark", "key turning point",
+    "deeply rooted", "setting the stage", "remarkably",
+    "strikingly", "staggering",
+]
+
+COPULA_AVOIDANCE = [
+    r"serves? as\b", r"stands? as\b", r"functions? as\b",
+    r"marks? a\b", r"represents? a\b",
+    r"boasts?\b", r"features?\b(?! film| movie| documentary)",
+]
+
+FILLER_PHRASES = [
+    r"in order to\b", r"due to the fact that",
+    r"at this point in time", r"it is important to note",
+    r"it is worth noting", r"it is worth (?:recognising|mentioning|emphasising|highlighting|acknowledging)",
+    r"it should be noted",
+    r"has the ability to", r"in the event that",
+    r"on the whole", r"at the end of the day",
+    r"when all is said and done", r"the fact of the matter",
+    r"is often framed as\b", r"is often (?:seen|viewed|regarded|described|characterized) as\b",
+]
+
+GENERIC_CONCLUSIONS = [
+    r"the future looks bright", r"exciting times",
+    r"continue (?:this|their|our) journey",
+    r"a? ?step in the right direction",
+    r"remains to be seen",
+]
+
+
+# --- Utility ---
+
+def split_sentences(text):
+    """Split text into sentences (rough but usable)."""
+    text = re.sub(r'\n+', ' ', text)
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+    return [s.strip() for s in sentences if s.strip()]
+
+
+def count_pattern_matches(text, patterns):
+    """Count total matches of regex patterns in text (case-insensitive)."""
+    text_lower = text.lower()
+    total = 0
+    matches = []
+    for pat in patterns:
+        found = re.findall(pat, text_lower)
+        if found:
+            total += len(found)
+            matches.extend(found)
+    return total, matches
+
+
+# --- Checks ---
+
+def check_em_dashes(text):
+    count = text.count('\u2014')
+    return {
+        "text": "no-em-dashes",
+        "passed": count == 0,
+        "evidence": f"Found {count} em dash(es)" if count > 0 else "No em dashes found",
+    }
+
+
+def _find_ai_words(text_lower):
+    """Find AI vocabulary in text, including inflected multi-word phrases."""
+    found = [w for w in AI_VOCABULARY if w in text_lower]
+    for pat in AI_VOCABULARY_REGEX:
+        if re.search(pat, text_lower):
+            found.append(re.search(pat, text_lower).group())
+    return found
+
+
+def check_ai_vocabulary(text):
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    max_count = 0
+    worst_words = []
+    for para in paragraphs:
+        para_lower = para.lower()
+        found = _find_ai_words(para_lower)
+        if len(found) > max_count:
+            max_count = len(found)
+            worst_words = found
+    # Also report total count across the whole text
+    text_lower = text.lower()
+    total = len(_find_ai_words(text_lower))
+    return {
+        "text": "no-ai-vocabulary-clustering",
+        "passed": max_count < 3,
+        "evidence": (
+            f"Worst paragraph has {max_count} AI words: {worst_words} ({total} total in text)"
+            if max_count >= 3
+            else f"Max AI words per paragraph: {max_count} ({total} total in text)"
+        ),
+    }
+
+
+def check_manufactured_insight(text):
+    count, matches = count_pattern_matches(text, MANUFACTURED_INSIGHT)
+    return {
+        "text": "no-manufactured-insight",
+        "passed": count == 0,
+        "evidence": f"Found {count}: {matches}" if count > 0 else "No manufactured insight phrases",
+    }
+
+
+def check_staccato(text):
+    sentences = split_sentences(text)
+    max_run = 0
+    current_run = 0
+    for s in sentences:
+        words = len(s.split())
+        if words < 6:
+            current_run += 1
+            max_run = max(max_run, current_run)
+        else:
+            current_run = 0
+    return {
+        "text": "no-staccato-sequences",
+        "passed": max_run < 3,
+        "evidence": (
+            f"Found sequence of {max_run} consecutive short sentences"
+            if max_run >= 3
+            else f"Max consecutive short sentences: {max_run}"
+        ),
+    }
+
+
+def check_anaphora(text):
+    """Detect 3+ consecutive sentences starting with the same word/phrase."""
+    sentences = split_sentences(text)
+    if len(sentences) < 3:
+        return {
+            "text": "no-anaphora",
+            "passed": True,
+            "evidence": "Too few sentences to check",
+        }
+    max_run = 1
+    current_run = 1
+    worst_word = ""
+    for i in range(1, len(sentences)):
+        prev_start = sentences[i - 1].split()[0].lower() if sentences[i - 1].split() else ""
+        curr_start = sentences[i].split()[0].lower() if sentences[i].split() else ""
+        if prev_start == curr_start and prev_start not in ("i", "a", "the", "it's", "it"):
+            current_run += 1
+            if current_run > max_run:
+                max_run = current_run
+                worst_word = curr_start
+        else:
+            current_run = 1
+    return {
+        "text": "no-anaphora",
+        "passed": max_run < 3,
+        "evidence": (
+            f"Found {max_run} consecutive sentences starting with '{worst_word}'"
+            if max_run >= 3
+            else f"Max anaphora run: {max_run}"
+        ),
+    }
+
+
+def check_collaborative_artifacts(text):
+    count, matches = count_pattern_matches(text, COLLABORATIVE_ARTIFACTS)
+    return {
+        "text": "no-collaborative-artifacts",
+        "passed": count == 0,
+        "evidence": f"Found: {matches}" if count > 0 else "No collaborative artifacts",
+    }
+
+
+def check_curly_quotes(text):
+    curly = ['\u201c', '\u201d', '\u2018', '\u2019']
+    count = sum(text.count(c) for c in curly)
+    return {
+        "text": "no-curly-quotes",
+        "passed": count == 0,
+        "evidence": f"Found {count} curly quote(s)" if count > 0 else "No curly quotes",
+    }
+
+
+def check_sentence_variance(text):
+    sentences = split_sentences(text)
+    word_count = len(text.split())
+    # Skip for short-form text where low variance is expected, not an AI tell
+    if len(sentences) < 6 and word_count < 100:
+        return {
+            "text": "sentence-length-variance",
+            "passed": True,
+            "evidence": f"Skipped: short text ({word_count} words, {len(sentences)} sentences)",
+        }
+    if len(sentences) < 3:
+        return {
+            "text": "sentence-length-variance",
+            "passed": False,
+            "evidence": "Too few sentences to measure variance",
+        }
+    lengths = [len(s.split()) for s in sentences]
+    sd = stdev(lengths)
+    return {
+        "text": "sentence-length-variance",
+        "passed": sd > 4,
+        "evidence": f"Sentence length stdev: {sd:.1f} (target: >4)",
+    }
+
+
+def check_promotional(text):
+    text_lower = text.lower()
+    found = [w for w in PROMOTIONAL if w in text_lower]
+    return {
+        "text": "no-promotional-language",
+        "passed": len(found) == 0,
+        "evidence": f"Found: {found}" if found else "No promotional language",
+    }
+
+
+def check_significance_inflation(text):
+    text_lower = text.lower()
+    found = [w for w in SIGNIFICANCE_INFLATION if w in text_lower]
+    return {
+        "text": "no-significance-inflation",
+        "passed": len(found) == 0,
+        "evidence": f"Found: {found}" if found else "No significance inflation",
+    }
+
+
+def check_negative_parallelisms(text):
+    patterns = [r"not just\b.*?\bbut\b", r"not only\b.*?\bbut also\b",
+                r"it's not about\b.*?\bit's about\b",
+                r"it's not [\w\s]+[;,] it's\b",
+                # Cross-sentence "not X. It is Y" reframing
+                r"not (?:about|just about) [\w\s]+\.\s+it is (?:about|a\b)",
+                r"is less about\b.*?\bthan (?:about )?\b",
+                r"is not [\w\s]+but\b",
+                ]
+    count, matches = count_pattern_matches(text, patterns)
+    return {
+        "text": "no-negative-parallelisms",
+        "passed": count == 0,
+        "evidence": f"Found {count} negative parallelism(s)" if count > 0 else "No negative parallelisms",
+    }
+
+
+def check_copula_avoidance(text):
+    count, matches = count_pattern_matches(text, COPULA_AVOIDANCE)
+    return {
+        "text": "no-copula-avoidance",
+        "passed": count == 0,
+        "evidence": f"Found {count}: {matches}" if count > 0 else "No copula avoidance",
+    }
+
+
+def check_filler_phrases(text):
+    count, matches = count_pattern_matches(text, FILLER_PHRASES)
+    return {
+        "text": "no-filler-phrases",
+        "passed": count == 0,
+        "evidence": f"Found {count}: {matches}" if count > 0 else "No filler phrases",
+    }
+
+
+def check_generic_conclusions(text):
+    count, matches = count_pattern_matches(text, GENERIC_CONCLUSIONS)
+    return {
+        "text": "no-generic-conclusions",
+        "passed": count == 0,
+        "evidence": f"Found {count}: {matches}" if count > 0 else "No generic conclusions",
+    }
+
+
+def check_rule_of_three(text):
+    """Detect forced triads: 'X, Y, and Z' patterns that cluster heavily."""
+    # Find all "A, B, and C" patterns where all three are abstract nouns
+    # Suffixes: -ing, -tion, -sion, -ment, -ness, -ity, -ity, -nce, -ncy, -cy, -ism, -ity
+    _abs = r'\b\w+(?:ing|tion|sion|ment|ness|ity|ence|ance|ency|ancy|cy|ism)\b'
+    pattern = rf'({_abs}), ({_abs}),? and ({_abs})'
+    matches = re.findall(pattern, text.lower())
+    count = len(matches)
+    return {
+        "text": "no-forced-triads",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} abstract triad(s): {[', '.join(m) for m in matches]}"
+            if count > 0
+            else "No forced triads"
+        ),
+    }
+
+
+def check_superficial_ing(text):
+    """Detect sentences ending with tacked-on -ing phrases (pattern 3)."""
+    pattern = r',\s+(?:highlighting|underscoring|emphasizing|reflecting|symbolizing|contributing to|cultivating|fostering|encompassing|showcasing|ensuring|demonstrating|illustrating|reinforcing|signaling|representing)\b[^.]*\.'
+    matches = re.findall(pattern, text.lower())
+    count = len(matches)
+    return {
+        "text": "no-superficial-ing",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} tacked-on -ing phrase(s)"
+            if count > 0
+            else "No superficial -ing phrases"
+        ),
+    }
+
+
+def check_ghost_spectral(text):
+    """Detect ghost/spectral language density (pattern 26)."""
+    words = ["ghost", "ghosts", "spectral", "shadow", "shadows", "whisper",
+             "whispers", "echo", "echoes", "phantom", "haunting", "haunted",
+             "lingering", "remnant", "remnants", "unspoken", "hidden"]
+    text_lower = text.lower()
+    found = [w for w in words if w in text_lower]
+    count = sum(text_lower.count(w) for w in found)
+    return {
+        "text": "no-ghost-spectral-density",
+        "passed": count < 3,
+        "evidence": (
+            f"Found {count} ghost/spectral words: {found}"
+            if count >= 3
+            else f"Ghost/spectral words: {count}"
+        ),
+    }
+
+
+def check_quietness(text):
+    """Detect quietness obsession density (pattern 27)."""
+    words = ["quiet", "quietly", "softly", "stillness", "hushed",
+             "murmur", "gentle", "tender", "settled"]
+    text_lower = text.lower()
+    count = sum(text_lower.count(w) for w in words)
+    # Allow some usage. Flag at 4+ in a piece, which suggests obsession.
+    word_count = len(text_lower.split())
+    density = count / max(word_count, 1) * 1000  # per 1000 words
+    return {
+        "text": "no-quietness-obsession",
+        "passed": count < 4,
+        "evidence": (
+            f"Found {count} quietness words ({density:.1f} per 1000 words)"
+            if count >= 4
+            else f"Quietness words: {count}"
+        ),
+    }
+
+
+def check_rhetorical_questions(text):
+    """Detect mid-sentence rhetorical questions (pattern 29)."""
+    # Pattern: short question (under 8 words) followed by a declarative answer
+    pattern = r'[.!]\s+([^.?!]{3,50}\?)\s+(?:It\'?s?|They\'re|You|We|The|This|That|And)\b'
+    matches = re.findall(pattern, text)
+    count = len(matches)
+    return {
+        "text": "no-rhetorical-questions",
+        "passed": count < 2,
+        "evidence": (
+            f"Found {count} mid-sentence rhetorical question(s): {matches[:3]}"
+            if count >= 2
+            else f"Rhetorical questions: {count}"
+        ),
+    }
+
+
+def check_list_density(text):
+    """Detect excessive list-making (pattern 31)."""
+    lines = text.strip().split('\n')
+    bullet_lines = sum(1 for line in lines if re.match(r'\s*[-*]\s', line) or re.match(r'\s*\d+\.\s', line))
+    total_lines = max(len(lines), 1)
+    ratio = bullet_lines / total_lines
+    return {
+        "text": "no-excessive-lists",
+        "passed": ratio < 0.3,
+        "evidence": (
+            f"List ratio: {ratio:.0%} ({bullet_lines}/{total_lines} lines are bullets)"
+            if ratio >= 0.3
+            else f"List ratio: {ratio:.0%}"
+        ),
+    }
+
+
+def check_dramatic_transitions(text):
+    """Detect dramatic narrative transitions (pattern 32)."""
+    patterns = [
+        r"something shifted", r"everything changed", r"everything clicked",
+        r"that's when it hit me", r"and that made all the difference",
+        r"that changed everything", r"nothing was the same",
+        r"the beginning of everything", r"the real turning point",
+    ]
+    count, matches = count_pattern_matches(text, patterns)
+    return {
+        "text": "no-dramatic-transitions",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count}: {matches}"
+            if count > 0
+            else "No dramatic transitions"
+        ),
+    }
+
+
+def check_formulaic_openers(text):
+    """Detect formulaic paragraph-opening phrases typical of AI text."""
+    patterns = [
+        r"^at (?:a|the) (?:foundational|fundamental|basic|practical|structural) level[,:]",
+        r"^beyond (?:this|that|these|those|\w+(?:tion|ment|ness|ity|ance|ence)),",
+        r"^at its core[,:]",
+        r"^there is (?:also )?(?:a|an) \w+ (?:dimension|aspect|element|component|factor)",
+        r"^it is (?:also )?worth (?:recognising|noting|mentioning|emphasising|acknowledging|highlighting)",
+        r"^from (?:a|an|the) \w+ (?:perspective|standpoint|point of view)[,:]",
+        r"^on a (?:\w+ )?level[,:]",
+        r"^in (?:a|the) (?:broader|wider|larger|similar) (?:context|sense|vein)[,:]",
+        r"^perhaps (?:most )?(?:importantly|significantly|notably|crucially)[,:]",
+        r"^what (?:is|makes) (?:this|it) (?:particularly|especially|uniquely) \w+",
+    ]
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    found = []
+    for para in paragraphs:
+        first_line = para.split('\n')[0].strip()
+        first_lower = first_line.lower()
+        for pat in patterns:
+            if re.search(pat, first_lower):
+                # Truncate to first 60 chars for evidence
+                found.append(first_line[:60])
+                break
+    return {
+        "text": "no-formulaic-openers",
+        "passed": len(found) == 0,
+        "evidence": (
+            f"Found {len(found)} formulaic opener(s): {found}"
+            if found
+            else "No formulaic openers"
+        ),
+    }
+
+
+def check_signposted_conclusions(text):
+    """Detect explicitly labelled conclusions typical of AI text."""
+    patterns = [
+        r"^in (?:summary|conclusion)[,:]",
+        r"^to (?:summarise|summarize|conclude|sum up|wrap up)[,:]",
+        r"^(?:#+\s*)?conclusion\s*$",
+        r"^(?:#+\s*)?final thoughts\s*$",
+        r"^(?:#+\s*)?key takeaways?\s*$",
+        r"^(?:#+\s*)?summing up\s*$",
+    ]
+    lines = text.strip().split('\n')
+    found = []
+    for line in lines:
+        line_lower = line.strip().lower()
+        for pat in patterns:
+            if re.search(pat, line_lower):
+                found.append(line.strip()[:60])
+                break
+    return {
+        "text": "no-signposted-conclusions",
+        "passed": len(found) == 0,
+        "evidence": (
+            f"Found {len(found)}: {found}"
+            if found
+            else "No signposted conclusions"
+        ),
+    }
+
+
+def check_markdown_headings(text):
+    """Detect markdown heading structure in prose (AI essays use ## sections)."""
+    headings = re.findall(r'^#{1,3}\s+.+', text, re.MULTILINE)
+    return {
+        "text": "no-markdown-headings",
+        "passed": len(headings) == 0,
+        "evidence": (
+            f"Found {len(headings)} heading(s): {[h[:50] for h in headings[:5]]}"
+            if headings
+            else "No markdown headings"
+        ),
+    }
+
+
+def check_corporate_ai_speak(text):
+    """Detect corporate/LinkedIn AI register."""
+    patterns = [
+        r"deliver(?:ing|s|ed)? impact\b",
+        r"measurable outcomes?\b",
+        r"deliverable outcomes?\b",
+        r"scalable[,\s]+production[- ]grade",
+        r"pragmatic approach\b",
+        r"drives? (?:\w+ )?outcomes?\b",
+        r"cross-functional\b",
+        r"end-to-end (?:development|delivery|solution)",
+        r"translate[sd]? (?:\w+ )?requirements into (?:\w+ )?(?:outcomes|deliverables|solutions|results)",
+        r"stakeholder (?:alignment|engagement|management)\b",
+        r"actionable insights?\b",
+        r"leverage[sd]? (?:my |our |the )?\w+ (?:experience|expertise)\b",
+    ]
+    count, matches = count_pattern_matches(text, patterns)
+    return {
+        "text": "no-corporate-ai-speak",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count}: {matches}"
+            if count > 0
+            else "No corporate AI speak"
+        ),
+    }
+
+
+def check_this_chains(text):
+    """Detect 3+ consecutive sentences starting with 'This [verb]'."""
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    worst_run = 0
+    for para in paragraphs:
+        sentences = split_sentences(para)
+        current_run = 0
+        for s in sentences:
+            if re.match(r'^this\s+(?!is\b)\w+', s.strip().lower()):
+                current_run += 1
+                worst_run = max(worst_run, current_run)
+            else:
+                current_run = 0
+    return {
+        "text": "no-this-chains",
+        "passed": worst_run < 3,
+        "evidence": (
+            f"Found {worst_run} consecutive 'This [verb]' sentences"
+            if worst_run >= 3
+            else f"Max 'This [verb]' run: {worst_run}"
+        ),
+    }
+
+
+def check_countdown_negation(text):
+    """Detect dramatic countdown negation.
+
+    Branch 1: 'It wasn't X. It wasn't Y. It was Z.' — 2+ negation sentences
+    with it/this/that followed by an affirmative reveal.
+
+    Branch 2: 'You can't X. You can't Y. You can't Z.' — 3+ consecutive
+    sentences where the same subject pronoun is followed by a negated verb.
+    No affirmative reveal required. Threshold is 3 because 2 consecutive
+    same-subject negations are common in opinion writing.
+    """
+    # Branch 1: existing countdown-then-reveal pattern (do not change)
+    pattern = r'(?:(?:it|this|that) (?:wasn\'t|isn\'t|was not|is not) [^.?!]+[.]\s*){2,}(?:it|this|that) (?:was|is) [^.?!]+[.]'
+    matches = re.findall(pattern, text.lower())
+    if matches:
+        return {
+            "text": "no-countdown-negation",
+            "passed": False,
+            "evidence": f"Found {len(matches)} countdown negation sequence(s)",
+        }
+
+    # Branch 2: 3+ consecutive same-subject pronoun-negation sentences
+    negated_verbs = r"(?:can't|won't|don't|shouldn't|couldn't|cannot|will not|do not|should not|could not)"
+    subjects = ("you", "we", "they", "people")
+    sentences = split_sentences(text)
+    max_run = 0
+    current_run = 0
+    current_subject = None
+    for s in sentences:
+        s_lower = s.strip().lower()
+        matched_subject = None
+        for subj in subjects:
+            if re.match(rf'^{subj}\s+{negated_verbs}\b', s_lower):
+                matched_subject = subj
+                break
+        if matched_subject and matched_subject == current_subject:
+            current_run += 1
+            max_run = max(max_run, current_run)
+        elif matched_subject:
+            current_subject = matched_subject
+            current_run = 1
+        else:
+            current_subject = None
+            current_run = 0
+
+    if max_run >= 3:
+        return {
+            "text": "no-countdown-negation",
+            "passed": False,
+            "evidence": f"Found {max_run} consecutive same-subject negation sentences",
+        }
+
+    return {
+        "text": "no-countdown-negation",
+        "passed": True,
+        "evidence": "No countdown negation",
+    }
+
+
+def check_triad_density(text):
+    """Detect high density of three-item lists ('X, Y, and/or Z') regardless of word type."""
+    words = text.split()
+    if len(words) < 300:
+        return {
+            "text": "no-triad-density",
+            "passed": True,
+            "evidence": f"Skipped: short text ({len(words)} words, need 300+)",
+        }
+    # Each item: 1-4 words (handles "peer learning", "decision-making structures")
+    _item = r'\w+(?:[- ]\w+){0,3}'
+    pattern = rf'({_item}),\s+({_item}),?\s+(?:and|or)\s+({_item})'
+    matches = re.findall(pattern, text.lower())
+    count = len(matches)
+    match_strs = [', '.join(m) for m in matches]
+    return {
+        "text": "no-triad-density",
+        "passed": count < 4,
+        "evidence": (
+            f"Found {count} triad(s): {match_strs}"
+            if count >= 4
+            else f"Triads: {count}"
+        ),
+    }
+
+
+def check_type_token_ratio(text):
+    """Detect low vocabulary diversity via type-token ratio."""
+    # Strip markdown and punctuation, extract words
+    clean = re.sub(r'[^a-zA-Z\s]', '', text.lower())
+    words = clean.split()
+    if len(words) < 150:
+        return {
+            "text": "vocabulary-diversity",
+            "passed": True,
+            "evidence": f"Skipped: short text ({len(words)} words, need 150+)",
+        }
+    unique = len(set(words))
+    ratio = unique / len(words)
+    return {
+        "text": "vocabulary-diversity",
+        "passed": ratio > 0.40,
+        "evidence": f"Type-token ratio: {ratio:.3f} ({unique} unique / {len(words)} total, target: >0.40)",
+    }
+
+
+HEDGING_PATTERNS = [
+    r"\bis (?:often|frequently|widely|commonly|generally|typically) (?:framed|seen|viewed|regarded|considered|described|understood|presented|perceived|characterized|characterised)\b",
+    r"\bis (?:increasingly|often) (?:measured|prioritised|prioritized|recognized|recognised|valued|questioned)\b",
+    r"\bis (?:contingent|predicated|dependent) on\b",
+    r"\bcannot be (?:overstated|understated|ignored|dismissed|overlooked)\b",
+    r"\bis (?:difficult|hard|impossible) to (?:overstate|ignore|deny|dismiss|overlook)\b",
+    r"\bremains (?:to be seen|unclear|uncertain|an open question)\b",
+    r"\bit (?:could|might|may) be argued\b",
+    r"\bis not (?:guaranteed|without)\b",
+    r"\bis (?:overstated|understated|underestimated|overestimated)\b",
+    r"\bis less about\b.*\bmore about\b",
+    r"\ba common (?:assumption|misconception|objection|criticism) is\b",
+]
+
+
+def check_section_scaffolding(text):
+    """Detect repeated identical subheadings across sections (pattern 38)."""
+    lines = text.split('\n')
+    counts = {}
+    for line in lines:
+        stripped = line.strip()
+        # Strip leading markdown heading markers
+        stripped = re.sub(r'^#+\s*', '', stripped)
+        normalised = stripped.lower().strip()
+        # Skip empty lines and lines that are only punctuation/markdown markers
+        if not normalised or re.match(r'^[#*_\-=~`>|]+$', normalised):
+            continue
+        # Only count short lines (under 60 chars) — these are labels, not prose
+        if len(normalised) < 60:
+            counts[normalised] = counts.get(normalised, 0) + 1
+    # Flag if any normalised line appears 3+ times
+    repeated = {label: n for label, n in counts.items() if n >= 3}
+    if repeated:
+        worst = max(repeated, key=repeated.get)
+        return {
+            "text": "no-section-scaffolding",
+            "passed": False,
+            "evidence": f"'{worst}' repeated {repeated[worst]} times",
+        }
+    return {
+        "text": "no-section-scaffolding",
+        "passed": True,
+        "evidence": "No repeated section labels",
+    }
+
+
+def check_hedging_density(text):
+    """Detect excessive impersonal passive hedging density."""
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    total_matches = 0
+    all_found = []
+    for para in paragraphs:
+        para_lower = para.lower()
+        for pat in HEDGING_PATTERNS:
+            found = re.findall(pat, para_lower)
+            if found:
+                total_matches += len(found)
+                all_found.extend(found)
+    # Flag at 4+ hedging constructions across the whole text
+    return {
+        "text": "no-excessive-hedging",
+        "passed": total_matches < 4,
+        "evidence": (
+            f"Found {total_matches} hedging constructions: {all_found[:5]}"
+            if total_matches >= 4
+            else f"Hedging constructions: {total_matches}"
+        ),
+    }
+
+
+# --- Registry ---
+
+ALL_CHECKS = {
+    "no-em-dashes": check_em_dashes,
+    "no-ai-vocabulary-clustering": check_ai_vocabulary,
+    "no-manufactured-insight": check_manufactured_insight,
+    "no-staccato-sequences": check_staccato,
+    "no-anaphora": check_anaphora,
+    "no-collaborative-artifacts": check_collaborative_artifacts,
+    "no-curly-quotes": check_curly_quotes,
+    "sentence-length-variance": check_sentence_variance,
+    "no-promotional-language": check_promotional,
+    "no-significance-inflation": check_significance_inflation,
+    "no-negative-parallelisms": check_negative_parallelisms,
+    "no-copula-avoidance": check_copula_avoidance,
+    "no-filler-phrases": check_filler_phrases,
+    "no-generic-conclusions": check_generic_conclusions,
+    "no-forced-triads": check_rule_of_three,
+    "no-superficial-ing": check_superficial_ing,
+    "no-ghost-spectral-density": check_ghost_spectral,
+    "no-quietness-obsession": check_quietness,
+    "no-rhetorical-questions": check_rhetorical_questions,
+    "no-excessive-lists": check_list_density,
+    "no-dramatic-transitions": check_dramatic_transitions,
+    "no-formulaic-openers": check_formulaic_openers,
+    "no-signposted-conclusions": check_signposted_conclusions,
+    "no-markdown-headings": check_markdown_headings,
+    "no-corporate-ai-speak": check_corporate_ai_speak,
+    "no-this-chains": check_this_chains,
+    "no-excessive-hedging": check_hedging_density,
+    "no-countdown-negation": check_countdown_negation,
+    "vocabulary-diversity": check_type_token_ratio,
+    "no-triad-density": check_triad_density,
+    "no-section-scaffolding": check_section_scaffolding,
+}
+
+
+def grade_file(filepath, assertion_names=None):
+    """Grade a file against specified assertions (or all if none specified)."""
+    text = Path(filepath).read_text()
+    results = []
+    checks_to_run = assertion_names or ALL_CHECKS.keys()
+    for name in checks_to_run:
+        if name in ALL_CHECKS:
+            results.append(ALL_CHECKS[name](text))
+    return results
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: grade.py <file> [assertion1,assertion2,...]")
+        sys.exit(1)
+
+    filepath = sys.argv[1]
+    assertions = sys.argv[2].split(",") if len(sys.argv) > 2 else None
+
+    results = grade_file(filepath, assertions)
+
+    passed = sum(1 for r in results if r["passed"])
+    total = len(results)
+
+    output = {
+        "file": filepath,
+        "pass_rate": f"{passed}/{total}",
+        "expectations": results,
+    }
+
+    print(json.dumps(output, indent=2))
+
+
+if __name__ == "__main__":
+    main()

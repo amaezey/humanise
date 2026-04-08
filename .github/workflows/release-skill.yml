@@ -1,0 +1,27 @@
+name: Release skill zip
+
+on:
+  push:
+    branches: [main]
+    paths: ['humanise/**']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip skill folder
+        run: cd humanise && zip -r ../humanise-skill.zip .
+
+      - name: Update latest release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete latest --yes 2>/dev/null || true
+          gh release create latest humanise-skill.zip \
+            --title "humanise (latest)" \
+            --notes "Auto-updated skill zip for Claude Code desktop. Upload this zip in settings." \
+            --latest
