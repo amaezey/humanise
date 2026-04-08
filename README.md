@@ -109,7 +109,7 @@ dev/                               Development only (not installed)
 ## What changed from the original
 
 - Restructured per [Anthropic's skill best practices](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills#best-practices): split into SKILL.md + reference file for progressive disclosure
-- Expanded from 25 to 38 patterns using research from [Wikipedia (WikiProject AI Cleanup)][wikipedia], [Kriss (NYT)][kriss], [Caroll (Substack)][caroll], [Guo (Ignorance.ai)][guo], [Grammarly][grammarly], [Nature][nature], [Abdulhai et al. (2026)][abdulhai], [Przystalski et al. (2025)](https://arxiv.org/abs/2507.00838), and [Zaitsu et al. (2025)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335369)
+- Expanded from 25 to 38 patterns using research from [Wikipedia (WikiProject AI Cleanup)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), [Kriss (NYT)](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), [Caroll (Substack)](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon), [Guo (Ignorance.ai)](https://www.ignorance.ai/p/the-field-guide-to-ai-slop), [Grammarly](https://www.grammarly.com/blog/ai/common-ai-words/), [Nature](https://www.nature.com/articles/d41586-025-02097-6), [Abdulhai et al. (2026)](https://arxiv.org/abs/2603.18161), [Przystalski et al. (2025)](https://arxiv.org/abs/2507.00838), and [Zaitsu et al. (2025)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335369)
 - Added experiential vacancy, density-without-purpose, and subtraction framing as structural diagnostics
 - Added a 31-check grading script and isolation-based eval pipeline
 - Renamed to `humanise` (Australian English)

@@ -1,18 +1,13 @@
 ---
 name: humanise
 description: >-
-  Edits existing text to remove signs of AI generation and make it sound
-  human-written. Detects and fixes 38 patterns across 8 categories including
-  em dashes, AI vocabulary clustering, manufactured insight, staccato fragments,
-  ghost/spectral language, formulaic openers, signposted conclusions, markdown
-  heading structure, corporate AI register, neutrality collapse, tonal uniformity,
-  and experiential vacancy. Triggers when the user wants to humanise, de-AI,
-  de-slop, or clean up text that "reads like AI", "sounds like ChatGPT wrote it",
-  "sounds robotic", "sounds too balanced", "voice got neutralised", or has visible
-  AI tells. Also triggers for "make this sound like a person wrote it", "strip the
-  AI out", "flag AI patterns", or reviewing text for AI fingerprints. Does NOT
-  trigger for writing from scratch, proofreading, translating, summarising, or
-  general style editing unrelated to AI patterns.
+  Detects and rewrites AI writing patterns across vocabulary, structure, tone,
+  voice, and formatting using 38 pattern checks and programmatic grading.
+  Use when the user wants to humanise or de-AI text, clean up AI-generated
+  content before publishing, or check whether writing passes as human-written.
+  Also useful when a draft feels flat or robotic, when the author's voice has
+  been neutralised, or when working with output from ChatGPT, Claude, or
+  other language models.
 ---
 
 # Humanise: Remove AI writing patterns
