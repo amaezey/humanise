@@ -54,7 +54,7 @@ Do not silently classify your own writing as the exception. If you preserve a fl
 
 - **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
 - **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
-- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
+- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings including plain title headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
 - **Em dashes:** strong 2026 signal. Light mode may preserve them only with explicit disclosure; Medium and Hard require removal.
 - **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
 
@@ -225,9 +225,17 @@ Save the input text to a temp file, then run the grading script on it:
 python3 grade.py /tmp/input.md
 ```
 
-The script checks 43 patterns programmatically and returns a JSON diagnostic report listing every failed check with evidence, severity, `failure_mode_results`, and `mode_results` for Light, Medium, and Hard. Read the report. A failed check remains failed in every mode. In Hard mode, this is your hit list. In Light and Medium modes, hard failures and strong warnings must be fixed, and context warnings need the purpose test.
+The script checks 43 patterns programmatically and returns a JSON diagnostic report listing `score_summary`, every failed check with evidence, severity, `triggered_checks`, `failure_mode_results`, and `mode_results` for Light, Medium, and Hard. Read the report. A failed check remains failed in every mode. In Hard mode, this is your hit list. In Light and Medium modes, hard failures and strong warnings must be fixed, and context warnings need the purpose test.
 
-When reporting the grader output to the user, do not paste raw JSON. Convert it into a readable report grouped by failure mode first, then severity. For each failed check, show the check name, severity, evidence, and the selected mode's action from `mode_actions`:
+When reporting the grader output to the user, do not paste raw JSON. Convert it into a readable report with a score summary first, then one canonical triggered-check list. Use `score_summary` for totals and `triggered_checks` as the source of truth for failed checks. Each failed check must appear exactly once with check name, severity, evidence, failure modes, and the selected mode's action from `mode_actions`.
+
+The score summary must include:
+
+- Check status: pass/fail, failed count, total count, and pass rate from `score_summary`.
+- AI-signal pressure: score/threshold, triggered/not triggered, and the named components from `score_summary.ai_signal_pressure`.
+- Severity counts: counts from `score_summary.failures_by_severity`, or "none" if empty.
+
+After the canonical triggered-check list, add a short failure-mode summary using `failure_mode_results[*].check_refs`. Do not repeat evidence under each failure mode. The failure-mode summary is an index, not the main report. If a check belongs to multiple failure modes, show all modes in that check's row instead of duplicating the check.
 
 - **Fix:** hard failures and strong warnings in Light, Medium, and Hard; all failed checks in Hard.
 - **Preserve with disclosure:** context warnings in Light or Medium only when they serve voice, quotation, genre, or meaning.
@@ -255,6 +263,7 @@ Address structural patterns first, then surface patterns. The grader catches sur
 10. **Orphaned demonstratives:** Replace vague starts like "This highlights..." or "That underscores..." with concrete subjects.
 11. **Forced synesthesia (28)** and **generic metaphors (30):** replace with concrete details.
 12. **Section scaffolding (38):** If all sections use the same structural label or follow the same template, vary them.
+13. **Hard-mode headings:** If `no-markdown-headings` fails, remove both markdown headings and plain title headings. Do not reintroduce a title line in the rewrite unless the user explicitly asked to preserve article packaging.
 
 **Genre-specific tentative checks:**
 
@@ -310,20 +319,23 @@ Interpret the post-check by mode:
 Always report check status and mode action separately. A check failure remains a failure even when Light or Medium allows disclosure instead of rewriting. Example:
 
 ```text
-Check status: fail, 7/43 checks failed
+Score summary: fail, 7/43 checks failed, pass rate 36/43. AI-signal pressure: 5/4, triggered.
 Light action: fix 1 strong warning; disclose or ask on 6 context warnings
 Medium action: fix 1 strong warning; disclose or ask on 6 context warnings
 Hard action: fix all 7 failed checks
 ```
+
+The post-check report must include the same score summary fields as the pre-check report: check status, failed count, total count, pass rate, AI-signal pressure score/threshold, whether that pressure triggered, and severity counts. Do not report only "pass" or "fail"; show the numbers.
 
 If the script is not available, manually verify hard failures and scan for generic AI structures. Use the purpose test before flattening voice.
 
 ## Output format
 
 1. Mode selected: Light / Medium / Hard, with one sentence explaining why
-2. Pre-check report, grouped by failure mode, then severity:
-   - Failure mode: [Provenance residue / Synthetic significance / Frictionless structure / Generic abstraction / Voice erasure / Genre misfit]
-   - Failed checks: [check name, severity, evidence, selected-mode action]
+2. Pre-check report:
+   - Score summary: [check status, failed/total, pass rate, AI-signal pressure score/threshold, severity counts]
+   - Triggered checks: [each failed check exactly once: check name, severity, evidence, failure modes, selected-mode action]
+   - Failure-mode summary: [failure mode -> check names only; no repeated evidence]
 3. Draft rewrite
 4. Structural self-audit answers (mandatory, with counts):
    - Section arcs: N/M following same template — [what you changed]
@@ -336,6 +348,7 @@ If the script is not available, manually verify hard failures and scan for gener
    - Remaining tells: [list, or "none identified"]
 5. Final rewrite (revised after audit)
 6. Post-check report:
+   - Score summary: [check status, failed/total, pass rate, AI-signal pressure score/threshold, severity counts]
    - Fixed: [checks fixed]
    - Remaining hard failures: [must be none unless user explicitly accepts]
    - Remaining strong warnings: [must be none unless user explicitly accepts]

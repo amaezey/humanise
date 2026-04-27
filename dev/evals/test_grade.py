@@ -17,6 +17,8 @@ from grade import (
     annotate_result,
     failure_mode_results,
     mode_results,
+    score_summary,
+    triggered_checks,
 )
 
 FAILURES = 0
@@ -140,11 +142,26 @@ expect_fail("no-nonliteral-land-surface",
     "The grade tells students where they landed in the mark scheme.",
     "nonliteral pronoun landed in abstract scale")
 expect_fail("no-nonliteral-land-surface",
+    "The paper landed on the marking scale, but the student still needed advice.",
+    "nonliteral paper landed on marking scale")
+expect_fail("no-nonliteral-land-surface",
+    "A grade tells a learner where a piece of work landed on a scale.",
+    "nonliteral piece of work landed on scale")
+expect_fail("no-nonliteral-land-surface",
+    "Student work landed against the rubric, but the comment gave no next step.",
+    "nonliteral student work landed against rubric")
+expect_fail("no-nonliteral-land-surface",
+    "A grade tells a student where a piece of work landed in the scoring system.",
+    "nonliteral piece of work landed in scoring system")
+expect_fail("no-nonliteral-land-surface",
     "The joke lands with the audience because the setup is familiar.",
     "nonliteral lands with audience")
 expect_pass("no-nonliteral-land-surface",
     "The plane landed safely on the island, and the table surface was scratched.",
     "literal landed and physical surface")
+expect_pass("no-nonliteral-land-surface",
+    "The paper landed on the desk and slid under the notebook.",
+    "literal paper landed on desk")
 
 
 # --- overall-ai-signal-pressure ---
@@ -595,6 +612,9 @@ print("\n=== no-markdown-headings ===")
 expect_fail("no-markdown-headings",
     "# The Importance of Libraries\n\n## Access to Information\n\nLibraries provide free access.",
     "H1 + H2 headings")
+expect_fail("no-markdown-headings",
+    "Why Feedback Matters in Learning\n\nFeedback is easy to mistake for marking.",
+    "plain title heading")
 expect_pass("no-markdown-headings",
     "Libraries provide free access to information. They also host community events.",
     "plain prose, no headings")
@@ -939,6 +959,59 @@ _failure_mode_report = failure_mode_results([
     annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
 ])
+_triggered_report = triggered_checks([
+    annotate_result({"text": "no-collaborative-artifacts", "passed": False, "evidence": "assistant residue"}),
+    annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
+    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
+])
+_score_report = score_summary([
+    annotate_result({
+        "text": "overall-ai-signal-pressure",
+        "passed": False,
+        "evidence": "Overall AI-signal pressure 5/4",
+        "score": 5,
+        "threshold": 4,
+        "components": ["paragraph_uniformity", "markdown_headings"],
+        "vocabulary_pressure": {
+            "points": 1,
+            "reasons": ["generic cluster"],
+            "worst_generic": 2,
+            "gptzero_matches": ["play a pivotal role"],
+            "kobak_style_distinct": 4,
+            "kobak_style_density": 7.5,
+            "kobak_style_sample": ["valuable"],
+        },
+    }),
+    annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
+    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
+])
+_triggered_names = [item["check"] for item in _triggered_report]
+if _triggered_names != ["no-collaborative-artifacts", "no-formulaic-openers"]:
+    FAILURES += 1
+    print(f"FAIL: triggered_checks should list each failed check once; got {_triggered_names}")
+else:
+    print("  ok: triggered checks list each failed check once")
+
+_triggered_formulaic = _triggered_report[1]
+if _triggered_formulaic["failure_modes"] != ["frictionless_structure", "generic_abstraction"]:
+    FAILURES += 1
+    print(f"FAIL: triggered check should carry all failure modes; got {_triggered_formulaic['failure_modes']}")
+else:
+    print("  ok: triggered checks carry all failure modes without duplicating evidence")
+
+if _score_report["check_status"] != "fail" or _score_report["pass_rate"] != "1/3":
+    FAILURES += 1
+    print(f"FAIL: score_summary should expose check totals; got {_score_report}")
+else:
+    print("  ok: score summary exposes check totals")
+
+_ai_pressure = _score_report["ai_signal_pressure"]
+if not _ai_pressure or _ai_pressure["score"] != 5 or _ai_pressure["threshold"] != 4 or not _ai_pressure["triggered"]:
+    FAILURES += 1
+    print(f"FAIL: score_summary should expose AI-signal pressure; got {_ai_pressure}")
+else:
+    print("  ok: score summary exposes AI-signal pressure")
+
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1
     print(f"FAIL: failure_mode_results should expose all canonical modes; got {sorted(_failure_mode_report)}")

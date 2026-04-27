@@ -226,7 +226,8 @@ NONLITERAL_LAND_SURFACE = [
     r"\b(?:argument|claim|point|idea|thinking|analysis|story|piece|draft|sentence|paragraph|message|feedback|critique|comment|line|joke|scene|ending)\s+lands?\b",
     r"\b(?:argument|claim|point|idea|thinking|analysis|story|piece|draft|sentence|paragraph|message|feedback|critique|comment|line|joke|scene|ending)\s+landed\b",
     r"\bwhere (?:my|your|his|her|their|our|the)?\s*(?:argument|claim|point|idea|thinking|analysis|story|piece|draft|sentence|paragraph|message|feedback|critique|comment|line|scene|ending)\s+landed\b",
-    r"\bwhere (?:i|you|we|they|he|she|it)\s+landed (?:in|on|with) (?:the |a |an )?(?:mark scheme|rubric|scale|spectrum|ranking|assessment|category|argument|discussion|conversation|draft|analysis|process)\b",
+    r"\b(?:argument|claim|point|idea|thinking|analysis|story|piece|piece of work|student work|draft|paper|essay|grade|mark|score|sentence|paragraph|message|feedback|critique|comment|line|scene|ending)\s+landed (?:in|on|with|against) (?:the |a |an )?(?:mark scheme|marking scale|scoring system|rubric|scale|spectrum|ranking|assessment|category|argument|discussion|conversation|draft|analysis|process)\b",
+    r"\bwhere (?:i|you|we|they|he|she|it)\s+landed (?:in|on|with|against) (?:the |a |an )?(?:mark scheme|marking scale|scoring system|rubric|scale|spectrum|ranking|assessment|category|argument|discussion|conversation|draft|analysis|process)\b",
     r"\blands? with (?:the )?(?:reader|readers|audience|user|users|team|client|stakeholders)\b",
     r"\bsurfaces? in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response|draft|argument)\b",
     r"\bsurfaced in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response|draft|argument)\b",
@@ -674,6 +675,18 @@ def check_overall_signal_pressure(text):
     return {
         "text": "overall-ai-signal-pressure",
         "passed": not failed,
+        "score": score,
+        "threshold": 4,
+        "components": components,
+        "vocabulary_pressure": {
+            "points": vocab["points"],
+            "reasons": vocab["reasons"],
+            "worst_generic": vocab["worst_generic"],
+            "gptzero_matches": vocab["gptzero_matches"],
+            "kobak_style_distinct": vocab["kobak"]["style_distinct"],
+            "kobak_style_density": vocab["kobak"]["style_density"],
+            "kobak_style_sample": vocab["kobak"]["style_sample"],
+        },
         "evidence": (
             f"Overall AI-signal pressure {score}/4 from {components}; "
             f"vocab={vocab['points']} point(s), "
@@ -1186,13 +1199,32 @@ def check_markdown_headings(text):
         if re.match(r'^#{1,3}\s+\[[^\]]+\]\([^)]+\)\s*$', heading):
             continue
         headings.append(heading)
+
+    lines = strip_front_matter(text).splitlines()
+    first_nonblank = next((idx for idx, line in enumerate(lines) if line.strip()), None)
+    if first_nonblank is not None and first_nonblank + 1 < len(lines):
+        title = lines[first_nonblank].strip()
+        followed_by_blank = not lines[first_nonblank + 1].strip()
+        words = re.findall(r"[A-Za-z][A-Za-z'-]*", title)
+        significant = [w for w in words if w.lower() not in {"a", "an", "and", "as", "at", "by", "for", "in", "of", "on", "or", "the", "to", "with"}]
+        title_case_words = sum(1 for w in significant if w[0].isupper())
+        looks_like_plain_title = (
+            followed_by_blank
+            and 3 <= len(words) <= 12
+            and len(title) <= 90
+            and not re.search(r"[.!?]$", title)
+            and not title.startswith(("[", "{", "("))
+            and title_case_words >= max(2, len(significant) - 1)
+        )
+        if looks_like_plain_title:
+            headings.append(title)
     return {
         "text": "no-markdown-headings",
         "passed": len(headings) == 0,
         "evidence": (
             f"Found {len(headings)} heading(s): {[h[:50] for h in headings[:5]]}"
             if headings
-            else "No markdown headings"
+            else "No headings"
         ),
     }
 
@@ -1774,7 +1806,7 @@ CHECK_METADATA = {
         "severity": "context_warning",
         "failure_modes": ["frictionless_structure", "genre_misfit"],
         "evidence_role": "formatting_signal",
-        "guidance": "Fix when prose should flow; recommend preserving web articles, guides, and reference docs.",
+        "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
     },
     "no-this-chains": {
         "severity": "context_warning",
@@ -1904,12 +1936,70 @@ def action_for_mode(result, mode):
     return "preserve_with_disclosure_or_user_decision"
 
 
+def triggered_checks(results):
+    """Return each failed check exactly once for user-facing reports."""
+    triggered = []
+    for result in results:
+        if result["passed"]:
+            continue
+        triggered.append({
+            "check": result["text"],
+            "severity": result["severity"],
+            "failure_modes": result.get("failure_modes", ["genre_misfit"]),
+            "evidence_role": result.get("evidence_role", "unclassified"),
+            "evidence": result.get("evidence", ""),
+            "guidance": result.get("guidance", "Review in context."),
+            "mode_consequence": mode_consequence(result),
+            "mode_actions": {
+                "light": action_for_mode(result, "light"),
+                "medium": action_for_mode(result, "medium"),
+                "hard": action_for_mode(result, "hard"),
+            },
+        })
+    return triggered
+
+
+def score_summary(results):
+    """Return structured totals for human-facing reports."""
+    passed = sum(1 for result in results if result["passed"])
+    total = len(results)
+    failures = [result for result in results if not result["passed"]]
+    failures_by_severity = {}
+    for result in failures:
+        failures_by_severity[result["severity"]] = failures_by_severity.get(result["severity"], 0) + 1
+
+    overall_signal = next(
+        (result for result in results if result["text"] == "overall-ai-signal-pressure"),
+        None,
+    )
+    ai_signal_pressure = None
+    if overall_signal:
+        ai_signal_pressure = {
+            "score": overall_signal.get("score"),
+            "threshold": overall_signal.get("threshold"),
+            "triggered": not overall_signal["passed"],
+            "components": overall_signal.get("components", []),
+            "vocabulary_pressure": overall_signal.get("vocabulary_pressure", {}),
+        }
+
+    return {
+        "check_status": "fail" if failures else "pass",
+        "passed_checks": passed,
+        "failed_checks": len(failures),
+        "total_checks": total,
+        "pass_rate": f"{passed}/{total}",
+        "failures_by_severity": failures_by_severity,
+        "ai_signal_pressure": ai_signal_pressure,
+    }
+
+
 def failure_mode_results(results):
     """Group failed checks by failure mode without changing legacy report fields."""
     grouped = {
         key: {
             **meta,
             "failed_checks": [],
+            "check_refs": [],
             "failures_by_severity": {},
         }
         for key, meta in FAILURE_MODE_METADATA.items()
@@ -1923,10 +2013,12 @@ def failure_mode_results(results):
                 "label": mode.replace("_", " ").title(),
                 "summary": "Unclassified failure mode.",
                 "failed_checks": [],
+                "check_refs": [],
                 "failures_by_severity": {},
             })
             severity = result["severity"]
             group["failures_by_severity"][severity] = group["failures_by_severity"].get(severity, 0) + 1
+            group["check_refs"].append(result["text"])
             group["failed_checks"].append({
                 "check": result["text"],
                 "severity": severity,
@@ -2035,17 +2127,14 @@ def main():
 
     results = grade_file(filepath, assertions)
 
-    passed = sum(1 for r in results if r["passed"])
-    total = len(results)
-    failures_by_severity = {}
-    for result in results:
-        if not result["passed"]:
-            failures_by_severity[result["severity"]] = failures_by_severity.get(result["severity"], 0) + 1
+    summary = score_summary(results)
 
     output = {
         "file": filepath,
-        "pass_rate": f"{passed}/{total}",
-        "failures_by_severity": failures_by_severity,
+        "pass_rate": summary["pass_rate"],
+        "failures_by_severity": summary["failures_by_severity"],
+        "score_summary": summary,
+        "triggered_checks": triggered_checks(results),
         "failure_mode_results": failure_mode_results(results),
         "mode_results": mode_results(results),
         "expectations": results,

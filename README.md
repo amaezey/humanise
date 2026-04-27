@@ -42,67 +42,73 @@ Give it text and it:
 
 Failure modes currently used in reports: provenance residue, synthetic significance, frictionless structure, generic abstraction, voice erasure, and genre misfit. A failed check remains a failed check in every mode; the mode decides whether to fix it, disclose it, or ask the user.
 
-## Sample report output
+## Representative report output
+
+Excerpt from a blind-agent Hard-mode run against `dev/evals/samples/generated-ai/ai-08-feedback-education.md`, followed by an independent direct grade of the agent's final rewrite.
 
 ```text
-Mode selected: Hard
-Reason: The user asked for maximum AI-tell removal on a generic education article.
+Mode selected: Hard. The user requested Hard mode, so every failed check had to be fixed rather than preserved.
 
 Pre-check report
+Score summary: fail, 5/43 checks failed, pass rate 38/43. AI-signal pressure: 4/4, triggered. Components: paragraph_uniformity, markdown_headings. Severity counts: context_warning 5.
 
-Failure mode: Frictionless structure
-- overall-ai-signal-pressure, context warning
-  Evidence: Overall AI-signal pressure 4/4 from paragraph uniformity and markdown headings.
-  Hard action: fix.
-- no-markdown-headings, context warning
-  Evidence: Found 1 heading: "# Why Feedback Matters in Learning".
-  Hard action: fix.
-- paragraph-length-uniformity, context warning
-  Evidence: Paragraph length CV 0.08 across 10 paragraphs.
-  Hard action: fix.
-- no-triad-density, context warning
-  Evidence: Found 12 list-rhythm triads.
-  Hard action: fix.
+Triggered checks
+- overall-ai-signal-pressure, context_warning. Evidence: Overall AI-signal pressure 4/4 from paragraph_uniformity and markdown_headings; vocabulary pressure 0 points, worst_generic 1, GPTZero matches none, Kobak sample: need, analysis, involves, strategies, valuable. Failure modes: generic_abstraction, frictionless_structure. Hard action: fix.
+- no-markdown-headings, context_warning. Evidence: Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". Failure modes: frictionless_structure, genre_misfit. Hard action: fix.
+- no-negation-density, context_warning. Evidence: Found 10 negation markers, 12.4 per 1000 words. Failure modes: frictionless_structure, genre_misfit. Hard action: fix.
+- paragraph-length-uniformity, context_warning. Evidence: Paragraph length CV 0.08 across 10 paragraphs, target at least 0.18. Failure modes: frictionless_structure. Hard action: fix.
+- no-triad-density, context_warning. Evidence: Found 12 triads, including "feedback as a grade, a correction, a short comment written", "learn to seek it, interpret it, use it", and "in time for revision, reflection, goal setting". Failure modes: frictionless_structure, genre_misfit. Hard action: fix.
 
-Failure mode: Generic abstraction
-- overall-ai-signal-pressure, context warning
-  Evidence: Aggregate pressure included Kobak excess-vocabulary support.
-  Hard action: fix.
-
-Failure mode: Genre misfit
-- no-markdown-headings, context warning
-  Evidence: Heading syntax in prose article.
-  Hard action: fix.
-- no-triad-density, context warning
-  Evidence: Repeated three-part list rhythm.
-  Hard action: fix.
-
-Failure modes with no failed checks:
-- Provenance residue
-- Synthetic significance
-- Voice erasure
-
-Draft rewrite:
-[rewritten text here]
+Failure-mode summary
+- generic_abstraction: overall-ai-signal-pressure
+- frictionless_structure: overall-ai-signal-pressure, no-markdown-headings, no-negation-density, paragraph-length-uniformity, no-triad-density
+- genre_misfit: no-markdown-headings, no-negation-density, no-triad-density
 
 Structural self-audit:
-- Section arcs: 3/9 follow a similar claim-then-example pattern. Varied with a short opener, one longer process paragraph, and direct classroom examples.
-- Resolution density: 2/9 paragraphs end with summary-like sentences. Removed repeated tidy closures.
-- Register breaks: Present in "None of this has to be elaborate" and "Too much advice at once can turn into noise."
-- Triads: 12 in source, reduced to 3.
-- Reframe laundering: none found.
-- Stance: preserved. The piece still argues that feedback works when it is specific, timely, emotionally usable, and followed by action.
-- Remaining tells: none identified after revision and post-check.
+- Section arcs: 8/10 original paragraphs followed the same explainer template. I removed the title packaging, varied paragraph length, and changed several paragraphs from general claim plus explanation into example-led or instruction-led paragraphs.
+- Resolution density: 5/10 original paragraphs ended with a tidy mini-conclusion. I cut or loosened several closers, especially around timing, peer feedback, and action.
+- Register breaks: Added "At first this can feel artificial. That is fine." and "wastes everybody's time" to break the neutral article register.
+- Triads: 12 found in the original, reduced to 6 in the draft, then 2 in the final by turning list structures into pairs or single concrete examples.
+- Reframe laundering: none.
+- Purposeful devices recommended for preservation: none.
+- Stance: preserved. The original argued that feedback should guide improvement, arrive in time to be used, and lead to student action. The rewrite keeps that position.
+- Remaining tells: Draft still had too many triads, so I revised again.
+
+Final rewrite:
+Feedback helps only when students can do something with it. Too often, it arrives as a score or a sentence in the margin after the work is already over. A student sees 68 percent and knows the essay met part of the standard, but the number does not tell them where the next draft should change.
+
+Useful feedback points to the next move. Instead of writing "needs more detail," a teacher might mark the second paragraph and say, "Add one example here so the claim has something to rest on." That comment gives the student a place to start. It also keeps the problem inside the work, where it belongs.
+
+Timing matters more than teachers sometimes want it to, because late comments are easy for students to file away and forget. Feedback has the best chance of changing learning while the student is still drafting or revising. That might mean a quick note on a plan, a conversation during class, or a low-stakes quiz before the final version is due.
+
+Students also need a clear picture of the target. Rubrics can help, but a rubric full of phrases like "strong analysis" will not carry much by itself. Show students two answers, talk through why one is clearer, and let them try the judgement themselves. The goal is for them to recognise quality before someone else points it out.
+
+The emotional part is real. Even accurate criticism can sting, especially for students who already doubt themselves. Honest feedback still matters; soft praise that hides the problem wastes everybody's time. The trick is to keep the task possible: name something that works, choose the most important issue, then give a step the student can attempt today.
+
+Students can learn to ask better questions about their own work. "Is this good?" usually leads to a vague answer. "Where does my argument become hard to follow?" gives the teacher, or a classmate, something useful to answer.
+
+Peer feedback needs training. Left alone, students often become too blunt or too polite, and both versions are unhelpful. Give them a narrow job, such as finding the strongest sentence and one place where the reader gets lost. At first this can feel artificial. That is fine. The structure is temporary support while students learn what useful comments sound like.
+
+Feedback should end in action. Build in ten minutes for students to revise a paragraph, write a short plan, or correct an error pattern. Without that time, comments become a receipt for work already done.
+
+The larger aim is judgement. Students start to notice the habits in their own writing and problem solving. They learn which mistakes keep returning and which fixes actually help. A grade can report performance. Feedback should teach students how to improve the next attempt.
 
 Post-check report:
-- Fixed: overall-ai-signal-pressure, no-markdown-headings, paragraph-length-uniformity, no-triad-density.
-- Remaining hard failures: none.
-- Remaining strong warnings: none.
-- Remaining context warnings: none.
-- Check status: pass, 0/43 checks failed.
-- Light action: no required fixes, no preserved warnings, no user decisions.
-- Medium action: no required fixes, no preserved warnings, no user decisions.
-- Hard action: no required fixes.
+Score summary: pass, 0/43 checks failed, pass rate 43/43. AI-signal pressure: 0/4, not triggered. Components: none. Severity counts: none.
+Fixed: overall-ai-signal-pressure, no-markdown-headings, no-negation-density, paragraph-length-uniformity, no-triad-density.
+Remaining hard failures: none.
+Remaining strong warnings: none.
+Remaining context warnings: fixed.
+Check status: pass, 0/43 checks failed.
+Light action: no required fixes, no preserved warnings, no user decisions.
+Medium action: no required fixes, no preserved warnings, no user decisions.
+Hard action: no required fixes.
+
+Independent direct grade of the final rewrite:
+pass_rate: 43/43
+failures_by_severity: {}
+ai_signal_pressure: 0/4, not triggered
+triggered_checks: []
 ```
 
 ## Patterns
