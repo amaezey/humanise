@@ -1,0 +1,5088 @@
+{
+  "sets": {
+    "existing_samples": [
+      {
+        "file": "dev/evals/samples/1-essay-libraries.md",
+        "pass_rate": "33/42",
+        "failures_by_severity": {
+          "strong_warning": 5,
+          "context_warning": 4
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-ai-vocabulary-clustering",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-formulaic-openers",
+              "overall-ai-signal-pressure",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-ai-vocabulary-clustering",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-formulaic-openers"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-ai-vocabulary-clustering",
+              "overall-ai-signal-pressure",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-forced-triads",
+              "no-formulaic-openers",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-ai-vocabulary-clustering",
+          "overall-ai-signal-pressure",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-forced-triads",
+          "no-formulaic-openers",
+          "no-signposted-conclusions",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/10-human-opinion.md",
+        "pass_rate": "42/42",
+        "failures_by_severity": {},
+        "mode_results": {
+          "light": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "No hard failures or warnings."
+          },
+          "medium": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "No hard failures, strong warnings, or context warnings."
+          },
+          "hard": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "All checks pass."
+          }
+        },
+        "failed_checks": []
+      },
+      {
+        "file": "dev/evals/samples/11-human-instructional.md",
+        "pass_rate": "42/42",
+        "failures_by_severity": {},
+        "mode_results": {
+          "light": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "No hard failures or warnings."
+          },
+          "medium": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "No hard failures, strong warnings, or context warnings."
+          },
+          "hard": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "All checks pass."
+          }
+        },
+        "failed_checks": []
+      },
+      {
+        "file": "dev/evals/samples/12-ai-tutorial.md",
+        "pass_rate": "38/42",
+        "failures_by_severity": {
+          "strong_warning": 3,
+          "context_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-copula-avoidance",
+              "no-section-scaffolding",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-copula-avoidance",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-copula-avoidance",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-copula-avoidance",
+          "no-triad-density",
+          "no-section-scaffolding"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/13-ai-product-review.md",
+        "pass_rate": "40/42",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/14-ai-personal-reflection.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "strong_warning": 3,
+          "context_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-manufactured-insight",
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-manufactured-insight",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-anaphora",
+              "no-negative-parallelisms",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-manufactured-insight",
+          "no-anaphora",
+          "no-negative-parallelisms",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/2-blog-cooking.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "strong_warning": 4,
+          "context_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-formulaic-openers",
+              "no-excessive-hedging",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-formulaic-openers"
+            ],
+            "needs_user_decision": [
+              "no-excessive-hedging",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-formulaic-openers",
+              "no-excessive-hedging",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-negative-parallelisms",
+          "no-filler-phrases",
+          "no-formulaic-openers",
+          "no-excessive-hedging",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/3-listicle-remote.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 4
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-corporate-ai-speak",
+              "no-anaphora",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-corporate-ai-speak"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-anaphora",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-corporate-ai-speak",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-anaphora",
+          "no-forced-triads",
+          "no-signposted-conclusions",
+          "no-corporate-ai-speak",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/4-reflection-travel.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "strong_warning": 3,
+          "context_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-negative-parallelisms",
+          "no-filler-phrases",
+          "no-forced-triads",
+          "no-signposted-conclusions",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/5-explainer-quantum.md",
+        "pass_rate": "40/42",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "hard_fail": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-em-dashes"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-collaborative-artifacts"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/6-cover-letter.md",
+        "pass_rate": "40/42",
+        "failures_by_severity": {
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-placeholder-residue"
+            ],
+            "needs_user_decision": [
+              "no-corporate-ai-speak"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-placeholder-residue",
+              "no-corporate-ai-speak"
+            ],
+            "needs_user_decision": [],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-placeholder-residue",
+              "no-corporate-ai-speak"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-placeholder-residue",
+          "no-corporate-ai-speak"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/7-hotel-description.md",
+        "pass_rate": "40/42",
+        "failures_by_severity": {
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-copula-avoidance"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-copula-avoidance"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/8-email-decline.md",
+        "pass_rate": "40/42",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "hard_fail": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-placeholder-residue"
+            ],
+            "needs_user_decision": [
+              "no-em-dashes"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-placeholder-residue",
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-placeholder-residue"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-placeholder-residue"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/9-passthrough-human.md",
+        "pass_rate": "41/42",
+        "failures_by_severity": {
+          "context_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/harris-free-will.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 5
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-formulaic-openers",
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-formulaic-openers"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-formulaic-openers",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-promotional-language",
+          "no-significance-inflation",
+          "no-formulaic-openers",
+          "no-signposted-conclusions",
+          "no-markdown-headings"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/murray-doctors-die.md",
+        "pass_rate": "32/42",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 8
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-manufactured-insight",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-manufactured-insight"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-anaphora",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-manufactured-insight",
+          "no-anaphora",
+          "no-promotional-language",
+          "no-significance-inflation",
+          "no-signposted-conclusions",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/orwell-why-write.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 5
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-signposted-conclusions",
+          "no-markdown-headings",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/wong-monkeysphere.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 6
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "paragraph-length-uniformity"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "paragraph-length-uniformity"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-significance-inflation",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "paragraph-length-uniformity"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-significance-inflation",
+          "no-signposted-conclusions",
+          "no-markdown-headings",
+          "paragraph-length-uniformity"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/woolf-moth.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "strong_warning": 3,
+          "context_warning": 4
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-manufactured-insight",
+              "no-copula-avoidance",
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-manufactured-insight",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-promotional-language",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-promotional-language",
+              "no-copula-avoidance",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-manufactured-insight",
+          "no-promotional-language",
+          "no-copula-avoidance",
+          "no-signposted-conclusions",
+          "no-markdown-headings"
+        ]
+      }
+    ],
+    "human_sourced": [
+      {
+        "file": "dev/evals/samples/human-sourced/19c-austen-pride-and-prejudice.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "context_warning": 2,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-section-scaffolding",
+              "no-curly-quotes",
+              "vocabulary-diversity"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "no-curly-quotes",
+              "vocabulary-diversity"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-curly-quotes",
+          "vocabulary-diversity",
+          "no-section-scaffolding"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/19c-darwin-origin.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-superficial-ing",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-superficial-ing"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-superficial-ing",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-superficial-ing",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/19c-gilman-yellow-wallpaper.md",
+        "pass_rate": "38/42",
+        "failures_by_severity": {
+          "context_warning": 4
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-curly-quotes",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/19c-poe-tell-tale-heart.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 7
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-ghost-spectral-density",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/20c-christie-styles.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-copula-avoidance",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-copula-avoidance",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-curly-quotes",
+          "no-copula-avoidance",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/20c-dubois-souls.md",
+        "pass_rate": "34/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-manufactured-insight",
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-manufactured-insight",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-manufactured-insight",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-ghost-spectral-density",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/20c-glaspell-jury-of-her-peers.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 5
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-ai-vocabulary-clustering",
+              "no-copula-avoidance",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-copula-avoidance",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-ai-vocabulary-clustering",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-copula-avoidance",
+          "no-ghost-spectral-density",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/20c-woolf-room.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-filler-phrases",
+              "no-anaphora",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-anaphora",
+              "no-promotional-language",
+              "no-filler-phrases",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-promotional-language",
+          "no-filler-phrases",
+          "no-ghost-spectral-density",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-astra-dreamers-in-broad-daylight.md",
+        "pass_rate": "32/42",
+        "failures_by_severity": {
+          "context_warning": 7,
+          "strong_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-superficial-ing",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-superficial-ing"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-superficial-ing",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-filler-phrases",
+          "no-superficial-ing",
+          "no-ghost-spectral-density",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-01-29-ways-to-improve-your-writing-skills-and-escape-mediocrity.md",
+        "pass_rate": "31/42",
+        "failures_by_severity": {
+          "context_warning": 10,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-forced-triads",
+          "no-quietness-obsession",
+          "no-rhetorical-questions",
+          "no-signposted-conclusions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-02-what-makes-writing-good.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "context_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-03-what-makes-copy-truly-persuasive.md",
+        "pass_rate": "33/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "hard_fail": 1,
+          "strong_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-superficial-ing",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-superficial-ing"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-superficial-ing",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-superficial-ing",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-04-how-to-write-seductive-sales-copy-like-apple-2022-edition.md",
+        "pass_rate": "32/42",
+        "failures_by_severity": {
+          "context_warning": 7,
+          "hard_fail": 1,
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-05-5-lovable-sales-techniques-how-a-wine-merchant-sells-without-being-pushy.md",
+        "pass_rate": "34/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-copula-avoidance",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-copula-avoidance",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-copula-avoidance",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-06-23-snazzy-copywriting-examples-to-inspire-your-work.md",
+        "pass_rate": "32/42",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 8
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-ai-vocabulary-clustering",
+              "no-filler-phrases",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-filler-phrases",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-ai-vocabulary-clustering",
+          "no-staccato-sequences",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-filler-phrases",
+          "no-ghost-spectral-density",
+          "no-quietness-obsession",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-07-how-to-write-a-seductive-sales-email-without-feeling-icky.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 6
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-08-how-to-sell-your-ideas-to-fidgety-skeptics.md",
+        "pass_rate": "30/42",
+        "failures_by_severity": {
+          "context_warning": 10,
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-formulaic-openers",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-unicode-flair",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-formulaic-openers"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-unicode-flair",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-unicode-flair",
+              "no-formulaic-openers",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-forced-triads",
+          "no-ghost-spectral-density",
+          "no-rhetorical-questions",
+          "no-unicode-flair",
+          "no-formulaic-openers",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-09-how-to-make-your-voice-heard-as-a-writer.md",
+        "pass_rate": "34/42",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 7
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-manufactured-insight"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-manufactured-insight",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-forced-triads",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-10-how-to-get-personal-in-your-content-marketing.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-11-how-to-write-like-a-human-wholeheartedly.md",
+        "pass_rate": "31/42",
+        "failures_by_severity": {
+          "strong_warning": 3,
+          "context_warning": 8
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-ai-vocabulary-clustering",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-copula-avoidance",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-ai-vocabulary-clustering",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-copula-avoidance",
+          "no-filler-phrases",
+          "no-forced-triads",
+          "no-quietness-obsession",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-12-how-a-bestselling-author-revises-one-sentence-case-study.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 7
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-forced-triads",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-13-how-to-write-your-story-4-tips-to-captivate-your-readers.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-tidy-paragraph-endings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-tidy-paragraph-endings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-tidy-paragraph-endings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-tidy-paragraph-endings",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-14-how-to-write-simply-without-dumbing-down.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-15-5-tips-to-turn-a-dry-text-into-a-gripping-adventure.md",
+        "pass_rate": "33/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "hard_fail": 1,
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-filler-phrases",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-16-how-to-infuse-your-writing-with-enthusiasm.md",
+        "pass_rate": "31/42",
+        "failures_by_severity": {
+          "context_warning": 9,
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-negative-parallelisms",
+              "no-ghost-spectral-density",
+              "no-quietness-obsession",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-significance-inflation",
+          "no-negative-parallelisms",
+          "no-ghost-spectral-density",
+          "no-quietness-obsession",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-17-how-to-write-clear-explanations-a-brilliant-example.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-18-how-to-invite-readers-out-of-their-bubbles-3-fab-examples.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 5
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-19-how-to-fire-up-your-readers-interest-in-any-topic.md",
+        "pass_rate": "34/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-20-how-to-make-your-blog-feel-like-a-chat-with-a-good-friend.md",
+        "pass_rate": "34/42",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 6
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-ai-vocabulary-clustering",
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-ai-vocabulary-clustering",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-ai-vocabulary-clustering",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-21-how-i-turned-31-measly-words-into-a-valuable-blog-post.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "hard_fail": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-22-the-1-storytelling-format-to-spruce-up-drab-writing.md",
+        "pass_rate": "32/42",
+        "failures_by_severity": {
+          "context_warning": 8,
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-forced-triads",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-forced-triads",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-forced-triads",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-significance-inflation",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-forced-triads",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-23-3-ways-to-craft-irresistible-opening-paragraphs.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-24-5-ways-to-end-your-blog-posts-and-fire-up-your-audience.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-25-how-to-write-like-hemingway.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 7
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-26-how-to-write-precisely-and-pierce-through-readers-wariness.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-27-how-to-improve-your-writing-style.md",
+        "pass_rate": "33/42",
+        "failures_by_severity": {
+          "context_warning": 7,
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-forced-triads",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-forced-triads",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-28-how-vivid-words-make-your-message-unforgettable-case-study.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "hard_fail": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-quietness-obsession",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-29-how-to-jazz-up-any-writing-5-creative-techniques.md",
+        "pass_rate": "33/42",
+        "failures_by_severity": {
+          "context_warning": 7,
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-30-11-creative-writing-techniques-to-add-pizzazz-to-your-writing.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 4,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-copula-avoidance",
+              "no-anaphora",
+              "no-curly-quotes",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-copula-avoidance",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-copula-avoidance",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-31-how-to-simplify-fortify-your-writing.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-section-scaffolding",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-rhetorical-questions",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-rhetorical-questions",
+          "vocabulary-diversity",
+          "no-triad-density",
+          "no-section-scaffolding"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-writing-examples.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "context_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-new-yorker-understanding-owls.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-copula-avoidance",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-ghost-spectral-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-curly-quotes",
+          "no-copula-avoidance",
+          "no-filler-phrases",
+          "no-ghost-spectral-density",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-nyt-opinionator-i-know-what-you-think-of-me.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 3,
+          "strong_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-filler-phrases",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-nyt-quarantine-mustache.md",
+        "pass_rate": "42/42",
+        "failures_by_severity": {},
+        "mode_results": {
+          "light": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "No hard failures or warnings."
+          },
+          "medium": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "No hard failures, strong warnings, or context warnings."
+          },
+          "hard": {
+            "status": "pass",
+            "must_fix": [],
+            "needs_user_decision": [],
+            "summary": "All checks pass."
+          }
+        },
+        "failed_checks": []
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-paris-review-mister-lytle.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 2
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-em-dashes",
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-em-dashes",
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-curly-quotes",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-yale-review-wild-sublime-body.md",
+        "pass_rate": "33/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-filler-phrases",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      }
+    ],
+    "generated_ai": [
+      {
+        "file": "dev/evals/samples/generated-ai/ai-01-slow-mornings.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "context_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-anaphora",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-markdown-headings",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-02-ai-coding-assistants.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-soft-scaffolding",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-soft-scaffolding"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-soft-scaffolding",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-soft-scaffolding",
+          "no-forced-triads",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-03-meetings-productivity.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "context_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-markdown-headings",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-markdown-headings",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-markdown-headings",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-markdown-headings",
+          "no-negation-density",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-04-learning-an-instrument.md",
+        "pass_rate": "36/42",
+        "failures_by_severity": {
+          "context_warning": 6
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-05-train-stations.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 5
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-06-lightweight-laptop-review.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 4,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-filler-phrases",
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-filler-phrases",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-filler-phrases",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-07-hybrid-work.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 4,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-manufactured-insight",
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-manufactured-insight"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-manufactured-insight",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-08-feedback-education.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 5
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "no-negation-density",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "no-negation-density",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "no-negation-density",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-markdown-headings",
+          "no-negation-density",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-09-walking-wellness.md",
+        "pass_rate": "38/42",
+        "failures_by_severity": {
+          "context_warning": 4
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-10-heat-islands.md",
+        "pass_rate": "38/42",
+        "failures_by_severity": {
+          "context_warning": 4
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-11-museum-exhibition.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 4,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-negative-parallelisms",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-negative-parallelisms",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-12-better-emails.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 5,
+          "hard_fail": 1,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts"
+            ],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures remain; fix before Light mode output."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-collaborative-artifacts",
+              "no-negative-parallelisms",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-collaborative-artifacts",
+          "no-negative-parallelisms",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-13-moving-apartments-memoir.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 4,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-negative-parallelisms",
+              "no-markdown-headings",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-negative-parallelisms",
+          "no-markdown-headings",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-14-lost-umbrella-vignette.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "context_warning": 3
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-markdown-headings",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-15-contemporary-novel-review.md",
+        "pass_rate": "39/42",
+        "failures_by_severity": {
+          "context_warning": 2,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-bland-critical-template",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-bland-critical-template"
+            ],
+            "needs_user_decision": [
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-markdown-headings",
+              "no-bland-critical-template",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-markdown-headings",
+          "no-bland-critical-template",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-16-attention-newsletter.md",
+        "pass_rate": "35/42",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-negative-parallelisms",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "fail",
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-markdown-headings",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-markdown-headings",
+          "no-negation-density",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-17-school-phone-bans-opinion.md",
+        "pass_rate": "37/42",
+        "failures_by_severity": {
+          "context_warning": 5
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "no-negation-density",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "no-negation-density",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-markdown-headings",
+              "no-negation-density",
+              "paragraph-length-uniformity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-markdown-headings",
+          "no-negation-density",
+          "paragraph-length-uniformity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/ai-18-community-organiser-interview.md",
+        "pass_rate": "38/42",
+        "failures_by_severity": {
+          "context_warning": 4
+        },
+        "mode_results": {
+          "light": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures; remaining warnings need user decision."
+          },
+          "medium": {
+            "status": "review",
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "hard": {
+            "status": "fail",
+            "must_fix": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-markdown-headings",
+          "no-triad-density"
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "existing_samples": {
+      "files": 19,
+      "mode_counts": {
+        "light:review": 14,
+        "medium:fail": 16,
+        "hard:fail": 17,
+        "light:pass": 2,
+        "medium:pass": 2,
+        "hard:pass": 2,
+        "light:fail": 3,
+        "medium:review": 1
+      },
+      "failed_checks": {
+        "no-em-dashes": 15,
+        "no-triad-density": 9,
+        "no-signposted-conclusions": 8,
+        "overall-ai-signal-pressure": 7,
+        "no-negative-parallelisms": 5,
+        "no-markdown-headings": 5,
+        "no-copula-avoidance": 4,
+        "no-anaphora": 4,
+        "no-promotional-language": 4,
+        "no-forced-triads": 3,
+        "no-formulaic-openers": 3,
+        "no-manufactured-insight": 3,
+        "no-significance-inflation": 3,
+        "no-filler-phrases": 2,
+        "no-corporate-ai-speak": 2,
+        "no-placeholder-residue": 2,
+        "paragraph-length-uniformity": 2,
+        "no-ai-vocabulary-clustering": 1,
+        "no-section-scaffolding": 1,
+        "no-excessive-hedging": 1,
+        "no-collaborative-artifacts": 1,
+        "no-staccato-sequences": 1
+      },
+      "failure_severity_counts": {
+        "strong_warning": 36,
+        "context_warning": 47,
+        "hard_fail": 3
+      },
+      "overall_hits": [
+        {
+          "file": "dev/evals/samples/1-essay-libraries.md",
+          "evidence": "Overall AI-signal pressure 6/4 from ['vocabulary_pressure(+3:generic_cluster=4, kobak_style=20 distinct/51.5)', 'negative_parallelism', 'formulaic_openers']; vocab=3 point(s), worst_generic=4, gptzero=[], kobak=20 distinct/51.5/1000, sample=['complex', 'individuals', 'lies', 'providing', 'role', 'within', 'enabling', 'enhance', 'evolving', 'facilitating']"
+        },
+        {
+          "file": "dev/evals/samples/14-ai-personal-reflection.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['manufactured_insight', 'negative_parallelism']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=3 distinct/6.8/1000, sample=['need', 'facilitated', 'hold']"
+        },
+        {
+          "file": "dev/evals/samples/harris-free-will.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['vocabulary_pressure(+1:kobak_style=12 distinct/26.4)', 'formulaic_openers', 'markdown_headings']; vocab=1 point(s), worst_generic=1, gptzero=[], kobak=12 distinct/26.4/1000, sample=['however', 'understanding', 'approach', 'challenges', 'compelling', 'conducted', 'deeper', 'groundbreaking', 'individuals', 'remarkable']"
+        },
+        {
+          "file": "dev/evals/samples/murray-doctors-die.md",
+          "evidence": "Overall AI-signal pressure 8/4 from ['vocabulary_pressure(+2:generic_cluster=2, kobak_style=16 distinct/42.9)', 'manufactured_insight', 'paragraph_uniformity', 'markdown_headings']; vocab=2 point(s), worst_generic=2, gptzero=[], kobak=16 distinct/42.9/1000, sample=['understanding', 'approach', 'limitations', 'conditions', 'effectively', 'highlights', 'however', 'leading', 'need', 'offers']"
+        },
+        {
+          "file": "dev/evals/samples/orwell-why-write.md",
+          "evidence": "Overall AI-signal pressure 5/4 from ['vocabulary_pressure(+1:generic_cluster=2)', 'negative_parallelism', 'markdown_headings']; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=8 distinct/13.6/1000, sample=['compelling', 'complex', 'crafting', 'multifaceted', 'need', 'refine', 'ultimately', 'understanding']"
+        },
+        {
+          "file": "dev/evals/samples/wong-monkeysphere.md",
+          "evidence": "Overall AI-signal pressure 5/4 from ['vocabulary_pressure(+1:generic_cluster=2)', 'paragraph_uniformity', 'markdown_headings']; vocab=1 point(s), worst_generic=2, gptzero=['play a crucial role'], kobak=5 distinct/10.5/1000, sample=['limitations', 'crucial', 'however', 'role', 'understanding']"
+        },
+        {
+          "file": "dev/evals/samples/woolf-moth.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['manufactured_insight', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=7 distinct/26.6/1000, sample=['struggle', 'fight', 'however', 'lies', 'offers', 'remarkable', 'within']"
+        }
+      ]
+    },
+    "human_sourced": {
+      "files": 47,
+      "mode_counts": {
+        "light:review": 35,
+        "medium:fail": 38,
+        "hard:fail": 46,
+        "medium:review": 8,
+        "light:fail": 11,
+        "light:pass": 1,
+        "medium:pass": 1,
+        "hard:pass": 1
+      },
+      "failed_checks": {
+        "no-curly-quotes": 44,
+        "no-triad-density": 43,
+        "vocabulary-diversity": 41,
+        "no-staccato-sequences": 36,
+        "no-anaphora": 34,
+        "no-negative-parallelisms": 22,
+        "no-promotional-language": 14,
+        "no-rhetorical-questions": 14,
+        "no-quietness-obsession": 13,
+        "no-copula-avoidance": 11,
+        "no-collaborative-artifacts": 11,
+        "no-ghost-spectral-density": 9,
+        "overall-ai-signal-pressure": 8,
+        "no-filler-phrases": 8,
+        "no-forced-triads": 7,
+        "no-ai-vocabulary-clustering": 4,
+        "no-superficial-ing": 3,
+        "no-section-scaffolding": 2,
+        "no-manufactured-insight": 2,
+        "no-significance-inflation": 2,
+        "no-signposted-conclusions": 1,
+        "no-unicode-flair": 1,
+        "no-formulaic-openers": 1,
+        "no-tidy-paragraph-endings": 1,
+        "paragraph-length-uniformity": 1,
+        "no-em-dashes": 1
+      },
+      "failure_severity_counts": {
+        "context_warning": 269,
+        "strong_warning": 54,
+        "hard_fail": 11
+      },
+      "overall_hits": [
+        {
+          "file": "dev/evals/samples/human-sourced/20c-dubois-souls.md",
+          "evidence": "Overall AI-signal pressure 5/4 from ['vocabulary_pressure(+1:generic_cluster=2)', 'manufactured_insight', 'negative_parallelism']; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=18 distinct/7.9/1000, sample=['need', 'aims', 'deeper', 'however', 'aiding', 'analysis', 'approach', 'broader', 'fostering', 'gauged']"
+        },
+        {
+          "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-03-what-makes-copy-truly-persuasive.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=22 distinct/10.6/1000, sample=['research', 'analysis', 'need', 'approach', 'using', 'address', 'compelling', 'conditions', 'techniques', 'crafting']"
+        },
+        {
+          "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-04-how-to-write-seductive-sales-copy-like-apple-2022-edition.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=19 distinct/7.1/1000, sample=['need', 'techniques', 'challenge', 'initially', 'address', 'capabilities', 'highlight', 'hold', 'insights', 'merges']"
+        },
+        {
+          "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-15-5-tips-to-turn-a-dry-text-into-a-gripping-adventure.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=15 distinct/5.1/1000, sample=['using', 'approach', 'however', 'offers', 'struggle', 'advocating', 'delving', 'highlight', 'offer', 'particularly']"
+        },
+        {
+          "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-16-how-to-infuse-your-writing-with-enthusiasm.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=14 distinct/6.7/1000, sample=['need', 'however', 'insights', 'techniques', 'diverse', 'fight', 'linked', 'using', 'utilized', 'various']"
+        },
+        {
+          "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-19-how-to-fire-up-your-readers-interest-in-any-topic.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=11 distinct/4.1/1000, sample=['challenges', 'need', 'acknowledging', 'distinctive', 'recognizing', 'research', 'understanding', 'within', 'address', 'harnesses']"
+        },
+        {
+          "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-27-how-to-improve-your-writing-style.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/4.3/1000, sample=['need', 'struggle', 'impact', 'using', 'avenue', 'crafting', 'particularly', 'pronounced', 'address']"
+        },
+        {
+          "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-29-how-to-jazz-up-any-writing-5-creative-techniques.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=14 distinct/8.7/1000, sample=['techniques', 'need', 'using', 'statement', 'categorizing', 'demonstrates', 'however', 'providing', 'role', 'understanding']"
+        }
+      ]
+    },
+    "generated_ai": {
+      "files": 18,
+      "mode_counts": {
+        "light:review": 17,
+        "medium:review": 10,
+        "hard:fail": 18,
+        "medium:fail": 8,
+        "light:fail": 1
+      },
+      "failed_checks": {
+        "no-markdown-headings": 18,
+        "no-triad-density": 18,
+        "overall-ai-signal-pressure": 13,
+        "paragraph-length-uniformity": 12,
+        "no-anaphora": 6,
+        "no-negation-density": 4,
+        "no-staccato-sequences": 4,
+        "no-negative-parallelisms": 4,
+        "no-soft-scaffolding": 1,
+        "no-forced-triads": 1,
+        "no-filler-phrases": 1,
+        "no-manufactured-insight": 1,
+        "no-collaborative-artifacts": 1,
+        "no-bland-critical-template": 1,
+        "no-promotional-language": 1
+      },
+      "failure_severity_counts": {
+        "context_warning": 77,
+        "strong_warning": 8,
+        "hard_fail": 1
+      },
+      "overall_hits": [
+        {
+          "file": "dev/evals/samples/generated-ai/ai-02-ai-coding-assistants.md",
+          "evidence": "Overall AI-signal pressure 5/4 from ['soft_scaffolding', 'paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=6 distinct/7.9/1000, sample=['complex', 'however', 'recognizing', 'role', 'using', 'valuable']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-04-learning-an-instrument.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=3 distinct/5.3/1000, sample=['understanding', 'recognizing', 'using']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-05-train-stations.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=3 distinct/3.9/1000, sample=['holds', 'introduces', 'promise']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-06-lightweight-laptop-review.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=4 distinct/6.1/1000, sample=['need', 'conditions', 'dependable', 'promise']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-07-hybrid-work.md",
+          "evidence": "Overall AI-signal pressure 6/4 from ['manufactured_insight', 'paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=7 distinct/20.6/1000, sample=['need', 'challenge', 'complex', 'evolving', 'outcomes', 'remotely', 'significant']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-08-feedback-education.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=5 distinct/8.7/1000, sample=['need', 'analysis', 'involves', 'strategies', 'valuable']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-09-walking-wellness.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=8 distinct/12.9/1000, sample=['conditions', 'impact', 'need', 'offer', 'offers', 'particularly', 'promise', 'valuable']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-10-heat-islands.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=8 distinct/12.6/1000, sample=['however', 'strategies', 'approach', 'conditions', 'hold', 'maintaining', 'need', 'using']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-11-museum-exhibition.md",
+          "evidence": "Overall AI-signal pressure 6/4 from ['negative_parallelism', 'paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=8 distinct/9.6/1000, sample=['disrupts', 'hold', 'introduces', 'precise', 'remains', 'reveals', 'role', 'within']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-12-better-emails.md",
+          "evidence": "Overall AI-signal pressure 8/4 from ['negative_parallelism', 'paragraph_uniformity', 'markdown_headings', 'collaborative_artifacts']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=5 distinct/13.3/1000, sample=['need', 'impressive', 'linked', 'prioritize', 'using']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-13-moving-apartments-memoir.md",
+          "evidence": "Overall AI-signal pressure 6/4 from ['negative_parallelism', 'paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=0 distinct/0.0/1000, sample=[]"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-16-attention-newsletter.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['negative_parallelism', 'markdown_headings']; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=2 distinct/2.3/1000, sample=['achieving', 'need']"
+        },
+        {
+          "file": "dev/evals/samples/generated-ai/ai-17-school-phone-bans-opinion.md",
+          "evidence": "Overall AI-signal pressure 4/4 from ['paragraph_uniformity', 'markdown_headings']; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=7 distinct/11.4/1000, sample=['conditions', 'need', 'aims', 'offers', 'using', 'valuable', 'within']"
+        }
+      ]
+    }
+  }
+}

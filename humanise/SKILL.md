@@ -2,7 +2,7 @@
 name: humanise
 description: >-
   Detects and rewrites AI writing patterns across vocabulary, structure, tone,
-  voice, and formatting using 38 pattern checks and programmatic grading.
+  voice, and formatting using 38 patterns and 42 programmatic checks.
   Use when the user wants to humanise or de-AI text, clean up AI-generated
   content before publishing, or check whether writing passes as human-written.
   Also useful when a draft feels flat or robotic, when the author's voice has
@@ -18,44 +18,111 @@ Edit text to remove signs of AI generation while preserving meaning and the auth
 
 When given text to humanise:
 
+0. Calibrate intensity and genre (below)
 1. Check hard constraints first (below)
 2. Read [references/patterns.md](references/patterns.md) and scan for all 38 patterns
-3. Rewrite problematic sections with natural alternatives
+3. Rewrite problematic sections with natural alternatives at the chosen intensity
 4. Preserve the meaning and match the intended tone
-5. Add genuine personality (see Personality and soul)
+5. Add or preserve genuine personality (see Personality and soul)
 6. Run the self-audit loop (see Process)
+
+---
+
+## Intensity and tolerance
+
+Before rewriting, decide how far to go. If the user has not specified intensity and the genre makes the answer ambiguous, ask a short calibration question:
+
+> How hard should I go: light cleanup, medium humanise pass, or hard de-AI pass?
+
+If you cannot ask, infer conservatively:
+
+- **Light:** remove obvious chatbot residue while preserving voice, rhythm, literary devices, humour, dialogue, period style, and formatting choices that appear intentional. Default for fiction, memoir, literary essays, humour, interviews, poetry-adjacent prose, and strong personal voice.
+- **Medium:** default for generic "humanise this" requests. Remove clear AI patterns and all strong warnings. Context-sensitive devices such as purposeful repetition, rhetorical questions, staccato, and triads may remain only when they carry voice or structure and are disclosed.
+- **Hard:** aggressive cleanup for drafts meant to pass as non-AI. Fix every script failure unless doing so would materially change meaning. Strip polish, scaffolding, and formulaic rhetorical moves even when they read smoothly.
+
+The grader is a diagnostic tool, not an absolute style law. In Medium mode, hard failures and strong warnings must be fixed; context warnings may remain only with disclosure. In Light mode, the agent may recommend preserving some flagged devices for voice, quotation, period style, humour, dialogue, or genre, but it must never hide that decision. The user decides whether to accept the risk. In Hard mode, assume the user wants maximum risk reduction.
+
+Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
+
+- **Fixed**
+- **Recommended preserve**
+- **Needs user decision**
+
+Do not silently classify your own writing as the exception. If you preserve a flagged device, name it, quote or identify the relevant passage briefly, and explain the concrete function it serves.
+
+### Severity classes
+
+- **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
+- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Medium and Hard; in Light, fix when generic or density-driven.
+- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
+- **Em dashes:** strong 2026 signal. Light mode may preserve them only with explicit disclosure; Medium and Hard require removal.
+- **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
+
+### Purpose test
+
+For any context warning, ask:
+
+> Is this device doing real work here, or is it autopilot?
+
+You may recommend preserving it if it reveals character, controls timing, creates humour, mirrors thought, supports a period voice, or clarifies structure. Remove it if it is generic emphasis, tidy profundity, decorative balance, or a default article template. If you are unsure, mark it **Needs user decision** rather than deciding for the user.
+
+Examples:
+
+- Poe-style staccato can be voice. "That matters. A lot." in a productivity article is usually autopilot.
+- A Sedaris-style comic escalation can stay. A corporate triad like "clarity, collaboration, and innovation" should go.
+- Curly quotes in a sourced literary sample are not an AI tell. Curly quotes in this skill's final plain-text output may still be normalised if the user asked for hard cleanup.
 
 ---
 
 ## Hard constraints
 
-Non-negotiable. Check first, check last, check again.
+Non-negotiable in Hard mode. In Medium mode, hard failures and strong warnings must be fixed. In Light mode, remaining warnings may be preserved only with explicit disclosure. Check first, check last, check again.
 
-### No em dashes. Ever.
+### No em dashes except disclosed Light mode preservation
 
-The em dash character must never appear in any output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
+In Medium and Hard mode, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
 
 Replace with commas, colons, semicolons, periods, or parentheses. Restructure the sentence if none of those fit. There is always an alternative.
+
+In Light mode only, em dashes may be preserved if they are part of an author's established style, quoted source text, dialogue rhythm, or period/literary voice. Disclose the preservation explicitly so the user can decide. If the user asked for publication-ready plain prose, normalise them.
 
 ### No manufactured insight
 
 Eliminate all framing that performs the act of having a deeper take. AI cannot have insider knowledge, so it compensates with linguistic markers that signal depth without providing any. Either state the observation plainly or remove the sentence if stripping the framing reveals no substance.
 
 - **False revelation:** "But the real answer is...", "What's actually happening here is...", "Here's what's really going on..."
-- **Contrived contrarianism:** "What nobody is talking about...", "Contrary to popular belief...", "The uncomfortable truth is..."
-- **Pseudo-profundity:** "quietly revolutionary", "the quiet part", "subtly", "understated", "unassuming" when used to inflate significance
+- **Contrived contrarianism:** "What nobody is talking about...", "What no one is talking about...", "Contrary to popular belief...", "The uncomfortable truth is..."
+- **Unnoticed-shift framing:** "When no one noticed...", "The shift nobody noticed...", "Before anyone noticed...", "Without anyone noticing..." when used to manufacture secret significance.
+- **Pseudo-profundity:** "quietly revolutionary", "quietly became", "the quiet part", "subtly", "understated", "unassuming" when used to inflate significance
 - **Performed knowingness:** "If you know, you know", "And that changes everything", "Let that sink in", "Read that again", "And honestly?", "Here's the thing:"
 - **Formulaic depth framing:** "The reason is straightforward:", "The reason is simple:", "Here's why:", "What's strange is", "What's interesting is", "What's remarkable is". These perform the act of having an explanation before delivering one.
 - **Dramatic narrative transitions:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me." These claim a turning point without earning it.
 - **Contrived contrast:** "This isn't X. It's Y." as a standalone dramatic beat (e.g. "This isn't a bug. It's a feature." or "This isn't a character flaw. It's hardware."). The two-sentence snap format is a reliable AI fingerprint regardless of content.
 
-These patterns are non-negotiable even in casual, humorous, or conversational writing. A funny piece with "And honestly?" is still carrying an AI tell. Rewrite the thought without the framing device.
+These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test in Light mode; remove in Medium and Hard unless the phrase clearly belongs to the writer's voice.
+
+### No adversarial reframes
+
+Do not satisfy the letter of a rule while keeping the same AI-shaped move. This especially applies to pattern 9, contrived contrast / negative parallelism. If the draft says "It's not X, it's Y", an acceptable rewrite is not "It is Y, not X" or "Beyond X, it becomes Y". Those are the same device with the furniture moved around.
+
+Flag and rewrite all of these as direct claims:
+
+- "It's not X, it's Y."
+- "It's Y, not X."
+- "Less X than Y."
+- "More Y than X."
+- "Not so much X as Y."
+- "Beyond X, it is Y."
+- "You might think X. Actually, Y."
+- "No X. No Y. Just Z."
+
+The test is semantic: if the sentence creates drama by rejecting a plain interpretation and revealing a supposedly deeper abstraction, remove the setup and state the actual claim with concrete support.
 
 ### No staccato fragments
 
-Short sentences used in sequence for dramatic effect are an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats are almost always generated.
+Short sentences used in sequence for dramatic effect are often an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats in generic articles are usually generated.
 
-A sentence should be as long as the thought it contains. When you find fragments used for emphasis, fold their content into a neighbouring sentence or expand into something that earns its own line.
+A sentence should be as long as the thought it contains. When you find fragments used for generic emphasis, fold their content into a neighbouring sentence or expand into something that earns its own line. Preserve staccato when it is character voice, comedy, panic, dialogue, or deliberate literary rhythm.
 
 **Before:**
 > The results were clear. Strikingly so. The model outperformed every baseline. Every single one. And nobody saw it coming.
@@ -121,7 +188,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
 
 - **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
-- **Language and grammar (7-12):** AI vocabulary words (41+), copula avoidance, negative parallelisms, rule of three, synonym cycling, false ranges
+- **Language and grammar (7-12):** AI vocabulary words and phrases, Kobak biomedical excess-vocabulary clusters, copula avoidance, contrived contrast / negative parallelisms, rule of three, synonym cycling, false ranges
 - **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
 - **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
 - **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
@@ -138,6 +205,18 @@ grep -i "promotional" references/patterns.md
 
 ## Process
 
+### Step 0: Calibrate intensity and genre
+
+Identify the mode before rewriting:
+
+- User explicitly requested "light", "gentle", "keep my voice", "literary", "just clean it up": use **Light**.
+- User asked to "humanise", "de-AI", "make this sound less AI": use **Medium** unless the genre clearly calls for Light.
+- User asked to "strip all AI tells", "make it pass checks", "be ruthless", "hard mode": use **Hard**.
+
+If the text is fiction, memoir, humour, interview, literary essay, poetry-adjacent prose, old prose, or dialogue-heavy writing, ask before applying Hard mode. These genres naturally use devices the grader flags.
+
+Record the selected mode in the report.
+
 ### Step 1: Pre-check (script finds the problems)
 
 Save the input text to a temp file, then run the grading script on it:
@@ -146,9 +225,9 @@ Save the input text to a temp file, then run the grading script on it:
 python3 grade.py /tmp/input.md
 ```
 
-The script checks 31 patterns programmatically and returns a JSON report listing every failure with evidence. Read the report. This is your hit list. Do not rely on your own scan for pattern detection. The script is more reliable than reading the reference file.
+The script checks 42 patterns programmatically and returns a JSON report listing every failure with evidence, severity, and `mode_results` for Light, Medium, and Hard. Read the report. In Hard mode, this is your hit list. In Light and Medium modes, it is a diagnostic map: hard failures must be fixed, strong warnings usually need rewriting, and context warnings need the purpose test.
 
-**Depth signal:** If the pre-check shows multiple structural failures (triad density, section scaffolding, countdown negation), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
+**Depth signal:** If the pre-check shows multiple structural failures (triad density, section scaffolding, countdown negation, paragraph uniformity, soft scaffolding, orphaned demonstratives, tidy paragraph endings), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
 
 If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. But prefer the script when possible.
 
@@ -159,18 +238,29 @@ Address structural patterns first, then surface patterns. The grader catches sur
 **Structural patterns (address first):**
 
 1. **Structural monotony:** Do all sections follow the same arc (problem, evidence, anecdote, advice)? Vary paragraph structures. Some paragraphs should be one sentence. Some should start with evidence, not claims. Break at least one section out of the template.
-2. **Tonal uniformity (35):** Does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break — a moment of informality, a parenthetical doubt, a shift in rhythm.
+2. **Tonal uniformity (35):** Does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break: a moment of informality, a parenthetical doubt, or a shift in rhythm.
 3. **Resolution density (34):** Do most paragraphs end with a tidy summary sentence? Leave some threads open. Cut paragraph-final sentences that merely restate the paragraph's point.
 4. **Faux specificity (36):** Are the "specific" examples actually specific to anyone, or genre-convention filler? "The smell of coffee on a Sunday morning" is a stock photo in prose form.
 5. **Neutrality collapse (37):** Does the text take a position? If the input had a stance, make sure the output keeps it. "There are pros and cons" is not a rewrite of an opinion.
 6. **Even jargon distribution:** Humans clump technical terms when introducing a concept then relax into plain language. AI distributes jargon uniformly. If technical vocabulary is spread too evenly, clump it.
-7. **Forced synesthesia (28)** and **generic metaphors (30)** — replace with concrete details.
-8. **Section scaffolding (38):** If all sections use the same structural label or follow the same template, vary them.
+7. **Soft scaffold phrasing:** Remove paragraph labels such as "One useful area", "Another useful area", "The main strength", "The main risk", and "Good use usually comes down to". State the point directly.
+8. **Bland critical templates:** In reviews and criticism, replace phrases like "emotional range", "field of sympathy", "moral strength", and "earns its weight" with concrete claims from the work.
+9. **False concessions:** Replace "critics say/supporters say/the truth lies in the middle" with the actual stance and evidence. Do not let balance stand in for thought.
+10. **Orphaned demonstratives:** Replace vague starts like "This highlights..." or "That underscores..." with concrete subjects.
+11. **Forced synesthesia (28)** and **generic metaphors (30):** replace with concrete details.
+12. **Section scaffolding (38):** If all sections use the same structural label or follow the same template, vary them.
+
+**Genre-specific tentative checks:**
+
+- **Academic/research:** Verify citations, DOIs, journals, dates, and reference-list formatting. Do not trust plausible-looking references. Flag citation oddities for user review rather than inventing replacements.
+- **Student essays:** Watch for rubric echoing: "the author creates a tone", "I can tell because", "this quote shows that", "according to the rubric". Preserve only if the text is explicitly discussing a rubric.
+- **Poetry:** Watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.
+- **Fiction:** Watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, fixed POV with no pressure, over-resolved endings, scene pacing that never surprises, characters stating subtext, and exposition that arrives before the scene has earned it.
 
 **Surface patterns (address second):**
 
 9. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the pre-check
-10. Fix every failure from the pre-check report (vocabulary, formatting, sentence-level patterns)
+10. Fix every hard failure from the pre-check report. Fix strong warnings in Medium and Hard. In Light, strong warnings may be recommended for preservation only with explicit disclosure and concrete genre/voice justification; em dashes are the exception and may be preserved only in Light mode with disclosure. Review context warnings with the purpose test.
 11. Add personality and voice per the Personality and soul section
 12. Preserve meaning and match the intended tone
 
@@ -190,10 +280,12 @@ Answer each question below with a specific count or finding. Do not skip any. Sh
 2. **Resolution density:** Count paragraphs that end with a summary sentence. If more than half do, rewrite some to leave threads open.
 3. **Register breaks:** Is there at least one register break (moment of doubt, informality, or tonal shift)? If not, add one.
 4. **Triad count:** Count the triads. If there are more than 4, redistribute some as pairs or longer lists.
-5. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
-6. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
+5. **Reframe laundering:** Did any banned contrast survive in flipped form ("Y, not X"), softened form ("beyond X"), comparative form ("less X than Y"), or correction form ("you might think X, actually Y")? If yes, rewrite as a direct claim.
+6. **Purposeful devices:** Which flagged context warnings did you preserve, and why? Name the device and its function.
+7. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
+8. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
 
-After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures and that grader-backed structural checks (triad density, section scaffolding, countdown negation) now pass. If any fail, fix and re-audit until both the self-audit answers and the grader are clean.
+After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures. In Hard mode, all checks should pass. In Medium mode, hard failures and strong warnings should be gone; em dashes are never acceptable in Medium. In Light mode, remaining context warnings are acceptable when they preserve voice, and em dashes may remain only with explicit disclosure.
 
 ### Step 4: Post-check (script verifies the fix)
 
@@ -203,24 +295,43 @@ Run the grading script on your output:
 python3 grade.py /tmp/output.md
 ```
 
-If any checks fail, fix them and re-run. Do not submit output that fails the post-check. The em dash count must be zero. All 31 checks should pass.
+Interpret the post-check by mode:
 
-If the script is not available, manually verify: search output for the em dash character (count must be zero), scan for any manufactured insight phrases, check for staccato sequences.
+- **Hard:** fix failures and re-run until all 42 checks pass unless a fix would change meaning.
+- **Medium:** hard failures and strong warnings must be gone; context warnings may remain if purposeful and disclosed.
+- **Light:** fix hard failures and obvious assistant residue; preserve purposeful voice even if the script still flags context warnings.
+
+Always report the grader's Light/Medium/Hard status. Example:
+
+```text
+Light: review, 3 warnings need user decision
+Medium: fail, 1 strong warning must be fixed
+Hard: fail, 7 checks must be fixed
+```
+
+If the script is not available, manually verify hard failures and scan for generic AI structures. Use the purpose test before flattening voice.
 
 ## Output format
 
-1. Pre-check report (which patterns the script found in the input)
-2. Draft rewrite
-3. Structural self-audit answers (mandatory, with counts):
+1. Mode selected: Light / Medium / Hard, with one sentence explaining why
+2. Pre-check report (which patterns the script found in the input, grouped by severity)
+3. Draft rewrite
+4. Structural self-audit answers (mandatory, with counts):
    - Section arcs: N/M following same template — [what you changed]
    - Resolution density: N/M paragraphs end with summary — [what you changed]
    - Register breaks: [where you added one, or "already present at..."]
    - Triads: N found — reduced to M by [method]
+   - Reframe laundering: [none / fixed at...]
+   - Purposeful devices recommended for preservation: [device — reason, or "none"]
    - Stance: [preserved / shifted — restored by...]
    - Remaining tells: [list, or "none identified"]
-4. Final rewrite (revised after audit)
-5. Post-check report (confirming all 31 checks pass)
-6. Brief summary of changes made (optional, if helpful)
+5. Final rewrite (revised after audit)
+6. Post-check report:
+   - Fixed: [checks fixed]
+   - Remaining hard failures: [must be none unless user explicitly accepts]
+   - Remaining strong warnings: [fixed / recommended preserve / needs user decision]
+   - Remaining context warnings: [fixed / recommended preserve / needs user decision]
+7. Brief summary of changes made (optional, if helpful)
 
 ---
 
@@ -270,7 +381,7 @@ If the script is not available, manually verify: search output for the em dash c
 - Removed promotional language ("groundbreaking", "nestled", "seamless, intuitive, and powerful")
 - Removed vague attributions ("Industry observers")
 - Removed superficial -ing phrases ("underscoring", "highlighting", "reflecting", "contributing to")
-- Removed negative parallelism ("It's not just X; it's Y")
+- Removed contrived contrast / negative parallelism ("It's not just X; it's Y")
 - Removed rule-of-three patterns and synonym cycling ("catalyst/partner/foundation")
 - Removed false ranges ("from X to Y, from A to B")
 - Removed all em dashes (replaced with commas and restructured sentences)
@@ -292,5 +403,8 @@ If the script is not available, manually verify: search output for the em dash c
 - [Sam Kriss, "Why Does A.I. Write Like ... That?"](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), NYT Magazine (patterns 26-28: ghost language, quietness, synesthesia)
 - [Charlie Guo, "The Field Guide to AI Slop"](https://www.ignorance.ai/p/the-field-guide-to-ai-slop) (patterns 29-32: rhetorical questions, metaphors, list-making, dramatic transitions; density framing)
 - [Grammarly, "Common Words and Phrases in AI-Generated Content"](https://www.grammarly.com/blog/ai/common-ai-words/) (expanded vocabulary list)
+- [GPTZero, "AI Vocabulary"](https://gptzero.me/ai-vocabulary), April 2026 (100 high-ratio AI phrases from public table, used as tentative clustering signals)
+- [Matthew Vollmer, "I Asked the Machine to Tell on Itself"](https://matthewvollmer.substack.com/p/i-asked-the-machine-to-tell-on-itself) (cross-source taxonomy and reference trail)
+- [Shreya Shankar, "AI Writing"](https://sh-reya.com/blog/ai-writing/) (orphaned demonstratives and weak AI prose mechanics)
 - [Abdulhai et al., "How LLMs Distort Our Written Language"](https://arxiv.org/abs/2603.18161), 2026 (subtraction framing: neutrality collapse, pronoun depletion, semantic drift; patterns 35-37)
 - [Nature, "Signs of AI-generated text found in 14% of biomedical abstracts"](https://www.nature.com/articles/d41586-025-02097-6), 2025 (vocabulary items, temporal fingerprinting)

@@ -31,12 +31,14 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 
 Give it text and it:
 
-1. Runs a programmatic pre-check (31 checks via a Python grading script) and scans the input against all 38 patterns
-2. Rewrites flagged sections: structural patterns first (repetitive section arcs, tonal flatness, neutralised stance), then surface patterns (AI vocabulary, formatting, filler)
-3. Checks the rewrite didn't strip the author's stance or voice
-4. Runs a non-programmatic structural self-audit covering patterns the script can't detect (tonal uniformity, section monotony, stance preservation, resolution density)
-5. Re-runs the grading script on its own output and revises until both the script and the self-audit pass
-6. Returns the rewrite with a report of what changed
+1. Calibrates intensity: Light, Medium, or Hard
+2. Runs a programmatic pre-check (42 checks via a Python grading script) and scans the input against all 38 patterns
+3. Interprets the grader by severity and mode readiness: Light, Medium, and Hard
+4. Rewrites flagged sections: structural patterns first (repetitive section arcs, tonal flatness, neutralised stance), then surface patterns (AI vocabulary, formatting, filler)
+5. Checks the rewrite didn't strip the author's stance or voice
+6. Runs a non-programmatic structural self-audit covering patterns the script can't detect (tonal uniformity, section monotony, stance preservation, resolution density)
+7. Re-runs the grading script and revises according to mode: Hard aims for clean pass; Medium fixes hard failures and strong warnings; Light can recommend preserving purposeful warnings with disclosure
+8. Returns the rewrite with a transparent report of what changed, what remains flagged, and what needs the user's decision
 
 ## Patterns
 
@@ -52,9 +54,9 @@ Give it text and it:
 | 5 | Vague attributions | "Experts argue...", "Industry reports suggest..." |
 | 6 | Formulaic challenges sections | "Despite these challenges... continues to thrive" |
 | | **Language and grammar** | |
-| 7 | AI vocabulary words (41+) | "delve", "landscape", "tapestry", "harness", "unparalleled" |
+| 7 | AI vocabulary words and phrases | "delve", "landscape", "provide a valuable insight", GPTZero 100, Kobak excess-vocab pressure |
 | 8 | Copula avoidance | "serves as", "stands as" instead of "is" |
-| 9 | Negative parallelisms | "It's not just X; it's Y" |
+| 9 | Contrived contrast / negative parallelism | "It's not X; it's Y" / "It's Y, not X" |
 | 10 | Rule of three | Forcing ideas into triads |
 | 11 | Synonym cycling | "the protagonist... the main character... the central figure" |
 | 12 | False ranges | "from X to Y, from A to B" |
@@ -96,7 +98,7 @@ Give it text and it:
 ```
 humanise/                          Skill (this is what gets installed)
 ├── SKILL.md                       Main skill instructions
-├── grade.py                       31-check grading script
+├── grade.py                       42-check grading script
 └── references/patterns.md         38 patterns with before/after examples
 
 dev/                               Development only (not installed)
@@ -109,16 +111,16 @@ dev/                               Development only (not installed)
 ## What changed from the original
 
 - Restructured per [Anthropic's skill best practices](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills#best-practices): split into SKILL.md + reference file for progressive disclosure
-- Expanded from 25 to 38 patterns using research from [Wikipedia (WikiProject AI Cleanup)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), [Kriss (NYT)](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), [Caroll (Substack)](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon), [Guo (Ignorance.ai)](https://www.ignorance.ai/p/the-field-guide-to-ai-slop), [Grammarly](https://www.grammarly.com/blog/ai/common-ai-words/), [Nature](https://www.nature.com/articles/d41586-025-02097-6), [Abdulhai et al. (2026)](https://arxiv.org/abs/2603.18161), [Przystalski et al. (2025)](https://arxiv.org/abs/2507.00838), and [Zaitsu et al. (2025)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335369)
+- Expanded from 25 to 38 patterns using research from [Wikipedia (WikiProject AI Cleanup)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), [Kriss (NYT)](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), [Caroll (Substack)](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon), [Guo (Ignorance.ai)](https://www.ignorance.ai/p/the-field-guide-to-ai-slop), [Grammarly](https://www.grammarly.com/blog/ai/common-ai-words/), [GPTZero AI Vocabulary](https://gptzero.me/ai-vocabulary), [Nature](https://www.nature.com/articles/d41586-025-02097-6), [Abdulhai et al. (2026)](https://arxiv.org/abs/2603.18161), [Przystalski et al. (2025)](https://arxiv.org/abs/2507.00838), and [Zaitsu et al. (2025)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335369)
 - Added experiential vacancy, density-without-purpose, and subtraction framing as structural diagnostics
-- Added a 31-check grading script and isolation-based eval pipeline
+- Added a 42-check grading script and isolation-based eval pipeline
 - Renamed to `humanise` (Australian English)
 
 ## Known limitations
 
 - **Can't reconstruct what was never there.** Removes AI patterns but can't invent an author's real memories or relationships.
 - **Claude and ChatGPT produce different slop.** The sensory patterns (ghost language, quietness, synesthesia) show up more in ChatGPT output.
-- **Programmatic grading catches about 80% of tells.** Subtler issues (tonal uniformity, faux specificity, neutrality collapse) need human judgment in the self-audit loop.
+- **Programmatic grading catches many surface and structural tells.** Subtler issues (tonal uniformity, faux specificity, neutrality collapse, citation validity, fiction pacing) need human judgment in the self-audit loop.
 - **Patterns are transient.** The catalogue will need periodic updates as models evolve. AI vocabulary shifts with model versions, "delve" peaked 2023-24, newer words emerge each generation.
 - **The skill can introduce what it detects.** As an LLM rewriting text, it can itself neutralise stance or strip pronouns (Abdulhai et al. 2026). The semantic preservation step (Step 2.5) mitigates this but requires attention.
 
@@ -133,6 +135,10 @@ dev/                               Development only (not installed)
 - Sam Kriss, ["Why Does A.I. Write Like ... That?"](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), NYT Magazine (ghost language, quietness, synesthesia)
 - Charlie Guo, ["The Field Guide to AI Slop"](https://www.ignorance.ai/p/the-field-guide-to-ai-slop) (rhetorical questions, metaphors, list-making, dramatic transitions)
 - [Grammarly, "Common Words and Phrases in AI-Generated Content"](https://www.grammarly.com/blog/ai/common-ai-words/) (expanded vocabulary list)
+- [GPTZero, "AI Vocabulary"](https://gptzero.me/ai-vocabulary) (April 2026 high-ratio phrase list; all 100 public table entries used as clustering signals)
+- [Kobak et al., `llm-excess-vocab`](https://github.com/berenslab/llm-excess-vocab) (900 annotated PubMed excess-vocabulary rows; used as a biomedical/scientific cluster signal)
+- Matthew Vollmer, ["I Asked the Machine to Tell on Itself"](https://matthewvollmer.substack.com/p/i-asked-the-machine-to-tell-on-itself) (cross-source taxonomy and source trail)
+- Shreya Shankar, ["AI Writing"](https://sh-reya.com/blog/ai-writing/) (orphaned demonstratives and weak AI prose mechanics)
 
 **Academic research:**
 - [Abdulhai et al., "How LLMs Distort Our Written Language"](https://arxiv.org/abs/2603.18161), 2026 (subtraction framing: neutrality collapse, pronoun depletion, semantic drift)

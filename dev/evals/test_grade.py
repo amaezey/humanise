@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from grade import ALL_CHECKS
+from grade import ALL_CHECKS, CHECK_METADATA, annotate_result, mode_results
 
 FAILURES = 0
 
@@ -40,6 +40,17 @@ def expect_pass(check_name, text, reason):
         print(f"  ok: {check_name} correctly passes on: {reason}")
 
 
+def expect_mode_status(results, mode, status, reason):
+    """Assert mode_results reports the expected status."""
+    global FAILURES
+    actual = mode_results(results)[mode]["status"]
+    if actual != status:
+        FAILURES += 1
+        print(f"FAIL: {mode} should be {status} for {reason}; got {actual}")
+    else:
+        print(f"  ok: {mode} status is {status} for {reason}")
+
+
 # --- no-em-dashes ---
 
 print("\n=== no-em-dashes ===")
@@ -49,6 +60,12 @@ expect_fail("no-em-dashes",
 expect_pass("no-em-dashes",
     "I'm still keen to connect - would Tuesday work?",
     "hyphen, not em dash")
+em_dash_results = [
+    annotate_result(ALL_CHECKS["no-em-dashes"]("I'm still keen to connect\u2014would Tuesday work?"))
+]
+expect_mode_status(em_dash_results, "light", "review", "em dash is disclosed in Light")
+expect_mode_status(em_dash_results, "medium", "fail", "em dash is a strong 2026 signal in Medium")
+expect_mode_status(em_dash_results, "hard", "fail", "em dash is never allowed in Hard")
 
 
 # --- no-ai-vocabulary-clustering ---
@@ -69,9 +86,57 @@ expect_pass("no-ai-vocabulary-clustering",
 expect_fail("no-ai-vocabulary-clustering",
     "The seamless integration genuinely fosters a transformative experience.",
     "'seamless' + 'genuinely' + 'fosters' + 'transformative' = 4 AI words")
+expect_fail("no-ai-vocabulary-clustering",
+    "The study will provide a valuable insight, offer a valuable framework, and leave a lasting mark.",
+    "3 GPTZero high-ratio phrases in one paragraph")
 expect_pass("no-ai-vocabulary-clustering",
     "I actually went to the store and bought some hidden gems of local produce.",
     "'actually' without filler pattern and 'hidden' without significance pattern are not flagged")
+expect_fail("no-ai-vocabulary-clustering",
+    "The argument landed flat, and what surfaces in the discussion is a nuanced understanding of trust.",
+    "nonliteral landed + surface + nuanced")
+expect_pass("no-ai-vocabulary-clustering",
+    "The plane landed safely on the island, and the table surface was scratched.",
+    "literal land/surface usage")
+
+
+# --- overall-ai-signal-pressure ---
+
+print("\n=== overall-ai-signal-pressure ===")
+expect_pass("overall-ai-signal-pressure",
+    (
+        "This clinical covid antiviral study additionally aims to address "
+        "challenges and enhance outcomes. The analysis underscores advancements, "
+        "acknowledges limitations, and offers a comprehensive approach for "
+        "patients receiving therapeutic intervention."
+    ),
+    "Kobak-heavy academic vocabulary alone is supporting evidence, not a failure")
+expect_pass("overall-ai-signal-pressure",
+    (
+        "The clinic tested an antiviral drug in patients with covid. Fever fell "
+        "after two days, and three patients left the ward by Friday."
+    ),
+    "biomedical content without style pressure")
+expect_pass("overall-ai-signal-pressure",
+    (
+        "The essay additionally aims to address challenges and enhance outcomes. "
+        "The analysis underscores advancements and offers a comprehensive approach "
+        "for readers."
+    ),
+    "style words without other AI-ish structure")
+expect_fail("overall-ai-signal-pressure",
+    (
+        "## Overview\n\n"
+        "At its core, this clinical covid antiviral study is not just about "
+        "treatment, but about navigating the complex landscape of patient trust. "
+        "The analysis underscores advancements, acknowledges limitations, and "
+        "offers a comprehensive approach for patients receiving therapeutic "
+        "intervention. The takeaway is clear: this marks a pivotal moment.\n\n"
+        "## Implications\n\n"
+        "At its core, the work is less about data than about transformation. "
+        "That is why the findings continue to inspire a deeper understanding."
+    ),
+    "Kobak pressure plus vocabulary, headings, formulaic openers, tidy endings, and reframes")
 
 
 # --- no-manufactured-insight ---
@@ -83,6 +148,15 @@ expect_fail("no-manufactured-insight",
 expect_fail("no-manufactured-insight",
     "What's really happening is a shift in power.",
     "what's really")
+expect_fail("no-manufactured-insight",
+    "What no one is talking about is how this changed the market.",
+    "what no one is talking about")
+expect_fail("no-manufactured-insight",
+    "When no one noticed, the tool quietly became the default.",
+    "when no one noticed framing")
+expect_fail("no-manufactured-insight",
+    "The shift nobody noticed was already underway.",
+    "shift nobody noticed framing")
 expect_pass("no-manufactured-insight",
     "The manual was updated in 2024 to reflect new safety standards.",
     "plain factual statement")
@@ -122,6 +196,9 @@ expect_fail("no-collaborative-artifacts",
 expect_fail("no-collaborative-artifacts",
     "Feel free to reach out if you have questions.",
     "feel free to")
+expect_fail("no-collaborative-artifacts",
+    "Let's break it down so the main idea is clear.",
+    "assistant explainer framing")
 expect_pass("no-collaborative-artifacts",
     "The bridge was completed in 1937 after four years of construction.",
     "plain factual statement")
@@ -186,9 +263,45 @@ expect_fail("no-negative-parallelisms",
 expect_fail("no-negative-parallelisms",
     "Travel is less about new places than about testing yourself.",
     "is less about X than about Y")
+expect_fail("no-negative-parallelisms",
+    "The essay is a question of identity, not logistics.",
+    "reversed Y, not X reframe")
+expect_fail("no-negative-parallelisms",
+    "The app is more about trust than convenience.",
+    "more about Y than X reframe")
+expect_fail("no-negative-parallelisms",
+    "Not so much a tool as a partner.",
+    "not so much X as Y")
+expect_fail("no-negative-parallelisms",
+    "You might think this is about speed. Actually, it is about trust.",
+    "correction frame with abstract reveal")
+expect_fail("no-negative-parallelisms",
+    "No polish. No gimmicks. Just substance.",
+    "No X. No Y. Just Z countdown")
+expect_fail("no-negative-parallelisms",
+    "Beyond convenience, the product is about connection.",
+    "beyond X, about Y reframe")
+expect_fail("no-negative-parallelisms",
+    "It isn't merely a song; it's a statement.",
+    "contraction plus merely variant")
 expect_pass("no-negative-parallelisms",
     "The building was not damaged in the fire. It was inspected the following day.",
     "factual negation, not a reframing move")
+expect_pass("no-negative-parallelisms",
+    "It's not the best display in its class, but it's good enough for professional work.",
+    "ordinary product comparison")
+expect_pass("no-negative-parallelisms",
+    "The laptop is powerful, not cheap.",
+    "plain concrete contrast")
+expect_pass("no-negative-parallelisms",
+    "It was not raining, but the road was still wet.",
+    "ordinary causal contrast")
+expect_pass("no-negative-parallelisms",
+    "This is more expensive than the older model.",
+    "ordinary price comparison")
+expect_pass("no-negative-parallelisms",
+    "The issue was not reported until Monday.",
+    "plain factual negation")
 
 
 # --- no-copula-avoidance ---
@@ -206,6 +319,12 @@ expect_fail("no-copula-avoidance",
 expect_pass("no-copula-avoidance",
     "The library is a community hub.",
     "plain copula 'is'")
+expect_pass("no-copula-avoidance",
+    "This is a feature, not a bug.",
+    "noun 'feature' is not copula avoidance")
+expect_fail("no-copula-avoidance",
+    "The gallery features four separate spaces.",
+    "verb 'features' as copula avoidance")
 
 
 # --- no-filler-phrases ---
@@ -234,6 +353,50 @@ expect_fail("no-generic-conclusions",
 expect_pass("no-generic-conclusions",
     "Solar capacity is projected to double by 2030.",
     "specific factual conclusion")
+
+
+# --- no-false-concession-hedges ---
+
+print("\n=== no-false-concession-hedges ===")
+expect_fail("no-false-concession-hedges",
+    "While critics argue the policy is too expensive, supporters say it is necessary. The truth lies somewhere in the middle.",
+    "fake both-sides middle")
+expect_pass("no-false-concession-hedges",
+    "Critics focused on the policy's cost. Supporters pointed to the emissions data from 2023.",
+    "concrete positions without tidy middle")
+
+
+# --- no-placeholder-residue ---
+
+print("\n=== no-placeholder-residue ===")
+expect_fail("no-placeholder-residue",
+    "Hi {client_name}, thanks for meeting with [Company Name] on [insert date].",
+    "unfilled placeholders")
+expect_pass("no-placeholder-residue",
+    "Hi Mara, thanks for meeting with Northline on Tuesday.",
+    "filled-in email")
+
+
+# --- no-soft-scaffolding ---
+
+print("\n=== no-soft-scaffolding ===")
+expect_fail("no-soft-scaffolding",
+    "One useful area is explanation. Another useful area is test writing. The main risk is over-trusting the output.",
+    "generated explainer scaffolding")
+expect_pass("no-soft-scaffolding",
+    "The tool explains unfamiliar modules and can draft tests when the project already has clear examples.",
+    "direct explanation without scaffold labels")
+
+
+# --- no-orphaned-demonstratives ---
+
+print("\n=== no-orphaned-demonstratives ===")
+expect_fail("no-orphaned-demonstratives",
+    "The report was released on Monday. This highlights a gap in planning. This underscores the need for action. This demonstrates the importance of governance.",
+    "3 vague demonstrative subject starts")
+expect_pass("no-orphaned-demonstratives",
+    "The report was released on Monday. Its missing appendix left the budget question unanswered.",
+    "concrete subject")
 
 
 # --- no-forced-triads ---
@@ -278,6 +441,9 @@ print("\n=== no-quietness-obsession ===")
 expect_fail("no-quietness-obsession",
     "A quiet stillness settled over the room. She spoke softly, gently, in hushed tones.",
     "quiet + stillness + softly + gently + hushed = 5")
+expect_fail("no-quietness-obsession",
+    "The silent room quietly settled into a soft, hushed stillness.",
+    "silent + quietly + soft + hushed + stillness")
 expect_pass("no-quietness-obsession",
     "The meeting ended at three. Everyone left quickly.",
     "no quietness words")
@@ -303,6 +469,17 @@ expect_fail("no-excessive-lists",
 expect_pass("no-excessive-lists",
     "The bridge was built in two phases. First, the foundations were laid. Then the span was constructed. A small ceremony marked completion.",
     "no list markers")
+
+
+# --- no-unicode-flair ---
+
+print("\n=== no-unicode-flair ===")
+expect_fail("no-unicode-flair",
+    "Next steps → draft the plan ✓ review the risks ★ ship the update.",
+    "decorative Unicode symbols")
+expect_pass("no-unicode-flair",
+    "Next steps: draft the plan, review the risks, and ship the update.",
+    "plain punctuation")
 
 
 # --- no-dramatic-transitions ---
@@ -362,6 +539,9 @@ expect_fail("no-markdown-headings",
 expect_pass("no-markdown-headings",
     "Libraries provide free access to information. They also host community events.",
     "plain prose, no headings")
+expect_pass("no-markdown-headings",
+    "### [Issue 194, Fall 2010](https://example.com/back-issues/194)\n\nThe essay begins here.",
+    "linked archive metadata heading is ignored")
 
 
 # --- no-corporate-ai-speak ---
@@ -436,6 +616,80 @@ expect_pass("no-countdown-negation",
 expect_fail("no-countdown-negation",
     "People cannot rush this. People cannot shortcut it. People cannot fake it.",
     "Branch 2: 'people cannot' full form, 3 consecutive")
+
+
+# --- no-negation-density ---
+
+print("\n=== no-negation-density ===")
+_negation_heavy = (
+    "This is not simple. It is not quick. It does not scale. It does not explain itself. "
+    "The team does not know who owns it. The system is not reliable. The data is not complete. "
+    "The process is not documented. The goal is not clear. The owner is not named. "
+    "The timeline is not credible. " + "Plain filler sentence for length. " * 55
+)
+expect_fail("no-negation-density",
+    _negation_heavy,
+    "10+ explanatory negation markers at high density in a long text")
+expect_pass("no-negation-density",
+    "Most meetings waste time, but written decisions make teams clearer. " * 45,
+    "long text without dense negation")
+
+
+# --- paragraph-length-uniformity ---
+
+print("\n=== paragraph-length-uniformity ===")
+_uniform_paragraphs = "\n\n".join(
+    "This paragraph has a deliberately similar length because generated articles often settle into an even block size with the same amount of explanation each time."
+    for _ in range(8)
+)
+expect_fail("paragraph-length-uniformity",
+    _uniform_paragraphs,
+    "8 near-identical paragraph lengths")
+_varied_paragraphs = "\n\n".join([
+    "Short paragraph with enough words to qualify for this structural check now.",
+    "This paragraph is much longer because it adds a concrete story, a qualification, and a little extra mess in the middle so the architecture does not fall into identical blocks across the piece.",
+    "Another short paragraph has enough words to count while still changing the rhythm clearly.",
+    "Here the writer slows down and spends more time on a specific example, adding dates, details, and a partial objection that changes the shape of the paragraph rather than landing at the same predictable length.",
+    "This one is compact but still above the minimum word threshold for substantial prose paragraphs.",
+    "The next paragraph wanders longer than expected, which is exactly the point for this test because human drafts often have uneven pressure from one paragraph to the next.",
+    "A final qualifying short paragraph closes the sample without becoming another identical block."
+])
+expect_pass("paragraph-length-uniformity",
+    _varied_paragraphs,
+    "varied paragraph lengths")
+
+
+# --- no-tidy-paragraph-endings ---
+
+print("\n=== no-tidy-paragraph-endings ===")
+expect_fail("no-tidy-paragraph-endings",
+    "The team missed the deadline. That is why planning matters.\n\nThe data was incomplete. The takeaway is clear.\n\nThe user flow confused people. In the end, clarity wins.",
+    "three generic miniature conclusions")
+expect_pass("no-tidy-paragraph-endings",
+    "The team missed the deadline after the API changed.\n\nThe data was incomplete, so the analyst reran the survey.\n\nThe user flow confused people on the payment screen.",
+    "specific endings without tidy summary labels")
+
+
+# --- no-bland-critical-template ---
+
+print("\n=== no-bland-critical-template ===")
+expect_fail("no-bland-critical-template",
+    "The novel is the kind of contemporary novel that does several familiar things at once. Its emotional range is difficult to dismiss, and its field of sympathy earns much of its weight.",
+    "generic review vocabulary")
+expect_pass("no-bland-critical-template",
+    "The second chapter works because Murray lets PJ misunderstand the adult conversation before the reader does.",
+    "concrete critical claim")
+
+
+# --- no-rubric-echoing ---
+
+print("\n=== no-rubric-echoing ===")
+expect_fail("no-rubric-echoing",
+    "The author creates a serious tone. I can tell because the quote shows that the character is sad. This evidence shows that the text demonstrates the author's use of imagery.",
+    "rubric/assignment boilerplate")
+expect_pass("no-rubric-echoing",
+    "The second paragraph slows down after the argument, and the shorter sentence at the end changes the pressure.",
+    "specific textual analysis")
 
 
 # --- vocabulary-diversity ---
@@ -533,6 +787,44 @@ expect_pass("no-section-scaffolding",
 expect_fail("no-section-scaffolding",
     "### How to apply:\nContent.\n\n### How to apply:\nContent.\n\nHow to apply:\nContent.",
     "markdown heading stripped, matches plain version")
+
+
+# --- severity and mode architecture ---
+
+print("\n=== severity-and-mode-architecture ===")
+for check_name in ALL_CHECKS:
+    if check_name not in CHECK_METADATA:
+        FAILURES += 1
+        print(f"FAIL: missing severity metadata for {check_name}")
+
+_clean_results = [
+    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
+    annotate_result({"text": "no-collaborative-artifacts", "passed": True, "evidence": "clean"}),
+]
+expect_mode_status(_clean_results, "light", "pass", "clean text")
+expect_mode_status(_clean_results, "medium", "pass", "clean text")
+expect_mode_status(_clean_results, "hard", "pass", "clean text")
+
+_context_only = [
+    annotate_result({"text": "no-anaphora", "passed": False, "evidence": "context warning"}),
+]
+expect_mode_status(_context_only, "light", "review", "context warning only")
+expect_mode_status(_context_only, "medium", "review", "context warning only")
+expect_mode_status(_context_only, "hard", "fail", "context warning only")
+
+_strong_only = [
+    annotate_result({"text": "no-negative-parallelisms", "passed": False, "evidence": "strong warning"}),
+]
+expect_mode_status(_strong_only, "light", "review", "strong warning only")
+expect_mode_status(_strong_only, "medium", "fail", "strong warning only")
+expect_mode_status(_strong_only, "hard", "fail", "strong warning only")
+
+_hard_only = [
+    annotate_result({"text": "no-collaborative-artifacts", "passed": False, "evidence": "hard failure"}),
+]
+expect_mode_status(_hard_only, "light", "fail", "hard failure")
+expect_mode_status(_hard_only, "medium", "fail", "hard failure")
+expect_mode_status(_hard_only, "hard", "fail", "hard failure")
 
 
 # --- Human passthrough: opinion piece ---

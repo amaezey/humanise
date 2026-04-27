@@ -15,6 +15,36 @@
 
 ---
 
+## Evidence hierarchy from the reference audit
+
+Use source strength when deciding severity. The ruleset should surface clusters of suspicious writing behaviours, not claim that one phrase proves AI authorship.
+
+**Strong empirical backbone:**
+
+- Kobak / Science Advances and the `llm-excess-vocab` dataset support lexical spike detection at corpus level, especially in scientific prose. Use vocabulary as density and clustering evidence, not as one-word proof. Source: https://github.com/berenslab/llm-excess-vocab
+- Juzek and Ward's "Why does ChatGPT delve so much?" supports a narrow scientific-abstract vocabulary signal. It is credible for excess-word lists but not for confident document-level claims. Source: https://arxiv.org/abs/2412.11385
+- GPTZero's 2026 paper supports the architecture: hierarchical signals, granular findings, adversarial testing, and transparent mixed evidence. It does not add a prose-style rule by itself. Source: https://arxiv.org/abs/2602.13042
+- Stanford HAI's detector-bias reporting supports warnings over accusations, especially for non-native English writers. Use process evidence and user review rather than detector-style verdicts. Source: https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers
+
+**Useful but tentative style sources:**
+
+- GPTZero's AI Vocabulary page is useful as a phrase list, but its own framing separates vocabulary scanning from AI-probability scoring. Use all 100 public table rows only as clustering signals. Source: https://gptzero.me/ai-vocabulary
+- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
+- OpenAI's April 2025 GPT-4o sycophancy rollback supports hard-failing assistant flattery and fake affirmation such as "great question" and "you're absolutely right." Source: https://openai.com/index/sycophancy-in-gpt-4o/
+
+**Domain and provenance signals:**
+
+- Walsh, Preus, and Gronski support poetry-specific manual checks: constrained uniformity, rhyme/quatrain defaults, first-person plural overuse, and mood-word clusters. Keep this genre-specific. Source: https://arxiv.org/abs/2410.15299
+- Clarkesworld reporting supports fiction as a submission/provenance problem and a manual craft-audit area. Use it for flat dialogue, exposition, pacing, lack of subtext, and over-resolved endings, not as a global regex rule. Source: https://www.npr.org/2023/02/24/1159286436/ai-chatbot-chatgpt-magazine-clarkesworld-artificial-intelligence
+- Futurism's Sports Illustrated reporting supports journalism and review-provenance checks: fake bylines, fake bios, AI headshots, affiliate product-review sludge, undisclosed generated content, and byline laundering. Source: https://futurism.com/sports-illustrated-ai-generated-writers
+
+**2026 operating stance:**
+
+- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They may be preserved only in Light mode with explicit disclosure; Medium and Hard require removal.
+- The best signals are clusters: GPTZero/Kobak vocabulary density, contrived contrast laundering, empty endings, vague demonstrative starts, placeholder residue, sycophantic assistant residue, unrequested headings/lists/Unicode flair, paragraph uniformity, generic email closers, and fake citations or provenance artifacts.
+
+---
+
 ## Content patterns
 
 ### 1. Significance inflation
@@ -100,11 +130,122 @@ Formulaic "Challenges" sections that acknowledge a problem then immediately reas
 
 ### 7. AI vocabulary words
 
-**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands (as metaphor for "how something is received"), unspoken, hidden (when used to inflate significance of something ordinary), unparalleled, invaluable, bolstered, meticulous
+**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands/landed (as metaphor for "how something is received"), surface/surfaced (as metaphor for "appears in the discourse"), unspoken, hidden (when used to inflate significance of something ordinary), unparalleled, invaluable, bolstered, meticulous
 
 **AI transition phrases** (a whole category AI overuses): "that being said", "at its core", "to put it simply", "a key takeaway is", "from a broader perspective", "in today's fast-paced world", "as technology continues to evolve", "but here's..."
 
 These words and phrases appear far more frequently in post-2023 text than in human writing from earlier periods. They often cluster in the same paragraph, which is a strong tell. No single word is proof, but density is: three or more in one paragraph is a fingerprint.
+
+**Soft scaffold phrases:** "One useful area...", "Another useful area...", "The main strength...", "The main risk...", "Good use usually comes down to..." These phrases are not flashy, which is why they survive rewrites. They mark a generated explainer that is arranging information into bland labelled blocks instead of writing from a real line of thought.
+
+**Tentative high-ratio phrase list:** GPTZero's April 2026 AI Vocabulary page is based on 3.3 million texts and exposes 100 public table rows. Use all 100 as clustering signals only. A single phrase is not proof of AI writing, but several in one paragraph is a strong smell.
+
+Full GPTZero phrase list used by the grader:
+
+1. provide a valuable insight
+2. left an indelible mark
+3. a stark reminder
+4. a nuanced understanding
+5. significant role in shaping
+6. the complex interplay
+7. broad implication
+8. an unwavering commitment
+9. endure a legacy
+10. underscore the importance
+11. play a pivotal role
+12. a pivotal moment
+13. navigate the complex
+14. mark a turning point
+15. continue to inspire
+16. gain a deeper understanding
+17. the transformative power
+18. hold a significant
+19. play a crucial role
+20. particularly a concern
+21. the relentless pursuit
+22. emphasize the need
+23. target an intervention
+24. a multi-faceted approach
+25. a serf reminder
+26. highlight the potential
+27. a significant milestone
+28. implication to understand
+29. potential risk associated
+30. leave a lasting
+31. add a layer
+32. offer a valuable
+33. a profound implication
+34. case highlights the importance
+35. finding a highlight of the importance
+36. pave the way for the future
+37. a significant step forward
+38. face a significant
+39. finding an important implication
+40. emphasize the importance
+41. a significant implication
+42. delve deeper into
+43. reply in tone
+44. raise an important question
+45. make an informed decision in regard to
+46. far-reaching implications
+47. a comprehensive framework
+48. importance to consider
+49. a unique blend
+50. couldn't help but wonder
+51. underscore the need
+52. framework for understanding
+53. highlight the need
+54. a comprehensive understanding
+55. the journey begins
+56. understanding the fundamental
+57. despite the face
+58. a delicate balance
+59. the path ahead
+60. gain an insight
+61. laid the groundwork
+62. understand the behavior
+63. renew a sense
+64. aim to explore
+65. present a unique challenge
+66. provide a comprehensive
+67. particularly with regard to
+68. address the root cause
+69. loom large in
+70. the implication of the finding
+71. approach ensures a
+72. an ongoing dialogue
+73. carry a weight
+74. ability to navigate
+75. present a significant
+76. study shed light on
+77. a diverse perspective
+78. face an adversity
+79. a comprehensive overview
+80. potentially lead to
+81. a broad understanding
+82. contribute to the understanding
+83. shape the public
+84. particularly noteworthy
+85. the evidence base for decision making
+86. identify an area of improvement
+87. analysis of the data to analyze and use
+88. undergone a significant
+89. need a robust
+90. voice will fill
+91. concern a potential
+92. initiative aims to
+93. offering a unique
+94. a new avenue
+95. despite the challenge
+96. ready to embrace
+97. the societal expectation
+98. make accessible
+99. today at a fast pace
+100. stand in stark contrast
+
+**Kobak excess vocabulary:** The grader also loads the full 900-row `kobak-excess-words.csv` file from Kobak et al.'s `llm-excess-vocab` repository. The file includes `style`, `content`, `content/style`, and `other` annotations. The aggregate pressure check uses style-annotated terms as one vocabulary signal alongside the local AI-vocabulary list and all 100 GPTZero phrases. Kobak words do not fail text by themselves.
+
+Current threshold: vocabulary pressure contributes points to an overall score. The overall score only trips when vocabulary pressure combines with structural signals such as manufactured insight, contrived reframes, paragraph uniformity, unrequested headings, soft scaffolding, or assistant residue. This follows the paper's corpus-level logic: excess vocabulary is evidence in a pattern, not a standalone detector verdict.
 
 **Before:**
 > Additionally, a distinctive feature of Somali cuisine is the incorporation of camel meat. An enduring testament to Italian colonial influence is the widespread adoption of pasta in the local culinary landscape, showcasing how these dishes have integrated into the traditional diet.
@@ -126,9 +267,24 @@ Substitutes elaborate constructions for simple "is", "are", or "has".
 > Gallery 825 is LAAA's exhibition space for contemporary art. The gallery has four rooms totalling 3,000 square feet.
 
 
-### 9. Negative parallelisms
+### 9. Contrived contrast / negative parallelism
 
-Constructions like "Not only...but..." or "It's not just about..., it's..." are overused to the point of being a reliable AI fingerprint.
+Constructions like "Not only...but..." or "It's not just about..., it's..." are overused to the point of being a reliable AI fingerprint. Treat this as a rhetorical move, not a string pattern: the problem is the fake reframe where a simple idea is rejected so a grander, more abstract idea can be revealed.
+
+Agents often dodge the rule by flipping the syntax around. These are the same tell:
+
+- "It's not X, it's Y."
+- "It's Y, not X."
+- "Less X than Y."
+- "More Y than X."
+- "Not so much X as Y."
+- "Beyond X, it is Y."
+- "You might think X. Actually, Y."
+- "No X. No Y. Just Z."
+
+Do not preserve the structure by swapping words, reversing the order, replacing "not" with "beyond", or splitting the contrast across sentences. If the sentence works by first rejecting a flat interpretation and then unveiling a supposedly deeper one, rewrite it as a direct claim with evidence.
+
+**Tolerance note:** Not every contrast is a problem. "The laptop is powerful, not cheap" is a concrete distinction. "The problem is not collaboration. The problem is performative attendance" can be a real argument. The tell is the inflated reveal: a plain interpretation is dismissed so an abstract payload ("meaning", "identity", "humanity", "trust", "belonging") can arrive with fake depth.
 
 **Before:**
 > It's not just about the beat riding under the vocals; it's part of the aggression and atmosphere. It's not merely a song, it's a statement.
@@ -136,10 +292,24 @@ Constructions like "Not only...but..." or "It's not just about..., it's..." are 
 **After:**
 > The heavy beat adds to the aggressive tone throughout the track.
 
+**Before:**
+> The film is a negotiation with memory, not just a family story. Beyond grief, it becomes a meditation on what it means to belong.
+
+**After:**
+> The film uses family conflict and remembered details to show how belonging changes after someone dies.
+
+**Before:**
+> You might think the app is about saving time. Actually, it is about trust.
+
+**After:**
+> The app earns trust by showing exactly what changed and letting users undo each step.
+
 
 ### 10. Rule of three
 
 Ideas forced into groups of three to appear comprehensive, even when the items do not naturally form a triad.
+
+**Tolerance note:** Three-part structures are common in human rhetoric, comedy, fiction, speeches, and criticism. Treat this as an AI tell when triads cluster densely, feel interchangeable, or use abstract nouns to simulate breadth. Preserve when the three items are concrete, necessary, funny, rhythmic, or part of a voiced argument.
 
 **Before:**
 > The event features keynote sessions, panel discussions, and networking opportunities. Attendees can expect innovation, inspiration, and industry insights.
@@ -222,6 +392,8 @@ Decorating headings or bullet points with emojis is almost never appropriate in 
 
 
 ### 17. Curly quotation marks
+
+**Tolerance note:** Curly quotes are typography, not inherently AI writing. Normalise them in hard-mode plain output if requested. Preserve them in sourced excerpts, literary fixtures, publication text, or quoted material.
 
 ChatGPT uses curly quotes instead of straight quotes.
 
@@ -315,6 +487,18 @@ Over-qualifying statements to the point where the sentence commits to nothing.
 **After:**
 > The policy may affect outcomes.
 
+### 23a. False concession hedges
+
+**Words to watch:** "While critics argue..., supporters say...", "the truth lies somewhere in the middle", "both sides have valid points", "it depends on context" when used to avoid a claim.
+
+AI often performs nuance by staging two generic positions and then landing in a bland middle. Real nuance names the evidence, stakes, and tradeoffs. If the sentence only balances abstractions, rewrite it as a direct claim.
+
+**Before:**
+> While critics argue remote work weakens culture, supporters say it improves flexibility. The truth lies somewhere in the middle.
+
+**After:**
+> Remote work improves flexibility for most desk workers, but it exposes weak management habits that office routines used to hide.
+
 
 ### 24. Generic positive conclusions
 
@@ -330,6 +514,8 @@ Vague upbeat endings that could be appended to any article on any topic.
 ### 25. Staccato rhythm in extended contexts
 
 This supplements the hard constraint on staccato fragments. Beyond the obvious standalone fragments, watch for the subtler pattern: AI places short sentences at the start of sections (to hook), at the end of paragraphs (to land), and in sequences of two or three (to build momentum). These positions are predictable.
+
+**Tolerance note:** Staccato is not automatically bad. Preserve it when it is character voice, panic, comedy, dialogue, aphorism, or deliberate literary rhythm. Cut it when it functions as generic article emphasis.
 
 **Before:**
 > The data was clear. Unmistakably so. Every metric pointed in the same direction. And that direction was down.
@@ -358,9 +544,11 @@ AI defaults to spectral, ghostly, shadowy imagery for anything it wants to make 
 
 ### 27. Quietness obsession
 
-**Words to watch:** quiet/quietly, softly, hum/humming, stillness, gentle, hushed, murmur, settle/settled, tender
+**Words to watch:** quiet/quietly, silent/silently, softly, hum/humming, stillness, gentle, hushed, murmur, settle/settled, tender
 
 AI inserts quietness and softness where it does not belong, often against the logic of the scene. In a 759-word essay about pebbles, one AI used "quiet" ten times. The word has become a proxy for depth.
+
+Adjacent manufactured-insight frames include "when no one noticed", "the shift nobody noticed", "before anyone noticed", and "without anyone noticing". These usually imply privileged perception without doing the evidentiary work.
 
 **Before:**
 > There is a quiet beauty in the way the morning light settles on the table. The coffee hums softly in its cup. Outside, the world has a gentle stillness to it, as if holding its breath.
@@ -387,6 +575,8 @@ AI blends senses inappropriately to simulate literary depth: emotions get tastes
 
 Short questions dropped mid-paragraph as a pacing device, followed by a declarative answer. Borrowed from long-form journalism but deployed indiscriminately. Includes the "The real X?" pattern: "The real insight?", "The real challenge?", "The takeaway?", "The kicker?" These perform revelation through question format.
 
+**Tolerance note:** Interviews, teaching prose, polemic, and comic essays often use questions legitimately. Treat as an AI tell when the answer is immediate, generic, and framed as revelation.
+
 **Before:**
 > But now? You won't be able to unsee this one. The solution? It's simpler than you think. The real question? Whether we're ready to face it.
 
@@ -412,6 +602,12 @@ When you spot a metaphor, ask: could anyone have written this, or does it come f
 AI converts prose to bullet points when the content does not warrant it. This is driven by RLHF training: human raters reward structured-looking answers, so the model learns that bullets = quality. The result is text that looks organised but reads like a slide deck rather than writing.
 
 When you encounter unnecessary bullet points or numbered lists, fold the content back into prose. Lists are appropriate for genuinely discrete items (ingredients, steps, specifications). They are not appropriate for flowing arguments, observations, or narrative.
+
+### 31a. Unicode flair
+
+**Words/symbols to watch:** arrows, checkmarks, stars, ornamental bullets, emoji-style symbols in prose or professional content.
+
+Decorative Unicode makes prose look like a generated checklist or social post. Remove it unless the symbols are part of a real UI, quoted material, or an actual checklist whose visual form matters.
 
 
 ### 32. Dramatic narrative transitions
@@ -496,6 +692,10 @@ Every paragraph wraps up with a tidy summary sentence that transitions perfectly
 
 When you spot a paragraph where the final sentence restates the paragraph's point or transitions smoothly to the next topic, consider cutting it or replacing it with something that leaves a thread open.
 
+Watch for endings such as "That is why...", "The takeaway is...", "The result is...", "In the end,...", "Ultimately,...", and "With that distinction in mind...". One can be legitimate. Three or more usually means the piece is landing every paragraph the same way.
+
+Also check paragraph size. AI-generated longform often settles into near-identical blocks: ten paragraphs of 65-85 words, each making one balanced point. Human paragraphs usually show uneven pressure; some are short, some wander, some carry a scene or example longer than expected.
+
 
 ### 35. Tonal uniformity / register lock
 
@@ -508,6 +708,20 @@ AI picks a register — professional-casual, academic-accessible, warm-but-autho
 > The system is modular, which mostly works well. The API is clean — I got a prototype running in an afternoon, though I hit a wall with the auth flow that took longer to sort out. The docs say "straightforward" but that is doing some heavy lifting.
 
 This pattern cannot be caught programmatically. During the self-audit, ask: does the whole text sit in one register? If it reads like a single voice speaking at a single speed about everything, introduce at least one register break — a moment of informality, a parenthetical doubt, a shift in sentence rhythm.
+
+In reviews and criticism, tonal uniformity often appears as bland evaluative balance: "emotional range", "field of sympathy", "moral strength", "earns its weight", "ambitious in an old-fashioned way", "social texture", "slow revelation". Replace this with concrete claims about scenes, sentences, performances, or formal choices.
+
+### 35a. Orphaned demonstratives
+
+**Words to watch:** "This highlights...", "This underscores...", "This demonstrates...", "That speaks to...", "These point to..."
+
+The problem is not the word "this"; it is the vague subject. If "this" points to a whole previous paragraph, replace it with the actual noun or claim.
+
+**Before:**
+> The team missed the deadline and the launch slipped by three weeks. This highlights the importance of communication.
+
+**After:**
+> The missed deadline exposed a communication gap between product and engineering.
 
 
 ### 36. Faux specificity
@@ -541,3 +755,24 @@ Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral whe
 > Remote work is better for most knowledge workers. The productivity data from Stanford and Owl Labs both point the same way, and the main counterarguments — spontaneous collaboration, mentorship, culture — have not held up well in studies that actually measured them.
 
 When humanising, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
+
+### 39. Template and placeholder residue
+
+**Words to watch:** `{client_name}`, `[Company Name]`, `[insert date]`, `<source>`, "Hi {name}".
+
+Unfilled placeholders are not style issues; they are generated/template residue. Replace them with real values if known, or remove the surrounding sentence if not.
+
+### 40. Rubric echoing
+
+**Words to watch:** "the author creates a tone", "I can tell because", "this quote shows that", "according to the rubric", "meets the criteria".
+
+Common in AI-generated student essays. It mirrors assignment language instead of analysing the text. Preserve only if the piece is explicitly about the rubric.
+
+### 41. Genre-specific manual checks
+
+These are not reliable enough for hard regex treatment yet, but they should be part of the self-audit:
+
+- **Academic/research:** verify citations, DOIs, dates, journals, reference order, and whether cited works actually support the claim. Plausible citation format is not evidence.
+- **Poetry:** watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.
+- **Fiction:** watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, locked POV with no pressure, over-resolved endings, and scene pacing that never surprises.
+- **Email/business:** watch for placeholders, over-warm openings, fake personalisation, and action lists dressed up with symbols.

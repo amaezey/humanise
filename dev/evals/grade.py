@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Grade humanised text against programmatic assertions."""
 
+import csv
 import json
 import re
 import sys
@@ -24,7 +25,174 @@ AI_VOCABULARY = [
     "genuinely", "unspoken", "seamless",
     # Added from April 2026 research (Nature biomedical study, practitioner guides)
     "unparalleled", "invaluable", "bolstered", "meticulous",
+    # Added from Vollmer/GPTZero reference audit
+    "mosaic", "ecosystem", "symphony", "labyrinth", "beacon",
+    "cornerstone", "bedrock", "kaleidoscope", "odyssey", "robust",
+    "dynamic", "comprehensive", "multifaceted", "nuanced", "holistic",
+    "state-of-the-art", "ever-evolving", "ever-changing", "utilize",
+    "optimize", "empower", "navigate", "unpack", "explore", "embrace",
+    "unlock", "commendable", "paramount", "unwavering", "alignment",
+    "resonate", "compelling",
 ]
+
+# GPTZero's April 2026 public AI Vocabulary table exposes 100 high-ratio
+# phrases. Treat them as tentative clustering signals, not single-phrase proof.
+GPTZERO_AI_PHRASES = [
+    "provide a valuable insight",
+    "left an indelible mark",
+    "a stark reminder",
+    "a nuanced understanding",
+    "significant role in shaping",
+    "the complex interplay",
+    "broad implication",
+    "an unwavering commitment",
+    "endure a legacy",
+    "underscore the importance",
+    "play a pivotal role",
+    "a pivotal moment",
+    "navigate the complex",
+    "mark a turning point",
+    "continue to inspire",
+    "gain a deeper understanding",
+    "the transformative power",
+    "hold a significant",
+    "play a crucial role",
+    "particularly a concern",
+    "the relentless pursuit",
+    "emphasize the need",
+    "target an intervention",
+    "a multi-faceted approach",
+    "a serf reminder",
+    "highlight the potential",
+    "a significant milestone",
+    "implication to understand",
+    "potential risk associated",
+    "leave a lasting",
+    "add a layer",
+    "offer a valuable",
+    "a profound implication",
+    "case highlights the importance",
+    "finding a highlight of the importance",
+    "pave the way for the future",
+    "a significant step forward",
+    "face a significant",
+    "finding an important implication",
+    "emphasize the importance",
+    "a significant implication",
+    "delve deeper into",
+    "reply in tone",
+    "raise an important question",
+    "make an informed decision in regard to",
+    "far-reaching implications",
+    "a comprehensive framework",
+    "importance to consider",
+    "a unique blend",
+    "couldn't help but wonder",
+    "underscore the need",
+    "framework for understanding",
+    "highlight the need",
+    "a comprehensive understanding",
+    "the journey begins",
+    "understanding the fundamental",
+    "despite the face",
+    "a delicate balance",
+    "the path ahead",
+    "gain an insight",
+    "laid the groundwork",
+    "understand the behavior",
+    "renew a sense",
+    "aim to explore",
+    "present a unique challenge",
+    "provide a comprehensive",
+    "particularly with regard to",
+    "address the root cause",
+    "loom large in",
+    "the implication of the finding",
+    "approach ensures a",
+    "an ongoing dialogue",
+    "carry a weight",
+    "ability to navigate",
+    "present a significant",
+    "study shed light on",
+    "a diverse perspective",
+    "face an adversity",
+    "a comprehensive overview",
+    "potentially lead to",
+    "a broad understanding",
+    "contribute to the understanding",
+    "shape the public",
+    "particularly noteworthy",
+    "the evidence base for decision making",
+    "identify an area of improvement",
+    "analysis of the data to analyze and use",
+    "undergone a significant",
+    "need a robust",
+    "voice will fill",
+    "concern a potential",
+    "initiative aims to",
+    "offering a unique",
+    "a new avenue",
+    "despite the challenge",
+    "ready to embrace",
+    "the societal expectation",
+    "make accessible",
+    "today at a fast pace",
+    "stand in stark contrast",
+]
+
+KOBAK_EXCESS_WORDS_PATH = "kobak-excess-words.csv"
+KOBAK_IGNORED_STYLE_POS = {"preposition", "pronoun", "pronoun/adverb", "particle"}
+KOBAK_IGNORED_STYLE_WORDS = {"were", "based", "background", "like", "this", "their", "these"}
+BIOMEDICAL_DOMAIN_TERMS = {
+    "abstract", "abstracts", "acute", "antiviral", "biomedical", "biomarker",
+    "biomarkers", "cancer", "cell", "cells", "clinical", "clinically",
+    "cohort", "coronavirus", "covid", "diagnosis", "diagnostic", "disease",
+    "diseases", "drug", "drugs", "gene", "genes", "genome", "genomic",
+    "hospital", "hospitalized", "intervention", "mortality", "oncology",
+    "patient", "patients", "placebo", "pneumonia", "protein", "proteins",
+    "pubmed", "randomized", "sars", "therapeutic", "therapeutics", "therapy",
+    "treatment", "treatments", "trial", "tumor", "tumors", "tumour",
+    "tumours", "vaccine", "vaccination", "ventilation", "ventilator",
+    "ventilators",
+}
+
+
+def _load_kobak_excess_vocab():
+    """Load Kobak et al. excess-vocabulary annotations from the skill data file."""
+    here = Path(__file__).resolve()
+    candidates = [
+        here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
+        here.parents[2] / "humanise" / "references" / KOBAK_EXCESS_WORDS_PATH,
+    ]
+    for path in candidates:
+        if path.exists():
+            with path.open(newline="", encoding="utf-8") as f:
+                rows = []
+                for row in csv.DictReader(f):
+                    word = row.get("word", "").strip().lower()
+                    if word:
+                        rows.append({
+                            "word": word,
+                            "type": row.get("type", "").strip().lower(),
+                            "part_of_speech": row.get("part_of_speech", "").strip().lower(),
+                        })
+                return rows
+    return []
+
+
+KOBAK_EXCESS_VOCAB = _load_kobak_excess_vocab()
+KOBAK_STYLE_WORDS = {
+    row["word"]
+    for row in KOBAK_EXCESS_VOCAB
+    if "style" in row["type"]
+    and row["part_of_speech"] not in KOBAK_IGNORED_STYLE_POS
+    and row["word"] not in KOBAK_IGNORED_STYLE_WORDS
+}
+KOBAK_CONTENT_WORDS = {
+    row["word"]
+    for row in KOBAK_EXCESS_VOCAB
+    if "content" in row["type"]
+}
 
 # Multi-word phrases where the first word may be inflected (e.g. "align with" ->
 # "aligns with", "aligned with"). Checked via regex, not substring.
@@ -38,7 +206,18 @@ AI_VOCABULARY_REGEX = [
     r"\bbut actually\b",
     # "land/lands" as metaphor for reception (not physical land)
     r"\bhow (?:it|that|this) lands?\b",
+    r"\bhow (?:it|that|this) landed\b",
     r"\blands? (?:well|differently|flat|poorly|awkwardly)\b",
+    r"\blanded (?:well|differently|flat|poorly|awkwardly)\b",
+    r"\bthe way (?:it|that|this) lands?\b",
+    r"\bthe way (?:it|that|this) landed\b",
+    # "surface" as metaphor for appearing/becoming visible, not physical surface
+    r"\bsurfaces? as\b",
+    r"\bsurfaces? in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response)\b",
+    r"\bsurfaced as\b",
+    r"\bsurfaced in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response)\b",
+    r"\bwhat surfaces?\b",
+    r"\bwhen (?:it|this|that) surfaces?\b",
     # "hidden" when inflating significance of the ordinary
     r"\bhidden (?:truth|depth|meaning|complexity|beauty|power|gem|lesson|cost)\b",
 ]
@@ -51,8 +230,12 @@ MANUFACTURED_INSIGHT = [
     r"the real story is", r"what's actually happening",
     # Contrived contrarianism
     r"what nobody is talking about", r"what no one seems to realize",
+    r"what no one is talking about", r"what nobody seems to realize",
     r"contrary to popular belief", r"the uncomfortable truth",
     r"what gets lost in the conversation", r"what most people miss",
+    r"what (?:no one|nobody) noticed", r"the shift (?:no one|nobody) noticed",
+    r"when (?:no one|nobody) noticed", r"while (?:no one|nobody) noticed",
+    r"before anyone noticed", r"without anyone noticing",
     # Performed knowingness
     r"let that sink in", r"read that again", r"if you know,? you know",
     r"and that changes everything", r"which tells you everything",
@@ -78,6 +261,10 @@ COLLABORATIVE_ARTIFACTS = [
     r"\bi hope this helps", r"\bgreat question", r"\blet me know",
     r"\bhere is a\b", r"\bwould you like", r"\bcertainly!",
     r"\bof course!", r"\byou're absolutely right",
+    r"\bwhat a thoughtful (?:question|observation)\b",
+    r"\bthat's a brilliant observation\b",
+    r"\bi'd be happy to help\b", r"\blet me explain\b",
+    r"\blet's break it down\b", r"\blet's unpack\b",
     # Soft offer-to-continue variants
     r"if needed,?\s+(?:I can|the .* can be|this can be)\b",
     r"if (?:you'd like|you need|you want),?\s+I can\b",
@@ -100,7 +287,7 @@ SIGNIFICANCE_INFLATION = [
 COPULA_AVOIDANCE = [
     r"serves? as\b", r"stands? as\b", r"functions? as\b",
     r"marks? a\b", r"represents? a\b",
-    r"boasts?\b", r"features?\b(?! film| movie| documentary)",
+    r"boasts?\b", r"features\b(?! film| movie| documentary)",
 ]
 
 FILLER_PHRASES = [
@@ -119,6 +306,84 @@ GENERIC_CONCLUSIONS = [
     r"continue (?:this|their|our) journey",
     r"a? ?step in the right direction",
     r"remains to be seen",
+    r"\boverall,\s+(?:this|the|these|it)\b",
+    r"\bremember,\s+when\b",
+    r"\bas we navigate\b",
+    r"\bthe journey (?:doesn't|does not) end here\b",
+]
+
+SOFT_SCAFFOLD_PHRASES = [
+    r"\bone useful (?:area|way|approach|thing|strategy|habit)\b",
+    r"\banother useful (?:area|way|approach|thing|strategy|habit)\b",
+    r"\bthe main (?:strength|risk|benefit|challenge|advantage|drawback)\b",
+    r"\bgood use usually comes down to\b",
+    r"\bcomes down to (?:giving|using|making|keeping|knowing|understanding)\b",
+    r"\bthis can be (?:helpful|useful|valuable|effective)\b",
+    r"\bcan (?:be|also be) (?:helpful|useful|valuable|effective) when\b",
+    r"\bespecially (?:helpful|useful|valuable|effective) when\b",
+    r"\bin those cases,\b",
+    r"\bwith (?:that|this) distinction in mind\b",
+]
+
+BLAND_CRITICAL_TEMPLATE = [
+    r"\bthe kind of (?:contemporary )?(?:novel|film|book|album|show|essay) that\b",
+    r"\bdoing several familiar things at once\b",
+    r"\bwhat makes (?:the|this|it)\b.{0,80}\bmore than\b",
+    r"\bemotional range\b",
+    r"\bfield of sympathy\b",
+    r"\bmoral strengths?\b",
+    r"\bearns? (?:much of )?its weight\b",
+    r"\bambitious in an old-fashioned way\b",
+    r"\bsocial texture\b",
+    r"\bslow revelation of\b",
+    r"\bdifficult to dismiss\b",
+]
+
+TIDY_PARAGRAPH_ENDINGS = [
+    r"\bthat is what makes\b",
+    r"\bthat is why\b",
+    r"\bthis is why\b",
+    r"\bthe takeaway is\b",
+    r"\bthe lesson is\b",
+    r"\bthe result is\b",
+    r"\bwhat matters is\b",
+    r"\bin the end,",
+    r"\bultimately,",
+    r"\bused with (?:care|that distinction in mind)\b",
+    r"\bwith (?:that|this) distinction in mind\b",
+    r"\bwithout becoming\b",
+]
+
+FALSE_CONCESSION_PATTERNS = [
+    r"\bwhile (?:critics|skeptics|some) (?:argue|say|claim|contend)\b.{0,160}\b(?:supporters|proponents|others) (?:argue|say|claim|maintain|counter)\b",
+    r"\b(?:supporters|proponents) (?:argue|say|claim|maintain)\b.{0,160}\bwhile (?:critics|skeptics|others) (?:argue|say|claim|contend)\b",
+    r"\bthe truth,?\s+as is often the case,?\s+lies somewhere in between\b",
+    r"\bthe truth (?:lies|is) somewhere in (?:the )?middle\b",
+    r"\bwhile this may vary\b.{0,120}\b(?:generally speaking|in most cases|it is worth noting)\b",
+]
+
+ORPHANED_DEMONSTRATIVE_VERBS = [
+    "highlights", "underscores", "demonstrates", "illustrates", "reflects",
+    "suggests", "creates", "shows", "reveals", "emphasizes", "reinforces",
+    "points to", "speaks to", "allows", "enables",
+]
+
+PLACEHOLDER_PATTERNS = [
+    r"\{[a-z0-9_ -]{2,40}\}",
+    r"\[(?:insert|add|describe|include|client|company|name|title|date|source|citation)[^\]]{0,50}\]",
+    r"<(?:client|company|name|title|date|source|citation)[^>]{0,40}>",
+    r"\bhi\s+\{[^}]+\}",
+    r"\bdear\s+\[(?:name|client|recipient)[^\]]*\]",
+]
+
+RUBRIC_ECHO_PATTERNS = [
+    r"\bthe author creates? a .{0,50} tone\b",
+    r"\bi can tell because\b",
+    r"\bin paragraph (?:one|two|three|four|five|\d+)\b",
+    r"\bthis (?:quote|evidence) shows that\b",
+    r"\bthe (?:text|passage|essay) demonstrates (?:the author's )?(?:use|understanding|ability)\b",
+    r"\baccording to the rubric\b",
+    r"\bmeets? the criteria\b",
 ]
 
 
@@ -144,6 +409,55 @@ def count_pattern_matches(text, patterns):
     return total, matches
 
 
+def normalize_for_regex(text):
+    """Normalize punctuation variants that agents use to dodge phrase checks."""
+    return (
+        text.lower()
+        .replace("\u2019", "'")
+        .replace("\u2018", "'")
+        .replace("\u201c", '"')
+        .replace("\u201d", '"')
+        .replace("\u2014", " - ")
+        .replace("\u2013", " - ")
+    )
+
+
+def word_counts(text):
+    """Return lowercase word counts for exact vocabulary-set matching."""
+    counts = {}
+    for token in re.findall(r"\b[a-z][a-z0-9-]*\b", normalize_for_regex(text)):
+        counts[token] = counts.get(token, 0) + 1
+    return counts
+
+
+def strip_front_matter(text):
+    """Remove YAML front matter from markdown fixtures before prose checks."""
+    if text.startswith("---\n"):
+        parts = text.split("\n---\n", 1)
+        if len(parts) == 2:
+            return parts[1]
+    return text
+
+
+def prose_paragraphs(text):
+    """Return prose-like paragraphs, excluding fixture metadata and headings."""
+    text = strip_front_matter(text)
+    paragraphs = []
+    for para in re.split(r"\n\s*\n", text):
+        stripped = para.strip()
+        if not stripped:
+            continue
+        lines = [
+            line.strip()
+            for line in stripped.splitlines()
+            if not re.match(r"^#{1,6}\s+", line.strip())
+        ]
+        joined = " ".join(line for line in lines if line)
+        if joined:
+            paragraphs.append(joined)
+    return paragraphs
+
+
 # --- Checks ---
 
 def check_em_dashes(text):
@@ -157,11 +471,63 @@ def check_em_dashes(text):
 
 def _find_ai_words(text_lower):
     """Find AI vocabulary in text, including inflected multi-word phrases."""
-    found = [w for w in AI_VOCABULARY if w in text_lower]
+    normalized = normalize_for_regex(text_lower)
+    found = [w for w in AI_VOCABULARY if w in normalized]
+    found.extend([w for w in GPTZERO_AI_PHRASES if w in normalized])
     for pat in AI_VOCABULARY_REGEX:
-        if re.search(pat, text_lower):
-            found.append(re.search(pat, text_lower).group())
+        if re.search(pat, normalized):
+            found.append(re.search(pat, normalized).group())
     return found
+
+
+def vocabulary_pressure_profile(text):
+    """Score vocabulary evidence as one aggregate pressure signal."""
+    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    worst_generic = 0
+    worst_words = []
+    for para in paragraphs:
+        found = _find_ai_words(para.lower())
+        if len(found) > worst_generic:
+            worst_generic = len(found)
+            worst_words = found
+
+    normalized = normalize_for_regex(text)
+    gptzero_matches = [phrase for phrase in GPTZERO_AI_PHRASES if phrase in normalized]
+    kobak = kobak_excess_profile(text)
+
+    points = 0
+    reasons = []
+    if worst_generic >= 4:
+        points += 2
+        reasons.append(f"generic_cluster={worst_generic}")
+    elif worst_generic >= 2:
+        points += 1
+        reasons.append(f"generic_cluster={worst_generic}")
+
+    if len(gptzero_matches) >= 2:
+        points += 1
+        reasons.append(f"gptzero_phrases={len(gptzero_matches)}")
+
+    if kobak["available"]:
+        if kobak["style_distinct"] >= 25 and kobak["style_density"] >= 35:
+            points += 2
+            reasons.append(
+                f"kobak_style={kobak['style_distinct']} distinct/{kobak['style_density']:.1f}"
+            )
+        elif kobak["style_distinct"] >= 12 and kobak["style_density"] >= 20:
+            points += 1
+            reasons.append(
+                f"kobak_style={kobak['style_distinct']} distinct/{kobak['style_density']:.1f}"
+            )
+
+    return {
+        "points": min(points, 4),
+        "reasons": reasons,
+        "worst_generic": worst_generic,
+        "worst_words": worst_words,
+        "gptzero_matches": gptzero_matches[:8],
+        "kobak": kobak,
+    }
 
 
 def check_ai_vocabulary(text):
@@ -184,6 +550,118 @@ def check_ai_vocabulary(text):
             f"Worst paragraph has {max_count} AI words: {worst_words} ({total} total in text)"
             if max_count >= 3
             else f"Max AI words per paragraph: {max_count} ({total} total in text)"
+        ),
+    }
+
+
+def kobak_excess_profile(text):
+    """Return Kobak et al. excess-vocabulary evidence without deciding failure."""
+    if not KOBAK_EXCESS_VOCAB:
+        return {
+            "available": False,
+            "style_count": 0,
+            "style_distinct": 0,
+            "style_density": 0.0,
+            "biomedical_count": 0,
+            "content_count": 0,
+            "style_sample": [],
+            "biomedical_sample": [],
+            "content_sample": [],
+        }
+
+    counts = word_counts(text)
+    total_words = sum(counts.values())
+    style_matches = {w: counts[w] for w in KOBAK_STYLE_WORDS if counts.get(w)}
+    content_matches = {w: counts[w] for w in KOBAK_CONTENT_WORDS if counts.get(w)}
+    biomedical_matches = {w: counts[w] for w in BIOMEDICAL_DOMAIN_TERMS if counts.get(w)}
+    style_count = sum(style_matches.values())
+    content_count = sum(content_matches.values())
+    biomedical_count = sum(biomedical_matches.values())
+    style_density = style_count / max(total_words, 1) * 1000
+
+    style_sample = sorted(style_matches, key=lambda w: (-style_matches[w], w))[:10]
+    content_sample = sorted(content_matches, key=lambda w: (-content_matches[w], w))[:8]
+    biomedical_sample = sorted(
+        biomedical_matches,
+        key=lambda w: (-biomedical_matches[w], w),
+    )[:8]
+    return {
+        "available": True,
+        "style_count": style_count,
+        "style_distinct": len(style_matches),
+        "style_density": style_density,
+        "biomedical_count": biomedical_count,
+        "content_count": content_count,
+        "style_sample": style_sample,
+        "biomedical_sample": biomedical_sample,
+        "content_sample": content_sample,
+    }
+
+
+def check_overall_signal_pressure(text):
+    """Aggregate multiple weak/medium signals instead of overreacting to one list."""
+    checks = {
+        "manufactured_insight": check_manufactured_insight(text),
+        "negative_parallelism": check_negative_parallelisms(text),
+        "formulaic_openers": check_formulaic_openers(text),
+        "soft_scaffolding": check_soft_scaffolding(text),
+        "section_scaffolding": check_section_scaffolding(text),
+        "tidy_endings": check_tidy_paragraph_endings(text),
+        "paragraph_uniformity": check_paragraph_uniformity(text),
+        "markdown_headings": check_markdown_headings(text),
+        "excessive_lists": check_list_density(text),
+        "collaborative_artifacts": check_collaborative_artifacts(text),
+        "generic_conclusions": check_generic_conclusions(text),
+        "bland_critical_template": check_bland_critical_template(text),
+        "false_concession": check_false_concession(text),
+    }
+    weights = {
+        "manufactured_insight": 2,
+        "negative_parallelism": 2,
+        "formulaic_openers": 1,
+        "soft_scaffolding": 1,
+        "section_scaffolding": 1,
+        "tidy_endings": 1,
+        "paragraph_uniformity": 2,
+        "markdown_headings": 2,
+        "excessive_lists": 1,
+        "collaborative_artifacts": 2,
+        "generic_conclusions": 2,
+        "bland_critical_template": 1,
+        "false_concession": 1,
+    }
+
+    vocab = vocabulary_pressure_profile(text)
+    score = vocab["points"]
+    components = []
+    if vocab["points"]:
+        components.append(f"vocabulary_pressure(+{vocab['points']}:{', '.join(vocab['reasons'])})")
+    for name, result in checks.items():
+        if not result["passed"]:
+            score += weights[name]
+            components.append(name)
+
+    failed = score >= 4
+    return {
+        "text": "overall-ai-signal-pressure",
+        "passed": not failed,
+        "evidence": (
+            f"Overall AI-signal pressure {score}/4 from {components}; "
+            f"vocab={vocab['points']} point(s), "
+            f"worst_generic={vocab['worst_generic']}, "
+            f"gptzero={vocab['gptzero_matches']}, "
+            f"kobak={vocab['kobak']['style_distinct']} distinct/"
+            f"{vocab['kobak']['style_density']:.1f}/1000, "
+            f"sample={vocab['kobak']['style_sample']}"
+            if failed
+            else (
+                f"Overall AI-signal pressure {score}/4 from {components}; "
+                f"vocab={vocab['points']} point(s), "
+                f"worst_generic={vocab['worst_generic']}, "
+                f"gptzero={vocab['gptzero_matches']}, "
+                f"kobak={vocab['kobak']['style_distinct']} distinct/"
+                f"{vocab['kobak']['style_density']:.1f}/1000"
+            )
         ),
     }
 
@@ -317,19 +795,60 @@ def check_significance_inflation(text):
 
 
 def check_negative_parallelisms(text):
-    patterns = [r"not just\b.*?\bbut\b", r"not only\b.*?\bbut also\b",
-                r"it's not about\b.*?\bit's about\b",
-                r"it's not [\w\s]+[;,] it's\b",
-                # Cross-sentence "not X. It is Y" reframing
-                r"not (?:about|just about) [\w\s]+\.\s+it is (?:about|a\b)",
-                r"is less about\b.*?\bthan (?:about )?\b",
-                r"is not [\w\s]+but\b",
-                ]
-    count, matches = count_pattern_matches(text, patterns)
+    normalized = normalize_for_regex(text)
+    subject = r"(?:it|this|that|the (?:point|question|problem|goal|story|work|piece|tool|song|film|book|app|product|value))"
+    neg = r"(?:not|isn't|is not|wasn't|was not|aren't|are not|isnt|wasnt|arent)"
+    soft = r"(?:just|only|merely|simply|really|actually|about|a matter of|a question of|a story of)"
+    abstract = (
+        r"(?:meaning|identity|dignity|human|humanity|connection|creativity|"
+        r"trust|belonging|agency|purpose|truth|memory|resilience|empathy|"
+        r"transformation|possibility|culture|power|relationship|experience|"
+        r"what matters|what it means|reclaiming|unlocking|reminder|lesson|"
+        r"journey|conversation|negotiation|reflection|statement|capability)"
+    )
+
+    hard_patterns = [
+        # Canonical forms and their obvious lexical variants.
+        r"\bnot\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{0,120}\bbut(?: also)?\b",
+        r"\b(?:isn't|is not|wasn't|was not|aren't|are not|isnt|wasnt|arent)\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{0,120}\bbut(?: also)?\b",
+        rf"\bnot\s+so\s+much\b.{{0,120}}\bas\b",
+        rf"\b{subject}\s+{neg}\s+{soft}\s+.{{0,120}}[;:,\-]\s+(?:it's|that's|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\b",
+        rf"\b{subject}\s+{neg}\s+.{{0,120}}[;:,\-]\s+(?:it's|that's|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\b[^.!?\n]{{0,120}}\b{abstract}\b",
+        # Cross-sentence "not X. It is Y" reframing.
+        rf"\b{neg}\s+(?:(?:just|only|merely|simply)\s+)?about\b.{{0,120}}[.!?]\s+(?:it|this|that)\s+(?:is|was|becomes?)\s+about\b[^.!?\n]{{0,120}}\b{abstract}\b",
+        # Comparative reframes.
+        r"\b(?:is|are|was|were|becomes?)\s+less\s+about\b.{0,120}\bthan\s+(?:about\s+)?",
+        r"\b(?:is|are|was|were|becomes?)\s+more\s+about\b.{0,120}\bthan\s+(?:about\s+)?",
+        r"\b(?:is|are|was|were|becomes?)\s+(?:less|more)\s+a\b.{0,120}\bthan\s+a\b",
+        # Explicit countdown negation in miniature.
+        r"\bno\s+[^.!?\n]{1,50}[.!?]\s+no\s+[^.!?\n]{1,50}[.!?]\s+just\s+",
+        r"\bnot\s+[^.!?\n]{1,50}[.!?]\s+not\s+[^.!?\n]{1,50}[.!?]\s+just\s+",
+        # "You thought X; actually Y" keeps the same fake revelation.
+        r"\b(?:you might think|at first glance|on the surface|it may seem)\b.{0,120}\b(?:but|yet|actually|in reality)\b",
+    ]
+
+    abstract_reframe_patterns = [
+        # Reversed order: "Y, not X" where Y is inflated abstraction.
+        rf"\b(?:is|are|was|were|becomes?|means?)\b[^.!?\n]{{0,90}}\b{abstract}\b[^.!?\n]{{0,80}},?\s+(?:rather than|instead of|not)\b",
+        rf"\b(?:a|an|the)\s+(?:question|matter|story|lesson|reminder|act|gesture|exercise|conversation|negotiation|reflection)\s+of\s+{abstract}\b[^.!?\n]{{0,80}},?\s+(?:rather than|instead of|not)\b",
+        # "Beyond X, it is Y" / "More than X, it is Y".
+        rf"\b(?:beyond|more than|larger than|deeper than)\b[^.!?\n]{{1,80}},?\s+(?:{subject}\s+)?(?:is|was|becomes?|means?)\b[^.!?\n]{{0,90}}\b{abstract}\b",
+        # Correction moves that reveal an inflated abstract payload.
+        rf"\b(?:actually|in reality|the real (?:point|story|question|issue|challenge) is)\b[^.!?\n]{{0,120}}\b{abstract}\b",
+    ]
+
+    matches = []
+    for pat in hard_patterns + abstract_reframe_patterns:
+        matches.extend(re.findall(pat, normalized, flags=re.IGNORECASE | re.DOTALL))
+    count = len(matches)
     return {
         "text": "no-negative-parallelisms",
         "passed": count == 0,
-        "evidence": f"Found {count} negative parallelism(s)" if count > 0 else "No negative parallelisms",
+        "evidence": (
+            f"Found {count} contrived contrast/reframe pattern(s)"
+            if count > 0
+            else "No negative parallelisms or contrived reframes"
+        ),
     }
 
 
@@ -357,6 +876,67 @@ def check_generic_conclusions(text):
         "text": "no-generic-conclusions",
         "passed": count == 0,
         "evidence": f"Found {count}: {matches}" if count > 0 else "No generic conclusions",
+    }
+
+
+def check_false_concession(text):
+    """Detect fake both-sides nuance that lands in a tidy middle."""
+    count, matches = count_pattern_matches(text, FALSE_CONCESSION_PATTERNS)
+    return {
+        "text": "no-false-concession-hedges",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} false concession pattern(s): {matches[:3]}"
+            if count > 0
+            else "No false concession hedges"
+        ),
+    }
+
+
+def check_placeholder_residue(text):
+    """Detect unfilled template placeholders in generated prose/email."""
+    count, matches = count_pattern_matches(text, PLACEHOLDER_PATTERNS)
+    return {
+        "text": "no-placeholder-residue",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} placeholder(s): {matches[:5]}"
+            if count > 0
+            else "No placeholder residue"
+        ),
+    }
+
+
+def check_soft_scaffolding(text):
+    """Detect bland transition scaffolding from generated explainers."""
+    count, matches = count_pattern_matches(text, SOFT_SCAFFOLD_PHRASES)
+    return {
+        "text": "no-soft-scaffolding",
+        "passed": count < 2,
+        "evidence": (
+            f"Found {count} soft scaffold phrase(s): {matches[:6]}"
+            if count >= 2
+            else f"Soft scaffold phrases: {count}"
+        ),
+    }
+
+
+def check_orphaned_demonstratives(text):
+    """Detect repeated vague 'This/That highlights...' subject starts."""
+    pattern = (
+        r"\b(?:this|that|these|those)\s+(?:"
+        + "|".join(re.escape(v) for v in ORPHANED_DEMONSTRATIVE_VERBS)
+        + r")\b"
+    )
+    count, matches = count_pattern_matches(text, [pattern])
+    return {
+        "text": "no-orphaned-demonstratives",
+        "passed": count < 3,
+        "evidence": (
+            f"Found {count} vague demonstrative subject(s): {matches[:6]}"
+            if count >= 3
+            else f"Vague demonstrative subjects: {count}"
+        ),
     }
 
 
@@ -416,7 +996,7 @@ def check_ghost_spectral(text):
 
 def check_quietness(text):
     """Detect quietness obsession density (pattern 27)."""
-    words = ["quiet", "quietly", "softly", "stillness", "hushed",
+    words = ["quiet", "quietly", "silent", "silently", "softly", "stillness", "hushed",
              "murmur", "gentle", "tender", "settled"]
     text_lower = text.lower()
     count = sum(text_lower.count(w) for w in words)
@@ -464,6 +1044,20 @@ def check_list_density(text):
             f"List ratio: {ratio:.0%} ({bullet_lines}/{total_lines} lines are bullets)"
             if ratio >= 0.3
             else f"List ratio: {ratio:.0%}"
+        ),
+    }
+
+
+def check_unicode_flair(text):
+    """Detect decorative Unicode symbols that make prose look generated."""
+    symbols = re.findall(r"[✓✔✕✖★☆◆◇→⇒➜➤•●○◦※✨⭐🔥🚀✅❌]", text)
+    return {
+        "text": "no-unicode-flair",
+        "passed": len(symbols) < 2,
+        "evidence": (
+            f"Found {len(symbols)} decorative Unicode symbol(s): {symbols[:8]}"
+            if len(symbols) >= 2
+            else f"Decorative Unicode symbols: {len(symbols)}"
         ),
     }
 
@@ -554,7 +1148,15 @@ def check_signposted_conclusions(text):
 
 def check_markdown_headings(text):
     """Detect markdown heading structure in prose (AI essays use ## sections)."""
-    headings = re.findall(r'^#{1,3}\s+.+', text, re.MULTILINE)
+    headings = []
+    for match in re.finditer(r'^#{1,3}\s+.+', strip_front_matter(text), re.MULTILINE):
+        heading = match.group()
+        # Extracted source metadata often arrives as linked publication labels.
+        # Keep detecting article/essay section scaffolding, but do not punish
+        # archive chrome such as "### [Issue 194, Fall 2010](...)".
+        if re.match(r'^#{1,3}\s+\[[^\]]+\]\([^)]+\)\s*$', heading):
+            continue
+        headings.append(heading)
     return {
         "text": "no-markdown-headings",
         "passed": len(headings) == 0,
@@ -674,6 +1276,116 @@ def check_countdown_negation(text):
         "text": "no-countdown-negation",
         "passed": True,
         "evidence": "No countdown negation",
+    }
+
+
+def check_negation_density(text):
+    """Detect heavy reliance on explanatory negation in otherwise smooth prose."""
+    words = re.findall(r"\b\w+\b", text.lower())
+    if len(words) < 300:
+        return {
+            "text": "no-negation-density",
+            "passed": True,
+            "evidence": f"Skipped: short text ({len(words)} words, need 300+)",
+        }
+    patterns = [
+        r"\bis not\b", r"\bare not\b", r"\bwas not\b", r"\bwere not\b",
+        r"\bdoes not\b", r"\bdo not\b", r"\bdid not\b",
+        r"\bisn't\b", r"\baren't\b", r"\bwasn't\b", r"\bweren't\b",
+        r"\bdoesn't\b", r"\bdon't\b", r"\bdidn't\b",
+        r"\bnot merely\b", r"\bnot simply\b", r"\bnot just\b",
+    ]
+    normalized = normalize_for_regex(text)
+    matches = []
+    for pat in patterns:
+        matches.extend(re.findall(pat, normalized))
+    per_1000 = len(matches) / len(words) * 1000
+    return {
+        "text": "no-negation-density",
+        "passed": not (len(matches) >= 10 and per_1000 >= 12),
+        "evidence": (
+            f"Found {len(matches)} negation markers ({per_1000:.1f} per 1000 words)"
+            if len(matches) >= 10 and per_1000 >= 12
+            else f"Negation markers: {len(matches)} ({per_1000:.1f} per 1000 words)"
+        ),
+    }
+
+
+def check_paragraph_uniformity(text):
+    """Detect generated-article paragraph architecture sameness."""
+    lengths = []
+    for para in prose_paragraphs(text):
+        words = re.findall(r"\b\w+\b", para)
+        if len(words) >= 25:
+            lengths.append(len(words))
+    if len(lengths) < 7:
+        return {
+            "text": "paragraph-length-uniformity",
+            "passed": True,
+            "evidence": f"Skipped: {len(lengths)} substantial paragraphs, need 7+",
+        }
+    avg = sum(lengths) / len(lengths)
+    cv = stdev(lengths) / avg if avg else 0
+    return {
+        "text": "paragraph-length-uniformity",
+        "passed": cv >= 0.18,
+        "evidence": (
+            f"Paragraph length CV: {cv:.2f} across {len(lengths)} paragraphs (target: >=0.18)"
+            if cv < 0.18
+            else f"Paragraph length CV: {cv:.2f} across {len(lengths)} paragraphs"
+        ),
+    }
+
+
+def check_tidy_paragraph_endings(text):
+    """Detect paragraphs that land with generic miniature conclusions."""
+    endings = []
+    paragraphs = prose_paragraphs(text)
+    for para in paragraphs:
+        sentences = split_sentences(para)
+        if not sentences:
+            continue
+        last = sentences[-1].lower()
+        for pat in TIDY_PARAGRAPH_ENDINGS:
+            if re.search(pat, last):
+                endings.append(sentences[-1][:90])
+                break
+    return {
+        "text": "no-tidy-paragraph-endings",
+        "passed": len(endings) < 3,
+        "evidence": (
+            f"Found {len(endings)} tidy paragraph ending(s): {endings[:5]}"
+            if len(endings) >= 3
+            else f"Tidy paragraph endings: {len(endings)}"
+        ),
+    }
+
+
+def check_bland_critical_template(text):
+    """Detect generated literary/review criticism that sounds balanced but generic."""
+    count, matches = count_pattern_matches(text, BLAND_CRITICAL_TEMPLATE)
+    return {
+        "text": "no-bland-critical-template",
+        "passed": count < 3,
+        "evidence": (
+            f"Found {count} bland critical template phrase(s): {matches[:6]}"
+            if count >= 3
+            else f"Bland critical template phrases: {count}"
+        ),
+    }
+
+
+def check_rubric_echoing(text):
+    """Detect student-essay boilerplate that mirrors assignment/rubric language."""
+    count, matches = count_pattern_matches(text, RUBRIC_ECHO_PATTERNS)
+    return {
+        "text": "no-rubric-echoing",
+        "passed": count < 3,
+        "evidence": (
+            f"Found {count} rubric echo phrase(s): {matches[:5]}"
+            if count >= 3
+            else f"Rubric echo phrases: {count}"
+        ),
     }
 
 
@@ -798,6 +1510,7 @@ def check_hedging_density(text):
 ALL_CHECKS = {
     "no-em-dashes": check_em_dashes,
     "no-ai-vocabulary-clustering": check_ai_vocabulary,
+    "overall-ai-signal-pressure": check_overall_signal_pressure,
     "no-manufactured-insight": check_manufactured_insight,
     "no-staccato-sequences": check_staccato,
     "no-anaphora": check_anaphora,
@@ -810,12 +1523,17 @@ ALL_CHECKS = {
     "no-copula-avoidance": check_copula_avoidance,
     "no-filler-phrases": check_filler_phrases,
     "no-generic-conclusions": check_generic_conclusions,
+    "no-false-concession-hedges": check_false_concession,
+    "no-placeholder-residue": check_placeholder_residue,
+    "no-soft-scaffolding": check_soft_scaffolding,
+    "no-orphaned-demonstratives": check_orphaned_demonstratives,
     "no-forced-triads": check_rule_of_three,
     "no-superficial-ing": check_superficial_ing,
     "no-ghost-spectral-density": check_ghost_spectral,
     "no-quietness-obsession": check_quietness,
     "no-rhetorical-questions": check_rhetorical_questions,
     "no-excessive-lists": check_list_density,
+    "no-unicode-flair": check_unicode_flair,
     "no-dramatic-transitions": check_dramatic_transitions,
     "no-formulaic-openers": check_formulaic_openers,
     "no-signposted-conclusions": check_signposted_conclusions,
@@ -824,10 +1542,257 @@ ALL_CHECKS = {
     "no-this-chains": check_this_chains,
     "no-excessive-hedging": check_hedging_density,
     "no-countdown-negation": check_countdown_negation,
+    "no-negation-density": check_negation_density,
+    "paragraph-length-uniformity": check_paragraph_uniformity,
+    "no-tidy-paragraph-endings": check_tidy_paragraph_endings,
+    "no-bland-critical-template": check_bland_critical_template,
+    "no-rubric-echoing": check_rubric_echoing,
     "vocabulary-diversity": check_type_token_ratio,
     "no-triad-density": check_triad_density,
     "no-section-scaffolding": check_section_scaffolding,
 }
+
+
+CHECK_METADATA = {
+    "no-collaborative-artifacts": {
+        "severity": "hard_fail",
+        "guidance": "Fix in every mode; this is assistant residue, not authorial style.",
+    },
+    "no-generic-conclusions": {
+        "severity": "hard_fail",
+        "guidance": "Fix in every mode unless quoted from source text.",
+    },
+    "no-placeholder-residue": {
+        "severity": "hard_fail",
+        "guidance": "Fix in every mode; unfilled placeholders are generated/template residue.",
+    },
+    "no-manufactured-insight": {
+        "severity": "strong_warning",
+        "guidance": "Fix in Medium/Hard; in Light, recommend preserving only if it clearly belongs to the writer's voice.",
+    },
+    "no-false-concession-hedges": {
+        "severity": "strong_warning",
+        "guidance": "Fix fake both-sides framing in Medium/Hard; preserve only if the piece actually argues both positions with evidence.",
+    },
+    "no-negative-parallelisms": {
+        "severity": "strong_warning",
+        "guidance": "Fix contrived reframes in Medium/Hard; recommend preserving only purposeful contrast in Light.",
+    },
+    "no-ai-vocabulary-clustering": {
+        "severity": "strong_warning",
+        "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context.",
+    },
+    "overall-ai-signal-pressure": {
+        "severity": "context_warning",
+        "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+    },
+    "no-copula-avoidance": {
+        "severity": "strong_warning",
+        "guidance": "Usually simplify in Medium/Hard; recommend preserving if the construction is idiomatic or technical.",
+    },
+    "no-filler-phrases": {
+        "severity": "strong_warning",
+        "guidance": "Fix stock filler in Medium/Hard; in Light, disclose and remove unless it belongs to quoted or intentionally casual voice.",
+    },
+    "no-superficial-ing": {
+        "severity": "strong_warning",
+        "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+    },
+    "no-corporate-ai-speak": {
+        "severity": "strong_warning",
+        "guidance": "Fix in most modes; recommend preserving only when quoting corporate source language.",
+    },
+    "no-soft-scaffolding": {
+        "severity": "strong_warning",
+        "guidance": "Fix in Medium/Hard; these phrases usually mark generated explainer structure rather than content.",
+    },
+    "no-formulaic-openers": {
+        "severity": "strong_warning",
+        "guidance": "Fix in Medium/Hard; in Light, recommend preserving only if it matches the source genre.",
+    },
+    "no-section-scaffolding": {
+        "severity": "strong_warning",
+        "guidance": "Fix repeated templates in Medium/Hard; recommend preserving only for genuinely structured reference material.",
+    },
+    "no-bland-critical-template": {
+        "severity": "strong_warning",
+        "guidance": "Fix in Medium/Hard for reviews and criticism; replace generic balance with concrete claims from the work.",
+    },
+    "no-em-dashes": {
+        "severity": "strong_warning",
+        "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only in Light mode with explicit disclosure; Medium and Hard require removal.",
+    },
+    "no-curly-quotes": {
+        "severity": "context_warning",
+        "guidance": "Normalise in Hard/plain output; recommend preserving in sourced literary or typographic text.",
+    },
+    "no-staccato-sequences": {
+        "severity": "context_warning",
+        "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+    },
+    "no-anaphora": {
+        "severity": "context_warning",
+        "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+    },
+    "sentence-length-variance": {
+        "severity": "context_warning",
+        "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms.",
+    },
+    "no-promotional-language": {
+        "severity": "context_warning",
+        "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
+    },
+    "no-significance-inflation": {
+        "severity": "context_warning",
+        "guidance": "Fix inflated importance unless the source genuinely argues significance.",
+    },
+    "no-forced-triads": {
+        "severity": "context_warning",
+        "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric.",
+    },
+    "no-ghost-spectral-density": {
+        "severity": "context_warning",
+        "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose.",
+    },
+    "no-quietness-obsession": {
+        "severity": "context_warning",
+        "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+    },
+    "no-rhetorical-questions": {
+        "severity": "context_warning",
+        "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument.",
+    },
+    "no-excessive-lists": {
+        "severity": "context_warning",
+        "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
+    },
+    "no-dramatic-transitions": {
+        "severity": "context_warning",
+        "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned.",
+    },
+    "no-signposted-conclusions": {
+        "severity": "context_warning",
+        "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful.",
+    },
+    "no-markdown-headings": {
+        "severity": "context_warning",
+        "guidance": "Fix when prose should flow; recommend preserving web articles, guides, and reference docs.",
+    },
+    "no-this-chains": {
+        "severity": "context_warning",
+        "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate.",
+    },
+    "no-orphaned-demonstratives": {
+        "severity": "context_warning",
+        "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear.",
+    },
+    "no-excessive-hedging": {
+        "severity": "context_warning",
+        "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty.",
+    },
+    "no-countdown-negation": {
+        "severity": "context_warning",
+        "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason.",
+    },
+    "no-negation-density": {
+        "severity": "context_warning",
+        "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+    },
+    "paragraph-length-uniformity": {
+        "severity": "context_warning",
+        "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+    },
+    "no-tidy-paragraph-endings": {
+        "severity": "context_warning",
+        "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn.",
+    },
+    "no-unicode-flair": {
+        "severity": "context_warning",
+        "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source.",
+    },
+    "no-rubric-echoing": {
+        "severity": "context_warning",
+        "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric.",
+    },
+    "vocabulary-diversity": {
+        "severity": "context_warning",
+        "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+    },
+    "no-triad-density": {
+        "severity": "context_warning",
+        "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+    },
+}
+
+
+def annotate_result(result):
+    """Attach severity metadata without changing existing pass/fail semantics."""
+    meta = CHECK_METADATA.get(result["text"], {
+        "severity": "context_warning",
+        "guidance": "Review in context.",
+    })
+    return {**result, **meta}
+
+
+def mode_results(results):
+    """Summarise readiness by rewrite intensity.
+
+    Light/Medium do not silently approve preserved warnings; they indicate what
+    still needs disclosure or user decision.
+    """
+    failures = [r for r in results if not r["passed"]]
+    by_severity = {}
+    for result in failures:
+        by_severity.setdefault(result["severity"], []).append(result["text"])
+
+    hard_failures = by_severity.get("hard_fail", [])
+    strong_warnings = by_severity.get("strong_warning", [])
+    context_warnings = by_severity.get("context_warning", [])
+
+    return {
+        "light": {
+            "status": "fail" if hard_failures else ("review" if strong_warnings or context_warnings else "pass"),
+            "must_fix": hard_failures,
+            "needs_user_decision": strong_warnings + context_warnings,
+            "summary": (
+                "Hard failures remain; fix before Light mode output."
+                if hard_failures
+                else (
+                    "No hard failures; remaining warnings need user decision."
+                    if strong_warnings or context_warnings
+                    else "No hard failures or warnings."
+                )
+            ),
+        },
+        "medium": {
+            "status": (
+                "fail"
+                if hard_failures or strong_warnings
+                else ("review" if context_warnings else "pass")
+            ),
+            "must_fix": hard_failures + strong_warnings,
+            "needs_user_decision": context_warnings,
+            "summary": (
+                "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+                if hard_failures or strong_warnings
+                else (
+                    "No hard failures or strong warnings; context warnings need user decision."
+                    if context_warnings
+                    else "No hard failures, strong warnings, or context warnings."
+                )
+            ),
+        },
+        "hard": {
+            "status": "pass" if not failures else "fail",
+            "must_fix": [r["text"] for r in failures],
+            "needs_user_decision": [],
+            "summary": (
+                "All checks pass."
+                if not failures
+                else "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+            ),
+        },
+    }
 
 
 def grade_file(filepath, assertion_names=None):
@@ -837,7 +1802,7 @@ def grade_file(filepath, assertion_names=None):
     checks_to_run = assertion_names or ALL_CHECKS.keys()
     for name in checks_to_run:
         if name in ALL_CHECKS:
-            results.append(ALL_CHECKS[name](text))
+            results.append(annotate_result(ALL_CHECKS[name](text)))
     return results
 
 
@@ -853,10 +1818,16 @@ def main():
 
     passed = sum(1 for r in results if r["passed"])
     total = len(results)
+    failures_by_severity = {}
+    for result in results:
+        if not result["passed"]:
+            failures_by_severity[result["severity"]] = failures_by_severity.get(result["severity"], 0) + 1
 
     output = {
         "file": filepath,
         "pass_rate": f"{passed}/{total}",
+        "failures_by_severity": failures_by_severity,
+        "mode_results": mode_results(results),
         "expectations": results,
     }
 
