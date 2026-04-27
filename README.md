@@ -33,12 +33,77 @@ Give it text and it:
 
 1. Calibrates intensity: Light, Medium, or Hard
 2. Runs a programmatic pre-check (43 checks via a Python grading script) and scans the input against all 38 patterns
-3. Interprets the grader by severity and mode readiness: Light, Medium, and Hard
+3. Groups failures by failure mode and severity, then separates check status from Light/Medium/Hard actions
 4. Rewrites flagged sections: structural patterns first (repetitive section arcs, tonal flatness, neutralised stance), then surface patterns (AI vocabulary, formatting, filler)
 5. Checks the rewrite didn't strip the author's stance or voice
 6. Runs a non-programmatic structural self-audit covering patterns the script can't detect (tonal uniformity, section monotony, stance preservation, resolution density)
-7. Re-runs the grading script and revises according to mode: Hard aims for clean pass; Medium fixes hard failures and strong warnings; Light can recommend preserving purposeful warnings with disclosure
+7. Re-runs the grading script and revises according to mode: Hard aims for clean pass; Medium and Light fix hard failures and strong warnings; context warnings may remain only with disclosure
 8. Returns the rewrite with a transparent report of what changed, what remains flagged, and what needs the user's decision
+
+Failure modes currently used in reports: provenance residue, synthetic significance, frictionless structure, generic abstraction, voice erasure, and genre misfit. A failed check remains a failed check in every mode; the mode decides whether to fix it, disclose it, or ask the user.
+
+## Sample report output
+
+```text
+Mode selected: Hard
+Reason: The user asked for maximum AI-tell removal on a generic education article.
+
+Pre-check report
+
+Failure mode: Frictionless structure
+- overall-ai-signal-pressure, context warning
+  Evidence: Overall AI-signal pressure 4/4 from paragraph uniformity and markdown headings.
+  Hard action: fix.
+- no-markdown-headings, context warning
+  Evidence: Found 1 heading: "# Why Feedback Matters in Learning".
+  Hard action: fix.
+- paragraph-length-uniformity, context warning
+  Evidence: Paragraph length CV 0.08 across 10 paragraphs.
+  Hard action: fix.
+- no-triad-density, context warning
+  Evidence: Found 12 list-rhythm triads.
+  Hard action: fix.
+
+Failure mode: Generic abstraction
+- overall-ai-signal-pressure, context warning
+  Evidence: Aggregate pressure included Kobak excess-vocabulary support.
+  Hard action: fix.
+
+Failure mode: Genre misfit
+- no-markdown-headings, context warning
+  Evidence: Heading syntax in prose article.
+  Hard action: fix.
+- no-triad-density, context warning
+  Evidence: Repeated three-part list rhythm.
+  Hard action: fix.
+
+Failure modes with no failed checks:
+- Provenance residue
+- Synthetic significance
+- Voice erasure
+
+Draft rewrite:
+[rewritten text here]
+
+Structural self-audit:
+- Section arcs: 3/9 follow a similar claim-then-example pattern. Varied with a short opener, one longer process paragraph, and direct classroom examples.
+- Resolution density: 2/9 paragraphs end with summary-like sentences. Removed repeated tidy closures.
+- Register breaks: Present in "None of this has to be elaborate" and "Too much advice at once can turn into noise."
+- Triads: 12 in source, reduced to 3.
+- Reframe laundering: none found.
+- Stance: preserved. The piece still argues that feedback works when it is specific, timely, emotionally usable, and followed by action.
+- Remaining tells: none identified after revision and post-check.
+
+Post-check report:
+- Fixed: overall-ai-signal-pressure, no-markdown-headings, paragraph-length-uniformity, no-triad-density.
+- Remaining hard failures: none.
+- Remaining strong warnings: none.
+- Remaining context warnings: none.
+- Check status: pass, 0/43 checks failed.
+- Light action: no required fixes, no preserved warnings, no user decisions.
+- Medium action: no required fixes, no preserved warnings, no user decisions.
+- Hard action: no required fixes.
+```
 
 ## Patterns
 
@@ -103,6 +168,9 @@ humanise/                          Skill (this is what gets installed)
 
 dev/                               Development only (not installed)
 ├── evals/                         Eval suite, samples, unit tests
+│   ├── run_grade_sweep.py          Regenerates corpus-wide sweep report
+│   ├── grade-sweep-report.json     Current generated/human corpus metrics
+│   └── samples/human-sourced/      Comment-cleaned source corpus
 ├── research/                      Source article analysis
 ├── ISSUES.md                      Known issues and technical notes
 └── TESTING.md                     Eval methodology and coverage
@@ -113,7 +181,8 @@ dev/                               Development only (not installed)
 - Restructured per [Anthropic's skill best practices](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills#best-practices): split into SKILL.md + reference file for progressive disclosure
 - Expanded from 25 to 38 patterns using research from [Wikipedia (WikiProject AI Cleanup)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), [Kriss (NYT)](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), [Caroll (Substack)](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon), [Guo (Ignorance.ai)](https://www.ignorance.ai/p/the-field-guide-to-ai-slop), [Grammarly](https://www.grammarly.com/blog/ai/common-ai-words/), [GPTZero AI Vocabulary](https://gptzero.me/ai-vocabulary), [Nature](https://www.nature.com/articles/d41586-025-02097-6), [Abdulhai et al. (2026)](https://arxiv.org/abs/2603.18161), [Przystalski et al. (2025)](https://arxiv.org/abs/2507.00838), and [Zaitsu et al. (2025)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335369)
 - Added experiential vacancy, density-without-purpose, and subtraction framing as structural diagnostics
-- Added a 43-check grading script and isolation-based eval pipeline
+- Added a 43-check grading script, failure-mode reporting, mode action buckets, and isolation-based eval pipeline
+- Added a reproducible corpus sweep runner and comment-cleaned human-source samples for false-positive auditing
 - Renamed to `humanise` (Australian English)
 
 ## Known limitations
@@ -121,6 +190,7 @@ dev/                               Development only (not installed)
 - **Can't reconstruct what was never there.** Removes AI patterns but can't invent an author's real memories or relationships.
 - **Claude and ChatGPT produce different slop.** The sensory patterns (ghost language, quietness, synesthesia) show up more in ChatGPT output.
 - **Programmatic grading catches many surface and structural tells.** Subtler issues (tonal uniformity, faux specificity, neutrality collapse, citation validity, fiction pacing) need human judgment in the self-audit loop.
+- **Checks are not authorship verdicts.** Human writing can legitimately trip context warnings. The report shows the evidence and mode action so the user can decide what to preserve.
 - **Patterns are transient.** The catalogue will need periodic updates as models evolve. AI vocabulary shifts with model versions, "delve" peaked 2023-24, newer words emerge each generation.
 - **The skill can introduce what it detects.** As an LLM rewriting text, it can itself neutralise stance or strip pronouns (Abdulhai et al. 2026). The semantic preservation step (Step 2.5) mitigates this but requires attention.
 
