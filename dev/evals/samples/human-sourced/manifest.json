@@ -26,8 +26,8 @@
       ],
       "fixture_path": "dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md",
       "fetch_status": 200,
-      "extract_method": "#content",
-      "word_count": 2421
+      "extract_method": "article",
+      "word_count": 1818
     },
     {
       "id": "21c-astra-dreamers-in-broad-daylight",

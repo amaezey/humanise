@@ -32,7 +32,7 @@ Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean u
 Give it text and it:
 
 1. Calibrates intensity: Light, Medium, or Hard
-2. Runs a programmatic pre-check (42 checks via a Python grading script) and scans the input against all 38 patterns
+2. Runs a programmatic pre-check (43 checks via a Python grading script) and scans the input against all 38 patterns
 3. Interprets the grader by severity and mode readiness: Light, Medium, and Hard
 4. Rewrites flagged sections: structural patterns first (repetitive section arcs, tonal flatness, neutralised stance), then surface patterns (AI vocabulary, formatting, filler)
 5. Checks the rewrite didn't strip the author's stance or voice
@@ -98,7 +98,7 @@ Give it text and it:
 ```
 humanise/                          Skill (this is what gets installed)
 ├── SKILL.md                       Main skill instructions
-├── grade.py                       42-check grading script
+├── grade.py                       43-check grading script
 └── references/patterns.md         38 patterns with before/after examples
 
 dev/                               Development only (not installed)
@@ -113,7 +113,7 @@ dev/                               Development only (not installed)
 - Restructured per [Anthropic's skill best practices](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills#best-practices): split into SKILL.md + reference file for progressive disclosure
 - Expanded from 25 to 38 patterns using research from [Wikipedia (WikiProject AI Cleanup)](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), [Kriss (NYT)](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), [Caroll (Substack)](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon), [Guo (Ignorance.ai)](https://www.ignorance.ai/p/the-field-guide-to-ai-slop), [Grammarly](https://www.grammarly.com/blog/ai/common-ai-words/), [GPTZero AI Vocabulary](https://gptzero.me/ai-vocabulary), [Nature](https://www.nature.com/articles/d41586-025-02097-6), [Abdulhai et al. (2026)](https://arxiv.org/abs/2603.18161), [Przystalski et al. (2025)](https://arxiv.org/abs/2507.00838), and [Zaitsu et al. (2025)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0335369)
 - Added experiential vacancy, density-without-purpose, and subtraction framing as structural diagnostics
-- Added a 42-check grading script and isolation-based eval pipeline
+- Added a 43-check grading script and isolation-based eval pipeline
 - Renamed to `humanise` (Australian English)
 
 ## Known limitations

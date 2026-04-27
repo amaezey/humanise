@@ -34,6 +34,25 @@ HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
 
+NOISE_SELECTORS = [
+    "#comments",
+    "#respond",
+    ".comments",
+    ".comments-area",
+    ".comment",
+    ".comment-content",
+    ".comment-list",
+    ".comment-respond",
+    ".entry-comments",
+    ".reader-comments",
+    ".respond",
+    ".sidebar",
+    ".widget",
+    ".wp-block-comments",
+    "[class*='comment-']",
+    "[id*='comment-']",
+]
+
 
 @dataclass
 class Extracted:
@@ -111,6 +130,9 @@ def extract_page(url: str) -> Extracted:
     soup = BeautifulSoup(html, "html.parser")
     for tag in soup(["script", "style", "noscript", "svg", "form", "nav", "footer", "header"]):
         tag.decompose()
+    for selector in NOISE_SELECTORS:
+        for tag in soup.select(selector):
+            tag.decompose()
 
     title_node = soup.find("meta", property="og:title") or soup.find("title")
     title = ""

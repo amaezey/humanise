@@ -2,7 +2,7 @@
 name: humanise
 description: >-
   Detects and rewrites AI writing patterns across vocabulary, structure, tone,
-  voice, and formatting using 38 patterns and 42 programmatic checks.
+  voice, and formatting using 38 patterns and 43 programmatic checks.
   Use when the user wants to humanise or de-AI text, clean up AI-generated
   content before publishing, or check whether writing passes as human-written.
   Also useful when a draft feels flat or robotic, when the author's voice has
@@ -36,11 +36,11 @@ Before rewriting, decide how far to go. If the user has not specified intensity 
 
 If you cannot ask, infer conservatively:
 
-- **Light:** remove obvious chatbot residue while preserving voice, rhythm, literary devices, humour, dialogue, period style, and formatting choices that appear intentional. Default for fiction, memoir, literary essays, humour, interviews, poetry-adjacent prose, and strong personal voice.
+- **Light:** remove hard failures and strong warnings while preserving voice, rhythm, literary devices, humour, dialogue, period style, and intentional formatting. Context warnings may remain only with disclosure and a concrete reason. Default for fiction, memoir, literary essays, humour, interviews, poetry-adjacent prose, and strong personal voice.
 - **Medium:** default for generic "humanise this" requests. Remove clear AI patterns and all strong warnings. Context-sensitive devices such as purposeful repetition, rhetorical questions, staccato, and triads may remain only when they carry voice or structure and are disclosed.
 - **Hard:** aggressive cleanup for drafts meant to pass as non-AI. Fix every script failure unless doing so would materially change meaning. Strip polish, scaffolding, and formulaic rhetorical moves even when they read smoothly.
 
-The grader is a diagnostic tool, not an absolute style law. In Medium mode, hard failures and strong warnings must be fixed; context warnings may remain only with disclosure. In Light mode, the agent may recommend preserving some flagged devices for voice, quotation, period style, humour, dialogue, or genre, but it must never hide that decision. The user decides whether to accept the risk. In Hard mode, assume the user wants maximum risk reduction.
+The grader is a diagnostic tool, not an authorship verdict. A failed check remains a failed check in every mode. Light, Medium, and Hard decide what action to take: fix, disclose, or ask the user. In Light and Medium, hard failures and strong warnings must be fixed; context warnings may remain only with disclosure and a concrete reason. In Hard mode, assume the user wants maximum risk reduction.
 
 Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
 
@@ -53,7 +53,7 @@ Do not silently classify your own writing as the exception. If you preserve a fl
 ### Severity classes
 
 - **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
-- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Medium and Hard; in Light, fix when generic or density-driven.
+- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
 - **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
 - **Em dashes:** strong 2026 signal. Light mode may preserve them only with explicit disclosure; Medium and Hard require removal.
 - **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
@@ -76,7 +76,7 @@ Examples:
 
 ## Hard constraints
 
-Non-negotiable in Hard mode. In Medium mode, hard failures and strong warnings must be fixed. In Light mode, remaining warnings may be preserved only with explicit disclosure. Check first, check last, check again.
+Non-negotiable in Hard mode. In Medium and Light mode, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
 
 ### No em dashes except disclosed Light mode preservation
 
@@ -225,7 +225,13 @@ Save the input text to a temp file, then run the grading script on it:
 python3 grade.py /tmp/input.md
 ```
 
-The script checks 42 patterns programmatically and returns a JSON report listing every failure with evidence, severity, and `mode_results` for Light, Medium, and Hard. Read the report. In Hard mode, this is your hit list. In Light and Medium modes, it is a diagnostic map: hard failures must be fixed, strong warnings usually need rewriting, and context warnings need the purpose test.
+The script checks 43 patterns programmatically and returns a JSON diagnostic report listing every failed check with evidence, severity, `failure_mode_results`, and `mode_results` for Light, Medium, and Hard. Read the report. A failed check remains failed in every mode. In Hard mode, this is your hit list. In Light and Medium modes, hard failures and strong warnings must be fixed, and context warnings need the purpose test.
+
+When reporting the grader output to the user, do not paste raw JSON. Convert it into a readable report grouped by failure mode first, then severity. For each failed check, show the check name, severity, evidence, and the selected mode's action from `mode_actions`:
+
+- **Fix:** hard failures and strong warnings in Light, Medium, and Hard; all failed checks in Hard.
+- **Preserve with disclosure:** context warnings in Light or Medium only when they serve voice, quotation, genre, or meaning.
+- **User decision:** context warnings where preservation is plausible but risky.
 
 **Depth signal:** If the pre-check shows multiple structural failures (triad density, section scaffolding, countdown negation, paragraph uniformity, soft scaffolding, orphaned demonstratives, tidy paragraph endings), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
 
@@ -260,7 +266,7 @@ Address structural patterns first, then surface patterns. The grader catches sur
 **Surface patterns (address second):**
 
 9. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the pre-check
-10. Fix every hard failure from the pre-check report. Fix strong warnings in Medium and Hard. In Light, strong warnings may be recommended for preservation only with explicit disclosure and concrete genre/voice justification; em dashes are the exception and may be preserved only in Light mode with disclosure. Review context warnings with the purpose test.
+10. Fix every hard failure and strong warning from the pre-check report in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure. Review context warnings with the purpose test.
 11. Add personality and voice per the Personality and soul section
 12. Preserve meaning and match the intended tone
 
@@ -285,7 +291,7 @@ Answer each question below with a specific count or finding. Do not skip any. Sh
 7. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
 8. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
 
-After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures. In Hard mode, all checks should pass. In Medium mode, hard failures and strong warnings should be gone; em dashes are never acceptable in Medium. In Light mode, remaining context warnings are acceptable when they preserve voice, and em dashes may remain only with explicit disclosure.
+After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures. In Hard mode, all checks should pass. In Medium and Light mode, hard failures and strong warnings should be gone; em dashes are never acceptable in Medium and should be fixed in Light unless the user explicitly accepts the risk after disclosure. In Light mode, remaining context warnings are acceptable when they preserve voice and are disclosed.
 
 ### Step 4: Post-check (script verifies the fix)
 
@@ -297,16 +303,17 @@ python3 grade.py /tmp/output.md
 
 Interpret the post-check by mode:
 
-- **Hard:** fix failures and re-run until all 42 checks pass unless a fix would change meaning.
+- **Hard:** fix failures and re-run until all 43 checks pass unless a fix would change meaning.
 - **Medium:** hard failures and strong warnings must be gone; context warnings may remain if purposeful and disclosed.
-- **Light:** fix hard failures and obvious assistant residue; preserve purposeful voice even if the script still flags context warnings.
+- **Light:** hard failures and strong warnings must be gone; context warnings may remain if they preserve voice and are disclosed.
 
-Always report the grader's Light/Medium/Hard status. Example:
+Always report check status and mode action separately. A check failure remains a failure even when Light or Medium allows disclosure instead of rewriting. Example:
 
 ```text
-Light: review, 3 warnings need user decision
-Medium: fail, 1 strong warning must be fixed
-Hard: fail, 7 checks must be fixed
+Check status: fail, 7/43 checks failed
+Light action: fix 1 strong warning; disclose or ask on 6 context warnings
+Medium action: fix 1 strong warning; disclose or ask on 6 context warnings
+Hard action: fix all 7 failed checks
 ```
 
 If the script is not available, manually verify hard failures and scan for generic AI structures. Use the purpose test before flattening voice.
@@ -314,7 +321,9 @@ If the script is not available, manually verify hard failures and scan for gener
 ## Output format
 
 1. Mode selected: Light / Medium / Hard, with one sentence explaining why
-2. Pre-check report (which patterns the script found in the input, grouped by severity)
+2. Pre-check report, grouped by failure mode, then severity:
+   - Failure mode: [Provenance residue / Synthetic significance / Frictionless structure / Generic abstraction / Voice erasure / Genre misfit]
+   - Failed checks: [check name, severity, evidence, selected-mode action]
 3. Draft rewrite
 4. Structural self-audit answers (mandatory, with counts):
    - Section arcs: N/M following same template — [what you changed]
@@ -329,8 +338,12 @@ If the script is not available, manually verify hard failures and scan for gener
 6. Post-check report:
    - Fixed: [checks fixed]
    - Remaining hard failures: [must be none unless user explicitly accepts]
-   - Remaining strong warnings: [fixed / recommended preserve / needs user decision]
-   - Remaining context warnings: [fixed / recommended preserve / needs user decision]
+   - Remaining strong warnings: [must be none unless user explicitly accepts]
+   - Remaining context warnings: [fixed / preserved with disclosure / needs user decision]
+   - Check status: [pass / fail, N/43 checks failed]
+   - Light action: [required fixes / preserved warnings / user decisions]
+   - Medium action: [required fixes / preserved warnings / user decisions]
+   - Hard action: [required fixes]
 7. Brief summary of changes made (optional, if helpful)
 
 ---

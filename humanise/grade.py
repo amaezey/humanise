@@ -222,6 +222,18 @@ AI_VOCABULARY_REGEX = [
     r"\bhidden (?:truth|depth|meaning|complexity|beauty|power|gem|lesson|cost)\b",
 ]
 
+NONLITERAL_LAND_SURFACE = [
+    r"\b(?:argument|claim|point|idea|thinking|analysis|story|piece|draft|sentence|paragraph|message|feedback|critique|comment|line|joke|scene|ending)\s+lands?\b",
+    r"\b(?:argument|claim|point|idea|thinking|analysis|story|piece|draft|sentence|paragraph|message|feedback|critique|comment|line|joke|scene|ending)\s+landed\b",
+    r"\bwhere (?:my|your|his|her|their|our|the)?\s*(?:argument|claim|point|idea|thinking|analysis|story|piece|draft|sentence|paragraph|message|feedback|critique|comment|line|scene|ending)\s+landed\b",
+    r"\bwhere (?:i|you|we|they|he|she|it)\s+landed (?:in|on|with) (?:the |a |an )?(?:mark scheme|rubric|scale|spectrum|ranking|assessment|category|argument|discussion|conversation|draft|analysis|process)\b",
+    r"\blands? with (?:the )?(?:reader|readers|audience|user|users|team|client|stakeholders)\b",
+    r"\bsurfaces? in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response|draft|argument)\b",
+    r"\bsurfaced in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response|draft|argument)\b",
+    r"\bwhat surfaces?\b",
+    r"\bwhat surfaced\b",
+]
+
 # Broad set: catches both the obvious ("let that sink in") and the subtler
 # framing moves ("the reason is straightforward", "what's strange is")
 MANUFACTURED_INSIGHT = [
@@ -258,14 +270,15 @@ MANUFACTURED_INSIGHT = [
 ]
 
 COLLABORATIVE_ARTIFACTS = [
-    r"\bi hope this helps", r"\bgreat question", r"\blet me know",
-    r"\bhere is a\b", r"\bwould you like", r"\bcertainly!",
-    r"\bof course!", r"\byou're absolutely right",
+    r"\bi hope this helps", r"\bgreat question", r"\bhere is a\b",
+    r"\bwould you like (?:me|us) to\b", r"\bcertainly!",
+    r"\byou're absolutely right",
     r"\bwhat a thoughtful (?:question|observation)\b",
     r"\bthat's a brilliant observation\b",
     r"\bi'd be happy to help\b", r"\blet me explain\b",
     r"\blet's break it down\b", r"\blet's unpack\b",
     # Soft offer-to-continue variants
+    r"\blet me know (?:if|whether|what|when|how)\b",
     r"if needed,?\s+(?:I can|the .* can be|this can be)\b",
     r"if (?:you'd like|you need|you want),?\s+I can\b",
     r"\bfeel free to\b", r"\bdon't hesitate to\b",
@@ -550,6 +563,22 @@ def check_ai_vocabulary(text):
             f"Worst paragraph has {max_count} AI words: {worst_words} ({total} total in text)"
             if max_count >= 3
             else f"Max AI words per paragraph: {max_count} ({total} total in text)"
+        ),
+    }
+
+
+def check_nonliteral_land_surface(text):
+    """Detect land/surface used as generic discourse metaphors."""
+    matches = []
+    for pattern in NONLITERAL_LAND_SURFACE:
+        matches.extend(re.findall(pattern, text, flags=re.IGNORECASE))
+    return {
+        "text": "no-nonliteral-land-surface",
+        "passed": len(matches) == 0,
+        "evidence": (
+            f"Found {len(matches)} nonliteral land/surface construction(s): {matches[:5]}"
+            if matches
+            else "No nonliteral land/surface constructions found"
         ),
     }
 
@@ -1510,6 +1539,7 @@ def check_hedging_density(text):
 ALL_CHECKS = {
     "no-em-dashes": check_em_dashes,
     "no-ai-vocabulary-clustering": check_ai_vocabulary,
+    "no-nonliteral-land-surface": check_nonliteral_land_surface,
     "overall-ai-signal-pressure": check_overall_signal_pressure,
     "no-manufactured-insight": check_manufactured_insight,
     "no-staccato-sequences": check_staccato,
@@ -1556,171 +1586,289 @@ ALL_CHECKS = {
 CHECK_METADATA = {
     "no-collaborative-artifacts": {
         "severity": "hard_fail",
+        "failure_modes": ["provenance_residue"],
+        "evidence_role": "assistant_residue",
         "guidance": "Fix in every mode; this is assistant residue, not authorial style.",
     },
     "no-generic-conclusions": {
         "severity": "hard_fail",
+        "failure_modes": ["provenance_residue", "synthetic_significance"],
+        "evidence_role": "generic_closure",
         "guidance": "Fix in every mode unless quoted from source text.",
     },
     "no-placeholder-residue": {
         "severity": "hard_fail",
+        "failure_modes": ["provenance_residue"],
+        "evidence_role": "template_residue",
         "guidance": "Fix in every mode; unfilled placeholders are generated/template residue.",
     },
     "no-manufactured-insight": {
         "severity": "strong_warning",
+        "failure_modes": ["synthetic_significance"],
+        "evidence_role": "rhetorical_pattern",
         "guidance": "Fix in Medium/Hard; in Light, recommend preserving only if it clearly belongs to the writer's voice.",
     },
     "no-false-concession-hedges": {
         "severity": "strong_warning",
+        "failure_modes": ["voice_erasure"],
+        "evidence_role": "stance_erasure",
         "guidance": "Fix fake both-sides framing in Medium/Hard; preserve only if the piece actually argues both positions with evidence.",
     },
     "no-negative-parallelisms": {
         "severity": "strong_warning",
+        "failure_modes": ["synthetic_significance"],
+        "evidence_role": "rhetorical_pattern",
         "guidance": "Fix contrived reframes in Medium/Hard; recommend preserving only purposeful contrast in Light.",
     },
     "no-ai-vocabulary-clustering": {
         "severity": "strong_warning",
+        "failure_modes": ["generic_abstraction"],
+        "evidence_role": "vocabulary_cluster",
         "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context.",
+    },
+    "no-nonliteral-land-surface": {
+        "severity": "strong_warning",
+        "failure_modes": ["generic_abstraction", "synthetic_significance"],
+        "evidence_role": "metaphor_residue",
+        "guidance": "Fix nonliteral land/surface phrasing; replace with the concrete action or claim.",
     },
     "overall-ai-signal-pressure": {
         "severity": "context_warning",
+        "failure_modes": ["generic_abstraction", "frictionless_structure"],
+        "evidence_role": "aggregate_pressure",
         "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
     },
     "no-copula-avoidance": {
         "severity": "strong_warning",
+        "failure_modes": ["synthetic_significance", "generic_abstraction"],
+        "evidence_role": "grammar_substitution",
         "guidance": "Usually simplify in Medium/Hard; recommend preserving if the construction is idiomatic or technical.",
     },
     "no-filler-phrases": {
         "severity": "strong_warning",
+        "failure_modes": ["generic_abstraction"],
+        "evidence_role": "filler_phrase",
         "guidance": "Fix stock filler in Medium/Hard; in Light, disclose and remove unless it belongs to quoted or intentionally casual voice.",
     },
     "no-superficial-ing": {
         "severity": "strong_warning",
+        "failure_modes": ["generic_abstraction"],
+        "evidence_role": "analysis_substitution",
         "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
     },
     "no-corporate-ai-speak": {
         "severity": "strong_warning",
+        "failure_modes": ["generic_abstraction"],
+        "evidence_role": "domain_cliche",
         "guidance": "Fix in most modes; recommend preserving only when quoting corporate source language.",
     },
     "no-soft-scaffolding": {
         "severity": "strong_warning",
+        "failure_modes": ["frictionless_structure"],
+        "evidence_role": "explainer_scaffold",
         "guidance": "Fix in Medium/Hard; these phrases usually mark generated explainer structure rather than content.",
     },
     "no-formulaic-openers": {
         "severity": "strong_warning",
+        "failure_modes": ["frictionless_structure", "generic_abstraction"],
+        "evidence_role": "formulaic_structure",
         "guidance": "Fix in Medium/Hard; in Light, recommend preserving only if it matches the source genre.",
     },
     "no-section-scaffolding": {
         "severity": "strong_warning",
+        "failure_modes": ["frictionless_structure"],
+        "evidence_role": "repeated_template",
         "guidance": "Fix repeated templates in Medium/Hard; recommend preserving only for genuinely structured reference material.",
     },
     "no-bland-critical-template": {
         "severity": "strong_warning",
+        "failure_modes": ["generic_abstraction", "voice_erasure"],
+        "evidence_role": "genre_cliche",
         "guidance": "Fix in Medium/Hard for reviews and criticism; replace generic balance with concrete claims from the work.",
     },
     "no-em-dashes": {
         "severity": "strong_warning",
+        "failure_modes": ["genre_misfit"],
+        "evidence_role": "punctuation_signal",
         "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only in Light mode with explicit disclosure; Medium and Hard require removal.",
     },
     "no-curly-quotes": {
         "severity": "context_warning",
+        "failure_modes": ["genre_misfit"],
+        "evidence_role": "typographic_signal",
         "guidance": "Normalise in Hard/plain output; recommend preserving in sourced literary or typographic text.",
     },
     "no-staccato-sequences": {
         "severity": "context_warning",
+        "failure_modes": ["genre_misfit", "frictionless_structure"],
+        "evidence_role": "rhythm_signal",
         "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
     },
     "no-anaphora": {
         "severity": "context_warning",
+        "failure_modes": ["genre_misfit", "frictionless_structure"],
+        "evidence_role": "rhythm_signal",
         "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
     },
     "sentence-length-variance": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "rhythm_signal",
         "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms.",
     },
     "no-promotional-language": {
         "severity": "context_warning",
+        "failure_modes": ["generic_abstraction", "synthetic_significance"],
+        "evidence_role": "hype_language",
         "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
     },
     "no-significance-inflation": {
         "severity": "context_warning",
+        "failure_modes": ["synthetic_significance"],
+        "evidence_role": "importance_inflation",
         "guidance": "Fix inflated importance unless the source genuinely argues significance.",
     },
     "no-forced-triads": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "list_rhythm",
         "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric.",
     },
     "no-ghost-spectral-density": {
         "severity": "context_warning",
+        "failure_modes": ["generic_abstraction", "genre_misfit"],
+        "evidence_role": "atmospheric_cliche",
         "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose.",
     },
     "no-quietness-obsession": {
         "severity": "context_warning",
+        "failure_modes": ["synthetic_significance", "genre_misfit"],
+        "evidence_role": "atmospheric_cliche",
         "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
     },
     "no-rhetorical-questions": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "rhetorical_template",
         "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument.",
     },
     "no-excessive-lists": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "listification",
         "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
     },
     "no-dramatic-transitions": {
         "severity": "context_warning",
+        "failure_modes": ["synthetic_significance", "genre_misfit"],
+        "evidence_role": "narrative_template",
         "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned.",
     },
     "no-signposted-conclusions": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "structural_signpost",
         "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful.",
     },
     "no-markdown-headings": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "formatting_signal",
         "guidance": "Fix when prose should flow; recommend preserving web articles, guides, and reference docs.",
     },
     "no-this-chains": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "voice_erasure"],
+        "evidence_role": "sentence_subject",
         "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate.",
     },
     "no-orphaned-demonstratives": {
         "severity": "context_warning",
+        "failure_modes": ["voice_erasure", "generic_abstraction"],
+        "evidence_role": "sentence_subject",
         "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear.",
     },
     "no-excessive-hedging": {
         "severity": "context_warning",
+        "failure_modes": ["voice_erasure"],
+        "evidence_role": "stance_erasure",
         "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty.",
     },
     "no-countdown-negation": {
         "severity": "context_warning",
+        "failure_modes": ["synthetic_significance", "frictionless_structure"],
+        "evidence_role": "rhetorical_pattern",
         "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason.",
     },
     "no-negation-density": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "rhetorical_density",
         "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
     },
     "paragraph-length-uniformity": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure"],
+        "evidence_role": "layout_rhythm",
         "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
     },
     "no-tidy-paragraph-endings": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "voice_erasure"],
+        "evidence_role": "paragraph_closure",
         "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn.",
     },
     "no-unicode-flair": {
         "severity": "context_warning",
+        "failure_modes": ["provenance_residue", "genre_misfit"],
+        "evidence_role": "formatting_residue",
         "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source.",
     },
     "no-rubric-echoing": {
         "severity": "context_warning",
+        "failure_modes": ["provenance_residue", "voice_erasure"],
+        "evidence_role": "assignment_residue",
         "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric.",
     },
     "vocabulary-diversity": {
         "severity": "context_warning",
+        "failure_modes": ["generic_abstraction", "genre_misfit"],
+        "evidence_role": "lexical_distribution",
         "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
     },
     "no-triad-density": {
         "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "genre_misfit"],
+        "evidence_role": "list_rhythm",
         "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+    },
+}
+
+
+FAILURE_MODE_METADATA = {
+    "provenance_residue": {
+        "label": "Provenance residue",
+        "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue.",
+    },
+    "synthetic_significance": {
+        "label": "Synthetic significance",
+        "summary": "Text performs importance, revelation, or depth without enough concrete support.",
+    },
+    "frictionless_structure": {
+        "label": "Frictionless structure",
+        "summary": "Text is packaged too evenly through headings, lists, repeated shapes, or tidy closures.",
+    },
+    "generic_abstraction": {
+        "label": "Generic abstraction",
+        "summary": "Text relies on portable abstractions, stock vocabulary, or low-specificity claims.",
+    },
+    "voice_erasure": {
+        "label": "Voice erasure",
+        "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure.",
+    },
+    "genre_misfit": {
+        "label": "Genre misfit",
+        "summary": "Text uses a device that may be valid in one genre but suspicious in another.",
     },
 }
 
@@ -1729,9 +1877,71 @@ def annotate_result(result):
     """Attach severity metadata without changing existing pass/fail semantics."""
     meta = CHECK_METADATA.get(result["text"], {
         "severity": "context_warning",
+        "failure_modes": ["genre_misfit"],
+        "evidence_role": "unclassified",
         "guidance": "Review in context.",
     })
     return {**result, **meta}
+
+
+def mode_consequence(result):
+    """Describe what each severity means across rewrite modes."""
+    severity = result["severity"]
+    if severity == "hard_fail":
+        return "Fix in Light, Medium, and Hard."
+    if severity == "strong_warning":
+        return "Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure."
+    return "Review in Light and Medium; Hard requires removal unless the user explicitly accepts the risk."
+
+
+def action_for_mode(result, mode):
+    """Return the required action for one failed check in a rewrite mode."""
+    severity = result["severity"]
+    if mode == "hard":
+        return "fix"
+    if severity in {"hard_fail", "strong_warning"}:
+        return "fix"
+    return "preserve_with_disclosure_or_user_decision"
+
+
+def failure_mode_results(results):
+    """Group failed checks by failure mode without changing legacy report fields."""
+    grouped = {
+        key: {
+            **meta,
+            "failed_checks": [],
+            "failures_by_severity": {},
+        }
+        for key, meta in FAILURE_MODE_METADATA.items()
+    }
+
+    for result in results:
+        if result["passed"]:
+            continue
+        for mode in result.get("failure_modes", ["genre_misfit"]):
+            group = grouped.setdefault(mode, {
+                "label": mode.replace("_", " ").title(),
+                "summary": "Unclassified failure mode.",
+                "failed_checks": [],
+                "failures_by_severity": {},
+            })
+            severity = result["severity"]
+            group["failures_by_severity"][severity] = group["failures_by_severity"].get(severity, 0) + 1
+            group["failed_checks"].append({
+                "check": result["text"],
+                "severity": severity,
+                "evidence_role": result.get("evidence_role", "unclassified"),
+                "evidence": result.get("evidence", ""),
+                "guidance": result.get("guidance", "Review in context."),
+                "mode_consequence": mode_consequence(result),
+                "mode_actions": {
+                    "light": action_for_mode(result, "light"),
+                    "medium": action_for_mode(result, "medium"),
+                    "hard": action_for_mode(result, "hard"),
+                },
+            })
+
+    return grouped
 
 
 def mode_results(results):
@@ -1748,28 +1958,33 @@ def mode_results(results):
     hard_failures = by_severity.get("hard_fail", [])
     strong_warnings = by_severity.get("strong_warning", [])
     context_warnings = by_severity.get("context_warning", [])
+    check_status = "fail" if failures else "pass"
 
     return {
         "light": {
-            "status": "fail" if hard_failures else ("review" if strong_warnings or context_warnings else "pass"),
-            "must_fix": hard_failures,
-            "needs_user_decision": strong_warnings + context_warnings,
+            "status": check_status,
+            "check_status": check_status,
+            "required_fixes": hard_failures + strong_warnings,
+            "preservable_with_disclosure": context_warnings,
+            "user_decision_needed": context_warnings,
+            "must_fix": hard_failures + strong_warnings,
+            "needs_user_decision": context_warnings,
             "summary": (
-                "Hard failures remain; fix before Light mode output."
-                if hard_failures
+                "Hard failures or strong warnings remain; fix before Light mode output."
+                if hard_failures or strong_warnings
                 else (
-                    "No hard failures; remaining warnings need user decision."
-                    if strong_warnings or context_warnings
+                    "No hard failures or strong warnings; context warnings need user decision."
+                    if context_warnings
                     else "No hard failures or warnings."
                 )
             ),
         },
         "medium": {
-            "status": (
-                "fail"
-                if hard_failures or strong_warnings
-                else ("review" if context_warnings else "pass")
-            ),
+            "status": check_status,
+            "check_status": check_status,
+            "required_fixes": hard_failures + strong_warnings,
+            "preservable_with_disclosure": context_warnings,
+            "user_decision_needed": context_warnings,
             "must_fix": hard_failures + strong_warnings,
             "needs_user_decision": context_warnings,
             "summary": (
@@ -1783,7 +1998,11 @@ def mode_results(results):
             ),
         },
         "hard": {
-            "status": "pass" if not failures else "fail",
+            "status": check_status,
+            "check_status": check_status,
+            "required_fixes": [r["text"] for r in failures],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
             "must_fix": [r["text"] for r in failures],
             "needs_user_decision": [],
             "summary": (
@@ -1827,6 +2046,7 @@ def main():
         "file": filepath,
         "pass_rate": f"{passed}/{total}",
         "failures_by_severity": failures_by_severity,
+        "failure_mode_results": failure_mode_results(results),
         "mode_results": mode_results(results),
         "expectations": results,
     }

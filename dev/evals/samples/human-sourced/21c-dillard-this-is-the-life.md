@@ -8,7 +8,7 @@
   "format": "literary essay",
   "source_url": "https://thedewdrop.org/2021/05/21/this-is-the-life-annie-dillard/",
   "fetch_status": 200,
-  "extract_method": "#content",
+  "extract_method": "article",
   "expected_use": [
     "style_reference",
     "false_positive_audit"
@@ -90,45 +90,3 @@ Share on Tumblr (Opens in new window) Tumblr
 Share on Nextdoor (Opens in new window) Nextdoor
 
 Subscribe to get the latest posts sent to your email.
-
-Ms. Dillard has the lyrical and the cosmic down good, real good. But the song comes to mind “Is that all there is, my friend?” Programmed to consume we absorb Sumerians and Republicans and Galileo Mission and the Rubics Cube of iPhone settings. It hides the lost in us. No one wrote the The Book of the Lost, because there is noting we feel that is worthy of saying. I love and forgive and savor Dillard’s writing. It was worth the trip to see, as if from some fair witness height, the explosive fountain of goldfinches bursting down along the hedgerow of trees. Thank you. I pray for health for you, and some people who care for you and you for them and to occasionally do good stuff. Reply
-
-Ms. Dillard has the lyrical and the cosmic down good, real good. But the song comes to mind “Is that all there is, my friend?” Programmed to consume we absorb Sumerians and Republicans and Galileo Mission and the Rubics Cube of iPhone settings. It hides the lost in us. No one wrote the The Book of the Lost, because there is noting we feel that is worthy of saying. I love and forgive and savor Dillard’s writing. It was worth the trip to see, as if from some fair witness height, the explosive fountain of goldfinches bursting down along the hedgerow of trees. Thank you. I pray for health for you, and some people who care for you and you for them and to occasionally do good stuff.
-
-This is the Life: Annie Dillard Asks, Then What?
-
-Constance Clark - Why I Stop & Stare
-
-John O'Donohue - Beannacht / Blessing
-
-Rosemerry Wahtola Trommer - For When We Greet Each Other
-
-The Dexterous Butcher - Zhuangzi
-
-What is Love? Love is a Verb - bell hooks
-
-Rebecca Solnit's Blue of Distance
-
-Lucille Clifton - why some people be mad at me sometimes
-
-Wislawa Szymborska - Conversation with a Stone
-
-“Expanding the Universe” - Rick Rubin on Awareness in Creativity What is the role of awareness in creativity and how can we cultivate it to make our world a bigger and clearer place?
-
-The First Door of Liberation: Thich Nhat Hanh’s Vision of Emptiness and Interbeing Rather than signifying a lack or a void, Thich Nhat Hanh took emptiness to be a state of inextricable and fundamental interconnectedness.
-
-Mike Travisano - Bob’s Tattoos A short story on the power of three simple words and how much they can mean and embody.
-
-Sharing the Feeling: Zen Teacher Shunryu Suzuki on Becoming Ourselves The importance of keeping an empty mind for savoring the present and expressing ourselves in our most authentic way.
-
-Running After Loves - Ray Bradbury on Fostering Hunger in Writing Finding the truth of our authentic passions is the key to forming the foundations of a writing practice
-
-Constance Clark - Why I Stop & Stare Poet Constance Clark treats readers to springtime interconnectedness and abundance with her masterful "Why I Stop & Stare".
-
-A Year of Kō: 5th Sekki 5th Sekki poems by JOSEPH PALMER, SHERRY WEAVER SMITH and COLEMAN DAVIS
-
-Maureen Martinez - How to Pass as a Woman of Faith Emerging poet Maureen Martinez slows us down for a moment with her hybrid prose poem "How to Pass as a Woman of Faith".
-
-Jeremy Giles - Grass Field We Named Beach Like a fistful of sand scattered across white space, poet Jeremy Giles leans into experimentalism in his poem "Grass Field We Named Beach".
-
-A Year of Kō: 4th Sekki 4th Sekki poems by JOYCE RITCHIE, DIANA LIVI and VIRGINIA FOLGER

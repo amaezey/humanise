@@ -11,7 +11,13 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from grade import ALL_CHECKS, CHECK_METADATA, annotate_result, mode_results
+from grade import (
+    ALL_CHECKS,
+    CHECK_METADATA,
+    annotate_result,
+    failure_mode_results,
+    mode_results,
+)
 
 FAILURES = 0
 
@@ -43,12 +49,33 @@ def expect_pass(check_name, text, reason):
 def expect_mode_status(results, mode, status, reason):
     """Assert mode_results reports the expected status."""
     global FAILURES
-    actual = mode_results(results)[mode]["status"]
+    actual = mode_results(results)[mode]["check_status"]
     if actual != status:
         FAILURES += 1
-        print(f"FAIL: {mode} should be {status} for {reason}; got {actual}")
+        print(f"FAIL: {mode} check_status should be {status} for {reason}; got {actual}")
     else:
-        print(f"  ok: {mode} status is {status} for {reason}")
+        print(f"  ok: {mode} check_status is {status} for {reason}")
+
+
+def expect_mode_actions(results, mode, required_fixes, preservable, reason):
+    """Assert mode_results reports the expected action buckets."""
+    global FAILURES
+    actual = mode_results(results)[mode]
+    failed = False
+    if actual["required_fixes"] != required_fixes:
+        FAILURES += 1
+        failed = True
+        print(f"FAIL: {mode} required_fixes should be {required_fixes} for {reason}; got {actual['required_fixes']}")
+    if actual["preservable_with_disclosure"] != preservable:
+        FAILURES += 1
+        failed = True
+        print(f"FAIL: {mode} preservable_with_disclosure should be {preservable} for {reason}; got {actual['preservable_with_disclosure']}")
+    if actual["user_decision_needed"] != preservable:
+        FAILURES += 1
+        failed = True
+        print(f"FAIL: {mode} user_decision_needed should be {preservable} for {reason}; got {actual['user_decision_needed']}")
+    if not failed:
+        print(f"  ok: {mode} action buckets match for {reason}")
 
 
 # --- no-em-dashes ---
@@ -63,7 +90,7 @@ expect_pass("no-em-dashes",
 em_dash_results = [
     annotate_result(ALL_CHECKS["no-em-dashes"]("I'm still keen to connect\u2014would Tuesday work?"))
 ]
-expect_mode_status(em_dash_results, "light", "review", "em dash is disclosed in Light")
+expect_mode_status(em_dash_results, "light", "fail", "em dash is a strong 2026 signal in Light")
 expect_mode_status(em_dash_results, "medium", "fail", "em dash is a strong 2026 signal in Medium")
 expect_mode_status(em_dash_results, "hard", "fail", "em dash is never allowed in Hard")
 
@@ -98,6 +125,26 @@ expect_fail("no-ai-vocabulary-clustering",
 expect_pass("no-ai-vocabulary-clustering",
     "The plane landed safely on the island, and the table surface was scratched.",
     "literal land/surface usage")
+
+
+# --- no-nonliteral-land-surface ---
+
+print("\n=== no-nonliteral-land-surface ===")
+expect_fail("no-nonliteral-land-surface",
+    "The lesson shows students where their thinking landed and what to revise.",
+    "nonliteral thinking landed")
+expect_fail("no-nonliteral-land-surface",
+    "What surfaced in the draft was a clearer argument.",
+    "nonliteral surfaced in draft")
+expect_fail("no-nonliteral-land-surface",
+    "The grade tells students where they landed in the mark scheme.",
+    "nonliteral pronoun landed in abstract scale")
+expect_fail("no-nonliteral-land-surface",
+    "The joke lands with the audience because the setup is familiar.",
+    "nonliteral lands with audience")
+expect_pass("no-nonliteral-land-surface",
+    "The plane landed safely on the island, and the table surface was scratched.",
+    "literal landed and physical surface")
 
 
 # --- overall-ai-signal-pressure ---
@@ -199,6 +246,18 @@ expect_fail("no-collaborative-artifacts",
 expect_fail("no-collaborative-artifacts",
     "Let's break it down so the main idea is clear.",
     "assistant explainer framing")
+expect_fail("no-collaborative-artifacts",
+    "Would you like me to make this more concise?",
+    "assistant follow-up offer")
+expect_fail("no-collaborative-artifacts",
+    "Let me know if you want a shorter version.",
+    "assistant continuation request")
+expect_pass("no-collaborative-artifacts",
+    "Would you like to know what makes his style such a pleasure to read?",
+    "ordinary article question")
+expect_pass("no-collaborative-artifacts",
+    "The founder is pictured with a glass of champagne, of course!",
+    "ordinary aside, not assistant residue")
 expect_pass("no-collaborative-artifacts",
     "The bridge was completed in 1937 after four years of construction.",
     "plain factual statement")
@@ -792,10 +851,140 @@ expect_fail("no-section-scaffolding",
 # --- severity and mode architecture ---
 
 print("\n=== severity-and-mode-architecture ===")
+expected_checks = {
+    "no-em-dashes",
+    "no-ai-vocabulary-clustering",
+    "no-nonliteral-land-surface",
+    "overall-ai-signal-pressure",
+    "no-manufactured-insight",
+    "no-staccato-sequences",
+    "no-anaphora",
+    "no-collaborative-artifacts",
+    "no-curly-quotes",
+    "sentence-length-variance",
+    "no-promotional-language",
+    "no-significance-inflation",
+    "no-negative-parallelisms",
+    "no-copula-avoidance",
+    "no-filler-phrases",
+    "no-generic-conclusions",
+    "no-false-concession-hedges",
+    "no-placeholder-residue",
+    "no-soft-scaffolding",
+    "no-orphaned-demonstratives",
+    "no-forced-triads",
+    "no-superficial-ing",
+    "no-ghost-spectral-density",
+    "no-quietness-obsession",
+    "no-rhetorical-questions",
+    "no-excessive-lists",
+    "no-unicode-flair",
+    "no-dramatic-transitions",
+    "no-formulaic-openers",
+    "no-signposted-conclusions",
+    "no-markdown-headings",
+    "no-corporate-ai-speak",
+    "no-this-chains",
+    "no-excessive-hedging",
+    "no-countdown-negation",
+    "no-negation-density",
+    "paragraph-length-uniformity",
+    "no-tidy-paragraph-endings",
+    "no-bland-critical-template",
+    "no-rubric-echoing",
+    "vocabulary-diversity",
+    "no-triad-density",
+    "no-section-scaffolding",
+}
+actual_checks = set(ALL_CHECKS)
+if actual_checks != expected_checks:
+    FAILURES += 1
+    print(f"FAIL: check registry changed. missing={sorted(expected_checks - actual_checks)} extra={sorted(actual_checks - expected_checks)}")
+else:
+    print(f"  ok: all {len(expected_checks)} expected checks are registered")
+
+allowed_failure_modes = {
+    "provenance_residue",
+    "synthetic_significance",
+    "frictionless_structure",
+    "generic_abstraction",
+    "voice_erasure",
+    "genre_misfit",
+}
 for check_name in ALL_CHECKS:
     if check_name not in CHECK_METADATA:
         FAILURES += 1
         print(f"FAIL: missing severity metadata for {check_name}")
+        continue
+    modes = CHECK_METADATA[check_name].get("failure_modes", [])
+    if not modes:
+        FAILURES += 1
+        print(f"FAIL: missing failure mode metadata for {check_name}")
+    elif not set(modes).issubset(allowed_failure_modes):
+        FAILURES += 1
+        print(f"FAIL: invalid failure mode metadata for {check_name}: {modes}")
+    if not CHECK_METADATA[check_name].get("evidence_role"):
+        FAILURES += 1
+        print(f"FAIL: missing evidence role metadata for {check_name}")
+
+_annotated = annotate_result({"text": "no-em-dashes", "passed": False, "evidence": "example"})
+if _annotated.get("failure_modes") != ["genre_misfit"]:
+    FAILURES += 1
+    print(f"FAIL: annotate_result should include failure modes; got {_annotated.get('failure_modes')}")
+else:
+    print("  ok: annotated results include failure modes")
+
+_failure_mode_report = failure_mode_results([
+    annotate_result({"text": "no-collaborative-artifacts", "passed": False, "evidence": "assistant residue"}),
+    annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
+    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
+])
+if set(_failure_mode_report) != allowed_failure_modes:
+    FAILURES += 1
+    print(f"FAIL: failure_mode_results should expose all canonical modes; got {sorted(_failure_mode_report)}")
+else:
+    print("  ok: failure mode report exposes all canonical modes")
+
+_provenance_checks = [item["check"] for item in _failure_mode_report["provenance_residue"]["failed_checks"]]
+if _provenance_checks != ["no-collaborative-artifacts"]:
+    FAILURES += 1
+    print(f"FAIL: provenance failure grouping wrong; got {_provenance_checks}")
+else:
+    print("  ok: provenance failures are grouped without losing check identity")
+
+_structure_checks = [item["check"] for item in _failure_mode_report["frictionless_structure"]["failed_checks"]]
+_abstraction_checks = [item["check"] for item in _failure_mode_report["generic_abstraction"]["failed_checks"]]
+if _structure_checks != ["no-formulaic-openers"] or _abstraction_checks != ["no-formulaic-openers"]:
+    FAILURES += 1
+    print(f"FAIL: multi-mode failure grouping wrong; structure={_structure_checks} abstraction={_abstraction_checks}")
+else:
+    print("  ok: multi-mode failures remain visible in every applicable group")
+
+_structure_action = _failure_mode_report["frictionless_structure"]["failed_checks"][0]["mode_actions"]
+if _structure_action != {"light": "fix", "medium": "fix", "hard": "fix"}:
+    FAILURES += 1
+    print(f"FAIL: strong warning actions should require fixes in every mode; got {_structure_action}")
+else:
+    print("  ok: strong warning mode actions require fixes in every mode")
+
+_context_action = failure_mode_results([
+    annotate_result({"text": "no-anaphora", "passed": False, "evidence": "context warning"}),
+])["genre_misfit"]["failed_checks"][0]["mode_actions"]
+if _context_action != {
+    "light": "preserve_with_disclosure_or_user_decision",
+    "medium": "preserve_with_disclosure_or_user_decision",
+    "hard": "fix",
+}:
+    FAILURES += 1
+    print(f"FAIL: context warning actions should preserve only outside Hard; got {_context_action}")
+else:
+    print("  ok: context warning mode actions preserve only outside Hard")
+
+if _failure_mode_report["genre_misfit"]["failed_checks"]:
+    FAILURES += 1
+    print("FAIL: passed checks should not appear in failure mode groups")
+else:
+    print("  ok: passed checks are excluded from failure mode groups")
 
 _clean_results = [
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
@@ -808,16 +997,22 @@ expect_mode_status(_clean_results, "hard", "pass", "clean text")
 _context_only = [
     annotate_result({"text": "no-anaphora", "passed": False, "evidence": "context warning"}),
 ]
-expect_mode_status(_context_only, "light", "review", "context warning only")
-expect_mode_status(_context_only, "medium", "review", "context warning only")
+expect_mode_status(_context_only, "light", "fail", "context warning only")
+expect_mode_status(_context_only, "medium", "fail", "context warning only")
 expect_mode_status(_context_only, "hard", "fail", "context warning only")
+expect_mode_actions(_context_only, "light", [], ["no-anaphora"], "context warning only")
+expect_mode_actions(_context_only, "medium", [], ["no-anaphora"], "context warning only")
+expect_mode_actions(_context_only, "hard", ["no-anaphora"], [], "context warning only")
 
 _strong_only = [
     annotate_result({"text": "no-negative-parallelisms", "passed": False, "evidence": "strong warning"}),
 ]
-expect_mode_status(_strong_only, "light", "review", "strong warning only")
+expect_mode_status(_strong_only, "light", "fail", "strong warning only")
 expect_mode_status(_strong_only, "medium", "fail", "strong warning only")
 expect_mode_status(_strong_only, "hard", "fail", "strong warning only")
+expect_mode_actions(_strong_only, "light", ["no-negative-parallelisms"], [], "strong warning only")
+expect_mode_actions(_strong_only, "medium", ["no-negative-parallelisms"], [], "strong warning only")
+expect_mode_actions(_strong_only, "hard", ["no-negative-parallelisms"], [], "strong warning only")
 
 _hard_only = [
     annotate_result({"text": "no-collaborative-artifacts", "passed": False, "evidence": "hard failure"}),

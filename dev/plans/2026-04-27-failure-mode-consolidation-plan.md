@@ -6,11 +6,15 @@ Date: 2026-04-27
 
 Branch: `main`, tracking `origin/main`.
 
-Current worktree is dirty and intentionally uncommitted. This plan is written against the current worktree, not the last committed state.
+Committed checkpoint before consolidation:
+
+- `9ce1cec feat: expand AI writing signal framework`
+
+Current worktree is intentionally dirty with behavior-preserving consolidation work after that checkpoint. This plan was originally written against the pre-commit worktree; this progress note records the new base so the source trail does not get lost.
 
 Current changed areas:
 
-- `humanise/grade.py` and `dev/evals/grade.py`: 42-check grader, severity metadata, mode summaries, vocabulary pressure, GPTZero 100 phrase list, Kobak excess-vocabulary loading, aggregate signal pressure.
+- `humanise/grade.py` and `dev/evals/grade.py`: 43-check grader, severity metadata, mode summaries, vocabulary pressure, GPTZero 100 phrase list, Kobak excess-vocabulary loading, aggregate signal pressure.
 - `dev/evals/test_grade.py`: assertion tests for new and existing checks, including Light/Medium/Hard behavior and aggregate pressure calibration.
 - `humanise/SKILL.md`: mode architecture, transparency report, hard/medium/light behavior, semantic preservation, structural self-audit.
 - `humanise/references/patterns.md`: pattern catalogue, evidence hierarchy, full GPTZero 100 list, Kobak methodology notes, genre-specific manual checks.
@@ -23,6 +27,12 @@ Latest verification before this plan:
 - `python3 dev/evals/test_grade.py` passed.
 - `git diff --check` passed.
 - Sweep report showed `overall-ai-signal-pressure` hits: existing `7/19`, human-sourced `8/47`, generated AI `13/18`.
+
+Progress after checkpoint:
+
+- Phase 1 complete: every registered check has `failure_modes` and `evidence_role` metadata; tests fail if a check disappears or lacks metadata.
+- Phase 2 reporting skeleton complete: CLI JSON now includes `failure_mode_results` while keeping legacy `mode_results` and `expectations` intact.
+- No checks were removed, no severity was changed, and no pass/fail thresholds were changed.
 
 ## Problem
 
@@ -286,7 +296,7 @@ Keep existing `severity` behavior unchanged.
 
 Acceptance criteria:
 
-- All 42 checks have `failure_modes`.
+- All 43 checks have `failure_modes`.
 - Tests fail if metadata is missing.
 - CLI JSON includes failure modes.
 
