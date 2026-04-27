@@ -16,6 +16,8 @@ from grade import (
     CHECK_METADATA,
     annotate_result,
     failure_mode_results,
+    format_human_report,
+    human_report,
     mode_results,
     score_summary,
     triggered_checks,
@@ -985,6 +987,27 @@ _score_report = score_summary([
     annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
 ])
+_human_report = human_report([
+    annotate_result({
+        "text": "overall-ai-signal-pressure",
+        "passed": False,
+        "evidence": "Overall AI-signal pressure 5/4",
+        "score": 5,
+        "threshold": 4,
+        "components": ["paragraph_uniformity", "markdown_headings"],
+        "vocabulary_pressure": {
+            "points": 1,
+            "reasons": ["generic cluster"],
+            "worst_generic": 2,
+            "gptzero_matches": ["play a pivotal role"],
+            "kobak_style_distinct": 4,
+            "kobak_style_density": 7.5,
+            "kobak_style_sample": ["valuable"],
+        },
+    }),
+    annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
+    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
+])
 _triggered_names = [item["check"] for item in _triggered_report]
 if _triggered_names != ["no-collaborative-artifacts", "no-formulaic-openers"]:
     FAILURES += 1
@@ -1011,6 +1034,67 @@ if not _ai_pressure or _ai_pressure["score"] != 5 or _ai_pressure["threshold"] !
     print(f"FAIL: score_summary should expose AI-signal pressure; got {_ai_pressure}")
 else:
     print("  ok: score summary exposes AI-signal pressure")
+
+if _human_report["overview"] != "2 of 3 checks showed signs of AI-style writing.":
+    FAILURES += 1
+    print(f"FAIL: human_report should expose a plain-English overview; got {_human_report['overview']}")
+else:
+    print("  ok: human report exposes plain-English overview")
+
+if len(_human_report["all_checks"]) != 3:
+    FAILURES += 1
+    print(f"FAIL: human_report should include every check row; got {len(_human_report['all_checks'])}")
+else:
+    print("  ok: human report includes every check row")
+
+_pressure_row = _human_report["all_checks"][0]
+if _pressure_row["check"] != "Aggregate AI-signal pressure" or _pressure_row["status"] != "Shows signs":
+    FAILURES += 1
+    print(f"FAIL: human_report should describe aggregate pressure as a check; got {_pressure_row}")
+else:
+    print("  ok: aggregate pressure is reported as one check")
+
+if "one of the 43 checks" not in _human_report["ai_pressure_explanation"]:
+    FAILURES += 1
+    print(f"FAIL: human_report should explain AI pressure clearly; got {_human_report['ai_pressure_explanation']}")
+else:
+    print("  ok: human report explains AI pressure")
+
+if _human_report["confidence"]["level"] != "Medium":
+    FAILURES += 1
+    print(f"FAIL: human_report confidence should be Medium for this mix; got {_human_report['confidence']}")
+else:
+    print("  ok: human report includes confidence assessment")
+
+_full_table_report = human_report([
+    annotate_result({"text": name, "passed": True, "evidence": "clean"})
+    for name in ALL_CHECKS
+])
+if len(_full_table_report["all_checks"]) != 43:
+    FAILURES += 1
+    print(f"FAIL: full human_report should include 43 check rows; got {len(_full_table_report['all_checks'])}")
+else:
+    print("  ok: full human report includes all 43 check rows")
+
+_markdown_report = format_human_report([
+    annotate_result({"text": name, "passed": True, "evidence": "clean"})
+    for name in ALL_CHECKS
+], mode="hard")
+_markdown_rows = [
+    line for line in _markdown_report.splitlines()
+    if line.startswith("| ") and not line.startswith("|---")
+]
+if "Summary: All 43 checks passed." not in _markdown_report:
+    FAILURES += 1
+    print("FAIL: Markdown report should include a plain-English summary")
+elif "| Check | Status | Why | Hard action |" not in _markdown_report:
+    FAILURES += 1
+    print("FAIL: Markdown report should include a user-facing table header")
+elif len(_markdown_rows) != 44:
+    FAILURES += 1
+    print(f"FAIL: Markdown report should include header plus 43 check rows; got {len(_markdown_rows)}")
+else:
+    print("  ok: Markdown report renders a full 43-check user-facing table")
 
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1

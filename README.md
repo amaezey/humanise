@@ -33,82 +33,58 @@ Give it text and it:
 
 1. Calibrates intensity: Light, Medium, or Hard
 2. Runs a programmatic pre-check (43 checks via a Python grading script) and scans the input against all 38 patterns
-3. Groups failures by failure mode and severity, then separates check status from Light/Medium/Hard actions
+3. Builds a plain-English Markdown report from `human_report`: overview, confidence, AI-pressure explanation, failed checks, and a full 43-check table
 4. Rewrites flagged sections: structural patterns first (repetitive section arcs, tonal flatness, neutralised stance), then surface patterns (AI vocabulary, formatting, filler)
 5. Checks the rewrite didn't strip the author's stance or voice
 6. Runs a non-programmatic structural self-audit covering patterns the script can't detect (tonal uniformity, section monotony, stance preservation, resolution density)
-7. Re-runs the grading script and revises according to mode: Hard aims for clean pass; Medium and Light fix hard failures and strong warnings; context warnings may remain only with disclosure
-8. Returns the rewrite with a transparent report of what changed, what remains flagged, and what needs the user's decision
+7. Re-runs the grading script and revises according to mode: Hard aims for a clean pass; Medium and Light fix stronger signals and disclose any intentional preserves
+8. Returns the rewrite with a readable report: before/after scores, confidence, remaining issues, and the full check table
 
-Failure modes currently used in reports: provenance residue, synthetic significance, frictionless structure, generic abstraction, voice erasure, and genre misfit. A failed check remains a failed check in every mode; the mode decides whether to fix it, disclose it, or ask the user.
+The script still keeps lower-level diagnostic fields for debugging, but the skill's normal output uses `python3 grade.py --format markdown --mode hard <file>` so the user-facing report starts in plain English. Aggregate AI-signal pressure is one of the 43 checks, not a separate verdict. It counts as one failed check only when its internal 0/4 pressure score reaches the threshold.
 
 ## Representative report output
 
-Excerpt from a blind-agent Hard-mode run against `dev/evals/samples/generated-ai/ai-08-feedback-education.md`, followed by an independent direct grade of the agent's final rewrite.
+Excerpt from `python3 humanise/grade.py --format markdown --mode hard dev/evals/samples/generated-ai/ai-08-feedback-education.md`. The actual skill output also includes the rewrite, structural self-audit, post-check report, and the full 43-row table before and after rewriting.
 
 ```text
-Mode selected: Hard. The user requested Hard mode, so every failed check had to be fixed rather than preserved.
+Mode: Hard
 
-Pre-check report
-Score summary: fail, 5/43 checks failed, pass rate 38/43. AI-signal pressure: 4/4, triggered. Components: paragraph_uniformity, markdown_headings. Severity counts: context_warning 5.
+Initial assessment
+Summary: 5 of 43 checks showed signs of AI-style writing.
 
-Triggered checks
-- overall-ai-signal-pressure, context_warning. Evidence: Overall AI-signal pressure 4/4 from paragraph_uniformity and markdown_headings; vocabulary pressure 0 points, worst_generic 1, GPTZero matches none, Kobak sample: need, analysis, involves, strategies, valuable. Failure modes: generic_abstraction, frictionless_structure. Hard action: fix.
-- no-markdown-headings, context_warning. Evidence: Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". Failure modes: frictionless_structure, genre_misfit. Hard action: fix.
-- no-negation-density, context_warning. Evidence: Found 10 negation markers, 12.4 per 1000 words. Failure modes: frictionless_structure, genre_misfit. Hard action: fix.
-- paragraph-length-uniformity, context_warning. Evidence: Paragraph length CV 0.08 across 10 paragraphs, target at least 0.18. Failure modes: frictionless_structure. Hard action: fix.
-- no-triad-density, context_warning. Evidence: Found 12 triads, including "feedback as a grade, a correction, a short comment written", "learn to seek it, interpret it, use it", and "in time for revision, reflection, goal setting". Failure modes: frictionless_structure, genre_misfit. Hard action: fix.
+Confidence: Medium.
+Basis: 5 context-sensitive signals; aggregate AI-signal pressure reached 4/4.
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
 
-Failure-mode summary
-- generic_abstraction: overall-ai-signal-pressure
-- frictionless_structure: overall-ai-signal-pressure, no-markdown-headings, no-negation-density, paragraph-length-uniformity, no-triad-density
-- genre_misfit: no-markdown-headings, no-negation-density, no-triad-density
+AI-pressure explanation: Aggregate AI-signal pressure is one of the 43 checks, not a separate verdict. It counts as one failed check only when its internal pressure score reaches the threshold. Here it was 4/4 and triggered.
 
-Structural self-audit:
-- Section arcs: 8/10 original paragraphs followed the same explainer template. I removed the title packaging, varied paragraph length, and changed several paragraphs from general claim plus explanation into example-led or instruction-led paragraphs.
-- Resolution density: 5/10 original paragraphs ended with a tidy mini-conclusion. I cut or loosened several closers, especially around timing, peer feedback, and action.
-- Register breaks: Added "At first this can feel artificial. That is fine." and "wastes everybody's time" to break the neutral article register.
-- Triads: 12 found in the original, reduced to 6 in the draft, then 2 in the final by turning list structures into pairs or single concrete examples.
-- Reframe laundering: none.
-- Purposeful devices recommended for preservation: none.
-- Stance: preserved. The original argued that feedback should guide improvement, arrive in time to be used, and lead to student action. The rewrite keeps that position.
-- Remaining tells: Draft still had too many triads, so I revised again.
+Main issues found
+- Aggregate AI-signal pressure: Shows signs. Aggregate pressure was 4/4. It counted weaker signals together: paragraph uniformity, markdown headings. Vocabulary pressure contributed 0 point(s). Hard action: Fix.
+- Headings in prose: Shows signs. Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". Hard action: Fix.
+- Dense negation: Shows signs. Found 10 negation markers (12.4 per 1000 words). Hard action: Fix.
+- Paragraph length uniformity: Shows signs. Paragraph length CV: 0.08 across 10 paragraphs (target: >=0.18). Hard action: Fix.
+- Triad density: Shows signs. Found 12 triad(s), including "feedback as a grade, a correction, a short comment written", "quizzes, peer review, short conferences with the", "lab report, presentation, math solution looks like", plus 9 more. Hard action: Fix.
 
-Final rewrite:
-Feedback helps only when students can do something with it. Too often, it arrives as a score or a sentence in the margin after the work is already over. A student sees 68 percent and knows the essay met part of the standard, but the number does not tell them where the next draft should change.
+Full check table excerpt
 
-Useful feedback points to the next move. Instead of writing "needs more detail," a teacher might mark the second paragraph and say, "Add one example here so the claim has something to rest on." That comment gives the student a place to start. It also keeps the problem inside the work, where it belongs.
+| Check | Status | Why | Hard action |
+|---|---|---|---|
+| Em dashes | Pass | No sign of this pattern found. | None |
+| Clustered AI vocabulary | Pass | No sign of this pattern found. | None |
+| Nonliteral land/surface phrasing | Pass | No sign of this pattern found. | None |
+| Aggregate AI-signal pressure | Shows signs | Aggregate pressure was 4/4. It counted weaker signals together: paragraph uniformity, markdown headings. Vocabulary pressure contributed 0 point(s). | Fix |
+| Manufactured insight framing | Pass | No sign of this pattern found. | None |
+| Headings in prose | Shows signs | Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". | Fix |
+| Dense negation | Shows signs | Found 10 negation markers (12.4 per 1000 words). | Fix |
+| Paragraph length uniformity | Shows signs | Paragraph length CV: 0.08 across 10 paragraphs (target: >=0.18). | Fix |
+| Triad density | Shows signs | Found 12 triad(s), including "feedback as a grade, a correction, a short comment written", "quizzes, peer review, short conferences with the", "lab report, presentation, math solution looks like", plus 9 more. | Fix |
 
-Timing matters more than teachers sometimes want it to, because late comments are easy for students to file away and forget. Feedback has the best chance of changing learning while the student is still drafting or revising. That might mean a quick note on a plan, a conversation during class, or a low-stakes quiz before the final version is due.
-
-Students also need a clear picture of the target. Rubrics can help, but a rubric full of phrases like "strong analysis" will not carry much by itself. Show students two answers, talk through why one is clearer, and let them try the judgement themselves. The goal is for them to recognise quality before someone else points it out.
-
-The emotional part is real. Even accurate criticism can sting, especially for students who already doubt themselves. Honest feedback still matters; soft praise that hides the problem wastes everybody's time. The trick is to keep the task possible: name something that works, choose the most important issue, then give a step the student can attempt today.
-
-Students can learn to ask better questions about their own work. "Is this good?" usually leads to a vague answer. "Where does my argument become hard to follow?" gives the teacher, or a classmate, something useful to answer.
-
-Peer feedback needs training. Left alone, students often become too blunt or too polite, and both versions are unhelpful. Give them a narrow job, such as finding the strongest sentence and one place where the reader gets lost. At first this can feel artificial. That is fine. The structure is temporary support while students learn what useful comments sound like.
-
-Feedback should end in action. Build in ten minutes for students to revise a paragraph, write a short plan, or correct an error pattern. Without that time, comments become a receipt for work already done.
-
-The larger aim is judgement. Students start to notice the habits in their own writing and problem solving. They learn which mistakes keep returning and which fixes actually help. A grade can report performance. Feedback should teach students how to improve the next attempt.
-
-Post-check report:
-Score summary: pass, 0/43 checks failed, pass rate 43/43. AI-signal pressure: 0/4, not triggered. Components: none. Severity counts: none.
-Fixed: overall-ai-signal-pressure, no-markdown-headings, no-negation-density, paragraph-length-uniformity, no-triad-density.
-Remaining hard failures: none.
-Remaining strong warnings: none.
-Remaining context warnings: fixed.
-Check status: pass, 0/43 checks failed.
-Light action: no required fixes, no preserved warnings, no user decisions.
-Medium action: no required fixes, no preserved warnings, no user decisions.
-Hard action: no required fixes.
-
-Independent direct grade of the final rewrite:
-pass_rate: 43/43
-failures_by_severity: {}
-ai_signal_pressure: 0/4, not triggered
-triggered_checks: []
+Final report
+Summary: before 5/43 checks showed signs; after 0/43 checks showed signs.
+Confidence after rewrite: Low. No programmatic checks showed AI-writing patterns.
+AI-pressure after rewrite: 0/4 and did not trigger.
+Remaining issues: none.
+Full post-check table: all 43 checks pass.
 ```
 
 ## Patterns

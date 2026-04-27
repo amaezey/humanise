@@ -136,7 +136,7 @@ A sentence should be as long as the thought it contains. When you find fragments
 
 ### The real problem: subtraction
 
-Most AI tells are things AI **adds** — vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
 
 Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
 
@@ -152,7 +152,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 
 ### Signs of soulless writing (even if technically clean):
 - Every sentence follows the same length and structure
-- No opinions, just neutral reporting — stance has been stripped or was never there
+- No opinions, just neutral reporting: stance has been stripped or was never there
 - No acknowledgment of uncertainty or mixed feelings
 - No appropriate point-of-view presence; pronouns depleted
 - No humour, no edge, no personality
@@ -173,7 +173,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 
 **Be specific rather than atmospheric.** Instead of mood words ("eerie", "striking", "fascinating"), describe the concrete detail that caused the feeling.
 
-**Break register.** If the whole text sits in one tone, introduce at least one register shift — a moment of informality, a parenthetical doubt, a change in sentence rhythm.
+**Break register.** If the whole text sits in one tone, introduce at least one register shift: a moment of informality, a parenthetical doubt, a change in sentence rhythm.
 
 ### Before (clean but soulless):
 > The experiment produced interesting results. The agents generated 3 million lines of code. Some developers were impressed while others were sceptical. The implications remain unclear.
@@ -222,20 +222,24 @@ Record the selected mode in the report.
 Save the input text to a temp file, then run the grading script on it:
 
 ```bash
-python3 grade.py /tmp/input.md
+python3 grade.py --format markdown --mode hard /tmp/input.md
 ```
 
-The script checks 43 patterns programmatically and returns a JSON diagnostic report listing `score_summary`, every failed check with evidence, severity, `triggered_checks`, `failure_mode_results`, and `mode_results` for Light, Medium, and Hard. Read the report. A failed check remains failed in every mode. In Hard mode, this is your hit list. In Light and Medium modes, hard failures and strong warnings must be fixed, and context warnings need the purpose test.
+Use the selected mode in the command: `--mode light`, `--mode medium`, or `--mode hard`.
 
-When reporting the grader output to the user, do not paste raw JSON. Convert it into a readable report with a score summary first, then one canonical triggered-check list. Use `score_summary` for totals and `triggered_checks` as the source of truth for failed checks. Each failed check must appear exactly once with check name, severity, evidence, failure modes, and the selected mode's action from `mode_actions`.
+The script checks 43 patterns programmatically and returns a plain-English Markdown report by default in this workflow. It is built from `human_report`: `overview`, `score`, `confidence`, `ai_pressure_explanation`, `failed_checks`, and `all_checks`. If you need debugging details, run the script without `--format markdown` to get JSON diagnostics. The older fields (`triggered_checks`, `failure_mode_results`, `mode_results`, and raw expectations) are for debugging only.
 
-The score summary must include:
+Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
 
-- Check status: pass/fail, failed count, total count, and pass rate from `score_summary`.
-- AI-signal pressure: score/threshold, triggered/not triggered, and the named components from `score_summary.ai_signal_pressure`.
-- Severity counts: counts from `score_summary.failures_by_severity`, or "none" if empty.
+The pre-check report must include:
 
-After the canonical triggered-check list, add a short failure-mode summary using `failure_mode_results[*].check_refs`. Do not repeat evidence under each failure mode. The failure-mode summary is an index, not the main report. If a check belongs to multiple failure modes, show all modes in that check's row instead of duplicating the check.
+- **Summary:** use `human_report.overview`, such as "5 of 43 checks showed signs of AI-style writing."
+- **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
+- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Aggregate AI-signal pressure is one of the 43 checks. It also has its own internal 0/4 threshold, so explain both numbers.
+- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, severity, why it failed, and selected-mode action.
+- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `Why`, and selected-mode `Action`. For passed checks, use "Pass", the plain reason, and "None". For failed checks, show why and the selected mode's action.
+
+The full 43-row table is required. It is how the user can see that the system checked all signals, not only the ones that failed. Do not replace it with a bullet list or a summary.
 
 - **Fix:** hard failures and strong warnings in Light, Medium, and Hard; all failed checks in Hard.
 - **Preserve with disclosure:** context warnings in Light or Medium only when they serve voice, quotation, genre, or meaning.
@@ -281,7 +285,7 @@ Address structural patterns first, then surface patterns. The grader catches sur
 
 ### Step 2.5: Semantic preservation check
 
-Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (2026) showed that LLMs shift meaning even in grammar-only passes — and this skill is itself an LLM rewriting text. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position. Check:
+Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (2026) showed that LLMs shift meaning even in grammar-only passes, and this skill is itself an LLM rewriting text. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position. Check:
 
 - Did the input have an opinion? Does the output still have it?
 - Are there fewer pronouns in the output than the input? If so, why?
@@ -307,8 +311,10 @@ After answering and acting on these questions, re-run the grader to confirm your
 Run the grading script on your output:
 
 ```bash
-python3 grade.py /tmp/output.md
+python3 grade.py --format markdown --mode hard /tmp/output.md
 ```
+
+Use the selected mode in the command.
 
 Interpret the post-check by mode:
 
@@ -325,39 +331,37 @@ Medium action: fix 1 strong warning; disclose or ask on 6 context warnings
 Hard action: fix all 7 failed checks
 ```
 
-The post-check report must include the same score summary fields as the pre-check report: check status, failed count, total count, pass rate, AI-signal pressure score/threshold, whether that pressure triggered, and severity counts. Do not report only "pass" or "fail"; show the numbers.
+The post-check report must use the post-check `human_report` the same way: overview, confidence, AI-pressure explanation, remaining failed checks, and the full 43-check Markdown table. Do not report only "pass" or "fail"; show the numbers.
 
 If the script is not available, manually verify hard failures and scan for generic AI structures. Use the purpose test before flattening voice.
 
 ## Output format
 
 1. Mode selected: Light / Medium / Hard, with one sentence explaining why
-2. Pre-check report:
-   - Score summary: [check status, failed/total, pass rate, AI-signal pressure score/threshold, severity counts]
-   - Triggered checks: [each failed check exactly once: check name, severity, evidence, failure modes, selected-mode action]
-   - Failure-mode summary: [failure mode -> check names only; no repeated evidence]
-3. Draft rewrite
-4. Structural self-audit answers (mandatory, with counts):
-   - Section arcs: N/M following same template — [what you changed]
-   - Resolution density: N/M paragraphs end with summary — [what you changed]
+2. Initial assessment:
+   - Summary: [X of 43 checks showed signs / all checks passed]
+   - Confidence: [Low / Low to medium / Medium / High, with basis]
+   - AI-pressure explanation: [state that this is one of the 43 checks and explain its internal score]
+   - Main issues found: [plain-English failed checks with why and selected-mode action]
+   - Full check table: [Markdown table with all 43 checks, status, why, selected-mode action]
+3. Rewrite
+4. Structural self-audit (mandatory, with counts):
+   - Section arcs: N/M following same template - [what you changed]
+   - Resolution density: N/M paragraphs end with summary - [what you changed]
    - Register breaks: [where you added one, or "already present at..."]
-   - Triads: N found — reduced to M by [method]
+   - Triads: N found - reduced to M by [method]
    - Reframe laundering: [none / fixed at...]
-   - Purposeful devices recommended for preservation: [device — reason, or "none"]
-   - Stance: [preserved / shifted — restored by...]
+   - Purposeful devices recommended for preservation: [device - reason, or "none"]
+   - Stance: [preserved / shifted - restored by...]
    - Remaining tells: [list, or "none identified"]
-5. Final rewrite (revised after audit)
-6. Post-check report:
-   - Score summary: [check status, failed/total, pass rate, AI-signal pressure score/threshold, severity counts]
-   - Fixed: [checks fixed]
-   - Remaining hard failures: [must be none unless user explicitly accepts]
-   - Remaining strong warnings: [must be none unless user explicitly accepts]
-   - Remaining context warnings: [fixed / preserved with disclosure / needs user decision]
-   - Check status: [pass / fail, N/43 checks failed]
-   - Light action: [required fixes / preserved warnings / user decisions]
-   - Medium action: [required fixes / preserved warnings / user decisions]
-   - Hard action: [required fixes]
-7. Brief summary of changes made (optional, if helpful)
+5. Final report:
+   - Summary: [before -> after numbers]
+   - Confidence after rewrite: [post-check confidence]
+   - Remaining issues: [none / list failed checks with why and action]
+   - Full post-check table: [Markdown table with all 43 checks, status, why, selected-mode action]
+   - Brief summary of changes made
+
+Do not show a discarded draft rewrite by default. If you revise after self-audit, show only the final rewrite plus the audit notes. Show intermediate drafts only if the user asks.
 
 ---
 
@@ -376,7 +380,7 @@ If the script is not available, manually verify hard failures and scan for gener
 >
 > In conclusion, the future looks bright. Exciting times lie ahead as we continue this journey toward excellence. Let me know if you'd like me to expand on any section!
 
-**Draft rewrite:**
+**Rewrite:**
 > AI coding assistants speed up some tasks, but the picture is more complicated than the hype suggests. In a 2024 study by Google, developers using Codex completed simple functions 55% faster than a control group, but showed no improvement on debugging or architectural decisions.
 >
 > The tools work well for boilerplate: config files, test scaffolding, and repetitive refactors. They are less reliable when it comes to knowing when they are wrong. I have accepted suggestions in bulk that compiled and passed lint but still did the wrong thing, because I stopped paying close enough attention to catch the error.
@@ -387,12 +391,12 @@ If the script is not available, manually verify hard failures and scan for gener
 >
 > None of this means the tools are useless, but it does mean they are tools in the ordinary sense of the word. They do not replace judgment, and they do not eliminate the need for tests.
 
-**"What makes this so obviously AI generated?"**
+**Structural self-audit:**
 - The named people and study citations could be plausible-sounding fabrications. If real, they should be sourced; if not, removed.
 - The final paragraph wraps things up too cleanly ("they are tools in the ordinary sense of the word").
 - Pacing is still even: every paragraph is roughly the same length with a similar claim-then-evidence structure.
 
-**Final rewrite:**
+**Revised rewrite after self-audit:**
 > AI coding assistants can make you faster at the boring parts of the job, but not much else, at least not yet. A 2024 Google study found developers completed simple functions 55% faster with Codex, with no measurable improvement on debugging or architecture.
 >
 > They are good at boilerplate: config files, test scaffolding, repetitive refactors. They are also good at producing code that looks right and compiles and passes lint but does something slightly different from what you intended. I have learned this the hard way more than once, usually when I was too tired to review carefully.

@@ -2,6 +2,7 @@
 """Grade humanised text against programmatic assertions."""
 
 import csv
+import ast
 import json
 import re
 import sys
@@ -1284,10 +1285,10 @@ def check_this_chains(text):
 def check_countdown_negation(text):
     """Detect dramatic countdown negation.
 
-    Branch 1: 'It wasn't X. It wasn't Y. It was Z.' — 2+ negation sentences
+    Branch 1: 'It wasn't X. It wasn't Y. It was Z.' - 2+ negation sentences
     with it/this/that followed by an affirmative reveal.
 
-    Branch 2: 'You can't X. You can't Y. You can't Z.' — 3+ consecutive
+    Branch 2: 'You can't X. You can't Y. You can't Z.' - 3+ consecutive
     sentences where the same subject pronoun is followed by a negated verb.
     No affirmative reveal required. Threshold is 3 because 2 consecutive
     same-subject negations are common in opinion writing.
@@ -1523,7 +1524,7 @@ def check_section_scaffolding(text):
         # Skip empty lines and lines that are only punctuation/markdown markers
         if not normalised or re.match(r'^[#*_\-=~`>|]+$', normalised):
             continue
-        # Only count short lines (under 60 chars) — these are labels, not prose
+        # Only count short lines (under 60 chars): these are labels, not prose
         if len(normalised) < 60:
             counts[normalised] = counts.get(normalised, 0) + 1
     # Flag if any normalised line appears 3+ times
@@ -1612,6 +1613,53 @@ ALL_CHECKS = {
     "vocabulary-diversity": check_type_token_ratio,
     "no-triad-density": check_triad_density,
     "no-section-scaffolding": check_section_scaffolding,
+}
+
+
+CHECK_REPORT_TEXT = {
+    "no-em-dashes": ("Em dashes", "Checks for em dash punctuation, a strong current AI-style signal in this skill."),
+    "no-ai-vocabulary-clustering": ("Clustered AI vocabulary", "Checks whether generic AI-associated words and phrases cluster together."),
+    "no-nonliteral-land-surface": ("Nonliteral land/surface phrasing", "Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale."),
+    "overall-ai-signal-pressure": ("Aggregate AI-signal pressure", "One of the 43 checks. It combines several weaker signals into a 0/4 pressure score and fails when that score reaches 4."),
+    "no-manufactured-insight": ("Manufactured insight framing", "Checks for phrases that perform hidden depth or secret significance without earning it."),
+    "no-staccato-sequences": ("Generic staccato emphasis", "Checks for repeated short dramatic sentences used as generic emphasis."),
+    "no-anaphora": ("Mechanical repeated sentence starts", "Checks for repeated sentence openings that read like template rhythm."),
+    "no-collaborative-artifacts": ("Assistant residue", "Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue."),
+    "no-curly-quotes": ("Curly quotes", "Checks for curly quotation marks when plain output is expected."),
+    "sentence-length-variance": ("Sentence rhythm variance", "Checks whether sentence lengths are too uniform across longer prose."),
+    "no-promotional-language": ("Generic promotional language", "Checks for stock hype and sales-like adjectives."),
+    "no-significance-inflation": ("Inflated significance", "Checks for language that makes ordinary claims sound historically important."),
+    "no-negative-parallelisms": ("Contrived contrast", "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures."),
+    "no-copula-avoidance": ("Avoiding plain 'is'", "Checks for inflated replacements such as serves as, functions as, or stands as."),
+    "no-filler-phrases": ("Filler phrases", "Checks for stock padding such as in order to or it is worth noting."),
+    "no-generic-conclusions": ("Generic conclusion", "Checks for empty endings such as the future looks bright."),
+    "no-false-concession-hedges": ("False balance or concession", "Checks for fake both-sides framing that avoids taking a position."),
+    "no-placeholder-residue": ("Placeholder residue", "Checks for unfilled template markers and placeholder instructions."),
+    "no-soft-scaffolding": ("Soft explainer scaffolding", "Checks for phrases that announce structure instead of making a point."),
+    "no-orphaned-demonstratives": ("Vague 'this/that' starts", "Checks for repeated vague sentence subjects such as This highlights or That shows."),
+    "no-forced-triads": ("Decorative three-part lists", "Checks for forced triads used as rhythm rather than substance."),
+    "no-superficial-ing": ("Tacked-on -ing analysis", "Checks for trailing -ing clauses that pretend to analyse without adding meaning."),
+    "no-ghost-spectral-density": ("Ghost/spectral atmosphere", "Checks for clichéd ghost, shadow, whisper, and echo language."),
+    "no-quietness-obsession": ("Generic quiet/still mood", "Checks for overused quiet, still, soft, and hushed atmosphere."),
+    "no-rhetorical-questions": ("Template rhetorical questions", "Checks for article-style questions followed by obvious answers."),
+    "no-excessive-lists": ("Excessive list formatting", "Checks whether prose has been over-converted into bullets or numbered lists."),
+    "no-unicode-flair": ("Decorative Unicode", "Checks for symbols and decorative punctuation that look like generated formatting."),
+    "no-dramatic-transitions": ("Unearned dramatic transitions", "Checks for generic turning points such as something shifted or everything changed."),
+    "no-formulaic-openers": ("Formulaic openers", "Checks for generated openings such as at its core or from a broader perspective."),
+    "no-signposted-conclusions": ("Signposted conclusion", "Checks for explicit conclusion labels and summary signposts."),
+    "no-markdown-headings": ("Headings in prose", "Checks for markdown headings and plain title headings when prose should flow."),
+    "no-corporate-ai-speak": ("Corporate AI-speak", "Checks for vague delivery, alignment, outcomes, and cross-functional clichés."),
+    "no-this-chains": ("Repeated 'This...' chains", "Checks for several consecutive sentences beginning with vague This constructions."),
+    "no-excessive-hedging": ("Excessive hedging", "Checks for evasive qualification and impersonal uncertainty."),
+    "no-countdown-negation": ("Countdown negation", "Checks for repeated no/not/cannot setups that build toward a reveal."),
+    "no-negation-density": ("Dense negation", "Checks whether negation markers are unusually dense across prose."),
+    "paragraph-length-uniformity": ("Paragraph length uniformity", "Checks whether paragraphs are suspiciously similar in length."),
+    "no-tidy-paragraph-endings": ("Tidy paragraph endings", "Checks for repeated miniature conclusions at paragraph ends."),
+    "no-bland-critical-template": ("Bland critical template", "Checks for generic review language instead of concrete critical claims."),
+    "no-rubric-echoing": ("Rubric echoing", "Checks for assignment or rubric phrasing leaking into the prose."),
+    "vocabulary-diversity": ("Vocabulary diversity", "Checks for unusually repetitive vocabulary in longer text."),
+    "no-triad-density": ("Triad density", "Checks whether three-part list structures are overused across the piece."),
+    "no-section-scaffolding": ("Repeated section scaffolding", "Checks for repeated section labels or repeated structural templates."),
 }
 
 
@@ -1936,6 +1984,246 @@ def action_for_mode(result, mode):
     return "preserve_with_disclosure_or_user_decision"
 
 
+SEVERITY_LABELS = {
+    "hard_fail": "Must fix",
+    "strong_warning": "Strong AI-writing signal",
+    "context_warning": "Context-sensitive signal",
+}
+
+
+ACTION_LABELS = {
+    "fix": "Fix",
+    "preserve_with_disclosure_or_user_decision": "Disclose or ask before preserving",
+}
+
+
+def check_report_text(check_name):
+    """Return a plain-English label and description for a check."""
+    return CHECK_REPORT_TEXT.get(
+        check_name,
+        (check_name.replace("-", " ").title(), "Checks for this AI-writing signal."),
+    )
+
+
+def friendly_evidence(result):
+    """Convert check evidence into a concise human-facing explanation."""
+    if result["text"] == "overall-ai-signal-pressure":
+        score = result.get("score")
+        threshold = result.get("threshold")
+        components = [
+            CHECK_REPORT_TEXT.get(name.replace("_", "-"), (name.replace("_", " "), ""))[0].lower()
+            for name in result.get("components", [])
+        ]
+        component_text = ", ".join(components) if components else "no aggregate components"
+        vocab = result.get("vocabulary_pressure", {})
+        return (
+            f"Aggregate pressure was {score}/{threshold}. It counted weaker signals together: "
+            f"{component_text}. Vocabulary pressure contributed {vocab.get('points', 0)} point(s)."
+        )
+    evidence = result.get("evidence", "")
+    list_match = re.search(r":\s*(\[[^\]]+\])", evidence)
+    if not list_match:
+        return evidence
+    try:
+        samples = ast.literal_eval(list_match.group(1))
+    except (SyntaxError, ValueError):
+        return evidence
+    if not isinstance(samples, list):
+        return evidence
+    prefix = evidence[:list_match.start()].strip()
+    if result["text"] == "no-triad-density":
+        shown = samples[:3]
+        sample_text = ", ".join(f'"{sample}"' for sample in shown)
+        suffix = "" if len(samples) <= 3 else f", plus {len(samples) - 3} more"
+        return f"{prefix}, including {sample_text}{suffix}."
+    sample_text = ", ".join(f'"{sample}"' for sample in samples)
+    return f"{prefix}: {sample_text}."
+
+
+def sentence_text(text):
+    """Ensure report fragments read as sentences."""
+    stripped = str(text).strip()
+    if not stripped:
+        return stripped
+    if stripped[-1] in ".!?":
+        return stripped
+    return f"{stripped}."
+
+
+def confidence_assessment(results):
+    """Assess confidence that the text shows AI-writing patterns, not authorship."""
+    summary = score_summary(results)
+    failures = summary["failed_checks"]
+    severities = summary["failures_by_severity"]
+    ai_pressure = summary.get("ai_signal_pressure") or {}
+    hard = severities.get("hard_fail", 0)
+    strong = severities.get("strong_warning", 0)
+    context = severities.get("context_warning", 0)
+    pressure_triggered = ai_pressure.get("triggered", False)
+
+    if failures == 0:
+        level = "Low"
+        explanation = "No programmatic checks showed AI-writing patterns."
+    elif hard or strong >= 3 or (pressure_triggered and failures >= 6) or failures >= 8:
+        level = "High"
+        explanation = (
+            "Multiple strong or structural signals fired. Treat this as a high-confidence "
+            "style diagnosis, not proof of authorship."
+        )
+    elif strong or pressure_triggered or failures >= 3:
+        level = "Medium"
+        explanation = (
+            "Several signs of AI-like writing appeared, but the evidence is pattern-based "
+            "and should be read in context."
+        )
+    else:
+        level = "Low to medium"
+        explanation = "Only a small number of context-sensitive signals appeared."
+
+    basis = []
+    if hard:
+        basis.append(f"{hard} must-fix issue(s)")
+    if strong:
+        basis.append(f"{strong} strong AI-writing signal(s)")
+    if context:
+        basis.append(f"{context} context-sensitive signal(s)")
+    if pressure_triggered:
+        basis.append(
+            f"aggregate AI-signal pressure reached {ai_pressure.get('score')}/{ai_pressure.get('threshold')}"
+        )
+    if not basis:
+        basis.append("all checks passed")
+
+    return {
+        "level": level,
+        "meaning": explanation,
+        "basis": basis,
+        "caveat": "This is a confidence assessment about AI-writing signs, not an authorship verdict.",
+    }
+
+
+def checks_table(results):
+    """Return every check as a plain-English row for user-facing reports."""
+    rows = []
+    for result in results:
+        label, description = check_report_text(result["text"])
+        action = None
+        if not result["passed"]:
+            action = {
+                mode: ACTION_LABELS.get(action_for_mode(result, mode), action_for_mode(result, mode))
+                for mode in ("light", "medium", "hard")
+            }
+        rows.append({
+            "check_id": result["text"],
+            "check": label,
+            "what_it_checks": description,
+            "status": "Pass" if result["passed"] else "Shows signs",
+            "severity": SEVERITY_LABELS.get(result["severity"], "Context-sensitive signal"),
+            "why": "No sign of this pattern found." if result["passed"] else sentence_text(friendly_evidence(result)),
+            "recommended_action": action or {"light": "None", "medium": "None", "hard": "None"},
+        })
+    return rows
+
+
+def human_report(results):
+    """Return a plain-English report contract for agents and end users."""
+    summary = score_summary(results)
+    confidence = confidence_assessment(results)
+    ai_pressure = summary.get("ai_signal_pressure") or {}
+    failed = [row for row in checks_table(results) if row["status"] != "Pass"]
+    failed_count = summary["failed_checks"]
+    total = summary["total_checks"]
+    if failed_count:
+        overview = f"{failed_count} of {total} checks showed signs of AI-style writing."
+    else:
+        overview = f"All {total} checks passed."
+
+    ai_pressure_explanation = (
+        "Aggregate AI-signal pressure is one of the 43 checks, not a separate verdict. "
+        "It counts as one failed check only when its internal pressure score reaches the threshold. "
+        f"Here it was {ai_pressure.get('score')}/{ai_pressure.get('threshold')} "
+        f"and {'triggered' if ai_pressure.get('triggered') else 'did not trigger'}."
+    )
+
+    return {
+        "overview": overview,
+        "score": {
+            "status": summary["check_status"],
+            "failed_checks": failed_count,
+            "total_checks": total,
+            "pass_rate": summary["pass_rate"],
+            "severity_counts": {
+                SEVERITY_LABELS.get(key, key): value
+                for key, value in summary["failures_by_severity"].items()
+            },
+        },
+        "confidence": confidence,
+        "ai_pressure_explanation": ai_pressure_explanation,
+        "failed_checks": failed,
+        "all_checks": checks_table(results),
+    }
+
+
+def table_cell(value):
+    """Escape a value for a Markdown table cell."""
+    return str(value).replace("\n", " ").replace("|", "\\|")
+
+
+def markdown_checks_table(rows, mode):
+    """Render every check row as a Markdown table."""
+    mode_key = mode.lower()
+    header = f"| Check | Status | Why | {mode_key.title()} action |"
+    lines = [header, "|---|---|---|---|"]
+    for row in rows:
+        action = row["recommended_action"].get(mode_key, row["recommended_action"].get("hard", "None"))
+        lines.append(
+            "| "
+            + " | ".join([
+                table_cell(row["check"]),
+                table_cell(row["status"]),
+                table_cell(row["why"]),
+                table_cell(action),
+            ])
+            + " |"
+        )
+    return "\n".join(lines)
+
+
+def format_human_report(results, mode="hard", heading="Initial assessment"):
+    """Render the plain-English report contract as user-facing Markdown."""
+    mode_key = mode.lower()
+    report = human_report(results)
+    confidence = report["confidence"]
+    lines = [
+        heading,
+        f"Summary: {report['overview']}",
+        "",
+        f"Confidence: {confidence['level']}. {confidence['meaning']}",
+        f"Basis: {'; '.join(confidence['basis'])}.",
+        f"Note: {confidence['caveat']}",
+        "",
+        f"AI-pressure explanation: {report['ai_pressure_explanation']}",
+        "",
+        "Main issues found",
+    ]
+    if report["failed_checks"]:
+        for row in report["failed_checks"]:
+            action = row["recommended_action"].get(mode_key, row["recommended_action"].get("hard", "Fix"))
+            lines.append(
+                f"- {row['check']}: {row['status']}. "
+                f"{sentence_text(row['why'])} {mode_key.title()} action: {action}."
+            )
+    else:
+        lines.append("- None.")
+    lines.extend([
+        "",
+        "Full check table",
+        "",
+        markdown_checks_table(report["all_checks"], mode_key),
+    ])
+    return "\n".join(lines)
+
+
 def triggered_checks(results):
     """Return each failed check exactly once for user-facing reports."""
     triggered = []
@@ -2118,22 +2406,49 @@ def grade_file(filepath, assertion_names=None):
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: grade.py <file> [assertion1,assertion2,...]")
+    args = sys.argv[1:]
+    output_format = "json"
+    mode = "hard"
+
+    if "--format" in args:
+        index = args.index("--format")
+        try:
+            output_format = args[index + 1]
+        except IndexError:
+            print("Usage: grade.py [--format json|markdown] [--mode light|medium|hard] <file> [assertion1,assertion2,...]")
+            sys.exit(1)
+        del args[index:index + 2]
+
+    if "--mode" in args:
+        index = args.index("--mode")
+        try:
+            mode = args[index + 1].lower()
+        except IndexError:
+            print("Usage: grade.py [--format json|markdown] [--mode light|medium|hard] <file> [assertion1,assertion2,...]")
+            sys.exit(1)
+        del args[index:index + 2]
+
+    if output_format not in {"json", "markdown"} or mode not in {"light", "medium", "hard"} or not args:
+        print("Usage: grade.py [--format json|markdown] [--mode light|medium|hard] <file> [assertion1,assertion2,...]")
         sys.exit(1)
 
-    filepath = sys.argv[1]
-    assertions = sys.argv[2].split(",") if len(sys.argv) > 2 else None
+    filepath = args[0]
+    assertions = args[1].split(",") if len(args) > 1 else None
 
     results = grade_file(filepath, assertions)
 
     summary = score_summary(results)
+
+    if output_format == "markdown":
+        print(format_human_report(results, mode=mode))
+        return
 
     output = {
         "file": filepath,
         "pass_rate": summary["pass_rate"],
         "failures_by_severity": summary["failures_by_severity"],
         "score_summary": summary,
+        "human_report": human_report(results),
         "triggered_checks": triggered_checks(results),
         "failure_mode_results": failure_mode_results(results),
         "mode_results": mode_results(results),
