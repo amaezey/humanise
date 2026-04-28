@@ -75,7 +75,7 @@ Render four fields from the grader: the level (low / medium / high / very high),
 
 **Next step**
 
-Pick one: Suggestions for per-flag replacements, Rewrite at a chosen depth, or save this audit as a Markdown file.
+Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
 ```
 
 ### Rendering rules
@@ -86,7 +86,7 @@ Pick one: Suggestions for per-flag replacements, Rewrite at a chosen depth, or s
 
 If no patterns are detected, say so plainly:
 
-> Audit clean: no AI tells detected. Point me at a specific aspect of the draft if you want a closer look.
+> Audit clean: no AI tells detected. Want me to look at a specific aspect of the draft more closely?
 
 If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
 
@@ -125,7 +125,7 @@ If the grader is unavailable (no Python, restricted environment), fall back to a
 
 **Next step**
 
-Pick one: apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file.
+Want to apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file?
 ```
 
 The number of suggestions equals the number of flagged tells, with no filtering applied. The writer chooses what to apply.

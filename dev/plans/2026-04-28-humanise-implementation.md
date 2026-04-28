@@ -86,15 +86,17 @@ The hard dependencies (steps 1–3 now closed; preserved here for handoff contex
 
 ## Open decisions
 
-These need Mae's input but don't block the next step (drafting alternatives.md and grader updates):
+### Resolved 2026-04-29
 
-- **Duplicate `grade.py` files.** Discovered during step 3 that `humanise/grade.py` and `dev/evals/grade.py` are two separate copies that drift from each other (already had a 5-line divergence before step 3 began). `dev/evals/test_grade.py` imports from the local `dev/evals/grade.py`; `dev/evals/run_grade_sweep.py` imports from `humanise/grade.py`. For step 3 they were re-synced manually, but the structural problem remains. Cleanest fix: delete `dev/evals/grade.py` and have `test_grade.py` load `humanise/grade.py` via importlib like `run_grade_sweep.py` does. Defer until after iteration 1 unless a sweep test fails because of drift.
+- ~~**Duplicate `grade.py` files.**~~ **Resolved: removed.** `dev/evals/grade.py` deleted. `dev/evals/test_grade.py` now loads `humanise/grade.py` via importlib, matching what `run_grade_sweep.py` already does. Single source of truth restored.
+- ~~**Iteration set hold-out strategy.**~~ **Resolved: rotate.** Iteration set rotates samples between iterations to guard against overfitting to a fixed five.
+- ~~**Existing `ai-XX` samples in the blind eval.**~~ **Resolved: drop.** The 18 older `ai-XX` samples are dropped from the blind eval. Held-out blind set is the 5 unused new AI samples only (rotated each iteration; the unused-this-iteration set forms the blind pool for that iteration's blind eval).
 
-- **Iteration set hold-out strategy.** Currently 5 of the new 10 AI samples are in the iteration set; 5 are held out for the blind eval. Should the iteration set rotate samples between iterations to avoid overfitting, or stay fixed for clean before/after deltas?
-- **Blind eval pass threshold.** What's the success bar for the final blind eval — pass-rate per case, aggregate score, or qualitative read by Mae?
-- **Description optimization model.** Which model ID powers the trigger-eval iteration? Default to whatever model is running this session, but Mae may want to test against a specific target.
-- **`references/example.md` survival.** The current example is a Hard-mode rewrite walkthrough using the old vocabulary. Refresh, replace with a Balanced-mode walkthrough, or remove?
-- **Existing `ai-XX` samples in the blind eval.** They have YAML frontmatter and are shorter (~700 words). Worth retaining as eval inputs, or do they bias the evaluation toward shorter prose?
+### Still open
+
+- **Blind eval pass threshold.** What's the success bar for the final blind eval — pass-rate per case, aggregate score, or qualitative read? *Mae's lean: not sure; my recommendation pending in conversation.*
+- **Description optimization model.** Which model does the trigger-eval iteration optimise the SKILL.md description against — current session model (Opus 4.7), Sonnet, Haiku, or all three? *Pending clarification with Mae.*
+- **`references/example.md` survival.** Hard-mode rewrite walkthrough using old vocabulary; 65 lines. Refresh to "All depth", replace with Balanced walkthrough, or remove? *Pending decision; my recommendation: refresh now, re-evaluate after iteration 1.*
 
 ---
 

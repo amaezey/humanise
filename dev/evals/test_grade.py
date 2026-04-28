@@ -7,22 +7,27 @@ If any assertion is wrong, the check's regex/logic has a bug.
 Run: python3 evals/test_grade.py
 """
 
+import importlib.util
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
-from grade import (
-    ALL_CHECKS,
-    CHECK_METADATA,
-    annotate_result,
-    failure_mode_results,
-    format_human_report,
-    friendly_evidence,
-    human_report,
-    depth_results,
-    score_summary,
-    triggered_checks,
-)
+ROOT = Path(__file__).resolve().parents[2]
+_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "grade.py")
+_grade = importlib.util.module_from_spec(_spec)
+if _spec.loader is None:
+    raise RuntimeError("Could not load humanise/grade.py")
+_spec.loader.exec_module(_grade)
+
+ALL_CHECKS = _grade.ALL_CHECKS
+CHECK_METADATA = _grade.CHECK_METADATA
+annotate_result = _grade.annotate_result
+failure_mode_results = _grade.failure_mode_results
+format_human_report = _grade.format_human_report
+friendly_evidence = _grade.friendly_evidence
+human_report = _grade.human_report
+depth_results = _grade.depth_results
+score_summary = _grade.score_summary
+triggered_checks = _grade.triggered_checks
 
 FAILURES = 0
 
