@@ -2,15 +2,15 @@
 
 Expanded detail on four patterns from the Severity classes table in SKILL.md (em dashes, manufactured insight, adversarial reframes, generic staccato fragments). They get their own subsections because they are the most common and most distinctive AI tells in 2026 — the rules below are the canonical source of truth when these patterns appear.
 
-Non-negotiable in Hard mode. In Medium and Light mode, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
+Non-negotiable at All depth. At Balanced depth, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
 
-## No em dashes except disclosed Light mode preservation
+## No em dashes
 
-In Medium and Hard mode, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
+At Balanced and All depth, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
 
 Replace with commas, colons, semicolons, periods, or parentheses. Restructure the sentence if none of those fit. There is always an alternative.
 
-In Light mode only, em dashes may be preserved if they are part of an author's established style, quoted source text, dialogue rhythm, or period/literary voice. Disclose the preservation explicitly so the user can decide. If the user asked for publication-ready plain prose, normalise them.
+The only exception is sourced or quoted text where the em dash is part of an author's established style, dialogue rhythm, or period/literary voice. Disclose the preservation explicitly so the user can decide. If the user asked for publication-ready plain prose, normalise them.
 
 ## No manufactured insight
 
@@ -25,7 +25,7 @@ Eliminate all framing that performs the act of having a deeper take. AI cannot h
 - **Dramatic narrative transitions:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me." These claim a turning point without earning it.
 - **Contrived contrast:** "This isn't X. It's Y." as a standalone dramatic beat (e.g. "This isn't a bug. It's a feature." or "This isn't a character flaw. It's hardware."). The two-sentence snap format is a reliable AI fingerprint regardless of content.
 
-These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test in Light mode; remove in Medium and Hard unless the phrase clearly belongs to the writer's voice.
+These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test at Balanced depth; remove at All depth unless the phrase clearly belongs to the writer's voice.
 
 ## No adversarial reframes
 

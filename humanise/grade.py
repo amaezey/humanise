@@ -221,6 +221,11 @@ AI_VOCABULARY_REGEX = [
     r"\bwhen (?:it|this|that) surfaces?\b",
     # "hidden" when inflating significance of the ordinary
     r"\bhidden (?:truth|depth|meaning|complexity|beauty|power|gem|lesson|cost)\b",
+    # "move/moves" as meta-rhetoric about writing/argument (not literal motion)
+    r"\bthe move (?:here|there|above|below|in this|in that) is\b",
+    r"\b(?:rhetorical|framing|writerly|literary|narrative|familiar|signature|telling|classic|clever|bold|cheap|risky) moves?\b",
+    r"\b(?:make|makes|making|made) (?:this|that|the same|a similar|an opposite) move\b",
+    r"\bwatch(?:ing)? (?:the writer|the author|him|her|them) make (?:a|this|that) move\b",
 ]
 
 NONLITERAL_LAND_SURFACE = [
@@ -1731,37 +1736,37 @@ CHECK_METADATA = {
         "severity": "hard_fail",
         "failure_modes": ["provenance_residue"],
         "evidence_role": "assistant_residue",
-        "guidance": "Fix in every mode; this is assistant residue, not authorial style.",
+        "guidance": "Fix at every depth; this is assistant residue, not authorial style.",
     },
     "no-generic-conclusions": {
         "severity": "hard_fail",
         "failure_modes": ["provenance_residue", "synthetic_significance"],
         "evidence_role": "generic_closure",
-        "guidance": "Fix in every mode unless quoted from source text.",
+        "guidance": "Fix at every depth unless quoted from source text.",
     },
     "no-placeholder-residue": {
         "severity": "hard_fail",
         "failure_modes": ["provenance_residue"],
         "evidence_role": "template_residue",
-        "guidance": "Fix in every mode; unfilled placeholders are generated/template residue.",
+        "guidance": "Fix at every depth; unfilled placeholders are generated/template residue.",
     },
     "no-manufactured-insight": {
         "severity": "strong_warning",
         "failure_modes": ["synthetic_significance"],
         "evidence_role": "rhetorical_pattern",
-        "guidance": "Fix in Medium/Hard; in Light, recommend preserving only if it clearly belongs to the writer's voice.",
+        "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
     },
     "no-false-concession-hedges": {
         "severity": "strong_warning",
         "failure_modes": ["voice_erasure"],
         "evidence_role": "stance_erasure",
-        "guidance": "Fix fake both-sides framing in Medium/Hard; preserve only if the piece actually argues both positions with evidence.",
+        "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence.",
     },
     "no-negative-parallelisms": {
         "severity": "strong_warning",
         "failure_modes": ["synthetic_significance"],
         "evidence_role": "rhetorical_pattern",
-        "guidance": "Fix contrived reframes in Medium/Hard; recommend preserving only purposeful contrast in Light.",
+        "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
     },
     "no-ai-vocabulary-clustering": {
         "severity": "strong_warning",
@@ -1785,13 +1790,13 @@ CHECK_METADATA = {
         "severity": "strong_warning",
         "failure_modes": ["synthetic_significance", "generic_abstraction"],
         "evidence_role": "grammar_substitution",
-        "guidance": "Usually simplify in Medium/Hard; recommend preserving if the construction is idiomatic or technical.",
+        "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
     },
     "no-filler-phrases": {
         "severity": "strong_warning",
         "failure_modes": ["generic_abstraction"],
         "evidence_role": "filler_phrase",
-        "guidance": "Fix stock filler in Medium/Hard; in Light, disclose and remove unless it belongs to quoted or intentionally casual voice.",
+        "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice.",
     },
     "no-superficial-ing": {
         "severity": "strong_warning",
@@ -1803,43 +1808,43 @@ CHECK_METADATA = {
         "severity": "strong_warning",
         "failure_modes": ["generic_abstraction"],
         "evidence_role": "domain_cliche",
-        "guidance": "Fix in most modes; recommend preserving only when quoting corporate source language.",
+        "guidance": "Fix at every depth; recommend preserving only when quoting corporate source language.",
     },
     "no-soft-scaffolding": {
         "severity": "strong_warning",
         "failure_modes": ["frictionless_structure"],
         "evidence_role": "explainer_scaffold",
-        "guidance": "Fix in Medium/Hard; these phrases usually mark generated explainer structure rather than content.",
+        "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content.",
     },
     "no-formulaic-openers": {
         "severity": "strong_warning",
         "failure_modes": ["frictionless_structure", "generic_abstraction"],
         "evidence_role": "formulaic_structure",
-        "guidance": "Fix in Medium/Hard; in Light, recommend preserving only if it matches the source genre.",
+        "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre.",
     },
     "no-section-scaffolding": {
         "severity": "strong_warning",
         "failure_modes": ["frictionless_structure"],
         "evidence_role": "repeated_template",
-        "guidance": "Fix repeated templates in Medium/Hard; recommend preserving only for genuinely structured reference material.",
+        "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
     },
     "no-bland-critical-template": {
         "severity": "strong_warning",
         "failure_modes": ["generic_abstraction", "voice_erasure"],
         "evidence_role": "genre_cliche",
-        "guidance": "Fix in Medium/Hard for reviews and criticism; replace generic balance with concrete claims from the work.",
+        "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work.",
     },
     "no-em-dashes": {
         "severity": "strong_warning",
         "failure_modes": ["genre_misfit"],
         "evidence_role": "punctuation_signal",
-        "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only in Light mode with explicit disclosure; Medium and Hard require removal.",
+        "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
     },
     "no-curly-quotes": {
         "severity": "context_warning",
         "failure_modes": ["genre_misfit"],
         "evidence_role": "typographic_signal",
-        "guidance": "Normalise in Hard/plain output; recommend preserving in sourced literary or typographic text.",
+        "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
     },
     "no-staccato-sequences": {
         "severity": "context_warning",
@@ -2027,20 +2032,23 @@ def annotate_result(result):
     return {**result, **meta}
 
 
-def mode_consequence(result):
-    """Describe what each severity means across rewrite modes."""
+DEPTHS = ("balanced", "all")
+
+
+def depth_consequence(result):
+    """Describe what each severity means across rewrite depths."""
     severity = result["severity"]
     if severity == "hard_fail":
-        return "Fix in Light, Medium, and Hard."
+        return "Fix at Balanced and All."
     if severity == "strong_warning":
-        return "Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure."
-    return "Review in Light and Medium; Hard requires removal unless the user explicitly accepts the risk."
+        return "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure."
+    return "Review at Balanced; All requires removal unless the user explicitly accepts the risk."
 
 
-def action_for_mode(result, mode):
-    """Return the required action for one failed check in a rewrite mode."""
+def action_for_depth(result, depth):
+    """Return the required action for one failed check at a rewrite depth."""
     severity = result["severity"]
-    if mode == "hard":
+    if depth == "all":
         return "fix"
     if severity in {"hard_fail", "strong_warning"}:
         return "fix"
@@ -2179,8 +2187,8 @@ def checks_table(results):
         action = None
         if not result["passed"]:
             action = {
-                mode: ACTION_LABELS.get(action_for_mode(result, mode), action_for_mode(result, mode))
-                for mode in ("light", "medium", "hard")
+                depth: ACTION_LABELS.get(action_for_depth(result, depth), action_for_depth(result, depth))
+                for depth in DEPTHS
             }
         rows.append({
             "check_id": result["text"],
@@ -2190,7 +2198,7 @@ def checks_table(results):
             "status": "Clear" if result["passed"] else "Flagged",
             "severity": SEVERITY_LABELS.get(result["severity"], "Context-sensitive signal"),
             "why": "No issue found in this text." if result["passed"] else sentence_text(friendly_evidence(result)),
-            "recommended_action": action or {"light": "None", "medium": "None", "hard": "None"},
+            "recommended_action": action or {depth: "None" for depth in DEPTHS},
         })
     return rows
 
@@ -2269,13 +2277,13 @@ def table_cell(value):
     return str(value).replace("\n", " ").replace("|", "\\|")
 
 
-def markdown_checks_table(rows, mode):
+def markdown_checks_table(rows, depth):
     """Render every check row as a Markdown table."""
-    mode_key = mode.lower()
-    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {mode_key.title()} action |"
+    depth_key = depth.lower()
+    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {depth_key.title()} action |"
     lines = [header, "|---|---|---|---|---|---|"]
     for row in rows:
-        action = row["recommended_action"].get(mode_key, row["recommended_action"].get("hard", "None"))
+        action = row["recommended_action"].get(depth_key, row["recommended_action"].get("all", "None"))
         lines.append(
             "| "
             + " | ".join([
@@ -2291,9 +2299,9 @@ def markdown_checks_table(rows, mode):
     return "\n".join(lines)
 
 
-def format_human_report(results, mode="hard", heading="Initial assessment"):
+def format_human_report(results, depth="all", heading="Initial assessment"):
     """Render the plain-English report contract as user-facing Markdown."""
-    mode_key = mode.lower()
+    depth_key = depth.lower()
     report = human_report(results)
     confidence = report["confidence"]
     lines = [
@@ -2310,13 +2318,13 @@ def format_human_report(results, mode="hard", heading="Initial assessment"):
     ]
     if report["failed_checks"]:
         for row in report["failed_checks"]:
-            action = row["recommended_action"].get(mode_key, row["recommended_action"].get("hard", "Fix"))
+            action = row["recommended_action"].get(depth_key, row["recommended_action"].get("all", "Fix"))
             lines.append(
                 f"- {row['check']}: {row['status']}. "
                 f"What it looks for: {row['what_it_checks']} "
                 f"What happened here: {sentence_text(row['why'])} "
                 f"Why this matters: {row['why_it_matters']} "
-                f"{mode_key.title()} action: {action}."
+                f"{depth_key.title()} action: {action}."
             )
     else:
         lines.append("- None.")
@@ -2324,7 +2332,7 @@ def format_human_report(results, mode="hard", heading="Initial assessment"):
         "",
         "Full check table",
         "",
-        markdown_checks_table(report["all_checks"], mode_key),
+        markdown_checks_table(report["all_checks"], depth_key),
     ])
     return "\n".join(lines)
 
@@ -2342,11 +2350,9 @@ def triggered_checks(results):
             "evidence_role": result.get("evidence_role", "unclassified"),
             "evidence": result.get("evidence", ""),
             "guidance": result.get("guidance", "Review in context."),
-            "mode_consequence": mode_consequence(result),
-            "mode_actions": {
-                "light": action_for_mode(result, "light"),
-                "medium": action_for_mode(result, "medium"),
-                "hard": action_for_mode(result, "hard"),
+            "depth_consequence": depth_consequence(result),
+            "depth_actions": {
+                depth: action_for_depth(result, depth) for depth in DEPTHS
             },
         })
     return triggered
@@ -2401,9 +2407,9 @@ def failure_mode_results(results):
     for result in results:
         if result["passed"]:
             continue
-        for mode in result.get("failure_modes", ["genre_misfit"]):
-            group = grouped.setdefault(mode, {
-                "label": mode.replace("_", " ").title(),
+        for failure_mode in result.get("failure_modes", ["genre_misfit"]):
+            group = grouped.setdefault(failure_mode, {
+                "label": failure_mode.replace("_", " ").title(),
                 "summary": "Unclassified failure mode.",
                 "failed_checks": [],
                 "check_refs": [],
@@ -2418,22 +2424,20 @@ def failure_mode_results(results):
                 "evidence_role": result.get("evidence_role", "unclassified"),
                 "evidence": result.get("evidence", ""),
                 "guidance": result.get("guidance", "Review in context."),
-                "mode_consequence": mode_consequence(result),
-                "mode_actions": {
-                    "light": action_for_mode(result, "light"),
-                    "medium": action_for_mode(result, "medium"),
-                    "hard": action_for_mode(result, "hard"),
+                "depth_consequence": depth_consequence(result),
+                "depth_actions": {
+                    depth: action_for_depth(result, depth) for depth in DEPTHS
                 },
             })
 
     return grouped
 
 
-def mode_results(results):
-    """Summarise readiness by rewrite intensity.
+def depth_results(results):
+    """Summarise readiness by rewrite depth.
 
-    Light/Medium do not silently approve preserved warnings; they indicate what
-    still needs disclosure or user decision.
+    Balanced does not silently approve preserved warnings; it indicates what
+    still needs disclosure or user decision. All requires a clean pass.
     """
     failures = [r for r in results if not r["passed"]]
     by_severity = {}
@@ -2446,7 +2450,7 @@ def mode_results(results):
     check_status = "fail" if failures else "pass"
 
     return {
-        "light": {
+        "balanced": {
             "status": check_status,
             "check_status": check_status,
             "required_fixes": hard_failures + strong_warnings,
@@ -2455,25 +2459,7 @@ def mode_results(results):
             "must_fix": hard_failures + strong_warnings,
             "needs_user_decision": context_warnings,
             "summary": (
-                "Hard failures or strong warnings remain; fix before Light mode output."
-                if hard_failures or strong_warnings
-                else (
-                    "No hard failures or strong warnings; context warnings need user decision."
-                    if context_warnings
-                    else "No hard failures or warnings."
-                )
-            ),
-        },
-        "medium": {
-            "status": check_status,
-            "check_status": check_status,
-            "required_fixes": hard_failures + strong_warnings,
-            "preservable_with_disclosure": context_warnings,
-            "user_decision_needed": context_warnings,
-            "must_fix": hard_failures + strong_warnings,
-            "needs_user_decision": context_warnings,
-            "summary": (
-                "Hard failures or strong warnings remain; fix or ask user before Medium mode output."
+                "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
                 if hard_failures or strong_warnings
                 else (
                     "No hard failures or strong warnings; context warnings need user decision."
@@ -2482,7 +2468,7 @@ def mode_results(results):
                 )
             ),
         },
-        "hard": {
+        "all": {
             "status": check_status,
             "check_status": check_status,
             "required_fixes": [r["text"] for r in failures],
@@ -2493,7 +2479,7 @@ def mode_results(results):
             "summary": (
                 "All checks pass."
                 if not failures
-                else "One or more checks fail; Hard mode requires a clean pass unless user explicitly accepts risk."
+                else "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
             ),
         },
     }
@@ -2510,31 +2496,243 @@ def grade_file(filepath, assertion_names=None):
     return results
 
 
+# ---------------------------------------------------------------------------
+# Audit-shape assertions
+# ---------------------------------------------------------------------------
+# These checks evaluate the *agent's output* against the user's *input*, not
+# the prose itself. They live in their own registry because they take two
+# arguments (output_text, input_text) and produce contract-shape results, not
+# AI-writing-pattern results. They are not annotated with severity metadata.
+
+AUDIT_HEADER_RE = re.compile(r"^\*\*Audit[,]?[^*]*\*\*\s*$", re.MULTILINE)
+REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
+DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
+SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
+SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
+QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
+
+
+def _section_text(output_text, header_re):
+    """Return the text of a section starting at header_re, ending at the next bold header."""
+    match = header_re.search(output_text)
+    if not match:
+        return None
+    start = match.end()
+    next_match = SECTION_HEADER_RE.search(output_text, start)
+    end = next_match.start() if next_match else len(output_text)
+    return output_text[start:end]
+
+
+def _audit_section(output_text):
+    return _section_text(output_text, AUDIT_HEADER_RE)
+
+
+def _suggestions_section(output_text):
+    return _section_text(output_text, SUGGESTIONS_HEADER_RE)
+
+
+def _flag_blocks(audit_text):
+    """Return paragraphs in the audit that contain a 'Why:' line."""
+    if not audit_text:
+        return []
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit_text) if p.strip()]
+    return [p for p in paragraphs if re.search(r"^\s*Why\s*:", p, re.MULTILINE)]
+
+
+def _suggestion_blocks(suggestions_text):
+    """Return paragraphs in the suggestions section that contain a 'Try' marker."""
+    if not suggestions_text:
+        return []
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", suggestions_text) if p.strip()]
+    return [p for p in paragraphs if re.search(r"^\s*Try\s*[:\s]", p, re.MULTILINE)]
+
+
+def check_audit_shape_block_precedes_rewrite_block(output_text, input_text=None):
+    """Verify the audit appears before any rewrite or suggestions block."""
+    name = "audit-shape-block-precedes-rewrite-block"
+    audit = AUDIT_HEADER_RE.search(output_text)
+    rewrite = REWRITE_HEADER_RE.search(output_text) or DRAFT_HEADER_RE.search(output_text)
+    suggestions = SUGGESTIONS_HEADER_RE.search(output_text)
+    if rewrite and suggestions:
+        follow = rewrite if rewrite.start() < suggestions.start() else suggestions
+    else:
+        follow = rewrite or suggestions
+    if not audit:
+        return {"text": name, "passed": False, "evidence": "No audit header found in output"}
+    if not follow:
+        return {"text": name, "passed": False, "evidence": "No rewrite, draft, or suggestions header found in output"}
+    if audit.start() < follow.start():
+        return {"text": name, "passed": True, "evidence": f"audit at offset {audit.start()}; follow-up at offset {follow.start()}"}
+    return {"text": name, "passed": False, "evidence": f"follow-up appears before audit (audit={audit.start()}, follow={follow.start()})"}
+
+
+def check_every_flag_block_contains_input_substring(output_text, input_text=None):
+    """Each flag block must quote a phrase that appears in the input."""
+    name = "every-flag-block-contains-input-substring"
+    if input_text is None:
+        return {"text": name, "passed": False, "evidence": "input_text required for this check"}
+    blocks = _flag_blocks(_audit_section(output_text))
+    if not blocks:
+        return {"text": name, "passed": True, "evidence": "no flag blocks (vacuously true)"}
+    misses = []
+    for block in blocks:
+        if re.search(r"^\s*Where\s*:", block, re.MULTILINE):
+            continue  # structural patterns describe location, not quotable phrase
+        phrases = QUOTED_PHRASE_RE.findall(block)
+        if not phrases or not any(phrase in input_text for phrase in phrases):
+            misses.append(block.split("\n", 1)[0])
+    if misses:
+        return {"text": name, "passed": False, "evidence": f"{len(misses)} block(s) lack input-matching quotes: {misses[:3]}"}
+    return {"text": name, "passed": True, "evidence": f"all {len(blocks)} flag block(s) anchor to input"}
+
+
+def check_every_flag_block_has_explanation(output_text, input_text=None):
+    """Each flag block must include a 'Why:' line."""
+    name = "every-flag-block-has-explanation"
+    audit = _audit_section(output_text)
+    if not audit:
+        return {"text": name, "passed": False, "evidence": "no audit section found"}
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit) if p.strip()]
+    candidates = [p for p in paragraphs if re.search(r'(^\s*-\s*["“])|(^\s*Where\s*:)|(^\s*Why\s*:)', p, re.MULTILINE)]
+    if not candidates:
+        return {"text": name, "passed": True, "evidence": "no flag blocks (vacuously true)"}
+    missing = [p.split("\n", 1)[0] for p in candidates if not re.search(r"^\s*Why\s*:", p, re.MULTILINE)]
+    if missing:
+        return {"text": name, "passed": False, "evidence": f"{len(missing)} flag block(s) missing 'Why:': {missing[:3]}"}
+    return {"text": name, "passed": True, "evidence": f"all {len(candidates)} flag block(s) include 'Why:'"}
+
+
+def check_final_non_empty_line_ends_with_question(output_text, input_text=None):
+    """The output's last non-empty line must end with '?'."""
+    name = "final-non-empty-line-ends-with-question"
+    lines = [line for line in output_text.rstrip().split("\n") if line.strip()]
+    if not lines:
+        return {"text": name, "passed": False, "evidence": "output is empty"}
+    last = lines[-1].rstrip()
+    if last.endswith("?"):
+        return {"text": name, "passed": True, "evidence": f"final line: {last[:80]}"}
+    return {"text": name, "passed": False, "evidence": f"final line does not end with '?': {last[:80]}"}
+
+
+def check_no_large_prose_block_not_in_input(output_text, input_text=None):
+    """Audit-only outputs must not contain a rewrite or draft block."""
+    name = "no-large-prose-block-not-in-input"
+    rewrite = REWRITE_HEADER_RE.search(output_text)
+    draft = DRAFT_HEADER_RE.search(output_text)
+    if rewrite:
+        return {"text": name, "passed": False, "evidence": f"found **Rewrite** header at offset {rewrite.start()}"}
+    if draft:
+        return {"text": name, "passed": False, "evidence": f"found **Draft** header at offset {draft.start()}"}
+    return {"text": name, "passed": True, "evidence": "no rewrite or draft block present"}
+
+
+def check_suggestion_block_count_equals_flag_count(output_text, input_text=None):
+    """Number of suggestion blocks must equal number of flag blocks."""
+    name = "suggestion-block-count-equals-flag-count"
+    flag_count = len(_flag_blocks(_audit_section(output_text)))
+    suggestion_count = len(_suggestion_blocks(_suggestions_section(output_text)))
+    if flag_count == suggestion_count:
+        return {"text": name, "passed": True, "evidence": f"{flag_count} flag(s) and {suggestion_count} suggestion(s) match"}
+    return {"text": name, "passed": False, "evidence": f"{flag_count} flag(s) vs {suggestion_count} suggestion(s)"}
+
+
+def check_every_suggestion_block_has_replacement(output_text, input_text=None):
+    """Each suggestion block must contain a 'Try' replacement."""
+    name = "every-suggestion-block-has-replacement"
+    suggestions = _suggestions_section(output_text)
+    if suggestions is None:
+        return {"text": name, "passed": True, "evidence": "no suggestions section (vacuously true)"}
+    blocks = _suggestion_blocks(suggestions)
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", suggestions) if p.strip()]
+    flag_like = [p for p in paragraphs if re.search(r'(^\s*-\s*["“])|(^\s*Where\s*:)|(^\s*Try\s*[:\s])', p, re.MULTILINE)]
+    if not flag_like:
+        return {"text": name, "passed": False, "evidence": "suggestions section has no flag-shaped blocks"}
+    missing = [p.split("\n", 1)[0] for p in flag_like if not re.search(r"^\s*Try\s*[:\s]", p, re.MULTILINE)]
+    if missing:
+        return {"text": name, "passed": False, "evidence": f"{len(missing)} suggestion block(s) missing 'Try': {missing[:3]}"}
+    return {"text": name, "passed": True, "evidence": f"all {len(blocks)} suggestion block(s) include 'Try'"}
+
+
+AUDIT_SHAPE_CHECKS = {
+    "audit-shape-block-precedes-rewrite-block": check_audit_shape_block_precedes_rewrite_block,
+    "every-flag-block-contains-input-substring": check_every_flag_block_contains_input_substring,
+    "every-flag-block-has-explanation": check_every_flag_block_has_explanation,
+    "final-non-empty-line-ends-with-question": check_final_non_empty_line_ends_with_question,
+    "no-large-prose-block-not-in-input": check_no_large_prose_block_not_in_input,
+    "suggestion-block-count-equals-flag-count": check_suggestion_block_count_equals_flag_count,
+    "every-suggestion-block-has-replacement": check_every_suggestion_block_has_replacement,
+}
+
+
+def check_audit_shape(check_name, output_text, input_text=None):
+    """Run a single audit-shape check by name."""
+    fn = AUDIT_SHAPE_CHECKS.get(check_name)
+    if fn is None:
+        raise KeyError(f"Unknown audit-shape check: {check_name!r}; known: {sorted(AUDIT_SHAPE_CHECKS)}")
+    return fn(output_text, input_text)
+
+
+# ---------------------------------------------------------------------------
+# Re-grading helper
+# ---------------------------------------------------------------------------
+
+def regrade(text, depth="balanced"):
+    """Re-grade prose at a chosen depth.
+
+    Returns a dict with depth-aware fail counts so an eval grader can verify
+    that a rewrite or draft cleared what the chosen depth requires.
+
+    Keys:
+        depth: the depth queried.
+        results: every annotated check result (passed and failed).
+        fails: count of failures the chosen depth requires fixing.
+        failed_checks: names of those failures.
+        all_failures: count of all failures regardless of depth.
+        all_failed_checks: names of all failed checks.
+    """
+    if depth not in DEPTHS:
+        raise ValueError(f"depth must be one of {DEPTHS}, got {depth!r}")
+    results = [annotate_result(fn(text)) for fn in ALL_CHECKS.values()]
+    failures = [r for r in results if not r["passed"]]
+    must_fix = [r for r in failures if action_for_depth(r, depth) == "fix"]
+    return {
+        "depth": depth,
+        "results": results,
+        "fails": len(must_fix),
+        "failed_checks": [r["text"] for r in must_fix],
+        "all_failures": len(failures),
+        "all_failed_checks": [r["text"] for r in failures],
+    }
+
+
+USAGE = "Usage: grade.py [--format json|markdown] [--depth balanced|all] <file> [assertion1,assertion2,...]"
+
+
 def main():
     args = sys.argv[1:]
     output_format = "json"
-    mode = "hard"
+    depth = "all"
 
     if "--format" in args:
         index = args.index("--format")
         try:
             output_format = args[index + 1]
         except IndexError:
-            print("Usage: grade.py [--format json|markdown] [--mode light|medium|hard] <file> [assertion1,assertion2,...]")
+            print(USAGE)
             sys.exit(1)
         del args[index:index + 2]
 
-    if "--mode" in args:
-        index = args.index("--mode")
+    if "--depth" in args:
+        index = args.index("--depth")
         try:
-            mode = args[index + 1].lower()
+            depth = args[index + 1].lower()
         except IndexError:
-            print("Usage: grade.py [--format json|markdown] [--mode light|medium|hard] <file> [assertion1,assertion2,...]")
+            print(USAGE)
             sys.exit(1)
         del args[index:index + 2]
 
-    if output_format not in {"json", "markdown"} or mode not in {"light", "medium", "hard"} or not args:
-        print("Usage: grade.py [--format json|markdown] [--mode light|medium|hard] <file> [assertion1,assertion2,...]")
+    if output_format not in {"json", "markdown"} or depth not in DEPTHS or not args:
+        print(USAGE)
         sys.exit(1)
 
     filepath = args[0]
@@ -2545,7 +2743,7 @@ def main():
     summary = score_summary(results)
 
     if output_format == "markdown":
-        print(format_human_report(results, mode=mode))
+        print(format_human_report(results, depth=depth))
         return
 
     output = {
@@ -2556,7 +2754,7 @@ def main():
         "human_report": human_report(results),
         "triggered_checks": triggered_checks(results),
         "failure_mode_results": failure_mode_results(results),
-        "mode_results": mode_results(results),
+        "depth_results": depth_results(results),
         "expectations": results,
     }
 

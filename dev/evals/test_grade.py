@@ -19,7 +19,7 @@ from grade import (
     format_human_report,
     friendly_evidence,
     human_report,
-    mode_results,
+    depth_results,
     score_summary,
     triggered_checks,
 )
@@ -51,36 +51,36 @@ def expect_pass(check_name, text, reason):
         print(f"  ok: {check_name} correctly passes on: {reason}")
 
 
-def expect_mode_status(results, mode, status, reason):
-    """Assert mode_results reports the expected status."""
+def expect_depth_status(results, depth, status, reason):
+    """Assert depth_results reports the expected status."""
     global FAILURES
-    actual = mode_results(results)[mode]["check_status"]
+    actual = depth_results(results)[depth]["check_status"]
     if actual != status:
         FAILURES += 1
-        print(f"FAIL: {mode} check_status should be {status} for {reason}; got {actual}")
+        print(f"FAIL: {depth} check_status should be {status} for {reason}; got {actual}")
     else:
-        print(f"  ok: {mode} check_status is {status} for {reason}")
+        print(f"  ok: {depth} check_status is {status} for {reason}")
 
 
-def expect_mode_actions(results, mode, required_fixes, preservable, reason):
-    """Assert mode_results reports the expected action buckets."""
+def expect_depth_actions(results, depth, required_fixes, preservable, reason):
+    """Assert depth_results reports the expected action buckets."""
     global FAILURES
-    actual = mode_results(results)[mode]
+    actual = depth_results(results)[depth]
     failed = False
     if actual["required_fixes"] != required_fixes:
         FAILURES += 1
         failed = True
-        print(f"FAIL: {mode} required_fixes should be {required_fixes} for {reason}; got {actual['required_fixes']}")
+        print(f"FAIL: {depth} required_fixes should be {required_fixes} for {reason}; got {actual['required_fixes']}")
     if actual["preservable_with_disclosure"] != preservable:
         FAILURES += 1
         failed = True
-        print(f"FAIL: {mode} preservable_with_disclosure should be {preservable} for {reason}; got {actual['preservable_with_disclosure']}")
+        print(f"FAIL: {depth} preservable_with_disclosure should be {preservable} for {reason}; got {actual['preservable_with_disclosure']}")
     if actual["user_decision_needed"] != preservable:
         FAILURES += 1
         failed = True
-        print(f"FAIL: {mode} user_decision_needed should be {preservable} for {reason}; got {actual['user_decision_needed']}")
+        print(f"FAIL: {depth} user_decision_needed should be {preservable} for {reason}; got {actual['user_decision_needed']}")
     if not failed:
-        print(f"  ok: {mode} action buckets match for {reason}")
+        print(f"  ok: {depth} action buckets match for {reason}")
 
 
 # --- no-em-dashes ---
@@ -95,9 +95,8 @@ expect_pass("no-em-dashes",
 em_dash_results = [
     annotate_result(ALL_CHECKS["no-em-dashes"]("I'm still keen to connect\u2014would Tuesday work?"))
 ]
-expect_mode_status(em_dash_results, "light", "fail", "em dash is a strong 2026 signal in Light")
-expect_mode_status(em_dash_results, "medium", "fail", "em dash is a strong 2026 signal in Medium")
-expect_mode_status(em_dash_results, "hard", "fail", "em dash is never allowed in Hard")
+expect_depth_status(em_dash_results, "balanced", "fail", "em dash is a strong 2026 signal at Balanced depth")
+expect_depth_status(em_dash_results, "all", "fail", "em dash is never allowed at All depth")
 
 
 # --- no-ai-vocabulary-clustering ---
@@ -1134,7 +1133,7 @@ _failed_markdown = format_human_report([
     }),
     annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
-], mode="hard")
+], depth="all")
 _missing_label = next(
     (label for label in ("What it looks for:", "What happened here:", "Why this matters:") if label not in _failed_markdown),
     None,
@@ -1169,7 +1168,7 @@ else:
 _markdown_report = format_human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})
     for name in ALL_CHECKS
-], mode="hard")
+], depth="all")
 _markdown_rows = [
     line for line in _markdown_report.splitlines()
     if line.startswith("| ") and not line.startswith("|---")
@@ -1177,7 +1176,7 @@ _markdown_rows = [
 if "Summary: All 43 checks were clear." not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should include a plain-English summary")
-elif "| Check | Status | What it looks for | What happened here | Why this matters | Hard action |" not in _markdown_report:
+elif "| Check | Status | What it looks for | What happened here | Why this matters | All action |" not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should include a user-facing table header")
 elif len(_markdown_rows) != 44:
@@ -1213,25 +1212,24 @@ if _structure_checks != ["no-formulaic-openers"] or _abstraction_checks != ["no-
 else:
     print("  ok: multi-mode failures remain visible in every applicable group")
 
-_structure_action = _failure_mode_report["frictionless_structure"]["failed_checks"][0]["mode_actions"]
-if _structure_action != {"light": "fix", "medium": "fix", "hard": "fix"}:
+_structure_action = _failure_mode_report["frictionless_structure"]["failed_checks"][0]["depth_actions"]
+if _structure_action != {"balanced": "fix", "all": "fix"}:
     FAILURES += 1
-    print(f"FAIL: strong warning actions should require fixes in every mode; got {_structure_action}")
+    print(f"FAIL: strong warning actions should require fixes at every depth; got {_structure_action}")
 else:
-    print("  ok: strong warning mode actions require fixes in every mode")
+    print("  ok: strong warning depth actions require fixes at every depth")
 
 _context_action = failure_mode_results([
     annotate_result({"text": "no-anaphora", "passed": False, "evidence": "context warning"}),
-])["genre_misfit"]["failed_checks"][0]["mode_actions"]
+])["genre_misfit"]["failed_checks"][0]["depth_actions"]
 if _context_action != {
-    "light": "preserve_with_disclosure_or_user_decision",
-    "medium": "preserve_with_disclosure_or_user_decision",
-    "hard": "fix",
+    "balanced": "preserve_with_disclosure_or_user_decision",
+    "all": "fix",
 }:
     FAILURES += 1
-    print(f"FAIL: context warning actions should preserve only outside Hard; got {_context_action}")
+    print(f"FAIL: context warning actions should preserve at Balanced and fix at All; got {_context_action}")
 else:
-    print("  ok: context warning mode actions preserve only outside Hard")
+    print("  ok: context warning depth actions preserve at Balanced and fix at All")
 
 if _failure_mode_report["genre_misfit"]["failed_checks"]:
     FAILURES += 1
@@ -1243,36 +1241,30 @@ _clean_results = [
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
     annotate_result({"text": "no-collaborative-artifacts", "passed": True, "evidence": "clean"}),
 ]
-expect_mode_status(_clean_results, "light", "pass", "clean text")
-expect_mode_status(_clean_results, "medium", "pass", "clean text")
-expect_mode_status(_clean_results, "hard", "pass", "clean text")
+expect_depth_status(_clean_results, "balanced", "pass", "clean text")
+expect_depth_status(_clean_results, "all", "pass", "clean text")
 
 _context_only = [
     annotate_result({"text": "no-anaphora", "passed": False, "evidence": "context warning"}),
 ]
-expect_mode_status(_context_only, "light", "fail", "context warning only")
-expect_mode_status(_context_only, "medium", "fail", "context warning only")
-expect_mode_status(_context_only, "hard", "fail", "context warning only")
-expect_mode_actions(_context_only, "light", [], ["no-anaphora"], "context warning only")
-expect_mode_actions(_context_only, "medium", [], ["no-anaphora"], "context warning only")
-expect_mode_actions(_context_only, "hard", ["no-anaphora"], [], "context warning only")
+expect_depth_status(_context_only, "balanced", "fail", "context warning only")
+expect_depth_status(_context_only, "all", "fail", "context warning only")
+expect_depth_actions(_context_only, "balanced", [], ["no-anaphora"], "context warning only")
+expect_depth_actions(_context_only, "all", ["no-anaphora"], [], "context warning only")
 
 _strong_only = [
     annotate_result({"text": "no-negative-parallelisms", "passed": False, "evidence": "strong warning"}),
 ]
-expect_mode_status(_strong_only, "light", "fail", "strong warning only")
-expect_mode_status(_strong_only, "medium", "fail", "strong warning only")
-expect_mode_status(_strong_only, "hard", "fail", "strong warning only")
-expect_mode_actions(_strong_only, "light", ["no-negative-parallelisms"], [], "strong warning only")
-expect_mode_actions(_strong_only, "medium", ["no-negative-parallelisms"], [], "strong warning only")
-expect_mode_actions(_strong_only, "hard", ["no-negative-parallelisms"], [], "strong warning only")
+expect_depth_status(_strong_only, "balanced", "fail", "strong warning only")
+expect_depth_status(_strong_only, "all", "fail", "strong warning only")
+expect_depth_actions(_strong_only, "balanced", ["no-negative-parallelisms"], [], "strong warning only")
+expect_depth_actions(_strong_only, "all", ["no-negative-parallelisms"], [], "strong warning only")
 
 _hard_only = [
     annotate_result({"text": "no-collaborative-artifacts", "passed": False, "evidence": "hard failure"}),
 ]
-expect_mode_status(_hard_only, "light", "fail", "hard failure")
-expect_mode_status(_hard_only, "medium", "fail", "hard failure")
-expect_mode_status(_hard_only, "hard", "fail", "hard failure")
+expect_depth_status(_hard_only, "balanced", "fail", "hard failure")
+expect_depth_status(_hard_only, "all", "fail", "hard failure")
 
 
 # --- Human passthrough: opinion piece ---

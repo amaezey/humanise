@@ -32,16 +32,16 @@ Invoke with `/humanise` or ask Claude to audit, check, humanise, de-AI, clean up
 Give it text and it can follow five workflows:
 
 1. **Audit only:** report what was flagged and why, without rewriting.
-2. **Audit plus recommendation:** report findings and recommend Light, Medium, or Hard cleanup.
+2. **Audit plus recommendation:** report findings and recommend Balanced or All cleanup.
 3. **Audit, agree, then rewrite:** ask before changing text when intent or genre is ambiguous.
 4. **Rewrite and verify:** rewrite only when requested, then run the post-check.
 5. **Save report:** write the audit or before/after report to Markdown.
 
-The script still keeps lower-level diagnostic fields for debugging, but the user-facing path uses `python3 grade.py --format markdown --mode <light|medium|hard> <file>` so reports start in plain English.
+The script still keeps lower-level diagnostic fields for debugging, but the user-facing path uses `python3 grade.py --format markdown --depth <balanced|all> <file>` so reports start in plain English.
 
 ## Representative report output
 
-Excerpt from `python3 humanise/grade.py --format markdown --mode hard dev/evals/samples/generated-ai/ai-08-feedback-education.md`. Rewrite workflows also include the rewrite, structural self-check, post-check report, and the full 43-row table before and after rewriting.
+Excerpt from `python3 humanise/grade.py --format markdown --depth all dev/evals/samples/generated-ai/ai-08-feedback-education.md`. Rewrite workflows also include the rewrite, structural self-check, post-check report, and the full 43-row table before and after rewriting.
 
 ```text
 Initial assessment
@@ -54,12 +54,12 @@ Note: This is a confidence assessment about AI-writing signs, not an authorship 
 AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were paragraph length uniformity, headings in prose. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 4/4, so this check was flagged.
 
 Main issues found
-- AI pressure from stacked signals: Flagged. What it looks for: Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. What happened here: Stacked weak signals: paragraph length uniformity, headings in prose. Score: 4/4. This points to machine-packaged structure rather than one isolated wording choice. Why this matters: Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. Hard action: Fix.
-- Headings in prose: Flagged. What it looks for: Checks for markdown headings and plain title headings when prose should flow. What happened here: Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". Why this matters: Headings can make prose feel packaged by an assistant rather than written as a continuous piece. Hard action: Fix.
+- AI pressure from stacked signals: Flagged. What it looks for: Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. What happened here: Stacked weak signals: paragraph length uniformity, headings in prose. Score: 4/4. This points to machine-packaged structure rather than one isolated wording choice. Why this matters: Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. All action: Fix.
+- Headings in prose: Flagged. What it looks for: Checks for markdown headings and plain title headings when prose should flow. What happened here: Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". Why this matters: Headings can make prose feel packaged by an assistant rather than written as a continuous piece. All action: Fix.
 
 Full check table excerpt
 
-| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+| Check | Status | What it looks for | What happened here | Why this matters | All action |
 |---|---|---|---|---|---|
 | Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
 | AI pressure from stacked signals | Flagged | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | Stacked weak signals: paragraph length uniformity, headings in prose. Score: 4/4. This points to machine-packaged structure rather than one isolated wording choice. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | Fix |
