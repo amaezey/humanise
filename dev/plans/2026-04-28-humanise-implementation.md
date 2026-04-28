@@ -91,12 +91,13 @@ The hard dependencies (steps 1–3 now closed; preserved here for handoff contex
 - ~~**Duplicate `grade.py` files.**~~ **Resolved: removed.** `dev/evals/grade.py` deleted. `dev/evals/test_grade.py` now loads `humanise/grade.py` via importlib, matching what `run_grade_sweep.py` already does. Single source of truth restored.
 - ~~**Iteration set hold-out strategy.**~~ **Resolved: rotate.** Iteration set rotates samples between iterations to guard against overfitting to a fixed five.
 - ~~**Existing `ai-XX` samples in the blind eval.**~~ **Resolved: drop.** The 18 older `ai-XX` samples are dropped from the blind eval. Held-out blind set is the 5 unused new AI samples only (rotated each iteration; the unused-this-iteration set forms the blind pool for that iteration's blind eval).
+- ~~**Blind eval pass threshold.**~~ **Resolved: per-case ≥70% AND held-out within 10% of iteration-set pass rate.** Two-part bar — the 70% floor catches "wasn't good enough to begin with"; the within-10% check catches "doesn't generalise". Aggregate scores rejected because they hide one broken case behind several strong ones.
+- ~~**Description optimization model.**~~ **Resolved: Opus and Sonnet.** Trigger-eval iteration runs the loop against both Opus 4.7 and Sonnet 4.6, picking a description that triggers reliably across both. Haiku skipped.
+- ~~**`references/example.md` survival.**~~ **Resolved: refresh now, re-evaluate after iteration 1.** Heading updated from "Hard-mode rewrite" to "rewrite at All depth"; rest of the example prose is depth-agnostic and untouched. If iteration 1 shows subagents struggling without a Balanced-depth example, author one then.
 
 ### Still open
 
-- **Blind eval pass threshold.** What's the success bar for the final blind eval — pass-rate per case, aggregate score, or qualitative read? *Mae's lean: not sure; my recommendation pending in conversation.*
-- **Description optimization model.** Which model does the trigger-eval iteration optimise the SKILL.md description against — current session model (Opus 4.7), Sonnet, Haiku, or all three? *Pending clarification with Mae.*
-- **`references/example.md` survival.** Hard-mode rewrite walkthrough using old vocabulary; 65 lines. Refresh to "All depth", replace with Balanced walkthrough, or remove? *Pending decision; my recommendation: refresh now, re-evaluate after iteration 1.*
+*(none currently)*
 
 ---
 

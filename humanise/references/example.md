@@ -1,6 +1,6 @@
 # Worked example: AI-sounding draft → human-sounding rewrite
 
-End-to-end demonstration of a Hard-mode rewrite: an AI-generated essay through audit, rewrite, structural self-check, and revised rewrite. Use as a reference for what a real Rewrite action's output should look like.
+End-to-end demonstration of a rewrite at All depth: an AI-generated essay through audit, rewrite, structural self-check, and revised rewrite. Use as a reference for what a real Rewrite action's output should look like.
 
 ## Before (AI-sounding)
 
