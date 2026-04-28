@@ -676,6 +676,9 @@ def check_overall_signal_pressure(text):
         "bland_critical_template": "bland critical template",
         "false_concession": "false-concession hedges",
     }
+    assert set(weights) <= set(component_labels), (
+        f"component_labels missing keys: {sorted(set(weights) - set(component_labels))}"
+    )
 
     vocab = vocabulary_pressure_profile(text)
     score = vocab["points"]
@@ -702,7 +705,7 @@ def check_overall_signal_pressure(text):
             "kobak_style_sample": vocab["kobak"]["style_sample"],
         },
         "evidence": (
-            f"Overall AI-signal pressure {score}/4 from {components}; "
+            f"Overall AI-signal pressure {score}/4 from [{', '.join(components)}]; "
             f"vocab={vocab['points']} point(s), "
             f"worst_generic={vocab['worst_generic']}, "
             f"gptzero={vocab['gptzero_matches']}, "
@@ -711,7 +714,7 @@ def check_overall_signal_pressure(text):
             f"sample={vocab['kobak']['style_sample']}"
             if failed
             else (
-                f"Overall AI-signal pressure {score}/4 from {components}; "
+                f"Overall AI-signal pressure {score}/4 from [{', '.join(components)}]; "
                 f"vocab={vocab['points']} point(s), "
                 f"worst_generic={vocab['worst_generic']}, "
                 f"gptzero={vocab['gptzero_matches']}, "
@@ -2071,15 +2074,20 @@ def friendly_evidence(result):
         score = result.get("score")
         threshold = result.get("threshold")
         components = list(result.get("components", []))
-        component_text = ", ".join(components) if components else "no stacked weak signals"
         vocab = result.get("vocabulary_pressure", {})
-        vocabulary_text = ""
-        if vocab.get("points", 0):
-            vocabulary_text = f" Clustered AI vocabulary added {vocab.get('points')} point(s)."
+        vocab_points = vocab.get("points", 0)
+        if components:
+            component_text = ", ".join(components)
+            sentence = (
+                f"Stacked weak signals: {component_text}. Score: {score}/{threshold}. "
+                "This points to machine-packaged structure rather than one isolated wording choice."
+            )
+            if vocab_points:
+                sentence += f" Clustered AI vocabulary added {vocab_points} point(s)."
+            return sentence
         return (
-            f"Stacked weak signals: {component_text}. Score: {score}/{threshold}. "
-            "This points to machine-packaged structure rather than one isolated wording choice."
-            f"{vocabulary_text}"
+            f"Clustered AI vocabulary alone reached {vocab_points} point(s) at score {score}/{threshold}. "
+            "The pressure check fired on vocabulary patterns rather than stacked structural signals."
         )
     evidence = result.get("evidence", "")
     list_match = re.search(r":\s*(\[[^\]]+\])", evidence)
@@ -2208,36 +2216,34 @@ def human_report(results):
             pressure_components = list(result.get("components", []))
             vocab_points = result.get("vocabulary_pressure", {}).get("points", 0)
             break
-    vocab_clause = (
-        f", plus {vocab_points} point(s) from clustered AI vocabulary"
-        if vocab_points
-        else ""
+    pressure_lead = (
+        "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
+        "but become more meaningful when they appear together. "
+    )
+    pressure_tail = (
+        f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, "
+        f"so this check {'was flagged' if ai_pressure.get('triggered') else 'stayed clear'}."
     )
     if pressure_components:
-        pressure_component_text = ", ".join(pressure_components)
-        ai_pressure_explanation = (
-            "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
-            "but become more meaningful when they appear together. Here the stacked signals were "
-            f"{pressure_component_text}{vocab_clause}. That means the draft looked machine-packaged, with "
-            "too much visible structure and too little natural variation. "
-            f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, so this check "
-            f"{'was flagged' if ai_pressure.get('triggered') else 'stayed clear'}."
+        vocab_clause = (
+            f", plus {vocab_points} point(s) from clustered AI vocabulary"
+            if vocab_points
+            else ""
+        )
+        pressure_middle = (
+            f"Here the stacked signals were {', '.join(pressure_components)}{vocab_clause}. "
+            "That means the draft looked machine-packaged, with too much visible structure "
+            "and too little natural variation. "
         )
     elif vocab_points:
-        ai_pressure_explanation = (
-            "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
-            "but become more meaningful when they appear together. The only contribution here was "
-            f"{vocab_points} point(s) from clustered AI vocabulary. "
-            f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, so this check "
-            f"{'was flagged' if ai_pressure.get('triggered') else 'stayed clear'}."
+        pressure_middle = (
+            f"The only contribution here was {vocab_points} point(s) from clustered AI vocabulary. "
         )
     else:
-        ai_pressure_explanation = (
-            "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
-            "but become more meaningful when they appear together. This text did not stack enough "
-            "weak signals to suggest machine-packaged structure. "
-            f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, so this check stayed clear."
+        pressure_middle = (
+            "This text did not stack enough weak signals to suggest machine-packaged structure. "
         )
+    ai_pressure_explanation = pressure_lead + pressure_middle + pressure_tail
 
     return {
         "overview": overview,

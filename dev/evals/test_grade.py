@@ -17,6 +17,7 @@ from grade import (
     annotate_result,
     failure_mode_results,
     format_human_report,
+    friendly_evidence,
     human_report,
     mode_results,
     score_summary,
@@ -1054,17 +1055,106 @@ if _pressure_row["check"] != "AI pressure from stacked signals" or _pressure_row
 else:
     print("  ok: aggregate pressure is reported as one check")
 
-if "weaker patterns" not in _human_report["ai_pressure_explanation"]:
+if "paragraph length uniformity" not in _human_report["ai_pressure_explanation"]:
     FAILURES += 1
-    print(f"FAIL: human_report should explain AI pressure clearly; got {_human_report['ai_pressure_explanation']}")
+    print(f"FAIL: human_report should list pressure components in plain English; got {_human_report['ai_pressure_explanation']}")
 else:
-    print("  ok: human report explains AI pressure")
+    print("  ok: human report lists pressure components in plain English")
 
 if _human_report["confidence"]["level"] != "Medium":
     FAILURES += 1
     print(f"FAIL: human_report confidence should be Medium for this mix; got {_human_report['confidence']}")
 else:
     print("  ok: human report includes confidence assessment")
+
+_human_report_vocab_only = human_report([
+    annotate_result({
+        "text": "overall-ai-signal-pressure",
+        "passed": False,
+        "evidence": "Overall AI-signal pressure 4/4",
+        "score": 4,
+        "threshold": 4,
+        "components": [],
+        "vocabulary_pressure": {
+            "points": 4,
+            "reasons": ["generic cluster x4"],
+            "worst_generic": 4,
+            "gptzero_matches": [],
+            "kobak_style_distinct": 8,
+            "kobak_style_density": 12.0,
+            "kobak_style_sample": ["valuable", "pivotal"],
+        },
+    }),
+])
+if "clustered AI vocabulary" not in _human_report_vocab_only["ai_pressure_explanation"]:
+    FAILURES += 1
+    print(f"FAIL: human_report vocab-only branch should mention clustered AI vocabulary; got {_human_report_vocab_only['ai_pressure_explanation']}")
+else:
+    print("  ok: human report handles vocab-only AI pressure")
+
+_friendly_vocab_only = friendly_evidence({
+    "text": "overall-ai-signal-pressure",
+    "passed": False,
+    "score": 4,
+    "threshold": 4,
+    "components": [],
+    "vocabulary_pressure": {
+        "points": 4,
+        "reasons": ["generic cluster x4"],
+        "worst_generic": 4,
+        "gptzero_matches": [],
+        "kobak_style_distinct": 8,
+        "kobak_style_density": 12.0,
+        "kobak_style_sample": [],
+    },
+})
+if "no stacked weak signals" in _friendly_vocab_only or "Clustered AI vocabulary alone" not in _friendly_vocab_only:
+    FAILURES += 1
+    print(f"FAIL: friendly_evidence vocab-only branch should not contradict itself; got {_friendly_vocab_only}")
+else:
+    print("  ok: friendly_evidence handles vocab-only AI pressure cleanly")
+
+_failed_markdown = format_human_report([
+    annotate_result({
+        "text": "overall-ai-signal-pressure",
+        "passed": False,
+        "evidence": "Overall AI-signal pressure 5/4",
+        "score": 5,
+        "threshold": 4,
+        "components": ["paragraph length uniformity", "headings in prose"],
+        "vocabulary_pressure": {
+            "points": 1,
+            "reasons": ["generic cluster"],
+            "worst_generic": 2,
+            "gptzero_matches": [],
+            "kobak_style_distinct": 4,
+            "kobak_style_density": 7.5,
+            "kobak_style_sample": ["valuable"],
+        },
+    }),
+    annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
+    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
+], mode="hard")
+_missing_label = next(
+    (label for label in ("What it looks for:", "What happened here:", "Why this matters:") if label not in _failed_markdown),
+    None,
+)
+if _missing_label:
+    FAILURES += 1
+    print(f"FAIL: format_human_report failed-bullet branch should include '{_missing_label}'; got:\n{_failed_markdown[:600]}")
+else:
+    print("  ok: format_human_report failed-bullet branch renders new labels")
+
+_missing_phrase = next(
+    (phrase for phrase in ("Stacked weak signals:", "paragraph length uniformity", "Clustered AI vocabulary added 1 point(s)")
+     if phrase not in _failed_markdown),
+    None,
+)
+if _missing_phrase:
+    FAILURES += 1
+    print(f"FAIL: failed-bullet should include friendly_evidence phrase '{_missing_phrase}'; got:\n{_failed_markdown[:600]}")
+else:
+    print("  ok: failed-bullet renders friendly_evidence components+vocab phrasing")
 
 _full_table_report = human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})

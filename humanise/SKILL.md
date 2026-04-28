@@ -106,7 +106,14 @@ Save a `.md` file containing:
 - post-check if performed,
 - remaining issues and next steps.
 
-State the saved file path.
+**Default save path:** same directory as the input file, with the input's stem and one of these suffixes:
+
+- `<stem>.humanise-audit.md` — for audit-only or audit-plus-recommendation workflows.
+- `<stem>.humanise-report.md` — when a rewrite was performed (covers rewrite-and-verify and audit-agree-rewrite).
+
+For example, an input at `drafts/post.md` saved after an audit becomes `drafts/post.humanise-audit.md`. If the input came from stdin, a clipboard, or has no obvious path, fall back to `./humanise-audit.md` or `./humanise-report.md` in the current working directory and tell the user. If the target file already exists, append `-2`, `-3`, etc. to the stem rather than overwriting.
+
+State the saved file path in the output.
 
 ---
 
@@ -321,10 +328,10 @@ If the workflow is audit-only and no mode is specified, use Medium for the diagn
 
 ### Step 2: Audit (script finds the problems)
 
-Save the input text to a temp file, then run the grading script on it:
+Save the input text to a unique temp file (e.g. `/tmp/humanise-input-$(date +%s).md` or any path that will not collide with concurrent runs), then run the grading script on it:
 
 ```bash
-python3 grade.py --format markdown --mode hard /tmp/input.md
+python3 grade.py --format markdown --mode hard <input-path>
 ```
 
 Use the selected mode in the command: `--mode light`, `--mode medium`, or `--mode hard`.
@@ -426,10 +433,10 @@ After answering and acting on these questions, re-run the grader to confirm your
 
 ### Step 7: Post-check (script verifies the fix)
 
-Run the grading script on your output:
+Run the grading script on your output (use a unique temp path that will not collide with concurrent runs):
 
 ```bash
-python3 grade.py --format markdown --mode hard /tmp/output.md
+python3 grade.py --format markdown --mode hard <output-path>
 ```
 
 Use the selected mode in the command.
