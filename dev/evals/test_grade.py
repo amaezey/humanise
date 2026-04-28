@@ -1035,7 +1035,7 @@ if not _ai_pressure or _ai_pressure["score"] != 5 or _ai_pressure["threshold"] !
 else:
     print("  ok: score summary exposes AI-signal pressure")
 
-if _human_report["overview"] != "2 of 3 checks showed signs of AI-style writing.":
+if _human_report["overview"] != "2 of 3 checks were flagged for AI-style writing patterns.":
     FAILURES += 1
     print(f"FAIL: human_report should expose a plain-English overview; got {_human_report['overview']}")
 else:
@@ -1048,13 +1048,13 @@ else:
     print("  ok: human report includes every check row")
 
 _pressure_row = _human_report["all_checks"][0]
-if _pressure_row["check"] != "Aggregate AI-signal pressure" or _pressure_row["status"] != "Shows signs":
+if _pressure_row["check"] != "AI pressure from stacked signals" or _pressure_row["status"] != "Flagged":
     FAILURES += 1
     print(f"FAIL: human_report should describe aggregate pressure as a check; got {_pressure_row}")
 else:
     print("  ok: aggregate pressure is reported as one check")
 
-if "one of the 43 checks" not in _human_report["ai_pressure_explanation"]:
+if "weaker patterns" not in _human_report["ai_pressure_explanation"]:
     FAILURES += 1
     print(f"FAIL: human_report should explain AI pressure clearly; got {_human_report['ai_pressure_explanation']}")
 else:
@@ -1084,15 +1084,21 @@ _markdown_rows = [
     line for line in _markdown_report.splitlines()
     if line.startswith("| ") and not line.startswith("|---")
 ]
-if "Summary: All 43 checks passed." not in _markdown_report:
+if "Summary: All 43 checks were clear." not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should include a plain-English summary")
-elif "| Check | Status | Why | Hard action |" not in _markdown_report:
+elif "| Check | Status | What it looks for | What happened here | Why this matters | Hard action |" not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should include a user-facing table header")
 elif len(_markdown_rows) != 44:
     FAILURES += 1
     print(f"FAIL: Markdown report should include header plus 43 check rows; got {len(_markdown_rows)}")
+elif "Why this matters" not in _markdown_report:
+    FAILURES += 1
+    print("FAIL: Markdown report should explain why checks matter")
+elif "one of the 43 checks" in _markdown_report or "internal pressure score" in _markdown_report:
+    FAILURES += 1
+    print("FAIL: Markdown report should not expose implementation-first pressure language")
 else:
     print("  ok: Markdown report renders a full 43-check user-facing table")
 

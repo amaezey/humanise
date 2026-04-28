@@ -1620,7 +1620,7 @@ CHECK_REPORT_TEXT = {
     "no-em-dashes": ("Em dashes", "Checks for em dash punctuation, a strong current AI-style signal in this skill."),
     "no-ai-vocabulary-clustering": ("Clustered AI vocabulary", "Checks whether generic AI-associated words and phrases cluster together."),
     "no-nonliteral-land-surface": ("Nonliteral land/surface phrasing", "Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale."),
-    "overall-ai-signal-pressure": ("Aggregate AI-signal pressure", "One of the 43 checks. It combines several weaker signals into a 0/4 pressure score and fails when that score reaches 4."),
+    "overall-ai-signal-pressure": ("AI pressure from stacked signals", "Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive."),
     "no-manufactured-insight": ("Manufactured insight framing", "Checks for phrases that perform hidden depth or secret significance without earning it."),
     "no-staccato-sequences": ("Generic staccato emphasis", "Checks for repeated short dramatic sentences used as generic emphasis."),
     "no-anaphora": ("Mechanical repeated sentence starts", "Checks for repeated sentence openings that read like template rhythm."),
@@ -1660,6 +1660,53 @@ CHECK_REPORT_TEXT = {
     "vocabulary-diversity": ("Vocabulary diversity", "Checks for unusually repetitive vocabulary in longer text."),
     "no-triad-density": ("Triad density", "Checks whether three-part list structures are overused across the piece."),
     "no-section-scaffolding": ("Repeated section scaffolding", "Checks for repeated section labels or repeated structural templates."),
+}
+
+
+CHECK_WHY_IT_MATTERS = {
+    "no-em-dashes": "Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation.",
+    "no-ai-vocabulary-clustering": "Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context.",
+    "no-nonliteral-land-surface": "Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged.",
+    "overall-ai-signal-pressure": "Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable.",
+    "no-manufactured-insight": "Manufactured insight framing performs depth without adding specific evidence or thought.",
+    "no-staccato-sequences": "Repeated short emphasis beats can make prose sound generated rather than naturally paced.",
+    "no-anaphora": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+    "no-collaborative-artifacts": "Assistant residue makes the text look like chat output rather than finished prose.",
+    "no-curly-quotes": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text.",
+    "sentence-length-variance": "Low rhythm variation makes paragraphs feel mechanically produced.",
+    "no-promotional-language": "Stock hype weakens credibility and often appears in generated product or venue copy.",
+    "no-significance-inflation": "Inflated importance makes ordinary claims sound artificially momentous.",
+    "no-negative-parallelisms": "Contrived contrast creates a fake reveal instead of making a direct, supported claim.",
+    "no-copula-avoidance": "Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis.",
+    "no-filler-phrases": "Filler phrases add polish without information.",
+    "no-generic-conclusions": "Generic conclusions make the ending feel templated and interchangeable.",
+    "no-false-concession-hedges": "False balance can hide the writer's actual position.",
+    "no-placeholder-residue": "Placeholder residue signals unfinished generated or templated text.",
+    "no-soft-scaffolding": "Soft scaffolding announces structure instead of doing useful writing work.",
+    "no-orphaned-demonstratives": "Vague this/that openings blur the actual subject and create generic analysis.",
+    "no-forced-triads": "Decorative three-part lists can create artificial rhythm without substance.",
+    "no-superficial-ing": "Tacked-on -ing clauses often pretend to analyse while adding little.",
+    "no-ghost-spectral-density": "Stock spectral language can make atmosphere feel generated or borrowed.",
+    "no-quietness-obsession": "Overused quiet/still mood language can create generic literary atmosphere.",
+    "no-rhetorical-questions": "Template questions often simulate engagement without adding real inquiry.",
+    "no-excessive-lists": "Too much list formatting can make prose feel like generated notes or slides.",
+    "no-unicode-flair": "Decorative symbols can make output look like generated formatting.",
+    "no-dramatic-transitions": "Unearned turning-point language claims drama the prose has not built.",
+    "no-formulaic-openers": "Formulaic openings make paragraphs feel assembled from templates.",
+    "no-signposted-conclusions": "Conclusion signposts often flatten the ending into a generic summary.",
+    "no-markdown-headings": "Headings can make prose feel packaged by an assistant rather than written as a continuous piece.",
+    "no-corporate-ai-speak": "Corporate AI-speak hides specific work behind vague operational language.",
+    "no-this-chains": "Repeated vague This sentences create generic analysis and weak subject control.",
+    "no-excessive-hedging": "Too much hedging weakens stance and can make prose feel evasive or machine-neutral.",
+    "no-countdown-negation": "Countdown negation creates a synthetic reveal structure.",
+    "no-negation-density": "Dense negation can make a piece feel over-framed around what it is not instead of what it is.",
+    "paragraph-length-uniformity": "Paragraphs of similar length can signal generated structure and low natural variation.",
+    "no-tidy-paragraph-endings": "Repeated tidy endings make paragraphs feel over-resolved and templated.",
+    "no-bland-critical-template": "Bland critical language replaces concrete judgment with portable review phrases.",
+    "no-rubric-echoing": "Rubric echoing makes writing sound like assignment compliance rather than independent thought.",
+    "vocabulary-diversity": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
+    "no-triad-density": "Too many three-part lists create a recognisable generated cadence.",
+    "no-section-scaffolding": "Repeated section structure makes the whole piece feel assembled from a template.",
 }
 
 
@@ -1997,6 +2044,16 @@ ACTION_LABELS = {
 }
 
 
+PRESSURE_COMPONENT_TEXT = {
+    "paragraph_uniformity": "paragraph length uniformity",
+    "markdown_headings": "headings in prose",
+    "formulaic_openers": "formulaic openings",
+    "tidy_endings": "tidy paragraph endings",
+    "reframes": "contrived contrast or reveal framing",
+    "vocabulary": "clustered AI vocabulary",
+}
+
+
 def check_report_text(check_name):
     """Return a plain-English label and description for a check."""
     return CHECK_REPORT_TEXT.get(
@@ -2011,14 +2068,18 @@ def friendly_evidence(result):
         score = result.get("score")
         threshold = result.get("threshold")
         components = [
-            CHECK_REPORT_TEXT.get(name.replace("_", "-"), (name.replace("_", " "), ""))[0].lower()
+            PRESSURE_COMPONENT_TEXT.get(name, name.replace("_", " "))
             for name in result.get("components", [])
         ]
-        component_text = ", ".join(components) if components else "no aggregate components"
+        component_text = ", ".join(components) if components else "no stacked weak signals"
         vocab = result.get("vocabulary_pressure", {})
+        vocabulary_text = ""
+        if vocab.get("points", 0):
+            vocabulary_text = f" Vocabulary pressure added {vocab.get('points')} point(s)."
         return (
-            f"Aggregate pressure was {score}/{threshold}. It counted weaker signals together: "
-            f"{component_text}. Vocabulary pressure contributed {vocab.get('points', 0)} point(s)."
+            f"Stacked weak signals: {component_text}. Score: {score}/{threshold}. "
+            "This points to machine-packaged structure rather than one isolated wording choice."
+            f"{vocabulary_text}"
         )
     evidence = result.get("evidence", "")
     list_match = re.search(r":\s*(\[[^\]]+\])", evidence)
@@ -2089,7 +2150,7 @@ def confidence_assessment(results):
         basis.append(f"{context} context-sensitive signal(s)")
     if pressure_triggered:
         basis.append(
-            f"aggregate AI-signal pressure reached {ai_pressure.get('score')}/{ai_pressure.get('threshold')}"
+            f"AI pressure score reached {ai_pressure.get('score')}/{ai_pressure.get('threshold')}"
         )
     if not basis:
         basis.append("all checks passed")
@@ -2117,9 +2178,10 @@ def checks_table(results):
             "check_id": result["text"],
             "check": label,
             "what_it_checks": description,
-            "status": "Pass" if result["passed"] else "Shows signs",
+            "why_it_matters": CHECK_WHY_IT_MATTERS.get(result["text"], "This pattern can make prose read as generated or over-templated."),
+            "status": "Clear" if result["passed"] else "Flagged",
             "severity": SEVERITY_LABELS.get(result["severity"], "Context-sensitive signal"),
-            "why": "No sign of this pattern found." if result["passed"] else sentence_text(friendly_evidence(result)),
+            "why": "No issue found in this text." if result["passed"] else sentence_text(friendly_evidence(result)),
             "recommended_action": action or {"light": "None", "medium": "None", "hard": "None"},
         })
     return rows
@@ -2130,20 +2192,40 @@ def human_report(results):
     summary = score_summary(results)
     confidence = confidence_assessment(results)
     ai_pressure = summary.get("ai_signal_pressure") or {}
-    failed = [row for row in checks_table(results) if row["status"] != "Pass"]
+    table = checks_table(results)
+    failed = [row for row in table if row["status"] != "Clear"]
     failed_count = summary["failed_checks"]
     total = summary["total_checks"]
     if failed_count:
-        overview = f"{failed_count} of {total} checks showed signs of AI-style writing."
+        overview = f"{failed_count} of {total} checks were flagged for AI-style writing patterns."
     else:
-        overview = f"All {total} checks passed."
+        overview = f"All {total} checks were clear."
 
-    ai_pressure_explanation = (
-        "Aggregate AI-signal pressure is one of the 43 checks, not a separate verdict. "
-        "It counts as one failed check only when its internal pressure score reaches the threshold. "
-        f"Here it was {ai_pressure.get('score')}/{ai_pressure.get('threshold')} "
-        f"and {'triggered' if ai_pressure.get('triggered') else 'did not trigger'}."
-    )
+    pressure_components = []
+    for result in results:
+        if result["text"] == "overall-ai-signal-pressure":
+            pressure_components = [
+                PRESSURE_COMPONENT_TEXT.get(name, name.replace("_", " "))
+                for name in result.get("components", [])
+            ]
+            break
+    if pressure_components:
+        pressure_component_text = ", ".join(pressure_components)
+        ai_pressure_explanation = (
+            "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
+            "but become more meaningful when they appear together. Here the stacked signals were "
+            f"{pressure_component_text}. That means the draft looked machine-packaged, with "
+            "too much visible structure and too little natural variation. "
+            f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, so this check "
+            f"{'was flagged' if ai_pressure.get('triggered') else 'stayed clear'}."
+        )
+    else:
+        ai_pressure_explanation = (
+            "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
+            "but become more meaningful when they appear together. This text did not stack enough "
+            "weak signals to suggest machine-packaged structure. "
+            f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, so this check stayed clear."
+        )
 
     return {
         "overview": overview,
@@ -2160,7 +2242,7 @@ def human_report(results):
         "confidence": confidence,
         "ai_pressure_explanation": ai_pressure_explanation,
         "failed_checks": failed,
-        "all_checks": checks_table(results),
+        "all_checks": table,
     }
 
 
@@ -2172,8 +2254,8 @@ def table_cell(value):
 def markdown_checks_table(rows, mode):
     """Render every check row as a Markdown table."""
     mode_key = mode.lower()
-    header = f"| Check | Status | Why | {mode_key.title()} action |"
-    lines = [header, "|---|---|---|---|"]
+    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {mode_key.title()} action |"
+    lines = [header, "|---|---|---|---|---|---|"]
     for row in rows:
         action = row["recommended_action"].get(mode_key, row["recommended_action"].get("hard", "None"))
         lines.append(
@@ -2181,7 +2263,9 @@ def markdown_checks_table(rows, mode):
             + " | ".join([
                 table_cell(row["check"]),
                 table_cell(row["status"]),
+                table_cell(row["what_it_checks"]),
                 table_cell(row["why"]),
+                table_cell(row["why_it_matters"]),
                 table_cell(action),
             ])
             + " |"
@@ -2211,7 +2295,10 @@ def format_human_report(results, mode="hard", heading="Initial assessment"):
             action = row["recommended_action"].get(mode_key, row["recommended_action"].get("hard", "Fix"))
             lines.append(
                 f"- {row['check']}: {row['status']}. "
-                f"{sentence_text(row['why'])} {mode_key.title()} action: {action}."
+                f"What it looks for: {row['what_it_checks']} "
+                f"What happened here: {sentence_text(row['why'])} "
+                f"Why this matters: {row['why_it_matters']} "
+                f"{mode_key.title()} action: {action}."
             )
     else:
         lines.append("- None.")

@@ -1,6 +1,6 @@
 # humanise
 
-A [Claude Code skill](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills) that edits text to remove signs of AI generation. Detects and fixes 38 patterns across 8 categories.
+A [Claude Code skill](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills) that audits text for signs of AI-style writing, explains what was flagged, and optionally rewrites after the user chooses a cleanup strategy. Detects 38 patterns across 8 categories with 43 programmatic checks.
 
 Forked from [blader/humanizer](https://github.com/blader/humanizer) by [@blader](https://github.com/blader), then restructured, expanded, and tested.
 
@@ -25,66 +25,45 @@ Download the [latest release zip](https://github.com/amaezey/humanise/releases/l
 
 ## Usage
 
-Invoke with `/humanise` or ask Claude to "humanise this", "de-AI this", "clean up the AI writing", "strip the AI out", etc.
+Invoke with `/humanise` or ask Claude to audit, check, humanise, de-AI, clean up, strip AI tells, or save a Markdown report.
 
 ## What it does
 
-Give it text and it:
+Give it text and it can follow five workflows:
 
-1. Calibrates intensity: Light, Medium, or Hard
-2. Runs a programmatic pre-check (43 checks via a Python grading script) and scans the input against all 38 patterns
-3. Builds a plain-English Markdown report from `human_report`: overview, confidence, AI-pressure explanation, failed checks, and a full 43-check table
-4. Rewrites flagged sections: structural patterns first (repetitive section arcs, tonal flatness, neutralised stance), then surface patterns (AI vocabulary, formatting, filler)
-5. Checks the rewrite didn't strip the author's stance or voice
-6. Runs a non-programmatic structural self-audit covering patterns the script can't detect (tonal uniformity, section monotony, stance preservation, resolution density)
-7. Re-runs the grading script and revises according to mode: Hard aims for a clean pass; Medium and Light fix stronger signals and disclose any intentional preserves
-8. Returns the rewrite with a readable report: before/after scores, confidence, remaining issues, and the full check table
+1. **Audit only:** report what was flagged and why, without rewriting.
+2. **Audit plus recommendation:** report findings and recommend Light, Medium, or Hard cleanup.
+3. **Audit, agree, then rewrite:** ask before changing text when intent or genre is ambiguous.
+4. **Rewrite and verify:** rewrite only when requested, then run the post-check.
+5. **Save report:** write the audit or before/after report to Markdown.
 
-The script still keeps lower-level diagnostic fields for debugging, but the skill's normal output uses `python3 grade.py --format markdown --mode hard <file>` so the user-facing report starts in plain English. Aggregate AI-signal pressure is one of the 43 checks, not a separate verdict. It counts as one failed check only when its internal 0/4 pressure score reaches the threshold.
+The script still keeps lower-level diagnostic fields for debugging, but the user-facing path uses `python3 grade.py --format markdown --mode <light|medium|hard> <file>` so reports start in plain English.
 
 ## Representative report output
 
-Excerpt from `python3 humanise/grade.py --format markdown --mode hard dev/evals/samples/generated-ai/ai-08-feedback-education.md`. The actual skill output also includes the rewrite, structural self-audit, post-check report, and the full 43-row table before and after rewriting.
+Excerpt from `python3 humanise/grade.py --format markdown --mode hard dev/evals/samples/generated-ai/ai-08-feedback-education.md`. Rewrite workflows also include the rewrite, structural self-audit, post-check report, and the full 43-row table before and after rewriting.
 
 ```text
-Mode: Hard
-
 Initial assessment
-Summary: 5 of 43 checks showed signs of AI-style writing.
+Summary: 5 of 43 checks were flagged for AI-style writing patterns.
 
-Confidence: Medium.
-Basis: 5 context-sensitive signals; aggregate AI-signal pressure reached 4/4.
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 5 context-sensitive signal(s); AI pressure score reached 4/4.
 Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
 
-AI-pressure explanation: Aggregate AI-signal pressure is one of the 43 checks, not a separate verdict. It counts as one failed check only when its internal pressure score reaches the threshold. Here it was 4/4 and triggered.
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were paragraph length uniformity, headings in prose. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 4/4, so this check was flagged.
 
 Main issues found
-- Aggregate AI-signal pressure: Shows signs. Aggregate pressure was 4/4. It counted weaker signals together: paragraph uniformity, markdown headings. Vocabulary pressure contributed 0 point(s). Hard action: Fix.
-- Headings in prose: Shows signs. Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". Hard action: Fix.
-- Dense negation: Shows signs. Found 10 negation markers (12.4 per 1000 words). Hard action: Fix.
-- Paragraph length uniformity: Shows signs. Paragraph length CV: 0.08 across 10 paragraphs (target: >=0.18). Hard action: Fix.
-- Triad density: Shows signs. Found 12 triad(s), including "feedback as a grade, a correction, a short comment written", "quizzes, peer review, short conferences with the", "lab report, presentation, math solution looks like", plus 9 more. Hard action: Fix.
+- AI pressure from stacked signals: Flagged. What it looks for: Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. What happened here: Stacked weak signals: paragraph length uniformity, headings in prose. Score: 4/4. This points to machine-packaged structure rather than one isolated wording choice. Why this matters: Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. Hard action: Fix.
+- Headings in prose: Flagged. What it looks for: Checks for markdown headings and plain title headings when prose should flow. What happened here: Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". Why this matters: Headings can make prose feel packaged by an assistant rather than written as a continuous piece. Hard action: Fix.
 
 Full check table excerpt
 
-| Check | Status | Why | Hard action |
-|---|---|---|---|
-| Em dashes | Pass | No sign of this pattern found. | None |
-| Clustered AI vocabulary | Pass | No sign of this pattern found. | None |
-| Nonliteral land/surface phrasing | Pass | No sign of this pattern found. | None |
-| Aggregate AI-signal pressure | Shows signs | Aggregate pressure was 4/4. It counted weaker signals together: paragraph uniformity, markdown headings. Vocabulary pressure contributed 0 point(s). | Fix |
-| Manufactured insight framing | Pass | No sign of this pattern found. | None |
-| Headings in prose | Shows signs | Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". | Fix |
-| Dense negation | Shows signs | Found 10 negation markers (12.4 per 1000 words). | Fix |
-| Paragraph length uniformity | Shows signs | Paragraph length CV: 0.08 across 10 paragraphs (target: >=0.18). | Fix |
-| Triad density | Shows signs | Found 12 triad(s), including "feedback as a grade, a correction, a short comment written", "quizzes, peer review, short conferences with the", "lab report, presentation, math solution looks like", plus 9 more. | Fix |
-
-Final report
-Summary: before 5/43 checks showed signs; after 0/43 checks showed signs.
-Confidence after rewrite: Low. No programmatic checks showed AI-writing patterns.
-AI-pressure after rewrite: 0/4 and did not trigger.
-Remaining issues: none.
-Full post-check table: all 43 checks pass.
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| AI pressure from stacked signals | Flagged | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | Stacked weak signals: paragraph length uniformity, headings in prose. Score: 4/4. This points to machine-packaged structure rather than one isolated wording choice. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | Fix |
+| Headings in prose | Flagged | Checks for markdown headings and plain title headings when prose should flow. | Found 2 heading(s): "# Why Feedback Matters in Learning", "# Why Feedback Matters in Learning". | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | Fix |
 ```
 
 ## Patterns

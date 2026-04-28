@@ -1,30 +1,112 @@
 ---
 name: humanise
 description: >-
-  Detects and rewrites AI writing patterns across vocabulary, structure, tone,
+  Audits writing for AI-style patterns across vocabulary, structure, tone,
   voice, and formatting using 38 patterns and 43 programmatic checks.
-  Use when the user wants to humanise or de-AI text, clean up AI-generated
-  content before publishing, or check whether writing passes as human-written.
-  Also useful when a draft feels flat or robotic, when the author's voice has
-  been neutralised, or when working with output from ChatGPT, Claude, or
-  other language models.
+  Use when the user wants to check whether writing sounds AI-generated,
+  understand what is flagged and why, choose a cleanup strategy, or optionally
+  humanise/de-AI text after an audit. Also useful when a draft feels flat,
+  robotic, over-polished, structurally repetitive, or voice-neutralised.
 ---
 
-# Humanise: Remove AI writing patterns
+# Humanise: Audit AI writing patterns
 
-Edit text to remove signs of AI generation while preserving meaning and the author's voice. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
+Audit writing for signs of AI generation and explain the findings in plain English. Rewriting is optional. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
 
 ## Your task
 
-When given text to humanise:
+When given text, first identify what the user wants the skill to do:
 
-0. Calibrate intensity and genre (below)
-1. Check hard constraints first (below)
-2. Read [references/patterns.md](references/patterns.md) and scan for all 38 patterns
-3. Rewrite problematic sections with natural alternatives at the chosen intensity
-4. Preserve the meaning and match the intended tone
-5. Add or preserve genuine personality (see Personality and soul)
-6. Run the self-audit loop (see Process)
+1. **Audit only:** diagnose AI-style writing patterns and stop.
+2. **Audit plus recommendation:** diagnose, recommend Light / Medium / Hard, then ask what the user wants next.
+3. **Audit, agree, then rewrite:** diagnose first, ask for the target outcome, then rewrite after the user chooses.
+4. **Rewrite and verify:** rewrite only when the user clearly asks you to proceed, then run the post-check.
+5. **Save report:** save an audit or before/after report to Markdown when requested.
+
+Default to audit-only when the user's intent is unclear. Do not rewrite text just because text was provided.
+
+---
+
+## Operating models
+
+### 1. Audit only
+
+Use this when the user asks things like:
+
+- "Does this sound AI?"
+- "Check this for AI writing."
+- "Audit this."
+- "What is wrong with this?"
+- "Run the humanise skill on this."
+
+Do:
+
+1. Run the grader in the most relevant mode, usually Medium unless the user asks otherwise.
+2. Present the audit report.
+3. Explain the flagged patterns in plain English.
+4. Stop. Do not rewrite.
+
+End with a short next-step question:
+
+> Do you want a cleanup plan, a rewrite, or a saved Markdown report?
+
+### 2. Audit plus recommendation
+
+Use this when the user wants guidance but has not decided what to do.
+
+Do:
+
+1. Run the audit.
+2. Explain the findings.
+3. Recommend Light, Medium, or Hard.
+4. Ask the user to choose before rewriting.
+
+Recommendation rules:
+
+- Recommend **Light** for fiction, memoir, humour, interviews, literary essays, poetry-adjacent prose, strong personal voice, or writing where flagged devices may be intentional.
+- Recommend **Medium** for ordinary blog posts, essays, workplace writing, newsletters, product copy, or generic "make this less AI" requests.
+- Recommend **Hard** only when the user asks for aggressive cleanup, wants to pass checks, or is preparing generic prose where voice preservation is less important than risk reduction.
+
+### 3. Audit, agree, then rewrite
+
+Use this when the request is ambiguous or the text is voice-sensitive.
+
+Do:
+
+1. Run the audit.
+2. Show the report.
+3. State the likely tradeoff.
+4. Ask the user to choose audit-only, Light, Medium, Hard, or saved report.
+5. Rewrite only after the user chooses.
+
+### 4. Rewrite and verify
+
+Use this when the user clearly asks you to rewrite, says "go ahead", or chooses a mode after an audit.
+
+Do:
+
+1. Run the initial audit.
+2. Rewrite according to the selected mode.
+3. Run the structural self-audit.
+4. Run the post-check.
+5. Report before/after status and remaining issues.
+
+### 5. Save report
+
+Use this when the user asks for a file, report, artifact, or Markdown output.
+
+Save a `.md` file containing:
+
+- purpose and selected workflow,
+- mode,
+- initial audit,
+- recommendation or rewrite decision,
+- rewrite if performed,
+- structural self-audit if performed,
+- post-check if performed,
+- remaining issues and next steps.
+
+State the saved file path.
 
 ---
 
@@ -205,7 +287,25 @@ grep -i "promotional" references/patterns.md
 
 ## Process
 
-### Step 0: Calibrate intensity and genre
+### Step 0: Choose the workflow
+
+Before doing any rewrite, decide which operating model applies:
+
+- If the user asks to check, audit, detect, review, or explain signs of AI writing: use **Audit only**.
+- If the user asks what to do or whether the piece needs work: use **Audit plus recommendation**.
+- If the request includes text but no clear instruction to rewrite: use **Audit only** and ask what next.
+- If the user explicitly asks to rewrite, humanise, de-AI, clean up, strip AI tells, or says to proceed: use **Rewrite and verify**.
+- If the user asks for a file, report, or artifact: use **Save report**.
+
+Record the workflow in the output.
+
+If the workflow is unclear and you can ask, ask:
+
+> Do you want an audit only, a recommended cleanup plan, or a rewrite after the audit?
+
+If you cannot ask, choose audit-only. An audit can always lead to a rewrite later; an unwanted rewrite loses trust.
+
+### Step 1: Calibrate intensity and genre
 
 Identify the mode before rewriting:
 
@@ -217,7 +317,9 @@ If the text is fiction, memoir, humour, interview, literary essay, poetry-adjace
 
 Record the selected mode in the report.
 
-### Step 1: Pre-check (script finds the problems)
+If the workflow is audit-only and no mode is specified, use Medium for the diagnostic unless the genre clearly calls for Light. Make clear that mode affects recommended action, not whether the pattern was detected.
+
+### Step 2: Audit (script finds the problems)
 
 Save the input text to a temp file, then run the grading script on it:
 
@@ -233,11 +335,11 @@ Do not paste raw JSON. Do not expose internal labels such as `context_warning`, 
 
 The pre-check report must include:
 
-- **Summary:** use `human_report.overview`, such as "5 of 43 checks showed signs of AI-style writing."
+- **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
 - **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
-- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Aggregate AI-signal pressure is one of the 43 checks. It also has its own internal 0/4 threshold, so explain both numbers.
-- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, severity, why it failed, and selected-mode action.
-- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `Why`, and selected-mode `Action`. For passed checks, use "Pass", the plain reason, and "None". For failed checks, show why and the selected mode's action.
+- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Explain accumulation in user-facing terms: several weak signals can stack into machine-packaged rhythm or structure.
+- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, what it looks for, what happened here, why it matters, and selected-mode action.
+- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `What it looks for`, `What happened here`, `Why this matters`, and selected-mode `Action`. For clear checks, use "Clear", the plain reason, and "None". For flagged checks, show what happened, why it matters, and the selected mode's action.
 
 The full 43-row table is required. It is how the user can see that the system checked all signals, not only the ones that failed. Do not replace it with a bullet list or a summary.
 
@@ -249,7 +351,23 @@ The full 43-row table is required. It is how the user can see that the system ch
 
 If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. But prefer the script when possible.
 
-### Step 2: Fix (you rewrite)
+For audit-only workflows, stop after the audit and ask what the user wants next. Do not include a rewrite.
+
+### Step 3: Decide or ask before rewriting
+
+If the workflow is audit-plus-recommendation or audit-agree-rewrite, provide a short recommendation and ask for confirmation before rewriting.
+
+Use this format:
+
+```text
+Recommended next step: [Audit only / Light / Medium / Hard / Save report]
+Why: [one sentence tied to the findings and genre]
+Question: Do you want me to proceed with that, choose a different mode, or save the audit as Markdown?
+```
+
+Only skip this question when the user has already clearly asked you to rewrite or has already chosen a mode.
+
+### Step 4: Fix (only if rewriting)
 
 Address structural patterns first, then surface patterns. The grader catches surface patterns well but cannot enforce structural rewriting. You must do that work here.
 
@@ -283,7 +401,7 @@ Address structural patterns first, then surface patterns. The grader catches sur
 11. Add personality and voice per the Personality and soul section
 12. Preserve meaning and match the intended tone
 
-### Step 2.5: Semantic preservation check
+### Step 5: Semantic preservation check
 
 Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (2026) showed that LLMs shift meaning even in grammar-only passes, and this skill is itself an LLM rewriting text. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position. Check:
 
@@ -291,7 +409,7 @@ Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (
 - Are there fewer pronouns in the output than the input? If so, why?
 - Did specific claims get softened into "on the other hand" balance?
 
-### Step 3: Structural self-audit (mandatory)
+### Step 6: Structural self-audit (mandatory for rewrites)
 
 Answer each question below with a specific count or finding. Do not skip any. Show your answers in the output (see Output format).
 
@@ -306,7 +424,7 @@ Answer each question below with a specific count or finding. Do not skip any. Sh
 
 After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures. In Hard mode, all checks should pass. In Medium and Light mode, hard failures and strong warnings should be gone; em dashes are never acceptable in Medium and should be fixed in Light unless the user explicitly accepts the risk after disclosure. In Light mode, remaining context warnings are acceptable when they preserve voice and are disclosed.
 
-### Step 4: Post-check (script verifies the fix)
+### Step 7: Post-check (script verifies the fix)
 
 Run the grading script on your output:
 
@@ -337,15 +455,46 @@ If the script is not available, manually verify hard failures and scan for gener
 
 ## Output format
 
-1. Mode selected: Light / Medium / Hard, with one sentence explaining why
-2. Initial assessment:
-   - Summary: [X of 43 checks showed signs / all checks passed]
+### Audit-only output
+
+Use this when the user asked for a check, audit, diagnosis, or "does this sound AI?"
+
+1. Workflow: Audit only
+2. Mode used for recommendations: Light / Medium / Hard, with one sentence explaining why
+3. Audit report:
+   - Summary: [X of 43 checks flagged / all checks clear]
    - Confidence: [Low / Low to medium / Medium / High, with basis]
-   - AI-pressure explanation: [state that this is one of the 43 checks and explain its internal score]
-   - Main issues found: [plain-English failed checks with why and selected-mode action]
-   - Full check table: [Markdown table with all 43 checks, status, why, selected-mode action]
-3. Rewrite
-4. Structural self-audit (mandatory, with counts):
+   - AI-pressure explanation: [plain-English accumulation explanation]
+   - Main issues found: [plain-English flagged checks with what they look for, what happened, why it matters, and recommended action]
+   - Full check table: [Markdown table with all 43 checks, status, what it looks for, what happened here, why this matters, selected-mode action]
+4. Recommended next step
+5. Question: [ask whether the user wants cleanup plan, rewrite, or saved report]
+
+Do not include a rewrite in audit-only output.
+
+### Audit-plus-recommendation output
+
+1. Workflow: Audit plus recommendation
+2. Mode used for recommendations
+3. Audit report
+4. Recommended outcome: [Light / Medium / Hard / save report / no rewrite]
+5. Why this outcome
+6. Question asking the user to choose before rewriting
+
+### Rewrite-and-verify output
+
+Use this only when the user explicitly asked for rewriting or confirmed after an audit.
+
+1. Workflow: Rewrite and verify
+2. Mode selected: Light / Medium / Hard, with one sentence explaining why
+3. Initial audit report:
+   - Summary: [X of 43 checks flagged / all checks clear]
+   - Confidence: [Low / Low to medium / Medium / High, with basis]
+   - AI-pressure explanation: [plain-English accumulation explanation]
+   - Main issues found: [plain-English flagged checks with what they look for, what happened, why it matters, and selected-mode action]
+   - Full check table: [Markdown table with all 43 checks, status, what it looks for, what happened here, why this matters, selected-mode action]
+4. Rewrite
+5. Structural self-audit (mandatory, with counts):
    - Section arcs: N/M following same template - [what you changed]
    - Resolution density: N/M paragraphs end with summary - [what you changed]
    - Register breaks: [where you added one, or "already present at..."]
@@ -354,11 +503,11 @@ If the script is not available, manually verify hard failures and scan for gener
    - Purposeful devices recommended for preservation: [device - reason, or "none"]
    - Stance: [preserved / shifted - restored by...]
    - Remaining tells: [list, or "none identified"]
-5. Final report:
+6. Final report:
    - Summary: [before -> after numbers]
    - Confidence after rewrite: [post-check confidence]
    - Remaining issues: [none / list failed checks with why and action]
-   - Full post-check table: [Markdown table with all 43 checks, status, why, selected-mode action]
+   - Full post-check table: [Markdown table with all 43 checks, status, what it looks for, what happened here, why this matters, selected-mode action]
    - Brief summary of changes made
 
 Do not show a discarded draft rewrite by default. If you revise after self-audit, show only the final rewrite plus the audit notes. Show intermediate drafts only if the user asks.
