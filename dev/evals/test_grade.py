@@ -973,7 +973,7 @@ _score_report = score_summary([
         "evidence": "Overall AI-signal pressure 5/4",
         "score": 5,
         "threshold": 4,
-        "components": ["paragraph_uniformity", "markdown_headings"],
+        "components": ["paragraph length uniformity", "headings in prose"],
         "vocabulary_pressure": {
             "points": 1,
             "reasons": ["generic cluster"],
@@ -994,7 +994,7 @@ _human_report = human_report([
         "evidence": "Overall AI-signal pressure 5/4",
         "score": 5,
         "threshold": 4,
-        "components": ["paragraph_uniformity", "markdown_headings"],
+        "components": ["paragraph length uniformity", "headings in prose"],
         "vocabulary_pressure": {
             "points": 1,
             "reasons": ["generic cluster"],

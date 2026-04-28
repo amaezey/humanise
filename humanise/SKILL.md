@@ -87,7 +87,7 @@ Do:
 
 1. Run the initial audit.
 2. Rewrite according to the selected mode.
-3. Run the structural self-audit.
+3. Run the structural self-check.
 4. Run the post-check.
 5. Report before/after status and remaining issues.
 
@@ -102,7 +102,7 @@ Save a `.md` file containing:
 - initial audit,
 - recommendation or rewrite decision,
 - rewrite if performed,
-- structural self-audit if performed,
+- structural self-check if performed,
 - post-check if performed,
 - remaining issues and next steps.
 
@@ -333,7 +333,7 @@ The script checks 43 patterns programmatically and returns a plain-English Markd
 
 Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
 
-The pre-check report must include:
+The audit report must include:
 
 - **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
 - **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
@@ -347,7 +347,7 @@ The full 43-row table is required. It is how the user can see that the system ch
 - **Preserve with disclosure:** context warnings in Light or Medium only when they serve voice, quotation, genre, or meaning.
 - **User decision:** context warnings where preservation is plausible but risky.
 
-**Depth signal:** If the pre-check shows multiple structural failures (triad density, section scaffolding, countdown negation, paragraph uniformity, soft scaffolding, orphaned demonstratives, tidy paragraph endings), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
+**Depth signal:** If the audit shows multiple structural failures (triad density, section scaffolding, countdown negation, paragraph uniformity, soft scaffolding, orphaned demonstratives, tidy paragraph endings), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
 
 If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. But prefer the script when possible.
 
@@ -396,8 +396,8 @@ Address structural patterns first, then surface patterns. The grader catches sur
 
 **Surface patterns (address second):**
 
-9. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the pre-check
-10. Fix every hard failure and strong warning from the pre-check report in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure. Review context warnings with the purpose test.
+9. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the audit
+10. Fix every hard failure and strong warning from the audit report in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure. Review context warnings with the purpose test.
 11. Add personality and voice per the Personality and soul section
 12. Preserve meaning and match the intended tone
 
@@ -409,7 +409,7 @@ Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (
 - Are there fewer pronouns in the output than the input? If so, why?
 - Did specific claims get softened into "on the other hand" balance?
 
-### Step 6: Structural self-audit (mandatory for rewrites)
+### Step 6: Structural self-check (mandatory for rewrites)
 
 Answer each question below with a specific count or finding. Do not skip any. Show your answers in the output (see Output format).
 
@@ -460,7 +460,7 @@ If the script is not available, manually verify hard failures and scan for gener
 Use this when the user asked for a check, audit, diagnosis, or "does this sound AI?"
 
 1. Workflow: Audit only
-2. Mode used for recommendations: Light / Medium / Hard, with one sentence explaining why
+2. Mode (controls the recommended-action column): Light / Medium / Hard, with one sentence on why this mode fits the genre
 3. Audit report:
    - Summary: [X of 43 checks flagged / all checks clear]
    - Confidence: [Low / Low to medium / Medium / High, with basis]
@@ -475,7 +475,7 @@ Do not include a rewrite in audit-only output.
 ### Audit-plus-recommendation output
 
 1. Workflow: Audit plus recommendation
-2. Mode used for recommendations
+2. Mode (controls the recommended-action column): Light / Medium / Hard
 3. Audit report
 4. Recommended outcome: [Light / Medium / Hard / save report / no rewrite]
 5. Why this outcome
@@ -494,7 +494,7 @@ Use this only when the user explicitly asked for rewriting or confirmed after an
    - Main issues found: [plain-English flagged checks with what they look for, what happened, why it matters, and selected-mode action]
    - Full check table: [Markdown table with all 43 checks, status, what it looks for, what happened here, why this matters, selected-mode action]
 4. Rewrite
-5. Structural self-audit (mandatory, with counts):
+5. Structural self-check (mandatory, with counts):
    - Section arcs: N/M following same template - [what you changed]
    - Resolution density: N/M paragraphs end with summary - [what you changed]
    - Register breaks: [where you added one, or "already present at..."]
@@ -510,7 +510,7 @@ Use this only when the user explicitly asked for rewriting or confirmed after an
    - Full post-check table: [Markdown table with all 43 checks, status, what it looks for, what happened here, why this matters, selected-mode action]
    - Brief summary of changes made
 
-Do not show a discarded draft rewrite by default. If you revise after self-audit, show only the final rewrite plus the audit notes. Show intermediate drafts only if the user asks.
+Do not show a discarded draft rewrite by default. If you revise after self-check, show only the final rewrite plus the audit notes. Show intermediate drafts only if the user asks.
 
 ---
 
@@ -540,12 +540,12 @@ Do not show a discarded draft rewrite by default. If you revise after self-audit
 >
 > None of this means the tools are useless, but it does mean they are tools in the ordinary sense of the word. They do not replace judgment, and they do not eliminate the need for tests.
 
-**Structural self-audit:**
+**Structural self-check:**
 - The named people and study citations could be plausible-sounding fabrications. If real, they should be sourced; if not, removed.
 - The final paragraph wraps things up too cleanly ("they are tools in the ordinary sense of the word").
 - Pacing is still even: every paragraph is roughly the same length with a similar claim-then-evidence structure.
 
-**Revised rewrite after self-audit:**
+**Revised rewrite after self-check:**
 > AI coding assistants can make you faster at the boring parts of the job, but not much else, at least not yet. A 2024 Google study found developers completed simple functions 55% faster with Codex, with no measurable improvement on debugging or architecture.
 >
 > They are good at boilerplate: config files, test scaffolding, repetitive refactors. They are also good at producing code that looks right and compiles and passes lint but does something slightly different from what you intended. I have learned this the hard way more than once, usually when I was too tired to review carefully.

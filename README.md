@@ -41,7 +41,7 @@ The script still keeps lower-level diagnostic fields for debugging, but the user
 
 ## Representative report output
 
-Excerpt from `python3 humanise/grade.py --format markdown --mode hard dev/evals/samples/generated-ai/ai-08-feedback-education.md`. Rewrite workflows also include the rewrite, structural self-audit, post-check report, and the full 43-row table before and after rewriting.
+Excerpt from `python3 humanise/grade.py --format markdown --mode hard dev/evals/samples/generated-ai/ai-08-feedback-education.md`. Rewrite workflows also include the rewrite, structural self-check, post-check report, and the full 43-row table before and after rewriting.
 
 ```text
 Initial assessment
@@ -150,10 +150,10 @@ dev/                               Development only (not installed)
 
 - **Can't reconstruct what was never there.** Removes AI patterns but can't invent an author's real memories or relationships.
 - **Claude and ChatGPT produce different slop.** The sensory patterns (ghost language, quietness, synesthesia) show up more in ChatGPT output.
-- **Programmatic grading catches many surface and structural tells.** Subtler issues (tonal uniformity, faux specificity, neutrality collapse, citation validity, fiction pacing) need human judgment in the self-audit loop.
+- **Programmatic grading catches many surface and structural tells.** Subtler issues (tonal uniformity, faux specificity, neutrality collapse, citation validity, fiction pacing) need human judgment in the self-check loop.
 - **Checks are not authorship verdicts.** Human writing can legitimately trip context warnings. The report shows the evidence and mode action so the user can decide what to preserve.
 - **Patterns are transient.** The catalogue will need periodic updates as models evolve. AI vocabulary shifts with model versions, "delve" peaked 2023-24, newer words emerge each generation.
-- **The skill can introduce what it detects.** As an LLM rewriting text, it can itself neutralise stance or strip pronouns (Abdulhai et al. 2026). The semantic preservation step (Step 2.5) mitigates this but requires attention.
+- **The skill can introduce what it detects.** As an LLM rewriting text, it can itself neutralise stance or strip pronouns (Abdulhai et al. 2026). The semantic preservation step (Step 5) mitigates this but requires attention.
 
 ## Sources
 
