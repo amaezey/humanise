@@ -1,0 +1,62 @@
+{
+  "expectations": [
+    {
+      "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+      "passed": true,
+      "evidence": "Referenced 4 catalogue pattern(s): ['no-curly-quotes', 'no-filler-phrases', 'no-markdown-headings', 'no-triad-density']"
+    },
+    {
+      "text": "Any flag present shows a quoted phrase from the input",
+      "passed": true,
+      "evidence": "all 4 flag block(s) anchor to input"
+    },
+    {
+      "text": "Any flag present has a brief 'why' explanation",
+      "passed": true,
+      "evidence": "all 4 flag block(s) include 'Why:'"
+    },
+    {
+      "text": "Output ends with a question offering suggestions / rewrite / done",
+      "passed": true,
+      "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+    },
+    {
+      "text": "Output does not contain a rewritten version of the input draft",
+      "passed": true,
+      "evidence": "no rewrite or draft block present"
+    },
+    {
+      "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 1886
+  },
+  "timing": {
+    "total_tokens": 0,
+    "duration_ms": 37013,
+    "total_duration_seconds": 37.014
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

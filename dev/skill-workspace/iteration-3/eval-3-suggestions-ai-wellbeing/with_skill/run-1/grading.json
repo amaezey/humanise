@@ -1,0 +1,67 @@
+{
+  "expectations": [
+    {
+      "text": "Audit findings appear in output before the suggestions list",
+      "passed": true,
+      "evidence": "audit at offset 0; follow-up at offset 2018"
+    },
+    {
+      "text": "Output references at least 5 distinct AI patterns from the catalogue",
+      "passed": true,
+      "evidence": "Referenced 6 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-markdown-headings', 'no-negation-density', 'no-staccato-sequences', 'no-triad-density']"
+    },
+    {
+      "text": "Every flagged pattern shows a quoted phrase from the input draft",
+      "passed": true,
+      "evidence": "all 6 flag block(s) anchor to input"
+    },
+    {
+      "text": "Number of suggestions equals number of flagged tells",
+      "passed": true,
+      "evidence": "6 flag(s) and 6 suggestion(s) match"
+    },
+    {
+      "text": "Every suggestion offers a concrete alternative phrasing",
+      "passed": true,
+      "evidence": "all 6 suggestion block(s) include 'Try'"
+    },
+    {
+      "text": "Output does not contain a full rewritten draft",
+      "passed": true,
+      "evidence": "no rewrite or draft block present"
+    },
+    {
+      "text": "Suggestions for lexical patterns (delve, hedging, em-dashes) feel like vetted human alternatives, not freshly generated AI prose. They should match what's in references/alternatives.md when applicable.",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 3810
+  },
+  "timing": {
+    "total_tokens": 0,
+    "duration_ms": 58153,
+    "total_duration_seconds": 58.154
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

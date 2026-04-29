@@ -1,0 +1,1357 @@
+{
+  "metadata": {
+    "skill_name": "humanise",
+    "skill_path": "/Users/mae/Documents/humanise/humanise",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-04-29T13:09:33Z",
+    "evals_run": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 125.532,
+        "tokens": 5426,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 10 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-filler-phrases', 'no-markdown-headings', 'no-negation-density', 'no-negative-parallelisms', 'no-nonliteral-land-surface', 'no-staccato-sequences', 'no-triad-density', 'overall-ai-signal-pressure']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": true,
+          "evidence": "all 10 flag block(s) anchor to input"
+        },
+        {
+          "text": "Every flagged pattern has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 10 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8333,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 92.898,
+        "tokens": 4458,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": true,
+          "evidence": "Referenced 6 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-negative-parallelisms', 'no-staccato-sequences', 'no-triad-density', 'vocabulary-diversity']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": false,
+          "evidence": "1 block(s) lack input-matching quotes: ['Generic staccato emphasis (5 consecutive short sentences)']"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 6 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 1,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 152.728,
+        "tokens": 14615,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": false,
+          "evidence": "Referenced 43 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-copula-avoidance', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Do you want a rewrite (and at what intensity), a saved Markdown report, or to st"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 116.289,
+        "tokens": 3724,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": true,
+          "evidence": "Referenced 7 catalogue pattern(s): ['no-anaphora', 'no-filler-phrases', 'no-ghost-spectral-density', 'no-promotional-language', 'no-quietness-obsession', 'no-triad-density', 'vocabulary-diversity']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "all 7 flag block(s) anchor to input"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 7 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 148.849,
+        "tokens": 13631,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": false,
+          "evidence": "Referenced 43 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-copula-avoidance', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Do you want a rewrite, a recommended intensity, or a saved Markdown report?"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 149.058,
+        "tokens": 7963,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the suggestions list",
+          "passed": true,
+          "evidence": "audit at offset 907; follow-up at offset 4629"
+        },
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 8 catalogue pattern(s): ['no-anaphora', 'no-collaborative-artifacts', 'no-curly-quotes', 'no-em-dashes', 'no-markdown-headings', 'no-negation-density', 'no-staccato-sequences', 'no-triad-density']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": true,
+          "evidence": "all 6 flag block(s) anchor to input"
+        },
+        {
+          "text": "Number of suggestions equals number of flagged tells",
+          "passed": true,
+          "evidence": "6 flag(s) and 6 suggestion(s) match"
+        },
+        {
+          "text": "Every suggestion offers a concrete alternative phrasing",
+          "passed": true,
+          "evidence": "all 6 suggestion block(s) include 'Try'"
+        },
+        {
+          "text": "Output does not contain a full rewritten draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Suggestions for lexical patterns (delve, hedging, em-dashes) feel like vetted human alternatives, not freshly generated AI prose. They should match what's in references/alternatives.md when applicable.",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 416.822,
+        "tokens": 17919,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the rewrite",
+          "passed": true,
+          "evidence": "audit at offset 541; follow-up at offset 3640"
+        },
+        {
+          "text": "Output contains a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "generated_words=1747; input_words=1786; changed=True"
+        },
+        {
+          "text": "Rewrite has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "Rewrite has no instances of 'delve' or 'delves' or 'delving'",
+          "passed": true,
+          "evidence": "delve count=0"
+        },
+        {
+          "text": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "passed": true,
+          "evidence": "balanced failures=[]"
+        },
+        {
+          "text": "Rewrite preserves the original argument, structure of points, and stance",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        },
+        {
+          "text": "At balanced depth, paragraph-length uniformity and other structural patterns are NOT expected to be addressed; their presence in the rewrite is acceptable",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 714.372,
+        "tokens": 14706,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the rewrite",
+          "passed": true,
+          "evidence": "audit at offset 211; follow-up at offset 2620"
+        },
+        {
+          "text": "Output contains a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "generated_words=1648; input_words=1630; changed=True"
+        },
+        {
+          "text": "Rewrite has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "No manufactured insight phrases in rewrite",
+          "passed": true,
+          "evidence": "No manufactured insight phrases"
+        },
+        {
+          "text": "No signposted conclusion phrases in rewrite",
+          "passed": true,
+          "evidence": "No signposted conclusions"
+        },
+        {
+          "text": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "passed": true,
+          "evidence": "balanced failures=[]"
+        },
+        {
+          "text": "Rewrite preserves the personal anecdote, the central realisation, and the reflective stance",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 6,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8571,
+        "passed": 6,
+        "failed": 1,
+        "total": 7,
+        "time_seconds": 766.823,
+        "tokens": 18256,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the rewrite",
+          "passed": true,
+          "evidence": "audit at offset 115; follow-up at offset 5310"
+        },
+        {
+          "text": "Output contains a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "generated_words=1518; input_words=1593; changed=True"
+        },
+        {
+          "text": "Rewrite has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "Rewrite has higher sentence-length variance than input",
+          "passed": true,
+          "evidence": "input_stdev=8.16; output_stdev=9.31"
+        },
+        {
+          "text": "Rewrite has varied paragraph lengths",
+          "passed": false,
+          "evidence": "paragraph_word_count_stdev=28.91; lengths=[69, 99, 124, 99, 140, 17, 70, 107, 97, 86, 120, 115, 77, 116, 101, 81]"
+        },
+        {
+          "text": "Re-grading the rewrite at all depth produces 0 hits across all severity classes",
+          "passed": true,
+          "evidence": "all failures=[]"
+        },
+        {
+          "text": "Rewrite preserves the scientific accuracy, key examples, and explanatory arc",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 7,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 132.329,
+        "tokens": 4067,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "This case has no input file; the agent should compose from the brief alone",
+          "passed": true,
+          "evidence": "input files empty"
+        },
+        {
+          "text": "Output word count is within 15% of 250 (i.e., 213-288)",
+          "passed": true,
+          "evidence": "word_count=256"
+        },
+        {
+          "text": "Draft has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "Draft has no instances of 'delve' or its variants",
+          "passed": true,
+          "evidence": "delve count=0"
+        },
+        {
+          "text": "Grading the draft at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "passed": true,
+          "evidence": "balanced failures=[]"
+        },
+        {
+          "text": "Draft is genuinely about first-time linocut printing, not generic 'creative practice' filler",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        },
+        {
+          "text": "Draft reads as a real reflection with specific sensory or emotional detail, not a generic AI essay structure",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 8,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 97.44,
+        "tokens": 4126,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": true,
+          "evidence": "Referenced 6 catalogue pattern(s): ['no-curly-quotes', 'no-em-dashes', 'no-markdown-headings', 'no-promotional-language', 'no-triad-density', 'vocabulary-diversity']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "all 7 flag block(s) anchor to input"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 7 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 8,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 100.288,
+        "tokens": 11219,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": false,
+          "evidence": "Referenced 43 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-copula-avoidance', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Do you want a rewrite, a recommendation on intensity, or a saved Markdown report"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 9,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 86.28,
+        "tokens": 3503,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": true,
+          "evidence": "Referenced 4 catalogue pattern(s): ['no-curly-quotes', 'no-filler-phrases', 'no-markdown-headings', 'no-triad-density']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "all 4 flag block(s) anchor to input"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 4 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 9,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 136.74,
+        "tokens": 12613,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": false,
+          "evidence": "Referenced 43 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-copula-avoidance', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: > Do you want a rewrite, a recommendation on intensity, or a saved Markdown repo"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 10,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 84.421,
+        "tokens": 3765,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": true,
+          "evidence": "Referenced 6 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-markdown-headings', 'no-negative-parallelisms', 'no-triad-density', 'overall-ai-signal-pressure']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "all 7 flag block(s) anchor to input"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 7 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 10,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 164.0,
+        "tokens": 13240,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": false,
+          "evidence": "Referenced 43 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-copula-avoidance', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Do you want a rewrite (and at what intensity \u2014 Light, Medium, or Hard), an inten"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 11,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8333,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 78.414,
+        "tokens": 5237,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": true,
+          "evidence": "Referenced 8 catalogue pattern(s): ['no-manufactured-insight', 'no-markdown-headings', 'no-significance-inflation', 'no-signposted-conclusions', 'no-staccato-sequences', 'no-triad-density', 'overall-ai-signal-pressure', 'vocabulary-diversity']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": false,
+          "evidence": "1 block(s) lack input-matching quotes: ['Decorative three-part list (1 instance, plus high overall density)']"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 9 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 11,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 123.743,
+        "tokens": 14042,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": false,
+          "evidence": "Referenced 43 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-copula-avoidance', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Do you want a rewrite, a recommendation on intensity, or a saved Markdown report"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 12,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 136.573,
+        "tokens": 6206,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": true,
+          "evidence": "Referenced 12 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-em-dashes', 'no-forced-triads', 'no-manufactured-insight', 'no-markdown-headings', 'no-negative-parallelisms', 'no-promotional-language', 'no-section-scaffolding', 'no-staccato-sequences']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "all 13 flag block(s) anchor to input"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 13 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 12,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 158.786,
+        "tokens": 16155,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "passed": false,
+          "evidence": "Referenced 43 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-copula-avoidance', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Do you want a Light rewrite, a saved Markdown audit report, or to stop here?"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 13,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 80.023,
+        "tokens": 5291,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 7 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-em-dashes', 'no-negation-density', 'no-section-scaffolding', 'no-triad-density', 'no-unicode-flair']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": true,
+          "evidence": "all 7 flag block(s) anchor to input"
+        },
+        {
+          "text": "Every flagged pattern has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 7 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 14,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8333,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 84.392,
+        "tokens": 4014,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 7 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-manufactured-insight', 'no-negation-density', 'no-staccato-sequences', 'no-triad-density', 'vocabulary-diversity']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": false,
+          "evidence": "1 block(s) lack input-matching quotes: ['Triad density (25 triads)']"
+        },
+        {
+          "text": "Every flagged pattern has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 7 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 15,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 63.342,
+        "tokens": 4683,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 9 catalogue pattern(s): ['no-curly-quotes', 'no-em-dashes', 'no-markdown-headings', 'no-negative-parallelisms', 'no-promotional-language', 'no-quietness-obsession', 'no-significance-inflation', 'no-triad-density', 'overall-ai-signal-pressure']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": true,
+          "evidence": "all 9 flag block(s) anchor to input"
+        },
+        {
+          "text": "Every flagged pattern has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 9 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 16,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8333,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 83.781,
+        "tokens": 5297,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 8 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-em-dashes', 'no-ghost-spectral-density', 'no-negative-parallelisms', 'no-staccato-sequences', 'no-triad-density', 'no-unicode-flair']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": false,
+          "evidence": "1 block(s) lack input-matching quotes: ['Generic staccato emphasis (1 sequence)']"
+        },
+        {
+          "text": "Every flagged pattern has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 7 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 17,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 99.049,
+        "tokens": 5677,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 12 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-curly-quotes', 'no-em-dashes', 'no-ghost-spectral-density', 'no-negative-parallelisms', 'no-promotional-language', 'no-section-scaffolding', 'no-signposted-conclusions', 'no-triad-density']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": true,
+          "evidence": "all 12 flag block(s) anchor to input"
+        },
+        {
+          "text": "Every flagged pattern has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 12 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.955,
+        "stddev": 0.0748,
+        "min": 0.8333,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 189.3243,
+        "stddev": 215.2665,
+        "min": 63.342,
+        "max": 766.823
+      },
+      "tokens": {
+        "mean": 6906.5556,
+        "stddev": 4795.2014,
+        "min": 3503,
+        "max": 18256
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.6667,
+        "stddev": 0.0,
+        "min": 0.6667,
+        "max": 0.6667
+      },
+      "time_seconds": {
+        "mean": 140.7334,
+        "stddev": 22.4255,
+        "min": 100.288,
+        "max": 164.0
+      },
+      "tokens": {
+        "mean": 13645.0,
+        "stddev": 1555.2776,
+        "min": 11219,
+        "max": 16155
+      }
+    },
+    "delta": {
+      "pass_rate": "n/a",
+      "time_seconds": "n/a",
+      "tokens": "n/a"
+    }
+  },
+  "notes": [
+    "Old-skill baseline ran only on audit-human guardrails, so aggregate delta is intentionally suppressed."
+  ]
+}

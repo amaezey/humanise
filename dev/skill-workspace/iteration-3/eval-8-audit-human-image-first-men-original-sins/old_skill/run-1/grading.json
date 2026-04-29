@@ -1,0 +1,62 @@
+{
+  "expectations": [
+    {
+      "text": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+      "passed": false,
+      "evidence": "Referenced 40 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes', 'no-excessive-hedging']"
+    },
+    {
+      "text": "Any flag present shows a quoted phrase from the input",
+      "passed": true,
+      "evidence": "no flag blocks (vacuously true)"
+    },
+    {
+      "text": "Any flag present has a brief 'why' explanation",
+      "passed": false,
+      "evidence": "no audit section found"
+    },
+    {
+      "text": "Output ends with a question offering suggestions / rewrite / done",
+      "passed": true,
+      "evidence": "final line: Question: Do you want a rewrite, a recommendation on intensity, or a saved Markd"
+    },
+    {
+      "text": "Output does not contain a rewritten version of the input draft",
+      "passed": true,
+      "evidence": "no rewrite or draft block present"
+    },
+    {
+      "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 2,
+    "total": 6,
+    "pass_rate": 0.6667
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 8885
+  },
+  "timing": {
+    "total_tokens": 0,
+    "duration_ms": 78915,
+    "total_duration_seconds": 78.915
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

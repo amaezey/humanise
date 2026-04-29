@@ -1,0 +1,507 @@
+Reading additional input from stdin...
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd94a-abbc-7750-83f9-2b447ee8db27
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Audit this draft for AI tells.
+
+Inputs:
+Input file: /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-opencoop-belonging-superpower.md
+
+```markdown
+---
+{
+  "id": "21c-opencoop-belonging-superpower",
+  "title": "Belonging is a superpower - Patterns for decentralised organising",
+  "author": "Oliver Sylvester-Bradley",
+  "year": 2017,
+  "period": "21st",
+  "format": "pattern-language essay / community organising",
+  "source_url": "https://open.coop/2017/09/25/belonging-superpower-patterns-decentralised-organising/",
+  "fetch_status": 200,
+  "extract_method": "defuddle",
+  "expected_use": [
+    "style_reference",
+    "false_positive_audit"
+  ],
+  "voice_targets": [
+    "practitioner essay voice",
+    "pattern-language structure",
+    "first-person + we register"
+  ]
+}
+---
+
+# Belonging is a superpower - Patterns for decentralised organising
+
+If you work in any type of co-op, or non-hierarchical group, with open and inclusive values and aspirations for horizontal management, this post is for you. It summarises a workshop from the founders of Loomio, at which they shared their distilled wisdom for effective collaboration within groups.
+
+You’ve probably heard of [Loomio](https://www.loomio.org/), the simple but effective decision making software from [Enspiral](https://enspiral.com/), but what you might not have heard about are the patterns and principles which the founders of Loomio use in their own organisation.
+
+Make no mistake [Rich](http://richdecibels.com/) and [Nati](https://twitter.com/lombardonati?lang=en), who delivered this workshop as part of their [grand tour](https://www.eventbrite.co.nz/o/rich-and-nati-from-loomio-and-enspiral-13653532354), have been living and breathing this stuff for years. Their pragmatic inspiration shone through the event, like a beam of brilliance from above.
+
+The event took place at the always inspiring [Newspeak House](https://twitter.com/nwspk), with roughly 30 participants split into groups. Rich warned us he would be delivering a lot of condensed information and I wondered if he would live up to the promise… 4 slides and 20 minutes later I was reeling with new ideas. It’s not that his patterns for working in groups are entirely novel – it’s that he’s thought about it, and clearly lived by the rules he so passionately espouses, I could almost feel his hard-earned acumen making its way from his brain into my own.
+
+Take the first pattern for example: **“Intentionally produce counter-culture”** which you probably instinctively know is a good idea but what really struck me were the magic words: **“belonging is a superpower”**. This is something we so often fail to deliver on… If everyone in your group feels the same empowering sense of belonging there’s no limit to what can be achieved. Conversely, if new-comers struggle to find the inroads to find belonging within a group, or old timers lord it over knowledge and do not empower everyone with the same sense of worthiness within the group, belonging can crumble and with it goes organisational effectiveness. We came back to this theme in the second session (see below) but the other patterns are equally awesome.
+
+With pattern 2, **“Systematically distribute care labour”**, Rich talked about everyone in their organisation being a steward for someone else and a stewardee too – to ensure everyone receives adequate support. Simple, effective relationship building which is bound to reduce conflicts.
+
+Pattern 3 introduced the idea that groups should **“Make explicit norms and boundaries”** in order to avoid any ambiguity about what a group is, how it works, what it finds acceptable and what it will not tolerate. It sounds simple, but ignoring this step can be perilous.
+
+Pattern 4 addressed the inevitable challenge with the wise words **“Keep talking about power”**. Refreshingly, Rich recognises that power imbalances are inevitable, citing the public speakers from any group as those that naturally accumulate respect and hence power. The down to earth advice on this one is to make it explicit who has it and to take turns, rotating roles by stepping out and encouraging others to step in. Brilliant advice which might be hard for some egos to hear.
+
+![](http://198.38.77.184/~open/wp-content/uploads/2017/09/8-patterns.jpg)
+
+Suddenly I felt myself drifting off – it was gone 11am and I had only had one tiny cup of tea… But before I knew it the inimitable tag-team had switched places and Nati was getting every one up and stretching to boost the oxygen to our brains. The rooms burst into a relived revelry of smiles and stretches and then just as quickly we were back at work.
+
+Pattern 5 **“Make decisions asynchronously”** is so simple it’s surprising that more groups don’t follow the rule: Meetings are great for bonding and building trust, computers are great for helping us make better decisions – which can be more inclusive and less invasive; timely but not hurried. This is exactly what [Loomio](https://www.loomio.org/) was built for.
+
+Pattern 6 addresses the elephant which lurks in every room by asking groups to **“Agree how you use tech”**. I’ve never seen it put so simply before and this was a little revelation to me; the vast proportion of tech tools can be split into what Rich refers to as the ‘holy trinity’ for group management: A tool for realtime communication (i.e. chat), a space for asynchronous comms (email or a forum etc) and, a space for static content (a wiki or doc management app). If you can clearly define and agree which tool/s you will be using for each of these three essential areas of group work, your team is bound to be more effective.
+
+Pattern 7 proposed **“Using rhythm to cut information overload”** by providing clear and well planned times for team members to tell others what they are up to and to find out who needs support. The real gem is to set the right length and kind of rhythms for the right types of sharing i.e. by using quarterly reviews to get everyone out of the office and bonding again (by creating ‘peak oxytocin’ moments!) and shorter cycles for discussing more day-to-day, week-to-week plans, reviews and celebrations.
+
+Pattern 8 encapsulates the overall ethos, that groups should **“Generate new patterns together”**. Rich and Loomio have clearly learned the value of iterative development, and the power of regular review and reflection. There is enormous strength in continuous participatory change.
+
+![](http://198.38.77.184/~open/wp-content/uploads/2017/09/belonging-superpower-280x300.jpg)
+
+Click for a bigger version
+
+For the rest of the workshop they split us out into groups in which we defined a challenge we were facing, worked out a “desired future” and “next steps” to get there together. Our group chose to focus on the process of “on-boarding” and the challenge of empowering everyone, especially newcomers to a group, with the “superpower of belonging”. The ideas we came up with were many and varied and largely inspired by the patterns above and others’ lived experiences. You can see the ideas in the “Next steps” section of our worksheet – hopefully some of them will be useful for you in your groups.
+
+I’d like to send a huge THANK YOU out to Rich and Nati for making this event happen and for delivering such a well planned and designed workshop with such timely content. The more effective we can make decentralised teams the more positive change we will be able to deliver. I highly recommend their [future workshops](http://www.richdecibels.com/workshops/) to others, which I am sure will help inspire anyone that attends.
+
+```
+
+codex
+I’ll read the local skill instructions and only inspect files it directly references, then return the audit output itself.
+exec
+/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits text for AI-style writing patterns, rewrites existing drafts to remove
+  them, or writes new content that avoids them. Uses 38 patterns and 43
+  programmatic checks across vocabulary, structure, tone, voice, and formatting.
+  Default action is Audit (analyse and explain findings); Rewrite and Write
+  fire only when the user explicitly asks for them. Useful when a draft feels
+  flat, robotic, over-polished, structurally repetitive, or voice-neutralised,
+  or when drafting prose that needs to read as human.
+---
+
+# Humanise: Audit, rewrite, or write without AI patterns
+
+Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
+
+## Your task
+
+When given input, identify which of three actions to take:
+
+1. **Audit** (default) — analyse text for AI-style writing patterns and explain the findings. No mode pre-classification; the audit is mode-agnostic.
+2. **Rewrite** — given existing text, produce a cleaner version. Always runs an audit first, then asks for a rewrite intensity (Light / Medium / Hard).
+3. **Write** — given a brief or topic, draft new content under AI-avoidance constraints at a chosen intensity.
+
+Modifiers (orthogonal to action; combine freely):
+
+- **Recommendation** — after an audit, optionally suggest a rewrite intensity tied to genre and findings.
+- **Save** — write the chosen action's output to a Markdown file.
+
+Default to Audit when the action is ambiguous. Do not rewrite or compose new content unless the user explicitly asks.
+
+---
+
+## Modes
+
+Three intensities for Rewrite and Write. Audit is mode-agnostic — the 43 checks pass or fail based on the text, not on a chosen mode. Default to Medium when the user does not specify.
+
+- **Light** — for fiction, memoir, voiced essays, humour, dialogue, interviews, literary prose. Removes the most obvious AI tells (assistant residue, sycophancy, manufactured insight) but preserves your voice. Devices like staccato, triads, em dashes can stay if they serve the writing; disclose what you preserve and why.
+- **Medium** — the default. For blog posts, workplace writing, newsletters, product copy, generic prose. Removes obvious patterns and all strong tells. Preserves voice where the device is doing real work; trims it where it is autopilot.
+- **Hard** — for prose that needs to read as unambiguously human. Strips every flagged pattern unless removing it would change what you mean. No em dashes, no manufactured-insight framing, no decorative triads. Voice can take a hit; risk reduction is the goal.
+
+When the user has not chosen a mode and the genre makes the answer ambiguous, ask:
+
+> How hard should I go: Light, Medium, or Hard?
+
+If you cannot ask, infer from the genre — Light for voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), Medium otherwise. Record the chosen mode and the reason in the output.
+
+A failed grader check is a failed check in every mode. Mode decides what to *do* about it (fix, disclose, preserve), not whether the pattern was detected. The Severity classes section below lists which actions apply by severity in each mode.
+
+---
+
+## Actions
+
+### 1. Audit (default)
+
+Use this when the user asks things like:
+
+- "Does this sound AI?"
+- "Check this for AI writing."
+- "Audit this draft."
+- "Run humanise on this."
+- "What's flagged here?"
+
+Or any input where the user provides text without an explicit Rewrite or Write instruction.
+
+Do:
+
+1. Run the grader with no mode constraint.
+2. Render the audit report with all 43 checks classified by severity.
+3. Explain the flagged patterns in plain English.
+4. Stop.
+
+End with a short next-step question:
+
+> Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+
+The audit table uses a `Severity` column and a severity-tiered `Recommended action` column. It does not pre-pick a single mode for the user — that decision belongs to the user, after they've seen the indicators.
+
+### 2. Rewrite
+
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+
+Do:
+
+1. Run the audit (Action 1's behaviour) regardless of any prior context. The rewrite must be informed by the indicators.
+2. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+3. Rewrite under the chosen intensity. Address structural patterns first, then surface patterns.
+4. Run the structural self-check (Process Step 7).
+5. Run the semantic preservation check (Process Step 6).
+6. Run the post-check at the chosen intensity (Process Step 8).
+7. Report before/after, with remaining issues.
+
+### 3. Write
+
+Use this when the user asks for new content rather than analysis or rewriting:
+
+- "Write a 500-word essay on X."
+- "Draft an opening paragraph about Y."
+- "Compose a blog post on Z without sounding AI."
+- "Help me write something on W that doesn't read like AI."
+
+Do:
+
+1. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+2. Draft the content under the chosen intensity's constraints — same severity rules as a Rewrite. Avoid hard failures, avoid strong warnings, treat context warnings per the mode.
+3. Apply the [Personality and soul](#personality-and-soul) guidance directly. Write must produce content that reads as human, not just content that lacks AI tells.
+4. Run the structural self-check on the draft.
+5. Run the post-check at the chosen intensity.
+6. Report status and remaining issues.
+
+There is no initial audit — there is no input text to audit.
+
+### Modifiers
+
+- **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+
+---
+
+## Severity and the purpose test
+
+The grader is a diagnostic tool, not an authorship verdict. A failed check stays a failed check in every mode. Mode decides what to do about it.
+
+Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
+
+- **Fixed**
+- **Recommended preserve**
+- **Needs user decision**
+
+Do not silently classify your own writing as the exception. If you preserve a flagged device, name it, quote or identify the relevant passage briefly, and explain the concrete function it serves.
+
+### Severity classes
+
+- **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
+- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
+- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings including plain title headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
+- **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
+
+Em dashes get their own deep-dive in [Hard constraints](#hard-constraints) below — they are a strong-warning-class pattern with mode-specific rules, kept separate because they are the highest-volume single AI tell of 2026.
+
+### Purpose test
+
+For any context warning, ask:
+
+> Is this device doing real work here, or is it autopilot?
+
+You may recommend preserving it if it reveals character, controls timing, creates humour, mirrors thought, supports a period voice, or clarifies structure. Remove it if it is generic emphasis, tidy profundity, decorative balance, or a default article template. If you are unsure, mark it **Needs user decision** rather than deciding for the user.
+
+Examples:
+
+- Poe-style staccato can be voice. "That matters. A lot." in a productivity article is usually autopilot.
+- A Sedaris-style comic escalation can stay. A corporate triad like "clarity, collaboration, and innovation" should go.
+- Curly quotes in a sourced literary sample are not an AI tell. Curly quotes in this skill's final plain-text output may still be normalised if the user asked for hard cleanup.
+
+---
+
+## Hard constraints (deep-dive)
+
+The four most distinctive AI tells — em dashes, manufactured insight, adversarial reframes, generic staccato fragments — have expanded rules and word lists at [references/severity-detail.md](references/severity-detail.md). When these patterns appear, that file is the canonical source of truth. Read it during Rewrite (Step 5) and Write (Step 5) before settling on the final draft.
+
+---
+
+## Personality and soul
+
+Removing AI patterns is only half the job. AI also **subtracts** — Abdulhai et al. (2026) found extensive LLM use produces a ~70% increase in neutral-stance essays, 50% fewer pronouns, and fewer anecdotes. Sterile, voiceless, perfectly balanced writing is as obvious as slop.
+
+Voice-craft guidance for Rewrite and Write — what to watch for, what to add or preserve, signs of soulless writing, before/after examples — is in [references/voice.md](references/voice.md). Read it during Step 5 (Rewrite or Write under mode), and especially before drafting in the Write action.
+
+---
+
+## Pattern catalogue
+
+Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
+
+- **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
+- **Language and grammar (7-12):** AI vocabulary words and phrases, Kobak biomedical excess-vocabulary clusters, copula avoidance, contrived contrast / negative parallelisms, rule of three, synonym cycling, false ranges
+- **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
+- **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
+- **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
+- **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
+- **Structural tells (29-32, 38):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, section scaffolding
+- **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
+
+Search for specific patterns when needed:
+```bash
+grep -i "promotional" references/patterns.md
+```
+
+---
+
+## Process
+
+### Step 1: Pick the action
+
+Decide which of the three actions applies:
+
+- If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
+- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
+- If the input has text but no clear instruction: use **Audit** and ask what's next.
+- If the input has no text and the request is unclear: ask what they want.
+
+Record the chosen action in the output.
+
+If the action is unclear and you can ask:
+
+> Do you want me to audit this, rewrite it, or write something new?
+
+If you cannot ask, default to Audit. The audit is read-only and lets the user decide the next action with full information. An unwanted audit costs a round-trip; an unwanted rewrite or write loses trust.
+
+### Step 2: Audit (Audit and Rewrite actions only — Write skips)
+
+Save the input text to a unique temp file using `mktemp` for portability:
+
+```bash
+INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+# write the input text to "$INPUT_PATH"
+python3 grade.py --format markdown "$INPUT_PATH"
+```
+
+The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
+
+The script returns a plain-English Markdown report built from `human_report`: `overview`, `score`, `confidence`, `ai_pressure_explanation`, `failed_checks`, and `all_checks`. If you need debugging details, run the script with `--format json` to get JSON diagnostics. The older fields (`triggered_checks`, `failure_mode_results`, `mode_results`, and raw expectations) are for debugging only.
+
+Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
+
+The audit report must include:
+
+- **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
+- **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
+- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Explain accumulation in user-facing terms: several weak signals can stack into machine-packaged rhythm or structure.
+- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, what it looks for, what happened here, why it matters, severity, and severity-tiered recommended action.
+- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `What it looks for`, `What happened here`, `Why this matters`, `Severity`, and `Recommended action`. For clear checks, use "Clear", the plain reason, "—", and "None". For flagged checks, show what happened, why it matters, the severity class, and the severity-tiered recommended action.
+
+The severity-tiered recommended actions are:
+
+- Hard failure → "Fix in any mode."
+- Strong warning → "Fix in Light, Medium, and Hard. Disclose only if explicitly preserved."
+- Context warning → "Preserve in Light if purposeful (disclose). Fix in Medium and Hard."
+- Em dash → "Preserve in Light only with disclosure. Fix in Medium and Hard."
+
+codex
+The skill routes this prompt to an audit, not a rewrite. I’m going to run its local grader against the provided sample and use the plain-English report fields rather than raw diagnostics.
+exec
+/bin/zsh -lc "ls -la /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot && find /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot -maxdepth 2 -type f | sort | sed -n '1,120p'" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+total 504
+drwxr-xr-x@ 7 mae  staff     224 Apr 28 17:58 .
+drwxr-xr-x@ 6 mae  staff     192 Apr 29 22:49 ..
+-rw-r--r--@ 1 mae  staff    6148 Apr 28 17:58 .DS_Store
+-rw-r--r--@ 1 mae  staff   32601 Apr 28 17:58 SKILL.md
+-rw-r--r--@ 1 mae  staff  103162 Apr 28 17:58 examples ai.txt
+-rw-r--r--@ 1 mae  staff  109035 Apr 28 17:58 grade.py
+drwxr-xr-x@ 7 mae  staff     224 Apr 28 17:58 references
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/.DS_Store
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/examples ai.txt
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/example.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/kobak-excess-words.csv
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/patterns.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/voice.md
+
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-opencoop-belonging-superpower.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+ succeeded in 0ms:
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-UJBvje6k' (errno=Operation not permitted)
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-5QcB28hw' (errno=Operation not permitted)
+Initial assessment
+Summary: 4 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 1 strong AI-writing signal(s); 3 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were headings in prose. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 2/4, so this check stayed clear.
+
+Main issues found
+- Curly quotes: Flagged. What it looks for: Checks for curly quotation marks when plain output is expected. What happened here: Found 42 curly quote(s). Why this matters: Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. Hard action: Fix.
+- Filler phrases: Flagged. What it looks for: Checks for stock padding such as in order to or it is worth noting. What happened here: Found 1: "in order to". Why this matters: Filler phrases add polish without information. Hard action: Fix.
+- Headings in prose: Flagged. What it looks for: Checks for markdown headings and plain title headings when prose should flow. What happened here: Found 1 heading(s): "# Belonging is a superpower - Patterns for decentr". Why this matters: Headings can make prose feel packaged by an assistant rather than written as a continuous piece. Hard action: Fix.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 4 triad(s), including "or non-hierarchical group, with open, inclusive values and aspirations", "worthiness within the group, belonging can crumble, with it goes organisational", "how it works, what it finds acceptable, what it will not", plus 1 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Clear | Checks for repeated short dramatic sentences used as generic emphasis. | No issue found in this text. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | None |
+| Mechanical repeated sentence starts | Clear | Checks for repeated sentence openings that read like template rhythm. | No issue found in this text. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | None |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Flagged | Checks for curly quotation marks when plain output is expected. | Found 42 curly quote(s). | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | Fix |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Flagged | Checks for stock padding such as in order to or it is worth noting. | Found 1: "in order to". | Filler phrases add polish without information. | Fix |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Flagged | Checks for markdown headings and plain title headings when prose should flow. | Found 1 heading(s): "# Belonging is a superpower - Patterns for decentr". | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | Fix |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Clear | Checks for unusually repetitive vocabulary in longer text. | No issue found in this text. | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | None |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 4 triad(s), including "or non-hierarchical group, with open, inclusive values and aspirations", "worthiness within the group, belonging can crumble, with it goes organisational", "how it works, what it finds acceptable, what it will not", plus 1 more. | Too many three-part lists create a recognisable generated cadence. | Fix |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+codex
+The grader produced a low-volume audit: four flags out of forty-three, with mostly context-sensitive signals. I’m checking the structured output once so the final report can use the required severity and recommendation columns cleanly.
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-opencoop-belonging-superpower.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+ succeeded in 103ms:
+codex
+**Action: Audit**
+
+**Summary:** 4 of 43 checks were flagged for AI-style writing patterns.
+
+**Confidence:** Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context. Basis: 1 strong AI-writing signal and 3 context-sensitive signals. This is confidence about AI-writing signs, not an authorship verdict.
+
+**AI-pressure explanation:** AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signal was headings in prose. That can make a draft look machine-packaged, but the score was 2/4, so this check stayed clear.
+
+**Main Issues**
+
+| Check | Status | What it looks for | What happened here | Why this matters | Severity | Recommended action |
+|---|---|---|---|---|---|---|
+| Curly quotes | Flagged | Curly quotation marks when plain output is expected. | Found 42 curly quotes. | Not proof of AI, but relevant when plain cleaned text is expected. | Context-sensitive signal | Preserve in Light if purposeful. Fix in Medium and Hard. |
+| Filler phrases | Flagged | Stock padding such as “in order to” or “it is worth noting”. | Found 1: “in order to”. | Adds polish without information. | Strong AI-writing signal | Fix in Light, Medium, and Hard. |
+| Headings in prose | Flagged | Markdown headings or plain title headings when prose should flow. | Found 1 title heading. | Can make prose feel packaged rather than naturally written. | Context-sensitive signal | Preserve in Light if purposeful. Fix in Medium and Hard. |
+| Triad density | Flagged | Overused three-part list structures. | Found 4 triads. | Too many three-part lists can create a generated cadence. | Context-sensitive signal | Preserve in Light if purposeful. Fix in Medium and Hard. |
+
+**Full Check Table**
+
+| Check | Status | What happened here | Severity | Recommended action |
+|---|---|---|---|---|
+| Em dashes | Clear | No issue found. | Strong AI-writing signal | None |
+| Clustered AI vocabulary | Clear | No issue found. | Strong AI-writing signal | None |
+| Nonliteral land/surface phrasing | Clear | No issue found. | Strong AI-writing signal | None |
+| AI pressure from stacked signals | Clear | No issue found. | Context-sensitive signal | None |
+| Manufactured insight framing | Clear | No issue found. | Strong AI-writing signal | None |
+| Generic staccato emphasis | Clear | No issue found. | Context-sensitive signal | None |
+| Mechanical repeated sentence starts | Clear | No issue found. | Context-sensitive signal | None |
+| Assistant residue | Clear | No issue found. | Must fix | None |
+| Curly quotes | Flagged | Found 42 curly quotes. | Context-sensitive signal | Preserve in Light if purposeful. Fix in Medium and Hard. |
+| Sentence rhythm variance | Clear | No issue found. | Context-sensitive signal | None |
+| Generic promotional language | Clear | No issue found. | Context-sensitive signal | None |
+| Inflated significance | Clear | No issue found. | Context-sensitive signal | None |
+| Contrived contrast | Clear | No issue found. | Strong AI-writing signal | None |
+| Avoiding plain “is” | Clear | No issue found. | Strong AI-writing signal | None |
+| Filler phrases | Flagged | Found 1: “in order to”. | Strong AI-writing signal | Fix in Light, Medium, and Hard. |
+| Generic conclusion | Clear | No issue found. | Must fix | None |
+| False balance or concession | Clear | No issue found. | Strong AI-writing signal | None |
+| Placeholder residue | Clear | No issue found. | Must fix | None |
+| Soft explainer scaffolding | Clear | No issue found. | Strong AI-writing signal | None |
+| Vague “this/that” starts | Clear | No issue found. | Context-sensitive signal | None |
+| Decorative three-part lists | Clear | No issue found. | Context-sensitive signal | None |
+| Tacked-on -ing analysis | Clear | No issue found. | Strong AI-writing signal | None |
+| Ghost/spectral atmosphere | Clear | No issue found. | Context-sensitive signal | None |
+| Generic quiet/still mood | Clear | No issue found. | Context-sensitive signal | None |
+| Template rhetorical questions | Clear | No issue found. | Context-sensitive signal | None |
+| Excessive list formatting | Clear | No issue found. | Context-sensitive signal | None |
+| Decorative Unicode | Clear | No issue found. | Context-sensitive signal | None |
+| Unearned dramatic transitions | Clear | No issue found. | Context-sensitive signal | None |
+| Formulaic openers | Clear | No issue found. | Strong AI-writing signal | None |
+| Signposted conclusion | Clear | No issue found. | Context-sensitive signal | None |
+| Headings in prose | Flagged | Found 1 heading: “# Belonging is a superpower - Patterns for decentr”. | Context-sensitive signal | Preserve in Light if purposeful. Fix in Medium and Hard. |
+| Corporate AI-speak | Clear | No issue found. | Strong AI-writing signal | None |
+| Repeated “This...” chains | Clear | No issue found. | Context-sensitive signal | None |
+| Excessive hedging | Clear | No issue found. | Context-sensitive signal | None |
+| Countdown negation | Clear | No issue found. | Context-sensitive signal | None |
+| Dense negation | Clear | No issue found. | Context-sensitive signal | None |
+| Paragraph length uniformity | Clear | No issue found. | Context-sensitive signal | None |
+| Tidy paragraph endings | Clear | No issue found. | Context-sensitive signal | None |
+| Bland critical template | Clear | No issue found. | Strong AI-writing signal | None |
+| Rubric echoing | Clear | No issue found. | Context-sensitive signal | None |
+| Vocabulary diversity | Clear | No issue found. | Context-sensitive signal | None |
+| Triad density | Flagged | Found 4 triads, including “open, inclusive values and aspirations” and “week-to-week plans, reviews, celebrations”. | Context-sensitive signal | Preserve in Light if purposeful. Fix in Medium and Hard. |
+| Repeated section scaffolding | Clear | No issue found. | Strong AI-writing signal | None |
+
+Overall, this does not look strongly AI-written. The stronger signal is only one filler phrase. The other flags are mostly genre and formatting issues: a web article title, curly quotes from published prose, and list rhythm from pattern-language writing.
+
+Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+tokens used
+91,562

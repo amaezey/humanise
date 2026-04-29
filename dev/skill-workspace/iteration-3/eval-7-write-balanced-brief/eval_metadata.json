@@ -1,0 +1,47 @@
+{
+  "eval_id": 7,
+  "eval_name": "write-balanced-brief",
+  "prompt": "Write a 250-word reflection on first-time linocut printing at balanced depth.",
+  "assertions": [
+    {
+      "name": "no-input-draft-required",
+      "type": "programmatic",
+      "description": "This case has no input file; the agent should compose from the brief alone",
+      "check": "files array is empty"
+    },
+    {
+      "name": "word-count-near-target",
+      "type": "programmatic",
+      "description": "Output word count is within 15% of 250 (i.e., 213-288)",
+      "check": "213 <= word_count(draft) <= 288"
+    },
+    {
+      "name": "no-em-dashes",
+      "type": "programmatic",
+      "description": "Draft has zero em dashes",
+      "check": "count of '\u2014' in draft == 0"
+    },
+    {
+      "name": "no-delve",
+      "type": "programmatic",
+      "description": "Draft has no instances of 'delve' or its variants",
+      "check": "regex '\\bdelv(e|es|ing)\\b' count == 0"
+    },
+    {
+      "name": "draft-passes-balanced-grader",
+      "type": "programmatic",
+      "description": "Grading the draft at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+      "check": "regrade(draft, depth='balanced').fails == 0"
+    },
+    {
+      "name": "addresses-brief",
+      "type": "qualitative",
+      "description": "Draft is genuinely about first-time linocut printing, not generic 'creative practice' filler"
+    },
+    {
+      "name": "voice-feels-natural",
+      "type": "qualitative",
+      "description": "Draft reads as a real reflection with specific sensory or emotional detail, not a generic AI essay structure"
+    }
+  ]
+}

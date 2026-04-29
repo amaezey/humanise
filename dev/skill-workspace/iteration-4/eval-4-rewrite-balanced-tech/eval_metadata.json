@@ -1,0 +1,47 @@
+{
+  "eval_id": 4,
+  "eval_name": "rewrite-balanced-tech",
+  "prompt": "Audit and rewrite this at balanced depth.",
+  "assertions": [
+    {
+      "name": "audit-shown-before-rewrite",
+      "type": "programmatic",
+      "description": "Audit findings appear in output before the rewrite",
+      "check": "audit-shape block precedes rewrite block"
+    },
+    {
+      "name": "rewrite-produced",
+      "type": "programmatic",
+      "description": "Output contains a rewritten version of the input draft",
+      "check": "output contains a prose block of similar length to input that differs from input"
+    },
+    {
+      "name": "no-em-dashes-in-rewrite",
+      "type": "programmatic",
+      "description": "Rewrite has zero em dashes",
+      "check": "count of '\u2014' in rewrite == 0"
+    },
+    {
+      "name": "no-delve-in-rewrite",
+      "type": "programmatic",
+      "description": "Rewrite has no instances of 'delve' or 'delves' or 'delving'",
+      "check": "regex '\\bdelv(e|es|ing)\\b' count in rewrite == 0"
+    },
+    {
+      "name": "rewrite-passes-balanced-grader",
+      "type": "programmatic",
+      "description": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+      "check": "regrade(rewrite, depth='balanced').fails == 0"
+    },
+    {
+      "name": "meaning-preserved",
+      "type": "qualitative",
+      "description": "Rewrite preserves the original argument, structure of points, and stance"
+    },
+    {
+      "name": "structural-tells-may-remain",
+      "type": "qualitative",
+      "description": "At balanced depth, paragraph-length uniformity and other structural patterns are NOT expected to be addressed; their presence in the rewrite is acceptable"
+    }
+  ]
+}

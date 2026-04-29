@@ -1,0 +1,48 @@
+{
+  "eval_id": 5,
+  "eval_name": "rewrite-balanced-personal",
+  "prompt": "Audit and rewrite this at balanced depth.",
+  "assertions": [
+    {
+      "name": "audit-shown-before-rewrite",
+      "type": "programmatic",
+      "description": "Audit findings appear in output before the rewrite",
+      "check": "audit-shape block precedes rewrite block"
+    },
+    {
+      "name": "rewrite-produced",
+      "type": "programmatic",
+      "description": "Output contains a rewritten version of the input draft",
+      "check": "output contains a prose block of similar length to input that differs from input"
+    },
+    {
+      "name": "no-em-dashes-in-rewrite",
+      "type": "programmatic",
+      "description": "Rewrite has zero em dashes",
+      "check": "count of '\u2014' in rewrite == 0"
+    },
+    {
+      "name": "no-manufactured-insight",
+      "type": "programmatic",
+      "description": "No manufactured insight phrases in rewrite",
+      "check": "manufactured-insight count in rewrite == 0"
+    },
+    {
+      "name": "no-signposted-conclusions",
+      "type": "programmatic",
+      "description": "No signposted conclusion phrases in rewrite",
+      "check": "signposted-conclusion count in rewrite == 0"
+    },
+    {
+      "name": "rewrite-passes-balanced-grader",
+      "type": "programmatic",
+      "description": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+      "check": "regrade(rewrite, depth='balanced').fails == 0"
+    },
+    {
+      "name": "meaning-preserved",
+      "type": "qualitative",
+      "description": "Rewrite preserves the personal anecdote, the central realisation, and the reflective stance"
+    }
+  ]
+}
