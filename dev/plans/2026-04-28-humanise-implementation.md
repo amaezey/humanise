@@ -24,6 +24,8 @@ The plan is being executed via `/skill-creator:skill-creator` (chosen in lieu of
 - **`humanise/references/alternatives.md` authored.** Vetted human alternatives for the lexical patterns flagged by the grader. Used by the Suggestions action and by Rewrite/Write during the surface pass. ~350 lines.
 - **`humanise/grade.py` updated.** Depth flag rename (`--mode light|medium|hard` → `--depth balanced|all`), audit-shape assertion registry (`AUDIT_SHAPE_CHECKS` with the seven shape checks the eval cases need), and a `regrade(text, depth=...)` helper for re-grading rewrite/draft outputs at a chosen depth. `dev/evals/test_grade.py`, `dev/evals/run_grade_sweep.py`, `README.md`, `dev/TESTING.md`, and the references files all updated to the new depth API. Test suite green.
 - **Pre-rewrite snapshot** of `humanise/` saved at `dev/skill-workspace/skill-snapshot/` so iteration 1's baseline runs can compare against the prior version.
+- **Iteration loop 1 completed.** `dev/skill-workspace/iteration-1/` contains the first skill-creator-style benchmark run: 8 current-skill outputs plus 8 old-skill baseline outputs, graded and aggregated. Current skill scored 88.4% mean pass rate against 77.1% for the old snapshot. The strongest remaining failures were the All-depth science rewrite's structural variance and the weak human guardrail fixtures.
+- **Iteration loop 2 completed after focused fixes.** `dev/skill-workspace/iteration-2/` contains the rerun after retargeting the two human guardrails to real repo corpus samples, adding `humanise/references/process.md`, tightening Rewrite/Write re-grade instructions, and improving the benchmark harness. Iteration 2 ran the current skill on all 8 evals and the old snapshot only on the two human guardrails. Current skill scored 86.6% mean pass rate; old-skill aggregate is partial-baseline context only. Balanced tech now passes 7/7. Remaining failures are mostly the All-depth science rewrite's structural variance, anaphora, and triad density, plus strict flag-count expectations on expressive human prose.
 
 ### Decisions made beyond the brainstorm
 
@@ -34,29 +36,34 @@ These were resolved during implementation and are recorded here so they're captu
 - **Audit findings are always shown** in Rewrite and Suggestions output, not absorbed silently. The reasoning: a rewrite that the writer didn't see flagged isn't teaching them anything; the audit is the educational layer.
 - **Suggestions sourcing splits by pattern type.** Lexical patterns (delve, hedging, em dashes, formulaic depth phrases, AI vocabulary) draw replacements from `references/alternatives.md`. Structural patterns (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance) get contextual rewriting suggestions composed by the agent.
 - **The 3-point depth dial** is what the user picks; the existing 3 grader severity classes (`hard_fail` / `strong_warning` / `context_warning`) are intrinsic to patterns. The two map roughly — Obvious ≈ hard_fail+strong_warning addressed; Balanced ≈ same plus context_warnings the writer would notice; All ≈ everything including subtle structural patterns — but the mapping is implementation detail the SKILL.md doesn't expose.
+- **Old-skill baselines are no longer needed for every eval after the first full comparison.** The harness now defaults to current-skill runs for every eval and old-skill runs only for `audit-human-*` guardrails. Use `--include-old-skill` when a full baseline comparison is intentionally needed.
 
 ---
 
 ## Remaining work
 
-> Steps 1–3 (SKILL.md review, `alternatives.md` authoring, `grade.py` updates) are all done as of 2026-04-29. See the Done section above. The next step is iteration loop 1.
+> Steps 1–4 are now done as of 2026-04-29. Iteration loop 2 is the latest completed benchmark. The next step is to iterate on the remaining failures from iteration 2.
 
-### 4. Iteration loop 1 (next)
+### 4. Iteration loop 1 and 2 (done)
 
-Following skill-creator's process:
+Following skill-creator's process, with a local adapter because the exact skill-creator execution harness was not available in this Codex environment:
 
-- Spawn 8 with-skill subagents (one per eval case) and 8 baseline subagents (against `dev/skill-workspace/skill-snapshot/`) in parallel. Total 16 subagents.
-- Each subagent saves outputs to `dev/skill-workspace/iteration-1/<eval-name>/{with_skill,old_skill}/outputs/`.
-- Capture `total_tokens` and `duration_ms` per subagent into `timing.json`.
-- Grade each output against its assertions; save to `grading.json` per run.
-- Aggregate via `python -m scripts.aggregate_benchmark <workspace>/iteration-1 --skill-name humanise`.
-- Run analyst pass on benchmark.
-- Launch eval viewer (`generate_review.py`); Mae reviews qualitative outputs and benchmark side by side.
-- Mae writes feedback into the viewer; submission produces `feedback.json`.
+- Iteration 1 saved outputs to `dev/skill-workspace/iteration-1/<eval-name>/{with_skill,old_skill}/run-1/outputs/`.
+- Iteration 1 captured timing, graded each run into `grading.json`, aggregated benchmark data, and generated review artifacts.
+- Iteration 2 saved outputs to `dev/skill-workspace/iteration-2/<eval-name>/...`.
+- Iteration 2 used the faster harness defaults: 8 workers, incremental grading, current-skill runs for all evals, and old-skill runs only for human guardrails.
+- Static review viewers were generated at `dev/skill-workspace/iteration-1/review.html` and `dev/skill-workspace/iteration-2/review.html`.
 
-### 5. Iterate based on feedback
+### 5. Iterate based on iteration-2 results (next)
 
-Read `feedback.json`. Improve SKILL.md (or alternatives.md, or grader) based on the specific problems Mae flagged on specific cases. Generalise where possible — don't overfit to the 8 cases. Re-run as iteration 2 with the same subagent pattern. Repeat until Mae says it's good or the feedback goes empty.
+Use `dev/skill-workspace/iteration-2/benchmark.json` and the review viewer outputs to improve the remaining failure areas. Generalise where possible — don't overfit to the 8 cases.
+
+Current candidate fixes:
+
+- Revisit the `rewrite-all-science` All-depth process. It still fails stricter structural-variance expectations and re-grade checks (`no-anaphora`, `no-triad-density`).
+- Decide whether the `<=3` flag-count assertion is too strict for expressive human prose, or whether audit output should better classify intentional human rhetorical devices as context rather than flags.
+- Review `suggestions-ai-wellbeing`, where one current-skill run failed the quote-anchoring assertion for flagged patterns.
+- Rerun as iteration 3 after changes. Default command shape: `python3 dev/evals/run_skill_creator_iteration.py --skill-creator-path /tmp/anthropic-skills-skill-creator/skills/skill-creator --iteration 3 --executor codex --workers 8 --static-viewer`.
 
 ### 6. Description optimization
 
@@ -77,8 +84,8 @@ The hard dependencies (steps 1–3 now closed; preserved here for handoff contex
        ↓
 2. alternatives.md authoring   ──┐              [done 2026-04-29]
 3. grade.py updates            ──┤              [done 2026-04-29]
-                                  ├──→ 4. Iteration 1 → 5. Iterate
-                                  ┘              ← we are here
+                                  ├──→ 4. Iteration 1/2 [done] → 5. Iterate on remaining failures
+                                  ┘                                      ← we are here
 6. Description optimization → 7. Final blind eval
 ```
 
@@ -123,15 +130,19 @@ From the brainstorm requirements doc plus skill-creator's quality bar:
 | `dev/plans/2026-04-28-humanise-refocus.md` | superseded | Kept for history. |
 | `humanise/SKILL.md` | rewritten and approved | Four-action model, 2-point depth dial (Balanced / All). |
 | `humanise/references/alternatives.md` | new | Vetted human alternatives for lexical patterns. |
+| `humanise/references/process.md` | new | Required Rewrite/Write operating process: structural pass, surface pass, self-check, semantic preservation, re-grade revision loop. |
 | `humanise/references/severity-detail.md` | updated | Old Light/Medium/Hard wording replaced with Balanced/All. |
 | `humanise/references/patterns.md` | updated | Em-dash guidance reworded for the new depth dial. |
 | `humanise/grade.py` | updated | `--depth balanced\|all` flag, `AUDIT_SHAPE_CHECKS` registry, `regrade(text, depth=...)` helper, metadata guidance reworded. |
 | `dev/evals/grade.py` | re-synced from `humanise/grade.py` | Duplicate of the active grader; flagged for cleanup (see Open decisions). |
 | `dev/evals/test_grade.py` | updated to depth API | All assertions green. |
 | `dev/evals/run_grade_sweep.py` | updated to depth API | Emits `depth_results` keys. |
-| `dev/evals/evals.json` | rewritten and updated | 8 cases; case 4 retargeted from `rewrite-obvious-tech` to `rewrite-balanced-tech`. |
+| `dev/evals/evals.json` | rewritten and updated | 8 cases; case 4 retargeted from `rewrite-obvious-tech` to `rewrite-balanced-tech`; human guardrails retargeted to real repo corpus samples (`21c-dillard-this-is-the-life.md`, `20c-woolf-room.md`). |
+| `dev/evals/run_skill_creator_iteration.py` | new | Local adapter for skill-creator-style execution, grading, aggregation, and review generation. Defaults to 8 workers, incremental grading, and old-skill baseline only for human guardrails. |
 | `dev/evals/evals.json.bak` | new | Backup of old 14-case evals. |
 | `dev/evals/samples/generated-ai/01-10` | new | 10 new AI articles. |
 | `dev/skill-workspace/skill-snapshot/` | new | Pre-rewrite skill snapshot for iteration baseline. |
+| `dev/skill-workspace/iteration-1/` | new | First full current-vs-old iteration output, grading, benchmark, and review artifacts. |
+| `dev/skill-workspace/iteration-2/` | new | Focused rerun after guardrail/process/harness fixes; current skill all evals, old snapshot only human guardrails. |
 | `README.md` | updated | Grader CLI usage and example output. |
 | `dev/TESTING.md` | updated | Grader output description. |

@@ -1,0 +1,529 @@
+Reading additional input from stdin...
+2026-04-28T16:58:34.857080Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:58:34.862535Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd507-3e35-7d52-ba41-da4ed25bbd89
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Audit this draft for AI tells.
+
+Inputs:
+Input file: /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md
+
+```markdown
+---
+{
+  "id": "21c-dillard-this-is-the-life",
+  "title": "This Is the Life",
+  "author": "Annie Dillard",
+  "year": 2021,
+  "period": "21st",
+  "format": "literary essay",
+  "source_url": "https://thedewdrop.org/2021/05/21/this-is-the-life-annie-dillard/",
+  "fetch_status": 200,
+  "extract_method": "article",
+  "expected_use": [
+    "style_reference",
+    "false_positive_audit"
+  ],
+  "voice_targets": [
+    "compressed lyric essay",
+    "second-person address",
+    "existential abstraction with human cadence"
+  ]
+}
+---
+
+“Say you have seen an ordinary bit of what is real, the infinite fabric of time that eternity shoots through, and time’s soft-skinned people working and dying under slowly shifting stars. Then what?”
+
+Mary Oliver ‘s unforgettably provocative question, ‘what is it you plan to do/with your one wild and precious life?’ resonates through this essay by Annie Dillard that celebrates humanity by taking the widest view of all our activity, hopes, dreams and values. If we could be up a beanpole and see all the space and time of the human race, what would we do? If we were like the visionary in Plato’s Cave , awakened and alive to warp and weft of the fabric of being and the way in which it ‘both passes among the stars and encloses them’, how would we respond? What would we change? How would we communicate what we have seen and understood? Would we even try or would we come back to our lives with our expanded perspectives and more wholeheartedly enjoy them just for what they are?
+
+Any culture tells you how to live your one and only life: to wit, as everyone else does.
+
+Probably most cultures prize, as ours rightly does, making a contribution by working hard at work that you love; being in the know, and intelligent; gathering a surplus; and loving your family above all, and your dog, your cat; bird-watching. Beyond those things our culture may place a special focus on money, on celebrity, on physical beauty. These are not universal.
+
+Elsewhere it might be: You wear the best shoes you can afford, you seek to know Rome’s best restaurants and their staffs, drive the best car, and vacation on Tenerife. And what a cook you are!
+
+Or you take the next tribe’s pigs in thrilling raids; you grill yams; you trade for televisions and hunt white-plumed birds. Everyone you know agrees: This is the life. Perhaps you burn captives. You set fire to drunks. Yours is the human struggle, or the elite one, to achieve … whatever your own culture tells you: to publish the paper that proves the point; to progress in the firm and gain high title and salary, stock options, benefits; to get the loan to store the beans till their price rises; to elude capture; to feed your children or educate them to a feather edge; to count coup or perfect your calligraphy; to eat the king’s deer or catch the poacher; to spear the seal, intimidate the enemy, and be a big man or beloved woman and die respected for the pigs or the title or the shoes. Not a funeral. Forget funeral. A big birthday party.
+
+Since everyone around you agrees ever since there were people on earth that land is value, or labor is value, or learning is value, or title, degree, necklaces, murex shells, the ownership of slaves. Everyone knows bees sting and ghosts haunt and giving your robes away humiliates your rivals. That the enemies are barbarians. That wise men swim through the rock of the earth; that houses breed filth, airstrips attract airplanes, tornadoes punish, ancestors watch, and you can buy a shorter stay in purgatory. The black rock is holy, or the scroll; or the pangolin is holy, the quetzal is holy, this tree, water, rock, stone, cow, cross, or mountain--and it’s all true. The Red Sox. Or nothing at all is holy, as everyone intelligent knows.
+
+Who is your everyone? Chess masters scarcely surround themselves with motocross racers. Do you want aborigines at your birthday party? Or is it yak-butter tea you are serving?
+
+Who is your everyone? Chess masters scarcely surround themselves with motocross racers. Do you want aborigines at your birthday party? Or is it yak-butter tea you are serving?
+
+Who is your everyone? Chess masters scarcely surround themselves with motocross racers. Do you want aborigines at your birthday party? Or is it yak-butter tea you are serving? Popular culture deals not in its distant past, or any other past, or any other culture. You know no one who longs to buy a mule or be presented at court or thrown into a volcano.
+
+So the illusion, like the visual field, is complete. It has no holes except books you read and soon forget. And death takes us by storm. What was that, that life? What else offered? If for him it was contract bridge, if for her it was copyright law, i f for everyone it was and is an optimal mix of family and friends, learning, contribution, and joy--of making and ameliorating--what else is there, or was there, or will there ever be?
+
+What else is a vision or fact of time and the peoples it bears issuing from the mouth of the cosmos, from the round mouth of eternity, in a wide and particolored utterance. In the complex weave of this utterance like fabric, in its infinite domestic interstices, the centuries and continents and classes dwell. Each people knows only its own squares in the weave, its wars and instruments and arts, and also perhaps the starry sky.
+
+Okay, and then what? Say you manage to scale your own weft and see time’s breadth and the length of space. You see the way the fabric both passes among the stars and encloses them. You see in the weave nearby, and aslant farther off, the peoples variously scandalized or exalted in their squares. They work on their projects--they flake spear points, hoe, plant; they kill aurochs or one another; they prepare sacrifices--as we here and now work on our project. What, seeing this spread multiply infinitely in every direction, would you do differently? Would you change your project? To what? Whatever you do, it has likely brought delight to fewer people than either contract bridge or the Red Sox.
+
+However many more people come, your time and its passions, you yourself and your passions, weigh but equally in the balance with those of any dead who pulled waterwheel poles by the Nile or Yellow Rivers, or painted their foreheads black, or starved in the wilderness, or wasted from disease, then or now.
+
+However many more people come, your time and its passions, you yourself and your passions, weigh but equally in the balance with those of any dead who pulled waterwheel poles by the Nile or Yellow Rivers, or painted their foreheads black, or starved in the wilderness, or wasted from disease, then or now.
+
+However hypnotized you and your people are, you will be just as dead in their war, our war. However dead you are, more people will come. However many more people come, your time and its passions, you yourself and your passions, weigh but equally in the balance with those of any dead who pulled waterwheel poles by the Nile or Yellow Rivers, or painted their foreheads black, or starved in the wilderness, or wasted from disease, then or now. Our lives and our deaths surely count equally, or we must abandon one-man-one-vote, dismantle democracy, and assign seven billion people an importance-of-life ranking from one to seven billion.
+
+What would you do differently, you up on your beanstalk looking at scenes of all peoples at all times in all places? When you climb down, would you dance any less to the music you love, knowing that music to be provisional as a bug? Somebody has to make jogging shoes, to turn the soil, fish. If you descend the long rope ladders back to your people, your own time in the fabric, if you tell them what you have seen, and should someone care to listen, then what? Everyone knows times and cultures are plural. If you come back a shrugging relativist or a stiff-tongued absolutist, then what? If you spend hours a day looking around, high astraddle the warp or woof of your people’s wall, then what new wisdom might you take to your grave for worms to untangle? Well, maybe you will not go into advertising. But what work suits? You might know your own death better, though dread it no less. Will you try to bring people up the wall-carry children to see it--to what end? Fewer golf courses? What’s wrong with golf? Nothing at all. Equality of wealth? Sure; how?
+
+The woman watching sheep over there, the man who carries embers in a pierced clay ball, the engineer, the girl who spins wool into yarn as she climbs, the smelter, the babies learning to recognize speech in their own languages, the man whipping a slave’s flayed back, the man digging roots, the woman digging roots, the child digging roots--what would you tell them? And the future people--what are they doing? What excitements sweep peoples here and there from time to time? Into the muddy river they go, into the trenches, into the caves, into the mines, into the granary, into the sea in boats. Most humans who were ever alive lived inside a single culture that had not changed for hundreds of thousands of years.
+
+Most humans who were ever alive lived inside a single culture that had not changed for hundreds of thousands of years.
+
+Most humans who were ever alive lived inside a single culture that had not changed for hundreds of thousands of years.
+
+Over here, the rains fail; they are starving. There, the caribou fail; they are starving. Corrupt leaders take the wealth. Not just there, but here. Rust and smut spoil the rye. When pigs and cattle starve or freeze, people die soon after. Disease empties a sector, a billion sectors.
+
+People look at the sky and at the other animals. They make beautiful objects, beautiful sounds, beautiful motions of their bodies beating drums in lines. They pray; they toss people in peat bogs; they help the sick and injured; they pierce their lips, their noses, ears; they make the same mistakes despite religion, written language, philosophy, and science. They build, they kill, they preserve, they count and figure, they boil the pot, they keep the embers alive; they tell their stories and gird themselves.
+
+Will knowledge you experience directly make you a Buddhist? Must you forfeit excitement per se? To what end?
+
+Say you have seen an ordinary bit of what is real, the infinite fabric of time that eternity shoots through, and time’s soft-skinned people working and dying under slowly shifting stars. Then what?
+
+Annie Dillard From: The Abundance
+
+Print (Opens in new window) Print
+
+Email a link to a friend (Opens in new window) Email
+
+Share on X (Opens in new window) X
+
+Share on Facebook (Opens in new window) Facebook
+
+Share on LinkedIn (Opens in new window) LinkedIn
+
+Share on WhatsApp (Opens in new window) WhatsApp
+
+Share on Reddit (Opens in new window) Reddit
+
+Share on Tumblr (Opens in new window) Tumblr
+
+Share on Nextdoor (Opens in new window) Nextdoor
+
+Subscribe to get the latest posts sent to your email.
+
+```
+
+2026-04-28T16:58:36.878287Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:58:36.878995Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:58:38.215270Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:58:38.215633Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md && rg --files /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits text for AI-style writing patterns, rewrites existing drafts to remove
+  them, or writes new content that avoids them. Uses 38 patterns and 43
+  programmatic checks across vocabulary, structure, tone, voice, and formatting.
+  Default action is Audit (analyse and explain findings); Rewrite and Write
+  fire only when the user explicitly asks for them. Useful when a draft feels
+  flat, robotic, over-polished, structurally repetitive, or voice-neutralised,
+  or when drafting prose that needs to read as human.
+---
+
+# Humanise: Audit, rewrite, or write without AI patterns
+
+Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
+
+## Your task
+
+When given input, identify which of three actions to take:
+
+1. **Audit** (default) — analyse text for AI-style writing patterns and explain the findings. No mode pre-classification; the audit is mode-agnostic.
+2. **Rewrite** — given existing text, produce a cleaner version. Always runs an audit first, then asks for a rewrite intensity (Light / Medium / Hard).
+3. **Write** — given a brief or topic, draft new content under AI-avoidance constraints at a chosen intensity.
+
+Modifiers (orthogonal to action; combine freely):
+
+- **Recommendation** — after an audit, optionally suggest a rewrite intensity tied to genre and findings.
+- **Save** — write the chosen action's output to a Markdown file.
+
+Default to Audit when the action is ambiguous. Do not rewrite or compose new content unless the user explicitly asks.
+
+---
+
+## Modes
+
+Three intensities for Rewrite and Write. Audit is mode-agnostic — the 43 checks pass or fail based on the text, not on a chosen mode. Default to Medium when the user does not specify.
+
+- **Light** — for fiction, memoir, voiced essays, humour, dialogue, interviews, literary prose. Removes the most obvious AI tells (assistant residue, sycophancy, manufactured insight) but preserves your voice. Devices like staccato, triads, em dashes can stay if they serve the writing; disclose what you preserve and why.
+- **Medium** — the default. For blog posts, workplace writing, newsletters, product copy, generic prose. Removes obvious patterns and all strong tells. Preserves voice where the device is doing real work; trims it where it is autopilot.
+- **Hard** — for prose that needs to read as unambiguously human. Strips every flagged pattern unless removing it would change what you mean. No em dashes, no manufactured-insight framing, no decorative triads. Voice can take a hit; risk reduction is the goal.
+
+When the user has not chosen a mode and the genre makes the answer ambiguous, ask:
+
+> How hard should I go: Light, Medium, or Hard?
+
+If you cannot ask, infer from the genre — Light for voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), Medium otherwise. Record the chosen mode and the reason in the output.
+
+A failed grader check is a failed check in every mode. Mode decides what to *do* about it (fix, disclose, preserve), not whether the pattern was detected. The Severity classes section below lists which actions apply by severity in each mode.
+
+---
+
+## Actions
+
+### 1. Audit (default)
+
+Use this when the user asks things like:
+
+- "Does this sound AI?"
+- "Check this for AI writing."
+- "Audit this draft."
+- "Run humanise on this."
+- "What's flagged here?"
+
+Or any input where the user provides text without an explicit Rewrite or Write instruction.
+
+Do:
+
+1. Run the grader with no mode constraint.
+2. Render the audit report with all 43 checks classified by severity.
+3. Explain the flagged patterns in plain English.
+4. Stop.
+
+End with a short next-step question:
+
+> Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+
+The audit table uses a `Severity` column and a severity-tiered `Recommended action` column. It does not pre-pick a single mode for the user — that decision belongs to the user, after they've seen the indicators.
+
+### 2. Rewrite
+
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+
+Do:
+
+1. Run the audit (Action 1's behaviour) regardless of any prior context. The rewrite must be informed by the indicators.
+2. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+3. Rewrite under the chosen intensity. Address structural patterns first, then surface patterns.
+4. Run the structural self-check (Process Step 7).
+5. Run the semantic preservation check (Process Step 6).
+6. Run the post-check at the chosen intensity (Process Step 8).
+7. Report before/after, with remaining issues.
+
+### 3. Write
+
+Use this when the user asks for new content rather than analysis or rewriting:
+
+- "Write a 500-word essay on X."
+- "Draft an opening paragraph about Y."
+- "Compose a blog post on Z without sounding AI."
+- "Help me write something on W that doesn't read like AI."
+
+Do:
+
+1. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+2. Draft the content under the chosen intensity's constraints — same severity rules as a Rewrite. Avoid hard failures, avoid strong warnings, treat context warnings per the mode.
+3. Apply the [Personality and soul](#personality-and-soul) guidance directly. Write must produce content that reads as human, not just content that lacks AI tells.
+4. Run the structural self-check on the draft.
+5. Run the post-check at the chosen intensity.
+6. Report status and remaining issues.
+
+There is no initial audit — there is no input text to audit.
+
+### Modifiers
+
+- **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+
+---
+
+## Severity and the purpose test
+
+The grader is a diagnostic tool, not an authorship verdict. A failed check stays a failed check in every mode. Mode decides what to do about it.
+
+Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
+
+- **Fixed**
+- **Recommended preserve**
+- **Needs user decision**
+
+Do not silently classify your own writing as the exception. If you preserve a flagged device, name it, quote or identify the relevant passage briefly, and explain the concrete function it serves.
+
+### Severity classes
+
+- **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
+- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
+- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings including plain title headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
+- **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
+
+Em dashes get their own deep-dive in [Hard constraints](#hard-constraints) below — they are a strong-warning-class pattern with mode-specific rules, kept separate because they are the highest-volume single AI tell of 2026.
+
+### Purpose test
+
+For any context warning, ask:
+
+> Is this device doing real work here, or is it autopilot?
+
+You may recommend preserving it if it reveals character, controls timing, creates humour, mirrors thought, supports a period voice, or clarifies structure. Remove it if it is generic emphasis, tidy profundity, decorative balance, or a default article template. If you are unsure, mark it **Needs user decision** rather than deciding for the user.
+
+Examples:
+
+- Poe-style staccato can be voice. "That matters. A lot." in a productivity article is usually autopilot.
+- A Sedaris-style comic escalation can stay. A corporate triad like "clarity, collaboration, and innovation" should go.
+- Curly quotes in a sourced literary sample are not an AI tell. Curly quotes in this skill's final plain-text output may still be normalised if the user asked for hard cleanup.
+
+---
+
+## Hard constraints (deep-dive)
+
+The four most distinctive AI tells — em dashes, manufactured insight, adversarial reframes, generic staccato fragments — have expanded rules and word lists at [references/severity-detail.md](references/severity-detail.md). When these patterns appear, that file is the canonical source of truth. Read it during Rewrite (Step 5) and Write (Step 5) before settling on the final draft.
+
+---
+
+## Personality and soul
+
+Removing AI patterns is only half the job. AI also **subtracts** — Abdulhai et al. (2026) found extensive LLM use produces a ~70% increase in neutral-stance essays, 50% fewer pronouns, and fewer anecdotes. Sterile, voiceless, perfectly balanced writing is as obvious as slop.
+
+Voice-craft guidance for Rewrite and Write — what to watch for, what to add or preserve, signs of soulless writing, before/after examples — is in [references/voice.md](references/voice.md). Read it during Step 5 (Rewrite or Write under mode), and especially before drafting in the Write action.
+
+---
+
+## Pattern catalogue
+
+Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
+
+- **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
+- **Language and grammar (7-12):** AI vocabulary words and phrases, Kobak biomedical excess-vocabulary clusters, copula avoidance, contrived contrast / negative parallelisms, rule of three, synonym cycling, false ranges
+- **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
+- **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
+- **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
+- **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
+- **Structural tells (29-32, 38):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, section scaffolding
+- **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
+
+Search for specific patterns when needed:
+```bash
+grep -i "promotional" references/patterns.md
+```
+
+---
+
+## Process
+
+### Step 1: Pick the action
+
+Decide which of the three actions applies:
+
+- If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
+- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
+- If the input has text but no clear instruction: use **Audit** and ask what's next.
+- If the input has no text and the request is unclear: ask what they want.
+
+Record the chosen action in the output.
+
+If the action is unclear and you can ask:
+
+> Do you want me to audit this, rewrite it, or write something new?
+
+If you cannot ask, default to Audit. The audit is read-only and lets the user decide the next action with full information. An unwanted audit costs a round-trip; an unwanted rewrite or write loses trust.
+
+### Step 2: Audit (Audit and Rewrite actions only — Write skips)
+
+Save the input text to a unique temp file using `mktemp` for portability:
+
+```bash
+INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+# write the input text to "$INPUT_PATH"
+python3 grade.py --format markdown "$INPUT_PATH"
+```
+
+The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
+
+The script returns a plain-English Markdown report built from `human_report`: `overview`, `score`, `confidence`, `ai_pressure_explanation`, `failed_checks`, and `all_checks`. If you need debugging details, run the script with `--format json` to get JSON diagnostics. The older fields (`triggered_checks`, `failure_mode_results`, `mode_results`, and raw expectations) are for debugging only.
+
+Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
+
+The audit report must include:
+
+- **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
+- **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
+- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Explain accumulation in user-facing terms: several weak signals can stack into machine-packaged rhythm or structure.
+- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, what it looks for, what happened here, why it matters, severity, and severity-tiered recommended action.
+- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `What it looks for`, `What happened here`, `Why this matters`, `Severity`, and `Recommended action`. For clear checks, use "Clear", the plain reason, "—", and "None". For flagged checks, show what happened, why it matters, the severity class, and the severity-tiered recommended action.
+
+The severity-tiered recommended actions are:
+
+- Hard failure → "Fix in any mode."
+- Strong warning → "Fix in Light, Medium, and Hard. Disclose only if explicitly preserved."
+- Context warning → "Preserve in Light if purposeful (disclose). Fix in Medium and Hard."
+- Em dash → "Preserve in Light only with disclosure. Fix in Medium and Hard."
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/examples ai.txt
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/kobak-excess-words.csv
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/patterns.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/example.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/voice.md
+
+2026-04-28T16:58:44.029174Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:58:44.029450Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:58:48.714659Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:58:48.714917Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 147ms:
+Initial assessment
+Summary: 6 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 1 strong AI-writing signal(s); 5 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were contrived contrast framing. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 2/4, so this check stayed clear.
+
+Main issues found
+- Generic staccato emphasis: Flagged. What it looks for: Checks for repeated short dramatic sentences used as generic emphasis. What happened here: Found sequence of 5 consecutive short sentences. Why this matters: Repeated short emphasis beats can make prose sound generated rather than naturally paced. Hard action: Fix.
+- Mechanical repeated sentence starts: Flagged. What it looks for: Checks for repeated sentence openings that read like template rhythm. What happened here: Found 5 consecutive sentences starting with 'however'. Why this matters: Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. Hard action: Fix.
+- Curly quotes: Flagged. What it looks for: Checks for curly quotation marks when plain output is expected. What happened here: Found 18 curly quote(s). Why this matters: Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. Hard action: Fix.
+- Contrived contrast: Flagged. What it looks for: Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. What happened here: Found 4 contrived contrast/reframe pattern(s). Why this matters: Contrived contrast creates a fake reveal instead of making a direct, supported claim. Hard action: Fix.
+- Vocabulary diversity: Flagged. What it looks for: Checks for unusually repetitive vocabulary in longer text. What happened here: Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40). Why this matters: Low vocabulary variety can make longer prose feel repetitive and mechanically produced. Hard action: Fix.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 23 triad(s), including "hopes, dreams, values", "restaurants and their staffs, drive the best car, vacation on tenerife", "to spear the seal, intimidate the enemy, be a big man", plus 20 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Flagged | Checks for repeated short dramatic sentences used as generic emphasis. | Found sequence of 5 consecutive short sentences. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | Fix |
+| Mechanical repeated sentence starts | Flagged | Checks for repeated sentence openings that read like template rhythm. | Found 5 consecutive sentences starting with 'however'. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | Fix |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Flagged | Checks for curly quotation marks when plain output is expected. | Found 18 curly quote(s). | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | Fix |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Flagged | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | Found 4 contrived contrast/reframe pattern(s). | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | Fix |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Clear | Checks for markdown headings and plain title headings when prose should flow. | No issue found in this text. | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | None |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Flagged | Checks for unusually repetitive vocabulary in longer text. | Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40). | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | Fix |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 23 triad(s), including "hopes, dreams, values", "restaurants and their staffs, drive the best car, vacation on tenerife", "to spear the seal, intimidate the enemy, be a big man", plus 20 more. | Too many three-part lists create a recognisable generated cadence. | Fix |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+codex
+**Action: Audit**
+
+**Summary:** 6 of 43 checks were flagged for AI-style writing patterns.
+
+**Confidence:** Medium. This is confidence about AI-writing signs, not an authorship verdict. The flags are pattern-based, and several are likely explained by literary rhetoric or by duplicated extraction text rather than generated prose.
+
+**Main read:** this does **not** read like a typical AI draft. The strongest signals come from repetition, list rhythm, and contrast framing, but in this piece those are mostly part of the essay’s compressed, rhetorical style. The more practical issue is that the file appears to contain repeated passages and page-share/footer residue, which can make a detector overreact.
+
+**Main Issues**
+
+| Check | Status | What it looks for | What happened here | Why this matters | Severity | Recommended action |
+|---|---|---|---|---|---|---|
+| Generic staccato emphasis | Flagged | Repeated short dramatic sentences used as generic emphasis. | Found a sequence of 5 consecutive short sentences. | Can sound generated when the short beats are empty emphasis. Here, much of it is literary cadence. | Context warning | Preserve if purposeful; fix only duplicated/noisy text. |
+| Mechanical repeated sentence starts | Flagged | Repeated sentence openings that read like template rhythm. | Found 5 consecutive sentences starting with “However.” | Repeated openings can look templated, but here the anaphora is doing rhetorical work. | Context warning | Preserve if intentional; remove accidental duplicate passages. |
+| Curly quotes | Flagged | Curly quotation marks when plain cleaned text is expected. | Found 18 curly quote marks. | Not an AI tell in a sourced literary essay. | Context warning | Preserve. |
+| Contrived contrast | Flagged | “Not X but Y,” “beyond X,” and similar reveal structures. | Found 4 contrast/reframe patterns. | In generic prose, this can fake insight. Here, some contrast belongs to the essay’s argumentative movement. | Strong warning | Review manually; do not treat as authorship evidence by itself. |
+| Vocabulary diversity | Flagged | Unusually repetitive vocabulary in longer text. | Type-token ratio: 0.372, below the target of 0.40. | Repetition can sound mechanical, but literary repetition and duplicated extraction text both lower the score. | Context warning | Fix duplicate extraction artifacts, not the authorial cadence. |
+| Triad density | Flagged | Heavy use of three-part lists. | Found 23 triads, including “hopes, dreams, values.” | Too many triads can create generated cadence, but this essay deliberately accumulates examples. | Context warning | Preserve where rhetorical; trim only accidental or editorial additions. |
+
+**Full Check Table**
+
+| Check | Status | What happened here | Severity | Recommended action |
+|---|---|---|---|---|
+| Em dashes | Clear | No issue found. | — | None |
+| Clustered AI vocabulary | Clear | No issue found. | — | None |
+| Nonliteral land/surface phrasing | Clear | No issue found. | — | None |
+| AI pressure from stacked signals | Clear | Score stayed below the concern threshold. | — | None |
+| Manufactured insight framing | Clear | No issue found. | — | None |
+| Generic staccato emphasis | Flagged | Found 5 consecutive short sentences. | Context warning | Preserve if purposeful. |
+| Mechanical repeated sentence starts | Flagged | Found repeated “However” openings. | Context warning | Preserve if rhetorical; remove accidental duplicates. |
+| Assistant residue | Clear | No chat-like residue found. | — | None |
+| Curly quotes | Flagged | Found 18 curly quotes. | Context warning | Preserve in this literary context. |
+| Sentence rhythm variance | Clear | Sentence lengths vary enough. | — | None |
+| Generic promotional language | Clear | No stock hype found. | — | None |
+| Inflated significance | Clear | No artificial importance inflation found. | — | None |
+| Contrived contrast | Flagged | Found 4 contrast/reframe patterns. | Strong warning | Review manually; preserve if earned. |
+| Avoiding plain “is” | Clear | No inflated copula avoidance found. | — | None |
+| Filler phrases | Clear | No stock padding found. | — | None |
+| Generic conclusion | Clear | No templated ending found. | — | None |
+| False balance or concession | Clear | No fake both-sides framing found. | — | None |
+| Placeholder residue | Clear | No template placeholders found. | — | None |
+| Soft explainer scaffolding | Clear | No structure-announcing filler found. | — | None |
+| Vague “this/that” starts | Clear | No repeated vague openings found. | — | None |
+| Decorative three-part lists | Clear | Triads were detected elsewhere as density, not decorative filler. | — | None |
+| Tacked-on -ing analysis | Clear | No issue found. | — | None |
+| Ghost/spectral atmosphere | Clear | No stock spectral language found. | — | None |
+| Generic quiet/still mood | Clear | No overused quiet/still mood language found. | — | None |
+| Template rhetorical questions | Clear | Questions here are substantive, not article-template prompts. | — | None |
+| Excessive list formatting | Clear | No bullet/list over-formatting found. | — | None |
+| Decorative Unicode | Clear | No decorative symbols found. | — | None |
+| Unearned dramatic transitions | Clear | No generic turning-point language found. | — | None |
+| Formulaic openers | Clear | No generated-style openers found. | — | None |
+| Signposted conclusion | Clear | No explicit conclusion signpost found. | — | None |
+| Headings in prose | Clear | No prose-disrupting headings found. | — | None |
+| Corporate AI-speak | Clear | No operational cliché language found. | — | None |
+| Repeated “This...” chains | Clear | No vague “This...” chain found. | — | None |
+| Excessive hedging | Clear | No evasive qualification pattern found. | — | None |
+| Countdown negation | Clear | No synthetic negation buildup found. | — | None |
+| Dense negation | Clear | Negation density is not unusual. | — | None |
+| Paragraph length uniformity | Clear | Paragraph lengths vary naturally. | — | None |
+| Tidy paragraph endings | Clear | No repeated miniature conclusions found. | — | None |
+| Bland critical template | Clear | No generic review-template language found. | — | None |
+| Rubric echoing | Clear | No assignment/rubric phrasing found. | — | None |
+| Vocabulary diversity | Flagged | Repetition score was below target. | Context warning | Check duplicate text before editing style. |
+| Triad density | Flagged | Found 23 three-part list structures. | Context warning | Preserve if rhetorical. |
+| Repeated section scaffolding | Clear | No repeated heading/template structure found. | — | None |
+
+**Practical Next Step**
+
+I would not rewrite this as “AI-sounding.” I would clean the file: remove duplicated paragraphs and the share/footer material, then re-run the audit on the essay text alone.
+2026-04-28T16:59:27.964675Z  WARN codex_core::shell_snapshot: Failed to delete shell snapshot at AbsolutePathBuf("/Users/mae/.codex/shell_snapshots/019dd507-3e35-7d52-ba41-da4ed25bbd89.1777395514937234000.sh"): Os { code: 2, kind: NotFound, message: "No such file or directory" }
+2026-04-28T16:59:27.968560Z  WARN codex_rmcp_client::stdio_server_launcher: Failed to terminate MCP process group 31679: No such process (os error 3)
+tokens used
+12,455

@@ -1,0 +1,67 @@
+{
+  "expectations": [
+    {
+      "text": "Audit findings appear in output before the rewrite",
+      "passed": true,
+      "evidence": "audit at offset 0; follow-up at offset 2832"
+    },
+    {
+      "text": "Output contains a rewritten version of the input draft",
+      "passed": true,
+      "evidence": "generated_words=1520; input_words=1786; changed=True"
+    },
+    {
+      "text": "Rewrite has zero em dashes",
+      "passed": true,
+      "evidence": "em dash count=0"
+    },
+    {
+      "text": "Rewrite has no instances of 'delve' or 'delves' or 'delving'",
+      "passed": true,
+      "evidence": "delve count=0"
+    },
+    {
+      "text": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+      "passed": true,
+      "evidence": "balanced failures=[]"
+    },
+    {
+      "text": "Rewrite preserves the original argument, structure of points, and stance",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    },
+    {
+      "text": "At balanced depth, paragraph-length uniformity and other structural patterns are NOT expected to be addressed; their presence in the rewrite is acceptable",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 13372
+  },
+  "timing": {
+    "total_tokens": 0,
+    "duration_ms": 189666,
+    "total_duration_seconds": 189.666
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

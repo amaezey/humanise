@@ -152,10 +152,10 @@ The dial only governs Rewrite and Write. It does not apply to Audit or Suggestio
 1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
 2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
 3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
-4. Read `references/process.md` for the process steps used by Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
+4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
 5. Run the structural self-check (Step C from `process.md`). Show the answers in the output.
 6. Run the semantic preservation check (Step D from `process.md`).
-7. Re-grade the rewrite at the chosen depth. If at All depth and failures remain, iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
+7. Re-grade the rewrite at the chosen depth. If required failures remain for that depth, revise before returning unless removing the issue would materially change meaning or voice. Iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
 8. Render the audit findings, the rewritten draft, and the post-check.
 
 ### Rewrite output
@@ -196,10 +196,10 @@ Show only the final rewrite. Intermediate drafts stay hidden unless the writer a
 
 1. Pick the depth: ask if you can; default to Balanced.
 2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
-3. Read `references/process.md`. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
+3. Read `references/process.md`; it is required for Rewrite and Write. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
 4. Draft from the brief at the chosen depth.
 5. Run the structural self-check (Step C from `process.md`) on the draft.
-6. Re-grade the draft at the chosen depth. Iterate up to two re-runs at All depth if failures remain, then report unresolved issues.
+6. Re-grade the draft at the chosen depth. If required failures remain for that depth, revise before returning unless fixing them would materially change the brief or voice. Iterate up to two re-runs, then report unresolved issues.
 7. Render the draft and the post-check.
 
 ### Drafting output
@@ -256,4 +256,4 @@ Do not duplicate the full report inline in chat when a saved file exists.
 - `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
 - `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
 - `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
-- `references/process.md`: Steps A through D for Rewrite and Write. Address structural patterns, address surface patterns, structural self-check, semantic preservation check.
+- `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.

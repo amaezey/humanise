@@ -1,0 +1,7 @@
+I thought linocut would be a tidy kind of making: draw, carve, ink, press. The first afternoon corrected me quickly. My pencil lines looked confident on the block, but the cutter did not care about confidence. It caught on small changes in pressure, skipped when I rushed, and left blunt white scars where I had imagined fine light.
+
+The strangest part was learning that the print is made as much by what is removed as by what remains. I knew that in theory. In my hand, it felt less elegant. Every cut was permanent, so I kept pausing with the tool above the lino, trying to decide whether a shadow needed one more line or whether I was about to ruin it. That hesitation became part of the work. The finished print carried all the little decisions I had made too late or too fast.
+
+Inking was messier than I expected. Too much ink filled the cuts; too little made the image look tired. When I finally pulled a print that held together, I did not feel triumphant exactly. I felt alert. The process had made me look harder at edges, pressure, reversal, and patience. It also made me more forgiving of roughness. A slightly uneven line can show the hand that made it, and for a first linocut, that seems worth keeping.
+
+I left with black ink under my fingernails and a better respect for slow decisions. Back home, I kept checking the print before the ink fully dried.

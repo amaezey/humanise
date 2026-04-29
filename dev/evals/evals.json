@@ -18,12 +18,12 @@
     },
     {
       "id": 1,
-      "name": "audit-human-philosophy",
+      "name": "audit-human-reflective-essay",
       "prompt": "Audit this draft for AI tells.",
-      "expected_output": "An audit with very few flags (or none) on known-human philosophical prose. False-positive guard.",
-      "files": ["evals/samples/human-sourced/harris-free-will.md"],
+      "expected_output": "An audit with very few flags (or none) on known-human reflective essay prose from the repo corpus. False-positive guard.",
+      "files": ["evals/samples/human-sourced/21c-dillard-this-is-the-life.md"],
       "assertions": [
-        {"name": "low-flag-count-on-human-prose", "type": "programmatic", "description": "Known-human prose should produce at most 3 flags", "check": "distinct catalogue patterns referenced <= 3"},
+        {"name": "low-flag-count-on-human-prose", "type": "programmatic", "description": "Known-human reflective prose should produce at most 3 flags", "check": "distinct catalogue patterns referenced <= 3"},
         {"name": "each-flag-has-quoted-phrase", "type": "programmatic", "description": "Any flag present shows a quoted phrase from the input", "check": "every flag block contains a substring from the input file"},
         {"name": "each-flag-has-explanation", "type": "programmatic", "description": "Any flag present has a brief 'why' explanation", "check": "every flag block contains an explanation paragraph or 'Why' line"},
         {"name": "ends-with-next-step-question", "type": "programmatic", "description": "Output ends with a question offering suggestions / rewrite / done", "check": "final non-empty line ends with '?'"},
@@ -35,8 +35,8 @@
       "id": 2,
       "name": "audit-human-literary",
       "prompt": "Audit this draft for AI tells.",
-      "expected_output": "An audit with very few flags (or none) on known-human literary prose. False-positive guard across a different voice from case 1.",
-      "files": ["evals/samples/human-sourced/woolf-moth.md"],
+      "expected_output": "An audit with very few flags (or none) on known-human literary prose from the repo corpus. False-positive guard across a different voice from case 1.",
+      "files": ["evals/samples/human-sourced/20c-woolf-room.md"],
       "assertions": [
         {"name": "low-flag-count-on-human-prose", "type": "programmatic", "description": "Known-human prose should produce at most 3 flags", "check": "distinct catalogue patterns referenced <= 3"},
         {"name": "each-flag-has-quoted-phrase", "type": "programmatic", "description": "Any flag present shows a quoted phrase from the input", "check": "every flag block contains a substring from the input file"},
