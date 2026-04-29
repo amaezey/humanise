@@ -303,6 +303,9 @@ def grade_one_assertion(name: str, output: str, input_text: str, generated: str)
     if name == "low-flag-count-on-human-prose":
         hits = catalogue_hits(output)
         return len(hits) <= 3, f"Referenced {len(hits)} catalogue pattern(s): {sorted(hits)[:10]}"
+    if name == "low-flag-count-on-human-prose-runaway-guard":
+        hits = catalogue_hits(output)
+        return len(hits) <= 12, f"Referenced {len(hits)} catalogue pattern(s): {sorted(hits)[:10]}"
     if name == "each-flag-has-quoted-phrase":
         result = GRADE.check_audit_shape("every-flag-block-contains-input-substring", output, input_text)
         return result["passed"], result["evidence"]
@@ -485,6 +488,457 @@ def normalize_benchmark_config_order(path: Path) -> None:
     write_json(path, benchmark)
 
 
+def is_audit_only_case(item: dict) -> bool:
+    """Audit-only cases produce a comparable flag count for the corpus claim."""
+    return item.get("name", "").startswith("audit-")
+
+
+def audit_case_corpus_class(item: dict) -> str | None:
+    name = item.get("name", "")
+    if name.startswith("audit-ai-"):
+        return "ai"
+    if name.startswith("audit-human-"):
+        return "human"
+    return None
+
+
+def analyze_sample_body(filepath: Path) -> dict:
+    """Body-level stats for a sample: sentence/paragraph length, TTR, em-dashes, curly-quote density.
+    Length-aware because long-form essays naturally have lower TTR — these are diagnostics, not gates."""
+    text = filepath.read_text(encoding="utf-8")
+    body = text.split("---", 2)[2] if text.startswith("---") and "---" in text[3:] else text
+    sentences = [s for s in GRADE.split_sentences(body) if s.strip()]
+    sentence_lens = [len(re.findall(r"\b\w+\b", s)) for s in sentences]
+    paragraphs = [p for p in re.split(r"\n\s*\n", body) if p.strip()]
+    para_lens = [len(re.findall(r"\b\w+\b", p)) for p in paragraphs]
+    words = re.findall(r"\b\w+\b", body.lower())
+    return {
+        "word_count": len(words),
+        "sentence_count": len(sentence_lens),
+        "sentence_len_mean": statistics.mean(sentence_lens) if sentence_lens else 0.0,
+        "sentence_len_stdev": statistics.stdev(sentence_lens) if len(sentence_lens) > 1 else 0.0,
+        "paragraph_count": len(para_lens),
+        "paragraph_len_mean": statistics.mean(para_lens) if para_lens else 0.0,
+        "paragraph_len_stdev": statistics.stdev(para_lens) if len(para_lens) > 1 else 0.0,
+        "type_token_ratio": (len(set(words)) / len(words)) if words else 0.0,
+        "em_dashes": body.count("—"),
+        "curly_quotes": sum(body.count(c) for c in "“”‘’"),
+    }
+
+
+def grade_sample_file(filepath: Path) -> dict:
+    """Grade a sample file. Returns flag counts + body stats."""
+    results = GRADE.grade_file(str(filepath))
+    failures = [r for r in results if not r["passed"]]
+    severity_counts: dict[str, int] = {}
+    for r in failures:
+        sev = r.get("severity") or "unknown"
+        severity_counts[sev] = severity_counts.get(sev, 0) + 1
+    pressure_check = next(
+        (r for r in results if r.get("text") == "overall-ai-signal-pressure"),
+        None,
+    )
+    pressure_triggered = pressure_check is not None and not pressure_check.get("passed", True)
+    return {
+        "input_file": str(filepath.relative_to(ROOT)),
+        "total_flags": len(failures),
+        "severity_counts": severity_counts,
+        "ai_pressure_triggered": pressure_triggered,
+        "body_stats": analyze_sample_body(filepath),
+    }
+
+
+def grade_input_file(item: dict) -> dict | None:
+    """Legacy single-file grader used in earlier audit-case-driven baselines.
+    Kept for backward compatibility; new code uses grade_sample_file directly."""
+    files = item.get("files") or []
+    if not files:
+        return None
+    path = resolve_eval_file(files[0])
+    graded = grade_sample_file(path)
+    return {
+        "input_file": graded["input_file"],
+        "total_flags": graded["total_flags"],
+        "severity_counts": graded["severity_counts"],
+        "ai_pressure_triggered": graded["ai_pressure_triggered"],
+    }
+
+
+def load_corpus_groups() -> dict | None:
+    """Load corpus.json if present. Returns dict with group → list[Path] or None."""
+    corpus_path = ROOT / "dev" / "evals" / "corpus.json"
+    if not corpus_path.exists():
+        return None
+    data = read_json(corpus_path)
+    groups_raw = data.get("groups", {})
+    out: dict[str, list[Path]] = {}
+    for group_name, paths in groups_raw.items():
+        resolved = []
+        for p in paths:
+            try:
+                resolved.append(resolve_eval_file(p))
+            except FileNotFoundError:
+                pass
+        out[group_name] = resolved
+    return {"groups": out, "raw": data}
+
+
+def extract_audit_reported_count(grading: dict) -> int | None:
+    """Pull the catalogue-pattern count out of an audit-shaped assertion's evidence."""
+    target_assertions = {
+        "Output references at least 5 distinct AI patterns from the catalogue",
+        "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+        "Known-human reflective prose should produce at most 3 flags",
+        "Known-human prose should produce at most 3 flags",
+    }
+    for exp in grading.get("expectations", []):
+        if exp.get("text") in target_assertions:
+            evidence = exp.get("evidence", "")
+            match = re.match(r"Referenced (\d+) catalogue pattern", evidence)
+            if match:
+                return int(match.group(1))
+    return None
+
+
+def previous_iteration_dir(current: Path) -> Path | None:
+    name = current.name
+    match = re.fullmatch(r"iteration-(\d+)", name)
+    if not match:
+        return None
+    n = int(match.group(1))
+    if n <= 1:
+        return None
+    candidate = current.parent / f"iteration-{n - 1}"
+    return candidate if candidate.exists() else None
+
+
+def build_performance_report(evals: list[dict], iteration_dir: Path) -> tuple[str, dict]:
+    """Build performance-report.md content + a JSON sidecar for future regression checks."""
+    benchmark_path = iteration_dir / "benchmark.json"
+    if not benchmark_path.exists():
+        return "Performance report unavailable: benchmark.json missing.\n", {}
+    benchmark = read_json(benchmark_path)
+
+    # Per-eval pass rates from with_skill runs only.
+    per_eval_runs: dict[int, list[dict]] = {}
+    for run in benchmark.get("runs", []):
+        if run.get("configuration") != "with_skill":
+            continue
+        per_eval_runs.setdefault(run["eval_id"], []).append(run)
+    per_eval = []
+    for item in evals:
+        runs = per_eval_runs.get(item["id"], [])
+        if not runs:
+            continue
+        rates = [r["result"]["pass_rate"] for r in runs]
+        per_eval.append({
+            "id": item["id"],
+            "name": item["name"],
+            "pass_rate": sum(rates) / len(rates),
+            "runs": len(runs),
+        })
+
+    # Corpus characterisation: read from corpus.json (genre-paired groups) if available;
+    # fall back to audit cases in evals.json for legacy single-iteration setups.
+    corpus_data = load_corpus_groups()
+    if corpus_data is not None:
+        corpus_rows = []
+        for group_name, paths in corpus_data["groups"].items():
+            for path in paths:
+                graded = grade_sample_file(path)
+                corpus_rows.append({
+                    "type": group_name,
+                    "eval_id": None,
+                    "eval_name": Path(graded["input_file"]).stem,
+                    **graded,
+                })
+    else:
+        corpus_rows = []
+        for item in evals:
+            if not is_audit_only_case(item):
+                continue
+            cls = audit_case_corpus_class(item)
+            if cls is None:
+                continue
+            graded = grade_input_file(item)
+            if graded is None:
+                continue
+            corpus_rows.append({
+                "eval_id": item["id"],
+                "eval_name": item["name"],
+                "type": cls,
+                **graded,
+            })
+
+    def _mean(values: list[float]) -> float:
+        return sum(values) / len(values) if values else 0.0
+
+    # Group rows by type
+    group_rows: dict[str, list[dict]] = {}
+    for r in corpus_rows:
+        group_rows.setdefault(r["type"], []).append(r)
+
+    def _group_means(group: list[dict]) -> dict:
+        return {
+            "n": len(group),
+            "total": _mean([r["total_flags"] for r in group]),
+            "strong": _mean([r["severity_counts"].get("strong_warning", 0) for r in group]),
+            "context": _mean([r["severity_counts"].get("context_warning", 0) for r in group]),
+            "sentence_len_mean": _mean([r["body_stats"]["sentence_len_mean"] for r in group if "body_stats" in r]),
+            "sentence_len_stdev": _mean([r["body_stats"]["sentence_len_stdev"] for r in group if "body_stats" in r]),
+            "paragraph_len_stdev": _mean([r["body_stats"]["paragraph_len_stdev"] for r in group if "body_stats" in r]),
+            "type_token_ratio": _mean([r["body_stats"]["type_token_ratio"] for r in group if "body_stats" in r]),
+            "word_count": _mean([r["body_stats"]["word_count"] for r in group if "body_stats" in r]),
+        }
+
+    group_summary = {name: _group_means(rows) for name, rows in group_rows.items()}
+
+    def _gap_pct(a: float, b: float) -> str:
+        if b == 0:
+            return "n/a"
+        return f"{(a - b) / b * 100:+.0f}%"
+
+    # Audit fidelity: audit-reported count vs grader count. Driven by evals.json audit cases
+    # (per-eval signal, not corpus-baseline signal).
+    fidelity_rows = []
+    for item in evals:
+        if not is_audit_only_case(item):
+            continue
+        eval_dir = iteration_dir / f"eval-{item['id']}-{item['name']}" / "with_skill" / "run-1"
+        grading_path = eval_dir / "grading.json"
+        if not grading_path.exists():
+            continue
+        grading = read_json(grading_path)
+        audit_count = extract_audit_reported_count(grading)
+        # Grade the input file directly to get grader's flag count
+        grader_data = grade_input_file(item)
+        if grader_data is None:
+            continue
+        grader_count = grader_data["total_flags"]
+        cls = audit_case_corpus_class(item) or "?"
+        # Refine class for genre-paired cases
+        if "ai-fresh" in item["name"]:
+            cls = "ai_fresh"
+        elif "ai-rewrite" in item["name"]:
+            cls = "ai_rewrite"
+        fidelity = (
+            f"{audit_count / grader_count * 100:.0f}%"
+            if audit_count is not None and grader_count
+            else "n/a"
+        )
+        fidelity_rows.append({
+            "eval_id": item["id"],
+            "eval_name": item["name"],
+            "type": cls,
+            "grader_count": grader_count,
+            "audit_count": audit_count,
+            "fidelity_pct": fidelity,
+        })
+
+    # Regression check: compare to previous iteration's performance-report.json.
+    prev_dir = previous_iteration_dir(iteration_dir)
+    prev_data: dict = {}
+    if prev_dir is not None:
+        prev_report = prev_dir / "performance-report.json"
+        if prev_report.exists():
+            prev_data = read_json(prev_report)
+    prev_per_eval = {row["name"]: row for row in prev_data.get("per_eval", [])}
+    regression_rows = []
+    for row in per_eval:
+        prev = prev_per_eval.get(row["name"])
+        if prev is None:
+            continue
+        delta = row["pass_rate"] - prev["pass_rate"]
+        regression_rows.append({
+            "name": row["name"],
+            "prev_pass_rate": prev["pass_rate"],
+            "this_pass_rate": row["pass_rate"],
+            "delta": delta,
+            "regressed": delta < -0.05,
+        })
+
+    # Build markdown.
+    lines: list[str] = []
+    lines.append(f"# Performance report — {iteration_dir.name}")
+    lines.append("")
+    lines.append(f"Run timestamp: {benchmark.get('metadata', {}).get('timestamp', 'unknown')}")
+    lines.append(f"Evals run: {len(per_eval)}")
+    overall_mean = _mean([row["pass_rate"] for row in per_eval])
+    lines.append(f"Mean pass rate: {overall_mean * 100:.1f}%")
+    lines.append("")
+    lines.append("## Per-eval pass rates")
+    lines.append("")
+    lines.append("| ID | Name | Pass rate | Runs |")
+    lines.append("|---|---|---|---|")
+    for row in per_eval:
+        lines.append(f"| {row['id']} | {row['name']} | {row['pass_rate'] * 100:.1f}% | {row['runs']} |")
+    lines.append("")
+    lines.append("## Human-vs-AI flag baseline")
+    lines.append("")
+    if corpus_data is not None:
+        lines.append(
+            "Grader output on the genre-paired corpus (see `dev/evals/corpus.json`). "
+            "Three groups: human originals, AI fresh-writes from matched-topic prompts, "
+            "and AI-rewrites of the human originals. Deterministic — independent of how the skill renders its audit."
+        )
+    else:
+        lines.append(
+            "Grader output on each audit case's input file. Deterministic corpus characterisation, "
+            "independent of how the skill renders its audit."
+        )
+    lines.append("")
+    lines.append("| Sample | Group | Total | Strong | Context | AI-pressure |")
+    lines.append("|---|---|---|---|---|---|")
+    for row in corpus_rows:
+        sample_name = Path(row["input_file"]).stem
+        sev = row["severity_counts"]
+        pressure = "triggered" if row["ai_pressure_triggered"] else "—"
+        lines.append(
+            f"| {sample_name} | {row['type']} | {row['total_flags']} "
+            f"| {sev.get('strong_warning', 0)} | {sev.get('context_warning', 0)} | {pressure} |"
+        )
+    if group_summary:
+        lines.append("")
+        lines.append("**Group means:**")
+        lines.append("")
+        lines.append("| Group | n | Total | Strong | Context |")
+        lines.append("|---|---|---|---|---|")
+        for name, s in group_summary.items():
+            lines.append(f"| {name} | {s['n']} | {s['total']:.1f} | {s['strong']:.1f} | {s['context']:.1f} |")
+        # Pairwise gaps if 'human' is present
+        if 'human' in group_summary:
+            human = group_summary['human']
+            for other in [n for n in group_summary if n != 'human']:
+                o = group_summary[other]
+                lines.append(
+                    f"| Gap ({other} vs human) | | {_gap_pct(o['total'], human['total'])} "
+                    f"| {_gap_pct(o['strong'], human['strong'])} | {_gap_pct(o['context'], human['context'])} |"
+                )
+    lines.append("")
+    lines.append("## Body-level statistics")
+    lines.append("")
+    lines.append(
+        "Sentence/paragraph length variance is the strongest non-pattern signal separating humans from AI in long-form essay register "
+        "(humans cluster around longer, more variable sentences; AI clusters around shorter, more uniform ones). "
+        "Tracked across iterations to surface drift even when pattern flags don't move."
+    )
+    lines.append("")
+    if group_summary:
+        lines.append("| Group | n | Words | Sent. mean | Sent. stdev | Para. stdev | TTR |")
+        lines.append("|---|---|---|---|---|---|---|")
+        for name, s in group_summary.items():
+            lines.append(
+                f"| {name} | {s['n']} | {s['word_count']:.0f} | {s['sentence_len_mean']:.1f} "
+                f"| {s['sentence_len_stdev']:.1f} | {s['paragraph_len_stdev']:.1f} | {s['type_token_ratio']:.2f} |"
+            )
+    lines.append("")
+    lines.append("## Audit fidelity")
+    lines.append("")
+    lines.append(
+        "How faithfully the skill's audit surfaces patterns the grader found. "
+        "Lower fidelity means the audit is suppressing flags the grader caught."
+    )
+    lines.append("")
+    lines.append("| Eval | Type | Grader | Audit reported | Fidelity |")
+    lines.append("|---|---|---|---|---|")
+    for row in fidelity_rows:
+        lines.append(
+            f"| {row['eval_name']} | {row['type']} | {row['grader_count']} "
+            f"| {row['audit_count'] if row['audit_count'] is not None else '—'} | {row['fidelity_pct']} |"
+        )
+    lines.append("")
+    lines.append("## Regression vs previous iteration")
+    lines.append("")
+    if not regression_rows:
+        lines.append("_No previous iteration data available, or no comparable evals._")
+    else:
+        lines.append("Advisory only — flagged for review when an eval's pass rate dropped >5%.")
+        lines.append("")
+        lines.append("| Eval | Prev | This | Δ | Regressed? |")
+        lines.append("|---|---|---|---|---|")
+        for row in regression_rows:
+            mark = "yes" if row["regressed"] else "—"
+            lines.append(
+                f"| {row['name']} | {row['prev_pass_rate'] * 100:.1f}% | {row['this_pass_rate'] * 100:.1f}% "
+                f"| {row['delta'] * 100:+.1f}% | {mark} |"
+            )
+    lines.append("")
+
+    structured = {
+        "iteration": iteration_dir.name,
+        "timestamp": benchmark.get("metadata", {}).get("timestamp"),
+        "overall_mean_pass_rate": overall_mean,
+        "per_eval": per_eval,
+        "corpus_baseline": {
+            "groups": {name: rows for name, rows in group_rows.items()},
+            "group_means": group_summary,
+            "pairwise_gaps": (
+                {
+                    other: {
+                        "total_pct": _gap_pct(group_summary[other]["total"], group_summary["human"]["total"]),
+                        "strong_pct": _gap_pct(group_summary[other]["strong"], group_summary["human"]["strong"]),
+                        "context_pct": _gap_pct(group_summary[other]["context"], group_summary["human"]["context"]),
+                    }
+                    for other in group_summary if other != "human"
+                }
+                if "human" in group_summary else {}
+            ),
+        },
+        "audit_fidelity": fidelity_rows,
+        "regression": regression_rows,
+    }
+    return "\n".join(lines), structured
+
+
+README_PERFORMANCE_START = "<!-- performance:start -->"
+README_PERFORMANCE_END = "<!-- performance:end -->"
+
+
+def update_readme_performance_block(structured: dict, readme_path: Path) -> None:
+    """Replace the marker-bounded performance block in README.md with a condensed summary."""
+    if not readme_path.exists() or not structured:
+        return
+    text = readme_path.read_text(encoding="utf-8")
+    if README_PERFORMANCE_START not in text or README_PERFORMANCE_END not in text:
+        return  # README hasn't opted in yet; don't touch
+    iteration = structured.get("iteration", "iteration-?")
+    timestamp = structured.get("timestamp", "")
+    overall = structured.get("overall_mean_pass_rate", 0.0)
+    pairwise = structured.get("corpus_baseline", {}).get("pairwise_gaps", {})
+    regressions = sum(1 for r in structured.get("regression", []) if r.get("regressed"))
+
+    if pairwise:
+        gap_lines = [
+            f"- Human-vs-{other} flag gap: total {gaps['total_pct']} / strong {gaps['strong_pct']}"
+            for other, gaps in pairwise.items()
+        ]
+    else:
+        gap_lines = ["- Comparative corpus not configured."]
+
+    block_lines = [
+        README_PERFORMANCE_START,
+        f"**{iteration}** ({timestamp})",
+        "",
+        f"- Mean pass rate: {overall * 100:.1f}% across {len(structured.get('per_eval', []))} evals",
+        *gap_lines,
+        f"- Regressions vs prev iteration: {regressions}",
+        "",
+        f"[Full report]({_relative_report_path(readme_path, structured)})",
+        README_PERFORMANCE_END,
+    ]
+    new_block = "\n".join(block_lines)
+    pattern = re.compile(
+        re.escape(README_PERFORMANCE_START) + r".*?" + re.escape(README_PERFORMANCE_END),
+        re.DOTALL,
+    )
+    readme_path.write_text(pattern.sub(new_block, text), encoding="utf-8")
+
+
+def _relative_report_path(readme_path: Path, structured: dict) -> str:
+    iteration = structured.get("iteration", "iteration-?")
+    return f"dev/skill-workspace/{iteration}/performance-report.md"
+
+
 def prepare_workspace(evals: list[dict], reset: bool) -> None:
     if reset and ITERATION.exists():
         shutil.rmtree(ITERATION)
@@ -556,6 +1010,12 @@ def run_iteration(
         str(CURRENT_SKILL),
     ], cwd=skill_creator_path, check=True)
     normalize_benchmark_config_order(ITERATION / "benchmark.json")
+
+    report_md, report_data = build_performance_report(evals, ITERATION)
+    (ITERATION / "performance-report.md").write_text(report_md, encoding="utf-8")
+    write_json(ITERATION / "performance-report.json", report_data)
+    update_readme_performance_block(report_data, ROOT / "README.md")
+    print(f"performance report written to {ITERATION / 'performance-report.md'}", flush=True)
 
     viewer = skill_creator_path / "eval-viewer" / "generate_review.py"
     if static_viewer:
