@@ -2019,6 +2019,835 @@
         ]
       },
       {
+        "file": "dev/evals/samples/generated-ai/21c-ai-belonging-superpower.md",
+        "pass_rate": "36/43",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 5
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-unicode-flair",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-unicode-flair",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-unicode-flair",
+              "no-negation-density",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-unicode-flair",
+              "no-negation-density",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-unicode-flair",
+              "no-negation-density",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-unicode-flair",
+          "no-negation-density",
+          "no-triad-density",
+          "no-section-scaffolding"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-first-men-original-sins.md",
+        "pass_rate": "31/43",
+        "failures_by_severity": {
+          "strong_warning": 4,
+          "context_warning": 8
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-ghost-spectral-density",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-ghost-spectral-density",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-ghost-spectral-density",
+              "no-signposted-conclusions",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-ghost-spectral-density",
+          "no-signposted-conclusions",
+          "vocabulary-diversity",
+          "no-triad-density",
+          "no-section-scaffolding"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-mdma-therapy.md",
+        "pass_rate": "34/43",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 7
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-negative-parallelisms"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-quietness-obsession",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-quietness-obsession",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-quietness-obsession",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-negative-parallelisms",
+              "no-quietness-obsession",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-negative-parallelisms",
+              "no-quietness-obsession",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-significance-inflation",
+          "no-negative-parallelisms",
+          "no-quietness-obsession",
+          "no-markdown-headings",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-belonging-superpower.md",
+        "pass_rate": "40/43",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 2
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes"
+            ],
+            "preservable_with_disclosure": [
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "no-curly-quotes",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-curly-quotes",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-first-men-original-sins.md",
+        "pass_rate": "34/43",
+        "failures_by_severity": {
+          "strong_warning": 4,
+          "context_warning": 5
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-markdown-headings",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-markdown-headings",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-markdown-headings",
+          "no-triad-density",
+          "no-section-scaffolding"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-mdma-therapy.md",
+        "pass_rate": "35/43",
+        "failures_by_severity": {
+          "strong_warning": 3,
+          "context_warning": 5
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-ai-vocabulary-clustering",
+              "no-superficial-ing"
+            ],
+            "preservable_with_disclosure": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-ai-vocabulary-clustering",
+              "no-superficial-ing"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-ai-vocabulary-clustering",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-superficial-ing",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "no-ai-vocabulary-clustering",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-significance-inflation",
+              "no-superficial-ing",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-ai-vocabulary-clustering",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-significance-inflation",
+          "no-superficial-ing",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-servant-hedonism.md",
+        "pass_rate": "34/43",
+        "failures_by_severity": {
+          "strong_warning": 4,
+          "context_warning": 5
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-formulaic-openers"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-markdown-headings"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-markdown-headings"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-formulaic-openers"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-markdown-headings"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-forced-triads",
+              "no-formulaic-openers",
+              "no-markdown-headings"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-forced-triads",
+              "no-formulaic-openers",
+              "no-markdown-headings"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-forced-triads",
+          "no-formulaic-openers",
+          "no-markdown-headings"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-workshops-as-portals.md",
+        "pass_rate": "37/43",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 5
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes"
+            ],
+            "preservable_with_disclosure": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "user_decision_needed": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "must_fix": [
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-signposted-conclusions",
+              "no-markdown-headings"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-signposted-conclusions",
+          "no-markdown-headings"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-servant-hedonism.md",
+        "pass_rate": "36/43",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 6
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes"
+            ],
+            "preservable_with_disclosure": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "no-unicode-flair",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "no-unicode-flair",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "no-unicode-flair",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "no-unicode-flair",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-ghost-spectral-density",
+              "no-unicode-flair",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-ghost-spectral-density",
+          "no-unicode-flair",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/generated-ai/21c-ai-workshops-as-portals.md",
+        "pass_rate": "36/43",
+        "failures_by_severity": {
+          "strong_warning": 1,
+          "context_warning": 6
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-manufactured-insight"
+            ],
+            "preservable_with_disclosure": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negation-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negation-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-manufactured-insight"
+            ],
+            "needs_user_decision": [
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negation-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negation-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negation-density",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-manufactured-insight",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negation-density",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
         "file": "dev/evals/samples/generated-ai/ai-01-slow-mornings.md",
         "pass_rate": "40/43",
         "failures_by_severity": {
@@ -3787,6 +4616,97 @@
         ]
       },
       {
+        "file": "dev/evals/samples/human-sourced/21c-alamut-agora-museum.md",
+        "pass_rate": "34/43",
+        "failures_by_severity": {
+          "context_warning": 7,
+          "strong_warning": 2
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-negative-parallelisms",
+              "no-filler-phrases"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-negative-parallelisms",
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-negative-parallelisms",
+          "no-filler-phrases",
+          "no-rhetorical-questions",
+          "no-markdown-headings",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
         "file": "dev/evals/samples/human-sourced/21c-astra-dreamers-in-broad-daylight.md",
         "pass_rate": "33/43",
         "failures_by_severity": {
@@ -3878,6 +4798,198 @@
           "no-superficial-ing",
           "no-ghost-spectral-density",
           "no-quietness-obsession",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-butterfield-we-dont-sell-saddles.md",
+        "pass_rate": "32/43",
+        "failures_by_severity": {
+          "strong_warning": 5,
+          "context_warning": 6
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-copula-avoidance",
+          "no-filler-phrases",
+          "no-markdown-headings",
+          "vocabulary-diversity",
+          "no-triad-density",
+          "no-section-scaffolding"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-critchlow-workshops.md",
+        "pass_rate": "34/43",
+        "failures_by_severity": {
+          "context_warning": 8,
+          "strong_warning": 1
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-manufactured-insight"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-significance-inflation",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-significance-inflation",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-manufactured-insight"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-significance-inflation",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-significance-inflation",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-significance-inflation",
+              "no-forced-triads",
+              "no-signposted-conclusions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-manufactured-insight",
+          "no-staccato-sequences",
+          "no-significance-inflation",
+          "no-forced-triads",
+          "no-signposted-conclusions",
+          "no-markdown-headings",
           "vocabulary-diversity",
           "no-triad-density"
         ]
@@ -6124,6 +7236,410 @@
         ]
       },
       {
+        "file": "dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md",
+        "pass_rate": "36/43",
+        "failures_by_severity": {
+          "context_warning": 6,
+          "strong_warning": 1
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-negative-parallelisms"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-negative-parallelisms"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "overall-ai-signal-pressure",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-negative-parallelisms",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "overall-ai-signal-pressure",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-negative-parallelisms",
+          "no-forced-triads",
+          "no-markdown-headings",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-guardian-south-korea-teachers-exams.md",
+        "pass_rate": "42/43",
+        "failures_by_severity": {
+          "context_warning": 1
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [],
+            "preservable_with_disclosure": [
+              "no-markdown-headings"
+            ],
+            "user_decision_needed": [
+              "no-markdown-headings"
+            ],
+            "must_fix": [],
+            "needs_user_decision": [
+              "no-markdown-headings"
+            ],
+            "summary": "No hard failures or strong warnings; context warnings need user decision."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-markdown-headings"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-markdown-headings"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-markdown-headings"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-image-first-men-original-sins.md",
+        "pass_rate": "36/43",
+        "failures_by_severity": {
+          "strong_warning": 2,
+          "context_warning": 5
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-copula-avoidance"
+            ],
+            "preservable_with_disclosure": [
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-copula-avoidance"
+            ],
+            "needs_user_decision": [
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-copula-avoidance",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-copula-avoidance",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-copula-avoidance",
+          "no-markdown-headings",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-kanter-what-is-amazon.md",
+        "pass_rate": "31/43",
+        "failures_by_severity": {
+          "context_warning": 9,
+          "strong_warning": 3
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-formulaic-openers"
+            ],
+            "preservable_with_disclosure": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-orphaned-demonstratives",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-orphaned-demonstratives",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-formulaic-openers"
+            ],
+            "needs_user_decision": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-orphaned-demonstratives",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-orphaned-demonstratives",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-formulaic-openers",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-significance-inflation",
+              "no-copula-avoidance",
+              "no-filler-phrases",
+              "no-orphaned-demonstratives",
+              "no-ghost-spectral-density",
+              "no-rhetorical-questions",
+              "no-formulaic-openers",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-significance-inflation",
+          "no-copula-avoidance",
+          "no-filler-phrases",
+          "no-orphaned-demonstratives",
+          "no-ghost-spectral-density",
+          "no-rhetorical-questions",
+          "no-formulaic-openers",
+          "no-markdown-headings",
+          "vocabulary-diversity",
+          "no-triad-density"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-medium-mindstorms-papert.md",
+        "pass_rate": "33/43",
+        "failures_by_severity": {
+          "strong_warning": 4,
+          "context_warning": 6
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-filler-phrases",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-filler-phrases",
+          "no-markdown-headings",
+          "vocabulary-diversity",
+          "no-triad-density",
+          "no-section-scaffolding"
+        ]
+      },
+      {
         "file": "dev/evals/samples/human-sourced/21c-new-yorker-understanding-owls.md",
         "pass_rate": "36/43",
         "failures_by_severity": {
@@ -6298,6 +7814,68 @@
         "failed_checks": []
       },
       {
+        "file": "dev/evals/samples/human-sourced/21c-opencoop-belonging-superpower.md",
+        "pass_rate": "39/43",
+        "failures_by_severity": {
+          "context_warning": 3,
+          "strong_warning": 1
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-filler-phrases"
+            ],
+            "preservable_with_disclosure": [
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-filler-phrases"
+            ],
+            "needs_user_decision": [
+              "no-curly-quotes",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-curly-quotes",
+              "no-filler-phrases",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-curly-quotes",
+              "no-filler-phrases",
+              "no-markdown-headings",
+              "no-triad-density"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-curly-quotes",
+          "no-filler-phrases",
+          "no-markdown-headings",
+          "no-triad-density"
+        ]
+      },
+      {
         "file": "dev/evals/samples/human-sourced/21c-paris-review-mister-lytle.md",
         "pass_rate": "42/43",
         "failures_by_severity": {
@@ -6337,6 +7915,119 @@
         },
         "failed_checks": [
           "no-unicode-flair"
+        ]
+      },
+      {
+        "file": "dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md",
+        "pass_rate": "30/43",
+        "failures_by_severity": {
+          "strong_warning": 4,
+          "context_warning": 9
+        },
+        "depth_results": {
+          "balanced": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "no-manufactured-insight",
+              "no-negative-parallelisms",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "user_decision_needed": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "must_fix": [
+              "no-em-dashes",
+              "no-manufactured-insight",
+              "no-negative-parallelisms",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [
+              "overall-ai-signal-pressure",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density"
+            ],
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+          },
+          "all": {
+            "status": "fail",
+            "check_status": "fail",
+            "required_fixes": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "preservable_with_disclosure": [],
+            "user_decision_needed": [],
+            "must_fix": [
+              "no-em-dashes",
+              "overall-ai-signal-pressure",
+              "no-manufactured-insight",
+              "no-staccato-sequences",
+              "no-anaphora",
+              "no-curly-quotes",
+              "no-promotional-language",
+              "no-negative-parallelisms",
+              "no-forced-triads",
+              "no-markdown-headings",
+              "vocabulary-diversity",
+              "no-triad-density",
+              "no-section-scaffolding"
+            ],
+            "needs_user_decision": [],
+            "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+          }
+        },
+        "failed_checks": [
+          "no-em-dashes",
+          "overall-ai-signal-pressure",
+          "no-manufactured-insight",
+          "no-staccato-sequences",
+          "no-anaphora",
+          "no-curly-quotes",
+          "no-promotional-language",
+          "no-negative-parallelisms",
+          "no-forced-triads",
+          "no-markdown-headings",
+          "vocabulary-diversity",
+          "no-triad-density",
+          "no-section-scaffolding"
         ]
       },
       {
@@ -6528,125 +8219,125 @@
       ]
     },
     "generated_ai": {
-      "n": 28,
-      "avg_failed_checks": 5.71,
+      "n": 38,
+      "avg_failed_checks": 6.24,
       "min_failed_checks": 3,
-      "max_failed_checks": 11,
+      "max_failed_checks": 12,
       "severity_totals": {
-        "context_warning": 142,
+        "context_warning": 196,
         "hard_fail": 1,
-        "strong_warning": 17
+        "strong_warning": 40
       },
       "depth_check_status_counts": {
         "balanced": {
-          "fail": 28
+          "fail": 38
         },
         "all": {
-          "fail": 28
+          "fail": 38
         }
       },
       "depth_action_totals": {
         "balanced": {
-          "required_fixes": 18,
-          "preservable_with_disclosure": 142,
-          "user_decision_needed": 142
+          "required_fixes": 41,
+          "preservable_with_disclosure": 196,
+          "user_decision_needed": 196
         },
         "all": {
-          "required_fixes": 160,
+          "required_fixes": 237,
           "preservable_with_disclosure": 0,
           "user_decision_needed": 0
         }
       },
       "top_failed_checks": [
         [
-          "no-markdown-headings",
-          28
-        ],
-        [
           "no-triad-density",
-          28
+          36
         ],
         [
-          "overall-ai-signal-pressure",
-          18
+          "no-markdown-headings",
+          32
         ],
         [
           "no-anaphora",
-          15
+          22
+        ],
+        [
+          "overall-ai-signal-pressure",
+          22
+        ],
+        [
+          "no-curly-quotes",
+          19
+        ],
+        [
+          "no-staccato-sequences",
+          16
         ],
         [
           "paragraph-length-uniformity",
           15
         ],
         [
-          "no-staccato-sequences",
-          12
+          "no-negative-parallelisms",
+          13
         ],
         [
           "no-negation-density",
-          10
+          12
         ],
         [
-          "no-curly-quotes",
-          9
-        ],
-        [
-          "no-negative-parallelisms",
+          "no-em-dashes",
           9
         ],
         [
           "vocabulary-diversity",
-          3
+          5
         ],
         [
-          "no-filler-phrases",
-          2
+          "no-copula-avoidance",
+          4
         ],
         [
           "no-ghost-spectral-density",
-          2
+          4
+        ],
+        [
+          "no-promotional-language",
+          4
         ],
         [
           "no-manufactured-insight",
-          2
-        ],
-        [
-          "no-bland-critical-template",
-          1
-        ],
-        [
-          "no-collaborative-artifacts",
-          1
+          3
         ]
       ]
     },
     "human_sourced": {
-      "n": 47,
-      "avg_failed_checks": 5.32,
+      "n": 57,
+      "avg_failed_checks": 5.84,
       "min_failed_checks": 0,
-      "max_failed_checks": 10,
+      "max_failed_checks": 13,
       "severity_totals": {
-        "context_warning": 211,
-        "strong_warning": 39
+        "context_warning": 271,
+        "strong_warning": 62
       },
       "depth_check_status_counts": {
         "balanced": {
-          "fail": 46,
+          "fail": 56,
           "pass": 1
         },
         "all": {
-          "fail": 46,
+          "fail": 56,
           "pass": 1
         }
       },
       "depth_action_totals": {
         "balanced": {
-          "required_fixes": 39,
-          "preservable_with_disclosure": 211,
-          "user_decision_needed": 211
+          "required_fixes": 62,
+          "preservable_with_disclosure": 271,
+          "user_decision_needed": 271
         },
         "all": {
-          "required_fixes": 250,
+          "required_fixes": 333,
           "preservable_with_disclosure": 0,
           "user_decision_needed": 0
         }
@@ -6654,63 +8345,63 @@
       "top_failed_checks": [
         [
           "no-curly-quotes",
-          43
-        ],
-        [
-          "vocabulary-diversity",
-          39
+          50
         ],
         [
           "no-triad-density",
-          37
+          46
+        ],
+        [
+          "vocabulary-diversity",
+          46
         ],
         [
           "no-anaphora",
-          29
+          34
         ],
         [
           "no-staccato-sequences",
-          24
+          27
         ],
         [
           "no-negative-parallelisms",
-          15
+          20
         ],
         [
           "no-promotional-language",
-          11
+          14
         ],
         [
           "no-copula-avoidance",
-          9
+          12
         ],
         [
           "no-filler-phrases",
-          7
+          12
         ],
         [
-          "no-ghost-spectral-density",
-          7
+          "no-markdown-headings",
+          10
         ],
         [
           "no-rhetorical-questions",
-          7
+          9
+        ],
+        [
+          "no-ghost-spectral-density",
+          8
         ],
         [
           "no-forced-triads",
+          7
+        ],
+        [
+          "overall-ai-signal-pressure",
+          7
+        ],
+        [
+          "no-em-dashes",
           4
-        ],
-        [
-          "no-quietness-obsession",
-          4
-        ],
-        [
-          "no-superficial-ing",
-          3
-        ],
-        [
-          "no-ai-vocabulary-clustering",
-          2
         ]
       ]
     }
