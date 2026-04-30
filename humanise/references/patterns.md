@@ -1,6 +1,6 @@
 # AI writing patterns
 
-41 patterns plus three sub-letter variants (23a, 31a, 35a) to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Each entry also carries a **Detection** marker stating whether it is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
+48 patterns plus three sub-letter variants (23a, 31a, 35a) to detect and fix, plus one unnumbered meta-check (`overall-ai-signal-pressure`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
 
 ## Contents
 
@@ -8,10 +8,11 @@
 - [Language and grammar (7-12)](#language-and-grammar)
 - [Style (13-18)](#style)
 - [Communication (19-21)](#communication)
-- [Filler and hedging (22-25)](#filler-and-hedging)
+- [Filler and hedging (22-25, 47-48)](#filler-and-hedging)
 - [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
-- [Structural tells (29-32, 38)](#structural-tells)
-- [Voice and register (33-37, 39-41)](#voice-and-register)
+- [Structural tells (29-32, 38, 42, 44)](#structural-tells)
+- [Voice and register (33-37, 39-41, 43, 45-46)](#voice-and-register)
+- [Aggregate AI-signal pressure (meta-check)](#aggregate-ai-signal-pressure-meta-check)
 
 ---
 
@@ -545,6 +546,36 @@ This supplements the hard constraint on staccato fragments. Beyond the obvious s
 **After:**
 > The data pointed unambiguously in one direction: every metric was declining, and the trend had been consistent for three consecutive quarters.
 
+
+### 47. Soft scaffolding
+
+**Words to watch:** "One useful area...", "Another useful area...", "The main strength...", "The main risk...", "Good use usually comes down to...", "Comes down to giving/using/making...", "This can be helpful when...", "Especially useful when...", "In those cases,...", "With that distinction in mind,..."
+
+Bland transition phrases from generated explainers. They are not flashy, which is why they survive rewrites — they mark a generated explainer that is arranging information into bland labelled blocks instead of writing from a real line of thought. Distinct from #22 filler phrases (which are stock padding) and #34 tidy paragraph endings (which close paragraphs); soft scaffolding sits between sentences as a connective tissue tic.
+
+**Before:**
+> One useful area is structuring feedback. Another useful area is timing it well. The main strength of these approaches is consistency. Good use usually comes down to giving the receiver enough context.
+
+**After:**
+> Feedback works best when you can name the screen, the moment, and what surprised you. The reviewer who said "this dashboard is confusing" cost me half a day; the reviewer who said "the metric on the top-right is the one I read first and I can't tell what it's measuring" saved me a week.
+
+**Detection:** Programmatic check `no-soft-scaffolding` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion). The soft-scaffold phrase set is also referenced in pattern #7's preamble as part of AI vocabulary discussion, but it is enforced as its own check rather than folded into the vocabulary cluster.
+
+
+### 48. Dense negation
+
+**Words to watch:** clusters of "is not", "are not", "was not", "were not", "does not", "do not", "isn't", "aren't", "wasn't", "weren't", "doesn't", "don't", "not merely", "not simply", "not just" — across longer prose, not in a single sentence.
+
+Distinct from #9 (contrived contrast in a single sentence) and #33 (countdown negation across two or three consecutive sentences). This is sustained negation density across a piece: a draft that defines itself by what it isn't, paragraph after paragraph. The check activates only on prose of 300+ words to avoid penalising short polemics where dense negation is the deliberate rhetorical move.
+
+**Before:**
+> The model isn't trying to imitate writing. It isn't merely fitting a template. It isn't just generating tokens. It's not really thinking, but it's also not just predicting next word. The output isn't original, but it isn't copied either. The system isn't conscious, but it isn't a simple lookup either. None of this is what most people assume.
+
+**After:**
+> The model is doing pattern completion at very large scale, with no internal model of meaning. The output looks like writing because the training data is writing, not because the system understands anything. Treat the result as a draft, not a thought.
+
+**Detection:** Programmatic check `no-negation-density` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion). Triggers only on prose of 300+ words.
+
 ---
 
 ## Sensory and atmospheric
@@ -676,6 +707,38 @@ AI-generated articles with numbered sections often repeat the same structural la
 >
 > 3. Measure outcomes
 > We learned the hard way that vanity metrics kill momentum. Define what actually matters before you start tracking anything.
+
+
+### 42. Manufactured insight framing
+
+**Words to watch:** "what's really", "the real answer", "here's what's really", "the real story is", "what's actually happening", "contrary to popular belief", "the uncomfortable truth", "what nobody is talking about", "what no one seems to realise", "what most people miss", "what (no one|nobody) noticed", "before anyone noticed", "without anyone noticing", "let that sink in", "read that again", "if you know, you know", "and that changes everything", "the real insight/challenge/takeaway/kicker/question", "a quiet/powerful/important/profound lesson", "sometimes the bravest/hardest/most important", "this isn't X. it's Y.", "that's not X. that's Y."
+
+Performs revelation through phrasing — claims hidden depth or secret significance without doing the evidentiary work. Includes "the real X?" rhetorical questions, performed knowingness ("read that again", "let that sink in"), pseudo-profundity ("quietly revolutionary", "the quiet part"), formulaic depth framing ("here's the thing", "the reason is straightforward"), and contrived contrast that reveals an inflated abstract payload.
+
+**Before:**
+> Most people think project management is about tracking tasks. Here's the real insight: it's about managing attention. What nobody is talking about is that most projects fail because no one was watching the right thing. Let that sink in.
+
+**After:**
+> Most projects fail because the project manager loses track of which decisions are still open. The Q3 launch slipped because three blocking decisions sat on someone's desk for two weeks before anyone surfaced them.
+
+**Detection:** Programmatic check `no-manufactured-insight` (introduced before the 2026-04-08 file-move refactor at 618c723; **strong_warning**). Closely related to #9 contrived contrast — manufactured insight framing is the *content* of the false reveal; #9 is the *syntactic shape*. A piece can carry one without the other but they often co-occur.
+
+
+### 44. Signposted conclusions
+
+**Words to watch:** "In summary,", "In conclusion,", "To summarise,", "To summarize,", "To conclude,", "To sum up,", "To wrap up,", section headings "Conclusion", "Final thoughts", "Key takeaways", "Summing up".
+
+Explicit conclusion labels turn the ending into a generic summary. AI overuses them — both at sentence level ("In conclusion, …") and as standalone section headings. Human writers usually let the argument's last sentence carry the closing weight; explicit signposts often appear because the model has nothing left to say but still wants the piece to feel finished.
+
+**Tolerance note:** Academic abstracts, formal reports, instructional reference material, and structured policy briefs may legitimately use "Conclusion" or "Summary" headings as navigational signposts. The check fires on prose contexts where the signpost flattens the ending; preserve when the genre genuinely calls for one.
+
+**Before:**
+> In conclusion, the policy demonstrates the value of long-term thinking and the importance of stakeholder buy-in. Key takeaways include the need for clear communication and disciplined follow-through.
+
+**After:**
+> The policy succeeded because the council kept three commitments visible: weekly progress notes, named owners on every line item, and a public deadline. Each one was easy to abandon and the team didn't.
+
+**Detection:** Programmatic check `no-signposted-conclusions` (introduced before the 2026-04-08 file-move refactor at 618c723; **context_warning**).
 
 ---
 
@@ -810,3 +873,76 @@ These are not reliable enough for hard regex treatment yet, but they should be p
 - **Email/business:** watch for placeholders, over-warm openings, fake personalisation, and action lists dressed up with symbols.
 
 **Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) as a polymorphic genre slot — the agent first detects genre (academic, student essay, poetry, fiction, default), then runs the matching watchlist.
+
+
+### 43. Corporate AI-speak
+
+**Words to watch:** "delivering impact", "measurable outcomes", "deliverable outcomes", "scalable, production-grade", "pragmatic approach", "drives outcomes", "cross-functional", "end-to-end (development|delivery|solution)", "translate requirements into outcomes/deliverables/solutions", "stakeholder (alignment|engagement|management)", "actionable insights", "leverage (my|our|the) experience/expertise".
+
+Generic LinkedIn-AI corporate register. Hides specific work behind operational abstractions: "delivers", "drives", "leverages", "aligns". Often clusters in CVs, capability decks, vendor pitches, and "who we are" pages where the writer wants to sound credible without naming any actual project.
+
+**Before:**
+> Our cross-functional team leverages decades of expertise to deliver measurable outcomes through end-to-end execution and stakeholder alignment, driving actionable insights for our partners.
+
+**After:**
+> The team includes designers, engineers, and customer researchers. We worked with three local councils on their tax-collection workflows; the redesign cut average resolution time from 14 days to 6 over six months.
+
+**Detection:** Programmatic check `no-corporate-ai-speak` (introduced before the 2026-04-08 file-move refactor at 618c723; **strong_warning**).
+
+
+### 45. Nonliteral land/surface phrasing
+
+**Words to watch:** "the argument lands", "the idea lands", "your point lands", "where my draft landed", "lands with the reader/audience/team/stakeholders", "lands in the rubric/scale/category", "surfaces in the conversation/discussion/debate/work/writing", "what surfaces", "what surfaced".
+
+Treats abstract ideas as physical objects that land or surface. Often used to make ordinary feedback or analysis sound managed or packaged. Distinct from #30 generic metaphors (which is about reaching for plausible-but-unanchored figurative language) — this is a specific stock cliché shape: noun + lands / surfaces.
+
+**Before:**
+> The argument lands somewhere between cautious optimism and quiet despair. What surfaces in the discussion is a recognition that no clean answer exists.
+
+**After:**
+> The argument is cautious — the writer thinks the policy will work but is not willing to predict by how much. Three of the seven examples she cites support the optimistic reading; the other four are ambiguous.
+
+**Detection:** Programmatic check `no-nonliteral-land-surface` (added in 1422bad on 2026-04-27 during a hard-mode calibration pass; **strong_warning**).
+
+
+### 46. Bland critical template
+
+**Words to watch:** "the kind of contemporary novel/film/book/album/show/essay that", "doing several familiar things at once", "what makes it more than", "emotional range", "field of sympathy", "moral strengths", "earns (much of) its weight", "ambitious in an old-fashioned way", "social texture", "slow revelation of", "difficult to dismiss".
+
+Generated literary, film, or review criticism that sounds balanced but generic. Replaces concrete claims about scenes, sentences, performances, or formal choices with portable evaluative phrases. The hallmark is a sentence that could appear in a review of any contemporary novel/film without changing a word.
+
+**Before:**
+> Tóibín's novel is the kind of contemporary book that earns its weight through emotional range and slow revelation, doing several familiar things at once with a social texture that is difficult to dismiss.
+
+**After:**
+> The opening forty pages stay close to Henry's silences — when his mother asks why he won't write home from Rome, he changes the subject three times in two paragraphs. That refusal is the book's structural engine, not its theme.
+
+**Detection:** Programmatic check `no-bland-critical-template` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **strong_warning**). Closely related to #35 tonal uniformity in reviews and criticism — the tonal-uniformity entry mentions the same evaluative phrases ("emotional range", "field of sympathy", "moral strength") as a register signal; this check enforces them at phrase level.
+
+---
+
+## Aggregate AI-signal pressure (meta-check)
+
+The grader also runs one meta-check that does not correspond to a single AI tell.
+
+`overall-ai-signal-pressure` rolls up several weak/medium signals into a single pressure score. The component checks are:
+
+- manufactured insight framing (#42)
+- contrived contrast / negative parallelism (#9)
+- formulaic openers
+- soft scaffolding (#47)
+- section scaffolding (#38)
+- tidy paragraph endings (in #34)
+- paragraph length uniformity (in #34)
+- markdown headings in prose
+- excessive lists (#31)
+- assistant residue / collaborative artifacts (#19)
+- generic conclusions (#24)
+- bland critical template (#46)
+- false concession (#23a)
+
+Plus Kobak et al. excess-vocabulary evidence (style-annotated terms from the `kobak-excess-words.csv` reference file).
+
+The check fires when the weighted score crosses a threshold AND vocabulary pressure combines with structural signals. Per Kobak et al.'s corpus-level logic, vocabulary alone cannot decide authorship — the meta-check therefore requires both vocabulary and structural pressure before tripping. Individually, each component may be weak; their combination indicates a generated piece that has been polished enough to dodge any single regex.
+
+**Detection:** Programmatic meta-check `overall-ai-signal-pressure` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **context_warning**). Not numbered as a single AI tell; rolls up the components above. The check exposes its component breakdown and Kobak vocabulary profile in its evidence so the writer can read which signals contributed.

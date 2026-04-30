@@ -1039,6 +1039,27 @@ for _n in _GROUP_A:
         print(f"  ok: pattern #{_n} carries a Detection marker")
 
 
+# --- Group B resolution coverage (U2 meta-test) ---
+
+print("\n=== group-b-resolution-coverage ===")
+_GROUP_B_CHECKS = [
+    "no-manufactured-insight",
+    "no-corporate-ai-speak",
+    "no-signposted-conclusions",
+    "no-nonliteral-land-surface",
+    "no-bland-critical-template",
+    "no-soft-scaffolding",
+    "no-negation-density",
+    "overall-ai-signal-pressure",
+]
+for _check in _GROUP_B_CHECKS:
+    if f"`{_check}`" not in _patterns_md:
+        FAILURES += 1
+        print(f"FAIL: Group B check `{_check}` not referenced anywhere in patterns.md")
+    else:
+        print(f"  ok: Group B check `{_check}` documented in patterns.md")
+
+
 # --- severity and mode architecture ---
 
 print("\n=== severity-and-mode-architecture ===")
