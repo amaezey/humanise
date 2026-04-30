@@ -1060,6 +1060,56 @@ for _check in _GROUP_B_CHECKS:
         print(f"  ok: Group B check `{_check}` documented in patterns.md")
 
 
+# --- Severity propagation: patterns.md ↔ CHECK_METADATA (U3 meta-test) ---
+
+print("\n=== severity-propagation ===")
+
+# Parse every Severity line in patterns.md. Format options:
+#   **Severity:** <tier> · `check-id` [trailing prose]
+#   **Severity:** <tier> · `check-id` and <tier> · `check-id` ...   (composite patterns)
+#   **Severity:** inherits <tier> from `parent-check-id` ...        (folded patterns)
+#   **Severity:** N/A · ...                                          (manual / agent-judgement)
+#
+# Plus the unnumbered-checks table rows: | `check-id` | <tier> | ... |
+#
+# For each (tier, check-id) pair pulled from a programmatic-check Severity line,
+# assert it matches CHECK_METADATA[check-id]["severity"].
+
+_severity_pairs = []  # list of (tier, check_id, source_label)
+for _i, _line in enumerate(_patterns_md.splitlines(), 1):
+    if _line.startswith("**Severity:**"):
+        # Direct: "**Severity:** <tier> · `check-id`"
+        for _tier, _cid in _re_meta.findall(r"(hard_fail|strong_warning|context_warning)\s*·\s*`([\w-]+)`", _line):
+            _severity_pairs.append((_tier, _cid, f"line {_i}"))
+        # Inherits: "**Severity:** inherits <tier> from `parent`"
+        for _tier, _cid in _re_meta.findall(r"inherits\s+(hard_fail|strong_warning|context_warning)\s+from\s+`([\w-]+)`", _line):
+            _severity_pairs.append((_tier, _cid, f"line {_i} (inherited)"))
+# Table rows in the orphan-checks section: "| `check-id` | <tier> | ..."
+for _i, _line in enumerate(_patterns_md.splitlines(), 1):
+    _m = _re_meta.match(r"\|\s*`([\w-]+)`\s*\|\s*(hard_fail|strong_warning|context_warning)\s*\|", _line)
+    if _m:
+        _severity_pairs.append((_m.group(2), _m.group(1), f"line {_i} (orphan table)"))
+
+_seen_checks = set()
+for _tier, _cid, _src in _severity_pairs:
+    _seen_checks.add(_cid)
+    _expected = CHECK_METADATA.get(_cid, {}).get("severity")
+    if _expected is None:
+        FAILURES += 1
+        print(f"FAIL: patterns.md {_src} references unknown check `{_cid}`")
+    elif _expected != _tier:
+        FAILURES += 1
+        print(f"FAIL: patterns.md {_src} declares {_cid}={_tier} but CHECK_METADATA says {_expected}")
+
+# Every check in CHECK_METADATA must appear at least once in a Severity declaration.
+_missing = sorted(set(CHECK_METADATA) - _seen_checks)
+if _missing:
+    FAILURES += 1
+    print(f"FAIL: {len(_missing)} check(s) in CHECK_METADATA have no Severity declaration in patterns.md: {_missing}")
+else:
+    print(f"  ok: every check in CHECK_METADATA ({len(CHECK_METADATA)}) carries a Severity declaration in patterns.md")
+
+
 # --- severity and mode architecture ---
 
 print("\n=== severity-and-mode-architecture ===")
