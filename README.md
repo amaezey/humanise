@@ -15,7 +15,7 @@ We pulled what was credible from both, turned it into 43 programmatic checks acr
 Give it text and the skill can:
 
 1. **Audit** — list flagged patterns, quoting the input, with a one-line "why" for each.
-2. **Suggest** — for each flag, propose a concrete alternative phrasing.
+2. **Suggestions** — for each flag, propose a concrete alternative phrasing.
 3. **Rewrite** — Balanced (fix surface and strong tells, leave structural patterns) or All (also rework structural ones).
 4. **Write** — produce a fresh draft to a brief, with the patterns held in mind.
 5. **Save report** — write the audit or before/after comparison to Markdown.

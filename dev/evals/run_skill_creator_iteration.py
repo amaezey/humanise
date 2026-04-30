@@ -154,19 +154,19 @@ def run_claude(prompt: str, model: str | None) -> tuple[str, str, int]:
             usage = result_event.get("usage") or {}
             if isinstance(usage, list):
                 total_tokens = sum(
-                    int(entry.get("input_tokens", 0))
-                    + int(entry.get("output_tokens", 0))
-                    + int(entry.get("cache_creation_input_tokens", 0))
-                    + int(entry.get("cache_read_input_tokens", 0))
+                    int(entry.get("input_tokens") or 0)
+                    + int(entry.get("output_tokens") or 0)
+                    + int(entry.get("cache_creation_input_tokens") or 0)
+                    + int(entry.get("cache_read_input_tokens") or 0)
                     for entry in usage
                     if isinstance(entry, dict)
                 )
             elif isinstance(usage, dict):
                 total_tokens = int(
-                    usage.get("input_tokens", 0)
-                    + usage.get("output_tokens", 0)
-                    + usage.get("cache_creation_input_tokens", 0)
-                    + usage.get("cache_read_input_tokens", 0)
+                    (usage.get("input_tokens") or 0)
+                    + (usage.get("output_tokens") or 0)
+                    + (usage.get("cache_creation_input_tokens") or 0)
+                    + (usage.get("cache_read_input_tokens") or 0)
                 )
         except json.JSONDecodeError:
             pass
@@ -995,8 +995,6 @@ def run_iteration(
                 })
                 grade_run(item, run_dir)
                 print(f"failed {item['name']} / {config}: {exc}", flush=True)
-
-    grade_completed_runs(evals)
 
     aggregate = skill_creator_path / "scripts" / "aggregate_benchmark.py"
     py = python_for_skill_creator()

@@ -1,5 +1,7 @@
 # Humanise: skill refocus plan
 
+> **Superseded by [`dev/plans/2026-04-28-humanise-implementation.md`](2026-04-28-humanise-implementation.md).** This plan is the earlier exploratory pass; the implementation plan is the canonical record of executed and remaining work. Decisions in this file (3-mode depth dial, "Light" intensity, open identity placeholders) have been resolved or revised in the implementation plan — read that plan first.
+
 The current SKILL.md is patchwork. Iterative cleanup hasn't fixed the foundational confusion. This plan steps back to first principles, then proposes a clean structure.
 
 ---

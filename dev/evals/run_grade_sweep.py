@@ -51,7 +51,7 @@ def grade_file(grade, path: Path) -> dict:
 def summarise(items: list[dict]) -> dict:
     fail_counts = [len(item["failed_checks"]) for item in items]
     severity_totals: dict[str, int] = {}
-    mode_counts: dict[str, dict[str, int]] = {}
+    depth_check_status_counts: dict[str, dict[str, int]] = {}
     action_totals: dict[str, dict[str, int]] = {}
     check_hits: dict[str, int] = {}
 
@@ -62,7 +62,7 @@ def summarise(items: list[dict]) -> dict:
             check_hits[check] = check_hits.get(check, 0) + 1
         for depth, data in item["depth_results"].items():
             status = data["check_status"]
-            mode_counts.setdefault(depth, {})[status] = mode_counts.setdefault(depth, {}).get(status, 0) + 1
+            depth_check_status_counts.setdefault(depth, {})[status] = depth_check_status_counts.setdefault(depth, {}).get(status, 0) + 1
             action_totals.setdefault(
                 depth,
                 {"required_fixes": 0, "preservable_with_disclosure": 0, "user_decision_needed": 0},
@@ -77,7 +77,7 @@ def summarise(items: list[dict]) -> dict:
         "min_failed_checks": min(fail_counts) if fail_counts else 0,
         "max_failed_checks": max(fail_counts) if fail_counts else 0,
         "severity_totals": dict(sorted(severity_totals.items())),
-        "depth_check_status_counts": mode_counts,
+        "depth_check_status_counts": depth_check_status_counts,
         "depth_action_totals": action_totals,
         "top_failed_checks": sorted(check_hits.items(), key=lambda item: (-item[1], item[0]))[:15],
     }
