@@ -327,6 +327,15 @@ def grade_one_assertion(name: str, output: str, input_text: str, generated: str)
     if name == "each-suggestion-has-replacement":
         result = GRADE.check_audit_shape("every-suggestion-block-has-replacement", output, input_text)
         return result["passed"], result["evidence"]
+    if name == "has-programmatic-block":
+        result = GRADE.check_audit_shape("audit-shape-has-programmatic-block", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "has-agent-judgement-block":
+        result = GRADE.check_audit_shape("audit-shape-has-agent-judgement-block", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "all-clear-line-format":
+        result = GRADE.check_audit_shape("audit-shape-all-clear-line-format", output, input_text)
+        return result["passed"], result["evidence"]
     if name == "rewrite-produced":
         input_words = len(re.findall(r"\b\w+\b", input_text))
         gen_words = len(re.findall(r"\b\w+\b", generated))

@@ -2736,8 +2736,18 @@ AUDIT_HEADER_RE = re.compile(r"^\*\*Audit[,]?[^*]*\*\*\s*$", re.MULTILINE)
 REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
 DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
+AGENT_JUDGEMENT_HEADER_RE = re.compile(r"^\*\*Agent[- ]judgement reading[^*]*\*\*\s*$", re.MULTILINE)
 SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
 QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
+
+# Phase 1 all-clear shape (per humanise/SKILL.md after U4): a single line
+# stating both blocks came back clean. Phase 3 (U11/U12) will replace this
+# with the canonical "X of X clear · agent reading clean · pressure: clear"
+# shape; for U5 we match the Phase-1 form.
+ALL_CLEAR_LINE_RE = re.compile(
+    r"audit clean[:.]?\s+no\s+ai\s+tells?\s+detected,?\s+agent\s+reading\s+clean",
+    re.IGNORECASE,
+)
 
 
 def _section_text(output_text, header_re):
@@ -2881,6 +2891,49 @@ def check_every_suggestion_block_has_replacement(output_text, input_text=None):
     return {"text": name, "passed": True, "evidence": f"all {len(blocks)} suggestion block(s) include 'Try'"}
 
 
+def check_audit_shape_has_programmatic_block(output_text, input_text=None):
+    """An Audit response must carry the programmatic block (`**Audit, ...**`)
+    or be in the all-clear single-line shape."""
+    name = "audit-shape-has-programmatic-block"
+    if AUDIT_HEADER_RE.search(output_text):
+        return {"text": name, "passed": True, "evidence": "**Audit** header present"}
+    if ALL_CLEAR_LINE_RE.search(output_text):
+        return {"text": name, "passed": True, "evidence": "all-clear single-line shape (programmatic block implicit)"}
+    return {"text": name, "passed": False, "evidence": "no **Audit** header and no all-clear line"}
+
+
+def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
+    """An Audit response must carry the agent-judgement block
+    (`**Agent-judgement reading...**`) or be in the all-clear single-line shape.
+
+    Phase 1 (U4) introduced the block; Phase 3 (U12) will redesign it but
+    keep the header recognisable. This check holds across both phases."""
+    name = "audit-shape-has-agent-judgement-block"
+    if AGENT_JUDGEMENT_HEADER_RE.search(output_text):
+        return {"text": name, "passed": True, "evidence": "**Agent-judgement reading** header present"}
+    if ALL_CLEAR_LINE_RE.search(output_text):
+        return {"text": name, "passed": True, "evidence": "all-clear single-line shape (agent-judgement block implicit)"}
+    return {"text": name, "passed": False, "evidence": "no **Agent-judgement reading** header and no all-clear line"}
+
+
+def check_audit_shape_all_clear_line_format(output_text, input_text=None):
+    """When neither block is present in the output, the response is expected
+    to be the all-clear single-line shape: `Audit clean: no AI tells detected,
+    agent reading clean.` followed by the next-step question.
+
+    On non-all-clear outputs (where the bold headers are present), the check
+    vacuously passes — the all-clear shape only applies to all-clear runs.
+    """
+    name = "audit-shape-all-clear-line-format"
+    has_programmatic = bool(AUDIT_HEADER_RE.search(output_text))
+    has_agent_judgement = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
+    if has_programmatic or has_agent_judgement:
+        return {"text": name, "passed": True, "evidence": "non-all-clear output (vacuously passes)"}
+    if ALL_CLEAR_LINE_RE.search(output_text):
+        return {"text": name, "passed": True, "evidence": "all-clear single-line shape matches Phase-1 canonical form"}
+    return {"text": name, "passed": False, "evidence": "all-clear shape expected but neither block headers nor canonical line found"}
+
+
 AUDIT_SHAPE_CHECKS = {
     "audit-shape-block-precedes-rewrite-block": check_audit_shape_block_precedes_rewrite_block,
     "every-flag-block-contains-input-substring": check_every_flag_block_contains_input_substring,
@@ -2889,6 +2942,9 @@ AUDIT_SHAPE_CHECKS = {
     "no-large-prose-block-not-in-input": check_no_large_prose_block_not_in_input,
     "suggestion-block-count-equals-flag-count": check_suggestion_block_count_equals_flag_count,
     "every-suggestion-block-has-replacement": check_every_suggestion_block_has_replacement,
+    "audit-shape-has-programmatic-block": check_audit_shape_has_programmatic_block,
+    "audit-shape-has-agent-judgement-block": check_audit_shape_has_agent_judgement_block,
+    "audit-shape-all-clear-line-format": check_audit_shape_all_clear_line_format,
 }
 
 

@@ -1515,6 +1515,164 @@ expect_depth_status(_hard_only, "balanced", "fail", "hard failure")
 expect_depth_status(_hard_only, "all", "fail", "hard failure")
 
 
+# --- Audit-shape: U5 dual-block assertions ---
+
+print("\n=== audit-shape U5 (dual-block assertions) ===")
+check_audit_shape = _grade.check_audit_shape
+
+_BOTH_BLOCKS = """**Audit, 2 AI tells found**
+
+no-em-dashes (1 instance)
+  - "still—keen"
+  Why: Em dashes are a strong 2026 AI-style signal.
+
+**Confidence**
+
+Level: medium.
+
+---
+
+**Agent-judgement reading (8 items)**
+
+structural_monotony — clear
+  varied — sections shift arc.
+
+tonal_uniformity — clear
+  has_breaks — register breaks at paragraph 3.
+
+faux_specificity — clear
+  No phrases.
+
+neutrality_collapse — clear
+  committed — author defends a specific position.
+
+even_jargon_distribution — clear
+  clumped — jargon concentrated in section 2.
+
+forced_synesthesia — clear
+  No phrases.
+
+generic_metaphors — clear
+  No metaphors.
+
+genre_specific — clear
+  Genre detected: default. No genre-specific findings.
+
+**Next step**
+
+Want suggestions, a rewrite, or to save?"""
+
+_PROGRAMMATIC_ONLY = """**Audit, 1 AI tell found**
+
+no-em-dashes (1 instance)
+  - "still—keen"
+  Why: Em dashes are a strong 2026 AI-style signal.
+
+**Next step**
+
+Want suggestions?"""
+
+_AGENT_JUDGEMENT_ONLY = """---
+
+**Agent-judgement reading (8 items)**
+
+structural_monotony — flagged
+  fully_locked.
+
+**Next step**
+
+Want suggestions?"""
+
+_ALL_CLEAR_PHASE_1 = """Audit clean: no AI tells detected, agent reading clean. Want me to look at a specific aspect of the draft more closely?"""
+
+_NEITHER_BLOCK_NOR_CLEAR = """**Some other report**
+
+Nothing recognisable here.
+
+Want help?"""
+
+# has-programmatic-block
+_r = check_audit_shape("audit-shape-has-programmatic-block", _BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: has-programmatic-block passes on dual-block output")
+else:
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on dual-block: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _PROGRAMMATIC_ONLY)
+if _r["passed"]:
+    print("  ok: has-programmatic-block passes on programmatic-only output")
+else:
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on programmatic-only: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _AGENT_JUDGEMENT_ONLY)
+if not _r["passed"]:
+    print("  ok: has-programmatic-block fails on agent-judgement-only output")
+else:
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail on agent-judgement-only output")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _ALL_CLEAR_PHASE_1)
+if _r["passed"]:
+    print("  ok: has-programmatic-block passes on all-clear single-line shape")
+else:
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on all-clear: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _NEITHER_BLOCK_NOR_CLEAR)
+if not _r["passed"]:
+    print("  ok: has-programmatic-block fails when no block and no all-clear line")
+else:
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail when no block and no all-clear line")
+
+# has-agent-judgement-block
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: has-agent-judgement-block passes on dual-block output")
+else:
+    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on dual-block: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _PROGRAMMATIC_ONLY)
+if not _r["passed"]:
+    print("  ok: has-agent-judgement-block fails on programmatic-only output")
+else:
+    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail on programmatic-only output")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _AGENT_JUDGEMENT_ONLY)
+if _r["passed"]:
+    print("  ok: has-agent-judgement-block passes on agent-judgement-only output")
+else:
+    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on agent-judgement-only: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _ALL_CLEAR_PHASE_1)
+if _r["passed"]:
+    print("  ok: has-agent-judgement-block passes on all-clear single-line shape")
+else:
+    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on all-clear: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _NEITHER_BLOCK_NOR_CLEAR)
+if not _r["passed"]:
+    print("  ok: has-agent-judgement-block fails when no block and no all-clear line")
+else:
+    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail when no block and no all-clear line")
+
+# all-clear-line-format
+_r = check_audit_shape("audit-shape-all-clear-line-format", _BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: all-clear-line-format vacuously passes on dual-block output")
+else:
+    FAILURES += 1; print(f"FAIL: all-clear-line-format on dual-block: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-all-clear-line-format", _ALL_CLEAR_PHASE_1)
+if _r["passed"]:
+    print("  ok: all-clear-line-format passes on canonical Phase-1 all-clear shape")
+else:
+    FAILURES += 1; print(f"FAIL: all-clear-line-format on canonical all-clear: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-all-clear-line-format", _NEITHER_BLOCK_NOR_CLEAR)
+if not _r["passed"]:
+    print("  ok: all-clear-line-format fails when neither blocks nor canonical line")
+else:
+    FAILURES += 1; print("FAIL: all-clear-line-format should fail when neither blocks nor canonical line")
+
+
 # --- Human passthrough: opinion piece ---
 print("\n=== human-opinion-passthrough ===")
 opinion_text = Path(__file__).parent.joinpath("samples/10-human-opinion.md").read_text()
