@@ -1,0 +1,639 @@
+{
+  "iteration": "iteration-3",
+  "timestamp": "2026-04-29T12:55:01Z",
+  "overall_mean_pass_rate": 0.9378222222222222,
+  "per_eval": [
+    {
+      "id": 0,
+      "name": "audit-ai-cultural",
+      "pass_rate": 0.8333,
+      "runs": 1
+    },
+    {
+      "id": 1,
+      "name": "audit-human-reflective-essay",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 2,
+      "name": "audit-human-literary",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 3,
+      "name": "suggestions-ai-wellbeing",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 4,
+      "name": "rewrite-balanced-tech",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 5,
+      "name": "rewrite-balanced-personal",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 6,
+      "name": "rewrite-all-science",
+      "pass_rate": 0.7143,
+      "runs": 1
+    },
+    {
+      "id": 7,
+      "name": "write-balanced-brief",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 8,
+      "name": "audit-human-image-first-men-original-sins",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 9,
+      "name": "audit-human-opencoop-belonging-superpower",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 10,
+      "name": "audit-human-fortelabs-servant-hedonism",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 11,
+      "name": "audit-human-critchlow-workshops",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 12,
+      "name": "audit-human-tuckermax-mdma-therapy",
+      "pass_rate": 0.8333,
+      "runs": 1
+    },
+    {
+      "id": 13,
+      "name": "audit-ai-fresh-belonging-superpower",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 14,
+      "name": "audit-ai-fresh-workshops-as-portals",
+      "pass_rate": 1.0,
+      "runs": 1
+    },
+    {
+      "id": 15,
+      "name": "audit-ai-fresh-mdma-therapy",
+      "pass_rate": 0.8333,
+      "runs": 1
+    },
+    {
+      "id": 16,
+      "name": "audit-ai-fresh-servant-hedonism",
+      "pass_rate": 0.8333,
+      "runs": 1
+    },
+    {
+      "id": 17,
+      "name": "audit-ai-fresh-first-men-original-sins",
+      "pass_rate": 0.8333,
+      "runs": 1
+    }
+  ],
+  "corpus_baseline": {
+    "groups": {
+      "human": [
+        {
+          "type": "human",
+          "eval_id": null,
+          "eval_name": "21c-image-first-men-original-sins",
+          "input_file": "dev/evals/samples/human-sourced/21c-image-first-men-original-sins.md",
+          "total_flags": 7,
+          "severity_counts": {
+            "strong_warning": 2,
+            "context_warning": 5
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 4047,
+            "sentence_count": 158,
+            "sentence_len_mean": 25.61392405063291,
+            "sentence_len_stdev": 18.56773610309547,
+            "paragraph_count": 46,
+            "paragraph_len_mean": 87.97826086956522,
+            "paragraph_len_stdev": 63.850690113884625,
+            "type_token_ratio": 0.3634791203360514,
+            "em_dashes": 20,
+            "curly_quotes": 147
+          }
+        },
+        {
+          "type": "human",
+          "eval_id": null,
+          "eval_name": "21c-opencoop-belonging-superpower",
+          "input_file": "dev/evals/samples/human-sourced/21c-opencoop-belonging-superpower.md",
+          "total_flags": 4,
+          "severity_counts": {
+            "context_warning": 3,
+            "strong_warning": 1
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 1154,
+            "sentence_count": 41,
+            "sentence_len_mean": 28.146341463414632,
+            "sentence_len_stdev": 13.303309692722628,
+            "paragraph_count": 19,
+            "paragraph_len_mean": 60.73684210526316,
+            "paragraph_len_stdev": 37.10172518490086,
+            "type_token_ratio": 0.44540727902946275,
+            "em_dashes": 0,
+            "curly_quotes": 42
+          }
+        },
+        {
+          "type": "human",
+          "eval_id": null,
+          "eval_name": "21c-fortelabs-servant-hedonism",
+          "input_file": "dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md",
+          "total_flags": 7,
+          "severity_counts": {
+            "context_warning": 6,
+            "strong_warning": 1
+          },
+          "ai_pressure_triggered": true,
+          "body_stats": {
+            "word_count": 1290,
+            "sentence_count": 77,
+            "sentence_len_mean": 16.753246753246753,
+            "sentence_len_stdev": 9.935523513020609,
+            "paragraph_count": 37,
+            "paragraph_len_mean": 34.86486486486486,
+            "paragraph_len_stdev": 21.146528690914632,
+            "type_token_ratio": 0.3813953488372093,
+            "em_dashes": 0,
+            "curly_quotes": 38
+          }
+        },
+        {
+          "type": "human",
+          "eval_id": null,
+          "eval_name": "21c-critchlow-workshops",
+          "input_file": "dev/evals/samples/human-sourced/21c-critchlow-workshops.md",
+          "total_flags": 9,
+          "severity_counts": {
+            "context_warning": 8,
+            "strong_warning": 1
+          },
+          "ai_pressure_triggered": true,
+          "body_stats": {
+            "word_count": 2771,
+            "sentence_count": 111,
+            "sentence_len_mean": 24.963963963963963,
+            "sentence_len_stdev": 21.655957789497737,
+            "paragraph_count": 93,
+            "paragraph_len_mean": 29.795698924731184,
+            "paragraph_len_stdev": 47.395550868929014,
+            "type_token_ratio": 0.2796824251172862,
+            "em_dashes": 0,
+            "curly_quotes": 0
+          }
+        },
+        {
+          "type": "human",
+          "eval_id": null,
+          "eval_name": "21c-tuckermax-mdma-therapy",
+          "input_file": "dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md",
+          "total_flags": 13,
+          "severity_counts": {
+            "strong_warning": 4,
+            "context_warning": 9
+          },
+          "ai_pressure_triggered": true,
+          "body_stats": {
+            "word_count": 8576,
+            "sentence_count": 407,
+            "sentence_len_mean": 21.07125307125307,
+            "sentence_len_stdev": 21.79375637421992,
+            "paragraph_count": 389,
+            "paragraph_len_mean": 22.046272493573266,
+            "paragraph_len_stdev": 17.18465263913175,
+            "type_token_ratio": 0.17269123134328357,
+            "em_dashes": 55,
+            "curly_quotes": 301
+          }
+        }
+      ],
+      "ai_fresh": [
+        {
+          "type": "ai_fresh",
+          "eval_id": null,
+          "eval_name": "21c-ai-belonging-superpower",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-belonging-superpower.md",
+          "total_flags": 7,
+          "severity_counts": {
+            "strong_warning": 2,
+            "context_warning": 5
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 1236,
+            "sentence_count": 111,
+            "sentence_len_mean": 11.135135135135135,
+            "sentence_len_stdev": 6.663996189137957,
+            "paragraph_count": 60,
+            "paragraph_len_mean": 20.6,
+            "paragraph_len_stdev": 18.44478705465383,
+            "type_token_ratio": 0.4401294498381877,
+            "em_dashes": 13,
+            "curly_quotes": 57
+          }
+        },
+        {
+          "type": "ai_fresh",
+          "eval_id": null,
+          "eval_name": "21c-ai-workshops-as-portals",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-workshops-as-portals.md",
+          "total_flags": 7,
+          "severity_counts": {
+            "strong_warning": 1,
+            "context_warning": 6
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 3672,
+            "sentence_count": 338,
+            "sentence_len_mean": 10.863905325443787,
+            "sentence_len_stdev": 6.680886338648628,
+            "paragraph_count": 136,
+            "paragraph_len_mean": 27,
+            "paragraph_len_stdev": 22.044399641531534,
+            "type_token_ratio": 0.2529956427015251,
+            "em_dashes": 0,
+            "curly_quotes": 64
+          }
+        },
+        {
+          "type": "ai_fresh",
+          "eval_id": null,
+          "eval_name": "21c-ai-mdma-therapy",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-mdma-therapy.md",
+          "total_flags": 9,
+          "severity_counts": {
+            "strong_warning": 2,
+            "context_warning": 7
+          },
+          "ai_pressure_triggered": true,
+          "body_stats": {
+            "word_count": 879,
+            "sentence_count": 58,
+            "sentence_len_mean": 15.155172413793103,
+            "sentence_len_stdev": 7.07057585718505,
+            "paragraph_count": 26,
+            "paragraph_len_mean": 33.80769230769231,
+            "paragraph_len_stdev": 22.57967091127633,
+            "type_token_ratio": 0.5551763367463026,
+            "em_dashes": 14,
+            "curly_quotes": 34
+          }
+        },
+        {
+          "type": "ai_fresh",
+          "eval_id": null,
+          "eval_name": "21c-ai-servant-hedonism",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-servant-hedonism.md",
+          "total_flags": 7,
+          "severity_counts": {
+            "strong_warning": 1,
+            "context_warning": 6
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 1385,
+            "sentence_count": 121,
+            "sentence_len_mean": 11.446280991735538,
+            "sentence_len_stdev": 7.343875467833883,
+            "paragraph_count": 44,
+            "paragraph_len_mean": 31.477272727272727,
+            "paragraph_len_stdev": 20.38066643861357,
+            "type_token_ratio": 0.40794223826714804,
+            "em_dashes": 8,
+            "curly_quotes": 72
+          }
+        },
+        {
+          "type": "ai_fresh",
+          "eval_id": null,
+          "eval_name": "21c-ai-first-men-original-sins",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-first-men-original-sins.md",
+          "total_flags": 12,
+          "severity_counts": {
+            "strong_warning": 4,
+            "context_warning": 8
+          },
+          "ai_pressure_triggered": true,
+          "body_stats": {
+            "word_count": 2075,
+            "sentence_count": 119,
+            "sentence_len_mean": 17.436974789915965,
+            "sentence_len_stdev": 8.774615405606575,
+            "paragraph_count": 46,
+            "paragraph_len_mean": 45.108695652173914,
+            "paragraph_len_stdev": 32.40454581338829,
+            "type_token_ratio": 0.35518072289156627,
+            "em_dashes": 24,
+            "curly_quotes": 15
+          }
+        }
+      ],
+      "ai_rewrite": [
+        {
+          "type": "ai_rewrite",
+          "eval_id": null,
+          "eval_name": "21c-ai-rewrite-belonging-superpower",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-rewrite-belonging-superpower.md",
+          "total_flags": 3,
+          "severity_counts": {
+            "strong_warning": 1,
+            "context_warning": 2
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 1091,
+            "sentence_count": 59,
+            "sentence_len_mean": 18.491525423728813,
+            "sentence_len_stdev": 7.740116904926482,
+            "paragraph_count": 17,
+            "paragraph_len_mean": 64.17647058823529,
+            "paragraph_len_stdev": 30.3793418586497,
+            "type_token_ratio": 0.5032080659945004,
+            "em_dashes": 13,
+            "curly_quotes": 62
+          }
+        },
+        {
+          "type": "ai_rewrite",
+          "eval_id": null,
+          "eval_name": "21c-ai-rewrite-workshops-as-portals",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-rewrite-workshops-as-portals.md",
+          "total_flags": 6,
+          "severity_counts": {
+            "strong_warning": 1,
+            "context_warning": 5
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 1277,
+            "sentence_count": 113,
+            "sentence_len_mean": 11.300884955752212,
+            "sentence_len_stdev": 7.590977910548308,
+            "paragraph_count": 83,
+            "paragraph_len_mean": 15.385542168674698,
+            "paragraph_len_stdev": 17.37241388039488,
+            "type_token_ratio": 0.4635865309318716,
+            "em_dashes": 12,
+            "curly_quotes": 26
+          }
+        },
+        {
+          "type": "ai_rewrite",
+          "eval_id": null,
+          "eval_name": "21c-ai-rewrite-mdma-therapy",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-rewrite-mdma-therapy.md",
+          "total_flags": 8,
+          "severity_counts": {
+            "strong_warning": 3,
+            "context_warning": 5
+          },
+          "ai_pressure_triggered": false,
+          "body_stats": {
+            "word_count": 984,
+            "sentence_count": 66,
+            "sentence_len_mean": 14.909090909090908,
+            "sentence_len_stdev": 8.752542088273156,
+            "paragraph_count": 48,
+            "paragraph_len_mean": 20.5,
+            "paragraph_len_stdev": 15.427248620541512,
+            "type_token_ratio": 0.540650406504065,
+            "em_dashes": 9,
+            "curly_quotes": 20
+          }
+        },
+        {
+          "type": "ai_rewrite",
+          "eval_id": null,
+          "eval_name": "21c-ai-rewrite-servant-hedonism",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-rewrite-servant-hedonism.md",
+          "total_flags": 9,
+          "severity_counts": {
+            "strong_warning": 4,
+            "context_warning": 5
+          },
+          "ai_pressure_triggered": true,
+          "body_stats": {
+            "word_count": 892,
+            "sentence_count": 79,
+            "sentence_len_mean": 11.291139240506329,
+            "sentence_len_stdev": 6.7523061563499525,
+            "paragraph_count": 35,
+            "paragraph_len_mean": 25.485714285714284,
+            "paragraph_len_stdev": 14.306254141564283,
+            "type_token_ratio": 0.5,
+            "em_dashes": 4,
+            "curly_quotes": 17
+          }
+        },
+        {
+          "type": "ai_rewrite",
+          "eval_id": null,
+          "eval_name": "21c-ai-rewrite-first-men-original-sins",
+          "input_file": "dev/evals/samples/generated-ai/21c-ai-rewrite-first-men-original-sins.md",
+          "total_flags": 9,
+          "severity_counts": {
+            "strong_warning": 4,
+            "context_warning": 5
+          },
+          "ai_pressure_triggered": true,
+          "body_stats": {
+            "word_count": 1385,
+            "sentence_count": 99,
+            "sentence_len_mean": 13.98989898989899,
+            "sentence_len_stdev": 6.5566525641393945,
+            "paragraph_count": 29,
+            "paragraph_len_mean": 47.758620689655174,
+            "paragraph_len_stdev": 29.579982580423,
+            "type_token_ratio": 0.5032490974729242,
+            "em_dashes": 18,
+            "curly_quotes": 24
+          }
+        }
+      ]
+    },
+    "group_means": {
+      "human": {
+        "n": 5,
+        "total": 8.0,
+        "strong": 1.8,
+        "context": 6.2,
+        "sentence_len_mean": 23.309745860502268,
+        "sentence_len_stdev": 17.051256694511274,
+        "paragraph_len_stdev": 37.335829499552176,
+        "type_token_ratio": 0.32853108093265865,
+        "word_count": 3567.6
+      },
+      "ai_fresh": {
+        "n": 5,
+        "total": 8.4,
+        "strong": 2.0,
+        "context": 6.4,
+        "sentence_len_mean": 13.207493731204703,
+        "sentence_len_stdev": 7.306789851682419,
+        "paragraph_len_stdev": 23.17081397189271,
+        "type_token_ratio": 0.402284878088946,
+        "word_count": 1849.4
+      },
+      "ai_rewrite": {
+        "n": 5,
+        "total": 7.0,
+        "strong": 2.6,
+        "context": 4.4,
+        "sentence_len_mean": 13.99650790379545,
+        "sentence_len_stdev": 7.478519124847457,
+        "paragraph_len_stdev": 21.413048216314678,
+        "type_token_ratio": 0.5021388201806722,
+        "word_count": 1125.8
+      }
+    },
+    "pairwise_gaps": {
+      "ai_fresh": {
+        "total_pct": "+5%",
+        "strong_pct": "+11%",
+        "context_pct": "+3%"
+      },
+      "ai_rewrite": {
+        "total_pct": "-12%",
+        "strong_pct": "+44%",
+        "context_pct": "-29%"
+      }
+    }
+  },
+  "audit_fidelity": [
+    {
+      "eval_id": 0,
+      "eval_name": "audit-ai-cultural",
+      "type": "ai",
+      "grader_count": 10,
+      "audit_count": 10,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "audit-human-reflective-essay",
+      "type": "human",
+      "grader_count": 6,
+      "audit_count": 6,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "audit-human-literary",
+      "type": "human",
+      "grader_count": 7,
+      "audit_count": 7,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 8,
+      "eval_name": "audit-human-image-first-men-original-sins",
+      "type": "human",
+      "grader_count": 7,
+      "audit_count": 6,
+      "fidelity_pct": "86%"
+    },
+    {
+      "eval_id": 9,
+      "eval_name": "audit-human-opencoop-belonging-superpower",
+      "type": "human",
+      "grader_count": 4,
+      "audit_count": 4,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 10,
+      "eval_name": "audit-human-fortelabs-servant-hedonism",
+      "type": "human",
+      "grader_count": 7,
+      "audit_count": 7,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 11,
+      "eval_name": "audit-human-critchlow-workshops",
+      "type": "human",
+      "grader_count": 9,
+      "audit_count": 9,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 12,
+      "eval_name": "audit-human-tuckermax-mdma-therapy",
+      "type": "human",
+      "grader_count": 13,
+      "audit_count": 13,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 13,
+      "eval_name": "audit-ai-fresh-belonging-superpower",
+      "type": "ai_fresh",
+      "grader_count": 7,
+      "audit_count": 7,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 14,
+      "eval_name": "audit-ai-fresh-workshops-as-portals",
+      "type": "ai_fresh",
+      "grader_count": 7,
+      "audit_count": 7,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 15,
+      "eval_name": "audit-ai-fresh-mdma-therapy",
+      "type": "ai_fresh",
+      "grader_count": 9,
+      "audit_count": 9,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 16,
+      "eval_name": "audit-ai-fresh-servant-hedonism",
+      "type": "ai_fresh",
+      "grader_count": 7,
+      "audit_count": 7,
+      "fidelity_pct": "100%"
+    },
+    {
+      "eval_id": 17,
+      "eval_name": "audit-ai-fresh-first-men-original-sins",
+      "type": "ai_fresh",
+      "grader_count": 12,
+      "audit_count": 11,
+      "fidelity_pct": "92%"
+    }
+  ],
+  "regression": []
+}

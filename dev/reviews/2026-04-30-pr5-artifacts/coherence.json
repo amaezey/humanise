@@ -1,0 +1,208 @@
+{
+  "reviewer": "Coherence",
+  "session_context": {
+    "pr_title": "Genre-paired comparative-report harness + matched-pair corpus",
+    "pr_url": "https://github.com/amaezey/humanise/pull/5",
+    "scope": [
+      "brainstorms/2026-04-28-humanise-refocus-requirements.md",
+      "plans/2026-04-28-humanise-implementation.md",
+      "plans/2026-04-28-humanise-refocus.md",
+      "research/2026-04-29-genre-paired-corpus-findings.md",
+      "research/2026-04-29-readme-research-section-intent.md",
+      "README.md",
+      "dev/TESTING.md",
+      "evals/genre-paired-personal-essay-prompts.md"
+    ]
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "pattern": "Terminology drift",
+      "severity": "medium",
+      "confidence": 100,
+      "file": "README.md",
+      "line": "17-20",
+      "title": "Action naming inconsistency: 'Suggest' vs 'Suggestions'",
+      "description": "README.md line 18 lists the action as 'Suggest' (a verb), but the brainstorm, implementation plan, and SKILL.md consistently refer to it as 'Suggestions' (a noun, matching Audit/Rewrite/Write). This creates ambiguity about the canonical action name — the skill's own documentation must call it the same thing everywhere.",
+      "quote_from_doc": "README.md L18: '2. **Suggest** — for each flag, propose a concrete alternative phrasing.'",
+      "inconsistent_with": "brainstorms/2026-04-28-humanise-refocus-requirements.md R7, R8; implementation plan section 'Done' and 'Remaining work'; SKILL.md (per implementation plan status).",
+      "impact": "Implementation ambiguity. If the action is 'Suggest' in the README but 'Suggestions' in SKILL.md, the skill's own trigger logic and agent instructions will contradict the README.",
+      "recommendation": "Normalize README.md line 18 from 'Suggest' to 'Suggestions' to match the authoritative model in the brainstorm and implementation plan.",
+      "why_it_matters": "The three other actions are nouns (Audit, Rewrite, Write). 'Suggest' stands out as a verb. Consistency within a user-facing list is load-bearing for discoverability."
+    },
+    {
+      "id": "F2",
+      "pattern": "Cross-document conflict: Depth dial definition",
+      "severity": "high",
+      "confidence": 100,
+      "file": "brainstorms/2026-04-28-humanise-refocus-requirements.md",
+      "line": "94-99",
+      "title": "Depth dial changed from 3-point to 2-point between brainstorm and implementation",
+      "description": "The brainstorm (R17) defines the depth dial with 3 settings: Obvious, Balanced, All. The implementation plan (Status as of 2026-04-29, Decisions made) states the dial was 'collapsed to 2' on 2026-04-29 — dropping Obvious — because 'Obvious and Balanced compiled to identical grader behaviour.' The README and other docs have adopted the 2-point dial. The brainstorm still describes a 3-point dial in its requirements section, creating a contradiction for anyone reading the brainstorm as a source of truth.",
+      "quote_from_doc": "brainstorms R17: 'The dial has 3 settings: **Obvious** — only address blatant, surface-level AI tells. **Balanced** — address obvious tells plus the strong ones a careful reader would notice. **All** — address every detected pattern...'",
+      "inconsistent_with": "implementation plan line 35: 'Depth-setting names are ~~Obvious / Balanced / All~~ **Balanced / All** (2026-04-29 amendment).' README.md usage shows only Balanced/All.",
+      "impact": "High. The brainstorm is a protected artifact (per the instructions); it should not be edited. However, anyone reading it without reading the implementation plan will believe the dial is 3-point. This is a real source of confusion for future maintainers, as per the success criteria in the implementation plan that reference the brainstorm as the source of truth.",
+      "recommendation": "Add a prominent note at the top of the brainstorm document (in a new section like 'Status Update') stating: 'NOTE (2026-04-29): The depth dial was simplified to 2-point (Balanced / All) during implementation. See dev/plans/2026-04-28-humanise-implementation.md for details.' This is a 2-line addition and preserves the original document while preventing confusion.",
+      "why_it_matters": "The success criteria (implementation plan L120) state: 'A planner, eval reviewer, or future maintainer can pick up dev/brainstorms/2026-04-28-humanise-refocus-requirements.md plus this plan and the codebase, and reconstruct what was decided and why.' Without this note, they'll read R17 and believe 3 settings exist."
+    },
+    {
+      "id": "F3",
+      "pattern": "Contradiction: Audit coverage between plans",
+      "severity": "medium",
+      "confidence": 75,
+      "file": "plans/2026-04-28-humanise-refocus.md",
+      "line": "93",
+      "title": "Brainstorm and refocus plan disagree on audit scope",
+      "description": "The brainstorm (R3) states: 'The audit surfaces every detected AI tell. There is no depth filter on the audit — full information is the contract.' The refocus plan (line 93) states: 'The audit is mode-agnostic. The 43 checks pass or fail based on the text, not the user's intensity choice.' These mean the same thing but use different terminology ('depth filter' vs 'mode'). However, the refocus plan (lines 85–92, Action 1: Audit) does NOT mention asking about intensity — it just runs the audit. The implementation plan clarifies this by saying 'The audit is mode-agnostic' and notes that 'Audit and Suggestions are full lists, not filtered.' So the docs are consistent on substance but the terminology is scattered across three different meanings of the same concept: 'intensity', 'mode', and 'depth'.",
+      "quote_from_doc": "refocus plan L93: 'The audit is mode-agnostic. The 43 checks pass or fail based on the text, not the user's intensity choice.'",
+      "inconsistent_with": "brainstorm R3: 'There is no depth filter on the audit — full information is the contract.' Implementation plan uses 'depth' for the generative-action dial.",
+      "impact": "Medium. The substance is consistent (audit shows everything, no filtering), but the vocabulary is confusing. Someone implementing the audit from the refocus plan might call the dial 'mode' (refocus) or 'depth' (implementation plan) or 'intensity' (brainstorm), creating API inconsistency.",
+      "recommendation": "Normalize terminology in the refocus plan to use 'depth' for the dial and 'depth-agnostic' (not 'mode-agnostic') in line 93 to match the implementation plan and README. The refocus plan is superseded per the implementation plan header, but it's still in the repo and could be read by future maintainers.",
+      "why_it_matters": "Terminology drift on a core concept. The audit is depth-agnostic; the generative actions (Rewrite/Write) take a depth parameter. Calling it 'mode' in one place and 'depth' in another creates ambiguity about whether the audit has a mode parameter."
+    },
+    {
+      "id": "F4",
+      "pattern": "Structural: Missing integration between corpus findings and README",
+      "severity": "medium",
+      "confidence": 75,
+      "file": "research/2026-04-29-readme-research-section-intent.md",
+      "line": "72-80",
+      "title": "README section status vs implementation plan timeline mismatch",
+      "description": "The readme-research-section-intent document (L72–80) explicitly defers writing the 'What we found' section until after iteration 3 and reframing ships: 'Writing it before the reframe ships would document a tool that doesn't exist yet.' However, the README.md in the PR (lines 50–84) already contains a 'What we found' section with the complete reframe narrative. This is not a contradiction per se, but it indicates the README was written after the research-intent doc was created, and the research-intent doc may be stale. The implementation plan (status as of 2026-04-29) makes clear that iteration 2 is complete and iteration 3 is the next step. The README's findings section may be ahead of what the plan authorized.",
+      "quote_from_doc": "readme-research-section-intent L72–80: 'After at least one more iteration of the reframe lands... Writing it before the reframe ships would document a tool that doesn't exist yet. Writing it after gives an honest account.'",
+      "inconsistent_with": "README.md L50–84 already contains the full 'What we found' section with reframe language ('review priorities, not verdicts').",
+      "impact": "Low-medium. Not a hard contradiction, but the research-intent doc's guidance to defer the section was superseded without being updated. Future maintainers might treat the research-intent doc as current guidance and try to rewrite the README section again.",
+      "recommendation": "Add a status line to the research-intent doc at the top: 'Status: COMPLETED (2026-04-29). The README 'What we found' section has been written per the narrative and tone guidelines below, post-iteration-2.' This clarifies that the recommendations were acted on.",
+      "why_it_matters": "Prevents duplicate work. If a maintainer later reads this document, they need to know whether the guidance is still active or already implemented."
+    },
+    {
+      "id": "F5",
+      "pattern": "Number consistency: Check count and pattern count",
+      "severity": "low",
+      "confidence": 100,
+      "file": "README.md",
+      "line": "11",
+      "title": "Verify '43 checks across 38 patterns' is accurate",
+      "description": "Multiple documents cite '43 programmatic checks across 38 patterns.' This is stated consistently in README.md L11, brainstorm (line 59), refocus plan (L61), and implementation plan (L60). However, the brainstorm (L61–62) notes: 'There is no fourth class. The doc has been inventing \"hard constraint\" as if it were a fourth class — it is not' — suggesting the source docs themselves had errors. The refocus plan (L62) also clarifies the 43/38 split and mentions 5 checks without catalogue entries. This number is cited so frequently and consistently that it's likely correct, but it's worth noting that no document provides a detailed breakdown. The README cites this but does not list or break down the 43 checks — it jumps to the 38-pattern table.",
+      "quote_from_doc": "README.md L11: 'turned it into 43 programmatic checks across 38 patterns'",
+      "inconsistent_with": "None directly. The 43 and 38 are consistent across all documents.",
+      "impact": "None for internal consistency. Listed as an observation. The count is solid.",
+      "recommendation": "No action needed. The 43/38 numbers are well-sourced and consistent.",
+      "why_it_matters": "Observation only. Coherence flagged this to confirm it was not missed, not because it's a problem."
+    },
+    {
+      "id": "F6",
+      "pattern": "Structural: Forward reference without definition",
+      "severity": "low",
+      "confidence": 75,
+      "file": "brainstorms/2026-04-28-humanise-refocus-requirements.md",
+      "line": "75-77",
+      "title": "R8a references 'alternatives.md' before existence is confirmed",
+      "description": "The brainstorm (R8a, L76) references 'humanise/references/alternatives.md' as a source of curated human alternatives for lexical patterns. This is a new file that does not exist in the brainstorm timeline. The brainstorm (L151) confirms 'A new humanise/references/alternatives.md will be created during planning/implementation.' This is not a contradiction — it's a forward reference to a planned deliverable, clearly marked in the Dependencies section. Listed here as a structural note because the requirement (R8a) reads as if the file already exists, but the Dependencies section clarifies it's planned. This is fine; the brainstorm is planning a future state.",
+      "quote_from_doc": "brainstorm R8a L75–76: 'Suggestions for lexical patterns (e.g., delve, hedging, em-dashes, formulaic depth phrases) are drawn from a curated reference file humanise/references/alternatives.md so that the alternatives are vetted human options, not freshly generated text that may itself read as AI.'",
+      "inconsistent_with": "None — the Dependencies section (L151) clarifies this is a new file to be created.",
+      "impact": "None. The forward reference is properly grounded in the Dependencies section.",
+      "recommendation": "No action. This is correct planning documentation.",
+      "why_it_matters": "Observation. The brainstorm's structure is sound — forward references are justified by explicit dependency statements."
+    },
+    {
+      "id": "F7",
+      "pattern": "Terminology drift: 'Rewrite of human' vs 'AI rewrite'",
+      "severity": "low",
+      "confidence": 50,
+      "file": "README.md and research/2026-04-29-genre-paired-corpus-findings.md",
+      "line": "README L70 vs findings L12, L32",
+      "title": "Inconsistent naming for the AI-rewritten-human-essay category",
+      "description": "The README (L68–70) calls the third group 'AI rewrite of human (n=5)'. The genre-paired corpus findings document (L12, top table) calls it 'AI rewrite' in the slug column. The prompts file (genre-paired-personal-essay-prompts.md) doesn't define this category explicitly. The grading-findings document (L32) calls it 'AI rewrite' in the table and 'AI rewrites trigger more strong-signal hits' in narrative. The variance in naming is minor — all refer to the same thing (AI taking a human essay and rewriting it) — but in a detailed research document, consistency matters. This is low-impact because context makes the referent clear in all cases.",
+      "quote_from_doc": "README.md L70: 'AI rewrite of human (n=5)' vs findings L32: 'AI rewrite' (in table header and narrative).",
+      "inconsistent_with": "Findings document uses the shorter 'AI rewrite' label consistently.",
+      "impact": "Very low. The longer form in README (L68) explains it clearly; the shorter form in the findings doc is adequate for an internal document. No ambiguity.",
+      "recommendation": "Optional: normalize to 'AI rewrite' (the shorter form) across both documents for parallelism with 'AI fresh-write'. Not required.",
+      "why_it_matters": "Minor stylistic consistency. Noting for completeness; does not block shipping."
+    },
+    {
+      "id": "F8",
+      "pattern": "Contradiction: Old TESTING.md vs new implementation status",
+      "severity": "medium",
+      "confidence": 75,
+      "file": "dev/TESTING.md",
+      "line": "1-43",
+      "title": "TESTING.md describes obsolete 10-sample methodology, not the new genre-paired corpus",
+      "description": "TESTING.md (lines 1–43) describes an old testing methodology using 10 samples (5 human classics + 5 AI-generated slop fixtures like 'Gratitude', 'Insect', 'Passion'). It reports 10/10 clean passes on the original 21-check grader. The document also notes (L43) that 'The original 10 samples need re-running against the updated grader to confirm they still pass.' However, the PR and implementation plan make clear that the evaluation corpus has shifted to the new genre-paired corpus (5 human essays, 5 AI fresh-writes, 5 AI rewrites, n=15 total). The implementation plan (Status section, L21) mentions 10 new article-shaped AI samples and iteration loops 1–2 using this new corpus. TESTING.md is outdated and describes a testing approach that's no longer in use. The document does not reference the genre-paired corpus at all.",
+      "quote_from_doc": "TESTING.md L1–5: 'Three rounds of isolation-based testing... 1. **Pick human-written originals.** Five pre-AI essays... 2. **Generate AI versions with isolated agents.**' (describes the old 10-sample approach)",
+      "inconsistent_with": "implementation plan L21–27 describes the new 10-article corpus added to dev/evals/samples/generated-ai/01-10 and iteration loops running against the genre-paired set.",
+      "impact": "High. TESTING.md is in the repo as a public document describing methodology, but the methodology it describes is out of date. Someone following TESTING.md would not understand how the current evals work. The grading script section (L45–67) is current, but the Approach and Results sections are stale.",
+      "recommendation": "Update TESTING.md to describe the current genre-paired corpus approach. Either (a) add a new section after line 43 describing the genre-paired corpus and iteration loops, with a note that the old 10-sample approach is archived, or (b) replace the entire Approach and Results sections with the new methodology. The 'Grading script' and 'Self-tests' sections (L45–68) appear current and should be retained.",
+      "why_it_matters": "TESTING.md is a public methodological document. If someone wants to understand how the skill is tested, they'll read this file first. Stale methodology documentation is confusing and erodes confidence in the project."
+    },
+    {
+      "id": "F9",
+      "pattern": "Ambiguity: 'Honest account' scope",
+      "severity": "low",
+      "confidence": 50,
+      "file": "README.md",
+      "line": "11 and 50-52",
+      "title": "README claims 'honest account' without defining what was tested",
+      "description": "The README (L11) states 'learned which checks actually distinguish the two, refined what we kept, and noted where the patterns are register-coded rather than authorship-coded. This README is an honest account of what we found, what works, where the limits are, and what's next.' It also opens the findings section with 'Honest version, not the marketing version' (L52). However, the 'honest account' is based on the genre-paired corpus findings (n=5 per group in one register: long-form first-person essay). The findings document itself (L108–112) notes the caveats: 'n=5 per group. Findings are directional; need larger N.' The README does not include these caveats in the main text. It mentions sentence-length variance as 'the cleanest signal we found' (L64) without stating this conclusion is from n=5 essays in a single register. This is not a contradiction (the README is factually accurate), but it's incomplete honesty — the scope limitations are buried in the findings document and not surfaced in the README.",
+      "quote_from_doc": "README.md L11: 'This README is an honest account of what we found, what works, where the limits are, and what's next.' vs. findings L108–112: 'Caveats: n=5 per group. Findings are directional; need larger N.'",
+      "inconsistent_with": "The README does not mirror the caveats from the findings doc. The 'honest account' claim is partially true but incomplete.",
+      "impact": "Low-medium. The README's key findings (e.g., L54–76) are accurate, but readers are not told these are from a small, single-register sample. Someone reading only the README might over-generalize the findings to all prose, not just long-form essay.",
+      "recommendation": "Add a single caveat sentence after the findings section heading or at the end of the main findings block: 'Note: These findings are from a matched-genre comparison of long-form first-person essays (n=5 per group). Generalization to other registers is not yet validated. See dev/research/2026-04-29-genre-paired-corpus-findings.md for full methodology and caveats.' This is a 1–2 sentence addition that honors the README's 'honest account' claim.",
+      "why_it_matters": "Honest documentation should include scope and limitations. The README claims to be 'honest' but hides the n=5 and single-genre constraints in a research document."
+    },
+    {
+      "id": "F10",
+      "pattern": "Structural: Two plans from same date with unclear supersession",
+      "severity": "medium",
+      "confidence": 100,
+      "file": "plans/2026-04-28-humanise-implementation.md",
+      "line": "4",
+      "title": "Two plans from 2026-04-28; implementation plan explicitly supersedes refocus plan, but relationship is only stated in frontmatter",
+      "description": "Two planning documents exist for the same date (2026-04-28): 'humanise-refocus.md' and 'humanise-implementation.md'. The implementation plan (frontmatter, L4) states 'supersedes: dev/plans/2026-04-28-humanise-refocus.md', which is clear. However, the refocus plan has no reciprocal annotation. Anyone reading the refocus plan in the repo without context would not know it's been superseded. The brainstorm (L10) references the refocus plan, and the refocus plan's outstanding-decisions section (L221–231) lists items that 'need user input before I write the new file.' The implementation plan shows those decisions were made (L30–39), but someone reading only the refocus plan would see open questions as unresolved.",
+      "quote_from_doc": "implementation plan frontmatter L4: 'supersedes: dev/plans/2026-04-28-humanise-refocus.md'",
+      "inconsistent_with": "refocus plan has no frontmatter indicating it's superseded. Its outstanding-decisions section (L221–231) reads as open items, not resolved.",
+      "impact": "Medium. The implementation plan clearly supersedes the refocus plan, which is correct. However, the refocus plan remains in the repo without a marker indicating its status. A future reader might spend time working from the refocus plan, not realizing a newer plan exists.",
+      "recommendation": "Add a note at the top of the refocus plan (after the `---` frontmatter or as a preamble): 'NOTE: This plan has been superseded by dev/plans/2026-04-28-humanise-implementation.md. See that document for the latest status and resolved decisions.' This is a 1–2 line addition that prevents confusion.",
+      "why_it_matters": "The two plans are closely related and could easily be confused. The implementation plan is the canonical current state, but readers cannot know that without cross-referencing frontmatter."
+    }
+  ],
+  "residual_risks": [
+    {
+      "id": "R1",
+      "title": "Audit voice reframe not yet complete",
+      "description": "The research findings doc (genre-paired-corpus-findings.md L34–53) and the readme-research-section-intent doc both discuss Mae's reframe from 'AI tell' to 'review priority' / 'high-risk pattern'. However, the README.md still uses the older framing in places. For example, README L61 states 'the grader's \"strong AI signal\" patterns fired on humans and AI roughly equally', which is accurate but uses the old classification term. The reframe should normalize 'strong AI signal' → 'high-risk pattern' or 'review priority'. The implementation plan (L36) notes 'Audit findings are always shown in Rewrite and Suggestions output' but does not specify the reframed language. This means the SKILL.md and grade.py may not yet use the full reframe voice.",
+      "status": "Partially addressed in README; needs verification in SKILL.md and grade.py",
+      "action": "After this PR ships, verify that SKILL.md and grade.py output use 'high-risk pattern' or 'review priority' language instead of 'AI tell' or 'strong AI signal'. The research is clear; the implementation may lag."
+    },
+    {
+      "id": "R2",
+      "title": "Success criteria reference brainstorm unchanged after 3-point → 2-point dial collapse",
+      "description": "The implementation plan's success criteria (L111–120) include: 'The new SKILL.md fits comfortably under ~250 lines (currently 314 — see iteration 1 for trimming).' The brainstorm also states (L119) 'The new SKILL.md fits comfortably under ~250 lines'. If SKILL.md is currently 314 lines (per the implementation plan), it exceeds the target. The implementation plan notes this needs trimming post-iteration-1, but the brainstorm's success criteria are still stated as '~250 lines'. This is not a contradiction in facts, but it indicates the SKILL.md length goal may need updating post-trimming.",
+      "status": "Noted in implementation plan; outcome pending",
+      "action": "After iteration 3, verify SKILL.md length against the ~250-line target. If trimming brings it under 250, mark this as resolved. If it stabilizes above 250 and that's acceptable, update the brainstorm's success criteria to reflect the new target (e.g., '~300 lines')."
+    },
+    {
+      "id": "R3",
+      "title": "Iteration 3 completion not yet reflected in documents",
+      "description": "The implementation plan (status as of 2026-04-29) states 'Iteration loop 2 is the latest completed benchmark' and lists iteration 3 as 'next' (L57–66). The README's Performance section (L90–100) shows 'iteration-4' with results. This means iterations 3 and 4 have happened since the implementation plan was written, but the plan has not been updated. The documents are internally consistent about what *has* happened (iteration 2 is done), but there's no planning document that captures the current state post-iteration-4. This is not a contradiction (iteration plans naturally get superseded), but it's a structural gap — the implementation plan is the canonical planning doc, and it's out of date.",
+      "status": "Expected drift as work progresses",
+      "action": "No action needed for this PR. However, when work resumes post-PR, consider updating the implementation plan (or creating a new one) to reflect the current state after iteration 4."
+    }
+  ],
+  "testing_gaps": [
+    {
+      "id": "T1",
+      "title": "Genre-paired corpus is register-specific; generalization untested",
+      "description": "The corpus findings are explicitly from one register: long-form first-person essay. The prompts document (genre-paired-personal-essay-prompts.md L5) describes the genre as 'heterogeneous within \"essay\" (literary review, business memo, confessional, philosophical, practitioner)' but still all first-person reflective prose. The caveats in the findings document (L108–112) explicitly note this. The implementation plan's success criteria (L119) require: 'Blind eval against held-out corpus shows the skill generalises — pass rates within 10% of iteration-set rates.' This blind eval is planned against the 5 unused AI samples (L74) but is still single-genre. To claim the skill generalizes, a test against other registers (journalism, technical writing, business writing, fiction) is needed. This is noted as future work (findings doc L121: 'Add genre-aware thresholds'), not a current gap.",
+      "status": "Documented as out-of-scope for current PR; queued for follow-up",
+      "action": "The README and findings doc should clarify that the 'What we found' section is specific to long-form essay and does not yet generalize to other registers. This is done in the findings doc (caveats section) but not fully surfaced in the README."
+    },
+    {
+      "id": "T2",
+      "title": "Sentence-length variance is identified as 'cleanest signal' but not yet a hard grader check",
+      "description": "The README (L64) and findings doc (L69) identify sentence-length variance as the strongest separator between humans and AI (2.3× gap). The findings doc (L71) notes: 'Sentence-length variance is currently a grader check, but in practice it's not catching the gap reliably — the threshold and computation may need genre-aware tuning. At minimum, *mean* sentence length (not just variance) is worth tracking as its own signal.' The implementation plan's success criteria do not mention adding or validating this check. The 'What's queued' section (findings L115–122) lists 'Add new checks' but does not prioritize sentence-length variance. If this is the cleanest signal, it should be either (a) validated as a working check, or (b) explicitly deferred with a rationale.",
+      "status": "Identified but validation/implementation status unclear",
+      "action": "Verify that the sentence-length variance check in grade.py is working correctly against the corpus. If it's failing (per findings L71), either fix the threshold or document why it's not being fixed in this iteration."
+    }
+  ]
+}

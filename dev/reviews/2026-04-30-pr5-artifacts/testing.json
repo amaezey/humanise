@@ -1,0 +1,121 @@
+{
+  "reviewer": "testing",
+  "findings": [
+    {
+      "title": "Seven new audit-shape check functions have zero unit tests",
+      "severity": "P0",
+      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "line": 1300,
+      "confidence": 100,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "Add expect_pass / expect_fail style tests for each of the seven AUDIT_SHAPE_CHECKS in grade.py: check_audit_shape_block_precedes_rewrite_block, check_every_flag_block_contains_input_substring, check_every_flag_block_has_explanation, check_final_non_empty_line_ends_with_question, check_no_large_prose_block_not_in_input, check_suggestion_block_count_equals_flag_count, check_every_suggestion_block_has_replacement. Each needs at minimum: a passing example, a failing example, and the vacuously-true / missing-section edge cases. These checks are the contract between the iteration runner (run_skill_creator_iteration.py:310-329) and the grader, so a regex regression in any one of them silently mis-grades every audit eval. grep '/Users/mae/Documents/humanise/dev/evals/test_grade.py' for 'audit_shape' returns zero hits."
+    },
+    {
+      "title": "regrade() and depth-based action API are untested despite being load-bearing for rewrite/draft evals",
+      "severity": "P0",
+      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "line": 1300,
+      "confidence": 100,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "Add tests covering grade.py:regrade() — the function powers four eval assertions (rewrite-passes-balanced-grader, rewrite-passes-all-grader, draft-passes-balanced-grader, see run_skill_creator_iteration.py:347-355). Cover: (a) depth='balanced' returns fewer must-fix items than depth='all' when the only failures are context_warnings, (b) ValueError on unknown depth (light/medium/hard), (c) all_failures vs fails are not equal when context warnings exist, (d) failed_checks names match all_failed_checks at depth='all'. Also test action_for_depth() and depth_consequence() directly: the diff renamed mode->depth and removed the 'light'/'medium'/'hard' values; nothing pins down the new ('balanced', 'all') contract end-to-end."
+    },
+    {
+      "title": "Body-stat helper analyze_sample_body() is untested and silently consumed by performance-report",
+      "severity": "P1",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 505,
+      "confidence": 100,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "analyze_sample_body() (run_skill_creator_iteration.py:505-526) computes sentence/paragraph length stdev, TTR, em-dash and curly-quote counts that drive the corpus-baseline section of performance-report.md and feed README. There are no tests for: empty body, single-sentence body (sentence_len_stdev branch on len()>1), single-paragraph body (paragraph_len_stdev branch), zero-word body (TTR division-by-zero guarded by `if words else 0.0`), unicode-only text, frontmatter-stripping logic on text.split('---', 2)[2]. A regression in any of these silently corrupts the human-vs-AI gap reporting that the README publishes. Add a small test_iteration.py that imports analyze_sample_body and asserts exact numeric output on fixed strings."
+    },
+    {
+      "title": "1079-LOC iteration runner has no unit-test coverage at all",
+      "severity": "P1",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 1,
+      "confidence": 100,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "Pure helper functions in run_skill_creator_iteration.py have testable behaviour and zero tests: catalogue_hits (288), section_text/extract_generated_text (264-275), sentence_lengths/paragraph_lengths (278-285), grade_one_assertion (299-371) — note grade_one_assertion has 25+ branches, every one of which is a silent grader for a real eval; an exception falls back to passed=False with a generic error string (line 394). The grade_one_assertion dispatcher should be unit-tested with golden inputs for each assertion name (audit-flags-present, each-flag-has-quoted-phrase, rewrite-produced, sentence-length-variance-improved, word-count-near-target, etc.) and an unknown-name case. Today, a typo in any branch name silently makes all evals of that type fail with KeyError -> passed=False."
+    },
+    {
+      "title": "section_text() in iteration runner duplicates AUDIT_HEADER_RE / SECTION_HEADER_RE in grade.py — regex drift will silently mis-extract Rewrite/Draft sections",
+      "severity": "P1",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 264,
+      "confidence": 75,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": true,
+      "pre_existing": false,
+      "suggested_fix": "Two parallel implementations now parse the same '**Audit**/**Rewrite**/**Draft**/**Suggestions**' contract: grade.py defines AUDIT_HEADER_RE/REWRITE_HEADER_RE/DRAFT_HEADER_RE/SECTION_HEADER_RE (lines 4782-4786 of code-diff.txt); run_skill_creator_iteration.py:264-275 defines an independent section_text/extract_generated_text. They differ in case-sensitivity (iteration uses re.IGNORECASE; grade.py does not) and trailing-whitespace handling. extract_generated_text() picks the 'Rewrite' or 'Draft' section as the rewrite under test; check_no_large_prose_block_not_in_input() decides if a rewrite is forbidden. They can disagree (e.g. '**rewrite**' lowercase: iteration finds it, grade does not). Either consolidate to a single shared parser in grade.py and import from there, or add a parity test asserting both return identical sections for a basket of fixture outputs."
+    },
+    {
+      "title": "corpus.json and evals.json are consumed without structural validation",
+      "severity": "P2",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 567,
+      "confidence": 75,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "load_corpus_groups() (run_skill_creator_iteration.py:567-583) reads corpus.json and silently swallows FileNotFoundError per path. read_json(EVALS_PATH)['evals'] (line 966) does no schema check at all. A typo'd group name, a missing assertion 'name' field, or an assertion 'type' that isn't 'programmatic' will either KeyError mid-run (after potentially expensive claude/codex calls) or quietly drop a corpus member from the comparative gap. Add a small validate_corpus(data) and validate_evals(data) function called early — at minimum check: groups dict has expected keys 'human'/'ai_fresh'/'ai_rewrite', every path resolves via resolve_eval_file (or warn loudly), every eval has an int id and string name, every assertion has name+type+description. Add a unit test that loads the live corpus.json and evals.json and asserts the validators pass — that doubles as a CI guard against malformed JSON."
+    },
+    {
+      "title": "format_human_report depth='all' branch tested but new label 'All action' header coupling is brittle",
+      "severity": "P3",
+      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "line": 1186,
+      "confidence": 50,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "Test at test_grade.py:1186 asserts the markdown header is exactly '| Check | Status | What it looks for | What happened here | Why this matters | All action |'. This couples the test to the precise capitalisation produced by depth.title() — if the depth string ever becomes 'All depth' or the column gets reordered, the test breaks for purely cosmetic reasons. Consider asserting on parsed table structure (header contains 'Check' and 'Status' and depth_key.title()) rather than the full literal string. Lower priority but worth flagging because the same brittle pattern repeats for the count-44 row check on the next line."
+    },
+    {
+      "title": "test_grade.py asserts on legacy literal '43 checks' count — test will break on every check addition",
+      "severity": "P3",
+      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "line": 1167,
+      "confidence": 75,
+      "autofix_class": "manual",
+      "owner": "downstream-resolver",
+      "requires_verification": false,
+      "pre_existing": true,
+      "suggested_fix": "test_grade.py:1167 hard-codes 'len(_full_table_report[\"all_checks\"]) != 43' and the markdown row count check at 1185 hard-codes 44 (header + 43 rows). Both will break the moment a new AI-pattern check is added to ALL_CHECKS, even though no behaviour changed. Replace with `len(_full_table_report['all_checks']) != len(ALL_CHECKS)` and `len(_markdown_rows) != len(ALL_CHECKS) + 1`. Pre-existing pattern, but the new check additions in this PR (e.g. the new 'move'/'moves' regexes in AI_VOCABULARY_REGEX, line 4072-4075) make this brittler."
+    }
+  ],
+  "residual_risks": [
+    "extract_generated_text() falls back to returning the entire output when no Rewrite/Draft header is found (run_skill_creator_iteration.py:275). For audit-only evals that branch is intentional, but for rewrite evals (rewrite-produced, rewrite-passes-balanced-grader) it means the grader silently treats the entire prose-plus-audit as 'the rewrite' if the model forgets the Rewrite header. The assertion would then likely pass on word-count-similarity even though no rewrite was produced. No test covers this fallback ambiguity.",
+    "grade_one_assertion catches every Exception (line 394) and turns it into evidence='grader error for X: <exc>' with passed=False. This means a bug in any new audit-shape regex never surfaces as a test failure — it just makes the eval mark a real model output as failed. A diagnostic counter or a hard-fail mode for known-good fixtures would catch grader regressions earlier.",
+    "QUOTED_PHRASE_RE in grade.py (line 4787) only matches straight \" and curly close ”/curly open “ but not curly singles ‘…’. Skill SKILL.md may instruct models to quote with curly singles in a future iteration; the audit-shape substring check would silently start failing. No test pins the supported quote characters.",
+    "section parsing in grade.py uses SECTION_HEADER_RE = `^\\*\\*[^*]+\\*\\*\\s*$` to find the *next* header bounding a section. If a flag block contains a bold inline phrase like '**this matters**' on its own line, that boundary regex will mis-truncate the section. Untested."
+  ],
+  "testing_gaps": [
+    "No tests for the seven new check_audit_shape_* functions (grade.py lines 4825-4928).",
+    "No tests for the AUDIT_SHAPE_CHECKS registry or check_audit_shape() dispatcher (grade.py 4931-4947), including its KeyError on unknown name.",
+    "No tests for regrade() across both depth values, including the ValueError branch on invalid depth (grade.py 4954-4980).",
+    "No tests for action_for_depth() and depth_consequence() directly — only indirectly through depth_results, which doesn't cover the action-string return values.",
+    "No tests for analyze_sample_body() (run_skill_creator_iteration.py:505-526): empty input, single-sentence input, single-paragraph input, zero-word input, frontmatter-stripping branch, unicode em-dash / curly-quote counting.",
+    "No tests for grade_one_assertion()'s 25+ assertion-name branches (run_skill_creator_iteration.py:299-371). Specifically: audit-flags-present/low-flag-count thresholds, rewrite-produced word-count similarity logic, sentence-length-variance-improved (single-sentence stdev=0 edge), word-count-near-target's hard-coded 213-288 range, no-input-draft-required's empty-string semantics.",
+    "No tests for catalogue_hits() (run_skill_creator_iteration.py:288-296) — the function feeds three corpus claims (>=5, <=3, <=12) and contains a fragile case-folding hack (`label.lower().replace('ai', 'AI').lower()`) that no test exercises.",
+    "No tests for build_performance_report() or its nested _group_means / _gap_pct helpers (run_skill_creator_iteration.py:615-890). Division-by-zero guarded only in _gap_pct; no test verifies behaviour when 'human' group is missing from corpus, when paragraph_len_stdev is 0 across the group, or when prev iteration data is partial.",
+    "No tests for update_readme_performance_block() (run_skill_creator_iteration.py:897-934). It uses a regex with re.DOTALL to replace a marker block; if the README markers get stripped or duplicated the function silently no-ops.",
+    "No structural validation of corpus.json or evals.json. load_corpus_groups silently drops missing files (line 580-581); read_json(EVALS_PATH) trusts the schema implicitly.",
+    "No parity test between section_text (iteration runner) and AUDIT_HEADER_RE/REWRITE_HEADER_RE (grade.py). The two parsers can disagree on case sensitivity.",
+    "Tests rely on global FAILURES counter and module-level execution rather than pytest. There is no per-test isolation, no skip support, no junit output for CI. Adding tests under the existing pattern means every new test must remember to print 'ok:' on pass and increment FAILURES on failure — easy to forget the increment, which is itself a class of false-confidence bug."
+  ]
+}

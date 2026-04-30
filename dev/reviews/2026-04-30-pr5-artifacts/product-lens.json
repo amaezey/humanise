@@ -1,0 +1,134 @@
+{
+  "reviewer": "product-lens",
+  "context_assessment": {
+    "product_type": "hybrid",
+    "notes": "Humanise is a Claude Code skill — externally distributable (npm install path, MIT licence, fork lineage) but with a small captive audience of writers and agents working on behalf of writers. Adoption is voluntary, so positioning matters; but the skill's claim is a research claim, not just a UX claim, so claim-truth carries unusually heavy weight. The README is the primary trust artefact; if the pitch overstates what the grader can do, the skill loses credibility regardless of code quality."
+  },
+  "findings": [
+    {
+      "id": "P0-identity-drift-undeclared",
+      "title": "The skill changed identity (AI detector → writing-quality reviewer) without naming the change",
+      "severity": "P0",
+      "confidence": 75,
+      "category": "identity_trajectory",
+      "autofix_class": "manual",
+      "owner": "human",
+      "summary": "The README's findings section concedes that on long-form first-person essay 'the grader's strong AI signal patterns fired on humans and AI roughly equally' and that 'AI rewriting *increases* strong-signal density (~+44%) over the human original'. If the strong signals don't separate humans from AI in the register the skill most plausibly serves (essayists, writers using LLMs to polish their own prose), then the skill is no longer an AI fingerprint detector — it has quietly become a writing-quality reviewer that flags patterns AI tends to overuse. That repositioning is significant and the README does not name it. The pitch still opens with 'flags patterns in prose that often look like AI did it' and the existence narrative still leans on AI-detection lineage (Wikipedia AI Cleanup, GPTZero, stylometry papers). The doc says both things at once.",
+      "evidence": [
+        {"file": "README.md", "quote_or_pointer": "'flags patterns in prose that often look like AI did it' (opening line) vs 'the grader's strong AI signal patterns fired on humans and AI roughly equally' (findings) — these claims are in tension and the doc never resolves which one is the product."},
+        {"file": "dev/research/2026-04-29-genre-paired-corpus-findings.md", "quote_or_pointer": "'The grader's existing strong-signal patterns do not distinguish humans from AI in this genre.' This is the central empirical finding; identity should be rebuilt around it, not bolted onto the existing pitch."}
+      ],
+      "impact": "A writer who reads the opening sentence expects an AI detector and gets a review-priority generator. An agent invoked with 'is this AI?' will receive an answer the README's own data says is unreliable in this register. The mismatch between pitch and substance erodes trust precisely because the doc is otherwise honest about findings.",
+      "recommendation": "Decide explicitly what the skill IS now and rewrite the opening paragraph and the 'Why this exists' section around that decision. Two coherent positions are visible in the doc: (a) 'a review tool that surfaces patterns AI tends to overuse, so writers can verify their prose is doing them on purpose' — keeps the catalogue, drops the detection framing; or (b) 'a stylometric body-stats audit (sentence-length variance, paragraph variance) supplemented by a pattern catalogue for diagnostic context' — promotes the body stats finding to the headline. Either is defensible. The current 'audit prose for AI fingerprints' pitch is not, given the data the same doc reports."
+    },
+    {
+      "id": "P0-premise-pitch-survival",
+      "title": "If strong signals don't discriminate, the skill's load-bearing claim needs explicit demotion",
+      "severity": "P0",
+      "confidence": 75,
+      "category": "premise_check",
+      "autofix_class": "manual",
+      "owner": "human",
+      "summary": "The README admits 'the human-vs-ai gap... in long-form essay register, the gap is small on totals and inverted on strong signals. That's the finding the rest of this README is built around.' But the rest of the README is NOT built around that. The patterns table still lists 38 patterns presented neutrally as AI tells. Representative output still shows 'AI-style writing patterns'. The grader CLI is still pitched as 'audit prose for AI fingerprints'. The skill's own SKILL.md (per /Users/mae/Documents/humanise/humanise/SKILL.md) calls flagged items 'flagged tell' and 'AI tells'. The honest narrative in 'What we found' is contradicted by every other artifact the writer encounters. The skill is in a state where the research has overtaken the product surface but the product surface hasn't caught up.",
+      "evidence": [
+        {"file": "README.md", "quote_or_pointer": "'That's the finding the rest of this README is built around' — the claim is made but not delivered; the sections after it revert to the old framing."},
+        {"file": "dev/research/2026-04-29-genre-paired-corpus-findings.md", "quote_or_pointer": "Mae's reframe: 'The strong stuff is actually things that have become culturally AI tells because they are valid forms of writing... reframe the narrative around that — these are things to re-examine as a priority.' This decision exists in research notes and has NOT been propagated to README, SKILL.md, grade.py output templates, or the patterns table."},
+        {"file": "/Users/mae/Documents/humanise/humanise/SKILL.md", "quote_or_pointer": "Still uses 'flagged tell' and 'AI tells' language throughout. The reframe to 'review priorities' is queued in research notes but not implemented."}
+      ],
+      "impact": "The README pitches a skill that doesn't yet exist. Anyone who installs based on the new README and runs the skill will encounter the old framing in actual usage. This is the kind of gap that produces 'this isn't what the README said' bug reports and damages trust quickly.",
+      "recommendation": "Before merging this README rewrite, either (a) hold the README until SKILL.md/grade.py output templates ship the reframe so the doc and the artefact match, or (b) explicitly mark the README's findings section as 'what we learned; reframe in progress' so a reader knows the skill is mid-transition. The current state — the README has the new story but the artefact still has the old one — is the worst of both options."
+    },
+    {
+      "id": "P1-honesty-overclaim-on-honest-narrative",
+      "title": "The README's 'plain, no-inflation' frame still inflates",
+      "severity": "P1",
+      "confidence": 75,
+      "category": "honesty_framing",
+      "autofix_class": "manual",
+      "owner": "human",
+      "summary": "The README explicitly frames itself as 'Honest version, not the marketing version' but then makes claims that go beyond what the data supports. Specifically: (1) 'A handful of patterns *are* genuinely AI-correlated when applied at high density: em dashes, AI vocabulary clustering, manufactured insight, formulaic openers, section scaffolding' — but the same doc's findings table shows manufactured insight fires MORE on humans (2/5) than AI rewrites (0/5) in this corpus, and triad density fires 5/5 on both groups. The doc is asserting AI-correlation for patterns its own data shows aren't AI-correlated in the test register. (2) 'Sentence-length variance is the cleanest signal we found' is presented as a finding but is from n=5 per group, with the AI essays roughly half the length of the human ones (3,568 vs 1,849 mean words) — length confound is acknowledged in the research doc but not in the README. (3) 'AI rewriting *increases* strong-signal density' is true in the corpus but the corpus is matched against a single (unspecified) rewriter. The README presents it as a property of AI rewriting rather than of one model rewriting once.",
+      "evidence": [
+        {"file": "README.md", "quote_or_pointer": "'A handful of patterns are genuinely AI-correlated when applied at high density: em dashes, AI vocabulary clustering, manufactured insight, formulaic openers, section scaffolding.'"},
+        {"file": "dev/research/2026-04-29-genre-paired-corpus-findings.md", "quote_or_pointer": "Pattern fire-rate table shows 'no-manufactured-insight (strong) | 2 | 1 | 0 | Currently classed as AI; fires more on humans here' — directly contradicts the README claim that manufactured insight is AI-correlated."},
+        {"file": "dev/research/2026-04-29-genre-paired-corpus-findings.md", "quote_or_pointer": "'Caveats: n=5 per group. Findings are directional... AI fresh-writes are short relative to the human originals (1,849 mean vs 3,568). Some of the variance differences may be partly length-driven. AI rewrite set was generated by an unspecified model.' — these caveats are absent from the README."}
+      ],
+      "impact": "If the headline claims of an 'honest' README don't survive the doc's own caveats, the credibility cost is higher than if the README hadn't promised honesty in the first place. Readers who notice the gap (writers who care about the underlying claims, researchers, peer maintainers) will treat the rest of the doc with the same scepticism.",
+      "recommendation": "Either move the 'genuinely AI-correlated' claim out of 'What we found' and into 'What we hypothesise but haven't yet validated', or limit it to patterns where the corpus actually shows separation (em dashes do separate; section scaffolding and AI vocabulary may, but the data isn't shown). Carry the n=5, length-confound, and single-rewriter caveats into the README, not just the research note. The performance block already does this with 'directional, not definitive' under 'Where to be careful' — extend that posture to the findings section."
+    },
+    {
+      "id": "P1-audience-confusion",
+      "title": "The README is now written for three audiences and serves none cleanly",
+      "severity": "P1",
+      "confidence": 75,
+      "category": "adoption",
+      "autofix_class": "manual",
+      "owner": "human",
+      "summary": "Per the brief, the skill's audiences are writers (human + agent acting on their behalf). The new README opens for that audience ('flags patterns in prose'), then pivots to a research narrative ('we pulled what was credible from both, turned it into 43 programmatic checks... ran it on a corpus... noted where the patterns are register-coded'), then back to a tool pitch ('Audit', 'Suggest', 'Rewrite', 'Write'), then a research findings section, then a tool patterns table, then a 'what's next' section that reads like a maintainer changelog. A writer skimming for 'what does this do, do I want to install it' has to wade through research provenance and methodology notes. A researcher checking whether to take the findings seriously has the patterns table and install instructions in the way. A maintainer reviewing the artefact has to find the technical signal under writer-facing prose. The intent doc (`dev/research/2026-04-29-readme-research-section-intent.md`) acknowledges this is 'between Performance and Patterns' as a research/findings section, but in execution the research narrative has migrated up to the top and dominates the lead.",
+      "evidence": [
+        {"file": "README.md", "quote_or_pointer": "'Why this exists' section opens with research provenance ('there's a body of research on stylometric markers... a larger body of practitioner anecdata... a small industry of detectors that mostly don't work'). For a writer who wants to know 'what does this do for me', this is the wrong opening."},
+        {"file": "dev/research/2026-04-29-readme-research-section-intent.md", "quote_or_pointer": "Intended location: 'between What it does and Performance' — but in the merged README, the equivalent material has crept higher and split across two sections ('Why this exists' and 'What we found'), pushing 'What it does' lower and producing audience whiplash."}
+      ],
+      "impact": "The previous README's call-to-action was clear: 'Install. Invoke with /humanise.' The new README's call-to-action is muddied — the install block is still there but a writer-reader has to traverse 'why we built it' and 'what we found' before getting to it. For a skill whose adoption depends on writers and agents quickly understanding 'what this is for', this is a UX regression even if every individual claim is more honest.",
+      "recommendation": "Decide who the README is for and order accordingly. Two viable structures: (a) writer-first — Pitch / What it does / Install / Usage / Patterns / Findings (research) / Limits / Sources, with findings demoted below the 'how to use it' content; or (b) researcher-first — accept that the artefact is a research project as much as a tool, lead with the findings, but mark it clearly ('this is a research repo with a Claude Code skill attached') so writers know what they're picking up. Pick one. Don't try to serve both in alternating sections."
+    },
+    {
+      "id": "P1-goal-work-misalignment",
+      "title": "Plan invests in mechanism polish (action split, depth dial) while research says the substance problem is unsolved",
+      "severity": "P1",
+      "confidence": 75,
+      "category": "goal_alignment",
+      "autofix_class": "manual",
+      "owner": "human",
+      "summary": "The implementation plan (`dev/plans/2026-04-28-humanise-implementation.md`) is mostly about the four-action / two-depth architecture, alternatives.md authoring, grader CLI rename, iteration harness, and SKILL.md restructure. The research findings doc (same date, same PR) says the substantive problem — 'strong signals don't separate humans from AI in the test register' — needs reframed audit voice, demoted patterns, new body-stats checks, and genre-aware thresholds. None of those substantive fixes are in the executed work; they are all queued under 'queued after iteration 3' and 'what's next'. The plan ships the new architecture; the research says the architecture is wrapping a detector that doesn't reliably detect. Goal-work alignment: the stated goal in the brainstorm is 'a clean SKILL.md and grader contract that match the user-facing model'; that goal is being met. But the higher-level goal implied by the skill's existence — 'help writers identify and remove signs of AI writing' — is the one the research throws into question, and the plan doesn't address it.",
+      "evidence": [
+        {"file": "dev/plans/2026-04-28-humanise-implementation.md", "quote_or_pointer": "'Done' list and 'Remaining work' list are entirely about action structure, depth dial, alternatives.md, grader CLI, iteration harness. No item addresses 'reframe audit voice', 'demote patterns that don't separate', or 'add body-stats checks'."},
+        {"file": "dev/research/2026-04-29-genre-paired-corpus-findings.md", "quote_or_pointer": "'After iteration 3 (which validates the comparative-report harness end-to-end on this corpus), the follow-up work is: 1. Reframe audit voice... 2. Recalibrate or demote patterns... 3. Add new checks... 4. Genre-aware thresholds... 5. Larger N.' All five are central to whether the skill actually works; none are in the current plan."}
+      ],
+      "impact": "The PR ships an architectural refactor while the central detection problem remains unsolved. If the four-action model lands and the audit voice / pattern recalibration doesn't follow, the skill will have a tidier interface to the same unreliable detector. Opportunity cost: time spent on the depth-dial collapse from 3 to 2 settings (a UX nicety) is time not spent on whether the patterns being dialled actually distinguish anything.",
+      "recommendation": "Make the substance work an explicit, named tier of the plan rather than a 'what's next' bullet. Specifically, before the next architectural iteration: (a) decide whether to demote em dashes / manufactured insight / triad density in the grader's severity classes, (b) implement the audit-voice reframe ('review priority' not 'AI tell') in grade.py templates and SKILL.md, (c) add at least mean-sentence-length as a check since the research identifies it as the cleanest signal. If those three are out of scope for this PR, say so explicitly — but flag in the README that the architecture has shipped ahead of the substance, so a reader knows what they're getting."
+    },
+    {
+      "id": "P2-trajectory-research-vs-product-fork",
+      "title": "The PR is forking the repo into 'research artefact' and 'shipping skill' without committing to which",
+      "severity": "P2",
+      "confidence": 50,
+      "category": "trajectory",
+      "autofix_class": "manual",
+      "owner": "human",
+      "summary": "Observation, not blocker. The PR adds substantial research infrastructure (genre-paired corpus, comparative findings doc, README intent doc, prompts file) alongside the skill restructure. The README has absorbed a research narrative. The plan file references 'iteration loops 1 and 2' as completed product milestones with detailed benchmark numbers. The artefact is becoming dual-use: a Claude Code skill anyone can install, AND a longitudinal research project on AI-vs-human prose detection in matched genres. These compound differently — the skill needs API stability, conservative claims, and predictable output; the research needs corpus growth, claim revision, and willingness to demote work that didn't pan out. Currently both are happening in the same repo and the same README without an explicit split. Long-term this either becomes deliberate ('this is a research-led skill, expect findings to update what it flags') or accidental drift where the research notes inform the README but contradict the actual skill behaviour.",
+      "evidence": [
+        {"file": "README.md", "quote_or_pointer": "Findings section, performance block with iteration timestamps, 'What's next' research roadmap — these are research-repo conventions sitting inside a tool README."},
+        {"file": "dev/research/2026-04-29-readme-research-section-intent.md", "quote_or_pointer": "Whole document is about how to position research findings inside the tool README — the question of whether they belong there at all isn't addressed."}
+      ],
+      "impact": "Subjective at this stage. Surfaces as a positioning choice the doc isn't making consciously. Could compound positively (research-led credibility) or negatively (every iteration risks invalidating yesterday's pitch) depending on how the maintainer treats it.",
+      "recommendation": "Surface the choice explicitly. If this is a research-led tool, name it ('humanise is a Claude Code skill backed by an ongoing matched-corpus study; the catalogue and severity classes update as findings come in'). If it's a tool that happens to publish its research, keep findings in /dev/research and link from README rather than absorb. Don't leave the structural ambiguity in place."
+    },
+    {
+      "id": "P2-suggestions-action-implicit-bet",
+      "title": "Suggestions sourced from a curated alternatives.md is an implicit bet on lexical substitution that the skill's own data undercuts",
+      "severity": "P2",
+      "confidence": 50,
+      "category": "trajectory",
+      "autofix_class": "manual",
+      "owner": "human",
+      "summary": "The brainstorm and plan introduce `references/alternatives.md` as a curated source of lexical replacements (delve → vetted alternatives, hedging phrases → vetted alternatives, etc.). The reasoning (brainstorm Key Decisions): 'The risk of agent-generated alternatives being themselves AI-flavoured (e.g., delve → explore, which is also flagged) is real. A curated alternatives.md bakes in writer judgement.' This is sensible for surface lexical patterns. But the same PR's research finding is that body-level statistics (sentence-length variance, paragraph variance) separate humans from AI more reliably than any lexical pattern, and that the strong lexical signals are register-coded rather than authorship-coded. The Suggestions action's structural design therefore points away from the skill's own diagnostic frontier — it institutionalises lexical-substitution UX at the moment the data says lexical substitution isn't the load-bearing fix.",
+      "evidence": [
+        {"file": "dev/brainstorms/2026-04-28-humanise-refocus-requirements.md", "quote_or_pointer": "R8a: 'Suggestions for lexical patterns... are drawn from a curated reference file references/alternatives.md so that the alternatives are vetted human options, not freshly generated text that may itself read as AI.'"},
+        {"file": "dev/research/2026-04-29-genre-paired-corpus-findings.md", "quote_or_pointer": "'The strongest single separator: sentence-length variance. Humans 17.0 stdev vs AI 7.3 — a 2.3× gap.' Lexical patterns don't show this kind of separation in the test register."}
+      ],
+      "impact": "Not blocking — the lexical Suggestions action is still useful when patterns do fire on AI overuse, and the brainstorm correctly notes structural patterns get contextual rewriting. Flag it because the architecture is being committed to before the substance question (which patterns deserve replacement at all?) has been resolved.",
+      "recommendation": "When iteration 3+ work tackles pattern recalibration, revisit whether `alternatives.md` covers the right patterns. If em dashes and manufactured insight get demoted, their entries in alternatives.md may need to either drop or be reframed ('use this alternative when the pattern is overused, not when it's used'). Don't let alternatives.md ossify the current pattern list."
+    }
+  ],
+  "residual_risks": [
+    "If the README is merged before the SKILL.md / grade.py reframe ships, users will install based on the new pitch and encounter the old artefact behaviour — high-risk for trust given the README explicitly promises an honest account.",
+    "The n=5 per group corpus is the empirical foundation for the README's load-bearing claims (sentence-length variance, AI rewrite +44%, register-coded patterns). If a larger corpus or a different rewriter overturns these, the README will need revision and the skill's positioning will shift again. The doc doesn't currently signpost 'these claims are provisional pending larger N'.",
+    "The brainstorm explicitly lists the catalogue/grader redesign as out of scope for this PR ('The skill's catalogue and grader are out of scope as catalogue redesigns'). But the research findings now suggest the catalogue itself is the problem (patterns that don't separate humans from AI in the target register). Holding the catalogue stable while everything else moves around it is a structural risk the plan doesn't acknowledge.",
+    "Audience confusion in the README may compound — once research findings are in the user-facing doc, every iteration's findings become a candidate for inclusion, and the README will tend to grow rather than stay focused on the writer's call-to-action."
+  ],
+  "testing_gaps": [
+    "No test or eval that ensures README claims match grader behaviour. If the README says 'manufactured insight is AI-correlated' and the grader's test corpus shows it firing more on humans, nothing flags the contradiction. A claim-vs-evidence linter (or even a manual checklist for the next README revision) would catch this.",
+    "The reframe from 'AI tell' to 'review priority' is queued but not eval-gated. There's no acceptance criterion of the form 'audit output uses review-priority language for strong-signal patterns flagged on human prose, AI-tell language only when supported'. Without that, the reframe could ship inconsistently and not be caught.",
+    "The plan's success criteria include '≥80% assertion pass rate' and 'within 10% of iteration-set rates on blind eval' but no criterion that ties to whether the skill is actually useful in its claimed register. A skill that passes its evals on 8 hand-tuned cases but fails to give writers actionable guidance on a real essay is a possibility the eval suite doesn't currently catch."
+  ]
+}

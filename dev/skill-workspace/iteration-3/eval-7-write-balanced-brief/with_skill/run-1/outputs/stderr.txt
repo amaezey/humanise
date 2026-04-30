@@ -1,0 +1,1990 @@
+Reading additional input from stdin...
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd94a-55f6-73d1-9d0e-b6966e0f1d50
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/humanise/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Write a 250-word reflection on first-time linocut printing at balanced depth.
+
+Inputs:
+No input files.
+
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits prose for AI fingerprints and explains each one in plain English.
+  Optionally hands back alternative phrasings for each flagged tell, redrafts
+  the prose at a chosen intensity, or composes new prose from a brief while
+  avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
+  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
+  "help me write something that doesn't sound AI".
+---
+
+# Humanise
+
+The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
+
+Three principles cut across the skill:
+
+1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
+2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
+3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+
+The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
+
+---
+
+## Action selection
+
+Four actions:
+
+| Action | When to fire | Output |
+|---|---|---|
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
+| **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
+| **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
+
+If the writer's intent is genuinely ambiguous and the agent can ask, ask whether the writer wants an audit or a rewrite, or whether they're handing over a brief for a new draft. If the agent can't ask (headless invocation, no human turn), default to Audit only.
+
+---
+
+## Action 1: Audit (default)
+
+### Audit steps
+
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
+3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
+4. Render the audit using the output template below.
+5. End with the next-step question and stop without proceeding to a rewrite.
+
+### Audit output
+
+```
+**Audit, N AI tells found**
+
+<pattern-name-1> (M instances)
+  - "<quoted phrase from input>"
+  - "<another quoted phrase>"
+  Why: <brief explanation, ~1-2 sentences>
+
+<pattern-name-2> (M instances)
+  - "<quoted phrase>"
+  Why: <explanation>
+
+<structural-pattern-name>
+  Where: <description of where the pattern appears, e.g., "every paragraph in section 2 is 4-5 sentences and ends with a summary line">
+  Why: <explanation>
+
+...
+
+**Confidence**
+
+Render four fields from the grader: the level (low / medium / high / very high), the meaning string explaining what the level implies, the basis list summarising why, and a note that this assessment describes AI-writing signs rather than offering a verdict about who wrote the text.
+
+**Next step**
+
+Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
+```
+
+### Rendering rules
+
+- Lexical patterns (specific words or phrases) get the `- "<quoted>"` shape.
+- Structural patterns (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) get a `Where:` line that describes where the pattern shows up and what it looks like in the draft. They have no single quotable instance to point at.
+- Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
+
+If no patterns are detected, say so plainly:
+
+> Audit clean: no AI tells detected. Want me to look at a specific aspect of the draft more closely?
+
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+
+---
+
+## Action 2: Suggestions
+
+### Suggestion steps
+
+1. If an audit hasn't been run on this draft in this turn, run one first.
+2. For each flagged pattern from the audit, produce one suggestion:
+   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
+   - Structural patterns (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance, tonal uniformity): compose a contextual suggestion. Substitution does not work for these patterns; rewriting does. Say what to vary and how.
+3. Render the audit findings followed by the suggestions list.
+4. Stop without producing a full rewrite.
+
+### Suggestion output
+
+```
+[Audit output as in Action 1, but without the trailing question]
+
+**Suggestions, one per flag**
+
+<pattern-name-1>
+  - "<quoted phrase from the audit>"
+  Try: "<replacement>"
+
+<pattern-name-2>
+  - "<another quoted phrase>"
+  Try: "<replacement>"
+
+<structural-pattern>
+  Try: <contextual rewriting instruction, e.g., "Vary paragraph 3 to be one short sentence, then expand paragraph 4 with two new clauses to break the rhythm.">
+
+...
+
+**Next step**
+
+Want to apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file?
+```
+
+The number of suggestions equals the number of flagged tells, with no filtering applied. The writer chooses what to apply.
+
+---
+
+## The depth dial (Rewrite and Write only)
+
+Two settings:
+
+- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
+- **All**: address every flagged pattern, even the implicit and structural ones a reader wouldn't consciously notice. Voice can take a hit at this depth. The goal is unambiguous human-shape; preserving every flourish comes second.
+
+When the user has not chosen a depth, ask which depth they want. Balanced is the lighter pass; All is the deeper one. Default to Balanced if the writer declines to choose.
+
+The dial only governs Rewrite and Write. It does not apply to Audit or Suggestions. Both of those return the full list of flagged tells regardless.
+
+---
+
+## Action 3: Rewrite
+
+### Rewrite steps
+
+1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
+2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
+3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
+4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
+5. Run the structural self-check (Step C from `process.md`). Show the answers in the output.
+6. Run the semantic preservation check (Step D from `process.md`).
+7. Re-grade the rewrite at the chosen depth. If required failures remain for that depth, revise before returning unless removing the issue would materially change meaning or voice. Iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
+8. Render the audit findings, the rewritten draft, and the post-check.
+
+### Rewrite output
+
+```
+[Audit output as in Action 1, but without the trailing question]
+
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the genre or the writer's stated preference>
+
+**Rewrite**
+
+<rewritten draft>
+
+**Structural self-check**
+1. Section arcs: <count of similar arcs>/<total>. <What you changed.>
+2. Resolution density: <count of summary endings>/<total>. <What you changed.>
+3. Register breaks: <where you added one, or "already present at...">
+4. Triads: <count> found, reduced to <count> by <method>.
+5. Reframe laundering: <none / fixed at...>
+6. Purposeful devices preserved: <device: reason, or "none">
+7. Stance: <preserved / shifted, restored by...>
+8. Remaining tells: <list, or "none identified">
+
+**Post-check at <depth>**
+- Score: how many of the grader's checks failed at the chosen depth, plus whether AI-pressure triggered or stayed clear.
+- Confidence: the level and meaning string from the grader, with the caveat that this describes AI-writing signs rather than offering an authorship verdict.
+- Remaining issues: list the failed checks that remain unaddressed, or state "none" if the rewrite cleared everything.
+```
+
+Show only the final rewrite. Intermediate drafts stay hidden unless the writer asks. Do not modify the writer's source file.
+
+---
+
+## Action 4: Write
+
+### Drafting steps
+
+1. Pick the depth: ask if you can; default to Balanced.
+2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
+3. Read `references/process.md`; it is required for Rewrite and Write. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
+4. Draft from the brief at the chosen depth.
+5. Run the structural self-check (Step C from `process.md`) on the draft.
+6. Re-grade the draft at the chosen depth. If required failures remain for that depth, revise before returning unless fixing them would materially change the brief or voice. Iterate up to two re-runs, then report unresolved issues.
+7. Render the draft and the post-check.
+
+### Drafting output
+
+```
+**Brief: <one-sentence restatement of what the writer asked for>**
+
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the brief>
+
+**Draft**
+
+<drafted text>
+
+**Structural self-check**
+[Same eight items as Rewrite]
+
+**Post-check at <depth>**
+
+exec
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/humanise/SKILL.md && sed -n '1,220p' /Users/mae/Documents/humanise/humanise/references/voice.md && sed -n '1,260p' /Users/mae/Documents/humanise/humanise/references/process.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+**Post-check at <depth>**
+[Same shape as Rewrite post-check]
+```
+
+Write has no audit step because there is no input text to audit. The skill avoids AI patterns prospectively and verifies via the post-check.
+
+---
+
+## The save modifier
+
+Save wraps any of the four actions' output in a Markdown file. Combine freely with any action.
+
+Default save paths:
+
+- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
+- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Append `-2`, `-3` rather than overwriting an existing file.
+
+When Save is used:
+
+- The chat output is a one-line summary of the action's verdict, followed by `Saved to: <path>`, followed by the next-step question if one applies.
+- The saved file contains the action's full output template, preceded by a short header:
+
+```
+# Humanise <action> report
+- Input: <input path, or "pasted text", or "brief">
+- Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
+- Date: <ISO 8601>
+```
+
+Do not duplicate the full report inline in chat when a saved file exists.
+
+---
+
+## References
+
+- `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
+- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
+- `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
+- `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.
+# Personality and soul
+
+Voice-craft guidance for the Rewrite and Write actions. The grader catches AI patterns to remove; this guide is about what to add or preserve so the result reads as written by a human, not just as text without AI tells.
+
+## The real problem: subtraction
+
+Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+
+Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
+
+## Experiential vacancy
+
+AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related pattern is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
+
+Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+
+## Density without purpose
+
+A good writer uses em dashes, triads, and parallelism sparingly, with intention. AI litters them throughout indiscriminately. The issue is not that any single device appears, but that they cluster and serve no rhetorical purpose. When scanning for patterns, watch for pileups.
+
+## Signs of soulless writing (even if technically clean)
+
+- Every sentence follows the same length and structure
+- No opinions, just neutral reporting: stance has been stripped or was never there
+- No acknowledgment of uncertainty or mixed feelings
+- No appropriate point-of-view presence; pronouns depleted
+- No humour, no edge, no personality
+- Observations are universally relatable but never personally specific (faux specificity)
+- Emotionally safe: never takes an uncomfortable position
+- Tonal uniformity: one register throughout, no drift or register breaks (pattern 35)
+- Every paragraph wraps up neatly with a miniature conclusion (pattern 34)
+
+## How to add voice
+
+**Have opinions.** "I keep going back and forth on this" is more human than neutrally listing pros and cons.
+
+**Vary rhythm within reason.** Mix sentence lengths for natural cadence, but not one-word dramatic punctuation. It should feel like a person thinking at different speeds.
+
+**Acknowledge complexity.** "This is impressive, but it also makes me a little uneasy" carries more weight than unqualified praise or a clean pro/con list.
+
+**Match the natural point-of-view.** If the piece reads as personal reflection, use "I". If it reads as impersonal observation, use "one" or third person. Do not default to first person. Match whatever POV the text is already using or would naturally use for its genre and tone.
+
+**Be specific rather than atmospheric.** Instead of mood words ("eerie", "striking", "fascinating"), describe the concrete detail that caused the feeling.
+
+**Break register.** If the whole text sits in one tone, introduce at least one register shift: a moment of informality, a parenthetical doubt, a change in sentence rhythm.
+
+## Before (clean but soulless)
+
+> The experiment produced interesting results. The agents generated 3 million lines of code. Some developers were impressed while others were sceptical. The implications remain unclear.
+
+## After (has a pulse)
+
+> Three million lines of code, generated overnight while the developers slept. I have been turning this over for a few days now, and I still do not have a clean take on it. Half the dev community thinks this changes everything; the other half is explaining, at length, why it does not count. My own reaction keeps shifting depending on which examples I look at.
+# Humanise Rewrite and Write Process
+
+This file is required for Rewrite and Write actions. Use it as the operating
+procedure after the audit has identified patterns and before returning prose.
+
+## Step A: Structural Pass
+
+Do this before changing surface wording.
+
+1. Identify the current paragraph rhythm.
+   - Count paragraphs.
+   - Notice whether most paragraphs are similar length.
+   - Notice whether paragraphs end with tidy summaries.
+   - Notice whether sections follow the same arc: setup, explanation, moral.
+
+2. Break repeated arcs.
+   - Turn one explanatory paragraph into a short direct paragraph.
+   - Merge two thin paragraphs when they repeat the same movement.
+   - Split a long paragraph when it contains a turn, example, or qualification.
+   - Let some paragraphs end on concrete detail rather than a summary sentence.
+
+3. Vary sentence rhythm.
+   - Keep some short sentences if they carry stance or timing.
+   - Add longer sentences only when they carry specific detail, not padding.
+   - Avoid several paragraphs with the same medium-length explanatory cadence.
+
+4. Reduce list cadence.
+   - Cut decorative triads.
+   - Break long inventories into prose when the list is only rhythm.
+   - Preserve lists when accumulation is the point, but say so in the self-check.
+
+5. Remove reframe laundering.
+   - Replace "not X but Y", "less X than Y", "beyond X", and similar reveal
+     structures with direct claims.
+   - Keep ordinary factual contrast when it is needed for meaning.
+
+## Step B: Surface Pass
+
+After structure is fixed, remove required surface tells for the chosen depth.
+
+Balanced must fix hard failures and strong warnings:
+- assistant residue
+- generic conclusions
+- placeholder residue
+- manufactured insight
+- false concession hedges
+- formulaic openers
+- signposted conclusions
+- contrived contrast
+- AI vocabulary clusters
+- soft scaffolding
+- excessive hedging
+- em dashes unless preserving them is explicitly justified by voice
+
+All must also fix context warnings unless meaning would materially change.
+
+Use `references/alternatives.md` for lexical substitutions when the issue is a
+word or stock phrase. Do not use substitutions for structural problems; rewrite
+the sentence or paragraph instead.
+
+## Step C: Structural Self-Check
+
+Before returning, answer the eight self-check fields in the output template.
+Be concrete. Do not claim a pattern was fixed unless the draft changed in a way
+the reader can see.
+
+1. Section arcs: count how many paragraphs or sections still follow the same arc.
+2. Resolution density: count tidy summary endings that remain.
+3. Register breaks: name at least one place where rhythm, register, or sentence
+   shape breaks the default smoothness.
+4. Triads: count obvious three-part lists and state what was cut or preserved.
+5. Reframe laundering: state whether contrived contrast remains.
+6. Purposeful devices preserved: list devices kept because they serve meaning.
+7. Stance: state whether the rewrite preserved, weakened, or strengthened stance.
+8. Remaining tells: list remaining failed checks, or say none.
+
+## Step D: Semantic Preservation
+
+Compare the rewrite or draft against the brief or source before returning.
+
+For Rewrite:
+- Preserve the source argument, examples, stance, and genre.
+- Preserve factual claims unless the original claim is unclear or unsupported.
+- Do not make a writer more neutral just to sound clean.
+- Do not remove a distinctive device if removing it would flatten the voice;
+  disclose the preservation instead.
+
+For Write:
+- Answer the brief directly.
+- Include concrete sensory, practical, or argumentative detail.
+- Avoid generic essay structure unless the user asked for it.
+
+## Step E: Re-Grade and Revise
+
+Run the grader or equivalent check after the final draft.
+
+If the chosen depth has required failures:
+1. Revise the draft before returning.
+2. Re-grade after the revision.
+3. Repeat up to two revision passes.
+
+Stop with residual issues only when:
+- the issue is deliberately preserved for voice or meaning, or
+- removing it would materially change the source, or
+- two revision passes have failed to clear it.
+
+When residual issues remain, name them plainly in the post-check. Do not say
+"none identified" if the grader still reports required failures.
+
+exec
+/bin/zsh -lc "sed -n '1,160p' /Users/mae/Documents/humanise/humanise/grade.py" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+#!/usr/bin/env python3
+"""Grade humanised text against programmatic assertions."""
+
+import csv
+import ast
+import json
+import re
+import sys
+from pathlib import Path
+from statistics import stdev
+
+
+# --- Pattern lists ---
+
+AI_VOCABULARY = [
+    "additionally", "crucial", "delve", "emphasizing",
+    "enduring", "enhance", "fostering", "garner", "interplay",
+    "intricate", "intricacies", "landscape", "pivotal", "showcase",
+    "showcasing", "tapestry", "testament", "underscore", "underscoring",
+    "valuable", "vibrant", "foster", "highlighting",
+    # Added from Grammarly research
+    "realm", "harness", "illuminate", "facilitate", "bolster",
+    "streamline", "shed light on", "revolutionize", "innovative",
+    "cutting-edge", "game-changing", "transformative", "seamlessly",
+    # Added from user observations
+    "genuinely", "unspoken", "seamless",
+    # Added from April 2026 research (Nature biomedical study, practitioner guides)
+    "unparalleled", "invaluable", "bolstered", "meticulous",
+    # Added from Vollmer/GPTZero reference audit
+    "mosaic", "ecosystem", "symphony", "labyrinth", "beacon",
+    "cornerstone", "bedrock", "kaleidoscope", "odyssey", "robust",
+    "dynamic", "comprehensive", "multifaceted", "nuanced", "holistic",
+    "state-of-the-art", "ever-evolving", "ever-changing", "utilize",
+    "optimize", "empower", "navigate", "unpack", "explore", "embrace",
+    "unlock", "commendable", "paramount", "unwavering", "alignment",
+    "resonate", "compelling",
+]
+
+# GPTZero's April 2026 public AI Vocabulary table exposes 100 high-ratio
+# phrases. Treat them as tentative clustering signals, not single-phrase proof.
+GPTZERO_AI_PHRASES = [
+    "provide a valuable insight",
+    "left an indelible mark",
+    "a stark reminder",
+    "a nuanced understanding",
+    "significant role in shaping",
+    "the complex interplay",
+    "broad implication",
+    "an unwavering commitment",
+    "endure a legacy",
+    "underscore the importance",
+    "play a pivotal role",
+    "a pivotal moment",
+    "navigate the complex",
+    "mark a turning point",
+    "continue to inspire",
+    "gain a deeper understanding",
+    "the transformative power",
+    "hold a significant",
+    "play a crucial role",
+    "particularly a concern",
+    "the relentless pursuit",
+    "emphasize the need",
+    "target an intervention",
+    "a multi-faceted approach",
+    "a serf reminder",
+    "highlight the potential",
+    "a significant milestone",
+    "implication to understand",
+    "potential risk associated",
+    "leave a lasting",
+    "add a layer",
+    "offer a valuable",
+    "a profound implication",
+    "case highlights the importance",
+    "finding a highlight of the importance",
+    "pave the way for the future",
+    "a significant step forward",
+    "face a significant",
+    "finding an important implication",
+    "emphasize the importance",
+    "a significant implication",
+    "delve deeper into",
+    "reply in tone",
+    "raise an important question",
+    "make an informed decision in regard to",
+    "far-reaching implications",
+    "a comprehensive framework",
+    "importance to consider",
+    "a unique blend",
+    "couldn't help but wonder",
+    "underscore the need",
+    "framework for understanding",
+    "highlight the need",
+    "a comprehensive understanding",
+    "the journey begins",
+    "understanding the fundamental",
+    "despite the face",
+    "a delicate balance",
+    "the path ahead",
+    "gain an insight",
+    "laid the groundwork",
+    "understand the behavior",
+    "renew a sense",
+    "aim to explore",
+    "present a unique challenge",
+    "provide a comprehensive",
+    "particularly with regard to",
+    "address the root cause",
+    "loom large in",
+    "the implication of the finding",
+    "approach ensures a",
+    "an ongoing dialogue",
+    "carry a weight",
+    "ability to navigate",
+    "present a significant",
+    "study shed light on",
+    "a diverse perspective",
+    "face an adversity",
+    "a comprehensive overview",
+    "potentially lead to",
+    "a broad understanding",
+    "contribute to the understanding",
+    "shape the public",
+    "particularly noteworthy",
+    "the evidence base for decision making",
+    "identify an area of improvement",
+    "analysis of the data to analyze and use",
+    "undergone a significant",
+    "need a robust",
+    "voice will fill",
+    "concern a potential",
+    "initiative aims to",
+    "offering a unique",
+    "a new avenue",
+    "despite the challenge",
+    "ready to embrace",
+    "the societal expectation",
+    "make accessible",
+    "today at a fast pace",
+    "stand in stark contrast",
+]
+
+KOBAK_EXCESS_WORDS_PATH = "kobak-excess-words.csv"
+KOBAK_IGNORED_STYLE_POS = {"preposition", "pronoun", "pronoun/adverb", "particle"}
+KOBAK_IGNORED_STYLE_WORDS = {"were", "based", "background", "like", "this", "their", "these"}
+BIOMEDICAL_DOMAIN_TERMS = {
+    "abstract", "abstracts", "acute", "antiviral", "biomedical", "biomarker",
+    "biomarkers", "cancer", "cell", "cells", "clinical", "clinically",
+    "cohort", "coronavirus", "covid", "diagnosis", "diagnostic", "disease",
+    "diseases", "drug", "drugs", "gene", "genes", "genome", "genomic",
+    "hospital", "hospitalized", "intervention", "mortality", "oncology",
+    "patient", "patients", "placebo", "pneumonia", "protein", "proteins",
+    "pubmed", "randomized", "sars", "therapeutic", "therapeutics", "therapy",
+    "treatment", "treatments", "trial", "tumor", "tumors", "tumour",
+    "tumours", "vaccine", "vaccination", "ventilation", "ventilator",
+    "ventilators",
+}
+
+
+
+exec
+/bin/zsh -lc "rg \"argparse|sys.argv|Path\\(\" -n /Users/mae/Documents/humanise/humanise/grade.py | tail -40" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+163:    here = Path(__file__).resolve()
+2490:    text = Path(filepath).read_text()
+2712:    args = sys.argv[1:]
+
+exec
+/bin/zsh -lc "sed -n '2680,2755p' /Users/mae/Documents/humanise/humanise/grade.py" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+    """Re-grade prose at a chosen depth.
+
+    Returns a dict with depth-aware fail counts so an eval grader can verify
+    that a rewrite or draft cleared what the chosen depth requires.
+
+    Keys:
+        depth: the depth queried.
+        results: every annotated check result (passed and failed).
+        fails: count of failures the chosen depth requires fixing.
+        failed_checks: names of those failures.
+        all_failures: count of all failures regardless of depth.
+        all_failed_checks: names of all failed checks.
+    """
+    if depth not in DEPTHS:
+        raise ValueError(f"depth must be one of {DEPTHS}, got {depth!r}")
+    results = [annotate_result(fn(text)) for fn in ALL_CHECKS.values()]
+    failures = [r for r in results if not r["passed"]]
+    must_fix = [r for r in failures if action_for_depth(r, depth) == "fix"]
+    return {
+        "depth": depth,
+        "results": results,
+        "fails": len(must_fix),
+        "failed_checks": [r["text"] for r in must_fix],
+        "all_failures": len(failures),
+        "all_failed_checks": [r["text"] for r in failures],
+    }
+
+
+USAGE = "Usage: grade.py [--format json|markdown] [--depth balanced|all] <file> [assertion1,assertion2,...]"
+
+
+def main():
+    args = sys.argv[1:]
+    output_format = "json"
+    depth = "all"
+
+    if "--format" in args:
+        index = args.index("--format")
+        try:
+            output_format = args[index + 1]
+        except IndexError:
+            print(USAGE)
+            sys.exit(1)
+        del args[index:index + 2]
+
+    if "--depth" in args:
+        index = args.index("--depth")
+        try:
+            depth = args[index + 1].lower()
+        except IndexError:
+            print(USAGE)
+            sys.exit(1)
+        del args[index:index + 2]
+
+    if output_format not in {"json", "markdown"} or depth not in DEPTHS or not args:
+        print(USAGE)
+        sys.exit(1)
+
+    filepath = args[0]
+    assertions = args[1].split(",") if len(args) > 1 else None
+
+    results = grade_file(filepath, assertions)
+
+    summary = score_summary(results)
+
+    if output_format == "markdown":
+        print(format_human_report(results, depth=depth))
+        return
+
+    output = {
+        "file": filepath,
+        "pass_rate": summary["pass_rate"],
+        "failures_by_severity": summary["failures_by_severity"],
+        "score_summary": summary,
+        "human_report": human_report(results),
+        "triggered_checks": triggered_checks(results),
+
+exec
+/bin/zsh -lc "sed -n '2755,2808p' /Users/mae/Documents/humanise/humanise/grade.py" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+        "triggered_checks": triggered_checks(results),
+        "failure_mode_results": failure_mode_results(results),
+        "depth_results": depth_results(results),
+        "expectations": results,
+    }
+
+    print(json.dumps(output, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+
+exec
+/bin/zsh -lc "python3 - <<'PY'
+text = \"\"\"I thought linocut printing would feel mostly like drawing with extra steps. It did not. The first surprise was how much the block resisted me. The lino looked soft on the table, almost waxy, but the gouge had its own opinions. Push too gently and nothing happened. Push too hard and a white river opened where I had only meant to make a thin line.
+
+That changed the way I looked at the image. I stopped thinking in outlines and started thinking in what would be left behind. Every cut was a small decision to remove something permanently, which made even a simple leaf design feel more serious than it deserved. I made a few ugly slips. One nick in the corner still annoys me, though it also proves my hand was there.
+
+Rolling the ink was the best part. The brayer made that sticky whispering sound when the layer was right, and suddenly the dull grey block looked ready. The first print came out patchy because I had missed pressure along one edge. I wanted to call it a failure, but the unevenness had useful information in it: where my hand hesitated, where the paper lifted, where I had been impatient.
+
+By the third pull I understood the appeal. Linocut is slow, blunt, and slightly unforgiving, but it gives back a very direct kind of evidence. You can see every choice. You can also see every accident, which is less comfortable and probably more honest.\"\"\"
+print(len(text.split()))
+PY
+python3 /Users/mae/Documents/humanise/humanise/grade.py --format json --depth balanced <(printf '%s' \""'$(cat <<'"'EOF'
+I thought linocut printing would feel mostly like drawing with extra steps. It did not. The first surprise was how much the block resisted me. The lino looked soft on the table, almost waxy, but the gouge had its own opinions. Push too gently and nothing happened. Push too hard and a white river opened where I had only meant to make a thin line.
+
+That changed the way I looked at the image. I stopped thinking in outlines and started thinking in what would be left behind. Every cut was a small decision to remove something permanently, which made even a simple leaf design feel more serious than it deserved. I made a few ugly slips. One nick in the corner still annoys me, though it also proves my hand was there.
+
+Rolling the ink was the best part. The brayer made that sticky whispering sound when the layer was right, and suddenly the dull grey block looked ready. The first print came out patchy because I had missed pressure along one edge. I wanted to call it a failure, but the unevenness had useful information in it: where my hand hesitated, where the paper lifted, where I had been impatient.
+
+By the third pull I understood the appeal. Linocut is slow, blunt, and slightly unforgiving, but it gives back a very direct kind of evidence. You can see every choice. You can also see every accident, which is less comfortable and probably more honest.
+EOF
+)\")" in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+zsh:1: can't create temp file for here document: operation not permitted
+zsh:11: can't create temp file for here document: operation not permitted
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-Ld10x2iO' (errno=Operation not permitted)
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-vHBdcZx6' (errno=Operation not permitted)
+{
+  "file": "/dev/fd/11",
+  "pass_rate": "43/43",
+  "failures_by_severity": {},
+  "score_summary": {
+    "check_status": "pass",
+    "passed_checks": 43,
+    "failed_checks": 0,
+    "total_checks": 43,
+    "pass_rate": "43/43",
+    "failures_by_severity": {},
+    "ai_signal_pressure": {
+      "score": 0,
+      "threshold": 4,
+      "triggered": false,
+      "components": [],
+      "vocabulary_pressure": {
+        "points": 0,
+        "reasons": [],
+        "worst_generic": 0,
+        "gptzero_matches": [],
+        "kobak_style_distinct": 0,
+        "kobak_style_density": 0.0,
+        "kobak_style_sample": []
+      }
+    }
+  },
+  "human_report": {
+    "overview": "All 43 checks were clear.",
+    "score": {
+      "status": "pass",
+      "failed_checks": 0,
+      "total_checks": 43,
+      "pass_rate": "43/43",
+      "severity_counts": {}
+    },
+    "confidence": {
+      "level": "Low",
+      "meaning": "No programmatic checks showed AI-writing patterns.",
+      "basis": [
+        "all checks passed"
+      ],
+      "caveat": "This is a confidence assessment about AI-writing signs, not an authorship verdict."
+    },
+    "ai_pressure_explanation": "AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. This text did not stack enough weak signals to suggest machine-packaged structure. Score: 0/4, so this check stayed clear.",
+    "failed_checks": [],
+    "all_checks": [
+      {
+        "check_id": "no-em-dashes",
+        "check": "Em dashes",
+        "what_it_checks": "Checks for em dash punctuation, a strong current AI-style signal in this skill.",
+        "why_it_matters": "Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-ai-vocabulary-clustering",
+        "check": "Clustered AI vocabulary",
+        "what_it_checks": "Checks whether generic AI-associated words and phrases cluster together.",
+        "why_it_matters": "Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-nonliteral-land-surface",
+        "check": "Nonliteral land/surface phrasing",
+        "what_it_checks": "Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale.",
+        "why_it_matters": "Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "overall-ai-signal-pressure",
+        "check": "AI pressure from stacked signals",
+        "what_it_checks": "Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive.",
+        "why_it_matters": "Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-manufactured-insight",
+        "check": "Manufactured insight framing",
+        "what_it_checks": "Checks for phrases that perform hidden depth or secret significance without earning it.",
+        "why_it_matters": "Manufactured insight framing performs depth without adding specific evidence or thought.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-staccato-sequences",
+        "check": "Generic staccato emphasis",
+        "what_it_checks": "Checks for repeated short dramatic sentences used as generic emphasis.",
+        "why_it_matters": "Repeated short emphasis beats can make prose sound generated rather than naturally paced.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-anaphora",
+        "check": "Mechanical repeated sentence starts",
+        "what_it_checks": "Checks for repeated sentence openings that read like template rhythm.",
+        "why_it_matters": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-collaborative-artifacts",
+        "check": "Assistant residue",
+        "what_it_checks": "Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue.",
+        "why_it_matters": "Assistant residue makes the text look like chat output rather than finished prose.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-curly-quotes",
+        "check": "Curly quotes",
+        "what_it_checks": "Checks for curly quotation marks when plain output is expected.",
+        "why_it_matters": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "sentence-length-variance",
+        "check": "Sentence rhythm variance",
+        "what_it_checks": "Checks whether sentence lengths are too uniform across longer prose.",
+        "why_it_matters": "Low rhythm variation makes paragraphs feel mechanically produced.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-promotional-language",
+        "check": "Generic promotional language",
+        "what_it_checks": "Checks for stock hype and sales-like adjectives.",
+        "why_it_matters": "Stock hype weakens credibility and often appears in generated product or venue copy.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-significance-inflation",
+        "check": "Inflated significance",
+        "what_it_checks": "Checks for language that makes ordinary claims sound historically important.",
+        "why_it_matters": "Inflated importance makes ordinary claims sound artificially momentous.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-negative-parallelisms",
+        "check": "Contrived contrast",
+        "what_it_checks": "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures.",
+        "why_it_matters": "Contrived contrast creates a fake reveal instead of making a direct, supported claim.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-copula-avoidance",
+        "check": "Avoiding plain 'is'",
+        "what_it_checks": "Checks for inflated replacements such as serves as, functions as, or stands as.",
+        "why_it_matters": "Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-filler-phrases",
+        "check": "Filler phrases",
+        "what_it_checks": "Checks for stock padding such as in order to or it is worth noting.",
+        "why_it_matters": "Filler phrases add polish without information.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-generic-conclusions",
+        "check": "Generic conclusion",
+        "what_it_checks": "Checks for empty endings such as the future looks bright.",
+        "why_it_matters": "Generic conclusions make the ending feel templated and interchangeable.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-false-concession-hedges",
+        "check": "False balance or concession",
+        "what_it_checks": "Checks for fake both-sides framing that avoids taking a position.",
+        "why_it_matters": "False balance can hide the writer's actual position.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-placeholder-residue",
+        "check": "Placeholder residue",
+        "what_it_checks": "Checks for unfilled template markers and placeholder instructions.",
+        "why_it_matters": "Placeholder residue signals unfinished generated or templated text.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-soft-scaffolding",
+        "check": "Soft explainer scaffolding",
+        "what_it_checks": "Checks for phrases that announce structure instead of making a point.",
+        "why_it_matters": "Soft scaffolding announces structure instead of doing useful writing work.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-orphaned-demonstratives",
+        "check": "Vague 'this/that' starts",
+        "what_it_checks": "Checks for repeated vague sentence subjects such as This highlights or That shows.",
+        "why_it_matters": "Vague this/that openings blur the actual subject and create generic analysis.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-forced-triads",
+        "check": "Decorative three-part lists",
+        "what_it_checks": "Checks for forced triads used as rhythm rather than substance.",
+        "why_it_matters": "Decorative three-part lists can create artificial rhythm without substance.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-superficial-ing",
+        "check": "Tacked-on -ing analysis",
+        "what_it_checks": "Checks for trailing -ing clauses that pretend to analyse without adding meaning.",
+        "why_it_matters": "Tacked-on -ing clauses often pretend to analyse while adding little.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-ghost-spectral-density",
+        "check": "Ghost/spectral atmosphere",
+        "what_it_checks": "Checks for clich\u00e9d ghost, shadow, whisper, and echo language.",
+        "why_it_matters": "Stock spectral language can make atmosphere feel generated or borrowed.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-quietness-obsession",
+        "check": "Generic quiet/still mood",
+        "what_it_checks": "Checks for overused quiet, still, soft, and hushed atmosphere.",
+        "why_it_matters": "Overused quiet/still mood language can create generic literary atmosphere.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-rhetorical-questions",
+        "check": "Template rhetorical questions",
+        "what_it_checks": "Checks for article-style questions followed by obvious answers.",
+        "why_it_matters": "Template questions often simulate engagement without adding real inquiry.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-excessive-lists",
+        "check": "Excessive list formatting",
+        "what_it_checks": "Checks whether prose has been over-converted into bullets or numbered lists.",
+        "why_it_matters": "Too much list formatting can make prose feel like generated notes or slides.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-unicode-flair",
+        "check": "Decorative Unicode",
+        "what_it_checks": "Checks for symbols and decorative punctuation that look like generated formatting.",
+        "why_it_matters": "Decorative symbols can make output look like generated formatting.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-dramatic-transitions",
+        "check": "Unearned dramatic transitions",
+        "what_it_checks": "Checks for generic turning points such as something shifted or everything changed.",
+        "why_it_matters": "Unearned turning-point language claims drama the prose has not built.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-formulaic-openers",
+        "check": "Formulaic openers",
+        "what_it_checks": "Checks for generated openings such as at its core or from a broader perspective.",
+        "why_it_matters": "Formulaic openings make paragraphs feel assembled from templates.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-signposted-conclusions",
+        "check": "Signposted conclusion",
+        "what_it_checks": "Checks for explicit conclusion labels and summary signposts.",
+        "why_it_matters": "Conclusion signposts often flatten the ending into a generic summary.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-markdown-headings",
+        "check": "Headings in prose",
+        "what_it_checks": "Checks for markdown headings and plain title headings when prose should flow.",
+        "why_it_matters": "Headings can make prose feel packaged by an assistant rather than written as a continuous piece.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-corporate-ai-speak",
+        "check": "Corporate AI-speak",
+        "what_it_checks": "Checks for vague delivery, alignment, outcomes, and cross-functional clich\u00e9s.",
+        "why_it_matters": "Corporate AI-speak hides specific work behind vague operational language.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-this-chains",
+        "check": "Repeated 'This...' chains",
+        "what_it_checks": "Checks for several consecutive sentences beginning with vague This constructions.",
+        "why_it_matters": "Repeated vague This sentences create generic analysis and weak subject control.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-excessive-hedging",
+        "check": "Excessive hedging",
+        "what_it_checks": "Checks for evasive qualification and impersonal uncertainty.",
+        "why_it_matters": "Too much hedging weakens stance and can make prose feel evasive or machine-neutral.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-countdown-negation",
+        "check": "Countdown negation",
+        "what_it_checks": "Checks for repeated no/not/cannot setups that build toward a reveal.",
+        "why_it_matters": "Countdown negation creates a synthetic reveal structure.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-negation-density",
+        "check": "Dense negation",
+        "what_it_checks": "Checks whether negation markers are unusually dense across prose.",
+        "why_it_matters": "Dense negation can make a piece feel over-framed around what it is not instead of what it is.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "paragraph-length-uniformity",
+        "check": "Paragraph length uniformity",
+        "what_it_checks": "Checks whether paragraphs are suspiciously similar in length.",
+        "why_it_matters": "Paragraphs of similar length can signal generated structure and low natural variation.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-tidy-paragraph-endings",
+        "check": "Tidy paragraph endings",
+        "what_it_checks": "Checks for repeated miniature conclusions at paragraph ends.",
+        "why_it_matters": "Repeated tidy endings make paragraphs feel over-resolved and templated.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-bland-critical-template",
+        "check": "Bland critical template",
+        "what_it_checks": "Checks for generic review language instead of concrete critical claims.",
+        "why_it_matters": "Bland critical language replaces concrete judgment with portable review phrases.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-rubric-echoing",
+        "check": "Rubric echoing",
+        "what_it_checks": "Checks for assignment or rubric phrasing leaking into the prose.",
+        "why_it_matters": "Rubric echoing makes writing sound like assignment compliance rather than independent thought.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "vocabulary-diversity",
+        "check": "Vocabulary diversity",
+        "what_it_checks": "Checks for unusually repetitive vocabulary in longer text.",
+        "why_it_matters": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-triad-density",
+        "check": "Triad density",
+        "what_it_checks": "Checks whether three-part list structures are overused across the piece.",
+        "why_it_matters": "Too many three-part lists create a recognisable generated cadence.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-section-scaffolding",
+        "check": "Repeated section scaffolding",
+        "what_it_checks": "Checks for repeated section labels or repeated structural templates.",
+        "why_it_matters": "Repeated section structure makes the whole piece feel assembled from a template.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      }
+    ]
+  },
+  "triggered_checks": [],
+  "failure_mode_results": {
+    "provenance_residue": {
+      "label": "Provenance residue",
+      "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "synthetic_significance": {
+      "label": "Synthetic significance",
+      "summary": "Text performs importance, revelation, or depth without enough concrete support.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "frictionless_structure": {
+      "label": "Frictionless structure",
+      "summary": "Text is packaged too evenly through headings, lists, repeated shapes, or tidy closures.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "generic_abstraction": {
+      "label": "Generic abstraction",
+      "summary": "Text relies on portable abstractions, stock vocabulary, or low-specificity claims.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "voice_erasure": {
+      "label": "Voice erasure",
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "genre_misfit": {
+      "label": "Genre misfit",
+      "summary": "Text uses a device that may be valid in one genre but suspicious in another.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    }
+  },
+  "depth_results": {
+    "balanced": {
+      "status": "pass",
+      "check_status": "pass",
+      "required_fixes": [],
+      "preservable_with_disclosure": [],
+      "user_decision_needed": [],
+      "must_fix": [],
+      "needs_user_decision": [],
+      "summary": "No hard failures, strong warnings, or context warnings."
+    },
+    "all": {
+      "status": "pass",
+      "check_status": "pass",
+      "required_fixes": [],
+      "preservable_with_disclosure": [],
+      "user_decision_needed": [],
+      "must_fix": [],
+      "needs_user_decision": [],
+      "summary": "All checks pass."
+    }
+  },
+  "expectations": [
+    {
+      "text": "no-em-dashes",
+      "passed": true,
+      "evidence": "No em dashes found",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "punctuation_signal",
+      "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal."
+    },
+    {
+      "text": "no-ai-vocabulary-clustering",
+      "passed": true,
+      "evidence": "Max AI words per paragraph: 0 (0 total in text)",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "vocabulary_cluster",
+      "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context."
+    },
+    {
+      "text": "no-nonliteral-land-surface",
+      "passed": true,
+      "evidence": "No nonliteral land/surface constructions found",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "evidence_role": "metaphor_residue",
+      "guidance": "Fix nonliteral land/surface phrasing; replace with the concrete action or claim."
+    },
+    {
+      "text": "overall-ai-signal-pressure",
+      "passed": true,
+      "score": 0,
+      "threshold": 4,
+      "components": [],
+      "vocabulary_pressure": {
+        "points": 0,
+        "reasons": [],
+        "worst_generic": 0,
+        "gptzero_matches": [],
+        "kobak_style_distinct": 0,
+        "kobak_style_density": 0.0,
+        "kobak_style_sample": []
+      },
+      "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=0 distinct/0.0/1000",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "frictionless_structure"
+      ],
+      "evidence_role": "aggregate_pressure",
+      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict."
+    },
+    {
+      "text": "no-manufactured-insight",
+      "passed": true,
+      "evidence": "No manufactured insight phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice."
+    },
+    {
+      "text": "no-staccato-sequences",
+      "passed": true,
+      "evidence": "Max consecutive short sentences: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm."
+    },
+    {
+      "text": "no-anaphora",
+      "passed": true,
+      "evidence": "Too few sentences to check",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning."
+    },
+    {
+      "text": "no-collaborative-artifacts",
+      "passed": true,
+      "evidence": "No collaborative artifacts",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "evidence_role": "assistant_residue",
+      "guidance": "Fix at every depth; this is assistant residue, not authorial style."
+    },
+    {
+      "text": "no-curly-quotes",
+      "passed": true,
+      "evidence": "No curly quotes",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "typographic_signal",
+      "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text."
+    },
+    {
+      "text": "sentence-length-variance",
+      "passed": true,
+      "evidence": "Skipped: short text (0 words, 0 sentences)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms."
+    },
+    {
+      "text": "no-promotional-language",
+      "passed": true,
+      "evidence": "No promotional language",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "evidence_role": "hype_language",
+      "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm."
+    },
+    {
+      "text": "no-significance-inflation",
+      "passed": true,
+      "evidence": "No significance inflation",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "importance_inflation",
+      "guidance": "Fix inflated importance unless the source genuinely argues significance."
+    },
+    {
+      "text": "no-negative-parallelisms",
+      "passed": true,
+      "evidence": "No negative parallelisms or contrived reframes",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced."
+    },
+    {
+      "text": "no-copula-avoidance",
+      "passed": true,
+      "evidence": "No copula avoidance",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "generic_abstraction"
+      ],
+      "evidence_role": "grammar_substitution",
+      "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical."
+    },
+    {
+      "text": "no-filler-phrases",
+      "passed": true,
+      "evidence": "No filler phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "filler_phrase",
+      "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice."
+    },
+    {
+      "text": "no-generic-conclusions",
+      "passed": true,
+      "evidence": "No generic conclusions",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue",
+        "synthetic_significance"
+      ],
+      "evidence_role": "generic_closure",
+      "guidance": "Fix at every depth unless quoted from source text."
+    },
+    {
+      "text": "no-false-concession-hedges",
+      "passed": true,
+      "evidence": "No false concession hedges",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "evidence_role": "stance_erasure",
+      "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence."
+    },
+    {
+      "text": "no-placeholder-residue",
+      "passed": true,
+      "evidence": "No placeholder residue",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "evidence_role": "template_residue",
+      "guidance": "Fix at every depth; unfilled placeholders are generated/template residue."
+    },
+    {
+      "text": "no-soft-scaffolding",
+      "passed": true,
+      "evidence": "Soft scaffold phrases: 0",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "explainer_scaffold",
+      "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content."
+    },
+    {
+      "text": "no-orphaned-demonstratives",
+      "passed": true,
+      "evidence": "Vague demonstrative subjects: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "voice_erasure",
+        "generic_abstraction"
+      ],
+      "evidence_role": "sentence_subject",
+      "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear."
+    },
+    {
+      "text": "no-forced-triads",
+      "passed": true,
+      "evidence": "No forced triads",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric."
+    },
+    {
+      "text": "no-superficial-ing",
+      "passed": true,
+      "evidence": "No superficial -ing phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "analysis_substitution",
+      "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning."
+    },
+    {
+      "text": "no-ghost-spectral-density",
+      "passed": true,
+      "evidence": "Ghost/spectral words: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "atmospheric_cliche",
+      "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose."
+    },
+    {
+      "text": "no-quietness-obsession",
+      "passed": true,
+      "evidence": "Quietness words: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "evidence_role": "atmospheric_cliche",
+      "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice."
+    },
+    {
+      "text": "no-rhetorical-questions",
+      "passed": true,
+      "evidence": "Rhetorical questions: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhetorical_template",
+      "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument."
+    },
+    {
+      "text": "no-excessive-lists",
+      "passed": true,
+      "evidence": "List ratio: 0%",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "listification",
+      "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure."
+    },
+    {
+      "text": "no-unicode-flair",
+      "passed": true,
+      "evidence": "Decorative Unicode symbols: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "provenance_residue",
+        "genre_misfit"
+      ],
+      "evidence_role": "formatting_residue",
+      "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source."
+    },
+    {
+      "text": "no-dramatic-transitions",
+      "passed": true,
+      "evidence": "No dramatic transitions",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "evidence_role": "narrative_template",
+      "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned."
+    },
+    {
+      "text": "no-formulaic-openers",
+      "passed": true,
+      "evidence": "No formulaic openers",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "generic_abstraction"
+      ],
+      "evidence_role": "formulaic_structure",
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre."
+    },
+    {
+      "text": "no-signposted-conclusions",
+      "passed": true,
+      "evidence": "No signposted conclusions",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "structural_signpost",
+      "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful."
+    },
+    {
+      "text": "no-markdown-headings",
+      "passed": true,
+      "evidence": "No headings",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "formatting_signal",
+      "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs."
+    },
+    {
+      "text": "no-corporate-ai-speak",
+      "passed": true,
+      "evidence": "No corporate AI speak",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "domain_cliche",
+      "guidance": "Fix at every depth; recommend preserving only when quoting corporate source language."
+    },
+    {
+      "text": "no-this-chains",
+      "passed": true,
+      "evidence": "Max 'This [verb]' run: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "evidence_role": "sentence_subject",
+      "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate."
+    },
+    {
+      "text": "no-excessive-hedging",
+      "passed": true,
+      "evidence": "Hedging constructions: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "evidence_role": "stance_erasure",
+      "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty."
+    },
+    {
+      "text": "no-countdown-negation",
+      "passed": true,
+      "evidence": "No countdown negation",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason."
+    },
+    {
+      "text": "no-negation-density",
+      "passed": true,
+      "evidence": "Skipped: short text (0 words, need 300+)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhetorical_density",
+      "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful."
+    },
+    {
+      "text": "paragraph-length-uniformity",
+      "passed": true,
+      "evidence": "Skipped: 0 substantial paragraphs, need 7+",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "layout_rhythm",
+      "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template."
+    },
+    {
+      "text": "no-tidy-paragraph-endings",
+      "passed": true,
+      "evidence": "Tidy paragraph endings: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "evidence_role": "paragraph_closure",
+      "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn."
+    },
+    {
+      "text": "no-bland-critical-template",
+      "passed": true,
+      "evidence": "Bland critical template phrases: 0",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "voice_erasure"
+      ],
+      "evidence_role": "genre_cliche",
+      "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work."
+    },
+    {
+      "text": "no-rubric-echoing",
+      "passed": true,
+      "evidence": "Rubric echo phrases: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "provenance_residue",
+        "voice_erasure"
+      ],
+      "evidence_role": "assignment_residue",
+      "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric."
+    },
+    {
+      "text": "vocabulary-diversity",
+      "passed": true,
+      "evidence": "Skipped: short text (0 words, need 150+)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "lexical_distribution",
+      "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately."
+    },
+    {
+      "text": "no-triad-density",
+      "passed": true,
+      "evidence": "Skipped: short text (0 words, need 300+)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical."
+    },
+    {
+      "text": "no-section-scaffolding",
+      "passed": true,
+      "evidence": "No repeated section labels",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "repeated_template",
+      "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material."
+    }
+  ]
+}
+
+exec
+/bin/zsh -lc 'draft=$'"'I thought linocut printing would feel mostly like drawing with extra steps. It did not. The first surprise was how much the block resisted me. The lino looked soft on the table, almost waxy, but the gouge had its own opinions. Push too gently and nothing happened. Push too hard and a white river opened where I had only meant to make a thin line.\\n\\nThat changed the way I looked at the image. I stopped thinking in outlines and started thinking in what would be left behind. Every cut was a small decision to remove something permanently, which made even a simple leaf design feel more serious than it deserved. I made a few ugly slips. One nick in the corner still annoys me, though it also proves my hand was there.\\n\\nRolling the ink was the best part. The brayer made that sticky whispering sound when the layer was right, and suddenly the dull grey block looked ready. The first print came out patchy because I had missed pressure along one edge. I wanted to call it a failure, but the unevenness had useful information in it: where my hand hesitated, where the paper lifted, where I had been impatient.\\n\\nBy the third pull I understood the appeal. Linocut is slow, blunt, and slightly unforgiving, but it gives back a very direct kind of evidence. You can see every choice. You can also see every accident, which is less comfortable and probably more honest.'
+printf '%s' \""'$draft" | wc -w
+python3 /Users/mae/Documents/humanise/humanise/grade.py --format json --depth balanced <(printf '"'%s' \""'$draft") | python3 -c '"'import json,sys; d=json.load(sys.stdin); print(d[\"pass_rate\"], d[\"depth_results\"][\"balanced\"][\"summary\"], d[\"human_report\"][\"confidence\"][\"level\"], d[\"human_report\"][\"confidence\"][\"meaning\"])'" in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+     246
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: python3: error: couldn't create cache file '/tmp/xcrun_db-77MqDpJq'couldn't create cache file '/tmp/xcrun_db-XiUHnslV' (errno=Operation not permitted)
+ (errno=Operation not permitted)
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-iUT2ie4m' (errno=Operation not permitted)
+python3: error: couldn't create cache file '/tmp/xcrun_db-6gEMRppf' (errno=Operation not permitted)
+43/43 No hard failures, strong warnings, or context warnings. Low No programmatic checks showed AI-writing patterns.
+
+codex
+**Brief:** A 250-word reflection on first-time linocut printing.
+
+**Depth: Balanced**
+Why: Balanced keeps the reflection natural while avoiding the obvious AI-style tells.
+
+**Draft**
+
+I thought linocut printing would feel mostly like drawing with extra steps. It did not. The first surprise was how much the block resisted me. The lino looked soft on the table, almost waxy, but the gouge had its own opinions. Push too gently and nothing happened. Push too hard and a white river opened where I had only meant to make a thin line.
+
+That changed the way I looked at the image. I stopped thinking in outlines and started thinking in what would be left behind. Every cut was a small decision to remove something permanently, which made even a simple leaf design feel more serious than it deserved. I made a few ugly slips. One nick in the corner still annoys me, though it also proves my hand was there.
+
+Rolling the ink was the best part. The brayer made that sticky whispering sound when the layer was right, and suddenly the dull grey block looked ready. The first print came out patchy because I had missed pressure along one edge. I wanted to call it a failure, but the unevenness had useful information in it: where my hand hesitated, where the paper lifted, where I had been impatient.
+
+By the third pull I understood the appeal. Linocut is slow, blunt, and slightly unforgiving, but it gives back a very direct kind of evidence. You can see every choice. You can also see every accident, which is less comfortable and probably more honest on the damp paper.
+
+**Structural self-check**
+1. Section arcs: 0/4 repeated template arcs. The piece moves through discovery, cutting, printing, and reflection.
+2. Resolution density: 1/4 tidy endings. The final paragraph resolves, the others stay scene-based.
+3. Register breaks: “It did not” and “the gouge had its own opinions” break the smooth reflective tone.
+4. Triads: 1 found and preserved because it tracks three real causes of the patchy print.
+5. Reframe laundering: none.
+6. Purposeful devices preserved: sensory detail and one repeated “Push” construction to show trial and error.
+7. Stance: preserved as personal and mildly self-critical.
+8. Remaining tells: none identified.
+
+**Post-check at Balanced**
+- Score: 0 required checks failed; AI-pressure stayed clear.
+- Confidence: Low, meaning no programmatic checks showed AI-writing patterns. This describes AI-writing signs, not authorship.
+- Remaining issues: none.
+tokens used
+55,594

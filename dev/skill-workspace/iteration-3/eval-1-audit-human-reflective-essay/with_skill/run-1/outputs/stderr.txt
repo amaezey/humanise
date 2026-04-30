@@ -1,0 +1,2858 @@
+Reading additional input from stdin...
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd949-8226-7ea3-9d9b-72ce476ea716
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/humanise/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Audit this draft for AI tells.
+
+Inputs:
+Input file: /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md
+
+```markdown
+---
+{
+  "id": "21c-dillard-this-is-the-life",
+  "title": "This Is the Life",
+  "author": "Annie Dillard",
+  "year": 2021,
+  "period": "21st",
+  "format": "literary essay",
+  "source_url": "https://thedewdrop.org/2021/05/21/this-is-the-life-annie-dillard/",
+  "fetch_status": 200,
+  "extract_method": "article",
+  "expected_use": [
+    "style_reference",
+    "false_positive_audit"
+  ],
+  "voice_targets": [
+    "compressed lyric essay",
+    "second-person address",
+    "existential abstraction with human cadence"
+  ]
+}
+---
+
+“Say you have seen an ordinary bit of what is real, the infinite fabric of time that eternity shoots through, and time’s soft-skinned people working and dying under slowly shifting stars. Then what?”
+
+Mary Oliver ‘s unforgettably provocative question, ‘what is it you plan to do/with your one wild and precious life?’ resonates through this essay by Annie Dillard that celebrates humanity by taking the widest view of all our activity, hopes, dreams and values. If we could be up a beanpole and see all the space and time of the human race, what would we do? If we were like the visionary in Plato’s Cave , awakened and alive to warp and weft of the fabric of being and the way in which it ‘both passes among the stars and encloses them’, how would we respond? What would we change? How would we communicate what we have seen and understood? Would we even try or would we come back to our lives with our expanded perspectives and more wholeheartedly enjoy them just for what they are?
+
+Any culture tells you how to live your one and only life: to wit, as everyone else does.
+
+Probably most cultures prize, as ours rightly does, making a contribution by working hard at work that you love; being in the know, and intelligent; gathering a surplus; and loving your family above all, and your dog, your cat; bird-watching. Beyond those things our culture may place a special focus on money, on celebrity, on physical beauty. These are not universal.
+
+Elsewhere it might be: You wear the best shoes you can afford, you seek to know Rome’s best restaurants and their staffs, drive the best car, and vacation on Tenerife. And what a cook you are!
+
+Or you take the next tribe’s pigs in thrilling raids; you grill yams; you trade for televisions and hunt white-plumed birds. Everyone you know agrees: This is the life. Perhaps you burn captives. You set fire to drunks. Yours is the human struggle, or the elite one, to achieve … whatever your own culture tells you: to publish the paper that proves the point; to progress in the firm and gain high title and salary, stock options, benefits; to get the loan to store the beans till their price rises; to elude capture; to feed your children or educate them to a feather edge; to count coup or perfect your calligraphy; to eat the king’s deer or catch the poacher; to spear the seal, intimidate the enemy, and be a big man or beloved woman and die respected for the pigs or the title or the shoes. Not a funeral. Forget funeral. A big birthday party.
+
+Since everyone around you agrees ever since there were people on earth that land is value, or labor is value, or learning is value, or title, degree, necklaces, murex shells, the ownership of slaves. Everyone knows bees sting and ghosts haunt and giving your robes away humiliates your rivals. That the enemies are barbarians. That wise men swim through the rock of the earth; that houses breed filth, airstrips attract airplanes, tornadoes punish, ancestors watch, and you can buy a shorter stay in purgatory. The black rock is holy, or the scroll; or the pangolin is holy, the quetzal is holy, this tree, water, rock, stone, cow, cross, or mountain--and it’s all true. The Red Sox. Or nothing at all is holy, as everyone intelligent knows.
+
+Who is your everyone? Chess masters scarcely surround themselves with motocross racers. Do you want aborigines at your birthday party? Or is it yak-butter tea you are serving?
+
+Who is your everyone? Chess masters scarcely surround themselves with motocross racers. Do you want aborigines at your birthday party? Or is it yak-butter tea you are serving?
+
+Who is your everyone? Chess masters scarcely surround themselves with motocross racers. Do you want aborigines at your birthday party? Or is it yak-butter tea you are serving? Popular culture deals not in its distant past, or any other past, or any other culture. You know no one who longs to buy a mule or be presented at court or thrown into a volcano.
+
+So the illusion, like the visual field, is complete. It has no holes except books you read and soon forget. And death takes us by storm. What was that, that life? What else offered? If for him it was contract bridge, if for her it was copyright law, i f for everyone it was and is an optimal mix of family and friends, learning, contribution, and joy--of making and ameliorating--what else is there, or was there, or will there ever be?
+
+What else is a vision or fact of time and the peoples it bears issuing from the mouth of the cosmos, from the round mouth of eternity, in a wide and particolored utterance. In the complex weave of this utterance like fabric, in its infinite domestic interstices, the centuries and continents and classes dwell. Each people knows only its own squares in the weave, its wars and instruments and arts, and also perhaps the starry sky.
+
+Okay, and then what? Say you manage to scale your own weft and see time’s breadth and the length of space. You see the way the fabric both passes among the stars and encloses them. You see in the weave nearby, and aslant farther off, the peoples variously scandalized or exalted in their squares. They work on their projects--they flake spear points, hoe, plant; they kill aurochs or one another; they prepare sacrifices--as we here and now work on our project. What, seeing this spread multiply infinitely in every direction, would you do differently? Would you change your project? To what? Whatever you do, it has likely brought delight to fewer people than either contract bridge or the Red Sox.
+
+However many more people come, your time and its passions, you yourself and your passions, weigh but equally in the balance with those of any dead who pulled waterwheel poles by the Nile or Yellow Rivers, or painted their foreheads black, or starved in the wilderness, or wasted from disease, then or now.
+
+However many more people come, your time and its passions, you yourself and your passions, weigh but equally in the balance with those of any dead who pulled waterwheel poles by the Nile or Yellow Rivers, or painted their foreheads black, or starved in the wilderness, or wasted from disease, then or now.
+
+However hypnotized you and your people are, you will be just as dead in their war, our war. However dead you are, more people will come. However many more people come, your time and its passions, you yourself and your passions, weigh but equally in the balance with those of any dead who pulled waterwheel poles by the Nile or Yellow Rivers, or painted their foreheads black, or starved in the wilderness, or wasted from disease, then or now. Our lives and our deaths surely count equally, or we must abandon one-man-one-vote, dismantle democracy, and assign seven billion people an importance-of-life ranking from one to seven billion.
+
+What would you do differently, you up on your beanstalk looking at scenes of all peoples at all times in all places? When you climb down, would you dance any less to the music you love, knowing that music to be provisional as a bug? Somebody has to make jogging shoes, to turn the soil, fish. If you descend the long rope ladders back to your people, your own time in the fabric, if you tell them what you have seen, and should someone care to listen, then what? Everyone knows times and cultures are plural. If you come back a shrugging relativist or a stiff-tongued absolutist, then what? If you spend hours a day looking around, high astraddle the warp or woof of your people’s wall, then what new wisdom might you take to your grave for worms to untangle? Well, maybe you will not go into advertising. But what work suits? You might know your own death better, though dread it no less. Will you try to bring people up the wall-carry children to see it--to what end? Fewer golf courses? What’s wrong with golf? Nothing at all. Equality of wealth? Sure; how?
+
+The woman watching sheep over there, the man who carries embers in a pierced clay ball, the engineer, the girl who spins wool into yarn as she climbs, the smelter, the babies learning to recognize speech in their own languages, the man whipping a slave’s flayed back, the man digging roots, the woman digging roots, the child digging roots--what would you tell them? And the future people--what are they doing? What excitements sweep peoples here and there from time to time? Into the muddy river they go, into the trenches, into the caves, into the mines, into the granary, into the sea in boats. Most humans who were ever alive lived inside a single culture that had not changed for hundreds of thousands of years.
+
+Most humans who were ever alive lived inside a single culture that had not changed for hundreds of thousands of years.
+
+Most humans who were ever alive lived inside a single culture that had not changed for hundreds of thousands of years.
+
+Over here, the rains fail; they are starving. There, the caribou fail; they are starving. Corrupt leaders take the wealth. Not just there, but here. Rust and smut spoil the rye. When pigs and cattle starve or freeze, people die soon after. Disease empties a sector, a billion sectors.
+
+People look at the sky and at the other animals. They make beautiful objects, beautiful sounds, beautiful motions of their bodies beating drums in lines. They pray; they toss people in peat bogs; they help the sick and injured; they pierce their lips, their noses, ears; they make the same mistakes despite religion, written language, philosophy, and science. They build, they kill, they preserve, they count and figure, they boil the pot, they keep the embers alive; they tell their stories and gird themselves.
+
+Will knowledge you experience directly make you a Buddhist? Must you forfeit excitement per se? To what end?
+
+Say you have seen an ordinary bit of what is real, the infinite fabric of time that eternity shoots through, and time’s soft-skinned people working and dying under slowly shifting stars. Then what?
+
+Annie Dillard From: The Abundance
+
+Print (Opens in new window) Print
+
+Email a link to a friend (Opens in new window) Email
+
+Share on X (Opens in new window) X
+
+Share on Facebook (Opens in new window) Facebook
+
+Share on LinkedIn (Opens in new window) LinkedIn
+
+Share on WhatsApp (Opens in new window) WhatsApp
+
+Share on Reddit (Opens in new window) Reddit
+
+Share on Tumblr (Opens in new window) Tumblr
+
+Share on Nextdoor (Opens in new window) Nextdoor
+
+Subscribe to get the latest posts sent to your email.
+
+```
+
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits prose for AI fingerprints and explains each one in plain English.
+  Optionally hands back alternative phrasings for each flagged tell, redrafts
+  the prose at a chosen intensity, or composes new prose from a brief while
+  avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
+  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
+  "help me write something that doesn't sound AI".
+---
+
+# Humanise
+
+The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
+
+Three principles cut across the skill:
+
+1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
+2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
+3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+
+The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
+
+---
+
+## Action selection
+
+Four actions:
+
+| Action | When to fire | Output |
+|---|---|---|
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
+| **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
+| **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
+
+If the writer's intent is genuinely ambiguous and the agent can ask, ask whether the writer wants an audit or a rewrite, or whether they're handing over a brief for a new draft. If the agent can't ask (headless invocation, no human turn), default to Audit only.
+
+---
+
+## Action 1: Audit (default)
+
+### Audit steps
+
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
+3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
+4. Render the audit using the output template below.
+5. End with the next-step question and stop without proceeding to a rewrite.
+
+### Audit output
+
+```
+**Audit, N AI tells found**
+
+<pattern-name-1> (M instances)
+  - "<quoted phrase from input>"
+  - "<another quoted phrase>"
+  Why: <brief explanation, ~1-2 sentences>
+
+<pattern-name-2> (M instances)
+  - "<quoted phrase>"
+  Why: <explanation>
+
+<structural-pattern-name>
+  Where: <description of where the pattern appears, e.g., "every paragraph in section 2 is 4-5 sentences and ends with a summary line">
+  Why: <explanation>
+
+...
+
+**Confidence**
+
+Render four fields from the grader: the level (low / medium / high / very high), the meaning string explaining what the level implies, the basis list summarising why, and a note that this assessment describes AI-writing signs rather than offering a verdict about who wrote the text.
+
+**Next step**
+
+Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
+```
+
+### Rendering rules
+
+- Lexical patterns (specific words or phrases) get the `- "<quoted>"` shape.
+- Structural patterns (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) get a `Where:` line that describes where the pattern shows up and what it looks like in the draft. They have no single quotable instance to point at.
+- Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
+
+If no patterns are detected, say so plainly:
+
+> Audit clean: no AI tells detected. Want me to look at a specific aspect of the draft more closely?
+
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+
+---
+
+## Action 2: Suggestions
+
+### Suggestion steps
+
+1. If an audit hasn't been run on this draft in this turn, run one first.
+2. For each flagged pattern from the audit, produce one suggestion:
+   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
+   - Structural patterns (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance, tonal uniformity): compose a contextual suggestion. Substitution does not work for these patterns; rewriting does. Say what to vary and how.
+3. Render the audit findings followed by the suggestions list.
+4. Stop without producing a full rewrite.
+
+### Suggestion output
+
+```
+[Audit output as in Action 1, but without the trailing question]
+
+**Suggestions, one per flag**
+
+<pattern-name-1>
+  - "<quoted phrase from the audit>"
+  Try: "<replacement>"
+
+<pattern-name-2>
+  - "<another quoted phrase>"
+  Try: "<replacement>"
+
+<structural-pattern>
+  Try: <contextual rewriting instruction, e.g., "Vary paragraph 3 to be one short sentence, then expand paragraph 4 with two new clauses to break the rhythm.">
+
+...
+
+**Next step**
+
+Want to apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file?
+```
+
+The number of suggestions equals the number of flagged tells, with no filtering applied. The writer chooses what to apply.
+
+---
+
+## The depth dial (Rewrite and Write only)
+
+Two settings:
+
+- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
+- **All**: address every flagged pattern, even the implicit and structural ones a reader wouldn't consciously notice. Voice can take a hit at this depth. The goal is unambiguous human-shape; preserving every flourish comes second.
+
+When the user has not chosen a depth, ask which depth they want. Balanced is the lighter pass; All is the deeper one. Default to Balanced if the writer declines to choose.
+
+The dial only governs Rewrite and Write. It does not apply to Audit or Suggestions. Both of those return the full list of flagged tells regardless.
+
+---
+
+## Action 3: Rewrite
+
+### Rewrite steps
+
+1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
+2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
+3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
+4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
+5. Run the structural self-check (Step C from `process.md`). Show the answers in the output.
+6. Run the semantic preservation check (Step D from `process.md`).
+7. Re-grade the rewrite at the chosen depth. If required failures remain for that depth, revise before returning unless removing the issue would materially change meaning or voice. Iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
+8. Render the audit findings, the rewritten draft, and the post-check.
+
+### Rewrite output
+
+```
+[Audit output as in Action 1, but without the trailing question]
+
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the genre or the writer's stated preference>
+
+**Rewrite**
+
+<rewritten draft>
+
+**Structural self-check**
+1. Section arcs: <count of similar arcs>/<total>. <What you changed.>
+2. Resolution density: <count of summary endings>/<total>. <What you changed.>
+3. Register breaks: <where you added one, or "already present at...">
+4. Triads: <count> found, reduced to <count> by <method>.
+5. Reframe laundering: <none / fixed at...>
+6. Purposeful devices preserved: <device: reason, or "none">
+7. Stance: <preserved / shifted, restored by...>
+8. Remaining tells: <list, or "none identified">
+
+**Post-check at <depth>**
+- Score: how many of the grader's checks failed at the chosen depth, plus whether AI-pressure triggered or stayed clear.
+- Confidence: the level and meaning string from the grader, with the caveat that this describes AI-writing signs rather than offering an authorship verdict.
+- Remaining issues: list the failed checks that remain unaddressed, or state "none" if the rewrite cleared everything.
+```
+
+Show only the final rewrite. Intermediate drafts stay hidden unless the writer asks. Do not modify the writer's source file.
+
+---
+
+## Action 4: Write
+
+### Drafting steps
+
+1. Pick the depth: ask if you can; default to Balanced.
+2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
+3. Read `references/process.md`; it is required for Rewrite and Write. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
+4. Draft from the brief at the chosen depth.
+5. Run the structural self-check (Step C from `process.md`) on the draft.
+6. Re-grade the draft at the chosen depth. If required failures remain for that depth, revise before returning unless fixing them would materially change the brief or voice. Iterate up to two re-runs, then report unresolved issues.
+7. Render the draft and the post-check.
+
+### Drafting output
+
+```
+**Brief: <one-sentence restatement of what the writer asked for>**
+
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the brief>
+
+**Draft**
+
+<drafted text>
+
+**Structural self-check**
+[Same eight items as Rewrite]
+
+**Post-check at <depth>**
+
+exec
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+**Post-check at <depth>**
+[Same shape as Rewrite post-check]
+```
+
+Write has no audit step because there is no input text to audit. The skill avoids AI patterns prospectively and verifies via the post-check.
+
+---
+
+## The save modifier
+
+Save wraps any of the four actions' output in a Markdown file. Combine freely with any action.
+
+Default save paths:
+
+- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
+- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Append `-2`, `-3` rather than overwriting an existing file.
+
+When Save is used:
+
+- The chat output is a one-line summary of the action's verdict, followed by `Saved to: <path>`, followed by the next-step question if one applies.
+- The saved file contains the action's full output template, preceded by a short header:
+
+```
+# Humanise <action> report
+- Input: <input path, or "pasted text", or "brief">
+- Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
+- Date: <ISO 8601>
+```
+
+Do not duplicate the full report inline in chat when a saved file exists.
+
+---
+
+## References
+
+- `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
+- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
+- `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
+- `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.
+
+exec
+/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/humanise/humanise/references/patterns.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+# AI writing patterns
+
+38 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
+
+## Contents
+
+- [Content patterns (1-6)](#content-patterns)
+- [Language and grammar (7-12)](#language-and-grammar)
+- [Style (13-18)](#style)
+- [Communication (19-21)](#communication)
+- [Filler and hedging (22-25)](#filler-and-hedging)
+- [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
+- [Structural tells (29-32, 38)](#structural-tells)
+- [Voice and register (33-37)](#voice-and-register)
+
+---
+
+## Evidence hierarchy from the reference audit
+
+Use source strength when deciding severity. The ruleset should surface clusters of suspicious writing behaviours, not claim that one phrase proves AI authorship.
+
+**Strong empirical backbone:**
+
+- Kobak / Science Advances and the `llm-excess-vocab` dataset support lexical spike detection at corpus level, especially in scientific prose. Use vocabulary as density and clustering evidence, not as one-word proof. Source: https://github.com/berenslab/llm-excess-vocab
+- Juzek and Ward's "Why does ChatGPT delve so much?" supports a narrow scientific-abstract vocabulary signal. It is credible for excess-word lists but not for confident document-level claims. Source: https://arxiv.org/abs/2412.11385
+- GPTZero's 2026 paper supports the architecture: hierarchical signals, granular findings, adversarial testing, and transparent mixed evidence. It does not add a prose-style rule by itself. Source: https://arxiv.org/abs/2602.13042
+- Stanford HAI's detector-bias reporting supports warnings over accusations, especially for non-native English writers. Use process evidence and user review rather than detector-style verdicts. Source: https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers
+
+**Useful but tentative style sources:**
+
+- GPTZero's AI Vocabulary page is useful as a phrase list, but its own framing separates vocabulary scanning from AI-probability scoring. Use all 100 public table rows only as clustering signals. Source: https://gptzero.me/ai-vocabulary
+- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
+- OpenAI's April 2025 GPT-4o sycophancy rollback supports hard-failing assistant flattery and fake affirmation such as "great question" and "you're absolutely right." Source: https://openai.com/index/sycophancy-in-gpt-4o/
+
+**Domain and provenance signals:**
+
+- Walsh, Preus, and Gronski support poetry-specific manual checks: constrained uniformity, rhyme/quatrain defaults, first-person plural overuse, and mood-word clusters. Keep this genre-specific. Source: https://arxiv.org/abs/2410.15299
+- Clarkesworld reporting supports fiction as a submission/provenance problem and a manual craft-audit area. Use it for flat dialogue, exposition, pacing, lack of subtext, and over-resolved endings, not as a global regex rule. Source: https://www.npr.org/2023/02/24/1159286436/ai-chatbot-chatgpt-magazine-clarkesworld-artificial-intelligence
+- Futurism's Sports Illustrated reporting supports journalism and review-provenance checks: fake bylines, fake bios, AI headshots, affiliate product-review sludge, undisclosed generated content, and byline laundering. Source: https://futurism.com/sports-illustrated-ai-generated-writers
+
+**2026 operating stance:**
+
+- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They must be removed at every depth (Balanced and All); preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
+- The best signals are clusters: GPTZero/Kobak vocabulary density, contrived contrast laundering, empty endings, vague demonstrative starts, placeholder residue, sycophantic assistant residue, unrequested headings/lists/Unicode flair, paragraph uniformity, generic email closers, and fake citations or provenance artifacts.
+
+---
+
+## Content patterns
+
+### 1. Significance inflation
+
+**Words to watch:** stands/serves as, is a testament/reminder, a vital/significant/crucial/pivotal/key role/moment, underscores/highlights its importance, reflects broader, symbolizing its ongoing/enduring/lasting, setting the stage for, marking/shaping the, represents/marks a shift, key turning point, evolving landscape, indelible mark, deeply rooted, remarkably, strikingly, staggering/staggeringly
+
+Inflates importance by claiming things "represent" or "contribute to" broader trends without explaining why anyone should care.
+
+**Before:**
+> The Statistical Institute of Catalonia was officially established in 1989, marking a pivotal moment in the evolution of regional statistics in Spain. This initiative was part of a broader movement across Spain to decentralize administrative functions and enhance regional governance.
+
+**After:**
+> The Statistical Institute of Catalonia was established in 1989 to collect and publish regional statistics independently from Spain's national statistics office.
+
+
+### 2. Notability claims
+
+**Words to watch:** independent coverage, local/regional/national media outlets, written by a leading expert, active social media presence
+
+Asserts notability by listing sources without context, as though the mention itself is the story.
+
+**Before:**
+> Her views have been cited in The New York Times, BBC, Financial Times, and The Hindu. She maintains an active social media presence with over 500,000 followers.
+
+**After:**
+> In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.
+
+
+### 3. Superficial -ing analyses
+
+**Words to watch:** highlighting/underscoring/emphasizing..., ensuring..., reflecting/symbolizing..., contributing to..., cultivating/fostering..., encompassing..., showcasing...
+
+Present participle phrases tacked onto sentences to simulate analytical depth without adding information.
+
+**Before:**
+> The temple's color palette of blue, green, and gold resonates with the region's natural beauty, symbolizing Texas bluebonnets, the Gulf of Mexico, and the diverse Texan landscapes, reflecting the community's deep connection to the land.
+
+**After:**
+> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
+
+
+### 4. Promotional language
+
+**Words to watch:** boasts a, vibrant, rich (figurative), profound, enhancing its, showcasing, exemplifies, commitment to, natural beauty, nestled, in the heart of, groundbreaking (figurative), renowned, breathtaking, must-visit, stunning
+
+Reads like tourism marketing rather than description.
+
+**Before:**
+> Nestled within the breathtaking region of Gonder in Ethiopia, Alamata Raya Kobo stands as a vibrant town with a rich cultural heritage and stunning natural beauty.
+
+**After:**
+> Alamata Raya Kobo is a town in the Gonder region of Ethiopia, known for its weekly market and 18th-century church.
+
+
+### 5. Vague attributions
+
+**Words to watch:** Industry reports, Observers have cited, Experts argue, Some critics argue, several sources/publications (when few cited)
+
+Attributes opinions to vague authorities without specific sources, creating illusions of consensus.
+
+**Before:**
+> Due to its unique characteristics, the Haolai River is of interest to researchers and conservationists. Experts believe it plays a crucial role in the regional ecosystem.
+
+**After:**
+> The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.
+
+
+### 6. Formulaic challenges sections
+
+**Words to watch:** Despite its... faces several challenges..., Despite these challenges, Challenges and Legacy, Future Outlook
+
+Formulaic "Challenges" sections that acknowledge a problem then immediately reassure the reader things are fine.
+
+**Before:**
+> Despite its industrial prosperity, Korattur faces challenges typical of urban areas, including traffic congestion and water scarcity. Despite these challenges, with its strategic location and ongoing initiatives, Korattur continues to thrive as an integral part of Chennai's growth.
+
+**After:**
+> Traffic congestion increased after 2015 when three new IT parks opened. The municipal corporation began a stormwater drainage project in 2022 to address recurring floods.
+
+---
+
+## Language and grammar
+
+### 7. AI vocabulary words
+
+**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands/landed (as metaphor for "how something is received"), surface/surfaced (as metaphor for "appears in the discourse"), move/moves/the move (as meta-rhetoric about what writing or argument is doing), unspoken, hidden (when used to inflate significance of something ordinary), unparalleled, invaluable, bolstered, meticulous
+
+**AI transition phrases** (a whole category AI overuses): "that being said", "at its core", "to put it simply", "a key takeaway is", "from a broader perspective", "in today's fast-paced world", "as technology continues to evolve", "but here's..."
+
+These words and phrases appear far more frequently in post-2023 text than in human writing from earlier periods. They often cluster in the same paragraph, which is a strong tell. No single word is proof, but density is: three or more in one paragraph is a fingerprint.
+
+**Soft scaffold phrases:** "One useful area...", "Another useful area...", "The main strength...", "The main risk...", "Good use usually comes down to..." These phrases are not flashy, which is why they survive rewrites. They mark a generated explainer that is arranging information into bland labelled blocks instead of writing from a real line of thought.
+
+**Tentative high-ratio phrase list:** GPTZero's April 2026 AI Vocabulary page is based on 3.3 million texts and exposes 100 public table rows. Use all 100 as clustering signals only. A single phrase is not proof of AI writing, but several in one paragraph is a strong smell.
+
+Full GPTZero phrase list used by the grader:
+
+1. provide a valuable insight
+2. left an indelible mark
+3. a stark reminder
+4. a nuanced understanding
+5. significant role in shaping
+6. the complex interplay
+7. broad implication
+8. an unwavering commitment
+9. endure a legacy
+10. underscore the importance
+11. play a pivotal role
+12. a pivotal moment
+13. navigate the complex
+14. mark a turning point
+15. continue to inspire
+16. gain a deeper understanding
+17. the transformative power
+18. hold a significant
+19. play a crucial role
+20. particularly a concern
+21. the relentless pursuit
+22. emphasize the need
+23. target an intervention
+24. a multi-faceted approach
+25. a serf reminder
+26. highlight the potential
+27. a significant milestone
+28. implication to understand
+29. potential risk associated
+30. leave a lasting
+31. add a layer
+32. offer a valuable
+33. a profound implication
+34. case highlights the importance
+35. finding a highlight of the importance
+36. pave the way for the future
+37. a significant step forward
+38. face a significant
+39. finding an important implication
+40. emphasize the importance
+41. a significant implication
+42. delve deeper into
+43. reply in tone
+44. raise an important question
+45. make an informed decision in regard to
+46. far-reaching implications
+47. a comprehensive framework
+48. importance to consider
+49. a unique blend
+50. couldn't help but wonder
+51. underscore the need
+52. framework for understanding
+53. highlight the need
+54. a comprehensive understanding
+55. the journey begins
+56. understanding the fundamental
+57. despite the face
+58. a delicate balance
+59. the path ahead
+60. gain an insight
+61. laid the groundwork
+62. understand the behavior
+63. renew a sense
+64. aim to explore
+65. present a unique challenge
+66. provide a comprehensive
+67. particularly with regard to
+68. address the root cause
+69. loom large in
+70. the implication of the finding
+71. approach ensures a
+72. an ongoing dialogue
+73. carry a weight
+74. ability to navigate
+75. present a significant
+76. study shed light on
+77. a diverse perspective
+78. face an adversity
+79. a comprehensive overview
+80. potentially lead to
+81. a broad understanding
+82. contribute to the understanding
+83. shape the public
+84. particularly noteworthy
+85. the evidence base for decision making
+86. identify an area of improvement
+87. analysis of the data to analyze and use
+88. undergone a significant
+89. need a robust
+90. voice will fill
+91. concern a potential
+92. initiative aims to
+93. offering a unique
+94. a new avenue
+95. despite the challenge
+96. ready to embrace
+97. the societal expectation
+98. make accessible
+99. today at a fast pace
+100. stand in stark contrast
+
+**Kobak excess vocabulary:** The grader also loads the full 900-row `kobak-excess-words.csv` file from Kobak et al.'s `llm-excess-vocab` repository. The file includes `style`, `content`, `content/style`, and `other` annotations. The aggregate pressure check uses style-annotated terms as one vocabulary signal alongside the local AI-vocabulary list and all 100 GPTZero phrases. Kobak words do not fail text by themselves.
+
+Current threshold: vocabulary pressure contributes points to an overall score. The overall score only trips when vocabulary pressure combines with structural signals such as manufactured insight, contrived reframes, paragraph uniformity, unrequested headings, soft scaffolding, or assistant residue. This follows the paper's corpus-level logic: excess vocabulary is evidence in a pattern, not a standalone detector verdict.
+
+**Before:**
+> Additionally, a distinctive feature of Somali cuisine is the incorporation of camel meat. An enduring testament to Italian colonial influence is the widespread adoption of pasta in the local culinary landscape, showcasing how these dishes have integrated into the traditional diet.
+
+**After:**
+> Somali cuisine also includes camel meat, which is considered a delicacy. Pasta dishes, introduced during Italian colonisation, remain common, especially in the south.
+
+
+### 8. Copula avoidance
+
+**Words to watch:** serves as/stands as/marks/represents [a], boasts/features/offers [a]
+
+
+exec
+/bin/zsh -lc "ls -la /Users/mae/Documents/humanise/humanise && sed -n '1,220p' /Users/mae/Documents/humanise/humanise/grade.py" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+total 696
+drwxr-xr-x@  9 mae  staff     288 Apr 29 22:34 .
+drwxr-xr-x@ 11 mae  staff     352 Apr 29 21:33 ..
+-rw-r--r--@  1 mae  staff    6148 Apr 28 17:16 .DS_Store
+-rw-r--r--@  1 mae  staff   13641 Apr 29 02:56 SKILL.md
+-rw-r--r--@  1 mae  staff  103162 Apr 28 17:29 examples ai.txt
+-rw-r--r--@  1 mae  staff   57444 Apr 29 22:34 generated ai personal essays.txt
+-rw-r--r--@  1 mae  staff  119120 Apr 29 01:38 grade.py
+drwxr-xr-x@  9 mae  staff     288 Apr 29 02:56 references
+-rw-r--r--@  1 mae  staff   37578 Apr 29 22:32 rewritten ai essays.txt
+#!/usr/bin/env python3
+"""Grade humanised text against programmatic assertions."""
+
+import csv
+import ast
+import json
+import re
+import sys
+from pathlib import Path
+from statistics import stdev
+
+
+# --- Pattern lists ---
+
+AI_VOCABULARY = [
+    "additionally", "crucial", "delve", "emphasizing",
+    "enduring", "enhance", "fostering", "garner", "interplay",
+    "intricate", "intricacies", "landscape", "pivotal", "showcase",
+    "showcasing", "tapestry", "testament", "underscore", "underscoring",
+    "valuable", "vibrant", "foster", "highlighting",
+    # Added from Grammarly research
+    "realm", "harness", "illuminate", "facilitate", "bolster",
+    "streamline", "shed light on", "revolutionize", "innovative",
+    "cutting-edge", "game-changing", "transformative", "seamlessly",
+    # Added from user observations
+    "genuinely", "unspoken", "seamless",
+    # Added from April 2026 research (Nature biomedical study, practitioner guides)
+    "unparalleled", "invaluable", "bolstered", "meticulous",
+    # Added from Vollmer/GPTZero reference audit
+    "mosaic", "ecosystem", "symphony", "labyrinth", "beacon",
+    "cornerstone", "bedrock", "kaleidoscope", "odyssey", "robust",
+    "dynamic", "comprehensive", "multifaceted", "nuanced", "holistic",
+    "state-of-the-art", "ever-evolving", "ever-changing", "utilize",
+    "optimize", "empower", "navigate", "unpack", "explore", "embrace",
+    "unlock", "commendable", "paramount", "unwavering", "alignment",
+    "resonate", "compelling",
+]
+
+# GPTZero's April 2026 public AI Vocabulary table exposes 100 high-ratio
+# phrases. Treat them as tentative clustering signals, not single-phrase proof.
+GPTZERO_AI_PHRASES = [
+    "provide a valuable insight",
+    "left an indelible mark",
+    "a stark reminder",
+    "a nuanced understanding",
+    "significant role in shaping",
+    "the complex interplay",
+    "broad implication",
+    "an unwavering commitment",
+    "endure a legacy",
+    "underscore the importance",
+    "play a pivotal role",
+    "a pivotal moment",
+    "navigate the complex",
+    "mark a turning point",
+    "continue to inspire",
+    "gain a deeper understanding",
+    "the transformative power",
+    "hold a significant",
+    "play a crucial role",
+    "particularly a concern",
+    "the relentless pursuit",
+    "emphasize the need",
+    "target an intervention",
+    "a multi-faceted approach",
+    "a serf reminder",
+    "highlight the potential",
+    "a significant milestone",
+    "implication to understand",
+    "potential risk associated",
+    "leave a lasting",
+    "add a layer",
+    "offer a valuable",
+    "a profound implication",
+    "case highlights the importance",
+    "finding a highlight of the importance",
+    "pave the way for the future",
+    "a significant step forward",
+    "face a significant",
+    "finding an important implication",
+    "emphasize the importance",
+    "a significant implication",
+    "delve deeper into",
+    "reply in tone",
+    "raise an important question",
+    "make an informed decision in regard to",
+    "far-reaching implications",
+    "a comprehensive framework",
+    "importance to consider",
+    "a unique blend",
+    "couldn't help but wonder",
+    "underscore the need",
+    "framework for understanding",
+    "highlight the need",
+    "a comprehensive understanding",
+    "the journey begins",
+    "understanding the fundamental",
+    "despite the face",
+    "a delicate balance",
+    "the path ahead",
+    "gain an insight",
+    "laid the groundwork",
+    "understand the behavior",
+    "renew a sense",
+    "aim to explore",
+    "present a unique challenge",
+    "provide a comprehensive",
+    "particularly with regard to",
+    "address the root cause",
+    "loom large in",
+    "the implication of the finding",
+    "approach ensures a",
+    "an ongoing dialogue",
+    "carry a weight",
+    "ability to navigate",
+    "present a significant",
+    "study shed light on",
+    "a diverse perspective",
+    "face an adversity",
+    "a comprehensive overview",
+    "potentially lead to",
+    "a broad understanding",
+    "contribute to the understanding",
+    "shape the public",
+    "particularly noteworthy",
+    "the evidence base for decision making",
+    "identify an area of improvement",
+    "analysis of the data to analyze and use",
+    "undergone a significant",
+    "need a robust",
+    "voice will fill",
+    "concern a potential",
+    "initiative aims to",
+    "offering a unique",
+    "a new avenue",
+    "despite the challenge",
+    "ready to embrace",
+    "the societal expectation",
+    "make accessible",
+    "today at a fast pace",
+    "stand in stark contrast",
+]
+
+KOBAK_EXCESS_WORDS_PATH = "kobak-excess-words.csv"
+KOBAK_IGNORED_STYLE_POS = {"preposition", "pronoun", "pronoun/adverb", "particle"}
+KOBAK_IGNORED_STYLE_WORDS = {"were", "based", "background", "like", "this", "their", "these"}
+BIOMEDICAL_DOMAIN_TERMS = {
+    "abstract", "abstracts", "acute", "antiviral", "biomedical", "biomarker",
+    "biomarkers", "cancer", "cell", "cells", "clinical", "clinically",
+    "cohort", "coronavirus", "covid", "diagnosis", "diagnostic", "disease",
+    "diseases", "drug", "drugs", "gene", "genes", "genome", "genomic",
+    "hospital", "hospitalized", "intervention", "mortality", "oncology",
+    "patient", "patients", "placebo", "pneumonia", "protein", "proteins",
+    "pubmed", "randomized", "sars", "therapeutic", "therapeutics", "therapy",
+    "treatment", "treatments", "trial", "tumor", "tumors", "tumour",
+    "tumours", "vaccine", "vaccination", "ventilation", "ventilator",
+    "ventilators",
+}
+
+
+def _load_kobak_excess_vocab():
+    """Load Kobak et al. excess-vocabulary annotations from the skill data file."""
+    here = Path(__file__).resolve()
+    candidates = [
+        here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
+        here.parents[2] / "humanise" / "references" / KOBAK_EXCESS_WORDS_PATH,
+    ]
+    for path in candidates:
+        if path.exists():
+            with path.open(newline="", encoding="utf-8") as f:
+                rows = []
+                for row in csv.DictReader(f):
+                    word = row.get("word", "").strip().lower()
+                    if word:
+                        rows.append({
+                            "word": word,
+                            "type": row.get("type", "").strip().lower(),
+                            "part_of_speech": row.get("part_of_speech", "").strip().lower(),
+                        })
+                return rows
+    return []
+
+
+KOBAK_EXCESS_VOCAB = _load_kobak_excess_vocab()
+KOBAK_STYLE_WORDS = {
+    row["word"]
+    for row in KOBAK_EXCESS_VOCAB
+    if "style" in row["type"]
+    and row["part_of_speech"] not in KOBAK_IGNORED_STYLE_POS
+    and row["word"] not in KOBAK_IGNORED_STYLE_WORDS
+}
+KOBAK_CONTENT_WORDS = {
+    row["word"]
+    for row in KOBAK_EXCESS_VOCAB
+    if "content" in row["type"]
+}
+
+# Multi-word phrases where the first word may be inflected (e.g. "align with" ->
+# "aligns with", "aligned with"). Checked via regex, not substring.
+AI_VOCABULARY_REGEX = [
+    r"aligns? with\b",
+    r"aligned with\b",
+    r"aligning with\b",
+    # "actually" as filler intensifier (not "actually happened", "actually did")
+    r"\bactually[,.]",
+    r"\band actually\b",
+    r"\bbut actually\b",
+    # "land/lands" as metaphor for reception (not physical land)
+    r"\bhow (?:it|that|this) lands?\b",
+    r"\bhow (?:it|that|this) landed\b",
+    r"\blands? (?:well|differently|flat|poorly|awkwardly)\b",
+    r"\blanded (?:well|differently|flat|poorly|awkwardly)\b",
+    r"\bthe way (?:it|that|this) lands?\b",
+    r"\bthe way (?:it|that|this) landed\b",
+    # "surface" as metaphor for appearing/becoming visible, not physical surface
+    r"\bsurfaces? as\b",
+    r"\bsurfaces? in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response)\b",
+    r"\bsurfaced as\b",
+    r"\bsurfaced in (?:the|a|our|their) (?:conversation|discussion|debate|work|writing|text|story|essay|analysis|response)\b",
+    r"\bwhat surfaces?\b",
+
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md' in /Users/mae/Documents/humanise/humanise
+ succeeded in 105ms:
+{
+  "file": "/Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md",
+  "pass_rate": "37/43",
+  "failures_by_severity": {
+    "context_warning": 5,
+    "strong_warning": 1
+  },
+  "score_summary": {
+    "check_status": "fail",
+    "passed_checks": 37,
+    "failed_checks": 6,
+    "total_checks": 43,
+    "pass_rate": "37/43",
+    "failures_by_severity": {
+      "context_warning": 5,
+      "strong_warning": 1
+    },
+    "ai_signal_pressure": {
+      "score": 2,
+      "threshold": 4,
+      "triggered": false,
+      "components": [
+        "contrived contrast framing"
+      ],
+      "vocabulary_pressure": {
+        "points": 0,
+        "reasons": [],
+        "worst_generic": 1,
+        "gptzero_matches": [],
+        "kobak_style_distinct": 5,
+        "kobak_style_density": 5.920344456404736,
+        "kobak_style_sample": [
+          "however",
+          "serving",
+          "address",
+          "complex",
+          "struggle"
+        ]
+      }
+    }
+  },
+  "human_report": {
+    "overview": "6 of 43 checks were flagged for AI-style writing patterns.",
+    "score": {
+      "status": "fail",
+      "failed_checks": 6,
+      "total_checks": 43,
+      "pass_rate": "37/43",
+      "severity_counts": {
+        "Context-sensitive signal": 5,
+        "Strong AI-writing signal": 1
+      }
+    },
+    "confidence": {
+      "level": "Medium",
+      "meaning": "Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.",
+      "basis": [
+        "1 strong AI-writing signal(s)",
+        "5 context-sensitive signal(s)"
+      ],
+      "caveat": "This is a confidence assessment about AI-writing signs, not an authorship verdict."
+    },
+    "ai_pressure_explanation": "AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were contrived contrast framing. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 2/4, so this check stayed clear.",
+    "failed_checks": [
+      {
+        "check_id": "no-staccato-sequences",
+        "check": "Generic staccato emphasis",
+        "what_it_checks": "Checks for repeated short dramatic sentences used as generic emphasis.",
+        "why_it_matters": "Repeated short emphasis beats can make prose sound generated rather than naturally paced.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found sequence of 5 consecutive short sentences.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-anaphora",
+        "check": "Mechanical repeated sentence starts",
+        "what_it_checks": "Checks for repeated sentence openings that read like template rhythm.",
+        "why_it_matters": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 5 consecutive sentences starting with 'however'.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-curly-quotes",
+        "check": "Curly quotes",
+        "what_it_checks": "Checks for curly quotation marks when plain output is expected.",
+        "why_it_matters": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 18 curly quote(s).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-negative-parallelisms",
+        "check": "Contrived contrast",
+        "what_it_checks": "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures.",
+        "why_it_matters": "Contrived contrast creates a fake reveal instead of making a direct, supported claim.",
+        "status": "Flagged",
+        "severity": "Strong AI-writing signal",
+        "why": "Found 4 contrived contrast/reframe pattern(s).",
+        "recommended_action": {
+          "balanced": "Fix",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "vocabulary-diversity",
+        "check": "Vocabulary diversity",
+        "what_it_checks": "Checks for unusually repetitive vocabulary in longer text.",
+        "why_it_matters": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-triad-density",
+        "check": "Triad density",
+        "what_it_checks": "Checks whether three-part list structures are overused across the piece.",
+        "why_it_matters": "Too many three-part lists create a recognisable generated cadence.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 23 triad(s), including \"hopes, dreams, values\", \"restaurants and their staffs, drive the best car, vacation on tenerife\", \"to spear the seal, intimidate the enemy, be a big man\", plus 20 more.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      }
+    ],
+    "all_checks": [
+      {
+        "check_id": "no-em-dashes",
+        "check": "Em dashes",
+        "what_it_checks": "Checks for em dash punctuation, a strong current AI-style signal in this skill.",
+        "why_it_matters": "Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-ai-vocabulary-clustering",
+        "check": "Clustered AI vocabulary",
+        "what_it_checks": "Checks whether generic AI-associated words and phrases cluster together.",
+        "why_it_matters": "Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-nonliteral-land-surface",
+        "check": "Nonliteral land/surface phrasing",
+        "what_it_checks": "Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale.",
+        "why_it_matters": "Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "overall-ai-signal-pressure",
+        "check": "AI pressure from stacked signals",
+        "what_it_checks": "Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive.",
+        "why_it_matters": "Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-manufactured-insight",
+        "check": "Manufactured insight framing",
+        "what_it_checks": "Checks for phrases that perform hidden depth or secret significance without earning it.",
+        "why_it_matters": "Manufactured insight framing performs depth without adding specific evidence or thought.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-staccato-sequences",
+        "check": "Generic staccato emphasis",
+        "what_it_checks": "Checks for repeated short dramatic sentences used as generic emphasis.",
+        "why_it_matters": "Repeated short emphasis beats can make prose sound generated rather than naturally paced.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found sequence of 5 consecutive short sentences.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-anaphora",
+        "check": "Mechanical repeated sentence starts",
+        "what_it_checks": "Checks for repeated sentence openings that read like template rhythm.",
+        "why_it_matters": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 5 consecutive sentences starting with 'however'.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-collaborative-artifacts",
+        "check": "Assistant residue",
+        "what_it_checks": "Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue.",
+        "why_it_matters": "Assistant residue makes the text look like chat output rather than finished prose.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-curly-quotes",
+        "check": "Curly quotes",
+        "what_it_checks": "Checks for curly quotation marks when plain output is expected.",
+        "why_it_matters": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 18 curly quote(s).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "sentence-length-variance",
+        "check": "Sentence rhythm variance",
+        "what_it_checks": "Checks whether sentence lengths are too uniform across longer prose.",
+        "why_it_matters": "Low rhythm variation makes paragraphs feel mechanically produced.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-promotional-language",
+        "check": "Generic promotional language",
+        "what_it_checks": "Checks for stock hype and sales-like adjectives.",
+        "why_it_matters": "Stock hype weakens credibility and often appears in generated product or venue copy.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-significance-inflation",
+        "check": "Inflated significance",
+        "what_it_checks": "Checks for language that makes ordinary claims sound historically important.",
+        "why_it_matters": "Inflated importance makes ordinary claims sound artificially momentous.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-negative-parallelisms",
+        "check": "Contrived contrast",
+        "what_it_checks": "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures.",
+        "why_it_matters": "Contrived contrast creates a fake reveal instead of making a direct, supported claim.",
+        "status": "Flagged",
+        "severity": "Strong AI-writing signal",
+        "why": "Found 4 contrived contrast/reframe pattern(s).",
+        "recommended_action": {
+          "balanced": "Fix",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-copula-avoidance",
+        "check": "Avoiding plain 'is'",
+        "what_it_checks": "Checks for inflated replacements such as serves as, functions as, or stands as.",
+        "why_it_matters": "Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-filler-phrases",
+        "check": "Filler phrases",
+        "what_it_checks": "Checks for stock padding such as in order to or it is worth noting.",
+        "why_it_matters": "Filler phrases add polish without information.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-generic-conclusions",
+        "check": "Generic conclusion",
+        "what_it_checks": "Checks for empty endings such as the future looks bright.",
+        "why_it_matters": "Generic conclusions make the ending feel templated and interchangeable.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-false-concession-hedges",
+        "check": "False balance or concession",
+        "what_it_checks": "Checks for fake both-sides framing that avoids taking a position.",
+        "why_it_matters": "False balance can hide the writer's actual position.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-placeholder-residue",
+        "check": "Placeholder residue",
+        "what_it_checks": "Checks for unfilled template markers and placeholder instructions.",
+        "why_it_matters": "Placeholder residue signals unfinished generated or templated text.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-soft-scaffolding",
+        "check": "Soft explainer scaffolding",
+        "what_it_checks": "Checks for phrases that announce structure instead of making a point.",
+        "why_it_matters": "Soft scaffolding announces structure instead of doing useful writing work.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-orphaned-demonstratives",
+        "check": "Vague 'this/that' starts",
+        "what_it_checks": "Checks for repeated vague sentence subjects such as This highlights or That shows.",
+        "why_it_matters": "Vague this/that openings blur the actual subject and create generic analysis.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-forced-triads",
+        "check": "Decorative three-part lists",
+        "what_it_checks": "Checks for forced triads used as rhythm rather than substance.",
+        "why_it_matters": "Decorative three-part lists can create artificial rhythm without substance.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-superficial-ing",
+        "check": "Tacked-on -ing analysis",
+        "what_it_checks": "Checks for trailing -ing clauses that pretend to analyse without adding meaning.",
+        "why_it_matters": "Tacked-on -ing clauses often pretend to analyse while adding little.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-ghost-spectral-density",
+        "check": "Ghost/spectral atmosphere",
+        "what_it_checks": "Checks for clich\u00e9d ghost, shadow, whisper, and echo language.",
+        "why_it_matters": "Stock spectral language can make atmosphere feel generated or borrowed.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-quietness-obsession",
+        "check": "Generic quiet/still mood",
+        "what_it_checks": "Checks for overused quiet, still, soft, and hushed atmosphere.",
+        "why_it_matters": "Overused quiet/still mood language can create generic literary atmosphere.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-rhetorical-questions",
+        "check": "Template rhetorical questions",
+        "what_it_checks": "Checks for article-style questions followed by obvious answers.",
+        "why_it_matters": "Template questions often simulate engagement without adding real inquiry.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-excessive-lists",
+        "check": "Excessive list formatting",
+        "what_it_checks": "Checks whether prose has been over-converted into bullets or numbered lists.",
+        "why_it_matters": "Too much list formatting can make prose feel like generated notes or slides.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-unicode-flair",
+        "check": "Decorative Unicode",
+        "what_it_checks": "Checks for symbols and decorative punctuation that look like generated formatting.",
+        "why_it_matters": "Decorative symbols can make output look like generated formatting.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-dramatic-transitions",
+        "check": "Unearned dramatic transitions",
+        "what_it_checks": "Checks for generic turning points such as something shifted or everything changed.",
+        "why_it_matters": "Unearned turning-point language claims drama the prose has not built.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-formulaic-openers",
+        "check": "Formulaic openers",
+        "what_it_checks": "Checks for generated openings such as at its core or from a broader perspective.",
+        "why_it_matters": "Formulaic openings make paragraphs feel assembled from templates.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-signposted-conclusions",
+        "check": "Signposted conclusion",
+        "what_it_checks": "Checks for explicit conclusion labels and summary signposts.",
+        "why_it_matters": "Conclusion signposts often flatten the ending into a generic summary.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-markdown-headings",
+        "check": "Headings in prose",
+        "what_it_checks": "Checks for markdown headings and plain title headings when prose should flow.",
+        "why_it_matters": "Headings can make prose feel packaged by an assistant rather than written as a continuous piece.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-corporate-ai-speak",
+        "check": "Corporate AI-speak",
+        "what_it_checks": "Checks for vague delivery, alignment, outcomes, and cross-functional clich\u00e9s.",
+        "why_it_matters": "Corporate AI-speak hides specific work behind vague operational language.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-this-chains",
+        "check": "Repeated 'This...' chains",
+        "what_it_checks": "Checks for several consecutive sentences beginning with vague This constructions.",
+        "why_it_matters": "Repeated vague This sentences create generic analysis and weak subject control.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-excessive-hedging",
+        "check": "Excessive hedging",
+        "what_it_checks": "Checks for evasive qualification and impersonal uncertainty.",
+        "why_it_matters": "Too much hedging weakens stance and can make prose feel evasive or machine-neutral.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-countdown-negation",
+        "check": "Countdown negation",
+        "what_it_checks": "Checks for repeated no/not/cannot setups that build toward a reveal.",
+        "why_it_matters": "Countdown negation creates a synthetic reveal structure.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-negation-density",
+        "check": "Dense negation",
+        "what_it_checks": "Checks whether negation markers are unusually dense across prose.",
+        "why_it_matters": "Dense negation can make a piece feel over-framed around what it is not instead of what it is.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "paragraph-length-uniformity",
+        "check": "Paragraph length uniformity",
+        "what_it_checks": "Checks whether paragraphs are suspiciously similar in length.",
+        "why_it_matters": "Paragraphs of similar length can signal generated structure and low natural variation.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-tidy-paragraph-endings",
+        "check": "Tidy paragraph endings",
+        "what_it_checks": "Checks for repeated miniature conclusions at paragraph ends.",
+        "why_it_matters": "Repeated tidy endings make paragraphs feel over-resolved and templated.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-bland-critical-template",
+        "check": "Bland critical template",
+        "what_it_checks": "Checks for generic review language instead of concrete critical claims.",
+        "why_it_matters": "Bland critical language replaces concrete judgment with portable review phrases.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-rubric-echoing",
+        "check": "Rubric echoing",
+        "what_it_checks": "Checks for assignment or rubric phrasing leaking into the prose.",
+        "why_it_matters": "Rubric echoing makes writing sound like assignment compliance rather than independent thought.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "vocabulary-diversity",
+        "check": "Vocabulary diversity",
+        "what_it_checks": "Checks for unusually repetitive vocabulary in longer text.",
+        "why_it_matters": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-triad-density",
+        "check": "Triad density",
+        "what_it_checks": "Checks whether three-part list structures are overused across the piece.",
+        "why_it_matters": "Too many three-part lists create a recognisable generated cadence.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 23 triad(s), including \"hopes, dreams, values\", \"restaurants and their staffs, drive the best car, vacation on tenerife\", \"to spear the seal, intimidate the enemy, be a big man\", plus 20 more.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-section-scaffolding",
+        "check": "Repeated section scaffolding",
+        "what_it_checks": "Checks for repeated section labels or repeated structural templates.",
+        "why_it_matters": "Repeated section structure makes the whole piece feel assembled from a template.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      }
+    ]
+  },
+  "triggered_checks": [
+    {
+      "check": "no-staccato-sequences",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "evidence": "Found sequence of 5 consecutive short sentences",
+      "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-anaphora",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "evidence": "Found 5 consecutive sentences starting with 'however'",
+      "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-curly-quotes",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "typographic_signal",
+      "evidence": "Found 18 curly quote(s)",
+      "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-negative-parallelisms",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "evidence": "Found 4 contrived contrast/reframe pattern(s)",
+      "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+      "depth_actions": {
+        "balanced": "fix",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "vocabulary-diversity",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "lexical_distribution",
+      "evidence": "Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40)",
+      "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-triad-density",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "evidence": "Found 23 triad(s): ['hopes, dreams, values', 'restaurants and their staffs, drive the best car, vacation on tenerife', 'to spear the seal, intimidate the enemy, be a big man', 'that land is value, or labor is value, learning is value', 'tornadoes punish, ancestors watch, you can buy a', 'cow, cross, mountain', 'in its distant past, or any other past, any other culture', 'learning, contribution, joy', 'what else is there, or was there, will there ever be', 'round mouth of eternity, in a wide, particolored utterance', 'its infinite domestic interstices, the centuries and continents, classes dwell', 'squares in the weave, its wars and instruments, arts', 'and aslant farther off, the peoples variously scandalized, exalted in their squares', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'one-man-one-vote, dismantle democracy, assign seven billion people', 'a day looking around, high astraddle the warp, woof of your people', 'written language, philosophy, science', 'they preserve, they count, figure']",
+      "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    }
+  ],
+  "failure_mode_results": {
+    "provenance_residue": {
+      "label": "Provenance residue",
+      "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "synthetic_significance": {
+      "label": "Synthetic significance",
+      "summary": "Text performs importance, revelation, or depth without enough concrete support.",
+      "failed_checks": [
+        {
+          "check": "no-negative-parallelisms",
+          "severity": "strong_warning",
+          "evidence_role": "rhetorical_pattern",
+          "evidence": "Found 4 contrived contrast/reframe pattern(s)",
+          "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+          "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+          "depth_actions": {
+            "balanced": "fix",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "no-negative-parallelisms"
+      ],
+      "failures_by_severity": {
+        "strong_warning": 1
+      }
+    },
+    "frictionless_structure": {
+      "label": "Frictionless structure",
+      "summary": "Text is packaged too evenly through headings, lists, repeated shapes, or tidy closures.",
+      "failed_checks": [
+        {
+          "check": "no-staccato-sequences",
+          "severity": "context_warning",
+          "evidence_role": "rhythm_signal",
+          "evidence": "Found sequence of 5 consecutive short sentences",
+          "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-anaphora",
+          "severity": "context_warning",
+          "evidence_role": "rhythm_signal",
+          "evidence": "Found 5 consecutive sentences starting with 'however'",
+          "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-triad-density",
+          "severity": "context_warning",
+          "evidence_role": "list_rhythm",
+          "evidence": "Found 23 triad(s): ['hopes, dreams, values', 'restaurants and their staffs, drive the best car, vacation on tenerife', 'to spear the seal, intimidate the enemy, be a big man', 'that land is value, or labor is value, learning is value', 'tornadoes punish, ancestors watch, you can buy a', 'cow, cross, mountain', 'in its distant past, or any other past, any other culture', 'learning, contribution, joy', 'what else is there, or was there, will there ever be', 'round mouth of eternity, in a wide, particolored utterance', 'its infinite domestic interstices, the centuries and continents, classes dwell', 'squares in the weave, its wars and instruments, arts', 'and aslant farther off, the peoples variously scandalized, exalted in their squares', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'one-man-one-vote, dismantle democracy, assign seven billion people', 'a day looking around, high astraddle the warp, woof of your people', 'written language, philosophy, science', 'they preserve, they count, figure']",
+          "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-triad-density"
+      ],
+      "failures_by_severity": {
+        "context_warning": 3
+      }
+    },
+    "generic_abstraction": {
+      "label": "Generic abstraction",
+      "summary": "Text relies on portable abstractions, stock vocabulary, or low-specificity claims.",
+      "failed_checks": [
+        {
+          "check": "vocabulary-diversity",
+          "severity": "context_warning",
+          "evidence_role": "lexical_distribution",
+          "evidence": "Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40)",
+          "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "vocabulary-diversity"
+      ],
+      "failures_by_severity": {
+        "context_warning": 1
+      }
+    },
+    "voice_erasure": {
+      "label": "Voice erasure",
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "genre_misfit": {
+      "label": "Genre misfit",
+      "summary": "Text uses a device that may be valid in one genre but suspicious in another.",
+      "failed_checks": [
+        {
+          "check": "no-staccato-sequences",
+          "severity": "context_warning",
+          "evidence_role": "rhythm_signal",
+          "evidence": "Found sequence of 5 consecutive short sentences",
+          "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-anaphora",
+          "severity": "context_warning",
+          "evidence_role": "rhythm_signal",
+          "evidence": "Found 5 consecutive sentences starting with 'however'",
+          "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-curly-quotes",
+          "severity": "context_warning",
+          "evidence_role": "typographic_signal",
+          "evidence": "Found 18 curly quote(s)",
+          "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "vocabulary-diversity",
+          "severity": "context_warning",
+          "evidence_role": "lexical_distribution",
+          "evidence": "Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40)",
+          "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-triad-density",
+          "severity": "context_warning",
+          "evidence_role": "list_rhythm",
+          "evidence": "Found 23 triad(s): ['hopes, dreams, values', 'restaurants and their staffs, drive the best car, vacation on tenerife', 'to spear the seal, intimidate the enemy, be a big man', 'that land is value, or labor is value, learning is value', 'tornadoes punish, ancestors watch, you can buy a', 'cow, cross, mountain', 'in its distant past, or any other past, any other culture', 'learning, contribution, joy', 'what else is there, or was there, will there ever be', 'round mouth of eternity, in a wide, particolored utterance', 'its infinite domestic interstices, the centuries and continents, classes dwell', 'squares in the weave, its wars and instruments, arts', 'and aslant farther off, the peoples variously scandalized, exalted in their squares', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'one-man-one-vote, dismantle democracy, assign seven billion people', 'a day looking around, high astraddle the warp, woof of your people', 'written language, philosophy, science', 'they preserve, they count, figure']",
+          "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "failures_by_severity": {
+        "context_warning": 5
+      }
+    }
+  },
+  "depth_results": {
+    "balanced": {
+      "status": "fail",
+      "check_status": "fail",
+      "required_fixes": [
+        "no-negative-parallelisms"
+      ],
+      "preservable_with_disclosure": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "user_decision_needed": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "must_fix": [
+        "no-negative-parallelisms"
+      ],
+      "needs_user_decision": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+    },
+    "all": {
+      "status": "fail",
+      "check_status": "fail",
+      "required_fixes": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-negative-parallelisms",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "preservable_with_disclosure": [],
+      "user_decision_needed": [],
+      "must_fix": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-negative-parallelisms",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "needs_user_decision": [],
+      "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+    }
+  },
+  "expectations": [
+    {
+      "text": "no-em-dashes",
+      "passed": true,
+      "evidence": "No em dashes found",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "punctuation_signal",
+      "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal."
+    },
+    {
+      "text": "no-ai-vocabulary-clustering",
+      "passed": true,
+      "evidence": "Max AI words per paragraph: 1 (1 total in text)",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "vocabulary_cluster",
+      "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context."
+    },
+    {
+      "text": "no-nonliteral-land-surface",
+      "passed": true,
+      "evidence": "No nonliteral land/surface constructions found",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "evidence_role": "metaphor_residue",
+      "guidance": "Fix nonliteral land/surface phrasing; replace with the concrete action or claim."
+    },
+    {
+      "text": "overall-ai-signal-pressure",
+      "passed": true,
+      "score": 2,
+      "threshold": 4,
+      "components": [
+        "contrived contrast framing"
+      ],
+      "vocabulary_pressure": {
+        "points": 0,
+        "reasons": [],
+        "worst_generic": 1,
+        "gptzero_matches": [],
+        "kobak_style_distinct": 5,
+        "kobak_style_density": 5.920344456404736,
+        "kobak_style_sample": [
+          "however",
+          "serving",
+          "address",
+          "complex",
+          "struggle"
+        ]
+      },
+      "evidence": "Overall AI-signal pressure 2/4 from [contrived contrast framing]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=5 distinct/5.9/1000",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "frictionless_structure"
+      ],
+      "evidence_role": "aggregate_pressure",
+      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict."
+    },
+    {
+      "text": "no-manufactured-insight",
+      "passed": true,
+      "evidence": "No manufactured insight phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice."
+    },
+    {
+      "text": "no-staccato-sequences",
+      "passed": false,
+      "evidence": "Found sequence of 5 consecutive short sentences",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm."
+    },
+    {
+      "text": "no-anaphora",
+      "passed": false,
+      "evidence": "Found 5 consecutive sentences starting with 'however'",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning."
+    },
+    {
+      "text": "no-collaborative-artifacts",
+      "passed": true,
+      "evidence": "No collaborative artifacts",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "evidence_role": "assistant_residue",
+      "guidance": "Fix at every depth; this is assistant residue, not authorial style."
+    },
+    {
+      "text": "no-curly-quotes",
+      "passed": false,
+      "evidence": "Found 18 curly quote(s)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "typographic_signal",
+      "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text."
+    },
+    {
+      "text": "sentence-length-variance",
+      "passed": true,
+      "evidence": "Sentence length stdev: 18.4 (target: >4)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms."
+    },
+    {
+      "text": "no-promotional-language",
+      "passed": true,
+      "evidence": "No promotional language",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "evidence_role": "hype_language",
+      "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm."
+    },
+    {
+      "text": "no-significance-inflation",
+      "passed": true,
+      "evidence": "No significance inflation",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "importance_inflation",
+      "guidance": "Fix inflated importance unless the source genuinely argues significance."
+    },
+    {
+      "text": "no-negative-parallelisms",
+      "passed": false,
+      "evidence": "Found 4 contrived contrast/reframe pattern(s)",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced."
+    },
+    {
+      "text": "no-copula-avoidance",
+      "passed": true,
+      "evidence": "No copula avoidance",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "generic_abstraction"
+      ],
+      "evidence_role": "grammar_substitution",
+      "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical."
+    },
+    {
+      "text": "no-filler-phrases",
+      "passed": true,
+      "evidence": "No filler phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "filler_phrase",
+      "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice."
+    },
+    {
+      "text": "no-generic-conclusions",
+      "passed": true,
+      "evidence": "No generic conclusions",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue",
+        "synthetic_significance"
+      ],
+      "evidence_role": "generic_closure",
+      "guidance": "Fix at every depth unless quoted from source text."
+    },
+    {
+      "text": "no-false-concession-hedges",
+      "passed": true,
+      "evidence": "No false concession hedges",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "evidence_role": "stance_erasure",
+      "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence."
+    },
+    {
+      "text": "no-placeholder-residue",
+      "passed": true,
+      "evidence": "No placeholder residue",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "evidence_role": "template_residue",
+      "guidance": "Fix at every depth; unfilled placeholders are generated/template residue."
+    },
+    {
+      "text": "no-soft-scaffolding",
+      "passed": true,
+      "evidence": "Soft scaffold phrases: 0",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "explainer_scaffold",
+      "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content."
+    },
+    {
+      "text": "no-orphaned-demonstratives",
+      "passed": true,
+      "evidence": "Vague demonstrative subjects: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "voice_erasure",
+        "generic_abstraction"
+      ],
+      "evidence_role": "sentence_subject",
+      "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear."
+    },
+    {
+      "text": "no-forced-triads",
+      "passed": true,
+      "evidence": "No forced triads",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric."
+    },
+    {
+      "text": "no-superficial-ing",
+      "passed": true,
+      "evidence": "No superficial -ing phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "analysis_substitution",
+      "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning."
+    },
+    {
+      "text": "no-ghost-spectral-density",
+      "passed": true,
+      "evidence": "Ghost/spectral words: 2",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "atmospheric_cliche",
+      "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose."
+    },
+    {
+      "text": "no-quietness-obsession",
+      "passed": true,
+      "evidence": "Quietness words: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "evidence_role": "atmospheric_cliche",
+      "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice."
+    },
+    {
+      "text": "no-rhetorical-questions",
+      "passed": true,
+      "evidence": "Rhetorical questions: 1",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhetorical_template",
+      "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument."
+    },
+    {
+      "text": "no-excessive-lists",
+      "passed": true,
+      "evidence": "List ratio: 0%",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "listification",
+      "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure."
+    },
+    {
+      "text": "no-unicode-flair",
+      "passed": true,
+      "evidence": "Decorative Unicode symbols: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "provenance_residue",
+        "genre_misfit"
+      ],
+      "evidence_role": "formatting_residue",
+      "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source."
+    },
+    {
+      "text": "no-dramatic-transitions",
+      "passed": true,
+      "evidence": "No dramatic transitions",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "evidence_role": "narrative_template",
+      "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned."
+    },
+    {
+      "text": "no-formulaic-openers",
+      "passed": true,
+      "evidence": "No formulaic openers",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "generic_abstraction"
+      ],
+      "evidence_role": "formulaic_structure",
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre."
+    },
+    {
+      "text": "no-signposted-conclusions",
+      "passed": true,
+      "evidence": "No signposted conclusions",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "structural_signpost",
+      "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful."
+    },
+    {
+      "text": "no-markdown-headings",
+      "passed": true,
+      "evidence": "No headings",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "formatting_signal",
+      "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs."
+    },
+    {
+      "text": "no-corporate-ai-speak",
+      "passed": true,
+      "evidence": "No corporate AI speak",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "domain_cliche",
+      "guidance": "Fix at every depth; recommend preserving only when quoting corporate source language."
+    },
+    {
+      "text": "no-this-chains",
+      "passed": true,
+      "evidence": "Max 'This [verb]' run: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "evidence_role": "sentence_subject",
+      "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate."
+    },
+    {
+      "text": "no-excessive-hedging",
+      "passed": true,
+      "evidence": "Hedging constructions: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "evidence_role": "stance_erasure",
+      "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty."
+    },
+    {
+      "text": "no-countdown-negation",
+      "passed": true,
+      "evidence": "No countdown negation",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason."
+    },
+    {
+      "text": "no-negation-density",
+      "passed": true,
+      "evidence": "Negation markers: 2 (1.1 per 1000 words)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhetorical_density",
+      "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful."
+    },
+    {
+      "text": "paragraph-length-uniformity",
+      "passed": true,
+      "evidence": "Paragraph length CV: 0.58 across 20 paragraphs",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "layout_rhythm",
+      "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template."
+    },
+    {
+      "text": "no-tidy-paragraph-endings",
+      "passed": true,
+      "evidence": "Tidy paragraph endings: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "evidence_role": "paragraph_closure",
+      "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn."
+    },
+    {
+      "text": "no-bland-critical-template",
+      "passed": true,
+      "evidence": "Bland critical template phrases: 0",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "voice_erasure"
+      ],
+      "evidence_role": "genre_cliche",
+      "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work."
+    },
+    {
+      "text": "no-rubric-echoing",
+      "passed": true,
+      "evidence": "Rubric echo phrases: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "provenance_residue",
+        "voice_erasure"
+      ],
+      "evidence_role": "assignment_residue",
+      "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric."
+    },
+    {
+      "text": "vocabulary-diversity",
+      "passed": false,
+      "evidence": "Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "lexical_distribution",
+      "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately."
+    },
+    {
+      "text": "no-triad-density",
+      "passed": false,
+      "evidence": "Found 23 triad(s): ['hopes, dreams, values', 'restaurants and their staffs, drive the best car, vacation on tenerife', 'to spear the seal, intimidate the enemy, be a big man', 'that land is value, or labor is value, learning is value', 'tornadoes punish, ancestors watch, you can buy a', 'cow, cross, mountain', 'in its distant past, or any other past, any other culture', 'learning, contribution, joy', 'what else is there, or was there, will there ever be', 'round mouth of eternity, in a wide, particolored utterance', 'its infinite domestic interstices, the centuries and continents, classes dwell', 'squares in the weave, its wars and instruments, arts', 'and aslant farther off, the peoples variously scandalized, exalted in their squares', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'many more people come, your time, its passions', 'or wasted from disease, then, now', 'one-man-one-vote, dismantle democracy, assign seven billion people', 'a day looking around, high astraddle the warp, woof of your people', 'written language, philosophy, science', 'they preserve, they count, figure']",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical."
+    },
+    {
+      "text": "no-section-scaffolding",
+      "passed": true,
+      "evidence": "No repeated section labels",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "repeated_template",
+      "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material."
+    }
+  ]
+}
+
+exec
+/bin/zsh -lc "python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md 2>/dev/null | python3 -c 'import json,sys; d=json.load(sys.stdin); import pprint; pprint.pp(d.get(\"details\", d).keys() if isinstance(d,dict) else None); print(json.dumps(d[\"human_report\"][\"failed_checks\"], indent=2))'" in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-kkmOHn5n' (errno=Operation not permitted)
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-0vAhqLme' (errno=Operation not permitted)
+dict_keys(['file', 'pass_rate', 'failures_by_severity', 'score_summary', 'human_report', 'triggered_checks', 'failure_mode_results', 'depth_results', 'expectations'])
+[
+  {
+    "check_id": "no-staccato-sequences",
+    "check": "Generic staccato emphasis",
+    "what_it_checks": "Checks for repeated short dramatic sentences used as generic emphasis.",
+    "why_it_matters": "Repeated short emphasis beats can make prose sound generated rather than naturally paced.",
+    "status": "Flagged",
+    "severity": "Context-sensitive signal",
+    "why": "Found sequence of 5 consecutive short sentences.",
+    "recommended_action": {
+      "balanced": "Disclose or ask before preserving",
+      "all": "Fix"
+    }
+  },
+  {
+    "check_id": "no-anaphora",
+    "check": "Mechanical repeated sentence starts",
+    "what_it_checks": "Checks for repeated sentence openings that read like template rhythm.",
+    "why_it_matters": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+    "status": "Flagged",
+    "severity": "Context-sensitive signal",
+    "why": "Found 5 consecutive sentences starting with 'however'.",
+    "recommended_action": {
+      "balanced": "Disclose or ask before preserving",
+      "all": "Fix"
+    }
+  },
+  {
+    "check_id": "no-curly-quotes",
+    "check": "Curly quotes",
+    "what_it_checks": "Checks for curly quotation marks when plain output is expected.",
+    "why_it_matters": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text.",
+    "status": "Flagged",
+    "severity": "Context-sensitive signal",
+    "why": "Found 18 curly quote(s).",
+    "recommended_action": {
+      "balanced": "Disclose or ask before preserving",
+      "all": "Fix"
+    }
+  },
+  {
+    "check_id": "no-negative-parallelisms",
+    "check": "Contrived contrast",
+    "what_it_checks": "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures.",
+    "why_it_matters": "Contrived contrast creates a fake reveal instead of making a direct, supported claim.",
+    "status": "Flagged",
+    "severity": "Strong AI-writing signal",
+    "why": "Found 4 contrived contrast/reframe pattern(s).",
+    "recommended_action": {
+      "balanced": "Fix",
+      "all": "Fix"
+    }
+  },
+  {
+    "check_id": "vocabulary-diversity",
+    "check": "Vocabulary diversity",
+    "what_it_checks": "Checks for unusually repetitive vocabulary in longer text.",
+    "why_it_matters": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
+    "status": "Flagged",
+    "severity": "Context-sensitive signal",
+    "why": "Type-token ratio: 0.372 (689 unique / 1851 total, target: >0.40).",
+    "recommended_action": {
+      "balanced": "Disclose or ask before preserving",
+      "all": "Fix"
+    }
+  },
+  {
+    "check_id": "no-triad-density",
+    "check": "Triad density",
+    "what_it_checks": "Checks whether three-part list structures are overused across the piece.",
+    "why_it_matters": "Too many three-part lists create a recognisable generated cadence.",
+    "status": "Flagged",
+    "severity": "Context-sensitive signal",
+    "why": "Found 23 triad(s), including \"hopes, dreams, values\", \"restaurants and their staffs, drive the best car, vacation on tenerife\", \"to spear the seal, intimidate the enemy, be a big man\", plus 20 more.",
+    "recommended_action": {
+      "balanced": "Disclose or ask before preserving",
+      "all": "Fix"
+    }
+  }
+]
+
+exec
+/bin/zsh -lc 'rg -n "negative|triad|staccato|anaphora" /Users/mae/Documents/humanise/humanise/grade.py | head -80' in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+641:        "negative_parallelism": check_negative_parallelisms(text),
+656:        "negative_parallelism": 2,
+671:        "negative_parallelism": "contrived contrast framing",
+742:def check_staccato(text):
+754:        "text": "no-staccato-sequences",
+764:def check_anaphora(text):
+769:            "text": "no-anaphora",
+787:        "text": "no-anaphora",
+792:            else f"Max anaphora run: {max_run}"
+861:def check_negative_parallelisms(text):
+909:        "text": "no-negative-parallelisms",
+914:            else "No negative parallelisms or contrived reframes"
+1008:    """Detect forced triads: 'X, Y, and Z' patterns that cluster heavily."""
+1016:        "text": "no-forced-triads",
+1019:            f"Found {count} abstract triad(s): {[', '.join(m) for m in matches]}"
+1021:            else "No forced triads"
+1475:def check_triad_density(text):
+1480:            "text": "no-triad-density",
+1491:        "text": "no-triad-density",
+1494:            f"Found {count} triad(s): {match_strs}"
+1599:    "no-staccato-sequences": check_staccato,
+1600:    "no-anaphora": check_anaphora,
+1606:    "no-negative-parallelisms": check_negative_parallelisms,
+1614:    "no-forced-triads": check_rule_of_three,
+1635:    "no-triad-density": check_triad_density,
+1646:    "no-staccato-sequences": ("Generic staccato emphasis", "Checks for repeated short dramatic sentences used as generic emphasis."),
+1647:    "no-anaphora": ("Mechanical repeated sentence starts", "Checks for repeated sentence openings that read like template rhythm."),
+1653:    "no-negative-parallelisms": ("Contrived contrast", "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures."),
+1661:    "no-forced-triads": ("Decorative three-part lists", "Checks for forced triads used as rhythm rather than substance."),
+1682:    "no-triad-density": ("Triad density", "Checks whether three-part list structures are overused across the piece."),
+1693:    "no-staccato-sequences": "Repeated short emphasis beats can make prose sound generated rather than naturally paced.",
+1694:    "no-anaphora": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+1700:    "no-negative-parallelisms": "Contrived contrast creates a fake reveal instead of making a direct, supported claim.",
+1708:    "no-forced-triads": "Decorative three-part lists can create artificial rhythm without substance.",
+1729:    "no-triad-density": "Too many three-part lists create a recognisable generated cadence.",
+1765:    "no-negative-parallelisms": {
+1849:    "no-staccato-sequences": {
+1855:    "no-anaphora": {
+1879:    "no-forced-triads": {
+1883:        "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric.",
+1987:    "no-triad-density": {
+1991:        "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+2111:    if result["text"] == "no-triad-density":
+
+exec
+/bin/zsh -lc "sed -n '742,920p' /Users/mae/Documents/humanise/humanise/grade.py && sed -n '1470,1500p' /Users/mae/Documents/humanise/humanise/grade.py" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+def check_staccato(text):
+    sentences = split_sentences(text)
+    max_run = 0
+    current_run = 0
+    for s in sentences:
+        words = len(s.split())
+        if words < 6:
+            current_run += 1
+            max_run = max(max_run, current_run)
+        else:
+            current_run = 0
+    return {
+        "text": "no-staccato-sequences",
+        "passed": max_run < 3,
+        "evidence": (
+            f"Found sequence of {max_run} consecutive short sentences"
+            if max_run >= 3
+            else f"Max consecutive short sentences: {max_run}"
+        ),
+    }
+
+
+def check_anaphora(text):
+    """Detect 3+ consecutive sentences starting with the same word/phrase."""
+    sentences = split_sentences(text)
+    if len(sentences) < 3:
+        return {
+            "text": "no-anaphora",
+            "passed": True,
+            "evidence": "Too few sentences to check",
+        }
+    max_run = 1
+    current_run = 1
+    worst_word = ""
+    for i in range(1, len(sentences)):
+        prev_start = sentences[i - 1].split()[0].lower() if sentences[i - 1].split() else ""
+        curr_start = sentences[i].split()[0].lower() if sentences[i].split() else ""
+        if prev_start == curr_start and prev_start not in ("i", "a", "the", "it's", "it"):
+            current_run += 1
+            if current_run > max_run:
+                max_run = current_run
+                worst_word = curr_start
+        else:
+            current_run = 1
+    return {
+        "text": "no-anaphora",
+        "passed": max_run < 3,
+        "evidence": (
+            f"Found {max_run} consecutive sentences starting with '{worst_word}'"
+            if max_run >= 3
+            else f"Max anaphora run: {max_run}"
+        ),
+    }
+
+
+def check_collaborative_artifacts(text):
+    count, matches = count_pattern_matches(text, COLLABORATIVE_ARTIFACTS)
+    return {
+        "text": "no-collaborative-artifacts",
+        "passed": count == 0,
+        "evidence": f"Found: {matches}" if count > 0 else "No collaborative artifacts",
+    }
+
+
+def check_curly_quotes(text):
+    curly = ['\u201c', '\u201d', '\u2018', '\u2019']
+    count = sum(text.count(c) for c in curly)
+    return {
+        "text": "no-curly-quotes",
+        "passed": count == 0,
+        "evidence": f"Found {count} curly quote(s)" if count > 0 else "No curly quotes",
+    }
+
+
+def check_sentence_variance(text):
+    sentences = split_sentences(text)
+    word_count = len(text.split())
+    # Skip for short-form text where low variance is expected, not an AI tell
+    if len(sentences) < 6 and word_count < 100:
+        return {
+            "text": "sentence-length-variance",
+            "passed": True,
+            "evidence": f"Skipped: short text ({word_count} words, {len(sentences)} sentences)",
+        }
+    if len(sentences) < 3:
+        return {
+            "text": "sentence-length-variance",
+            "passed": False,
+            "evidence": "Too few sentences to measure variance",
+        }
+    lengths = [len(s.split()) for s in sentences]
+    sd = stdev(lengths)
+    return {
+        "text": "sentence-length-variance",
+        "passed": sd > 4,
+        "evidence": f"Sentence length stdev: {sd:.1f} (target: >4)",
+    }
+
+
+def check_promotional(text):
+    text_lower = text.lower()
+    found = [w for w in PROMOTIONAL if w in text_lower]
+    return {
+        "text": "no-promotional-language",
+        "passed": len(found) == 0,
+        "evidence": f"Found: {found}" if found else "No promotional language",
+    }
+
+
+def check_significance_inflation(text):
+    text_lower = text.lower()
+    found = [w for w in SIGNIFICANCE_INFLATION if w in text_lower]
+    return {
+        "text": "no-significance-inflation",
+        "passed": len(found) == 0,
+        "evidence": f"Found: {found}" if found else "No significance inflation",
+    }
+
+
+def check_negative_parallelisms(text):
+    normalized = normalize_for_regex(text)
+    subject = r"(?:it|this|that|the (?:point|question|problem|goal|story|work|piece|tool|song|film|book|app|product|value))"
+    neg = r"(?:not|isn't|is not|wasn't|was not|aren't|are not|isnt|wasnt|arent)"
+    soft = r"(?:just|only|merely|simply|really|actually|about|a matter of|a question of|a story of)"
+    abstract = (
+        r"(?:meaning|identity|dignity|human|humanity|connection|creativity|"
+        r"trust|belonging|agency|purpose|truth|memory|resilience|empathy|"
+        r"transformation|possibility|culture|power|relationship|experience|"
+        r"what matters|what it means|reclaiming|unlocking|reminder|lesson|"
+        r"journey|conversation|negotiation|reflection|statement|capability)"
+    )
+
+    hard_patterns = [
+        # Canonical forms and their obvious lexical variants.
+        r"\bnot\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{0,120}\bbut(?: also)?\b",
+        r"\b(?:isn't|is not|wasn't|was not|aren't|are not|isnt|wasnt|arent)\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{0,120}\bbut(?: also)?\b",
+        rf"\bnot\s+so\s+much\b.{{0,120}}\bas\b",
+        rf"\b{subject}\s+{neg}\s+{soft}\s+.{{0,120}}[;:,\-]\s+(?:it's|that's|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\b",
+        rf"\b{subject}\s+{neg}\s+.{{0,120}}[;:,\-]\s+(?:it's|that's|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\b[^.!?\n]{{0,120}}\b{abstract}\b",
+        # Cross-sentence "not X. It is Y" reframing.
+        rf"\b{neg}\s+(?:(?:just|only|merely|simply)\s+)?about\b.{{0,120}}[.!?]\s+(?:it|this|that)\s+(?:is|was|becomes?)\s+about\b[^.!?\n]{{0,120}}\b{abstract}\b",
+        # Comparative reframes.
+        r"\b(?:is|are|was|were|becomes?)\s+less\s+about\b.{0,120}\bthan\s+(?:about\s+)?",
+        r"\b(?:is|are|was|were|becomes?)\s+more\s+about\b.{0,120}\bthan\s+(?:about\s+)?",
+        r"\b(?:is|are|was|were|becomes?)\s+(?:less|more)\s+a\b.{0,120}\bthan\s+a\b",
+        # Explicit countdown negation in miniature.
+        r"\bno\s+[^.!?\n]{1,50}[.!?]\s+no\s+[^.!?\n]{1,50}[.!?]\s+just\s+",
+        r"\bnot\s+[^.!?\n]{1,50}[.!?]\s+not\s+[^.!?\n]{1,50}[.!?]\s+just\s+",
+        # "You thought X; actually Y" keeps the same fake revelation.
+        r"\b(?:you might think|at first glance|on the surface|it may seem)\b.{0,120}\b(?:but|yet|actually|in reality)\b",
+    ]
+
+    abstract_reframe_patterns = [
+        # Reversed order: "Y, not X" where Y is inflated abstraction.
+        rf"\b(?:is|are|was|were|becomes?|means?)\b[^.!?\n]{{0,90}}\b{abstract}\b[^.!?\n]{{0,80}},?\s+(?:rather than|instead of|not)\b",
+        rf"\b(?:a|an|the)\s+(?:question|matter|story|lesson|reminder|act|gesture|exercise|conversation|negotiation|reflection)\s+of\s+{abstract}\b[^.!?\n]{{0,80}},?\s+(?:rather than|instead of|not)\b",
+        # "Beyond X, it is Y" / "More than X, it is Y".
+        rf"\b(?:beyond|more than|larger than|deeper than)\b[^.!?\n]{{1,80}},?\s+(?:{subject}\s+)?(?:is|was|becomes?|means?)\b[^.!?\n]{{0,90}}\b{abstract}\b",
+        # Correction moves that reveal an inflated abstract payload.
+        rf"\b(?:actually|in reality|the real (?:point|story|question|issue|challenge) is)\b[^.!?\n]{{0,120}}\b{abstract}\b",
+    ]
+
+    matches = []
+    for pat in hard_patterns + abstract_reframe_patterns:
+        matches.extend(re.findall(pat, normalized, flags=re.IGNORECASE | re.DOTALL))
+    count = len(matches)
+    return {
+        "text": "no-negative-parallelisms",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} contrived contrast/reframe pattern(s)"
+            if count > 0
+            else "No negative parallelisms or contrived reframes"
+        ),
+    }
+
+
+def check_copula_avoidance(text):
+    count, matches = count_pattern_matches(text, COPULA_AVOIDANCE)
+            else f"Rubric echo phrases: {count}"
+        ),
+    }
+
+
+def check_triad_density(text):
+    """Detect high density of three-item lists ('X, Y, and/or Z') regardless of word type."""
+    words = text.split()
+    if len(words) < 300:
+        return {
+            "text": "no-triad-density",
+            "passed": True,
+            "evidence": f"Skipped: short text ({len(words)} words, need 300+)",
+        }
+    # Each item: 1-4 words (handles "peer learning", "decision-making structures")
+    _item = r'\w+(?:[- ]\w+){0,3}'
+    pattern = rf'({_item}),\s+({_item}),?\s+(?:and|or)\s+({_item})'
+    matches = re.findall(pattern, text.lower())
+    count = len(matches)
+    match_strs = [', '.join(m) for m in matches]
+    return {
+        "text": "no-triad-density",
+        "passed": count < 4,
+        "evidence": (
+            f"Found {count} triad(s): {match_strs}"
+            if count >= 4
+            else f"Triads: {count}"
+        ),
+    }
+
+
+
+codex
+**Audit, 6 AI tells found**
+
+Generic staccato emphasis (1 sequence)
+Where: a run of very short sentence fragments appears in the culture/value list section.
+Why: Repeated short beats can look like generated dramatic emphasis. Here, though, it reads more like intentional literary compression than default AI pacing.
+
+Mechanical repeated sentence starts (1 sequence)
+Where: several consecutive sentences begin with “However.”
+Why: Repeated openings can sound templated when they organize an argument too neatly. In this draft, the repetition is rhetorical and cadence-driven, so I would treat this as a context warning, not a strong problem.
+
+Curly quotes (18 instances)
+Where: typographic quotation marks and apostrophes appear throughout the sourced text.
+Why: Curly quotes are not an authorship signal by themselves. They only matter if the expected output is plain cleaned text.
+
+Contrived contrast (4 instances)
+  - “Beyond those things”
+  - “Not just there, but here”
+Why: The detector flags contrast/reframe structures because AI prose often uses them to manufacture a reveal. In this essay, most of the contrast is doing real argumentative work, so this is only partly concerning.
+
+Vocabulary diversity (1 document-level flag)
+Where: the draft repeats core terms around time, people, culture, life, and value.
+Why: Low vocabulary variety can make long prose feel mechanically looped. Here the repetition is central to the essay’s incantatory style, so this is likely a false positive.
+
+Triad density (23 instances)
+  - “hopes, dreams and values”
+Why: Three-part lists are common in generated prose because they create easy rhythm. This draft uses lists obsessively and deliberately, so the signal is real as a pattern but not necessarily an AI tell.
+
+**Confidence**
+
+Level: Medium
+Meaning: Several AI-like writing signs appeared, but the evidence is pattern-based and should be read in context.
+Basis: 1 strong AI-writing signal and 5 context-sensitive signals.
+Note: This describes AI-writing signs, not a verdict about who wrote the text.
+
+Overall, I would not read this as machine-written. The main flags come from literary repetition, rhetorical listing, typographic source formatting, and duplicated/scraped material rather than generic AI prose.
+
+**Next step**
+
+Want Suggestions for per-flag replacements or a Rewrite at a chosen depth?
+tokens used
+31,066

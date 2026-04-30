@@ -1,0 +1,67 @@
+{
+  "expectations": [
+    {
+      "text": "Audit findings appear in output before the rewrite",
+      "passed": true,
+      "evidence": "audit at offset 0; follow-up at offset 2107"
+    },
+    {
+      "text": "Output contains a rewritten version of the input draft",
+      "passed": true,
+      "evidence": "generated_words=1356; input_words=1593; changed=True"
+    },
+    {
+      "text": "Rewrite has zero em dashes",
+      "passed": true,
+      "evidence": "em dash count=0"
+    },
+    {
+      "text": "Rewrite has higher sentence-length variance than input",
+      "passed": false,
+      "evidence": "input_stdev=8.16; output_stdev=7.10"
+    },
+    {
+      "text": "Rewrite has varied paragraph lengths",
+      "passed": false,
+      "evidence": "paragraph_word_count_stdev=16.18; lengths=[74, 90, 60, 60, 93, 117, 83, 108, 85, 87, 101, 99, 75, 70, 76, 78]"
+    },
+    {
+      "text": "Re-grading the rewrite at all depth produces 0 hits across all severity classes",
+      "passed": false,
+      "evidence": "all failures=['no-anaphora', 'no-triad-density']"
+    },
+    {
+      "text": "Rewrite preserves the scientific accuracy, key examples, and explanatory arc",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 3,
+    "total": 7,
+    "pass_rate": 0.5714
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 12168
+  },
+  "timing": {
+    "total_tokens": 0,
+    "duration_ms": 193678,
+    "total_duration_seconds": 193.679
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

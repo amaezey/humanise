@@ -1,0 +1,62 @@
+{
+  "expectations": [
+    {
+      "text": "Output references at least 5 distinct AI patterns from the catalogue",
+      "passed": true,
+      "evidence": "Referenced 12 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-curly-quotes', 'no-em-dashes', 'no-ghost-spectral-density', 'no-negative-parallelisms', 'no-promotional-language', 'no-section-scaffolding', 'no-signposted-conclusions', 'no-triad-density']"
+    },
+    {
+      "text": "Every flagged pattern shows a quoted phrase from the input draft",
+      "passed": true,
+      "evidence": "all 12 flag block(s) anchor to input"
+    },
+    {
+      "text": "Every flagged pattern has a brief 'why' explanation",
+      "passed": true,
+      "evidence": "all 12 flag block(s) include 'Why:'"
+    },
+    {
+      "text": "Output ends with a question offering suggestions / rewrite / done",
+      "passed": true,
+      "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth (Balance"
+    },
+    {
+      "text": "Output does not contain a rewritten version of the input draft",
+      "passed": true,
+      "evidence": "no rewrite or draft block present"
+    },
+    {
+      "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 5677
+  },
+  "timing": {
+    "total_tokens": 743504,
+    "duration_ms": 99049,
+    "total_duration_seconds": 99.049
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

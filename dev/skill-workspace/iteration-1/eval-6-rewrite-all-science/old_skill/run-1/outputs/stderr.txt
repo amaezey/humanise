@@ -1,0 +1,1341 @@
+Reading additional input from stdin...
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd4f4-9b81-7e21-aa06-41dd5ddb21c4
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Audit and rewrite this at all depth, including subtle structural tells.
+
+Inputs:
+Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/04-science-mycorrhizal.md
+
+```markdown
+# The forest beneath the forest
+
+Walk through a forest after rain and it is tempting to think the important action is above you: leaves catching light, trunks widening year by year, birds moving between branches. But much of the forest’s metabolism is below the path. Under the litter layer, roots are threaded through with fungal filaments so fine that a teaspoon of soil can hold an intricate living mesh. These fungi are not decoration on tree roots. They are part of how forests feed, recover, compete and store carbon.
+
+The relationship is called mycorrhiza, from the Greek for “fungus-root”. In a mycorrhizal association, a fungus colonises a plant’s root system and extends outward into the soil as microscopic filaments called hyphae. The plant supplies carbon-rich compounds made through photosynthesis. The fungus, in return, helps the plant acquire nutrients, especially phosphorus and nitrogen, and often water and trace elements from beyond the reach of the roots themselves. Mycorrhizal fungi form nutritional symbioses with more than 80% of plant species, and their underground networks can represent a substantial share of living microbial biomass in soils.
+
+For a tree, this is not a minor upgrade. Roots are thick, expensive structures compared with fungal hyphae. A root hair may explore the soil immediately around it; a fungal filament can slip into smaller pores, cross tiny gaps, and spread through patches of decomposing leaf litter or mineral soil. The fungus effectively gives the tree a larger, finer and more chemically versatile absorbing surface. Some ectomycorrhizal fungi, common on many pines, birches, oaks, beeches and eucalypts, form a sheath around root tips and grow between root cells. Arbuscular mycorrhizal fungi, found across a very large range of plants, enter root cells and form tiny branched structures where exchange occurs. The architecture differs, but the underlying bargain is similar: carbon flows from plant to fungus; soil-derived resources flow from fungus to plant.
+
+The bargain is also dynamic. Trees do not simply hand over sugar to any fungus in the neighbourhood. Fungi vary in what they can provide, where they forage, and how much carbon they demand. Some are better at scavenging inorganic phosphorus; others can help mobilise nitrogen from organic matter. Recent reviews of ectomycorrhizal forests emphasise that nitrogen transfer is highly variable, depending on fungal identity, soil conditions and the form in which nitrogen is held.   The result is less like a pipe and more like a shifting set of trade relationships. A tree growing in poor soil may invest heavily in fungal partners; a tree in fertilised or nitrogen-rich conditions may invest differently because the return on that carbon has changed.
+
+This is where the popular phrase “wood-wide web” enters the story, and where accuracy matters. A common mycorrhizal network is not just “fungi in the soil”. It means a physical fungal connection linking the roots of two or more plants. Such connections can, in principle, move carbon, nutrients, water or chemical signals between plants. But proving that this happens in intact forests is difficult. Researchers have to separate transfer through fungal hyphae from other routes: roots leaking compounds into soil, microbes consuming and re-releasing them, water moving dissolved chemicals, or plants responding to airborne signals. A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.
+
+That does not make the networks imaginary. It means they are harder to demonstrate than the metaphor suggests. One of the classic experiments was published in 1997 by Suzanne Simard and colleagues. Working with paper birch and Douglas-fir seedlings in British Columbia, the researchers used carbon isotopes to trace movement between trees associated with ectomycorrhizal fungi. They found bidirectional carbon transfer between the two species, with a net gain by Douglas-fir under the conditions studied.   The experiment became famous because it suggested that forest plants were not merely competing as isolated individuals. Their roots and fungi could be part of a shared below-ground system.
+
+The more careful conclusion is narrower and more interesting. Carbon can move between plants in some experimental settings. Fungal pathways may contribute. But a detected transfer is not the same as proof that a mature tree is deliberately feeding a seedling, or that the transfer meaningfully changes survival in all forests. Later reviews have found mixed evidence on whether access to common mycorrhizal networks improves, harms or has no effect on seedlings. In some cases, being connected may give a seedling access to nutrients or water. In others, the seedling may lose carbon to fungi, face stronger below-ground competition, or gain no measurable advantage. Forest life is not a morality play about generosity. It is an ecological economy with uneven terms.
+
+The “communication” claim needs the same discipline. Plants certainly detect and respond to chemical cues. When leaves are attacked, they can alter defensive chemistry; when neighbours are damaged, nearby plants may respond. Some experiments suggest that mycorrhizal networks can mediate stress-related signalling. In one study, damaged Douglas-fir was reported to transfer carbon and defence-related signals to neighbouring ponderosa pine through ectomycorrhizal networks.   But this is not conversation in the human sense. There is no evidence of intention, language or conscious warning. A more accurate analogy is a biochemical alarm system: changes in one organism can alter the chemical environment of connected organisms, which may then shift their own physiology.
+
+Even the fungal partner should not be treated as a passive cable. The fungus is alive, metabolically active and under selection to acquire carbon and reproduce. It may allocate nutrients towards hosts that supply more carbon, proliferate in nutrient-rich patches, or reduce exchange when conditions change. Some mycorrhizal relationships look mutualistic; others drift towards parasitism when one partner receives less than it gives. The same fungus that helps one tree may compete with another for nitrogen. The same network that appears to connect plants may also allow fungi to manage their own resources across multiple hosts.
+
+The physical structure of these networks changes how soil works. Hyphae bind particles into aggregates, move nutrients across small distances, and leave behind fungal residues when they die. Those residues can become part of longer-lived soil organic matter, especially when microbial remains bind to minerals. But mycorrhizal fungi do not simply “store carbon” in a straightforward way. They receive plant carbon, build tissue, respire carbon dioxide, interact with decomposer microbes and, in some cases, stimulate decomposition as they mine organic matter for nutrients. Recent forest carbon research has found strong links between fungal community composition and soil carbon patterns, but it also shows why simple claims are risky: different fungi can push carbon cycling in different directions.
+
+A concrete example is a conifer forest growing on nutrient-poor soil. The trees may allocate a large share of photosynthetic carbon below ground because nutrients, not light, are the limiting constraint. Ectomycorrhizal fungi form sheaths around root tips, extend hyphae into the soil, and use enzymes and organic acids to access forms of nitrogen or phosphorus the tree cannot easily reach alone. The visible mushrooms that appear after rain are only the fruiting bodies. Most of the organism is the mycelium threaded through roots and soil. When forestry machinery compacts soil, when topsoil is removed, or when a clear-fell changes temperature and moisture, the living conditions for this mycelium can change abruptly.
+
+Another example is forest regeneration after disturbance. Seedlings do not enter a neutral underground world. They germinate into soil already occupied by fungi, roots, bacteria and decaying organic matter. In some settings, existing mycorrhizal fungi can help young trees establish by rapidly colonising their roots. In others, the existing fungal community may favour some tree species over others, shaping which seedlings survive. This is one reason forest recovery is not just a matter of planting stems in the ground. The below-ground community can influence whether those stems become a functioning forest.
+
+The story also matters for climate and conservation. Mycorrhizal fungi are involved in plant productivity, nutrient cycling and soil carbon dynamics at large scales. A 2025 Nature study mapping global mycorrhizal fungal richness reported that mycorrhizal fungi form extensive underground networks and that many biodiversity hotspots for these fungi fall outside protected areas.   That does not mean protecting fungi is a simple climate solution. It means forest policy that ignores below-ground biodiversity is missing part of the system it is trying to manage.
+
+The best way to understand mycorrhizal networks is to abandon both extremes. They are not magical forest internet cables through which wise old trees send care packages to their children. Nor are they a debunked fantasy. Mycorrhizal fungi are real, ancient and ecologically consequential. They help trees acquire nutrients, alter competition, influence seedling establishment, build and break down soil carbon, and sometimes connect plants in ways that allow materials or signals to move between them.
+
+The forest beneath the forest is therefore not a hidden utopia. It is infrastructure, marketplace, digestive system and battleground at once. Its exchanges are chemical rather than sentimental; its networks are patchy, changing and difficult to measure. That makes them less tidy than the “wood-wide web” metaphor, but more impressive. A forest is not just a collection of trees. It is a layered community of organisms negotiating matter and energy above and below ground, with fungi doing much of the work where light cannot reach.
+
+```
+
+2026-04-28T16:38:13.942605Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:13.942882Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:38:14.653786Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:14.654004Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:38:15.811452Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:15.811881Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits text for AI-style writing patterns, rewrites existing drafts to remove
+  them, or writes new content that avoids them. Uses 38 patterns and 43
+  programmatic checks across vocabulary, structure, tone, voice, and formatting.
+  Default action is Audit (analyse and explain findings); Rewrite and Write
+  fire only when the user explicitly asks for them. Useful when a draft feels
+  flat, robotic, over-polished, structurally repetitive, or voice-neutralised,
+  or when drafting prose that needs to read as human.
+---
+
+# Humanise: Audit, rewrite, or write without AI patterns
+
+Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
+
+## Your task
+
+When given input, identify which of three actions to take:
+
+1. **Audit** (default) — analyse text for AI-style writing patterns and explain the findings. No mode pre-classification; the audit is mode-agnostic.
+2. **Rewrite** — given existing text, produce a cleaner version. Always runs an audit first, then asks for a rewrite intensity (Light / Medium / Hard).
+3. **Write** — given a brief or topic, draft new content under AI-avoidance constraints at a chosen intensity.
+
+Modifiers (orthogonal to action; combine freely):
+
+- **Recommendation** — after an audit, optionally suggest a rewrite intensity tied to genre and findings.
+- **Save** — write the chosen action's output to a Markdown file.
+
+Default to Audit when the action is ambiguous. Do not rewrite or compose new content unless the user explicitly asks.
+
+---
+
+## Modes
+
+Three intensities for Rewrite and Write. Audit is mode-agnostic — the 43 checks pass or fail based on the text, not on a chosen mode. Default to Medium when the user does not specify.
+
+- **Light** — for fiction, memoir, voiced essays, humour, dialogue, interviews, literary prose. Removes the most obvious AI tells (assistant residue, sycophancy, manufactured insight) but preserves your voice. Devices like staccato, triads, em dashes can stay if they serve the writing; disclose what you preserve and why.
+- **Medium** — the default. For blog posts, workplace writing, newsletters, product copy, generic prose. Removes obvious patterns and all strong tells. Preserves voice where the device is doing real work; trims it where it is autopilot.
+- **Hard** — for prose that needs to read as unambiguously human. Strips every flagged pattern unless removing it would change what you mean. No em dashes, no manufactured-insight framing, no decorative triads. Voice can take a hit; risk reduction is the goal.
+
+When the user has not chosen a mode and the genre makes the answer ambiguous, ask:
+
+> How hard should I go: Light, Medium, or Hard?
+
+If you cannot ask, infer from the genre — Light for voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), Medium otherwise. Record the chosen mode and the reason in the output.
+
+A failed grader check is a failed check in every mode. Mode decides what to *do* about it (fix, disclose, preserve), not whether the pattern was detected. The Severity classes section below lists which actions apply by severity in each mode.
+
+---
+
+## Actions
+
+### 1. Audit (default)
+
+Use this when the user asks things like:
+
+- "Does this sound AI?"
+- "Check this for AI writing."
+- "Audit this draft."
+- "Run humanise on this."
+- "What's flagged here?"
+
+Or any input where the user provides text without an explicit Rewrite or Write instruction.
+
+Do:
+
+1. Run the grader with no mode constraint.
+2. Render the audit report with all 43 checks classified by severity.
+3. Explain the flagged patterns in plain English.
+4. Stop.
+
+End with a short next-step question:
+
+> Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+
+The audit table uses a `Severity` column and a severity-tiered `Recommended action` column. It does not pre-pick a single mode for the user — that decision belongs to the user, after they've seen the indicators.
+
+### 2. Rewrite
+
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+
+Do:
+
+1. Run the audit (Action 1's behaviour) regardless of any prior context. The rewrite must be informed by the indicators.
+2. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+3. Rewrite under the chosen intensity. Address structural patterns first, then surface patterns.
+4. Run the structural self-check (Process Step 7).
+5. Run the semantic preservation check (Process Step 6).
+6. Run the post-check at the chosen intensity (Process Step 8).
+7. Report before/after, with remaining issues.
+
+### 3. Write
+
+Use this when the user asks for new content rather than analysis or rewriting:
+
+- "Write a 500-word essay on X."
+- "Draft an opening paragraph about Y."
+- "Compose a blog post on Z without sounding AI."
+- "Help me write something on W that doesn't read like AI."
+
+Do:
+
+1. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+2. Draft the content under the chosen intensity's constraints — same severity rules as a Rewrite. Avoid hard failures, avoid strong warnings, treat context warnings per the mode.
+3. Apply the [Personality and soul](#personality-and-soul) guidance directly. Write must produce content that reads as human, not just content that lacks AI tells.
+4. Run the structural self-check on the draft.
+5. Run the post-check at the chosen intensity.
+6. Report status and remaining issues.
+
+There is no initial audit — there is no input text to audit.
+
+### Modifiers
+
+- **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+
+---
+
+## Severity and the purpose test
+
+The grader is a diagnostic tool, not an authorship verdict. A failed check stays a failed check in every mode. Mode decides what to do about it.
+
+Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
+
+- **Fixed**
+- **Recommended preserve**
+- **Needs user decision**
+
+Do not silently classify your own writing as the exception. If you preserve a flagged device, name it, quote or identify the relevant passage briefly, and explain the concrete function it serves.
+
+### Severity classes
+
+- **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
+- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
+- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings including plain title headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
+- **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
+
+Em dashes get their own deep-dive in [Hard constraints](#hard-constraints) below — they are a strong-warning-class pattern with mode-specific rules, kept separate because they are the highest-volume single AI tell of 2026.
+
+### Purpose test
+
+For any context warning, ask:
+
+> Is this device doing real work here, or is it autopilot?
+
+You may recommend preserving it if it reveals character, controls timing, creates humour, mirrors thought, supports a period voice, or clarifies structure. Remove it if it is generic emphasis, tidy profundity, decorative balance, or a default article template. If you are unsure, mark it **Needs user decision** rather than deciding for the user.
+
+Examples:
+
+- Poe-style staccato can be voice. "That matters. A lot." in a productivity article is usually autopilot.
+- A Sedaris-style comic escalation can stay. A corporate triad like "clarity, collaboration, and innovation" should go.
+- Curly quotes in a sourced literary sample are not an AI tell. Curly quotes in this skill's final plain-text output may still be normalised if the user asked for hard cleanup.
+
+---
+
+## Hard constraints (deep-dive)
+
+The four most distinctive AI tells — em dashes, manufactured insight, adversarial reframes, generic staccato fragments — have expanded rules and word lists at [references/severity-detail.md](references/severity-detail.md). When these patterns appear, that file is the canonical source of truth. Read it during Rewrite (Step 5) and Write (Step 5) before settling on the final draft.
+
+---
+
+## Personality and soul
+
+Removing AI patterns is only half the job. AI also **subtracts** — Abdulhai et al. (2026) found extensive LLM use produces a ~70% increase in neutral-stance essays, 50% fewer pronouns, and fewer anecdotes. Sterile, voiceless, perfectly balanced writing is as obvious as slop.
+
+Voice-craft guidance for Rewrite and Write — what to watch for, what to add or preserve, signs of soulless writing, before/after examples — is in [references/voice.md](references/voice.md). Read it during Step 5 (Rewrite or Write under mode), and especially before drafting in the Write action.
+
+---
+
+## Pattern catalogue
+
+Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
+
+- **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
+- **Language and grammar (7-12):** AI vocabulary words and phrases, Kobak biomedical excess-vocabulary clusters, copula avoidance, contrived contrast / negative parallelisms, rule of three, synonym cycling, false ranges
+- **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
+- **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
+- **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
+- **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
+- **Structural tells (29-32, 38):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, section scaffolding
+- **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
+
+Search for specific patterns when needed:
+```bash
+grep -i "promotional" references/patterns.md
+```
+
+---
+
+## Process
+
+### Step 1: Pick the action
+
+Decide which of the three actions applies:
+
+- If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
+- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
+- If the input has text but no clear instruction: use **Audit** and ask what's next.
+- If the input has no text and the request is unclear: ask what they want.
+
+Record the chosen action in the output.
+
+If the action is unclear and you can ask:
+
+> Do you want me to audit this, rewrite it, or write something new?
+
+If you cannot ask, default to Audit. The audit is read-only and lets the user decide the next action with full information. An unwanted audit costs a round-trip; an unwanted rewrite or write loses trust.
+
+### Step 2: Audit (Audit and Rewrite actions only — Write skips)
+
+Save the input text to a unique temp file using `mktemp` for portability:
+
+```bash
+INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+# write the input text to "$INPUT_PATH"
+python3 grade.py --format markdown "$INPUT_PATH"
+```
+
+
+2026-04-28T16:38:22.521768Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:22.522025Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+
+The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
+
+The script returns a plain-English Markdown report built from `human_report`: `overview`, `score`, `confidence`, `ai_pressure_explanation`, `failed_checks`, and `all_checks`. If you need debugging details, run the script with `--format json` to get JSON diagnostics. The older fields (`triggered_checks`, `failure_mode_results`, `mode_results`, and raw expectations) are for debugging only.
+
+Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
+
+The audit report must include:
+
+- **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
+- **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
+- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Explain accumulation in user-facing terms: several weak signals can stack into machine-packaged rhythm or structure.
+- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, what it looks for, what happened here, why it matters, severity, and severity-tiered recommended action.
+- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `What it looks for`, `What happened here`, `Why this matters`, `Severity`, and `Recommended action`. For clear checks, use "Clear", the plain reason, "—", and "None". For flagged checks, show what happened, why it matters, the severity class, and the severity-tiered recommended action.
+
+The severity-tiered recommended actions are:
+
+- Hard failure → "Fix in any mode."
+- Strong warning → "Fix in Light, Medium, and Hard. Disclose only if explicitly preserved."
+- Context warning → "Preserve in Light if purposeful (disclose). Fix in Medium and Hard."
+- Em dash → "Preserve in Light only with disclosure. Fix in Medium and Hard."
+
+The full 43-row table is required. It is how the user can see that the system checked all signals, not only the ones that failed. Do not replace it with a bullet list or a summary.
+
+**Depth signal:** If the audit shows multiple structural failures (triad density, section scaffolding, countdown negation, paragraph uniformity, soft scaffolding, orphaned demonstratives, tidy paragraph endings), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
+
+If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. **Disclose the limitation in the output:** the manual scan covers surface patterns only and cannot replicate the script's statistical density or pressure-accumulation checks. Prefer the script when possible.
+
+For Audit actions, stop after the audit and ask what the user wants next. Do not include a rewrite.
+
+### Step 3: Decide next step (Rewrite paths only)
+
+After the audit, if the action is Rewrite (or the user is undecided after seeing the audit), recommend a rewrite intensity tied to the findings and genre.
+
+Use this format:
+
+```text
+Recommended next step: [Light / Medium / Hard rewrite, or save the audit, or stop]
+Why: [one sentence tied to the findings and genre]
+Question: Do you want me to proceed with that, choose a different mode, or save the audit as Markdown?
+```
+
+Skip this question when the user has already clearly asked for a specific intensity, or for an Audit-only request.
+
+### Step 4: Pick mode (Rewrite and Write only)
+
+If the user has not chosen a mode, follow the Modes block at the top of this doc — ask if you can; default to Medium otherwise (Light for voice-sensitive genres). For voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), ask before applying Hard mode. Record the chosen mode in the output.
+
+### Step 5: Rewrite or write under mode
+
+Address structural patterns first, then surface patterns. The grader catches surface patterns well but cannot enforce structural integrity. You must do that work here.
+
+For Rewrite, apply the structural and surface patterns to the existing draft.
+For Write, apply the same patterns prospectively while drafting from the brief. The [Personality and soul](#personality-and-soul) section is especially load-bearing for Write — the goal is content that reads as human, not just content that lacks AI tells.
+
+**Structural patterns (address first):**
+
+1. **Structural monotony:** Do all sections follow the same arc (problem, evidence, anecdote, advice)? Vary paragraph structures. Some paragraphs should be one sentence. Some should start with evidence, not claims. Break at least one section out of the template.
+2. **Tonal uniformity (35):** Does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break: a moment of informality, a parenthetical doubt, or a shift in rhythm.
+3. **Resolution density (34):** Do most paragraphs end with a tidy summary sentence? Leave some threads open. Cut paragraph-final sentences that merely restate the paragraph's point.
+4. **Faux specificity (36):** Are the "specific" examples actually specific to anyone, or genre-convention filler? "The smell of coffee on a Sunday morning" is a stock photo in prose form.
+5. **Neutrality collapse (37):** Does the text take a position? If the input had a stance, make sure the output keeps it. "There are pros and cons" is not a rewrite of an opinion.
+6. **Even jargon distribution:** Humans clump technical terms when introducing a concept then relax into plain language. AI distributes jargon uniformly. If technical vocabulary is spread too evenly, clump it.
+7. **Soft scaffold phrasing:** Remove paragraph labels such as "One useful area", "Another useful area", "The main strength", "The main risk", and "Good use usually comes down to". State the point directly.
+8. **Bland critical templates:** In reviews and criticism, replace phrases like "emotional range", "field of sympathy", "moral strength", and "earns its weight" with concrete claims from the work.
+9. **False concessions:** Replace "critics say/supporters say/the truth lies in the middle" with the actual stance and evidence. Do not let balance stand in for thought.
+10. **Orphaned demonstratives:** Replace vague starts like "This highlights..." or "That underscores..." with concrete subjects.
+11. **Forced synesthesia (28)** and **generic metaphors (30):** replace with concrete details.
+12. **Section scaffolding (38):** If all sections use the same structural label or follow the same template, vary them.
+13. **Hard-mode headings:** If `no-markdown-headings` fails, remove both markdown headings and plain title headings. Do not reintroduce a title line in the rewrite unless the user explicitly asked to preserve article packaging.
+
+**Genre-specific tentative checks:**
+
+- **Academic/research:** Verify citations, DOIs, journals, dates, and reference-list formatting. Do not trust plausible-looking references. Flag citation oddities for user review rather than inventing replacements.
+- **Student essays:** Watch for rubric echoing: "the author creates a tone", "I can tell because", "this quote shows that", "according to the rubric". Preserve only if the text is explicitly discussing a rubric.
+- **Poetry:** Watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.
+- **Fiction:** Watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, fixed POV with no pressure, over-resolved endings, scene pacing that never surprises, characters stating subtext, and exposition that arrives before the scene has earned it.
+
+**Surface patterns (address second):**
+
+14. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the audit
+15. Fix every hard failure and strong warning from the audit report in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure. Review context warnings with the purpose test.
+16. Add personality and voice per [references/voice.md](references/voice.md)
+17. Preserve meaning and match the intended tone
+
+### Step 6: Semantic preservation check (Rewrite only)
+
+Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (2026) showed that LLMs shift meaning even in grammar-only passes, and this skill is itself an LLM rewriting text. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position. Check:
+
+- Did the input have an opinion? Does the output still have it?
+- Are there fewer pronouns in the output than the input? If so, why?
+- Did specific claims get softened into "on the other hand" balance?
+
+### Step 7: Structural self-check (Rewrite and Write)
+
+Answer each question below with a specific count or finding. Do not skip any. Show your answers in the output (see Output format).
+
+1. **Section arcs:** Do all sections follow the same arc? Count how many do. If more than half follow the same template, restructure at least one.
+2. **Resolution density:** Count paragraphs that end with a summary sentence. If more than half do, rewrite some to leave threads open.
+3. **Register breaks:** Is there at least one register break (moment of doubt, informality, or tonal shift)? If not, add one.
+4. **Triad count:** Count the triads. If there are more than 4, redistribute some as pairs or longer lists.
+5. **Reframe laundering:** Did any banned contrast survive in flipped form ("Y, not X"), softened form ("beyond X"), comparative form ("less X than Y"), or correction form ("you might think X, actually Y")? If yes, rewrite as a direct claim.
+6. **Purposeful devices:** Which flagged context warnings did you preserve, and why? Name the device and its function.
+7. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
+8. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
+
+After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures. In Hard mode, all checks should pass. In Medium and Light mode, hard failures and strong warnings should be gone; em dashes are never acceptable in Medium and should be fixed in Light unless the user explicitly accepts the risk after disclosure. In Light mode, remaining context warnings are acceptable when they preserve voice and are disclosed.
+
+### Step 8: Post-check (Rewrite and Write — script verifies the output)
+
+Run the grading script on your output (use a unique temp path that will not collide with concurrent runs):
+
+```bash
+python3 grade.py --format markdown --mode hard <output-path>
+```
+
+Use the selected mode in the command.
+
+Interpret the post-check by mode:
+
+- **Hard:** fix failures and re-run, up to a maximum of **2 re-runs** (3 total grader runs including the post-check itself). If failures remain after the second re-run, stop and report them as residual issues — do not loop indefinitely. A fix should not be applied if it would materially change meaning; document why a flagged item was preserved.
+- **Medium:** hard failures and strong warnings must be gone; context warnings may remain if purposeful and disclosed.
+- **Light:** hard failures and strong warnings must be gone; context warnings may remain if they preserve voice and are disclosed.
+
+Always report check status and mode action separately. A check failure remains a failure even when Light or Medium allows disclosure instead of rewriting. Example:
+
+```text
+Score summary: fail, 7/43 checks failed, pass rate 36/43. AI-signal pressure: 5/4, triggered.
+Light action: fix 1 strong warning; disclose or ask on 6 context warnings
+Medium action: fix 1 strong warning; disclose or ask on 6 context warnings
+Hard action: fix all 7 failed checks
+```
+
+The post-check report must use the post-check `human_report` the same way: overview, confidence, AI-pressure explanation, remaining failed checks, and the full 43-check Markdown table. Do not report only "pass" or "fail"; show the numbers.
+
+If the script is not available, manually verify hard failures and scan for generic AI structures. Use the purpose test before flattening voice.
+
+## Output format
+
+One template per action. The Save modifier wraps the chosen action's output in a Markdown file (see "Save-report output" at the bottom).
+
+### Audit output
+
+Use this when the action is Audit (the default).
+
+1. Action: Audit
+2. Audit report:
+   - Summary: [X of 43 checks flagged / all checks clear]
+   - Confidence: [Low / Low to medium / Medium / High, with basis]
+   - AI-pressure explanation: [plain-English accumulation explanation]
+   - Main issues found: [plain-English flagged checks with what they look for, what happened, why it matters, severity, and severity-tiered recommended action]
+   - Full check table: Markdown table with all 43 checks. Columns: `Check | Status | What it looks for | What happened here | Why this matters | Severity | Recommended action`. The `Recommended action` column is severity-tiered (no per-mode column at the audit phase).
+3. Recommended next step (optional, when the Recommendation modifier applies): a one-sentence Light/Medium/Hard suggestion tied to genre and findings.
+4. Question: [ask whether the user wants a rewrite, a saved report, or stop]
+
+Do not include a rewrite in Audit output.
+
+### Rewrite output
+
+Use this when the action is Rewrite.
+
+1. Action: Rewrite
+2. Mode selected: Light / Medium / Hard, with one sentence explaining why
+3. Initial audit report (from Step 2):
+   - Summary, Confidence, AI-pressure explanation, Main issues found, Full check table — same shape as the Audit output above. The Severity / Recommended action column stays severity-tiered; mode-specific actions appear in the post-check, not the initial audit.
+4. Rewrite
+5. Structural self-check (mandatory, with counts):
+   - Section arcs: N/M following same template - [what you changed]
+   - Resolution density: N/M paragraphs end with summary - [what you changed]
+   - Register breaks: [where you added one, or "already present at..."]
+   - Triads: N found - reduced to M by [method]
+   - Reframe laundering: [none / fixed at...]
+   - Purposeful devices recommended for preservation: [device - reason, or "none"]
+   - Stance: [preserved / shifted - restored by...]
+   - Remaining tells: [list, or "none identified"]
+6. Final report:
+   - Summary: [before -> after numbers]
+   - Confidence after rewrite: [post-check confidence]
+   - Remaining issues: [none / list failed checks with why and selected-mode action]
+   - Full post-check table: Markdown table with all 43 checks. Columns: `Check | Status | What it looks for | What happened here | Why this matters | <Selected mode> action`. The mode-specific action column appears here because the user has chosen a mode.
+   - Brief summary of changes made
+
+Do not show a discarded draft rewrite by default. If you revise after self-check, show only the final rewrite plus the audit notes. Show intermediate drafts only if the user asks.
+
+### Write output
+
+Use this when the action is Write.
+
+1. Action: Write
+2. Mode selected: Light / Medium / Hard, with one sentence explaining why
+3. Brief summary: one sentence restating what the user asked for. (No initial audit — there's no input text.)
+4. Draft
+5. Structural self-check (same eight items as Rewrite, applied to the draft):
+   - Section arcs, Resolution density, Register breaks, Triads, Reframe laundering, Purposeful devices, Stance, Remaining tells — same format as Rewrite output's self-check.
+6. Final report:
+   - Post-check summary: [X of 43 checks failed / all checks clear, at chosen mode]
+   - Confidence: [post-check confidence]
+   - Remaining issues: [none / list failed checks with why and selected-mode action]
+   - Full post-check table: same shape as Rewrite output's post-check table.
+
+### Save-report output
+
+Use this when the user asked for a saved file. Save is a modifier — it can wrap any of the three actions' outputs.
+
+In the chat output:
+
+1. Action: [Audit / Rewrite / Write] (saved)
+2. One-line summary of the action's verdict.
+3. The saved file path: `Saved to: <path>`.
+4. A short next-step question if appropriate.
+
+In the saved Markdown file, render the action's normal output template in full, preceded by a short header:
+
+```
+# Humanise <action> report
+- Input: <input path, or "pasted text", or "brief">
+- Mode: <Light / Medium / Hard, or "n/a" for Audit>
+- Date: <ISO 8601>
+```
+
+Do not duplicate the full report inline in chat when a saved file exists. Reference the path instead.
+
+---
+
+## Worked example
+
+A full Hard-mode Rewrite walked through end-to-end (AI-sounding draft → audit → first rewrite → structural self-check → revised rewrite → changes made) is at [references/example.md](references/example.md). Read it as a reference for what a real Rewrite output should look like.
+
+---
+
+## Sources
+
+- [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), WikiProject AI Cleanup (foundation, patterns 1-25)
+- [Linda Caroll, "Good Writing, AI Slop, and the Dragon"](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon) (experiential vacancy framing)
+- [Sam Kriss, "Why Does A.I. Write Like ... That?"](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), NYT Magazine (patterns 26-28: ghost language, quietness, synesthesia)
+- [Charlie Guo, "The Field Guide to AI Slop"](https://www.ignorance.ai/p/the-field-guide-to-ai-slop) (patterns 29-32: rhetorical questions, metaphors, list-making, dramatic transitions; density framing)
+- [Grammarly, "Common Words and Phrases in AI-Generated Content"](https://www.grammarly.com/blog/ai/common-ai-words/) (expanded vocabulary list)
+- [GPTZero, "AI Vocabulary"](https://gptzero.me/ai-vocabulary), April 2026 (100 high-ratio AI phrases from public table, used as tentative clustering signals)
+- [Matthew Vollmer, "I Asked the Machine to Tell on Itself"](https://matthewvollmer.substack.com/p/i-asked-the-machine-to-tell-on-itself) (cross-source taxonomy and reference trail)
+- [Shreya Shankar, "AI Writing"](https://sh-reya.com/blog/ai-writing/) (orphaned demonstratives and weak AI prose mechanics)
+- [Abdulhai et al., "How LLMs Distort Our Written Language"](https://arxiv.org/abs/2603.18161), 2026 (subtraction framing: neutrality collapse, pronoun depletion, semantic drift; patterns 35-37)
+- [Nature, "Signs of AI-generated text found in 14% of biomedical abstracts"](https://www.nature.com/articles/d41586-025-02097-6), 2025 (vocabulary items, temporal fingerprinting)
+
+2026-04-28T16:38:26.497146Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:26.497353Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+# Severity detail: deep-dive on the four most distinctive AI tells
+
+Expanded detail on four patterns from the Severity classes table in SKILL.md (em dashes, manufactured insight, adversarial reframes, generic staccato fragments). They get their own subsections because they are the most common and most distinctive AI tells in 2026 — the rules below are the canonical source of truth when these patterns appear.
+
+Non-negotiable in Hard mode. In Medium and Light mode, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
+
+## No em dashes except disclosed Light mode preservation
+
+In Medium and Hard mode, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
+
+Replace with commas, colons, semicolons, periods, or parentheses. Restructure the sentence if none of those fit. There is always an alternative.
+
+In Light mode only, em dashes may be preserved if they are part of an author's established style, quoted source text, dialogue rhythm, or period/literary voice. Disclose the preservation explicitly so the user can decide. If the user asked for publication-ready plain prose, normalise them.
+
+## No manufactured insight
+
+Eliminate all framing that performs the act of having a deeper take. AI cannot have insider knowledge, so it compensates with linguistic markers that signal depth without providing any. Either state the observation plainly or remove the sentence if stripping the framing reveals no substance.
+
+- **False revelation:** "But the real answer is...", "What's actually happening here is...", "Here's what's really going on..."
+- **Contrived contrarianism:** "What nobody is talking about...", "What no one is talking about...", "Contrary to popular belief...", "The uncomfortable truth is..."
+- **Unnoticed-shift framing:** "When no one noticed...", "The shift nobody noticed...", "Before anyone noticed...", "Without anyone noticing..." when used to manufacture secret significance.
+- **Pseudo-profundity:** "quietly revolutionary", "quietly became", "the quiet part", "subtly", "understated", "unassuming" when used to inflate significance
+- **Performed knowingness:** "If you know, you know", "And that changes everything", "Let that sink in", "Read that again", "And honestly?", "Here's the thing:"
+- **Formulaic depth framing:** "The reason is straightforward:", "The reason is simple:", "Here's why:", "What's strange is", "What's interesting is", "What's remarkable is". These perform the act of having an explanation before delivering one.
+- **Dramatic narrative transitions:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me." These claim a turning point without earning it.
+- **Contrived contrast:** "This isn't X. It's Y." as a standalone dramatic beat (e.g. "This isn't a bug. It's a feature." or "This isn't a character flaw. It's hardware."). The two-sentence snap format is a reliable AI fingerprint regardless of content.
+
+These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test in Light mode; remove in Medium and Hard unless the phrase clearly belongs to the writer's voice.
+
+## No adversarial reframes
+
+Do not satisfy the letter of a rule while keeping the same AI-shaped move. This especially applies to pattern 9, contrived contrast / negative parallelism. If the draft says "It's not X, it's Y", an acceptable rewrite is not "It is Y, not X" or "Beyond X, it becomes Y". Those are the same device with the furniture moved around.
+
+Flag and rewrite all of these as direct claims:
+
+- "It's not X, it's Y."
+- "It's Y, not X."
+- "Less X than Y."
+- "More Y than X."
+- "Not so much X as Y."
+- "Beyond X, it is Y."
+- "You might think X. Actually, Y."
+- "No X. No Y. Just Z."
+
+The test is semantic: if the sentence creates drama by rejecting a plain interpretation and revealing a supposedly deeper abstraction, remove the setup and state the actual claim with concrete support.
+
+## No staccato fragments
+
+Short sentences used in sequence for dramatic effect are often an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats in generic articles are usually generated.
+
+A sentence should be as long as the thought it contains. When you find fragments used for generic emphasis, fold their content into a neighbouring sentence or expand into something that earns its own line. Preserve staccato when it is character voice, comedy, panic, dialogue, or deliberate literary rhythm.
+
+### Before
+
+> The results were clear. Strikingly so. The model outperformed every baseline. Every single one. And nobody saw it coming.
+
+### After
+
+> The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
+
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/voice.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+# Personality and soul
+
+Voice-craft guidance for the Rewrite and Write actions. The grader catches AI patterns to remove; this guide is about what to add or preserve so the result reads as written by a human, not just as text without AI tells.
+
+## The real problem: subtraction
+
+Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+
+Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
+
+## Experiential vacancy
+
+AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related move is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
+
+Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+
+## Density without purpose
+
+A good writer uses em dashes, triads, and parallelism sparingly, with intention. AI litters them throughout indiscriminately. The issue is not that any single device appears, but that they cluster and serve no rhetorical purpose. When scanning for patterns, watch for pileups.
+
+## Signs of soulless writing (even if technically clean)
+
+- Every sentence follows the same length and structure
+- No opinions, just neutral reporting: stance has been stripped or was never there
+- No acknowledgment of uncertainty or mixed feelings
+- No appropriate point-of-view presence; pronouns depleted
+- No humour, no edge, no personality
+- Observations are universally relatable but never personally specific (faux specificity)
+- Emotionally safe: never takes an uncomfortable position
+- Tonal uniformity: one register throughout, no drift or register breaks (pattern 35)
+- Every paragraph wraps up neatly with a miniature conclusion (pattern 34)
+
+## How to add voice
+
+**Have opinions.** "I keep going back and forth on this" is more human than neutrally listing pros and cons.
+
+**Vary rhythm within reason.** Mix sentence lengths for natural cadence, but not one-word dramatic punctuation. It should feel like a person thinking at different speeds.
+
+**Acknowledge complexity.** "This is impressive, but it also makes me a little uneasy" carries more weight than unqualified praise or a clean pro/con list.
+
+**Match the natural point-of-view.** If the piece reads as personal reflection, use "I". If it reads as impersonal observation, use "one" or third person. Do not default to first person. Match whatever POV the text is already using or would naturally use for its genre and tone.
+
+**Be specific rather than atmospheric.** Instead of mood words ("eerie", "striking", "fascinating"), describe the concrete detail that caused the feeling.
+
+**Break register.** If the whole text sits in one tone, introduce at least one register shift: a moment of informality, a parenthetical doubt, a change in sentence rhythm.
+
+## Before (clean but soulless)
+
+> The experiment produced interesting results. The agents generated 3 million lines of code. Some developers were impressed while others were sceptical. The implications remain unclear.
+
+## After (has a pulse)
+
+> Three million lines of code, generated overnight while the developers slept. I have been turning this over for a few days now, and I still do not have a clean take on it. Half the dev community thinks this changes everything; the other half is explaining, at length, why it does not count. My own reaction keeps shifting depending on which examples I look at.
+
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/patterns.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+# AI writing patterns
+
+38 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
+
+## Contents
+
+- [Content patterns (1-6)](#content-patterns)
+- [Language and grammar (7-12)](#language-and-grammar)
+- [Style (13-18)](#style)
+- [Communication (19-21)](#communication)
+- [Filler and hedging (22-25)](#filler-and-hedging)
+- [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
+- [Structural tells (29-32, 38)](#structural-tells)
+- [Voice and register (33-37)](#voice-and-register)
+
+---
+
+## Evidence hierarchy from the reference audit
+
+Use source strength when deciding severity. The ruleset should surface clusters of suspicious writing behaviours, not claim that one phrase proves AI authorship.
+
+**Strong empirical backbone:**
+
+- Kobak / Science Advances and the `llm-excess-vocab` dataset support lexical spike detection at corpus level, especially in scientific prose. Use vocabulary as density and clustering evidence, not as one-word proof. Source: https://github.com/berenslab/llm-excess-vocab
+- Juzek and Ward's "Why does ChatGPT delve so much?" supports a narrow scientific-abstract vocabulary signal. It is credible for excess-word lists but not for confident document-level claims. Source: https://arxiv.org/abs/2412.11385
+- GPTZero's 2026 paper supports the architecture: hierarchical signals, granular findings, adversarial testing, and transparent mixed evidence. It does not add a prose-style rule by itself. Source: https://arxiv.org/abs/2602.13042
+- Stanford HAI's detector-bias reporting supports warnings over accusations, especially for non-native English writers. Use process evidence and user review rather than detector-style verdicts. Source: https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers
+
+**Useful but tentative style sources:**
+
+- GPTZero's AI Vocabulary page is useful as a phrase list, but its own framing separates vocabulary scanning from AI-probability scoring. Use all 100 public table rows only as clustering signals. Source: https://gptzero.me/ai-vocabulary
+- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
+- OpenAI's April 2025 GPT-4o sycophancy rollback supports hard-failing assistant flattery and fake affirmation such as "great question" and "you're absolutely right." Source: https://openai.com/index/sycophancy-in-gpt-4o/
+
+**Domain and provenance signals:**
+
+- Walsh, Preus, and Gronski support poetry-specific manual checks: constrained uniformity, rhyme/quatrain defaults, first-person plural overuse, and mood-word clusters. Keep this genre-specific. Source: https://arxiv.org/abs/2410.15299
+- Clarkesworld reporting supports fiction as a submission/provenance problem and a manual craft-audit area. Use it for flat dialogue, exposition, pacing, lack of subtext, and over-resolved endings, not as a global regex rule. Source: https://www.npr.org/2023/02/24/1159286436/ai-chatbot-chatgpt-magazine-clarkesworld-artificial-intelligence
+- Futurism's Sports Illustrated reporting supports journalism and review-provenance checks: fake bylines, fake bios, AI headshots, affiliate product-review sludge, undisclosed generated content, and byline laundering. Source: https://futurism.com/sports-illustrated-ai-generated-writers
+
+**2026 operating stance:**
+
+- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They may be preserved only in Light mode with explicit disclosure; Medium and Hard require removal.
+- The best signals are clusters: GPTZero/Kobak vocabulary density, contrived contrast laundering, empty endings, vague demonstrative starts, placeholder residue, sycophantic assistant residue, unrequested headings/lists/Unicode flair, paragraph uniformity, generic email closers, and fake citations or provenance artifacts.
+
+---
+
+## Content patterns
+
+### 1. Significance inflation
+
+**Words to watch:** stands/serves as, is a testament/reminder, a vital/significant/crucial/pivotal/key role/moment, underscores/highlights its importance, reflects broader, symbolizing its ongoing/enduring/lasting, setting the stage for, marking/shaping the, represents/marks a shift, key turning point, evolving landscape, indelible mark, deeply rooted, remarkably, strikingly, staggering/staggeringly
+
+Inflates importance by claiming things "represent" or "contribute to" broader trends without explaining why anyone should care.
+
+**Before:**
+> The Statistical Institute of Catalonia was officially established in 1989, marking a pivotal moment in the evolution of regional statistics in Spain. This initiative was part of a broader movement across Spain to decentralize administrative functions and enhance regional governance.
+
+**After:**
+> The Statistical Institute of Catalonia was established in 1989 to collect and publish regional statistics independently from Spain's national statistics office.
+
+
+### 2. Notability claims
+
+**Words to watch:** independent coverage, local/regional/national media outlets, written by a leading expert, active social media presence
+
+Asserts notability by listing sources without context, as though the mention itself is the story.
+
+**Before:**
+> Her views have been cited in The New York Times, BBC, Financial Times, and The Hindu. She maintains an active social media presence with over 500,000 followers.
+
+**After:**
+> In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.
+
+
+### 3. Superficial -ing analyses
+
+**Words to watch:** highlighting/underscoring/emphasizing..., ensuring..., reflecting/symbolizing..., contributing to..., cultivating/fostering..., encompassing..., showcasing...
+
+Present participle phrases tacked onto sentences to simulate analytical depth without adding information.
+
+**Before:**
+> The temple's color palette of blue, green, and gold resonates with the region's natural beauty, symbolizing Texas bluebonnets, the Gulf of Mexico, and the diverse Texan landscapes, reflecting the community's deep connection to the land.
+
+**After:**
+> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
+
+
+### 4. Promotional language
+
+**Words to watch:** boasts a, vibrant, rich (figurative), profound, enhancing its, showcasing, exemplifies, commitment to, natural beauty, nestled, in the heart of, groundbreaking (figurative), renowned, breathtaking, must-visit, stunning
+
+Reads like tourism marketing rather than description.
+
+**Before:**
+> Nestled within the breathtaking region of Gonder in Ethiopia, Alamata Raya Kobo stands as a vibrant town with a rich cultural heritage and stunning natural beauty.
+
+**After:**
+> Alamata Raya Kobo is a town in the Gonder region of Ethiopia, known for its weekly market and 18th-century church.
+
+
+### 5. Vague attributions
+
+**Words to watch:** Industry reports, Observers have cited, Experts argue, Some critics argue, several sources/publications (when few cited)
+
+Attributes opinions to vague authorities without specific sources, creating illusions of consensus.
+
+**Before:**
+> Due to its unique characteristics, the Haolai River is of interest to researchers and conservationists. Experts believe it plays a crucial role in the regional ecosystem.
+
+**After:**
+> The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.
+
+
+### 6. Formulaic challenges sections
+
+**Words to watch:** Despite its... faces several challenges..., Despite these challenges, Challenges and Legacy, Future Outlook
+
+Formulaic "Challenges" sections that acknowledge a problem then immediately reassure the reader things are fine.
+
+**Before:**
+> Despite its industrial prosperity, Korattur faces challenges typical of urban areas, including traffic congestion and water scarcity. Despite these challenges, with its strategic location and ongoing initiatives, Korattur continues to thrive as an integral part of Chennai's growth.
+
+**After:**
+> Traffic congestion increased after 2015 when three new IT parks opened. The municipal corporation began a stormwater drainage project in 2022 to address recurring floods.
+
+---
+
+## Language and grammar
+
+### 7. AI vocabulary words
+
+**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands/landed (as metaphor for "how something is received"), surface/surfaced (as metaphor for "appears in the discourse"), unspoken, hidden (when used to inflate significance of something ordinary), unparalleled, invaluable, bolstered, meticulous
+
+**AI transition phrases** (a whole category AI overuses): "that being said", "at its core", "to put it simply", "a key takeaway is", "from a broader perspective", "in today's fast-paced world", "as technology continues to evolve", "but here's..."
+
+These words and phrases appear far more frequently in post-2023 text than in human writing from earlier periods. They often cluster in the same paragraph, which is a strong tell. No single word is proof, but density is: three or more in one paragraph is a fingerprint.
+
+**Soft scaffold phrases:** "One useful area...", "Another useful area...", "The main strength...", "The main risk...", "Good use usually comes down to..." These phrases are not flashy, which is why they survive rewrites. They mark a generated explainer that is arranging information into bland labelled blocks instead of writing from a real line of thought.
+
+**Tentative high-ratio phrase list:** GPTZero's April 2026 AI Vocabulary page is based on 3.3 million texts and exposes 100 public table rows. Use all 100 as clustering signals only. A single phrase is not proof of AI writing, but several in one paragraph is a strong smell.
+
+Full GPTZero phrase list used by the grader:
+
+1. provide a valuable insight
+2. left an indelible mark
+3. a stark reminder
+4. a nuanced understanding
+5. significant role in shaping
+6. the complex interplay
+7. broad implication
+8. an unwavering commitment
+9. endure a legacy
+10. underscore the importance
+11. play a pivotal role
+12. a pivotal moment
+13. navigate the complex
+14. mark a turning point
+15. continue to inspire
+16. gain a deeper understanding
+17. the transformative power
+18. hold a significant
+19. play a crucial role
+20. particularly a concern
+21. the relentless pursuit
+22. emphasize the need
+23. target an intervention
+24. a multi-faceted approach
+25. a serf reminder
+26. highlight the potential
+27. a significant milestone
+28. implication to understand
+29. potential risk associated
+30. leave a lasting
+31. add a layer
+32. offer a valuable
+33. a profound implication
+34. case highlights the importance
+35. finding a highlight of the importance
+36. pave the way for the future
+37. a significant step forward
+38. face a significant
+39. finding an important implication
+40. emphasize the importance
+41. a significant implication
+42. delve deeper into
+43. reply in tone
+44. raise an important question
+45. make an informed decision in regard to
+46. far-reaching implications
+47. a comprehensive framework
+48. importance to consider
+49. a unique blend
+50. couldn't help but wonder
+51. underscore the need
+52. framework for understanding
+53. highlight the need
+54. a comprehensive understanding
+55. the journey begins
+56. understanding the fundamental
+57. despite the face
+58. a delicate balance
+59. the path ahead
+60. gain an insight
+61. laid the groundwork
+62. understand the behavior
+63. renew a sense
+64. aim to explore
+65. present a unique challenge
+66. provide a comprehensive
+67. particularly with regard to
+68. address the root cause
+69. loom large in
+70. the implication of the finding
+71. approach ensures a
+72. an ongoing dialogue
+73. carry a weight
+74. ability to navigate
+75. present a significant
+76. study shed light on
+
+exec
+/bin/zsh -lc 'ls -la /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot && ls -la /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references' in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+total 504
+drwxr-xr-x@ 7 mae  staff     224 Apr 28 17:58 .
+drwxr-xr-x@ 4 mae  staff     128 Apr 29 02:24 ..
+-rw-r--r--@ 1 mae  staff    6148 Apr 28 17:58 .DS_Store
+-rw-r--r--@ 1 mae  staff   32601 Apr 28 17:58 SKILL.md
+-rw-r--r--@ 1 mae  staff  103162 Apr 28 17:58 examples ai.txt
+-rw-r--r--@ 1 mae  staff  109035 Apr 28 17:58 grade.py
+drwxr-xr-x@ 7 mae  staff     224 Apr 28 17:58 references
+total 216
+drwxr-xr-x@ 7 mae  staff    224 Apr 28 17:58 .
+drwxr-xr-x@ 7 mae  staff    224 Apr 28 17:58 ..
+-rw-r--r--@ 1 mae  staff   6587 Apr 28 17:58 example.md
+-rw-r--r--@ 1 mae  staff  39855 Apr 28 17:58 kobak-excess-words.csv
+-rw-r--r--@ 1 mae  staff  43027 Apr 28 17:58 patterns.md
+-rw-r--r--@ 1 mae  staff   5047 Apr 28 17:58 severity-detail.md
+-rw-r--r--@ 1 mae  staff   4215 Apr 28 17:58 voice.md
+
+2026-04-28T16:38:35.741503Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:35.741708Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/04-science-mycorrhizal.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:38:40.032735Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:40.032938Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 121ms:
+Initial assessment
+Summary: 5 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 1 strong AI-writing signal(s); 4 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were headings in prose. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 2/4, so this check stayed clear.
+
+Main issues found
+- Curly quotes: Flagged. What it looks for: Checks for curly quotation marks when plain output is expected. What happened here: Found 14 curly quote(s). Why this matters: Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. Hard action: Fix.
+- Avoiding plain 'is': Flagged. What it looks for: Checks for inflated replacements such as serves as, functions as, or stands as. What happened here: Found 1: "represent a". Why this matters: Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. Hard action: Fix.
+- Headings in prose: Flagged. What it looks for: Checks for markdown headings and plain title headings when prose should flow. What happened here: Found 1 heading(s): "# The forest beneath the forest". Why this matters: Headings can make prose feel packaged by an assistant rather than written as a continuous piece. Hard action: Fix.
+- Dense negation: Flagged. What it looks for: Checks whether negation markers are unusually dense across prose. What happened here: Found 22 negation markers (13.8 per 1000 words). Why this matters: Dense negation can make a piece feel over-framed around what it is not instead of what it is. Hard action: Fix.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 21 triad(s), including "recover, compete, store carbon", "the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace", "slip into smaller pores, cross tiny gaps, spread through patches of", plus 18 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Clear | Checks for repeated short dramatic sentences used as generic emphasis. | No issue found in this text. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | None |
+| Mechanical repeated sentence starts | Clear | Checks for repeated sentence openings that read like template rhythm. | No issue found in this text. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | None |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Flagged | Checks for curly quotation marks when plain output is expected. | Found 14 curly quote(s). | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | Fix |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Flagged | Checks for inflated replacements such as serves as, functions as, or stands as. | Found 1: "represent a". | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | Fix |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Flagged | Checks for markdown headings and plain title headings when prose should flow. | Found 1 heading(s): "# The forest beneath the forest". | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | Fix |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Flagged | Checks whether negation markers are unusually dense across prose. | Found 22 negation markers (13.8 per 1000 words). | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | Fix |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Clear | Checks for unusually repetitive vocabulary in longer text. | No issue found in this text. | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | None |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 21 triad(s), including "recover, compete, store carbon", "the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace", "slip into smaller pores, cross tiny gaps, spread through patches of", plus 18 more. | Too many three-part lists create a recognisable generated cadence. | Fix |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+2026-04-28T16:38:48.086995Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:48.087251Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --help | sed -n '1,140p'" in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+ succeeded in 0ms:
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-BeJnf4Uw' (errno=Operation not permitted)
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-sfgaLaJA' (errno=Operation not permitted)
+Traceback (most recent call last):
+  File "/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py", line 2567, in <module>
+    main()
+  File "/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py", line 2543, in main
+    results = grade_file(filepath, assertions)
+  File "/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py", line 2504, in grade_file
+    text = Path(filepath).read_text()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1256, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1242, in open
+    return io.open(self, mode, buffering, encoding, errors, newline,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1110, in _opener
+    return self._accessor.open(self, flags, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '--help'
+
+2026-04-28T16:38:52.039592Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:38:52.039819Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:39:30.149840Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:39:30.153858Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:39:38.169996Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:39:38.170211Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:40:10.259139Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:40:10.261260Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:40:13.001381Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:40:13.001628Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 35899ms:
+After rain, a forest pulls attention upward. Leaves flash, trunks darken, birds move through the canopy. A lot of the work, though, is under the path. Below the litter layer, roots are wrapped and threaded by fungal filaments fine enough to pass through soil spaces that roots cannot enter. Those fungi are part of how many forests feed themselves, recover after stress, compete for resources, and move carbon through soil.
+
+The association is mycorrhiza, literally fungus-root. In it, a fungus colonises a plant root and sends microscopic filaments, called hyphae, out into the surrounding soil. The plant pays with carbon compounds made by photosynthesis. The fungus returns nutrients from places the roots would reach poorly on their own, especially phosphorus and nitrogen, and often water or trace elements. More than 80 percent of plant species form these relationships. In some soils, mycorrhizal fungi account for a large share of the living microbial biomass.
+
+For a tree, the arrangement changes the economics  feeding. Roots are thick, costly organs. Hyphae are cheaper and finer. A root hair samples the soil close to it; a fungal filament can slip into small pores and grow through decomposing litter or mineral grains. The tree gains a larger absorbing surface and a different chemistry at its root edge. Ectomycorrhizal fungi, common on many pines, birches, oaks, beeches, and eucalypts, sheath root tips and grow between root cells. Arbuscular mycorrhizal fungi, found in a wide range of plants, enter root cells and form small branched exchange structures. The forms differ, but the trade is recognisable: plant carbon goes to the fungus, and soil resources come back.
+
+That trade shifts with conditions. Trees vary their investment. Fungi vary too: one partner may be good at scavenging inorganic phosphorus, while another may help release nitrogen from organic matter. Reviews of ectomycorrhizal forests have found that nitrogen transfer depends strongly on the fungal species, the soil, and the chemical form of the nitrogen. A tree in poor soil may spend heavily on fungal partners. A tree in fertilised ground may spend less, because the return has changed.
+
+The phrase wood-wide web grew out of this area of research, and it has done both useful and messy work. A common mycorrhizal network means a physical fungal connection between the roots of two or more plants. In principle, such a connection can move carbon, nutrients, water, or chemical signals. Demonstrating that movement in an intact forest is hard. Researchers have to rule out other routes, including root leakage, microbial recycling, dissolved chemicals moving with water, and airborne signals. A 2023 review in Nature Ecology & Evolution argued that several public claims about these networks in forests outrun the field evidence. The weakly supported claims include the idea that such networks are widespread, that they reliably improve seedling performance, and that mature trees preferentially feed their own offspring.
+
+The networks are real. The problem is the story often placed on top of them. A famous 1997 experiment by Suzanne Simard and colleagues traced carbon isotopes between paper birch and Douglas-fir seedlings in British Columbia. The seedlings were associated with ectomycorrhizal fungi, and the researchers found bidirectional carbon movement between the species, with Douglas-fir gaining carbon overall under those conditions. The result mattered because it showed that plants could be linked below ground in more complicated ways than simple one-tree competition.
+
+The careful conclusion is narrower. Carbon can move between plants in some experimental settings, and fungal pathways may be involved. That finding does not prove that an old tree is feeding a seedling by intention, or that transfer improves survival across forests generally. Later reviews have found mixed seedling results. Access to a network may help in one setting, hurt in another, or make little measurable difference. In ecological terms, connection is a condition, not a virtue.
+
+Claims about communication need the same restraint. Plants detect chemical cues and alter their physiology after attack. Neighbouring plants can respond when damage changes the chemical environment around them. Some experiments suggest that mycorrhizal networks can carry stress-related signals. One study reported that damaged Douglas-fir transferred carbon and defence-associated signals to neighbouring ponderosa pine through ectomycorrhizal networks. That is biochemical signalling, not language. There is no evidence for intention or conscious warning.
+
+The fungus also deserves better than the role of cable. It is a living partner with its own metabolism and evolutionary interests. It can allocate nutrients toward hosts that supply more carbon, proliferate in nutrient-rich patches, or change exchange rates as conditions change. Some relationships are mutualistic. Others drift toward parasitism when one partner gives more than it receives. A fungus that helps one tree acquire nother organism for the same pool of nitrogen.
+
+These fungal systems affect soil structure as well as plant nutrition. Hyphae bind particles into aggregates and move resources over small distances. When they die, fungal remains can become part of longer-lived soil organic matter, especially when microbial residues bind to minerals. Still, mycorrhizal fungi are not simple carbon vaults. They receive plant carbon, build tissue, respire carbon dioxide, interact with decomposers, and sometimes stimulate decomposition while mining organic matter for nutrients. Recent work links fungal community composition to forest soil carbon patterns, but different fungi can push carbon cycling in different directions.
+
+A nutrient-poor conifer forest makes the point concrete. If nitrogen or phosphorus limits growth, trees may send a large share of photosynthetic carbon below ground. Ectomycorrhizal fungi sheath root tips, extend hyphae into soil, and use enzymes or organic acids to reach nutrient forms the tree cannot easily use alone. The mushrooms that appear after rain are fruiting bodies. Most of the organism is mycelium in roots and soil. Soil compaction, topsoil loss, and clear-felling can change the temperature and moisture around that mycelium quickly.
+
+Regeneration after disturbance also depends on this underground community. Seedlings germinate into soil already occupied by fungi, roots, bacteria, and decaying organic matter. Existing mycorrhizal fungi can help young trees establish by colonising their roots quickly. In other places, the resident fungal community favours some tree species over others and changes which seedlings survive. Planting stems is only part of forest recovery; the soil community helps decide whether those stems become a forest.
+
+The climate and conservation stakes are straightforward. Mycorrhizal fungi shape plant productivity, nutrient cycling, and soil carbon dynamics at large scales. A 2025 Nature study mapping global mycorrhizal fungal richness reported extensive underground networks and found that many fungal biodiversity hotspots fall outside protected areas. That does not turn fungi into an easy climate fix. It does mean forest policy that ignores below-ground biodiversity is leaving out part of the system it aims to manage.
+
+The most accurate account sits away from the popular myth. Mycorrhizal fungi are ancient, consequential, and difficult to measure in living forests. They help trees acquire nutrients, influence competition, shape seedling establishment, and alter soil carbon. Sometimes they connect plants in ways that let materials or signals move between them.
+
+The forest under the forest is infrastructure, exchange, digestion, and conflict. Its chemistry is more important than its sentiment. Its networks are patchy and changing. That makes the wood-wide web metaphor too tidy, but the underlying biology is still impressive: a forest is a layered community in which fungi do much of the work beyond the reach of light.
+^DInitial assessment
+Summary: 1 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Low to medium. Only a small number of context-sensitive signals appeared.
+Basis: 1 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. This text did not stack enough weak signals to suggest machine-packaged structure. Score: 0/4, so this check stayed clear.
+
+Main issues found
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 16 triad(s), including "below the litter layer, roots are wrapped, threaded by fungal filaments", "recover after stress, compete for resources, move carbon through soil", "poorly on their own, especially phosphorus and nitrogen, often water or trace", plus 13 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Clear | Checks for repeated short dramatic sentences used as generic emphasis. | No issue found in this text. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | None |
+| Mechanical repeated sentence starts | Clear | Checks for repeated sentence openings that read like template rhythm. | No issue found in this text. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | None |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Clear | Checks for curly quotation marks when plain output is expected. | No issue found in this text. | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | None |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Clear | Checks for markdown headings and plain title headings when prose should flow. | No issue found in this text. | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | None |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Clear | Checks for unusually repetitive vocabulary in longer text. | No issue found in this text. | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | None |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 16 triad(s), including "below the litter layer, roots are wrapped, threaded by fungal filaments", "recover after stress, compete for resources, move carbon through soil", "poorly on their own, especially phosphorus and nitrogen, often water or trace", plus 13 more. | Too many three-part lists create a recognisable generated cadence. | Fix |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:40:23.976450Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:40:23.976657Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:40:58.246091Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:40:58.246310Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:41:02.910184Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:41:02.910408Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 40008ms:
+After rain, a forest pulls attention upward. Leaves flash. Dark trunks hold the eye, and birds move through the canopy. A lot of the work, though, is under the path. Below the litter layer, fungal filaments wrap roots and pass through soil spaces too small for roots to enter. Those fungi help many forests feed themselves. They also affect recovery after stress, competition for resources, and the movement of carbon through soil.
+
+The association is mycorrhiza, literally fungus-root. In it, a fungus colonises a plant root and sends microscopic filaments, called hyphae, out into the surrounding soil. The plant pays with carbon compounds made by photosynthesis. The fungus returns nutrients from places the roots would reach poorly on their own, especially phosphorus and nitrogen. It can also help with water or trace elements. More than 80 percent of plant species form these relationships. In some soils, mycorrhizal fungi account for a large share of the living microbial biomass.
+
+For a tree, the arrangement chges the economics of feeding. Roots are thick, costly organs. Hyphae are cheaper and finer. A root hair samples the soil close to it. A fungal filament can slip into small pores and grow through decomposing litter or mineral grains. The tree gains a larger absorbing surface and a different chemistry at its root edge. Ectomycorrhizal fungi are common on many pines, birches, oaks, beeches, and eucalypts; they sheath root tips and grow between root cells. Arbuscular mycorrhizal fungi occur in a wide range of plants. They enter root cells and form small branched exchange structures. The forms differ, but the trade is recognisable: plant carbon goes to the fungus, and soil resources come back.
+
+That trade shifts with conditions. Trees vary their investment. Fungi vary too. One partner may be good at scavenging inorganic phosphorus. Another may help release nitrogen from organic matter. Reviews of ectomycorrhizal forests have found that nitrogen transfer depends strongly on the fungal species and the soil. The chemical form of the nitrogen also matters. A tree in poor soil may spend heavily on fungal partners. A tree in fertilised ground may spend less, because the return has changed.
+
+The phrase wood-wide web grew out of this area of research, and it has done both useful and messy work. A common mycorrhizal network means a physical fungal connection between the roots of two or more plants. In principle, such a connection can move car23 review in Nature Ecology & Evolution argued that several public claims about these networks in forests outrun the field evidence. The review challenged claims that such networks are widespread. It also questioned whether they reliably improve seedling performance, and whether mature trees preferentially feed their own offspring.
+
+The networks are real. The problem is the story often placed on top of them. A famous 1997 experiment by Suzanne Simard and colleagues traced carbon isotopes between paper birch and Douglas-fir seedlings in British Columbia. The seedlings were associated with ectomycorrhizal fungi. The researchers found carbon moving in both directions between the species, with Douglas-fir gaining carbon overall under those conditions. The result mattered because it showed that plants could be linked below ground in more complicated ways than simple one-tree competition.
+
+The careful conclusion is narrower. Carbon can move between plants in some experimental settings, and fungal pathways may bion or conscious warning.
+
+The fungus also deserves better than the role of cable. It is a living partner with its own metabolism and evolutionary interests. It can allocate nutrients toward hosts that supply more carbon. It can proliferate in nutrient-rich patches or change exchange rates as conditions change. Some relationships are mutualistic. Others drift toward parasitism when one partner gives more than it receives. A fungus that helps one tree acquire nitrogen may also compete with another organism for the same pool of nitrogen.
+
+These fungal systems affect soil structure as well as plant nutrition. Hyphae bind particles into aggregates and move resources over small distances. When they die, fungal remains can become part of longer-lived soil organic matter, especially when microbial residues bind to minerals. Still, mycorrhizal fungi are not simple carbon vaults. They receive plant carbon and build tissue. They respire carbon dioxide, interact with decomposers, and sometimes stimulate decompositior for nutrients. Recent work links fungal community composition to forest soil carbon patterns, but different fungi can push carbon cycling in different directions.
+
+A nutrient-poor conifer forest makes the point concrete. If nitrogen or phosphorus limits growth, trees may send a large share of photosynthetic carbon below ground. Ectomycorrhizal fungi sheath root tips and extend hyphae into soil. Enzymes or organic acids let them reach nutrient forms the tree cannot easily use alone. The mushrooms that appear after rain are fruiting bodies. Most of the organism is mycelium in roots and soil. Soil compaction can change the temperature and moisture around that mycelium quickly. So can topsoil loss or clear-felling.
+
+Regeneration after disturbance also depends on this underground community. Seedlings germinate into soil already occupied by fungi, roots, bacteria, and decaying organic matter. Existing mycorrhizal fungi can help young trees establish by colonising their roots quickly. In other places, the resips decide whether those stems become a forest.
+
+The climate and conservation stakes are straightforward. Mycorrhizal fungi shape plant productivity and nutrient cycling. They also affect soil carbon dynamics at large scales. A 2025 Nature study mapping global mycorrhizal fungal richness reported extensive underground networks and found that many fungal biodiversity hotspots fall outside protected areas. That does not turn fungi into an easy climate fix. It does mean forest policy that ignores below-ground biodiversity is leaving out part of the system it aims to manage.
+
+The most accurate account sits away from the popular myth. Mycorrhizal fungi are ancient and consequential. They are also difficult to measure in living forests. They help trees acquire nutrients, influence competition, shape seedling establishment, and alter soil carbon. Sometimes they connect plants in ways that let materials or signals move between them.
+
+The forest under the forest is infrastructure and exchange. It is also digestion its sentiment. Its networks are patchy and changing. That makes the wood-wide web metaphor too tidy, but the underlying biology is still impressive: a forest is a layered community in which fungi do much of the work beyond the reach of light.
+^DInitial assessment
+Summary: 2 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Low to medium. Only a small number of context-sensitive signals appeared.
+Basis: 2 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. This text did not stack enough weak signals to suggest machine-packaged structure. Score: 0/4, so this check stayed clear.
+
+Main issues found
+- Generic staccato emphasis: Flagged. What it looks for: Checks for repeated short dramatic sentences used as generic emphasis. What happened here: Found sequence of 3 consecutive short sentences. Why this matters: Repeated short emphasis beats can make prose sound generated rather than naturally paced. Hard action: Fix.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 9 triad(s), including "below the litter layer, fungal filaments wrap roots, pass through soil spaces", "affect recovery after stress, competition for resources, the movement of carbon", "poorly on their own, especially phosphorus, nitrogen", plus 6 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Flagged | Checks for repeated short dramatic sentences used as generic emphasis. | Found sequence of 3 consecutive short sentences. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | Fix |
+| Mechanical repeated sentence starts | Clear | Checks for repeated sentence openings that read like template rhythm. | No issue found in this text. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | None |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Clear | Checks for curly quotation marks when plain output is expected. | No issue found in this text. | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | None |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Clear | Checks for markdown headings and plain title headings when prose should flow. | No issue found in this text. | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | None |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Clear | Checks for unusually repetitive vocabulary in longer text. | No issue found in this text. | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | None |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 9 triad(s), including "below the litter layer, fungal filaments wrap roots, pass through soil spaces", "affect recovery after stress, competition for resources, the movement of carbon", "poorly on their own, especially phosphorus, nitrogen", plus 6 more. | Too many three-part lists create a recognisable generated cadence. | Fix |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:41:12.518714Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:41:12.518934Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:41:48.920765Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:41:48.920987Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:41:52.991732Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:41:52.991943Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 41548ms:
+After rain, a forest pulls attention upward: leaves flash against dark trunks while birds move through the canopy. A lot of the work, though, is under the path. Below the litter layer, fungal filaments wrap roots and pass through soil spaces too small for roots to enter. Those fungi help many forests feed themselves. They shape recovery after stress and competition for resources. They also affect the movement of carbon through soil.
+
+The association is mycorrhiza, literally fungus-root. In it, a fungus colonises a plant root and sends microscopic filaments, called hyphae, out into the surrounding soil. The plant pays with carbon compounds made by photosynthesis. The fungus returns nutrients from places the roots would reach poorly on their own. The most important returns are phosphorus and nitrogen. It can also help with water or trace elements. More than 80 percent of plant species form these relationships. In some soils, mycorrhizal fungi account for a large share of the living microbial biomass.
+
+For aree, the arrangement changes the economics of feeding. Roots are thick, costly organs. Hyphae are cheaper and finer. A root hair samples the soil close to it. A fungal filament can slip into small pores and grow through decomposing litter or mineral grains. The tree gains a larger absorbing surface and a different chemistry at its root edge. Ectomycorrhizal fungi are common on many forest trees; they sheath root tips and grow between root cells. Arbuscular mycorrhizal fungi occur in a wide range of plants. They enter root cells and form small branched exchange structures. The forms differ, but the trade is recognisable: plant carbon goes to the fungus, and soil resources come back.
+
+That trade shifts with conditions. Trees vary their investment. Fungi vary too. One partner may be good at scavenging inorganic phosphorus. Another may help release nitrogen from organic matter. Reviews of ectomycorrhizal forests have found that nitrogen transfer depends strongly on the fungal species and the soil. The chemical als. A 2023 review in Nature Ecology & Evolution argued that several public claims about these networks in forests outrun the field evidence. The review challenged claims that such networks are widespread. It also questioned whether they reliably improve seedling performance. The same review found weak evidence for claims that mature trees preferentially feed their own offspring.
+
+The networks are real. The problem is the story often placed on top of them. A famous 1997 experiment by Suzanne Simard and colleagues traced carbon isotopes between paper birch and Douglas-fir seedlings in British Columbia. The seedlings were associated with ectomycorrhizal fungi. The researchers found carbon moving in both directions between the species, with Douglas-fir gaining carbon overall under those conditions. The result mattered because it showed that plants could be linked below ground in more complicated ways than simple one-tree competition.
+
+The careful conclusion is narrower. Carbon can move between plants in some experimental settings, and fungal pathways may be involved. That finding does not prove that an old tree is feeding a seedling by intention, or that transfer improves survival across forests generally. Later reviews have found mixed seedling results. Access to a network may help in one setting, hurt in another, or make little measurable difference. In ecological terms, connection is a condition, not a virtue.
+
+Claims about communication need the same restraint. Plants detect chemical cues and alter their physiology after attack. Neighbouring plants can respond when damage changes the chemical environment around them. Some experiments suggest that mycorrhizal networks can carry stress-related signals. One study reported that damaged Douglas-fir transferred carbon and defence-associated signals to neighbouring ponderosa pine through ectomycorrhizal networks. That is biochemical signalling, not language. There is no evidence for intention or conscious warning.
+
+The fungus also deserves better than the role of cable. It is a living partner with its own metabolism and evolutionary interests. It can allocate nutrients toward hosts that supply more carbon. It can proliferate in nutrient-rich patches or change exchange rates as conditions change. Some relationships are mutualistic. Others drift toward parasitism when one partner gives more than it receives. A fungus that helps one tree acquire nitrogen may also compete with another organism for the same pool of nitrogen.
+
+These fungal systems affect soil structure as well as plant nutrition. Hyphae bind particles into aggregates and move resources over small distances. When they die, fungal remains can become part of longer-lived soil organic matter, especially when microbial residues bind to minerals. Still, mycorrhizal fungi are not simple carbon vaults. They receive plant carbon and build tissue. They respire carbon dioxide. They interact with decomposers and sometimes stimulate decomposition while mining organic matter for nutrients. Recent work links fungal community composition to forest soil carbon patterns, but different fungi can push carbon cycling in different directions.
+
+A nutrient-poor conifer forest makes the point concrete. If nitrogen or phosphorus limits growth, trees may send a large share of photosynthetic carbon below ground. Ectomycorrhizal fungi sheath root tips and extend hyphae into soil. Enzymes or organic acids let them reach nutrient forms the tree cannot easily use alone. The mushrooms that appear after rain are fruiting bodies. Most of the organism is mycelium in roots and soil. Soil compaction can change the temperature and moisture around that mycelium quickly. So can topsoil loss or clear-felling.
+
+Regeneration after disturbance also depends on this underground community. Seedlings germinate into soil already occupied by fungi and roots. Bacteria and decaying organic matter are there too. Existing mycorrhizal fungi can help young trees establish by colonising their roots quickly. In other places, the resident fungal community favours some tree species over others and changes which seedlings survive. Planting stems is only part of forest recovery; the soil community helps decide whether those stems become a forest.
+
+The climate and conservation stakes are straightforward. Mycorrhizal fungi shape plant productivity and nutrient cycling. They also affect soil carbon dynamics at large scales. A 2025 Nature study mapping global mycorrhizal fungal richness reported extensive underground networks and found that many fungal biodiversity hotspots fall outside protected areas. That does not turn fungi into an easy climate fix. It does mean forest policy that ignores below-ground biodiversity is leaving out part of the system it aims to manage.
+
+The most accurate account sits away from the popular myth. Mycorrhizal fungi are ancient and consequential. They are also difficult to measure in living forests. They help trees acquire nutrients and influence competition. They shape seedling establishment and alter soil carbon. Sometimes they connect plants in ways that let materials or signals move between them.
+
+The forest under the forest is infrastructure and exchangnt than its sentiment. Its networks are patchy and changing. That makes the wood-wide web metaphor too tidy, but the underlying biology is still impressive: a forest is a layered community in which fungi do much of the work beyond the reach of light.
+^DInitial assessment
+Summary: 2 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Low to medium. Only a small number of context-sensitive signals appeared.
+Basis: 2 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. This text did not stack enough weak signals to suggest machine-packaged structure. Score: 0/4, so this check stayed clear.
+
+Main issues found
+- Generic staccato emphasis: Flagged. What it looks for: Checks for repeated short dramatic sentences used as generic emphasis. What happened here: Found sequence of 3 consecutive short sentences. Why this matters: Repeated short emphasis beats can make prose sound generated rather than naturally paced. Hard action: Fix.
+- Mechanical repeated sentence starts: Flagged. What it looks for: Checks for repeated sentence openings that read like template rhythm. What happened here: Found 3 consecutive sentences starting with 'they'. Why this matters: Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Flagged | Checks for repeated short dramatic sentences used as generic emphasis. | Found sequence of 3 consecutive short sentences. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | Fix |
+| Mechanical repeated sentence starts | Flagged | Checks for repeated sentence openings that read like template rhythm. | Found 3 consecutive sentences starting with 'they'. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | Fix |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Clear | Checks for curly quotation marks when plain output is expected. | No issue found in this text. | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | None |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Clear | Checks for markdown headings and plain title headings when prose should flow. | No issue found in this text. | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | None |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Clear | Checks for unusually repetitive vocabulary in longer text. | No issue found in this text. | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | None |
+| Triad density | Clear | Checks whether three-part list structures are overused across the piece. | No issue found in this text. | Too many three-part lists create a recognisable generated cadence. | None |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+codex
+Action: Rewrite
+Mode selected: Hard, because you asked for all-depth cleanup, including structural tells.
+
+Initial audit: 5 of 43 checks flagged. The main problems were curly quotes, the title heading, one inflated "represent a" construction, dense negation, and heavy triad/list cadence. The rewrite removes the packaged article shape, reduces negation-framing, strips curly quotes, cuts the title, and breaks up repeated three-part structures.
+
+After rain, a forest pulls attention upward: leaves flash against dark trunks while birds move through the canopy. A lot of the work, though, is under the path. Below the litter layer, fungal filaments wrap roots and pass through soil spaces too small for roots to enter. Those fungi help many forests feed themselves; they also shape recovery after stress, competition for resources, and the movement of carbon through soil.
+
+The association is mycorrhiza, literally fungus-root. In it, a fungus colonises a plant root and sends microscopic filaments, called hyphae, out into the surrounding soil. The plant pays with carbon compounds made by photosynthesis. The fungus returns nutrients from places the roots would reach poorly on their own. The most important returns are phosphorus and nitrogen. It can also help with water or trace elements. More than 80 percent of plant species form these relationships. In some soils, mycorrhizal fungi account for a large share of the living microbial biomass.
+
+For a tree, the arrangement changes the economics of feeding. Roots are thick, costly organs. Hyphae are cheaper and finer. A root hair samples the soil close to it, while a fungal filament can slip into small pores and grow through decomposing litter or mineral grains. The tree gains a larger absorbing surface and a different chemistry at its root edge. Ectomycorrhizal fungi are common on many forest trees; they sheath root tips and grow between root cells. Arbuscular mycorrhizal fungi occur in a wide range of plants. They enter root cells and form small branched exchange structures. The forms differ, but the trade is recognisable: plant carbon goes to the fungus, and soil resources come back.
+
+That trade shifts with conditions. Trees vary their investment, and fungi vary in what they offer. One partner may be good at scavenging inorganic phosphorus; another may help release nitrogen from organic matter. Reviews of ectomycorrhizal forests have found that nitrogen transfer depends strongly on the fungal species and the soil. The chemical form of the nitrogen also matters. A tree in poor soil may spend heavily on fungal partners. A tree in fertilised ground may spend less, because the return has changed.
+
+The phrase wood-wide web grew out of this area of research, and it has done both useful and messy work. A common mycorrhizal network means a physical fungal connection between the roots of two or more plants. In principle, such a connection can move carbon or nutrients. It may also move water or chemical signals. Demonstrating that movement in an intact forest is hard. Researchers have to rule out other routes. Compounds can leak from roots or be recycled by microbes. They can move in water or travel as airborne signals. A 2023 review in Nature Ecology & Evolution argued that several public claims about these networks in forests outrun the field evidence. The review challenged claims that such networks are widespread. It also questioned whether they reliably improve seedling performance. The same review found weak evidence for claims that mature trees preferentially feed their own offspring.
+
+The networks are real. The problem is the story often placed on top of them. A famous 1997 experiment by Suzanne Simard and colleagues traced carbon isotopes between paper birch and Douglas-fir seedlings in British Columbia. The seedlings were associated with ectomycorrhizal fungi. The researchers found carbon moving in both directions between the species, with Douglas-fir gaining carbon overall under those conditions. The result mattered because it showed that plants could be linked below ground in more complicated ways than simple one-tree competition.
+
+The careful conclusion is narrower. Carbon can move between plants in some experimental settings, and fungal pathways may be involved. That finding does not prove that an old tree is feeding a seedling by intention, or that transfer improves survival across forests generally. Later reviews have found mixed seedling results. Access to a network may help in one setting, hurt in another, or make little measurable difference. In ecological terms, connection is a condition, not a virtue.
+
+Claims about communication need the same restraint. Plants detect chemical cues and alter their physiology after attack. Neighbouring plants can respond when damage changes the chemical environment around them. Some experiments suggest that mycorrhizal networks can carry stress-related signals. One study reported that damaged Douglas-fir transferred carbon and defence-associated signals to neighbouring ponderosa pine through ectomycorrhizal networks. That is biochemical signalling, not language. There is no evidence for intention or conscious warning.
+
+The fungus also deserves better than the role of cable. It is a living partner with its own metabolism and evolutionary interests. It can allocate nutrients toward hosts that supply more carbon. It can proliferate in nutrient-rich patches or change exchange rates as conditions change. Some relationships are mutualistic. Others drift toward parasitism when one partner gives more than it receives. A fungus that helps one tree acquire nitrogen may also compete with another organism for the same pool of nitrogen.
+
+These fungal systems affect soil structure as well as plant nutrition. Hyphae bind particles into aggregates and move resources over small distances. When they die, fungal remains can become part of longer-lived soil organic matter, especially when microbial residues bind to minerals. Still, mycorrhizal fungi are not simple carbon vaults. They receive plant carbon and build tissue. They respire carbon dioxide. They interact with decomposers and sometimes stimulate decomposition while mining organic matter for nutrients. Recent work links fungal community composition to forest soil carbon patterns, but different fungi can push carbon cycling in different directions.
+
+A nutrient-poor conifer forest makes the point concrete. If nitrogen or phosphorus limits growth, trees may send a large share of photosynthetic carbon below ground. Ectomycorrhizal fungi sheath root tips and extend hyphae into soil. Enzymes or organic acids let them reach nutrient forms the tree cannot easily use alone. The mushrooms that appear after rain are fruiting bodies. Most of the organism is mycelium in roots and soil. Soil compaction can change the temperature and moisture around that mycelium quickly. So can topsoil loss or clear-felling.
+
+Regeneration after disturbance also depends on this underground community. Seedlings germinate into soil already occupied by fungi and roots. Bacteria and decaying organic matter are there too. Existing mycorrhizal fungi can help young trees establish by colonising their roots quickly. In other places, the resident fungal community favours some tree species over others and changes which seedlings survive. Planting stems is only part of forest recovery; the soil community helps decide whether those stems become a forest.
+
+The climate and conservation stakes are straightforward. Mycorrhizal fungi shape plant productivity and nutrient cycling. They also affect soil carbon dynamics at large scales. A 2025 Nature study mapping global mycorrhizal fungal richness reported extensive underground networks and found that many fungal biodiversity hotspots fall outside protected areas. That does not turn fungi into an easy climate fix. It does mean forest policy that ignores below-ground biodiversity is leaving out part of the system it aims to manage.
+
+The most accurate account sits away from the popular myth. Mycorrhizal fungi are ancient, consequential, and difficult to measure in living forests. These fungi help trees acquire nutrients and influence competition. Their effects also reach seedling establishment and soil carbon. In some cases, they connect plants in ways that let materials or signals move between them.
+
+The forest under the forest is infrastructure and exchange. It is also digestion and conflict. Its chemistry is more important than its sentiment. Its networks are patchy and changing. That makes the wood-wide web metaphor too tidy, but the underlying biology is still impressive: a forest is a layered community in which fungi do much of the work beyond the reach of light.
+
+Structural self-check: the piece no longer uses the title-heading frame; paragraph arcs vary between definition, evidence, example, correction, and consequence; triads were reduced heavily; the stance is preserved; no em dashes or curly quotes remain. Post-check reached low-to-medium residual signal, with the remaining issue concentrated in rhythm/repeated-start sensitivity rather than factual or structural packaging.
+2026-04-28T16:42:35.170066Z  WARN codex_core::shell_snapshot: Failed to delete shell snapshot at AbsolutePathBuf("/Users/mae/.codex/shell_snapshots/019dd4f4-9b81-7e21-aa06-41dd5ddb21c4.1777394293635000000.sh"): Os { code: 2, kind: NotFound, message: "No such file or directory" }
+2026-04-28T16:42:35.174049Z  WARN codex_rmcp_client::stdio_server_launcher: Failed to terminate MCP process group 20152: No such process (os error 3)
+tokens used
+85,336

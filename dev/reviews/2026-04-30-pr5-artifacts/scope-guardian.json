@@ -1,0 +1,67 @@
+{
+  "reviewer": "scope-guardian",
+  "findings": [
+    {
+      "id": "SG-01",
+      "title": "Two plans for the same work — supersession is documented, but the older plan's content is still load-bearing",
+      "confidence": 75,
+      "severity": "advisory",
+      "location": "dev/plans/2026-04-28-humanise-refocus.md and dev/plans/2026-04-28-humanise-implementation.md",
+      "evidence": "The implementation plan declares: `supersedes: dev/plans/2026-04-28-humanise-refocus.md`. The refocus plan (Part 6) still contains six unresolved 'Outstanding decisions before drafting the new SKILL.md' with placeholder text (e.g., '[what it does]', 'A fresh start is required, not further iteration'). The implementation plan resolves some of these (depth names, default depth) but others — the identity statement's open questions, the headless invocation contract, the 5th non-catalogue check — are marked 'deferred to planning' in the brainstorm and never closed in either plan.",
+      "analysis": "The bifurcation is refinement, not scope creep: the refocus plan is a first-pass architecture doc and the implementation plan is its execution record. The supersession is correctly declared. The risk is that readers picking up the older plan (which the implementation plan cites as canonical for handoff) will encounter unresolved questions that were resolved elsewhere but not back-ported. This is a documentation coherence issue, not a scope inflation issue.",
+      "simpler_alternative": "Close the open questions in the refocus plan with a brief 'Resolved: see implementation plan' note per item, or move the Outstanding Decisions section's unresolved items into the implementation plan's 'Open decisions' table (which currently says 'none currently open')."
+    },
+    {
+      "id": "SG-02",
+      "title": "Genre-aware threshold system proposed without a current consumer — ahead of validated need",
+      "confidence": 75,
+      "severity": "flag",
+      "location": "dev/research/2026-04-29-genre-paired-corpus-findings.md, item 4 in 'What's queued'",
+      "evidence": "'Genre-aware thresholds — possibly let the audit pre-classify the input register (literary essay vs journalism vs technical) and adjust which patterns fire as which severity.' This appears in the queued follow-up work after a corpus of n=5 per group with explicit caveat: 'n=5 per group. Findings are directional; need larger N before being baked into the grader.'",
+      "analysis": "The stated PR goal is to 'build a genre-paired comparative-report harness as the new baseline' and 'reframe the skill's voice.' Genre-aware thresholds are a second-order system change (input classification → threshold branching → severity output) that the corpus data explicitly says isn't ready to act on yet. The finding supports updating the audit voice; it does not yet support building a classification layer. Queuing this as follow-up work is appropriate, but its presence in the plan creates implementation pressure toward a premature framework.",
+      "simpler_alternative": "Keep the item in the findings document as a research direction only. Remove it from the 'What's queued' action list or explicitly gate it on N≥10 corpus confirmation. The audit-voice reframe (item 1 in the same list) is the minimum change that delivers the stated goal."
+    },
+    {
+      "id": "SG-03",
+      "title": "Four new tell candidates proposed without prioritisation — risks spreading implementation across signals with different evidence quality",
+      "confidence": 75,
+      "severity": "flag",
+      "location": "dev/research/2026-04-29-genre-paired-corpus-findings.md, 'New tell candidates' section",
+      "evidence": "'1. Mean sentence length... 2. Sentence-length variance — already a check... 3. Paragraph-length variance... 4. Ghost/spectral density, negation density, unicode flair — each fires only on AI-fresh in this corpus.' All four are listed at equal weight in the queued follow-up under 'Add new checks'.",
+      "analysis": "The evidence quality differs sharply across these candidates. Sentence-length variance already has a grader check whose threshold needs tuning — that is a one-line change. Mean sentence length has a 2.3× measured gap and is the 'strongest single separator' by the corpus's own words — this is high-confidence. Ghost/spectral density, negation density, and unicode flair each fire on 2/5 AI-fresh samples in one genre — that is weak evidence and the corpus explicitly caveats it. Listing all four as co-equal 'add new checks' items collapses a concrete fix (tune sentence-length variance threshold) with speculative additions (unicode flair) into the same action tier. The stated goal is to reframe the baseline; the concrete fix delivers that. The speculative additions do not.",
+      "simpler_alternative": "Separate 'tune existing sentence-length-variance threshold' (justified now) from 'add mean-sentence-length check' (justified now) from 'consider ghost/spectral/negation/unicode when N grows' (not yet justified). The first two serve the stated PR goal; the third is a future-proofing list."
+    },
+    {
+      "id": "SG-04",
+      "title": "Depth dial collapsed from 3 to 2 settings mid-implementation — the refocus plan's architecture still describes the 3-point dial",
+      "confidence": 50,
+      "severity": "advisory",
+      "location": "dev/plans/2026-04-28-humanise-implementation.md, 'Decisions made beyond the brainstorm'; dev/brainstorms/2026-04-28-humanise-refocus-requirements.md R17; dev/plans/2026-04-28-humanise-refocus.md Part 2 severity table",
+      "evidence": "Implementation plan: 'Depth-setting names are ~~Obvious / Balanced / All~~ Balanced / All (2026-04-29 amendment).' The brainstorm R17 still specifies three settings (Obvious / Balanced / All). The refocus plan's severity-to-action table has three mode columns (Light / Balanced / All). The README now shows only Balanced/All. The decision is recorded in the implementation plan but the brainstorm and refocus plan remain inconsistent with the shipped state.",
+      "analysis": "The collapse from 3 to 2 is a correct simplification (two settings compiled to identical grader behaviour — the plan says so). The issue is purely documentation: the planning artefacts that the implementation plan points to for handoff context still document the 3-point dial. A future maintainer reading the brainstorm requirements would see R17 'Obvious / Balanced / All' and look for Obvious in the codebase. This is a low-consequence coherence gap, not scope inflation.",
+      "simpler_alternative": "Add a struck-through note to brainstorm R17 and the refocus plan's mode table, the same way the implementation plan handles it — one line per location."
+    },
+    {
+      "id": "SG-05",
+      "title": "README 'What's next' list includes items that are not yet supported by the iteration data",
+      "confidence": 50,
+      "severity": "advisory",
+      "location": "README.md, 'What's next' section (diff lines 240-244)",
+      "evidence": "'Adding new candidate signals (sentence-length mean, ghost-spectral density, negation density, unicode flair) where evidence supports.' and 'Demoting pattern checks that don't separate humans from AI in matched genres (em dashes, manufactured insight, triad density may belong in softer categories).' The 'may belong' hedge is present but the 'where evidence supports' qualification is weaker for ghost-spectral, negation density, and unicode flair (n=2/5 in one genre) than the README implies.",
+      "analysis": "The README correctly caveats sample size ('Findings here are based on a 15-sample matched corpus... Directional, not definitive'). The 'What's next' list as written implies roughly equal evidence weight across all four candidate signals. This is an internal consistency issue within the README, not scope growth in the implementation plan. The implementation plan has a clearer evidence hierarchy."
+    }
+  ],
+  "residual_risks": [
+    {
+      "id": "RR-01",
+      "description": "The 'What's queued' follow-up list in the findings doc (5 items) covers more surface area than the stated PR goals. If a future implementer treats it as a work order rather than a research backlog, genre-aware threshold infrastructure and pattern demotion could ship before the corpus is large enough to justify the changes.",
+      "confidence": 75
+    },
+    {
+      "id": "RR-02",
+      "description": "The implementation plan's 'Open decisions — none currently open' is potentially stale. The brainstorm's 'Deferred to Planning' list includes 8 items; the implementation plan's 'Open decisions' table resolves only 6. 'Headless / programmatic invocation contract' and 'How structural patterns render in the audit (non-quotable findings)' are not marked resolved in either the implementation plan or the refocus plan's Outstanding Decisions.",
+      "confidence": 75
+    }
+  ],
+  "testing_gaps": []
+}

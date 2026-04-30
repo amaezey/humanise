@@ -1,0 +1,67 @@
+{
+  "expectations": [
+    {
+      "text": "This case has no input file; the agent should compose from the brief alone",
+      "passed": true,
+      "evidence": "input files empty"
+    },
+    {
+      "text": "Output word count is within 15% of 250 (i.e., 213-288)",
+      "passed": true,
+      "evidence": "word_count=250"
+    },
+    {
+      "text": "Draft has zero em dashes",
+      "passed": true,
+      "evidence": "em dash count=0"
+    },
+    {
+      "text": "Draft has no instances of 'delve' or its variants",
+      "passed": true,
+      "evidence": "delve count=0"
+    },
+    {
+      "text": "Grading the draft at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+      "passed": true,
+      "evidence": "balanced failures=[]"
+    },
+    {
+      "text": "Draft is genuinely about first-time linocut printing, not generic 'creative practice' filler",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    },
+    {
+      "text": "Draft reads as a real reflection with specific sensory or emotional detail, not a generic AI essay structure",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 1366
+  },
+  "timing": {
+    "total_tokens": 0,
+    "duration_ms": 73000,
+    "total_duration_seconds": 73.001
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

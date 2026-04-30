@@ -1,0 +1,2561 @@
+Reading additional input from stdin...
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd94a-611a-7342-b7eb-4be3ee61b2d4
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/humanise/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Audit this draft for AI tells.
+
+Inputs:
+Input file: /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-image-first-men-original-sins.md
+
+```markdown
+---
+{
+  "id": "21c-image-first-men-original-sins",
+  "title": "First Men and Original Sins",
+  "author": "Adam Roberts",
+  "year": 2019,
+  "period": "21st",
+  "format": "literary essay / cultural criticism",
+  "source_url": "https://imagejournal.org/article/first-men-and-original-sins/",
+  "fetch_status": 200,
+  "extract_method": "defuddle",
+  "expected_use": [
+    "style_reference",
+    "false_positive_audit"
+  ],
+  "voice_targets": [
+    "first-person reflective",
+    "religious-cultural meditation",
+    "long-form literary register"
+  ]
+}
+---
+
+# First Men and Original Sins
+
+### Faith and the American Space Program
+
+**Kendrick Oliver.*****To Touch the Face of God: The Sacred, the Profane,
+and the American Space Program, 1957–1975*****.** Johns Hopkins, 2013.
+
+**Catherine L. Newell.*****Destined for the Stars: Faith, Future,
+and America’s Final Frontier*.** Pittsburgh, 2019.
+
+***First Man*****.****Directed by Damien Chazelle.**
+Universal/Amblin/DreamWorks, 2018.
+
+---
+
+P ROFANE IS AN INTERESTING WORD. Etymologically the word describes the ground outside—or, strictly, in front of (*pro*)—the temple (*fanum*). How do we understand the profanity, or otherwise, of space travel? Is earth the temple and outer space the outer (*pro*) *fanum*? Or could it be that the heavens are the temple, and it’s we who are stuck down here in a mundane, profane antechamber? Is the sense of wonder that attends space exploration fundamentally a *religious* impulse? Or is the achievement of Apollo a triumph of solidly non-spiritual science, engineering, technology, and materialism?
+
+This matter is addressed by *To Touch the Face of God*, Kendrick Oliver’s absorbing social history of the space program. Oliver has sensible things to say about the limitations of simply mapping the religious convictions of NASA scientists and astronauts onto a project like Apollo, but nonetheless he assembles a convincing picture of just how interpenetrated the undertaking was by a kind of providentialist, Protestant ethos, exploring the pros and cons of considering spaceflight as a religious experience. He’s especially good on the way the program channeled national concerns about the separation of church and state, a debate that had been galvanized by the 1963 Supreme Court judgment ruling mandatory school prayer unconstitutional.
+
+As Apollo 8 orbited the moon in December of 1968, astronaut Bill Anders informed “all the people back on earth” that “the crew of Apollo 8 has a message we would like to send you.” They then read the creation account of Genesis 1 aloud. The reading, Oliver shows, had an enormous impact. *The Christian Century* ran an editorial declaring themselves “struck dumb by this event,” and Apollo flight director Gene Kranz wept openly in the control room: “for those moments,” he later recalled, “I felt the presence of creation and the Creator.”
+
+Not everyone was so happy. Madalyn Murray O’Hair, one of the plaintiffs in the 1963 school prayer case and an advocate for the separation of church and state, objected, posing for photos before a filing cabinet containing letters and cards from twenty-eight thousand “sympathizers.” O’Hair’s specific petitions had little effect (they were, says Oliver, “received politely” by NASA “and then hastened quickly into warehouses”), but they represented an important aspect of the public animus against Apollo.
+
+Political opposition pressed the “waste of national resources” case, arguing that the money would be better spent on America’s crumbling inner cities and ending the Vietnam War. Such opposition persisted. The collective global buzz of Armstrong’s small step dissipated quickly, and in the 1970s NASA increasingly struggled to articulate its raison d’être in the face of increasing public indifference. We’d gone to the moon. Why carry on? We know how that debate played out, of course. But might things have worked out differently?
+
+One possibility, Oliver thinks, would have been for NASA to tap the widespread religious awe the whole undertaking provoked. Between 1968 and 1975:
+
+> NASA received more than eight million letters and petition signatures supporting the right of American astronauts to free religious expression during their mission in space. Of all the topics on which NASA received correspondence in the course of these years, religion in space generated the largest volume of mail, more than four times as much as any other issue.
+
+According to Oliver, this was the opportunity NASA missed. Recruiting this national religious constituency and reconfiguring space exploration as “going for God” could have reenergized the program. Indeed, Oliver seems to think such a strategy might still work today. This is how his book ends:
+
+> The \[Apollo\] program simultaneously kindled thoughts of God and the death of God. When religion was absent from the program, its absence became a point of religious concern. When religion was present, its presence meant more, to more people, than it did in any other national undertaking of the time. Only for as long as that was true did Americans live in an age of space.
+
+This touches on a curious absence in Oliver’s account: science fiction. The space age died because people lost interest in it, because the thrill of Apollo 11 gave way to the sheer undrama of Apollos 14 through 17, missions in equal measure functional, predictable, and dull. This was (of course) precisely what mission control wanted, but it turned off the larger global population. The point is that it was Apollo with which people grew bored, not space as such. The last Apollo flight (an Apollo-Soyuz mission) took place in 1975. That year George Lucas was in pre-production for *Star Wars*, which would, after its 1977 release, go on to become the most commercially successful motion picture franchise of all time. *Star Wars* gave outer space back to the general population as excitement and wonder—a mere simulacrum of space, of course, but it turned out people didn’t mind that. *Star Wars* killed the space race by feeding a more palatable, empty-calorie version of “space exploration and adventure” to an audience eager for those things and content with the pleasing copy rather than the arduous and tedious reality.
+
+Not only did *Star Wars* jump-start a new age in science fiction blockbuster cinema (the list of the twenty top-grossing films of all time disproportionately features big-budget, special-effects-heavy science fiction and fantasy: *Star Wars*, *Avatar*, *E.T.,**The Matrix*, *Avengers: Infinity War,* and the like), but it also mediated a specifically *religious* impulse: the Force and the mystic-spiritual order of the Jedi are central to the appeal of the franchise. According to a 2001 census, there are more people who identify as Jedi in the United Kingdom than there are Sikhs, Buddhists, or Jews. Not all of these folks put Jedi on the census form as a joke.
+
+Is it foolish to suggest that the success of cinematic science fiction might be, in any sense, a religious phenomenon? It is, after all, powered by the “fans,” a word which derives (like “profane”) from the Latin for temple. Fans are often extraordinarily dedicated individuals, and they aggregate into significant large-scale social as well as cultural forces. The total cost of the Apollo program was 25.4 billion 1960s dollars—something like 100 billion in today’s money. If we separate out the cost of Apollo 11 from the other manned and unmanned launches (an artificial exercise, but still) we end up somewhere in the region of 12 billion in modern money for that one mission. Disney recently bought *Star Wars* for 4 billion; the Marvel Cinematic Universe has grossed well over 20 billion at the box office over the last decade. Since 1977 humanity has, by some margin, spent more money on creating science fiction simulacra of space travel than it has on actually landing on the moon. Don’t misunderstand me. I love science fiction. But there’s something rather depressing about that fact.
+
+The Force is the core belief of a fictionalized mystic community of outer-space warriors and priests. And maybe the problem with real-life space exploration is that the Christian God is simply not a sky-god. That is to say, he’s a sky-god in the sense that, for Christians, he’s an everything-God (a God of, or behind, or in everything) and the sky is part of everything. But in terms of specific focus he is not a Poseidon-like sea-god or a Uranus-like sky-god or a Zeus-like god of thunder. If anything, he’s a shepherd god, appropriately enough for the herdsman cultures of the Middle East out of which Judaism and, therefore, Christianity developed. Ascending through the atmosphere all the way to the palace of Luna-Diana-Selene is much more a matter of communing with Uranus or Zeus than an act of shepherding. Perhaps the problem with the Apollo missions as a religious experience is a mismatch of project to god-type. Science fiction has proved more adept at supplying cosmic deities, from Cthulhu to the Force. Perhaps it’s filling a gap.
+
+\*\*\*
+
+The cultural dimension of the space race also interests Catherine Newell, whose *Destined for the Stars: Faith, Future, and America’s Final Frontier* is a study of American artist Chesley Bonestell. Newell describes “the popularization of the science of space exploration in America between the years 1944 and 1955,” a popularization she thinks owed much to “a culture that had long valued faith above other religious feeling and believed they were called by God to settle new frontiers and prepare for the end of time.” Newell finds continuity between Bonestell’s realist planetscapes with futuristic, technologically plausible spacecraft in flight—rendered with a clear-lined, uncluttered spaciousness—and the older Hudson School traditions of wild-west landscape painting.
+
+Her book covers Bonestell’s early terrestrial architectural paintings and the commercial breakthrough of his 1940s paintings of Saturn, Bonestell’s collaboration with scientist and writer Willy Ley, and his work on the 1950 movie *Destination Moon* (he painted the matte images of the lunar landscape). Dozens of illustrations and seventeen full-color plates amply demonstrate the grandeur and clarity of Bonestell’s art. But in its final chapters, the book takes a right turn into the life and career of Wernher von Braun. Ostensibly this is because Bonestell collaborated with von Braun on the latter’s popular books, *The Mars Project* (1953) and *First Men to the Moon* (1958), but the rocket man soon crowds out the painter.
+
+Newell’s account of this figure is long on detail and short on moral judgment. Von Braun’s only ambition, she says, was “to find a way for humankind to explore space”; but he remains “a contested figure” because “while his achievements were great, the cost of those achievements was morally questionable actions.” *Morally questionable* might strike some readers as weasel-wordage, but Newell doesn’t linger on that. Instead we get accounts of von Braun’s “deep and abiding faith in God,” his talents as a pianist, his “relentlessly precocious” youth, his “happy home life” with his wife and children, and of course his far-reaching technical and engineering know-how.
+
+I found it hard to suppress a purely personal tetchiness as I read these chapters. I grew up in London in the 1960s and ’70s, and the roads along which I walked to school alternated buildings with vacant lots overgrown with vegetation, craters often still clearly discernible. (It’s all been redeveloped now, of course, but it took many decades for the UK to marshal the resources to repair all the bomb damage from the war.) It’s hard not to feel a little narked at the man behind the weapons that caused such damage to my hometown, killing nine thousand people, mostly civilians, into the bargain—that’s three 9/11s, right there. This is where the Apollo program started. It seems to me an abdication of moral responsibility to try to pretend otherwise.
+
+Newell doesn’t omit the fact that von Braun was a member of the SS, but she downplays it, calling his a token affiliation and claiming he rarely wore his uniform (she imagines him “frantically searching through several closets” for it on the rare occasions Heinrich Himmler visited). That’s certainly what von Braun told the Americans after the war. But then again, he would, wouldn’t he? Newell doesn’t record that von Braun first joined the SS in 1933, that by 1940 he was a Sturmführer—that is, a lieutenant—and was promoted three more times during the war. According to Bob Ward’s biography, von Braun was a conventional Nazi and regularly wore his SS uniform to meetings. What’s not in dispute (though Newell doesn’t dwell on this either) is that up to twenty thousand people died at Mittelbau-Dora, the concentration camp that supplied most of the workers for the world’s first long-range guided ballistic missile program. Von Braun later claimed, improbably enough, that he had no idea about any of that. Newell, improbably enough, believes him. He was, she thinks, focused solely on taking mankind into space and “in von Braun’s case, with focus comes myopia.” She and I are not going to agree on this matter.
+
+I am not, I hope, sniping merely for the sake of it. This history matters to our conception of the space race, and matters doubly if we wish, as Newell does, to link space exploration and religion. Whatever else it may be, religion is a morality. Newell suggests that von Braun’s motivations were fundamentally humanitarian: “divine ordinance \[was\] his motivation for building rockets”; space exploration was a means “to save humanity from destruction”; religion was “a necessary check upon science.” Colonizing space was something “he hoped for with his whole heart.” Perhaps it was. And, perhaps, slaughtering the civilian population of London was also something he hoped for with his whole heart. We can’t know, because the human heart is famously opaque.
+
+But surely a better take on von Braun would treat him as a soul alloyed of real good and real evil, something that is true, after all, of every human being. Not only would this more closely reflect human nature, it would be a more *theologically* interesting way of gauging von Braun’s relationship to the space race. Let’s agree he was the father of Apollo, and concede that Apollo is one of the great achievements of humanity. Biblically speaking, Adam is the father of mankind, and the main thing *he* passed on to his descendants was his primal sin. I try to imagine an account of Adam that stressed his loving attachment to his family, his skill at playing the psaltery, his work ethic and his closeness to God, mentioning only in passing some controversy concerning “morally questionable” frugivorous consumption. Adam von Rot. Mightn’t it be more interesting to contemplate the Apollo program as a stellar humanitarian ambition that *also* contained morbid Nazi DNA in its every cell? Might that interpretative labor be worth undertaking, not because it is easy but *because it is hard?*
+
+After three chapters on von Braun, Newell returns, in an epilogue, to her main thesis: that Chesley Bonestell’s art “followed the spiritual path of Thomas Moran’s paintings of the American west” and “represented a possible future but also acknowledged a historical sense of moral conviction and religious faith.” Newell thinks this quality could unify the “resurgent interest in space” that she sees “bubbling up through culture” in film, TV, and social media, and make a new space age:
+
+> History moves in circles, and space exploration, with its emotional freight of faith and hope might be something that can return that sense of purpose to humanity.
+
+Newell’s enthusiasm can’t help but be infectious, here and throughout the book, and she finds in the clarity and precision of Bonestell’s images a fitting correlative to her optimism. For her, the clean lines and sharp sunlight of Bonestell’s images correlate to a spiritual cleanness and renovation. But, considering the moral swamp that was the provenance of this marvelous machinery, perhaps cleanness is simply the wrong frame. Maybe Apollo was always more about our fallenness, and therefore our need for grace.
+
+\*\*\*
+
+Which brings me to *First Man* (2018), directed by Damien Chazelle, with Ryan Gosling as Neil Armstrong and Clare Foy as Janet Armstrong. The movie cost 70 million dollars to make, which it has barely earned back. (By comparison, Chazelle’s previous movie, *La La Land,* cost 30 million and earned 500 million worldwide.) I greatly admire *First Man,* but it’s not hard to see why it failed to persuade a larger audience. It is a masterpiece of claustrophobia, monotony, and melancholia only tangentially about the space program. Audiences expecting the accessible thrills and wonder of Ron Howard’s *Apollo 13* (1995) or the slower-burn enjoyments of Philip Kaufman’s *The Right Stuff* (1983) were liable to come away bored, baffled, or both.
+
+It’s based on James Hansen’s 2005 biography, *First Man: The Life of Neil A. Armstrong,* and manages commendable fidelity both to the facts of Armstrong’s life and to all the kit and tech of the Apollo program, lovingly reproduced by the filmmakers. But where the book is a lengthy account of the external details of Armstrong’s life, the film is a portrait of an outwardly functioning, inwardly collapsing marriage, a story whose unusual framing—few people, after all, are married to astronauts—manages not to compromise the sensitivity with which Chazelle traces that bitterly common state of affairs. Gosling’s Armstrong in particular is a masterclass in a kind of anti-acting, creating a compellingly plausible blankness where another actor might have emoted and projected. This Armstrong is inward, driven, repressed, more than a little machinelike, more than a little (we would say nowadays) on the spectrum.
+
+By way of unlocking the enigma of the film’s subject, Chazelle and his screenwriter John Singer isolate one incident from Armstrong’s life: the death of his two-year-old daughter Karen of a brain tumor in 1962. The only time we see Gosling’s Armstrong express emotion is following this death, and the movie is bookended by early scenes of Armstrong hugging his dying child and grieving at her funeral and a brief but powerful scene at the end: Armstrong dropping his daughter’s hospital bracelet into the Little West crater a small distance from the lunar lander. The scene is fiction, although it may be more than that. Shortly before leaving the moon, Armstrong did make a private trip to this thirty-meter-wide crater, spending roughly two minutes at the site *solus*. James Hansen, consulting on the movie, discussed with Chazelle the possibility that Armstrong visited the crater precisely to leave a memento of Karen there. He was an intensely private man, especially where this grief was concerned; it is plausible he wouldn’t have told anybody about such an act.
+
+*First Man* is a long film punctuated by several intensely rendered, mission-focused set-pieces: Armstrong test-piloting his X-15; inside a malfunctioning Gemini capsule as it whirls hideously about in orbit; and atop the Saturn 5 as it launches into space. Chazelle superbly recreates the claustrophobic feel of these spaces, their rodeo jolts and shakes, layering the soundtrack with an astonishing series of clangs, growls, roars, and bangs, as if metal was being rent around the spacemen by the violence of their travels. It feels authentic, and authentically terrifying.
+
+Between these scenes are interspersed longer, lower-key, precisely observed domestic and bureaucratic interludes: dialed-down observations of home or professional life that often embed what we English call “stiff upper lip” responses to grief. None of the actors grandstand; there’s no villain and little traditional dramatic tension; but that’s fitting, because so much of the experience of being an Apollo astronaut was passive: sitting in meetings; sitting before job-interview panels; answering questions at press conferences; waiting around.
+
+The claustrophobia of the astronauts in their tiny, precarious capsules becomes the movie’s objective correlative of an emotional claustrophobia, the sense of life lived under crushing constraints of conventionality, of Protestant understatement and restraint. Over and again the film shows connections between colleagues and friends, lovers and family, as construed by inarticulacy of feeling and spirit. This works artistically—which is to say, it is more than just dour or strangulated—because *First Man* is also about a strange suspension in the usual rules of normality, a moment in time when the impossible becomes—magically—achievable. We watch Armstrong holding his dying daughter and pointing at the moon, its circle as gorgeous as a screen print against the blue Californian sky; we see him years later, at home, moon-watching through his telescope rather than speaking to his wife; he waits for lift-off in the command capsule of his Saturn V, gazing on the moon through the cockpit window and trying to keep his eye fixed on it as the rocket shakes and blurs the world all around him.
+
+We’ve all stared at the moon and been struck by her beauty. For millennia human beings worshipped her as a goddess, Selene in Greece, Luna in Rome, Coyolxauhqui among the Aztec, Chang’e in China—always revered from afar. To worship Poseidon is, sometimes, to immerse oneself in the sea; to worship Zeus is sometimes to see the strike of lightning set fire to trees nearby and to hear the rumble of thunder approach you. But to worship the moon has always been to stand a long way distant from the object of your adoration—to be deep in the *pro* of the *fanum*. Until, that is, 1969.
+
+For his sequences inside the Apollo 11 capsule, Chazelle used a sixteen-millimeter camera to provide a sense of period-appropriate intimacy and roughness, but when Armstrong opens the hatch of the Eagle to reveal the lunar landscape—like a reverse Dorothy swapping real-world color for a Bizarro-Oz black and white—Chazelle switches to an IMAX seventy-millimeter camera. Watch these sequences on a big screen if you can, because they are breathtaking. The moon’s hypnotic barrenness, astonishingly recreated, figures both literally and metaphorically. After the euphoria of the launch and the landing, the film shifts gear, unobtrusively, into its beautifully understated emotional climax: Armstrong releasing his grief into the blackness at the bottom of the Little West crater.
+
+What makes this scene so moving is the way it distills the spiritual as well as the emotional core of the movie. *First Man* asks one question in particular, the same question asked in their different ways by Oliver and Newell: what *is* the spiritual dimension of the space race? We might answer by talking about the grandeur of the undertaking, the sublime immensity of the realm we enter when we leave earth’s familiar round—which is to say, by talking about the overwhelming, infinite immensity of God. This is to read the space race as thrilling, as charismatic. In *To Touch the Face of God,* Kendrick Oliver argues that “to the extent that spaceflight was a charismatic enterprise…it owed much to religious archetypes and sensibilities.” He thinks the celebrity enjoyed by the early American space pioneers made them “like Catholic saints or the Puritan elect. \[T\]hese were men who seemed to be fully possessed of grace.”
+
+Grace seems to me a good way of approaching *First Man*; not the grace reserved for saints and the elect, but, on the contrary, grace as something available to all, and especially (according to the Sermon on the Mount) to the poor in spirit and to those who mourn, who shall be comforted. As a portrait of mourning, *First Man* moves its protagonist to an extraordinary place to stage its encounter with the comfort that comes after long grief.
+
+Indeed *First Man* is, I think, saying something quite radical about the blankness of grace, its opacity and incomprehensibility, what Graham Greene, in a rather different context, called “the appalling *strangeness* of the mercy of God.” It is indeed about (fittingly for the moon) the lunacy of grace. We are not clean. Whether we profess faith or not, we are profane. We say we come in peace for all mankind, but we are actually warriors, killers, contaminated by something malign and grievous. But still we come. And who knows what release might be found, if we make that journey?
+
+*Image* depends on its subscribers and supporters. Join the conversation and make a contribution today.
+
+\+ Click [here](/donate) to make a donation.
+
+\+ Click [here](/journal/subscribe/) to subscribe to *Image*.
+
+
+
+The *Image* archive is supported in part by an award from the National Endowment for the Arts.
+
+```
+
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits prose for AI fingerprints and explains each one in plain English.
+  Optionally hands back alternative phrasings for each flagged tell, redrafts
+  the prose at a chosen intensity, or composes new prose from a brief while
+  avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
+  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
+  "help me write something that doesn't sound AI".
+---
+
+# Humanise
+
+The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
+
+Three principles cut across the skill:
+
+1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
+2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
+3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+
+The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
+
+---
+
+## Action selection
+
+Four actions:
+
+| Action | When to fire | Output |
+|---|---|---|
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
+| **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
+| **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
+
+If the writer's intent is genuinely ambiguous and the agent can ask, ask whether the writer wants an audit or a rewrite, or whether they're handing over a brief for a new draft. If the agent can't ask (headless invocation, no human turn), default to Audit only.
+
+---
+
+## Action 1: Audit (default)
+
+### Audit steps
+
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
+3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
+4. Render the audit using the output template below.
+5. End with the next-step question and stop without proceeding to a rewrite.
+
+### Audit output
+
+```
+**Audit, N AI tells found**
+
+<pattern-name-1> (M instances)
+  - "<quoted phrase from input>"
+  - "<another quoted phrase>"
+  Why: <brief explanation, ~1-2 sentences>
+
+<pattern-name-2> (M instances)
+  - "<quoted phrase>"
+  Why: <explanation>
+
+<structural-pattern-name>
+  Where: <description of where the pattern appears, e.g., "every paragraph in section 2 is 4-5 sentences and ends with a summary line">
+  Why: <explanation>
+
+...
+
+**Confidence**
+
+Render four fields from the grader: the level (low / medium / high / very high), the meaning string explaining what the level implies, the basis list summarising why, and a note that this assessment describes AI-writing signs rather than offering a verdict about who wrote the text.
+
+**Next step**
+
+Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
+```
+
+### Rendering rules
+
+- Lexical patterns (specific words or phrases) get the `- "<quoted>"` shape.
+- Structural patterns (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) get a `Where:` line that describes where the pattern shows up and what it looks like in the draft. They have no single quotable instance to point at.
+- Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
+
+If no patterns are detected, say so plainly:
+
+> Audit clean: no AI tells detected. Want me to look at a specific aspect of the draft more closely?
+
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+
+---
+
+## Action 2: Suggestions
+
+### Suggestion steps
+
+1. If an audit hasn't been run on this draft in this turn, run one first.
+2. For each flagged pattern from the audit, produce one suggestion:
+   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
+   - Structural patterns (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance, tonal uniformity): compose a contextual suggestion. Substitution does not work for these patterns; rewriting does. Say what to vary and how.
+3. Render the audit findings followed by the suggestions list.
+4. Stop without producing a full rewrite.
+
+### Suggestion output
+
+```
+[Audit output as in Action 1, but without the trailing question]
+
+**Suggestions, one per flag**
+
+<pattern-name-1>
+  - "<quoted phrase from the audit>"
+  Try: "<replacement>"
+
+<pattern-name-2>
+  - "<another quoted phrase>"
+  Try: "<replacement>"
+
+<structural-pattern>
+  Try: <contextual rewriting instruction, e.g., "Vary paragraph 3 to be one short sentence, then expand paragraph 4 with two new clauses to break the rhythm.">
+
+...
+
+**Next step**
+
+Want to apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file?
+```
+
+The number of suggestions equals the number of flagged tells, with no filtering applied. The writer chooses what to apply.
+
+---
+
+## The depth dial (Rewrite and Write only)
+
+Two settings:
+
+- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
+- **All**: address every flagged pattern, even the implicit and structural ones a reader wouldn't consciously notice. Voice can take a hit at this depth. The goal is unambiguous human-shape; preserving every flourish comes second.
+
+When the user has not chosen a depth, ask which depth they want. Balanced is the lighter pass; All is the deeper one. Default to Balanced if the writer declines to choose.
+
+The dial only governs Rewrite and Write. It does not apply to Audit or Suggestions. Both of those return the full list of flagged tells regardless.
+
+---
+
+## Action 3: Rewrite
+
+### Rewrite steps
+
+1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
+2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
+3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
+4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
+5. Run the structural self-check (Step C from `process.md`). Show the answers in the output.
+6. Run the semantic preservation check (Step D from `process.md`).
+7. Re-grade the rewrite at the chosen depth. If required failures remain for that depth, revise before returning unless removing the issue would materially change meaning or voice. Iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
+8. Render the audit findings, the rewritten draft, and the post-check.
+
+### Rewrite output
+
+```
+[Audit output as in Action 1, but without the trailing question]
+
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the genre or the writer's stated preference>
+
+**Rewrite**
+
+<rewritten draft>
+
+**Structural self-check**
+1. Section arcs: <count of similar arcs>/<total>. <What you changed.>
+2. Resolution density: <count of summary endings>/<total>. <What you changed.>
+3. Register breaks: <where you added one, or "already present at...">
+4. Triads: <count> found, reduced to <count> by <method>.
+5. Reframe laundering: <none / fixed at...>
+6. Purposeful devices preserved: <device: reason, or "none">
+7. Stance: <preserved / shifted, restored by...>
+8. Remaining tells: <list, or "none identified">
+
+**Post-check at <depth>**
+- Score: how many of the grader's checks failed at the chosen depth, plus whether AI-pressure triggered or stayed clear.
+- Confidence: the level and meaning string from the grader, with the caveat that this describes AI-writing signs rather than offering an authorship verdict.
+- Remaining issues: list the failed checks that remain unaddressed, or state "none" if the rewrite cleared everything.
+```
+
+Show only the final rewrite. Intermediate drafts stay hidden unless the writer asks. Do not modify the writer's source file.
+
+---
+
+## Action 4: Write
+
+### Drafting steps
+
+1. Pick the depth: ask if you can; default to Balanced.
+2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
+3. Read `references/process.md`; it is required for Rewrite and Write. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
+4. Draft from the brief at the chosen depth.
+5. Run the structural self-check (Step C from `process.md`) on the draft.
+6. Re-grade the draft at the chosen depth. If required failures remain for that depth, revise before returning unless fixing them would materially change the brief or voice. Iterate up to two re-runs, then report unresolved issues.
+7. Render the draft and the post-check.
+
+### Drafting output
+
+```
+**Brief: <one-sentence restatement of what the writer asked for>**
+
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the brief>
+
+**Draft**
+
+<drafted text>
+
+**Structural self-check**
+[Same eight items as Rewrite]
+
+**Post-check at <depth>**
+
+exec
+/bin/zsh -lc 'python3 grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-image-first-men-original-sins.md' in /Users/mae/Documents/humanise/humanise
+ succeeded in 147ms:
+{
+  "file": "/Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-image-first-men-original-sins.md",
+  "pass_rate": "36/43",
+  "failures_by_severity": {
+    "strong_warning": 2,
+    "context_warning": 5
+  },
+  "score_summary": {
+    "check_status": "fail",
+    "passed_checks": 36,
+    "failed_checks": 7,
+    "total_checks": 43,
+    "pass_rate": "36/43",
+    "failures_by_severity": {
+      "strong_warning": 2,
+      "context_warning": 5
+    },
+    "ai_signal_pressure": {
+      "score": 3,
+      "threshold": 4,
+      "triggered": false,
+      "components": [
+        "headings in prose"
+      ],
+      "vocabulary_pressure": {
+        "points": 1,
+        "reasons": [
+          "generic_cluster=2"
+        ],
+        "worst_generic": 2,
+        "gptzero_matches": [],
+        "kobak_style_distinct": 18,
+        "kobak_style_density": 6.801007556675064,
+        "kobak_style_sample": [
+          "exploration",
+          "landscape",
+          "adept",
+          "approach",
+          "commendable",
+          "discernible",
+          "impact",
+          "individuals",
+          "limitations",
+          "need"
+        ]
+      }
+    }
+  },
+  "human_report": {
+    "overview": "7 of 43 checks were flagged for AI-style writing patterns.",
+    "score": {
+      "status": "fail",
+      "failed_checks": 7,
+      "total_checks": 43,
+      "pass_rate": "36/43",
+      "severity_counts": {
+        "Strong AI-writing signal": 2,
+        "Context-sensitive signal": 5
+      }
+    },
+    "confidence": {
+      "level": "Medium",
+      "meaning": "Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.",
+      "basis": [
+        "2 strong AI-writing signal(s)",
+        "5 context-sensitive signal(s)"
+      ],
+      "caveat": "This is a confidence assessment about AI-writing signs, not an authorship verdict."
+    },
+    "ai_pressure_explanation": "AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were headings in prose, plus 1 point(s) from clustered AI vocabulary. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 3/4, so this check stayed clear.",
+    "failed_checks": [
+      {
+        "check_id": "no-em-dashes",
+        "check": "Em dashes",
+        "what_it_checks": "Checks for em dash punctuation, a strong current AI-style signal in this skill.",
+        "why_it_matters": "Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation.",
+        "status": "Flagged",
+        "severity": "Strong AI-writing signal",
+        "why": "Found 20 em dash(es).",
+        "recommended_action": {
+          "balanced": "Fix",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-curly-quotes",
+        "check": "Curly quotes",
+        "what_it_checks": "Checks for curly quotation marks when plain output is expected.",
+        "why_it_matters": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 147 curly quote(s).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-promotional-language",
+        "check": "Generic promotional language",
+        "what_it_checks": "Checks for stock hype and sales-like adjectives.",
+        "why_it_matters": "Stock hype weakens credibility and often appears in generated product or venue copy.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found: \"breathtaking\".",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-copula-avoidance",
+        "check": "Avoiding plain 'is'",
+        "what_it_checks": "Checks for inflated replacements such as serves as, functions as, or stands as.",
+        "why_it_matters": "Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis.",
+        "status": "Flagged",
+        "severity": "Strong AI-writing signal",
+        "why": "Found 1: \"features\".",
+        "recommended_action": {
+          "balanced": "Fix",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-markdown-headings",
+        "check": "Headings in prose",
+        "what_it_checks": "Checks for markdown headings and plain title headings when prose should flow.",
+        "why_it_matters": "Headings can make prose feel packaged by an assistant rather than written as a continuous piece.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 3 heading(s): \"# First Men and Original Sins\", \"### Faith and the American Space Program\", \"# First Men and Original Sins\".",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "vocabulary-diversity",
+        "check": "Vocabulary diversity",
+        "what_it_checks": "Checks for unusually repetitive vocabulary in longer text.",
+        "why_it_matters": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Type-token ratio: 0.379 (1469 unique / 3876 total, target: >0.40).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-triad-density",
+        "check": "Triad density",
+        "what_it_checks": "Checks whether three-part list structures are overused across the piece.",
+        "why_it_matters": "Too many three-part lists create a recognisable generated cadence.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 24 triad(s), including \"the sacred, the profane, the american space program\", \"faith, future, america\", \"engineering, technology, materialism\", plus 21 more.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      }
+    ],
+    "all_checks": [
+      {
+        "check_id": "no-em-dashes",
+        "check": "Em dashes",
+        "what_it_checks": "Checks for em dash punctuation, a strong current AI-style signal in this skill.",
+        "why_it_matters": "Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation.",
+        "status": "Flagged",
+        "severity": "Strong AI-writing signal",
+        "why": "Found 20 em dash(es).",
+        "recommended_action": {
+          "balanced": "Fix",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-ai-vocabulary-clustering",
+        "check": "Clustered AI vocabulary",
+        "what_it_checks": "Checks whether generic AI-associated words and phrases cluster together.",
+        "why_it_matters": "Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-nonliteral-land-surface",
+        "check": "Nonliteral land/surface phrasing",
+        "what_it_checks": "Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale.",
+        "why_it_matters": "Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "overall-ai-signal-pressure",
+        "check": "AI pressure from stacked signals",
+        "what_it_checks": "Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive.",
+        "why_it_matters": "Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-manufactured-insight",
+        "check": "Manufactured insight framing",
+        "what_it_checks": "Checks for phrases that perform hidden depth or secret significance without earning it.",
+        "why_it_matters": "Manufactured insight framing performs depth without adding specific evidence or thought.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-staccato-sequences",
+        "check": "Generic staccato emphasis",
+        "what_it_checks": "Checks for repeated short dramatic sentences used as generic emphasis.",
+        "why_it_matters": "Repeated short emphasis beats can make prose sound generated rather than naturally paced.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-anaphora",
+        "check": "Mechanical repeated sentence starts",
+        "what_it_checks": "Checks for repeated sentence openings that read like template rhythm.",
+        "why_it_matters": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-collaborative-artifacts",
+        "check": "Assistant residue",
+        "what_it_checks": "Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue.",
+        "why_it_matters": "Assistant residue makes the text look like chat output rather than finished prose.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-curly-quotes",
+        "check": "Curly quotes",
+        "what_it_checks": "Checks for curly quotation marks when plain output is expected.",
+        "why_it_matters": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 147 curly quote(s).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "sentence-length-variance",
+        "check": "Sentence rhythm variance",
+        "what_it_checks": "Checks whether sentence lengths are too uniform across longer prose.",
+        "why_it_matters": "Low rhythm variation makes paragraphs feel mechanically produced.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-promotional-language",
+        "check": "Generic promotional language",
+        "what_it_checks": "Checks for stock hype and sales-like adjectives.",
+        "why_it_matters": "Stock hype weakens credibility and often appears in generated product or venue copy.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found: \"breathtaking\".",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-significance-inflation",
+        "check": "Inflated significance",
+        "what_it_checks": "Checks for language that makes ordinary claims sound historically important.",
+        "why_it_matters": "Inflated importance makes ordinary claims sound artificially momentous.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-negative-parallelisms",
+        "check": "Contrived contrast",
+        "what_it_checks": "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures.",
+        "why_it_matters": "Contrived contrast creates a fake reveal instead of making a direct, supported claim.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-copula-avoidance",
+        "check": "Avoiding plain 'is'",
+        "what_it_checks": "Checks for inflated replacements such as serves as, functions as, or stands as.",
+        "why_it_matters": "Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis.",
+        "status": "Flagged",
+        "severity": "Strong AI-writing signal",
+        "why": "Found 1: \"features\".",
+        "recommended_action": {
+          "balanced": "Fix",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-filler-phrases",
+        "check": "Filler phrases",
+        "what_it_checks": "Checks for stock padding such as in order to or it is worth noting.",
+        "why_it_matters": "Filler phrases add polish without information.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-generic-conclusions",
+        "check": "Generic conclusion",
+        "what_it_checks": "Checks for empty endings such as the future looks bright.",
+        "why_it_matters": "Generic conclusions make the ending feel templated and interchangeable.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-false-concession-hedges",
+        "check": "False balance or concession",
+        "what_it_checks": "Checks for fake both-sides framing that avoids taking a position.",
+        "why_it_matters": "False balance can hide the writer's actual position.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-placeholder-residue",
+        "check": "Placeholder residue",
+        "what_it_checks": "Checks for unfilled template markers and placeholder instructions.",
+        "why_it_matters": "Placeholder residue signals unfinished generated or templated text.",
+        "status": "Clear",
+        "severity": "Must fix",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-soft-scaffolding",
+        "check": "Soft explainer scaffolding",
+        "what_it_checks": "Checks for phrases that announce structure instead of making a point.",
+        "why_it_matters": "Soft scaffolding announces structure instead of doing useful writing work.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-orphaned-demonstratives",
+        "check": "Vague 'this/that' starts",
+        "what_it_checks": "Checks for repeated vague sentence subjects such as This highlights or That shows.",
+        "why_it_matters": "Vague this/that openings blur the actual subject and create generic analysis.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-forced-triads",
+        "check": "Decorative three-part lists",
+        "what_it_checks": "Checks for forced triads used as rhythm rather than substance.",
+        "why_it_matters": "Decorative three-part lists can create artificial rhythm without substance.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-superficial-ing",
+        "check": "Tacked-on -ing analysis",
+        "what_it_checks": "Checks for trailing -ing clauses that pretend to analyse without adding meaning.",
+        "why_it_matters": "Tacked-on -ing clauses often pretend to analyse while adding little.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-ghost-spectral-density",
+        "check": "Ghost/spectral atmosphere",
+        "what_it_checks": "Checks for clich\u00e9d ghost, shadow, whisper, and echo language.",
+        "why_it_matters": "Stock spectral language can make atmosphere feel generated or borrowed.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-quietness-obsession",
+        "check": "Generic quiet/still mood",
+        "what_it_checks": "Checks for overused quiet, still, soft, and hushed atmosphere.",
+        "why_it_matters": "Overused quiet/still mood language can create generic literary atmosphere.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-rhetorical-questions",
+        "check": "Template rhetorical questions",
+        "what_it_checks": "Checks for article-style questions followed by obvious answers.",
+        "why_it_matters": "Template questions often simulate engagement without adding real inquiry.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-excessive-lists",
+        "check": "Excessive list formatting",
+        "what_it_checks": "Checks whether prose has been over-converted into bullets or numbered lists.",
+        "why_it_matters": "Too much list formatting can make prose feel like generated notes or slides.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-unicode-flair",
+        "check": "Decorative Unicode",
+        "what_it_checks": "Checks for symbols and decorative punctuation that look like generated formatting.",
+        "why_it_matters": "Decorative symbols can make output look like generated formatting.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-dramatic-transitions",
+        "check": "Unearned dramatic transitions",
+        "what_it_checks": "Checks for generic turning points such as something shifted or everything changed.",
+        "why_it_matters": "Unearned turning-point language claims drama the prose has not built.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-formulaic-openers",
+        "check": "Formulaic openers",
+        "what_it_checks": "Checks for generated openings such as at its core or from a broader perspective.",
+        "why_it_matters": "Formulaic openings make paragraphs feel assembled from templates.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-signposted-conclusions",
+        "check": "Signposted conclusion",
+        "what_it_checks": "Checks for explicit conclusion labels and summary signposts.",
+        "why_it_matters": "Conclusion signposts often flatten the ending into a generic summary.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-markdown-headings",
+        "check": "Headings in prose",
+        "what_it_checks": "Checks for markdown headings and plain title headings when prose should flow.",
+        "why_it_matters": "Headings can make prose feel packaged by an assistant rather than written as a continuous piece.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 3 heading(s): \"# First Men and Original Sins\", \"### Faith and the American Space Program\", \"# First Men and Original Sins\".",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-corporate-ai-speak",
+        "check": "Corporate AI-speak",
+        "what_it_checks": "Checks for vague delivery, alignment, outcomes, and cross-functional clich\u00e9s.",
+        "why_it_matters": "Corporate AI-speak hides specific work behind vague operational language.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-this-chains",
+        "check": "Repeated 'This...' chains",
+        "what_it_checks": "Checks for several consecutive sentences beginning with vague This constructions.",
+        "why_it_matters": "Repeated vague This sentences create generic analysis and weak subject control.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-excessive-hedging",
+        "check": "Excessive hedging",
+        "what_it_checks": "Checks for evasive qualification and impersonal uncertainty.",
+        "why_it_matters": "Too much hedging weakens stance and can make prose feel evasive or machine-neutral.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-countdown-negation",
+        "check": "Countdown negation",
+        "what_it_checks": "Checks for repeated no/not/cannot setups that build toward a reveal.",
+        "why_it_matters": "Countdown negation creates a synthetic reveal structure.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-negation-density",
+        "check": "Dense negation",
+        "what_it_checks": "Checks whether negation markers are unusually dense across prose.",
+        "why_it_matters": "Dense negation can make a piece feel over-framed around what it is not instead of what it is.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "paragraph-length-uniformity",
+        "check": "Paragraph length uniformity",
+        "what_it_checks": "Checks whether paragraphs are suspiciously similar in length.",
+        "why_it_matters": "Paragraphs of similar length can signal generated structure and low natural variation.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-tidy-paragraph-endings",
+        "check": "Tidy paragraph endings",
+        "what_it_checks": "Checks for repeated miniature conclusions at paragraph ends.",
+        "why_it_matters": "Repeated tidy endings make paragraphs feel over-resolved and templated.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-bland-critical-template",
+        "check": "Bland critical template",
+        "what_it_checks": "Checks for generic review language instead of concrete critical claims.",
+        "why_it_matters": "Bland critical language replaces concrete judgment with portable review phrases.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "no-rubric-echoing",
+        "check": "Rubric echoing",
+        "what_it_checks": "Checks for assignment or rubric phrasing leaking into the prose.",
+        "why_it_matters": "Rubric echoing makes writing sound like assignment compliance rather than independent thought.",
+        "status": "Clear",
+        "severity": "Context-sensitive signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      },
+      {
+        "check_id": "vocabulary-diversity",
+        "check": "Vocabulary diversity",
+        "what_it_checks": "Checks for unusually repetitive vocabulary in longer text.",
+        "why_it_matters": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Type-token ratio: 0.379 (1469 unique / 3876 total, target: >0.40).",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-triad-density",
+        "check": "Triad density",
+        "what_it_checks": "Checks whether three-part list structures are overused across the piece.",
+        "why_it_matters": "Too many three-part lists create a recognisable generated cadence.",
+        "status": "Flagged",
+        "severity": "Context-sensitive signal",
+        "why": "Found 24 triad(s), including \"the sacred, the profane, the american space program\", \"faith, future, america\", \"engineering, technology, materialism\", plus 21 more.",
+        "recommended_action": {
+          "balanced": "Disclose or ask before preserving",
+          "all": "Fix"
+        }
+      },
+      {
+        "check_id": "no-section-scaffolding",
+        "check": "Repeated section scaffolding",
+        "what_it_checks": "Checks for repeated section labels or repeated structural templates.",
+        "why_it_matters": "Repeated section structure makes the whole piece feel assembled from a template.",
+        "status": "Clear",
+        "severity": "Strong AI-writing signal",
+        "why": "No issue found in this text.",
+        "recommended_action": {
+          "balanced": "None",
+          "all": "None"
+        }
+      }
+    ]
+  },
+  "triggered_checks": [
+    {
+      "check": "no-em-dashes",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "punctuation_signal",
+      "evidence": "Found 20 em dash(es)",
+      "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+      "depth_actions": {
+        "balanced": "fix",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-curly-quotes",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "typographic_signal",
+      "evidence": "Found 147 curly quote(s)",
+      "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-promotional-language",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "evidence_role": "hype_language",
+      "evidence": "Found: ['breathtaking']",
+      "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-copula-avoidance",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "generic_abstraction"
+      ],
+      "evidence_role": "grammar_substitution",
+      "evidence": "Found 1: ['features']",
+      "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
+      "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+      "depth_actions": {
+        "balanced": "fix",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-markdown-headings",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "formatting_signal",
+      "evidence": "Found 3 heading(s): ['# First Men and Original Sins', '### Faith and the American Space Program', '# First Men and Original Sins']",
+      "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "vocabulary-diversity",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "lexical_distribution",
+      "evidence": "Type-token ratio: 0.379 (1469 unique / 3876 total, target: >0.40)",
+      "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    },
+    {
+      "check": "no-triad-density",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "evidence": "Found 24 triad(s): ['the sacred, the profane, the american space program', 'faith, future, america', 'engineering, technology, materialism', 'protestant ethos, exploring the pros, cons of considering spaceflight', 'in equal measure functional, predictable, dull', 'than there are sikhs, buddhists, jews', 'a god of, or behind, in everything', 'faith, future, america', 'as newell does, to link space exploration, religion', 'at playing the psaltery, his work ethic, his closeness to god', 'in film, tv, social media', 'help but be infectious, here, throughout the book', 'for her, the clean lines, sharp sunlight of bonestell', 'a masterpiece of claustrophobia, monotony, melancholia only tangentially about', 'to come away bored, baffled, both', 's subject, chazelle, his screenwriter john singer', 'feel of these spaces, their rodeo jolts, shakes', 'growls, roars, bangs', 'lower-key, precisely observed domestic, bureaucratic interludes', 'crushing constraints of conventionality, of protestant understatement, restraint', 'between colleagues and friends, lovers, family', 'astonishingly recreated, figures both literally, metaphorically', 'the blankness of grace, its opacity, incomprehensibility', 'killers, contaminated by something malign, grievous']",
+      "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "depth_actions": {
+        "balanced": "preserve_with_disclosure_or_user_decision",
+        "all": "fix"
+      }
+    }
+  ],
+  "failure_mode_results": {
+    "provenance_residue": {
+      "label": "Provenance residue",
+      "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "synthetic_significance": {
+      "label": "Synthetic significance",
+      "summary": "Text performs importance, revelation, or depth without enough concrete support.",
+      "failed_checks": [
+        {
+          "check": "no-promotional-language",
+          "severity": "context_warning",
+          "evidence_role": "hype_language",
+          "evidence": "Found: ['breathtaking']",
+          "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-copula-avoidance",
+          "severity": "strong_warning",
+          "evidence_role": "grammar_substitution",
+          "evidence": "Found 1: ['features']",
+          "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
+          "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+          "depth_actions": {
+            "balanced": "fix",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "no-promotional-language",
+        "no-copula-avoidance"
+      ],
+      "failures_by_severity": {
+        "context_warning": 1,
+        "strong_warning": 1
+      }
+    },
+    "frictionless_structure": {
+      "label": "Frictionless structure",
+      "summary": "Text is packaged too evenly through headings, lists, repeated shapes, or tidy closures.",
+      "failed_checks": [
+        {
+          "check": "no-markdown-headings",
+          "severity": "context_warning",
+          "evidence_role": "formatting_signal",
+          "evidence": "Found 3 heading(s): ['# First Men and Original Sins', '### Faith and the American Space Program', '# First Men and Original Sins']",
+          "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-triad-density",
+          "severity": "context_warning",
+          "evidence_role": "list_rhythm",
+          "evidence": "Found 24 triad(s): ['the sacred, the profane, the american space program', 'faith, future, america', 'engineering, technology, materialism', 'protestant ethos, exploring the pros, cons of considering spaceflight', 'in equal measure functional, predictable, dull', 'than there are sikhs, buddhists, jews', 'a god of, or behind, in everything', 'faith, future, america', 'as newell does, to link space exploration, religion', 'at playing the psaltery, his work ethic, his closeness to god', 'in film, tv, social media', 'help but be infectious, here, throughout the book', 'for her, the clean lines, sharp sunlight of bonestell', 'a masterpiece of claustrophobia, monotony, melancholia only tangentially about', 'to come away bored, baffled, both', 's subject, chazelle, his screenwriter john singer', 'feel of these spaces, their rodeo jolts, shakes', 'growls, roars, bangs', 'lower-key, precisely observed domestic, bureaucratic interludes', 'crushing constraints of conventionality, of protestant understatement, restraint', 'between colleagues and friends, lovers, family', 'astonishingly recreated, figures both literally, metaphorically', 'the blankness of grace, its opacity, incomprehensibility', 'killers, contaminated by something malign, grievous']",
+          "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "no-markdown-headings",
+        "no-triad-density"
+      ],
+      "failures_by_severity": {
+        "context_warning": 2
+      }
+    },
+    "generic_abstraction": {
+      "label": "Generic abstraction",
+      "summary": "Text relies on portable abstractions, stock vocabulary, or low-specificity claims.",
+      "failed_checks": [
+        {
+          "check": "no-promotional-language",
+          "severity": "context_warning",
+          "evidence_role": "hype_language",
+          "evidence": "Found: ['breathtaking']",
+          "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-copula-avoidance",
+          "severity": "strong_warning",
+          "evidence_role": "grammar_substitution",
+          "evidence": "Found 1: ['features']",
+          "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
+          "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+          "depth_actions": {
+            "balanced": "fix",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "vocabulary-diversity",
+          "severity": "context_warning",
+          "evidence_role": "lexical_distribution",
+          "evidence": "Type-token ratio: 0.379 (1469 unique / 3876 total, target: >0.40)",
+          "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "no-promotional-language",
+        "no-copula-avoidance",
+        "vocabulary-diversity"
+      ],
+      "failures_by_severity": {
+        "context_warning": 2,
+        "strong_warning": 1
+      }
+    },
+    "voice_erasure": {
+      "label": "Voice erasure",
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure.",
+      "failed_checks": [],
+      "check_refs": [],
+      "failures_by_severity": {}
+    },
+    "genre_misfit": {
+      "label": "Genre misfit",
+      "summary": "Text uses a device that may be valid in one genre but suspicious in another.",
+      "failed_checks": [
+        {
+          "check": "no-em-dashes",
+          "severity": "strong_warning",
+          "evidence_role": "punctuation_signal",
+          "evidence": "Found 20 em dash(es)",
+          "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+          "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+          "depth_actions": {
+            "balanced": "fix",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-curly-quotes",
+          "severity": "context_warning",
+          "evidence_role": "typographic_signal",
+          "evidence": "Found 147 curly quote(s)",
+          "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-markdown-headings",
+          "severity": "context_warning",
+          "evidence_role": "formatting_signal",
+          "evidence": "Found 3 heading(s): ['# First Men and Original Sins', '### Faith and the American Space Program', '# First Men and Original Sins']",
+          "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "vocabulary-diversity",
+          "severity": "context_warning",
+          "evidence_role": "lexical_distribution",
+          "evidence": "Type-token ratio: 0.379 (1469 unique / 3876 total, target: >0.40)",
+          "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        },
+        {
+          "check": "no-triad-density",
+          "severity": "context_warning",
+          "evidence_role": "list_rhythm",
+          "evidence": "Found 24 triad(s): ['the sacred, the profane, the american space program', 'faith, future, america', 'engineering, technology, materialism', 'protestant ethos, exploring the pros, cons of considering spaceflight', 'in equal measure functional, predictable, dull', 'than there are sikhs, buddhists, jews', 'a god of, or behind, in everything', 'faith, future, america', 'as newell does, to link space exploration, religion', 'at playing the psaltery, his work ethic, his closeness to god', 'in film, tv, social media', 'help but be infectious, here, throughout the book', 'for her, the clean lines, sharp sunlight of bonestell', 'a masterpiece of claustrophobia, monotony, melancholia only tangentially about', 'to come away bored, baffled, both', 's subject, chazelle, his screenwriter john singer', 'feel of these spaces, their rodeo jolts, shakes', 'growls, roars, bangs', 'lower-key, precisely observed domestic, bureaucratic interludes', 'crushing constraints of conventionality, of protestant understatement, restraint', 'between colleagues and friends, lovers, family', 'astonishingly recreated, figures both literally, metaphorically', 'the blankness of grace, its opacity, incomprehensibility', 'killers, contaminated by something malign, grievous']",
+          "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "depth_actions": {
+            "balanced": "preserve_with_disclosure_or_user_decision",
+            "all": "fix"
+          }
+        }
+      ],
+      "check_refs": [
+        "no-em-dashes",
+        "no-curly-quotes",
+        "no-markdown-headings",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "failures_by_severity": {
+        "strong_warning": 1,
+        "context_warning": 4
+      }
+    }
+  },
+  "depth_results": {
+    "balanced": {
+      "status": "fail",
+      "check_status": "fail",
+      "required_fixes": [
+        "no-em-dashes",
+        "no-copula-avoidance"
+      ],
+      "preservable_with_disclosure": [
+        "no-curly-quotes",
+        "no-promotional-language",
+        "no-markdown-headings",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "user_decision_needed": [
+        "no-curly-quotes",
+        "no-promotional-language",
+        "no-markdown-headings",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "must_fix": [
+        "no-em-dashes",
+        "no-copula-avoidance"
+      ],
+      "needs_user_decision": [
+        "no-curly-quotes",
+        "no-promotional-language",
+        "no-markdown-headings",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+    },
+    "all": {
+      "status": "fail",
+      "check_status": "fail",
+      "required_fixes": [
+        "no-em-dashes",
+        "no-curly-quotes",
+        "no-promotional-language",
+        "no-copula-avoidance",
+        "no-markdown-headings",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "preservable_with_disclosure": [],
+      "user_decision_needed": [],
+      "must_fix": [
+        "no-em-dashes",
+        "no-curly-quotes",
+        "no-promotional-language",
+        "no-copula-avoidance",
+        "no-markdown-headings",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "needs_user_decision": [],
+      "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+    }
+  },
+  "expectations": [
+    {
+      "text": "no-em-dashes",
+      "passed": false,
+      "evidence": "Found 20 em dash(es)",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "punctuation_signal",
+      "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal."
+    },
+    {
+      "text": "no-ai-vocabulary-clustering",
+      "passed": true,
+      "evidence": "Max AI words per paragraph: 2 (6 total in text)",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "vocabulary_cluster",
+      "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context."
+    },
+    {
+      "text": "no-nonliteral-land-surface",
+      "passed": true,
+      "evidence": "No nonliteral land/surface constructions found",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "evidence_role": "metaphor_residue",
+      "guidance": "Fix nonliteral land/surface phrasing; replace with the concrete action or claim."
+    },
+    {
+      "text": "overall-ai-signal-pressure",
+      "passed": true,
+      "score": 3,
+      "threshold": 4,
+      "components": [
+        "headings in prose"
+      ],
+      "vocabulary_pressure": {
+        "points": 1,
+        "reasons": [
+          "generic_cluster=2"
+        ],
+        "worst_generic": 2,
+        "gptzero_matches": [],
+        "kobak_style_distinct": 18,
+        "kobak_style_density": 6.801007556675064,
+        "kobak_style_sample": [
+          "exploration",
+          "landscape",
+          "adept",
+          "approach",
+          "commendable",
+          "discernible",
+          "impact",
+          "individuals",
+          "limitations",
+          "need"
+        ]
+      },
+      "evidence": "Overall AI-signal pressure 3/4 from [headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=18 distinct/6.8/1000",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "frictionless_structure"
+      ],
+      "evidence_role": "aggregate_pressure",
+      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict."
+    },
+    {
+      "text": "no-manufactured-insight",
+      "passed": true,
+      "evidence": "No manufactured insight phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice."
+    },
+    {
+      "text": "no-staccato-sequences",
+      "passed": true,
+      "evidence": "Max consecutive short sentences: 2",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm."
+    },
+    {
+      "text": "no-anaphora",
+      "passed": true,
+      "evidence": "Max anaphora run: 2",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning."
+    },
+    {
+      "text": "no-collaborative-artifacts",
+      "passed": true,
+      "evidence": "No collaborative artifacts",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "evidence_role": "assistant_residue",
+      "guidance": "Fix at every depth; this is assistant residue, not authorial style."
+    },
+    {
+      "text": "no-curly-quotes",
+      "passed": false,
+      "evidence": "Found 147 curly quote(s)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "evidence_role": "typographic_signal",
+      "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text."
+    },
+    {
+      "text": "sentence-length-variance",
+      "passed": true,
+      "evidence": "Sentence length stdev: 18.3 (target: >4)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhythm_signal",
+      "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms."
+    },
+    {
+      "text": "no-promotional-language",
+      "passed": false,
+      "evidence": "Found: ['breathtaking']",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "evidence_role": "hype_language",
+      "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm."
+    },
+    {
+      "text": "no-significance-inflation",
+      "passed": true,
+      "evidence": "No significance inflation",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "importance_inflation",
+      "guidance": "Fix inflated importance unless the source genuinely argues significance."
+    },
+    {
+      "text": "no-negative-parallelisms",
+      "passed": true,
+      "evidence": "No negative parallelisms or contrived reframes",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced."
+    },
+    {
+      "text": "no-copula-avoidance",
+      "passed": false,
+      "evidence": "Found 1: ['features']",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "generic_abstraction"
+      ],
+      "evidence_role": "grammar_substitution",
+      "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical."
+    },
+    {
+      "text": "no-filler-phrases",
+      "passed": true,
+      "evidence": "No filler phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "filler_phrase",
+      "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice."
+    },
+    {
+      "text": "no-generic-conclusions",
+      "passed": true,
+      "evidence": "No generic conclusions",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue",
+        "synthetic_significance"
+      ],
+      "evidence_role": "generic_closure",
+      "guidance": "Fix at every depth unless quoted from source text."
+    },
+    {
+      "text": "no-false-concession-hedges",
+      "passed": true,
+      "evidence": "No false concession hedges",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "evidence_role": "stance_erasure",
+      "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence."
+    },
+    {
+      "text": "no-placeholder-residue",
+      "passed": true,
+      "evidence": "No placeholder residue",
+      "severity": "hard_fail",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "evidence_role": "template_residue",
+      "guidance": "Fix at every depth; unfilled placeholders are generated/template residue."
+    },
+    {
+      "text": "no-soft-scaffolding",
+      "passed": true,
+      "evidence": "Soft scaffold phrases: 0",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "explainer_scaffold",
+      "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content."
+    },
+    {
+      "text": "no-orphaned-demonstratives",
+      "passed": true,
+      "evidence": "Vague demonstrative subjects: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "voice_erasure",
+        "generic_abstraction"
+      ],
+      "evidence_role": "sentence_subject",
+      "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear."
+    },
+    {
+      "text": "no-forced-triads",
+      "passed": true,
+      "evidence": "No forced triads",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric."
+    },
+    {
+      "text": "no-superficial-ing",
+      "passed": true,
+      "evidence": "No superficial -ing phrases",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "analysis_substitution",
+      "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning."
+    },
+    {
+      "text": "no-ghost-spectral-density",
+      "passed": true,
+      "evidence": "Ghost/spectral words: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "atmospheric_cliche",
+      "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose."
+    },
+    {
+      "text": "no-quietness-obsession",
+      "passed": true,
+      "evidence": "Quietness words: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "evidence_role": "atmospheric_cliche",
+      "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice."
+    },
+    {
+      "text": "no-rhetorical-questions",
+      "passed": true,
+      "evidence": "Rhetorical questions: 1",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhetorical_template",
+      "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument."
+    },
+    {
+      "text": "no-excessive-lists",
+      "passed": true,
+      "evidence": "List ratio: 0%",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "listification",
+      "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure."
+    },
+    {
+      "text": "no-unicode-flair",
+      "passed": true,
+      "evidence": "Decorative Unicode symbols: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "provenance_residue",
+        "genre_misfit"
+      ],
+      "evidence_role": "formatting_residue",
+      "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source."
+    },
+    {
+      "text": "no-dramatic-transitions",
+      "passed": true,
+      "evidence": "No dramatic transitions",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "evidence_role": "narrative_template",
+      "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned."
+    },
+    {
+      "text": "no-formulaic-openers",
+      "passed": true,
+      "evidence": "No formulaic openers",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "generic_abstraction"
+      ],
+      "evidence_role": "formulaic_structure",
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre."
+    },
+    {
+      "text": "no-signposted-conclusions",
+      "passed": true,
+      "evidence": "No signposted conclusions",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "structural_signpost",
+      "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful."
+    },
+    {
+      "text": "no-markdown-headings",
+      "passed": false,
+      "evidence": "Found 3 heading(s): ['# First Men and Original Sins', '### Faith and the American Space Program', '# First Men and Original Sins']",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "formatting_signal",
+      "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs."
+    },
+    {
+      "text": "no-corporate-ai-speak",
+      "passed": true,
+      "evidence": "No corporate AI speak",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "evidence_role": "domain_cliche",
+      "guidance": "Fix at every depth; recommend preserving only when quoting corporate source language."
+    },
+    {
+      "text": "no-this-chains",
+      "passed": true,
+      "evidence": "Max 'This [verb]' run: 1",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "evidence_role": "sentence_subject",
+      "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate."
+    },
+    {
+      "text": "no-excessive-hedging",
+      "passed": true,
+      "evidence": "Hedging constructions: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "evidence_role": "stance_erasure",
+      "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty."
+    },
+    {
+      "text": "no-countdown-negation",
+      "passed": true,
+      "evidence": "No countdown negation",
+      "severity": "context_warning",
+      "failure_modes": [
+        "synthetic_significance",
+        "frictionless_structure"
+      ],
+      "evidence_role": "rhetorical_pattern",
+      "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason."
+    },
+    {
+      "text": "no-negation-density",
+      "passed": true,
+      "evidence": "Negation markers: 9 (2.2 per 1000 words)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "rhetorical_density",
+      "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful."
+    },
+    {
+      "text": "paragraph-length-uniformity",
+      "passed": true,
+      "evidence": "Paragraph length CV: 0.40 across 33 paragraphs",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "layout_rhythm",
+      "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template."
+    },
+    {
+      "text": "no-tidy-paragraph-endings",
+      "passed": true,
+      "evidence": "Tidy paragraph endings: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "evidence_role": "paragraph_closure",
+      "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn."
+    },
+    {
+      "text": "no-bland-critical-template",
+      "passed": true,
+      "evidence": "Bland critical template phrases: 0",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "voice_erasure"
+      ],
+      "evidence_role": "genre_cliche",
+      "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work."
+    },
+    {
+      "text": "no-rubric-echoing",
+      "passed": true,
+      "evidence": "Rubric echo phrases: 0",
+      "severity": "context_warning",
+      "failure_modes": [
+        "provenance_residue",
+        "voice_erasure"
+      ],
+      "evidence_role": "assignment_residue",
+      "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric."
+    },
+    {
+      "text": "vocabulary-diversity",
+      "passed": false,
+      "evidence": "Type-token ratio: 0.379 (1469 unique / 3876 total, target: >0.40)",
+      "severity": "context_warning",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "evidence_role": "lexical_distribution",
+      "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately."
+    },
+    {
+      "text": "no-triad-density",
+      "passed": false,
+      "evidence": "Found 24 triad(s): ['the sacred, the profane, the american space program', 'faith, future, america', 'engineering, technology, materialism', 'protestant ethos, exploring the pros, cons of considering spaceflight', 'in equal measure functional, predictable, dull', 'than there are sikhs, buddhists, jews', 'a god of, or behind, in everything', 'faith, future, america', 'as newell does, to link space exploration, religion', 'at playing the psaltery, his work ethic, his closeness to god', 'in film, tv, social media', 'help but be infectious, here, throughout the book', 'for her, the clean lines, sharp sunlight of bonestell', 'a masterpiece of claustrophobia, monotony, melancholia only tangentially about', 'to come away bored, baffled, both', 's subject, chazelle, his screenwriter john singer', 'feel of these spaces, their rodeo jolts, shakes', 'growls, roars, bangs', 'lower-key, precisely observed domestic, bureaucratic interludes', 'crushing constraints of conventionality, of protestant understatement, restraint', 'between colleagues and friends, lovers, family', 'astonishingly recreated, figures both literally, metaphorically', 'the blankness of grace, its opacity, incomprehensibility', 'killers, contaminated by something malign, grievous']",
+      "severity": "context_warning",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "evidence_role": "list_rhythm",
+      "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical."
+    },
+    {
+      "text": "no-section-scaffolding",
+      "passed": true,
+      "evidence": "No repeated section labels",
+      "severity": "strong_warning",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "evidence_role": "repeated_template",
+      "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material."
+    }
+  ]
+}
+
+exec
+/bin/zsh -lc 'rg -n "Em dashes|Curly quotes|Generic promotional|Avoiding plain|Headings in prose|Vocabulary diversity|Triad density" references/patterns.md' in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+43:- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They must be removed at every depth (Balanced and All); preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
+396:**Tolerance note:** Curly quotes are typography, not inherently AI writing. Normalise them in hard-mode plain output if requested. Preserve them in sourced excerpts, literary fixtures, publication text, or quoted material.
+
+exec
+/bin/zsh -lc "sed -n '1,120p' references/patterns.md && sed -n '360,430p' references/patterns.md" in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+# AI writing patterns
+
+38 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
+
+## Contents
+
+- [Content patterns (1-6)](#content-patterns)
+- [Language and grammar (7-12)](#language-and-grammar)
+- [Style (13-18)](#style)
+- [Communication (19-21)](#communication)
+- [Filler and hedging (22-25)](#filler-and-hedging)
+- [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
+- [Structural tells (29-32, 38)](#structural-tells)
+- [Voice and register (33-37)](#voice-and-register)
+
+---
+
+## Evidence hierarchy from the reference audit
+
+Use source strength when deciding severity. The ruleset should surface clusters of suspicious writing behaviours, not claim that one phrase proves AI authorship.
+
+**Strong empirical backbone:**
+
+- Kobak / Science Advances and the `llm-excess-vocab` dataset support lexical spike detection at corpus level, especially in scientific prose. Use vocabulary as density and clustering evidence, not as one-word proof. Source: https://github.com/berenslab/llm-excess-vocab
+- Juzek and Ward's "Why does ChatGPT delve so much?" supports a narrow scientific-abstract vocabulary signal. It is credible for excess-word lists but not for confident document-level claims. Source: https://arxiv.org/abs/2412.11385
+- GPTZero's 2026 paper supports the architecture: hierarchical signals, granular findings, adversarial testing, and transparent mixed evidence. It does not add a prose-style rule by itself. Source: https://arxiv.org/abs/2602.13042
+- Stanford HAI's detector-bias reporting supports warnings over accusations, especially for non-native English writers. Use process evidence and user review rather than detector-style verdicts. Source: https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers
+
+**Useful but tentative style sources:**
+
+- GPTZero's AI Vocabulary page is useful as a phrase list, but its own framing separates vocabulary scanning from AI-probability scoring. Use all 100 public table rows only as clustering signals. Source: https://gptzero.me/ai-vocabulary
+- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
+- OpenAI's April 2025 GPT-4o sycophancy rollback supports hard-failing assistant flattery and fake affirmation such as "great question" and "you're absolutely right." Source: https://openai.com/index/sycophancy-in-gpt-4o/
+
+**Domain and provenance signals:**
+
+- Walsh, Preus, and Gronski support poetry-specific manual checks: constrained uniformity, rhyme/quatrain defaults, first-person plural overuse, and mood-word clusters. Keep this genre-specific. Source: https://arxiv.org/abs/2410.15299
+- Clarkesworld reporting supports fiction as a submission/provenance problem and a manual craft-audit area. Use it for flat dialogue, exposition, pacing, lack of subtext, and over-resolved endings, not as a global regex rule. Source: https://www.npr.org/2023/02/24/1159286436/ai-chatbot-chatgpt-magazine-clarkesworld-artificial-intelligence
+- Futurism's Sports Illustrated reporting supports journalism and review-provenance checks: fake bylines, fake bios, AI headshots, affiliate product-review sludge, undisclosed generated content, and byline laundering. Source: https://futurism.com/sports-illustrated-ai-generated-writers
+
+**2026 operating stance:**
+
+- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They must be removed at every depth (Balanced and All); preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
+- The best signals are clusters: GPTZero/Kobak vocabulary density, contrived contrast laundering, empty endings, vague demonstrative starts, placeholder residue, sycophantic assistant residue, unrequested headings/lists/Unicode flair, paragraph uniformity, generic email closers, and fake citations or provenance artifacts.
+
+---
+
+## Content patterns
+
+### 1. Significance inflation
+
+**Words to watch:** stands/serves as, is a testament/reminder, a vital/significant/crucial/pivotal/key role/moment, underscores/highlights its importance, reflects broader, symbolizing its ongoing/enduring/lasting, setting the stage for, marking/shaping the, represents/marks a shift, key turning point, evolving landscape, indelible mark, deeply rooted, remarkably, strikingly, staggering/staggeringly
+
+Inflates importance by claiming things "represent" or "contribute to" broader trends without explaining why anyone should care.
+
+**Before:**
+> The Statistical Institute of Catalonia was officially established in 1989, marking a pivotal moment in the evolution of regional statistics in Spain. This initiative was part of a broader movement across Spain to decentralize administrative functions and enhance regional governance.
+
+**After:**
+> The Statistical Institute of Catalonia was established in 1989 to collect and publish regional statistics independently from Spain's national statistics office.
+
+
+### 2. Notability claims
+
+**Words to watch:** independent coverage, local/regional/national media outlets, written by a leading expert, active social media presence
+
+Asserts notability by listing sources without context, as though the mention itself is the story.
+
+**Before:**
+> Her views have been cited in The New York Times, BBC, Financial Times, and The Hindu. She maintains an active social media presence with over 500,000 followers.
+
+**After:**
+> In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.
+
+
+### 3. Superficial -ing analyses
+
+**Words to watch:** highlighting/underscoring/emphasizing..., ensuring..., reflecting/symbolizing..., contributing to..., cultivating/fostering..., encompassing..., showcasing...
+
+Present participle phrases tacked onto sentences to simulate analytical depth without adding information.
+
+**Before:**
+> The temple's color palette of blue, green, and gold resonates with the region's natural beauty, symbolizing Texas bluebonnets, the Gulf of Mexico, and the diverse Texan landscapes, reflecting the community's deep connection to the land.
+
+**After:**
+> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
+
+
+### 4. Promotional language
+
+**Words to watch:** boasts a, vibrant, rich (figurative), profound, enhancing its, showcasing, exemplifies, commitment to, natural beauty, nestled, in the heart of, groundbreaking (figurative), renowned, breathtaking, must-visit, stunning
+
+Reads like tourism marketing rather than description.
+
+**Before:**
+> Nestled within the breathtaking region of Gonder in Ethiopia, Alamata Raya Kobo stands as a vibrant town with a rich cultural heritage and stunning natural beauty.
+
+**After:**
+> Alamata Raya Kobo is a town in the Gonder region of Ethiopia, known for its weekly market and 18th-century church.
+
+
+### 5. Vague attributions
+
+**Words to watch:** Industry reports, Observers have cited, Experts argue, Some critics argue, several sources/publications (when few cited)
+
+Attributes opinions to vague authorities without specific sources, creating illusions of consensus.
+
+**Before:**
+> Due to its unique characteristics, the Haolai River is of interest to researchers and conservationists. Experts believe it plays a crucial role in the regional ecosystem.
+
+**After:**
+> The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.
+
+
+### 6. Formulaic challenges sections
+
+**Words to watch:** Despite its... faces several challenges..., Despite these challenges, Challenges and Legacy, Future Outlook
+
+Formulaic "Challenges" sections that acknowledge a problem then immediately reassure the reader things are fine.
+
+
+**Before:**
+> - **User Experience:** The user experience has been significantly improved with a new interface.
+> - **Performance:** Performance has been enhanced through optimised algorithms.
+> - **Security:** Security has been strengthened with end-to-end encryption.
+
+**After:**
+> The update improves the interface, speeds up load times through optimised algorithms, and adds end-to-end encryption.
+
+
+### 15. Title case in headings
+
+Capitalising all main words in headings reads as formal to the point of stiffness.
+
+**Before:**
+> ## Strategic Negotiations And Global Partnerships
+
+**After:**
+> ## Strategic negotiations and global partnerships
+
+
+### 16. Emojis
+
+Decorating headings or bullet points with emojis is almost never appropriate in written content.
+
+**Before:**
+> :rocket: **Launch Phase:** The product launches in Q3
+> :bulb: **Key Insight:** Users prefer simplicity
+> :white_check_mark: **Next Steps:** Schedule follow-up meeting
+
+**After:**
+> The product launches in Q3. User research showed a preference for simplicity, so the next step is to schedule a follow-up meeting to discuss how that finding should shape the launch.
+
+
+### 17. Curly quotation marks
+
+**Tolerance note:** Curly quotes are typography, not inherently AI writing. Normalise them in hard-mode plain output if requested. Preserve them in sourced excerpts, literary fixtures, publication text, or quoted material.
+
+ChatGPT uses curly quotes instead of straight quotes.
+
+**Before:**
+> He said \u201cthe project is on track\u201d but others disagreed.
+
+**After:**
+> He said "the project is on track" but others disagreed.
+
+
+### 18. Hyphenated compound modifier overuse
+
+**Words to watch when clustered:** third-party, cross-functional, client-facing, data-driven, decision-making, well-known, high-quality, real-time, long-term, end-to-end
+
+Individual hyphenations are often correct, but AI stacks four or five in a single sentence. When you encounter three or more hyphenated compound modifiers in one sentence, restructure to reduce the density.
+
+**Before:**
+> The cross-functional team delivered a high-quality, data-driven report on our client-facing tools. Their decision-making process was well-known for being thorough and detail-oriented.
+
+**After:**
+> The team, drawn from several departments, delivered a report grounded in usage data for our client-facing tools. Their process for making decisions was known for being thorough.
+
+---
+
+## Communication
+
+### 19. Collaborative artifacts
+
+**Words to watch:** I hope this helps, Of course!, Certainly!, You're absolutely right!, Would you like..., let me know, here is a...
+
+Chatbot correspondence pasted directly into content without being cleaned up.
+
+**Before:**
+> Here is an overview of the French Revolution. I hope this helps! Let me know if you'd like me to expand on any section.
+
+exec
+/bin/zsh -lc "sed -n '300,360p' references/patterns.md && sed -n '430,520p' references/patterns.md" in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+
+**Before:**
+> You might think the app is about saving time. Actually, it is about trust.
+
+**After:**
+> The app earns trust by showing exactly what changed and letting users undo each step.
+
+
+### 10. Rule of three
+
+Ideas forced into groups of three to appear comprehensive, even when the items do not naturally form a triad.
+
+**Tolerance note:** Three-part structures are common in human rhetoric, comedy, fiction, speeches, and criticism. Treat this as an AI tell when triads cluster densely, feel interchangeable, or use abstract nouns to simulate breadth. Preserve when the three items are concrete, necessary, funny, rhythmic, or part of a voiced argument.
+
+**Before:**
+> The event features keynote sessions, panel discussions, and networking opportunities. Attendees can expect innovation, inspiration, and industry insights.
+
+**After:**
+> The event includes talks and panels, with time for informal networking between sessions.
+
+
+### 11. Synonym cycling
+
+Excessive synonym substitution, cycling through different words for the same referent within a short span due to repetition-penalty mechanisms.
+
+**Before:**
+> The protagonist faces many challenges. The main character must overcome obstacles. The central figure eventually triumphs. The hero returns home.
+
+**After:**
+> The protagonist faces many challenges but eventually triumphs and returns home.
+
+
+### 12. False ranges
+
+"From X to Y" constructions where X and Y are not on a meaningful scale, creating an illusion of breadth without communicating scope.
+
+**Before:**
+> Our journey through the universe has taken us from the singularity of the Big Bang to the grand cosmic web, from the birth and death of stars to the enigmatic dance of dark matter.
+
+**After:**
+> The book covers the Big Bang, star formation, and current theories about dark matter.
+
+---
+
+## Style
+
+### 13. Boldface overuse
+
+Emphasises phrases in boldface mechanically, bolding things that do not need visual emphasis.
+
+**Before:**
+> It blends **OKRs (Objectives and Key Results)**, **KPIs (Key Performance Indicators)**, and visual strategy tools such as the **Business Model Canvas (BMC)** and **Balanced Scorecard (BSC)**.
+
+**After:**
+> It blends OKRs, KPIs, and visual strategy tools like the Business Model Canvas and Balanced Scorecard.
+
+
+### 14. Inline-header lists
+
+List items start with bolded headers followed by colons, turning prose into a slide deck.
+
+> Here is an overview of the French Revolution. I hope this helps! Let me know if you'd like me to expand on any section.
+
+**After:**
+> The French Revolution began in 1789 when financial crisis and food shortages led to widespread unrest.
+
+
+### 20. Knowledge-cutoff disclaimers
+
+**Words to watch:** as of [date], Up to my last training update, While specific details are limited/scarce..., based on available information...
+
+AI disclaimers about incomplete information left in the text.
+
+**Before:**
+> While specific details about the company's founding are not extensively documented in readily available sources, it appears to have been established sometime in the 1990s.
+
+**After:**
+> The company was founded in 1994, according to its registration documents.
+
+
+### 21. Sycophantic/servile tone
+
+Overly positive, people-pleasing language that performs agreement rather than engaging with substance.
+
+**Before:**
+> Great question! You're absolutely right that this is a complex topic. That's an excellent point about the economic factors.
+
+**After:**
+> The economic factors you mentioned are relevant here, particularly the trade deficit data from Q3.
+
+---
+
+## Filler and hedging
+
+### 22. Filler phrases
+
+Common substitutions:
+- "In order to achieve this goal" -> "To achieve this"
+- "Due to the fact that it was raining" -> "Because it was raining"
+- "At this point in time" -> "Now"
+- "In the event that you need help" -> "If you need help"
+- "The system has the ability to process" -> "The system can process"
+- "It is important to note that the data shows" -> "The data shows"
+- "In today's fast-paced world" -> cut entirely
+- "As technology continues to evolve" -> cut entirely
+- "At the end of the day" -> cut or replace with specific conclusion
+- "Generally speaking" -> "Usually" or cut
+- "Broadly speaking" -> "Overall" or cut
+- "From a broader perspective" -> cut or state the perspective directly
+
+
+### 23. Excessive hedging
+
+Over-qualifying statements to the point where the sentence commits to nothing.
+
+**Before:**
+> It could potentially possibly be argued that the policy might have some effect on outcomes.
+
+**After:**
+> The policy may affect outcomes.
+
+### 23a. False concession hedges
+
+**Words to watch:** "While critics argue..., supporters say...", "the truth lies somewhere in the middle", "both sides have valid points", "it depends on context" when used to avoid a claim.
+
+AI often performs nuance by staging two generic positions and then landing in a bland middle. Real nuance names the evidence, stakes, and tradeoffs. If the sentence only balances abstractions, rewrite it as a direct claim.
+
+**Before:**
+> While critics argue remote work weakens culture, supporters say it improves flexibility. The truth lies somewhere in the middle.
+
+**After:**
+> Remote work improves flexibility for most desk workers, but it exposes weak management habits that office routines used to hide.
+
+
+### 24. Generic positive conclusions
+
+Vague upbeat endings that could be appended to any article on any topic.
+
+**Before:**
+> The future looks bright for the company. Exciting times lie ahead as they continue their journey toward excellence. This represents a major step in the right direction.
+
+**After:**
+> The company plans to open two more locations next year, both in the southeast.
+
+
+### 25. Staccato rhythm in extended contexts
+
+This supplements the hard constraint on staccato fragments. Beyond the obvious standalone fragments, watch for the subtler pattern: AI places short sentences at the start of sections (to hook), at the end of paragraphs (to land), and in sequences of two or three (to build momentum). These positions are predictable.
+
+**Tolerance note:** Staccato is not automatically bad. Preserve it when it is character voice, panic, comedy, dialogue, aphorism, or deliberate literary rhythm. Cut it when it functions as generic article emphasis.
+
+**Before:**
+
+exec
+/bin/zsh -lc "sed -n '520,620p' references/patterns.md" in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+**Before:**
+> The data was clear. Unmistakably so. Every metric pointed in the same direction. And that direction was down.
+
+**After:**
+> The data pointed unambiguously in one direction: every metric was declining, and the trend had been consistent for three consecutive quarters.
+
+---
+
+## Sensory and atmospheric
+
+These patterns are especially common in descriptive, creative, and reflective writing. AI reaches for sensory language but, having no physical experience, attaches it to abstractions.
+
+### 26. Ghost/spectral language
+
+**Words to watch:** ghost(s), spectral, shadow(s), whisper(s), echo(es), phantom, haunting/haunted, lingering, remnant(s), trace(s) used atmospherically, unspoken, hidden (when inflating the significance of something ordinary)
+
+AI defaults to spectral, ghostly, shadowy imagery for anything it wants to make feel deep. Everything becomes a shadow, a memory, a whisper, or an echo. One "ghost" is fine. Four in two paragraphs is a tell.
+
+**Before:**
+> The pebbles carry the ghosts of the boulders they were, resting in a quiet space between the earth and the sea. Each one is a whisper from a vanished landscape, an echo of forces that shaped the coastline.
+
+**After:**
+> The pebbles are fragments of larger rocks, broken down over centuries by water and weather. They collect in the spaces between tide lines where the current drops them.
+
+
+### 27. Quietness obsession
+
+**Words to watch:** quiet/quietly, silent/silently, softly, hum/humming, stillness, gentle, hushed, murmur, settle/settled, tender
+
+AI inserts quietness and softness where it does not belong, often against the logic of the scene. In a 759-word essay about pebbles, one AI used "quiet" ten times. The word has become a proxy for depth.
+
+Adjacent manufactured-insight frames include "when no one noticed", "the shift nobody noticed", "before anyone noticed", and "without anyone noticing". These usually imply privileged perception without doing the evidentiary work.
+
+**Before:**
+> There is a quiet beauty in the way the morning light settles on the table. The coffee hums softly in its cup. Outside, the world has a gentle stillness to it, as if holding its breath.
+
+**After:**
+> The morning light was on the table. The coffee was getting cold. Outside, a truck reversed into the loading bay and someone dropped a crate.
+
+
+### 28. Forced synesthesia
+
+AI blends senses inappropriately to simulate literary depth: emotions get tastes, sounds get colours, abstract concepts get textures. This happens because the model has no physical experience, so its sensory vocabulary gravitates to immaterial subjects. Real synesthetic writing is specific and grounded ("a great plateful of blue water" works because Woolf had both stood before a view and sat down to a meal). AI synesthesia is unanchored.
+
+**Before:**
+> Thursday is a liminal day that tastes of almost-Friday. Her grief hummed with the colour of old photographs. The silence had a texture, rough and amber, draped across the room like forgotten cloth.
+
+**After:**
+> Thursday felt like waiting. She kept pulling out old photographs and putting them back. The room was silent in a way that made her aware of her own breathing.
+
+---
+
+## Structural tells
+
+### 29. Mid-sentence rhetorical questions
+
+Short questions dropped mid-paragraph as a pacing device, followed by a declarative answer. Borrowed from long-form journalism but deployed indiscriminately. Includes the "The real X?" pattern: "The real insight?", "The real challenge?", "The takeaway?", "The kicker?" These perform revelation through question format.
+
+**Tolerance note:** Interviews, teaching prose, polemic, and comic essays often use questions legitimately. Treat as an AI tell when the answer is immediate, generic, and framed as revelation.
+
+**Before:**
+> But now? You won't be able to unsee this one. The solution? It's simpler than you think. The real question? Whether we're ready to face it.
+
+**After:**
+> Once you notice it, you will keep noticing it. The solution is simpler than most people assume, though whether anyone is ready to act on it is a separate issue.
+
+
+### 30. Generic/ungrounded metaphors
+
+AI metaphors are plausible but specific to nobody. They gesture toward meaning without achieving it. Human metaphors draw from personal experience or shared cultural references. AI metaphors draw from the statistical middle.
+
+**Before:**
+> Learning the ukulele is like teaching your fingers to dance again after years of sitting still. Every chord is a puzzle piece that finally clicks into a song.
+
+**After:**
+> The first week my fingers could not stretch far enough for a G chord and I kept muting the string next to it with the side of my index finger.
+
+When you spot a metaphor, ask: could anyone have written this, or does it come from a specific experience? If anyone could have written it, replace it with a concrete detail.
+
+
+### 31. Excessive list-making
+
+AI converts prose to bullet points when the content does not warrant it. This is driven by RLHF training: human raters reward structured-looking answers, so the model learns that bullets = quality. The result is text that looks organised but reads like a slide deck rather than writing.
+
+When you encounter unnecessary bullet points or numbered lists, fold the content back into prose. Lists are appropriate for genuinely discrete items (ingredients, steps, specifications). They are not appropriate for flowing arguments, observations, or narrative.
+
+### 31a. Unicode flair
+
+**Words/symbols to watch:** arrows, checkmarks, stars, ornamental bullets, emoji-style symbols in prose or professional content.
+
+Decorative Unicode makes prose look like a generated checklist or social post. Remove it unless the symbols are part of a real UI, quoted material, or an actual checklist whose visual form matters.
+
+
+### 32. Dramatic narrative transitions
+
+**Words to watch:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me.", "And that made all the difference."
+
+Standalone sentences that claim a narrative turning point without earning it. These borrow the structure of memoir writing ("The door opened and my life was never the same") but deploy it for mundane observations. They combine staccato fragments with manufactured insight.
+
+**Before:**
+> I had been thinking about productivity all wrong. And then, something shifted. I stopped optimising for output and started optimising for energy. Everything changed.
+
+exec
+/bin/zsh -lc 'rg -n "—|breathtaking|features|''^#|''^###" /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-image-first-men-original-sins.md' in /Users/mae/Documents/humanise/humanise
+ succeeded in 0ms:
+24:# First Men and Original Sins
+26:### Faith and the American Space Program
+39:P ROFANE IS AN INTERESTING WORD. Etymologically the word describes the ground outside—or, strictly, in front of (*pro*)—the temple (*fanum*). How do we understand the profanity, or otherwise, of space travel? Is earth the temple and outer space the outer (*pro*) *fanum*? Or could it be that the heavens are the temple, and it’s we who are stuck down here in a mundane, profane antechamber? Is the sense of wonder that attends space exploration fundamentally a *religious* impulse? Or is the achievement of Apollo a triumph of solidly non-spiritual science, engineering, technology, and materialism?
+57:This touches on a curious absence in Oliver’s account: science fiction. The space age died because people lost interest in it, because the thrill of Apollo 11 gave way to the sheer undrama of Apollos 14 through 17, missions in equal measure functional, predictable, and dull. This was (of course) precisely what mission control wanted, but it turned off the larger global population. The point is that it was Apollo with which people grew bored, not space as such. The last Apollo flight (an Apollo-Soyuz mission) took place in 1975. That year George Lucas was in pre-production for *Star Wars*, which would, after its 1977 release, go on to become the most commercially successful motion picture franchise of all time. *Star Wars* gave outer space back to the general population as excitement and wonder—a mere simulacrum of space, of course, but it turned out people didn’t mind that. *Star Wars* killed the space race by feeding a more palatable, empty-calorie version of “space exploration and adventure” to an audience eager for those things and content with the pleasing copy rather than the arduous and tedious reality.
+59:Not only did *Star Wars* jump-start a new age in science fiction blockbuster cinema (the list of the twenty top-grossing films of all time disproportionately features big-budget, special-effects-heavy science fiction and fantasy: *Star Wars*, *Avatar*, *E.T.,**The Matrix*, *Avengers: Infinity War,* and the like), but it also mediated a specifically *religious* impulse: the Force and the mystic-spiritual order of the Jedi are central to the appeal of the franchise. According to a 2001 census, there are more people who identify as Jedi in the United Kingdom than there are Sikhs, Buddhists, or Jews. Not all of these folks put Jedi on the census form as a joke.
+61:Is it foolish to suggest that the success of cinematic science fiction might be, in any sense, a religious phenomenon? It is, after all, powered by the “fans,” a word which derives (like “profane”) from the Latin for temple. Fans are often extraordinarily dedicated individuals, and they aggregate into significant large-scale social as well as cultural forces. The total cost of the Apollo program was 25.4 billion 1960s dollars—something like 100 billion in today’s money. If we separate out the cost of Apollo 11 from the other manned and unmanned launches (an artificial exercise, but still) we end up somewhere in the region of 12 billion in modern money for that one mission. Disney recently bought *Star Wars* for 4 billion; the Marvel Cinematic Universe has grossed well over 20 billion at the box office over the last decade. Since 1977 humanity has, by some margin, spent more money on creating science fiction simulacra of space travel than it has on actually landing on the moon. Don’t misunderstand me. I love science fiction. But there’s something rather depressing about that fact.
+67:The cultural dimension of the space race also interests Catherine Newell, whose *Destined for the Stars: Faith, Future, and America’s Final Frontier* is a study of American artist Chesley Bonestell. Newell describes “the popularization of the science of space exploration in America between the years 1944 and 1955,” a popularization she thinks owed much to “a culture that had long valued faith above other religious feeling and believed they were called by God to settle new frontiers and prepare for the end of time.” Newell finds continuity between Bonestell’s realist planetscapes with futuristic, technologically plausible spacecraft in flight—rendered with a clear-lined, uncluttered spaciousness—and the older Hudson School traditions of wild-west landscape painting.
+73:I found it hard to suppress a purely personal tetchiness as I read these chapters. I grew up in London in the 1960s and ’70s, and the roads along which I walked to school alternated buildings with vacant lots overgrown with vegetation, craters often still clearly discernible. (It’s all been redeveloped now, of course, but it took many decades for the UK to marshal the resources to repair all the bomb damage from the war.) It’s hard not to feel a little narked at the man behind the weapons that caused such damage to my hometown, killing nine thousand people, mostly civilians, into the bargain—that’s three 9/11s, right there. This is where the Apollo program started. It seems to me an abdication of moral responsibility to try to pretend otherwise.
+75:Newell doesn’t omit the fact that von Braun was a member of the SS, but she downplays it, calling his a token affiliation and claiming he rarely wore his uniform (she imagines him “frantically searching through several closets” for it on the rare occasions Heinrich Himmler visited). That’s certainly what von Braun told the Americans after the war. But then again, he would, wouldn’t he? Newell doesn’t record that von Braun first joined the SS in 1933, that by 1940 he was a Sturmführer—that is, a lieutenant—and was promoted three more times during the war. According to Bob Ward’s biography, von Braun was a conventional Nazi and regularly wore his SS uniform to meetings. What’s not in dispute (though Newell doesn’t dwell on this either) is that up to twenty thousand people died at Mittelbau-Dora, the concentration camp that supplied most of the workers for the world’s first long-range guided ballistic missile program. Von Braun later claimed, improbably enough, that he had no idea about any of that. Newell, improbably enough, believes him. He was, she thinks, focused solely on taking mankind into space and “in von Braun’s case, with focus comes myopia.” She and I are not going to agree on this matter.
+91:It’s based on James Hansen’s 2005 biography, *First Man: The Life of Neil A. Armstrong,* and manages commendable fidelity both to the facts of Armstrong’s life and to all the kit and tech of the Apollo program, lovingly reproduced by the filmmakers. But where the book is a lengthy account of the external details of Armstrong’s life, the film is a portrait of an outwardly functioning, inwardly collapsing marriage, a story whose unusual framing—few people, after all, are married to astronauts—manages not to compromise the sensitivity with which Chazelle traces that bitterly common state of affairs. Gosling’s Armstrong in particular is a masterclass in a kind of anti-acting, creating a compellingly plausible blankness where another actor might have emoted and projected. This Armstrong is inward, driven, repressed, more than a little machinelike, more than a little (we would say nowadays) on the spectrum.
+99:The claustrophobia of the astronauts in their tiny, precarious capsules becomes the movie’s objective correlative of an emotional claustrophobia, the sense of life lived under crushing constraints of conventionality, of Protestant understatement and restraint. Over and again the film shows connections between colleagues and friends, lovers and family, as construed by inarticulacy of feeling and spirit. This works artistically—which is to say, it is more than just dour or strangulated—because *First Man* is also about a strange suspension in the usual rules of normality, a moment in time when the impossible becomes—magically—achievable. We watch Armstrong holding his dying daughter and pointing at the moon, its circle as gorgeous as a screen print against the blue Californian sky; we see him years later, at home, moon-watching through his telescope rather than speaking to his wife; he waits for lift-off in the command capsule of his Saturn V, gazing on the moon through the cockpit window and trying to keep his eye fixed on it as the rocket shakes and blurs the world all around him.
+101:We’ve all stared at the moon and been struck by her beauty. For millennia human beings worshipped her as a goddess, Selene in Greece, Luna in Rome, Coyolxauhqui among the Aztec, Chang’e in China—always revered from afar. To worship Poseidon is, sometimes, to immerse oneself in the sea; to worship Zeus is sometimes to see the strike of lightning set fire to trees nearby and to hear the rumble of thunder approach you. But to worship the moon has always been to stand a long way distant from the object of your adoration—to be deep in the *pro* of the *fanum*. Until, that is, 1969.
+103:For his sequences inside the Apollo 11 capsule, Chazelle used a sixteen-millimeter camera to provide a sense of period-appropriate intimacy and roughness, but when Armstrong opens the hatch of the Eagle to reveal the lunar landscape—like a reverse Dorothy swapping real-world color for a Bizarro-Oz black and white—Chazelle switches to an IMAX seventy-millimeter camera. Watch these sequences on a big screen if you can, because they are breathtaking. The moon’s hypnotic barrenness, astonishingly recreated, figures both literally and metaphorically. After the euphoria of the launch and the landing, the film shifts gear, unobtrusively, into its beautifully understated emotional climax: Armstrong releasing his grief into the blackness at the bottom of the Little West crater.
+105:What makes this scene so moving is the way it distills the spiritual as well as the emotional core of the movie. *First Man* asks one question in particular, the same question asked in their different ways by Oliver and Newell: what *is* the spiritual dimension of the space race? We might answer by talking about the grandeur of the undertaking, the sublime immensity of the realm we enter when we leave earth’s familiar round—which is to say, by talking about the overwhelming, infinite immensity of God. This is to read the space race as thrilling, as charismatic. In *To Touch the Face of God,* Kendrick Oliver argues that “to the extent that spaceflight was a charismatic enterprise…it owed much to religious archetypes and sensibilities.” He thinks the celebrity enjoyed by the early American space pioneers made them “like Catholic saints or the Puritan elect. \[T\]hese were men who seemed to be fully possessed of grace.”
+
+codex
+**Audit, 7 AI tells found**
+
+**Em dashes** (20 instances)
+- “outside—or, strictly, in front of”
+- “excitement and wonder—a mere simulacrum of space”
+- “technologically plausible spacecraft in flight—rendered with a clear-lined”
+- “which is to say, by talking about the overwhelming”
+Why: Em dashes are a strong current AI-style signal when they appear as default punctuation. Here, though, they often look like genuine essayistic rhythm rather than generated filler.
+
+**Curly quotes** (147 instances)
+- “all the people back on earth”
+- “received politely”
+- “space exploration and adventure”
+Why: Curly quotes are typography, not authorship evidence. In a published literary essay they are expected, so this is a context flag rather than a real prose problem.
+
+**Generic promotional language** (1 instance)
+- “breathtaking”
+Why: Words like this can read like stock hype. In this sentence, it is attached to a concrete viewing experience, so it is not a strong tell by itself.
+
+**Avoiding plain “is”** (1 instance)
+- “the list of the twenty top-grossing films of all time disproportionately features…”
+Why: The checker treats some verbs like “features” as inflated substitutes for plain “is/has.” Here it is idiomatic and not especially suspicious.
+
+**Headings in prose** (3 headings)
+Where: The title and subtitle are marked as Markdown headings, including “First Men and Original Sins” and “Faith and the American Space Program.”
+Why: Headings can make prose look assistant-packaged. In this case they come from article formatting and bibliographic framing, so they should not be read as an AI tell.
+
+**Vocabulary diversity**
+Where: Type-token ratio is 0.379, below the target of 0.40.
+Why: Lower vocabulary variety can make long prose feel repetitive. Here the repeated vocabulary is partly intrinsic to the essay’s subjects: space, religion, Apollo, film, God, Armstrong, von Braun.
+
+**Triad density** (24 instances)
+Where: Three-part lists recur throughout, such as “science, engineering, technology,” “functional, predictable, and dull,” “Sikhs, Buddhists, or Jews,” and “claustrophobia, monotony, and melancholia.”
+Why: Dense triads can create a generated cadence when they feel decorative. In this essay many of them are doing real critical or rhetorical work, but the pattern is still noticeable.
+
+**Confidence**
+
+Level: Medium
+
+Meaning: Several AI-like writing signs appeared, but the evidence is pattern-based and needs context.
+
+Basis:
+- 2 strong AI-writing signals
+- 5 context-sensitive signals
+- AI-pressure did not trigger; the stacked signal score stayed below threshold
+
+Note: This assessment describes AI-writing signs, not who wrote the text.
+
+**Next step**
+
+Want Suggestions for per-flag replacements or a Rewrite at a chosen depth?
+tokens used
+61,402

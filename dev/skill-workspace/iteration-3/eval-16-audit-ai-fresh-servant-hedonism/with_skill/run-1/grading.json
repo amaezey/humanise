@@ -1,0 +1,62 @@
+{
+  "expectations": [
+    {
+      "text": "Output references at least 5 distinct AI patterns from the catalogue",
+      "passed": true,
+      "evidence": "Referenced 7 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-em-dashes', 'no-ghost-spectral-density', 'no-staccato-sequences', 'no-triad-density', 'no-unicode-flair']"
+    },
+    {
+      "text": "Every flagged pattern shows a quoted phrase from the input draft",
+      "passed": false,
+      "evidence": "3 block(s) lack input-matching quotes: ['Generic staccato emphasis (1 sequence)', 'Mechanical repeated sentence starts (1 sequence)', 'Decorative Unicode (4 instances)']"
+    },
+    {
+      "text": "Every flagged pattern has a brief 'why' explanation",
+      "passed": true,
+      "evidence": "all 7 flag block(s) include 'Why:'"
+    },
+    {
+      "text": "Output ends with a question offering suggestions / rewrite / done",
+      "passed": true,
+      "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+    },
+    {
+      "text": "Output does not contain a rewritten version of the input draft",
+      "passed": true,
+      "evidence": "no rewrite or draft block present"
+    },
+    {
+      "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+      "passed": true,
+      "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 1,
+    "total": 6,
+    "pass_rate": 0.8333
+  },
+  "execution_metrics": {
+    "total_tool_calls": 0,
+    "errors_encountered": 0,
+    "output_chars": 3174
+  },
+  "timing": {
+    "total_tokens": 0,
+    "duration_ms": 96285,
+    "total_duration_seconds": 96.286
+  },
+  "claims": [],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "Qualitative assertions are intentionally left for human review."
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "overall": "Programmatic checks were graded by adapter code; qualitative assertions should be reviewed in the viewer.",
+    "suggestions": []
+  }
+}

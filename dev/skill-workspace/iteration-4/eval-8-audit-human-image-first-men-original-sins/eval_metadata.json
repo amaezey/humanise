@@ -1,0 +1,42 @@
+{
+  "eval_id": 8,
+  "eval_name": "audit-human-image-first-men-original-sins",
+  "prompt": "Audit this draft for AI tells.",
+  "assertions": [
+    {
+      "name": "low-flag-count-on-human-prose-runaway-guard",
+      "type": "programmatic",
+      "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+      "check": "distinct catalogue patterns referenced <= 12"
+    },
+    {
+      "name": "each-flag-has-quoted-phrase",
+      "type": "programmatic",
+      "description": "Any flag present shows a quoted phrase from the input",
+      "check": "every flag block contains a substring from the input file"
+    },
+    {
+      "name": "each-flag-has-explanation",
+      "type": "programmatic",
+      "description": "Any flag present has a brief 'why' explanation",
+      "check": "every flag block contains an explanation paragraph or 'Why' line"
+    },
+    {
+      "name": "ends-with-next-step-question",
+      "type": "programmatic",
+      "description": "Output ends with a question offering suggestions / rewrite / done",
+      "check": "final non-empty line ends with '?'"
+    },
+    {
+      "name": "no-rewritten-draft",
+      "type": "programmatic",
+      "description": "Output does not contain a rewritten version of the input draft",
+      "check": "no large prose block in output that wasn't in the input"
+    },
+    {
+      "name": "any-flags-are-defensible",
+      "type": "qualitative",
+      "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+    }
+  ]
+}

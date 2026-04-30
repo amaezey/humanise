@@ -52,7 +52,7 @@ python3 evals/grade.py path/to/text.md no-em-dashes,no-manufactured-insight
 python3 evals/run_grade_sweep.py
 ```
 
-Outputs JSON with pass/fail, evidence, severity, mode guidance per check, and `mode_results` showing whether the current text passes Light, Medium, and Hard criteria.
+Outputs JSON with pass/fail, evidence, severity, depth guidance per check, and `depth_results` showing whether the current text passes Balanced and All criteria.
 
 The grader is intentionally diagnostic. Generated-AI fixtures should fail multiple checks. Human-sourced fixtures are false-positive audits and style references, not "must pass" fixtures: real human writing often trips context warnings such as curly quotes, staccato, anaphora, rhetorical questions, and triad density.
 

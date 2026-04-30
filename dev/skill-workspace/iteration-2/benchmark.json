@@ -1,0 +1,597 @@
+{
+  "metadata": {
+    "skill_name": "humanise",
+    "skill_path": "/Users/mae/Documents/humanise/humanise",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-04-28T17:02:23Z",
+    "evals_run": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 52.601,
+        "tokens": 3398,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 10 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-filler-phrases', 'no-markdown-headings', 'no-negation-density', 'no-negative-parallelisms', 'no-nonliteral-land-surface', 'no-staccato-sequences', 'no-triad-density', 'overall-ai-signal-pressure']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": true,
+          "evidence": "all 10 flag block(s) anchor to input"
+        },
+        {
+          "text": "Every flagged pattern has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 10 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 100.901,
+        "tokens": 2580,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Known-human reflective prose should produce at most 3 flags",
+          "passed": false,
+          "evidence": "Referenced 6 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-negative-parallelisms', 'no-staccato-sequences', 'no-triad-density', 'vocabulary-diversity']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": false,
+          "evidence": "2 block(s) lack input-matching quotes: ['Generic staccato emphasis (1 sequence)', 'Curly quotes (18 instances)']"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 6 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 1,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 3,
+        "failed": 3,
+        "total": 6,
+        "time_seconds": 54.522,
+        "tokens": 6827,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Known-human reflective prose should produce at most 3 flags",
+          "passed": false,
+          "evidence": "Referenced 40 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes', 'no-excessive-hedging']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": false,
+          "evidence": "final line does not end with '?': I would not rewrite this as \u201cAI-sounding.\u201d I would clean the file: remove duplic"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8333,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 35.52,
+        "tokens": 2883,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Known-human prose should produce at most 3 flags",
+          "passed": false,
+          "evidence": "Referenced 7 catalogue pattern(s): ['no-anaphora', 'no-filler-phrases', 'no-ghost-spectral-density', 'no-promotional-language', 'no-quietness-obsession', 'no-triad-density', 'vocabulary-diversity']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "all 7 flag block(s) anchor to input"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": true,
+          "evidence": "all 7 flag block(s) include 'Why:'"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 80.733,
+        "tokens": 7311,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Known-human prose should produce at most 3 flags",
+          "passed": false,
+          "evidence": "Referenced 40 catalogue pattern(s): ['no-ai-vocabulary-clustering', 'no-anaphora', 'no-bland-critical-template', 'no-collaborative-artifacts', 'no-corporate-ai-speak', 'no-countdown-negation', 'no-curly-quotes', 'no-dramatic-transitions', 'no-em-dashes', 'no-excessive-hedging']"
+        },
+        {
+          "text": "Any flag present shows a quoted phrase from the input",
+          "passed": true,
+          "evidence": "no flag blocks (vacuously true)"
+        },
+        {
+          "text": "Any flag present has a brief 'why' explanation",
+          "passed": false,
+          "evidence": "no audit section found"
+        },
+        {
+          "text": "Output ends with a question offering suggestions / rewrite / done",
+          "passed": true,
+          "evidence": "final line: Question: Do you want a rewrite, a recommendation on intensity, or should this s"
+        },
+        {
+          "text": "Output does not contain a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8571,
+        "passed": 6,
+        "failed": 1,
+        "total": 7,
+        "time_seconds": 54.424,
+        "tokens": 3363,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the suggestions list",
+          "passed": true,
+          "evidence": "audit at offset 0; follow-up at offset 2209"
+        },
+        {
+          "text": "Output references at least 5 distinct AI patterns from the catalogue",
+          "passed": true,
+          "evidence": "Referenced 6 catalogue pattern(s): ['no-anaphora', 'no-curly-quotes', 'no-markdown-headings', 'no-negation-density', 'no-staccato-sequences', 'no-triad-density']"
+        },
+        {
+          "text": "Every flagged pattern shows a quoted phrase from the input draft",
+          "passed": false,
+          "evidence": "1 block(s) lack input-matching quotes: ['Mechanical repeated sentence starts (1 instance)  ']"
+        },
+        {
+          "text": "Number of suggestions equals number of flagged tells",
+          "passed": true,
+          "evidence": "6 flag(s) and 6 suggestion(s) match"
+        },
+        {
+          "text": "Every suggestion offers a concrete alternative phrasing",
+          "passed": true,
+          "evidence": "all 6 suggestion block(s) include 'Try'"
+        },
+        {
+          "text": "Output does not contain a full rewritten draft",
+          "passed": true,
+          "evidence": "no rewrite or draft block present"
+        },
+        {
+          "text": "Suggestions for lexical patterns (delve, hedging, em-dashes) feel like vetted human alternatives, not freshly generated AI prose. They should match what's in references/alternatives.md when applicable.",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 189.666,
+        "tokens": 13372,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the rewrite",
+          "passed": true,
+          "evidence": "audit at offset 0; follow-up at offset 2832"
+        },
+        {
+          "text": "Output contains a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "generated_words=1520; input_words=1786; changed=True"
+        },
+        {
+          "text": "Rewrite has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "Rewrite has no instances of 'delve' or 'delves' or 'delving'",
+          "passed": true,
+          "evidence": "delve count=0"
+        },
+        {
+          "text": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "passed": true,
+          "evidence": "balanced failures=[]"
+        },
+        {
+          "text": "Rewrite preserves the original argument, structure of points, and stance",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        },
+        {
+          "text": "At balanced depth, paragraph-length uniformity and other structural patterns are NOT expected to be addressed; their presence in the rewrite is acceptable",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 132.896,
+        "tokens": 12212,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the rewrite",
+          "passed": true,
+          "evidence": "audit at offset 0; follow-up at offset 2107"
+        },
+        {
+          "text": "Output contains a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "generated_words=1527; input_words=1630; changed=True"
+        },
+        {
+          "text": "Rewrite has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "No manufactured insight phrases in rewrite",
+          "passed": true,
+          "evidence": "No manufactured insight phrases"
+        },
+        {
+          "text": "No signposted conclusion phrases in rewrite",
+          "passed": true,
+          "evidence": "No signposted conclusions"
+        },
+        {
+          "text": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "passed": true,
+          "evidence": "balanced failures=[]"
+        },
+        {
+          "text": "Rewrite preserves the personal anecdote, the central realisation, and the reflective stance",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 6,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5714,
+        "passed": 4,
+        "failed": 3,
+        "total": 7,
+        "time_seconds": 193.679,
+        "tokens": 12168,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Audit findings appear in output before the rewrite",
+          "passed": true,
+          "evidence": "audit at offset 0; follow-up at offset 2107"
+        },
+        {
+          "text": "Output contains a rewritten version of the input draft",
+          "passed": true,
+          "evidence": "generated_words=1356; input_words=1593; changed=True"
+        },
+        {
+          "text": "Rewrite has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "Rewrite has higher sentence-length variance than input",
+          "passed": false,
+          "evidence": "input_stdev=8.16; output_stdev=7.10"
+        },
+        {
+          "text": "Rewrite has varied paragraph lengths",
+          "passed": false,
+          "evidence": "paragraph_word_count_stdev=16.18; lengths=[74, 90, 60, 60, 93, 117, 83, 108, 85, 87, 101, 99, 75, 70, 76, 78]"
+        },
+        {
+          "text": "Re-grading the rewrite at all depth produces 0 hits across all severity classes",
+          "passed": false,
+          "evidence": "all failures=['no-anaphora', 'no-triad-density']"
+        },
+        {
+          "text": "Rewrite preserves the scientific accuracy, key examples, and explanatory arc",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    },
+    {
+      "eval_id": 7,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 75.511,
+        "tokens": 2485,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "This case has no input file; the agent should compose from the brief alone",
+          "passed": true,
+          "evidence": "input files empty"
+        },
+        {
+          "text": "Output word count is within 15% of 250 (i.e., 213-288)",
+          "passed": true,
+          "evidence": "word_count=251"
+        },
+        {
+          "text": "Draft has zero em dashes",
+          "passed": true,
+          "evidence": "em dash count=0"
+        },
+        {
+          "text": "Draft has no instances of 'delve' or its variants",
+          "passed": true,
+          "evidence": "delve count=0"
+        },
+        {
+          "text": "Grading the draft at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "passed": true,
+          "evidence": "balanced failures=[]"
+        },
+        {
+          "text": "Draft is genuinely about first-time linocut printing, not generic 'creative practice' filler",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        },
+        {
+          "text": "Draft reads as a real reflection with specific sensory or emotional detail, not a generic AI essay structure",
+          "passed": true,
+          "evidence": "Qualitative assertion deferred to Mae in the review viewer."
+        }
+      ],
+      "notes": [
+        "Qualitative assertions are intentionally left for human review."
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.8661,
+        "stddev": 0.1688,
+        "min": 0.5714,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 104.3997,
+        "stddev": 61.9044,
+        "min": 35.52,
+        "max": 193.679
+      },
+      "tokens": {
+        "mean": 6557.625,
+        "stddev": 5014.0299,
+        "min": 2485,
+        "max": 13372
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.5834,
+        "stddev": 0.1179,
+        "min": 0.5,
+        "max": 0.6667
+      },
+      "time_seconds": {
+        "mean": 67.6275,
+        "stddev": 18.534,
+        "min": 54.522,
+        "max": 80.733
+      },
+      "tokens": {
+        "mean": 7069.0,
+        "stddev": 342.2397,
+        "min": 6827,
+        "max": 7311
+      }
+    },
+    "delta": {
+      "pass_rate": "n/a",
+      "time_seconds": "n/a",
+      "tokens": "n/a"
+    }
+  },
+  "notes": [
+    "Old-skill baseline ran only on audit-human guardrails, so aggregate delta is intentionally suppressed."
+  ]
+}

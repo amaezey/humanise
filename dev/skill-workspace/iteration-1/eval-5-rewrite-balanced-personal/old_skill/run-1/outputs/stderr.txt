@@ -1,0 +1,1215 @@
+Reading additional input from stdin...
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd4f1-0d4a-79f0-984a-c9848aa23172
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Audit and rewrite this at balanced depth.
+
+Inputs:
+Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/01-personal-essay-parents.md
+
+```markdown
+# The first crack in the porcelain
+
+I was twenty-four when I realised my parents were not perfect. Not in a dramatic way. There was no slammed door, no revelation pulled from a drawer, no confession delivered across a kitchen table under a bad light. It happened in the ordinary weather of a Tuesday evening, while my father stood in the driveway holding a garden hose that had split near the nozzle, and my mother sat inside at the dining table, crying over an electricity bill.
+
+The house looked exactly as it always had. The same brick path. The same agapanthus along the fence. The same bowl by the front door where keys and coins and old receipts collected in a minor domestic archaeology. Everything was intact, which is perhaps why the moment unsettled me so deeply. The setting had not changed. Only my sight had.
+
+I had come home for dinner because I was tired and underfed and pretending not to be. My twenties had begun with the false confidence of someone who mistakes motion for direction. I had a job with an email signature, a rent payment that frightened me every fortnight, and a set of opinions about how life should be managed. I was old enough to see my parents’ habits as limitations, but not yet old enough to understand the labour that had made my own certainty possible.
+
+Until then, I had carried an image of them that was almost architectural. They were the frame around everything. My father knew where the torch was, how to reverse a trailer, what to do when the hot water went cold. My mother remembered birthdays, medical histories, the names of teachers I had not thought about in years. Between them, they seemed to possess the entire operating manual for being alive.
+
+That evening, the manual failed.
+
+The hose burst while my father was watering the lemon tree. I heard the sound before I saw it, a frantic metallic hiss, then his short exhale of irritation. He turned the tap off too hard and the handle kept spinning loosely in his hand. He stared at it for a second, as if it had betrayed him personally.
+
+Inside, my mother had opened the electricity bill and gone quiet in a way that made the room change temperature. She smoothed the paper with both hands, then folded it, unfolded it, and pressed her fingers to her mouth. When she looked up, she seemed not older exactly, but exposed. Her face had lost the composure I associated with her. She looked like someone who had reached the end of a calculation and found there was still more to pay.
+
+My first reaction was annoyance. It shames me now, but it is true. I wanted them to handle it. I wanted the hose fixed, the bill absorbed, dinner started, the world returned to its proper scale. I had come home to be looked after. Instead, I found two people standing inside their own limits.
+
+“Is it that bad?” I asked.
+
+My mother said, “It’s fine.”
+
+This was the first lie I recognised not as deception, but as reflex. She said it quickly, with the competence of long practice. Fine meant she had no answer yet. Fine meant she was trying to protect me from an anxiety I was already old enough to see. Fine meant she did not know how to say: yes, actually, this is difficult.
+
+My father came in from the driveway with wet cuffs and a look of forced calm. He picked up the bill, scanned it, and made a small sound through his nose. Then he said something about calling them tomorrow. My mother said she had already called. He asked what they said. She said they said what they always said.
+
+There was no argument. That almost made it worse. I had grown up thinking the great dangers were noise, rupture, visible unhappiness. I did not yet understand the quieter forms of strain: the spreadsheet, the postponed appointment, the envelope left unopened for two days, the adult conversation conducted in low voices after children have gone to bed.
+
+I watched them speak past each other, each trying not to add to the other’s fear. My father wanted a practical problem because practical problems gave him a role. My mother wanted acknowledgement because acknowledgement, for her, was a kind of relief. Neither of them could give the other what they needed in that moment. Not because they lacked love. Because they lacked range.
+
+That was the crack.
+
+For years I had mistaken my parents’ strengths for completeness. My father’s competence had hidden his terror of helplessness. My mother’s care had hidden her resentment at having to notice everything. I had thought their flaws were irritations, things they could fix if they tried harder: his stubbornness, her worrying, his silence, her sharpness when tired. But sitting at that dining table, with the bill between them and water still dripping from my father’s trouser hem, I saw something more difficult. Their flaws were not decorative faults on otherwise finished people. They were part of the machinery. They were adaptations, old defences, compromises made so long ago they had become character.
+
+I did not become kinder immediately. Realisation rarely improves us on contact. In fact, I think I became briefly worse. There is a particular cruelty available to people in their twenties, especially those who have just learned enough language to diagnose everyone else. I could name family dynamics, emotional avoidance, gendered labour. I could see the patterns clearly and felt, therefore, superior to them. I confused analysis with wisdom.
+
+I wanted my parents to have read the books I had read, to have had the conversations I was having, to become fluent in a language they had never been taught. I wanted my father to say, “I feel frightened when I cannot fix things.” I wanted my mother to say, “I am exhausted by being the person who anticipates consequences.” Instead, he went back outside with a wrench, and she started peeling potatoes with more force than necessary.
+
+That was how they knew how to continue.
+
+Dinner was late. The potatoes were undercooked in the centre. Nobody mentioned the bill again. My father made a joke about the hose, and my mother gave him a look that was not quite amusement and not quite forgiveness. I remember watching them across the table and feeling a grief I could not explain. Nothing terrible had happened, and yet something had been lost.
+
+What I lost was not love. It was exemption.
+
+Children exempt their parents from personhood because they need them to be weatherproof. Even when we rebel against them, we often rebel against monuments. We accuse them of being controlling, embarrassing, old-fashioned, unreasonable, without fully understanding that these are not fixed properties. They are behaviours emerging from fear, fatigue, history, class, disappointment, biology, marriage, money, work, and the thousand small humiliations of adult life.
+
+To see a parent as imperfect is one thing. To see them as contingent is another. They could have been otherwise. They were made, not issued.
+
+After that night, memories rearranged themselves. My father sitting in the car after work before coming inside was no longer simply odd. It was a man taking three minutes of silence because the house would need him the second he opened the door. My mother checking the oven twice before we left for holidays was not just anxiety. It was the burden of being blamed, or blaming herself, if something went wrong. Their caution, their rules, their occasional emotional illiteracy: all of it had roots.
+
+This did not absolve them of everything. That distinction mattered then, and matters more now. Understanding is not the same as excusing. Some wounds remain wounds even after you learn who held the knife and why their hand was shaking. But the moral geometry of my family changed. There were fewer clean lines. Less prosecution. More evidence.
+
+In the years that followed, I noticed other things. My father sometimes did not know the answer. My mother sometimes made herself indispensable and then resented being needed. They both misremembered events in ways that protected them. They both gave advice shaped more by fear than by truth. They both loved me imperfectly, which is to say they loved me with the instruments they had.
+
+That night in my twenties did not make me stop needing them. It made needing them more complicated. I could no longer collapse into the old fantasy that somewhere, behind the visible surface of ordinary life, my parents were still in charge. The adults were not elsewhere. There was no hidden committee. No one was coming with the complete manual.
+
+There was only us, improvising.
+
+For a while, that frightened me. Later, it became a form of mercy. If my parents were not perfect, then perhaps I did not have to become perfect before I could be decent. Perhaps adulthood was not a threshold crossed by competent people, but a room everyone enters unfinished. You learn where the torch is. You forget the thing you promised to remember. You pay the bill late. You say the wrong thing. You mend what can be mended and carry what cannot.
+
+I think often of my father in the driveway, holding the broken hose as water ran across the concrete. I think of my mother at the table, pressing the bill flat with both hands. At twenty-four, I thought I was witnessing their failure. Now I think I was witnessing something closer to the truth: two people, tired and limited, trying to keep the house running anyway.
+
+That was the moment they became smaller.
+
+It was also the moment they became real.
+
+```
+
+2026-04-28T16:34:21.204906Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:34:21.205799Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:34:21.756338Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:34:21.756599Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:34:22.982220Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:34:22.982423Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits text for AI-style writing patterns, rewrites existing drafts to remove
+  them, or writes new content that avoids them. Uses 38 patterns and 43
+  programmatic checks across vocabulary, structure, tone, voice, and formatting.
+  Default action is Audit (analyse and explain findings); Rewrite and Write
+  fire only when the user explicitly asks for them. Useful when a draft feels
+  flat, robotic, over-polished, structurally repetitive, or voice-neutralised,
+  or when drafting prose that needs to read as human.
+---
+
+# Humanise: Audit, rewrite, or write without AI patterns
+
+Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
+
+## Your task
+
+When given input, identify which of three actions to take:
+
+1. **Audit** (default) — analyse text for AI-style writing patterns and explain the findings. No mode pre-classification; the audit is mode-agnostic.
+2. **Rewrite** — given existing text, produce a cleaner version. Always runs an audit first, then asks for a rewrite intensity (Light / Medium / Hard).
+3. **Write** — given a brief or topic, draft new content under AI-avoidance constraints at a chosen intensity.
+
+Modifiers (orthogonal to action; combine freely):
+
+- **Recommendation** — after an audit, optionally suggest a rewrite intensity tied to genre and findings.
+- **Save** — write the chosen action's output to a Markdown file.
+
+Default to Audit when the action is ambiguous. Do not rewrite or compose new content unless the user explicitly asks.
+
+---
+
+## Modes
+
+Three intensities for Rewrite and Write. Audit is mode-agnostic — the 43 checks pass or fail based on the text, not on a chosen mode. Default to Medium when the user does not specify.
+
+- **Light** — for fiction, memoir, voiced essays, humour, dialogue, interviews, literary prose. Removes the most obvious AI tells (assistant residue, sycophancy, manufactured insight) but preserves your voice. Devices like staccato, triads, em dashes can stay if they serve the writing; disclose what you preserve and why.
+- **Medium** — the default. For blog posts, workplace writing, newsletters, product copy, generic prose. Removes obvious patterns and all strong tells. Preserves voice where the device is doing real work; trims it where it is autopilot.
+- **Hard** — for prose that needs to read as unambiguously human. Strips every flagged pattern unless removing it would change what you mean. No em dashes, no manufactured-insight framing, no decorative triads. Voice can take a hit; risk reduction is the goal.
+
+When the user has not chosen a mode and the genre makes the answer ambiguous, ask:
+
+> How hard should I go: Light, Medium, or Hard?
+
+If you cannot ask, infer from the genre — Light for voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), Medium otherwise. Record the chosen mode and the reason in the output.
+
+A failed grader check is a failed check in every mode. Mode decides what to *do* about it (fix, disclose, preserve), not whether the pattern was detected. The Severity classes section below lists which actions apply by severity in each mode.
+
+---
+
+## Actions
+
+### 1. Audit (default)
+
+Use this when the user asks things like:
+
+- "Does this sound AI?"
+- "Check this for AI writing."
+- "Audit this draft."
+- "Run humanise on this."
+- "What's flagged here?"
+
+Or any input where the user provides text without an explicit Rewrite or Write instruction.
+
+Do:
+
+1. Run the grader with no mode constraint.
+2. Render the audit report with all 43 checks classified by severity.
+3. Explain the flagged patterns in plain English.
+4. Stop.
+
+End with a short next-step question:
+
+> Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+
+The audit table uses a `Severity` column and a severity-tiered `Recommended action` column. It does not pre-pick a single mode for the user — that decision belongs to the user, after they've seen the indicators.
+
+### 2. Rewrite
+
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+
+Do:
+
+1. Run the audit (Action 1's behaviour) regardless of any prior context. The rewrite must be informed by the indicators.
+2. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+3. Rewrite under the chosen intensity. Address structural patterns first, then surface patterns.
+4. Run the structural self-check (Process Step 7).
+5. Run the semantic preservation check (Process Step 6).
+6. Run the post-check at the chosen intensity (Process Step 8).
+7. Report before/after, with remaining issues.
+
+### 3. Write
+
+Use this when the user asks for new content rather than analysis or rewriting:
+
+- "Write a 500-word essay on X."
+- "Draft an opening paragraph about Y."
+- "Compose a blog post on Z without sounding AI."
+- "Help me write something on W that doesn't read like AI."
+
+Do:
+
+1. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+2. Draft the content under the chosen intensity's constraints — same severity rules as a Rewrite. Avoid hard failures, avoid strong warnings, treat context warnings per the mode.
+3. Apply the [Personality and soul](#personality-and-soul) guidance directly. Write must produce content that reads as human, not just content that lacks AI tells.
+4. Run the structural self-check on the draft.
+5. Run the post-check at the chosen intensity.
+6. Report status and remaining issues.
+
+There is no initial audit — there is no input text to audit.
+
+### Modifiers
+
+- **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+
+---
+
+## Severity and the purpose test
+
+The grader is a diagnostic tool, not an authorship verdict. A failed check stays a failed check in every mode. Mode decides what to do about it.
+
+Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
+
+- **Fixed**
+- **Recommended preserve**
+- **Needs user decision**
+
+Do not silently classify your own writing as the exception. If you preserve a flagged device, name it, quote or identify the relevant passage briefly, and explain the concrete function it serves.
+
+### Severity classes
+
+- **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
+- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
+- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings including plain title headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
+- **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
+
+Em dashes get their own deep-dive in [Hard constraints](#hard-constraints) below — they are a strong-warning-class pattern with mode-specific rules, kept separate because they are the highest-volume single AI tell of 2026.
+
+### Purpose test
+
+For any context warning, ask:
+
+> Is this device doing real work here, or is it autopilot?
+
+You may recommend preserving it if it reveals character, controls timing, creates humour, mirrors thought, supports a period voice, or clarifies structure. Remove it if it is generic emphasis, tidy profundity, decorative balance, or a default article template. If you are unsure, mark it **Needs user decision** rather than deciding for the user.
+
+Examples:
+
+- Poe-style staccato can be voice. "That matters. A lot." in a productivity article is usually autopilot.
+- A Sedaris-style comic escalation can stay. A corporate triad like "clarity, collaboration, and innovation" should go.
+- Curly quotes in a sourced literary sample are not an AI tell. Curly quotes in this skill's final plain-text output may still be normalised if the user asked for hard cleanup.
+
+---
+
+## Hard constraints (deep-dive)
+
+The four most distinctive AI tells — em dashes, manufactured insight, adversarial reframes, generic staccato fragments — have expanded rules and word lists at [references/severity-detail.md](references/severity-detail.md). When these patterns appear, that file is the canonical source of truth. Read it during Rewrite (Step 5) and Write (Step 5) before settling on the final draft.
+
+---
+
+## Personality and soul
+
+Removing AI patterns is only half the job. AI also **subtracts** — Abdulhai et al. (2026) found extensive LLM use produces a ~70% increase in neutral-stance essays, 50% fewer pronouns, and fewer anecdotes. Sterile, voiceless, perfectly balanced writing is as obvious as slop.
+
+Voice-craft guidance for Rewrite and Write — what to watch for, what to add or preserve, signs of soulless writing, before/after examples — is in [references/voice.md](references/voice.md). Read it during Step 5 (Rewrite or Write under mode), and especially before drafting in the Write action.
+
+---
+
+## Pattern catalogue
+
+Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
+
+- **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
+- **Language and grammar (7-12):** AI vocabulary words and phrases, Kobak biomedical excess-vocabulary clusters, copula avoidance, contrived contrast / negative parallelisms, rule of three, synonym cycling, false ranges
+- **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
+- **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
+- **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
+- **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
+- **Structural tells (29-32, 38):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, section scaffolding
+- **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
+
+Search for specific patterns when needed:
+```bash
+grep -i "promotional" references/patterns.md
+```
+
+---
+
+## Process
+
+### Step 1: Pick the action
+
+Decide which of the three actions applies:
+
+- If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
+- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
+- If the input has text but no clear instruction: use **Audit** and ask what's next.
+- If the input has no text and the request is unclear: ask what they want.
+
+Record the chosen action in the output.
+
+If the action is unclear and you can ask:
+
+> Do you want me to audit this, rewrite it, or write something new?
+
+If you cannot ask, default to Audit. The audit is read-only and lets the user decide the next action with full information. An unwanted audit costs a round-trip; an unwanted rewrite or write loses trust.
+
+### Step 2: Audit (Audit and Rewrite actions only — Write skips)
+
+Save the input text to a unique temp file using `mktemp` for portability:
+
+```bash
+INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+# write the input text to "$INPUT_PATH"
+python3 grade.py --format markdown "$INPUT_PATH"
+```
+
+
+2026-04-28T16:34:27.051417Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:34:27.051705Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+
+The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
+
+The script returns a plain-English Markdown report built from `human_report`: `overview`, `score`, `confidence`, `ai_pressure_explanation`, `failed_checks`, and `all_checks`. If you need debugging details, run the script with `--format json` to get JSON diagnostics. The older fields (`triggered_checks`, `failure_mode_results`, `mode_results`, and raw expectations) are for debugging only.
+
+Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
+
+The audit report must include:
+
+- **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
+- **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
+- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Explain accumulation in user-facing terms: several weak signals can stack into machine-packaged rhythm or structure.
+- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, what it looks for, what happened here, why it matters, severity, and severity-tiered recommended action.
+- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `What it looks for`, `What happened here`, `Why this matters`, `Severity`, and `Recommended action`. For clear checks, use "Clear", the plain reason, "—", and "None". For flagged checks, show what happened, why it matters, the severity class, and the severity-tiered recommended action.
+
+The severity-tiered recommended actions are:
+
+- Hard failure → "Fix in any mode."
+- Strong warning → "Fix in Light, Medium, and Hard. Disclose only if explicitly preserved."
+- Context warning → "Preserve in Light if purposeful (disclose). Fix in Medium and Hard."
+- Em dash → "Preserve in Light only with disclosure. Fix in Medium and Hard."
+
+The full 43-row table is required. It is how the user can see that the system checked all signals, not only the ones that failed. Do not replace it with a bullet list or a summary.
+
+**Depth signal:** If the audit shows multiple structural failures (triad density, section scaffolding, countdown negation, paragraph uniformity, soft scaffolding, orphaned demonstratives, tidy paragraph endings), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
+
+If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. **Disclose the limitation in the output:** the manual scan covers surface patterns only and cannot replicate the script's statistical density or pressure-accumulation checks. Prefer the script when possible.
+
+For Audit actions, stop after the audit and ask what the user wants next. Do not include a rewrite.
+
+### Step 3: Decide next step (Rewrite paths only)
+
+After the audit, if the action is Rewrite (or the user is undecided after seeing the audit), recommend a rewrite intensity tied to the findings and genre.
+
+Use this format:
+
+```text
+Recommended next step: [Light / Medium / Hard rewrite, or save the audit, or stop]
+Why: [one sentence tied to the findings and genre]
+Question: Do you want me to proceed with that, choose a different mode, or save the audit as Markdown?
+```
+
+Skip this question when the user has already clearly asked for a specific intensity, or for an Audit-only request.
+
+### Step 4: Pick mode (Rewrite and Write only)
+
+If the user has not chosen a mode, follow the Modes block at the top of this doc — ask if you can; default to Medium otherwise (Light for voice-sensitive genres). For voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), ask before applying Hard mode. Record the chosen mode in the output.
+
+### Step 5: Rewrite or write under mode
+
+Address structural patterns first, then surface patterns. The grader catches surface patterns well but cannot enforce structural integrity. You must do that work here.
+
+For Rewrite, apply the structural and surface patterns to the existing draft.
+For Write, apply the same patterns prospectively while drafting from the brief. The [Personality and soul](#personality-and-soul) section is especially load-bearing for Write — the goal is content that reads as human, not just content that lacks AI tells.
+
+**Structural patterns (address first):**
+
+1. **Structural monotony:** Do all sections follow the same arc (problem, evidence, anecdote, advice)? Vary paragraph structures. Some paragraphs should be one sentence. Some should start with evidence, not claims. Break at least one section out of the template.
+2. **Tonal uniformity (35):** Does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break: a moment of informality, a parenthetical doubt, or a shift in rhythm.
+3. **Resolution density (34):** Do most paragraphs end with a tidy summary sentence? Leave some threads open. Cut paragraph-final sentences that merely restate the paragraph's point.
+4. **Faux specificity (36):** Are the "specific" examples actually specific to anyone, or genre-convention filler? "The smell of coffee on a Sunday morning" is a stock photo in prose form.
+5. **Neutrality collapse (37):** Does the text take a position? If the input had a stance, make sure the output keeps it. "There are pros and cons" is not a rewrite of an opinion.
+6. **Even jargon distribution:** Humans clump technical terms when introducing a concept then relax into plain language. AI distributes jargon uniformly. If technical vocabulary is spread too evenly, clump it.
+7. **Soft scaffold phrasing:** Remove paragraph labels such as "One useful area", "Another useful area", "The main strength", "The main risk", and "Good use usually comes down to". State the point directly.
+8. **Bland critical templates:** In reviews and criticism, replace phrases like "emotional range", "field of sympathy", "moral strength", and "earns its weight" with concrete claims from the work.
+9. **False concessions:** Replace "critics say/supporters say/the truth lies in the middle" with the actual stance and evidence. Do not let balance stand in for thought.
+10. **Orphaned demonstratives:** Replace vague starts like "This highlights..." or "That underscores..." with concrete subjects.
+11. **Forced synesthesia (28)** and **generic metaphors (30):** replace with concrete details.
+12. **Section scaffolding (38):** If all sections use the same structural label or follow the same template, vary them.
+13. **Hard-mode headings:** If `no-markdown-headings` fails, remove both markdown headings and plain title headings. Do not reintroduce a title line in the rewrite unless the user explicitly asked to preserve article packaging.
+
+**Genre-specific tentative checks:**
+
+- **Academic/research:** Verify citations, DOIs, journals, dates, and reference-list formatting. Do not trust plausible-looking references. Flag citation oddities for user review rather than inventing replacements.
+- **Student essays:** Watch for rubric echoing: "the author creates a tone", "I can tell because", "this quote shows that", "according to the rubric". Preserve only if the text is explicitly discussing a rubric.
+- **Poetry:** Watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.
+- **Fiction:** Watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, fixed POV with no pressure, over-resolved endings, scene pacing that never surprises, characters stating subtext, and exposition that arrives before the scene has earned it.
+
+**Surface patterns (address second):**
+
+14. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the audit
+15. Fix every hard failure and strong warning from the audit report in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure. Review context warnings with the purpose test.
+16. Add personality and voice per [references/voice.md](references/voice.md)
+17. Preserve meaning and match the intended tone
+
+### Step 6: Semantic preservation check (Rewrite only)
+
+Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (2026) showed that LLMs shift meaning even in grammar-only passes, and this skill is itself an LLM rewriting text. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position. Check:
+
+- Did the input have an opinion? Does the output still have it?
+- Are there fewer pronouns in the output than the input? If so, why?
+- Did specific claims get softened into "on the other hand" balance?
+
+### Step 7: Structural self-check (Rewrite and Write)
+
+Answer each question below with a specific count or finding. Do not skip any. Show your answers in the output (see Output format).
+
+1. **Section arcs:** Do all sections follow the same arc? Count how many do. If more than half follow the same template, restructure at least one.
+2. **Resolution density:** Count paragraphs that end with a summary sentence. If more than half do, rewrite some to leave threads open.
+3. **Register breaks:** Is there at least one register break (moment of doubt, informality, or tonal shift)? If not, add one.
+4. **Triad count:** Count the triads. If there are more than 4, redistribute some as pairs or longer lists.
+5. **Reframe laundering:** Did any banned contrast survive in flipped form ("Y, not X"), softened form ("beyond X"), comparative form ("less X than Y"), or correction form ("you might think X, actually Y")? If yes, rewrite as a direct claim.
+6. **Purposeful devices:** Which flagged context warnings did you preserve, and why? Name the device and its function.
+7. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
+8. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
+
+After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures. In Hard mode, all checks should pass. In Medium and Light mode, hard failures and strong warnings should be gone; em dashes are never acceptable in Medium and should be fixed in Light unless the user explicitly accepts the risk after disclosure. In Light mode, remaining context warnings are acceptable when they preserve voice and are disclosed.
+
+### Step 8: Post-check (Rewrite and Write — script verifies the output)
+
+Run the grading script on your output (use a unique temp path that will not collide with concurrent runs):
+
+```bash
+python3 grade.py --format markdown --mode hard <output-path>
+```
+
+Use the selected mode in the command.
+
+Interpret the post-check by mode:
+
+- **Hard:** fix failures and re-run, up to a maximum of **2 re-runs** (3 total grader runs including the post-check itself). If failures remain after the second re-run, stop and report them as residual issues — do not loop indefinitely. A fix should not be applied if it would materially change meaning; document why a flagged item was preserved.
+- **Medium:** hard failures and strong warnings must be gone; context warnings may remain if purposeful and disclosed.
+- **Light:** hard failures and strong warnings must be gone; context warnings may remain if they preserve voice and are disclosed.
+
+Always report check status and mode action separately. A check failure remains a failure even when Light or Medium allows disclosure instead of rewriting. Example:
+
+```text
+Score summary: fail, 7/43 checks failed, pass rate 36/43. AI-signal pressure: 5/4, triggered.
+Light action: fix 1 strong warning; disclose or ask on 6 context warnings
+Medium action: fix 1 strong warning; disclose or ask on 6 context warnings
+Hard action: fix all 7 failed checks
+```
+
+The post-check report must use the post-check `human_report` the same way: overview, confidence, AI-pressure explanation, remaining failed checks, and the full 43-check Markdown table. Do not report only "pass" or "fail"; show the numbers.
+
+If the script is not available, manually verify hard failures and scan for generic AI structures. Use the purpose test before flattening voice.
+
+## Output format
+
+One template per action. The Save modifier wraps the chosen action's output in a Markdown file (see "Save-report output" at the bottom).
+
+### Audit output
+
+Use this when the action is Audit (the default).
+
+1. Action: Audit
+2. Audit report:
+   - Summary: [X of 43 checks flagged / all checks clear]
+   - Confidence: [Low / Low to medium / Medium / High, with basis]
+   - AI-pressure explanation: [plain-English accumulation explanation]
+   - Main issues found: [plain-English flagged checks with what they look for, what happened, why it matters, severity, and severity-tiered recommended action]
+   - Full check table: Markdown table with all 43 checks. Columns: `Check | Status | What it looks for | What happened here | Why this matters | Severity | Recommended action`. The `Recommended action` column is severity-tiered (no per-mode column at the audit phase).
+3. Recommended next step (optional, when the Recommendation modifier applies): a one-sentence Light/Medium/Hard suggestion tied to genre and findings.
+4. Question: [ask whether the user wants a rewrite, a saved report, or stop]
+
+Do not include a rewrite in Audit output.
+
+### Rewrite output
+
+Use this when the action is Rewrite.
+
+1. Action: Rewrite
+2. Mode selected: Light / Medium / Hard, with one sentence explaining why
+3. Initial audit report (from Step 2):
+   - Summary, Confidence, AI-pressure explanation, Main issues found, Full check table — same shape as the Audit output above. The Severity / Recommended action column stays severity-tiered; mode-specific actions appear in the post-check, not the initial audit.
+4. Rewrite
+5. Structural self-check (mandatory, with counts):
+   - Section arcs: N/M following same template - [what you changed]
+   - Resolution density: N/M paragraphs end with summary - [what you changed]
+   - Register breaks: [where you added one, or "already present at..."]
+   - Triads: N found - reduced to M by [method]
+   - Reframe laundering: [none / fixed at...]
+   - Purposeful devices recommended for preservation: [device - reason, or "none"]
+   - Stance: [preserved / shifted - restored by...]
+   - Remaining tells: [list, or "none identified"]
+6. Final report:
+   - Summary: [before -> after numbers]
+   - Confidence after rewrite: [post-check confidence]
+   - Remaining issues: [none / list failed checks with why and selected-mode action]
+   - Full post-check table: Markdown table with all 43 checks. Columns: `Check | Status | What it looks for | What happened here | Why this matters | <Selected mode> action`. The mode-specific action column appears here because the user has chosen a mode.
+   - Brief summary of changes made
+
+Do not show a discarded draft rewrite by default. If you revise after self-check, show only the final rewrite plus the audit notes. Show intermediate drafts only if the user asks.
+
+### Write output
+
+Use this when the action is Write.
+
+1. Action: Write
+2. Mode selected: Light / Medium / Hard, with one sentence explaining why
+3. Brief summary: one sentence restating what the user asked for. (No initial audit — there's no input text.)
+4. Draft
+5. Structural self-check (same eight items as Rewrite, applied to the draft):
+   - Section arcs, Resolution density, Register breaks, Triads, Reframe laundering, Purposeful devices, Stance, Remaining tells — same format as Rewrite output's self-check.
+6. Final report:
+   - Post-check summary: [X of 43 checks failed / all checks clear, at chosen mode]
+   - Confidence: [post-check confidence]
+   - Remaining issues: [none / list failed checks with why and selected-mode action]
+   - Full post-check table: same shape as Rewrite output's post-check table.
+
+### Save-report output
+
+Use this when the user asked for a saved file. Save is a modifier — it can wrap any of the three actions' outputs.
+
+In the chat output:
+
+1. Action: [Audit / Rewrite / Write] (saved)
+2. One-line summary of the action's verdict.
+3. The saved file path: `Saved to: <path>`.
+4. A short next-step question if appropriate.
+
+In the saved Markdown file, render the action's normal output template in full, preceded by a short header:
+
+```
+# Humanise <action> report
+- Input: <input path, or "pasted text", or "brief">
+- Mode: <Light / Medium / Hard, or "n/a" for Audit>
+- Date: <ISO 8601>
+```
+
+Do not duplicate the full report inline in chat when a saved file exists. Reference the path instead.
+
+---
+
+## Worked example
+
+A full Hard-mode Rewrite walked through end-to-end (AI-sounding draft → audit → first rewrite → structural self-check → revised rewrite → changes made) is at [references/example.md](references/example.md). Read it as a reference for what a real Rewrite output should look like.
+
+---
+
+## Sources
+
+- [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), WikiProject AI Cleanup (foundation, patterns 1-25)
+- [Linda Caroll, "Good Writing, AI Slop, and the Dragon"](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon) (experiential vacancy framing)
+- [Sam Kriss, "Why Does A.I. Write Like ... That?"](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), NYT Magazine (patterns 26-28: ghost language, quietness, synesthesia)
+- [Charlie Guo, "The Field Guide to AI Slop"](https://www.ignorance.ai/p/the-field-guide-to-ai-slop) (patterns 29-32: rhetorical questions, metaphors, list-making, dramatic transitions; density framing)
+- [Grammarly, "Common Words and Phrases in AI-Generated Content"](https://www.grammarly.com/blog/ai/common-ai-words/) (expanded vocabulary list)
+- [GPTZero, "AI Vocabulary"](https://gptzero.me/ai-vocabulary), April 2026 (100 high-ratio AI phrases from public table, used as tentative clustering signals)
+- [Matthew Vollmer, "I Asked the Machine to Tell on Itself"](https://matthewvollmer.substack.com/p/i-asked-the-machine-to-tell-on-itself) (cross-source taxonomy and reference trail)
+- [Shreya Shankar, "AI Writing"](https://sh-reya.com/blog/ai-writing/) (orphaned demonstratives and weak AI prose mechanics)
+- [Abdulhai et al., "How LLMs Distort Our Written Language"](https://arxiv.org/abs/2603.18161), 2026 (subtraction framing: neutrality collapse, pronoun depletion, semantic drift; patterns 35-37)
+- [Nature, "Signs of AI-generated text found in 14% of biomedical abstracts"](https://www.nature.com/articles/d41586-025-02097-6), 2025 (vocabulary items, temporal fingerprinting)
+
+2026-04-28T16:34:30.179388Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:34:30.179747Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "sed -n '1,220p' references/voice.md" in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+exec
+/bin/zsh -lc "sed -n '1,220p' references/severity-detail.md" in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+ succeeded in 0ms:
+# Personality and soul
+
+Voice-craft guidance for the Rewrite and Write actions. The grader catches AI patterns to remove; this guide is about what to add or preserve so the result reads as written by a human, not just as text without AI tells.
+
+## The real problem: subtraction
+
+Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+
+Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
+
+## Experiential vacancy
+
+AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related move is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
+
+Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+
+## Density without purpose
+
+A good writer uses em dashes, triads, and parallelism sparingly, with intention. AI litters them throughout indiscriminately. The issue is not that any single device appears, but that they cluster and serve no rhetorical purpose. When scanning for patterns, watch for pileups.
+
+## Signs of soulless writing (even if technically clean)
+
+- Every sentence follows the same length and structure
+- No opinions, just neutral reporting: stance has been stripped or was never there
+- No acknowledgment of uncertainty or mixed feelings
+- No appropriate point-of-view presence; pronouns depleted
+- No humour, no edge, no personality
+- Observations are universally relatable but never personally specific (faux specificity)
+- Emotionally safe: never takes an uncomfortable position
+- Tonal uniformity: one register throughout, no drift or register breaks (pattern 35)
+- Every paragraph wraps up neatly with a miniature conclusion (pattern 34)
+
+## How to add voice
+
+**Have opinions.** "I keep going back and forth on this" is more human than neutrally listing pros and cons.
+
+**Vary rhythm within reason.** Mix sentence lengths for natural cadence, but not one-word dramatic punctuation. It should feel like a person thinking at different speeds.
+
+**Acknowledge complexity.** "This is impressive, but it also makes me a little uneasy" carries more weight than unqualified praise or a clean pro/con list.
+
+**Match the natural point-of-view.** If the piece reads as personal reflection, use "I". If it reads as impersonal observation, use "one" or third person. Do not default to first person. Match whatever POV the text is already using or would naturally use for its genre and tone.
+
+**Be specific rather than atmospheric.** Instead of mood words ("eerie", "striking", "fascinating"), describe the concrete detail that caused the feeling.
+
+**Break register.** If the whole text sits in one tone, introduce at least one register shift: a moment of informality, a parenthetical doubt, a change in sentence rhythm.
+
+## Before (clean but soulless)
+
+> The experiment produced interesting results. The agents generated 3 million lines of code. Some developers were impressed while others were sceptical. The implications remain unclear.
+
+## After (has a pulse)
+
+> Three million lines of code, generated overnight while the developers slept. I have been turning this over for a few days now, and I still do not have a clean take on it. Half the dev community thinks this changes everything; the other half is explaining, at length, why it does not count. My own reaction keeps shifting depending on which examples I look at.
+
+ succeeded in 0ms:
+# Severity detail: deep-dive on the four most distinctive AI tells
+
+Expanded detail on four patterns from the Severity classes table in SKILL.md (em dashes, manufactured insight, adversarial reframes, generic staccato fragments). They get their own subsections because they are the most common and most distinctive AI tells in 2026 — the rules below are the canonical source of truth when these patterns appear.
+
+Non-negotiable in Hard mode. In Medium and Light mode, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
+
+## No em dashes except disclosed Light mode preservation
+
+In Medium and Hard mode, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
+
+Replace with commas, colons, semicolons, periods, or parentheses. Restructure the sentence if none of those fit. There is always an alternative.
+
+In Light mode only, em dashes may be preserved if they are part of an author's established style, quoted source text, dialogue rhythm, or period/literary voice. Disclose the preservation explicitly so the user can decide. If the user asked for publication-ready plain prose, normalise them.
+
+## No manufactured insight
+
+Eliminate all framing that performs the act of having a deeper take. AI cannot have insider knowledge, so it compensates with linguistic markers that signal depth without providing any. Either state the observation plainly or remove the sentence if stripping the framing reveals no substance.
+
+- **False revelation:** "But the real answer is...", "What's actually happening here is...", "Here's what's really going on..."
+- **Contrived contrarianism:** "What nobody is talking about...", "What no one is talking about...", "Contrary to popular belief...", "The uncomfortable truth is..."
+- **Unnoticed-shift framing:** "When no one noticed...", "The shift nobody noticed...", "Before anyone noticed...", "Without anyone noticing..." when used to manufacture secret significance.
+- **Pseudo-profundity:** "quietly revolutionary", "quietly became", "the quiet part", "subtly", "understated", "unassuming" when used to inflate significance
+- **Performed knowingness:** "If you know, you know", "And that changes everything", "Let that sink in", "Read that again", "And honestly?", "Here's the thing:"
+- **Formulaic depth framing:** "The reason is straightforward:", "The reason is simple:", "Here's why:", "What's strange is", "What's interesting is", "What's remarkable is". These perform the act of having an explanation before delivering one.
+- **Dramatic narrative transitions:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me." These claim a turning point without earning it.
+- **Contrived contrast:** "This isn't X. It's Y." as a standalone dramatic beat (e.g. "This isn't a bug. It's a feature." or "This isn't a character flaw. It's hardware."). The two-sentence snap format is a reliable AI fingerprint regardless of content.
+
+These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test in Light mode; remove in Medium and Hard unless the phrase clearly belongs to the writer's voice.
+
+## No adversarial reframes
+
+Do not satisfy the letter of a rule while keeping the same AI-shaped move. This especially applies to pattern 9, contrived contrast / negative parallelism. If the draft says "It's not X, it's Y", an acceptable rewrite is not "It is Y, not X" or "Beyond X, it becomes Y". Those are the same device with the furniture moved around.
+
+Flag and rewrite all of these as direct claims:
+
+- "It's not X, it's Y."
+- "It's Y, not X."
+- "Less X than Y."
+- "More Y than X."
+- "Not so much X as Y."
+- "Beyond X, it is Y."
+- "You might think X. Actually, Y."
+- "No X. No Y. Just Z."
+
+The test is semantic: if the sentence creates drama by rejecting a plain interpretation and revealing a supposedly deeper abstraction, remove the setup and state the actual claim with concrete support.
+
+## No staccato fragments
+
+Short sentences used in sequence for dramatic effect are often an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats in generic articles are usually generated.
+
+A sentence should be as long as the thought it contains. When you find fragments used for generic emphasis, fold their content into a neighbouring sentence or expand into something that earns its own line. Preserve staccato when it is character voice, comedy, panic, dialogue, or deliberate literary rhythm.
+
+### Before
+
+> The results were clear. Strikingly so. The model outperformed every baseline. Every single one. And nobody saw it coming.
+
+### After
+
+> The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
+
+exec
+/bin/zsh -lc "sed -n '1,220p' references/patterns.md" in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+ succeeded in 0ms:
+# AI writing patterns
+
+38 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
+
+## Contents
+
+- [Content patterns (1-6)](#content-patterns)
+- [Language and grammar (7-12)](#language-and-grammar)
+- [Style (13-18)](#style)
+- [Communication (19-21)](#communication)
+- [Filler and hedging (22-25)](#filler-and-hedging)
+- [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
+- [Structural tells (29-32, 38)](#structural-tells)
+- [Voice and register (33-37)](#voice-and-register)
+
+---
+
+## Evidence hierarchy from the reference audit
+
+Use source strength when deciding severity. The ruleset should surface clusters of suspicious writing behaviours, not claim that one phrase proves AI authorship.
+
+**Strong empirical backbone:**
+
+- Kobak / Science Advances and the `llm-excess-vocab` dataset support lexical spike detection at corpus level, especially in scientific prose. Use vocabulary as density and clustering evidence, not as one-word proof. Source: https://github.com/berenslab/llm-excess-vocab
+- Juzek and Ward's "Why does ChatGPT delve so much?" supports a narrow scientific-abstract vocabulary signal. It is credible for excess-word lists but not for confident document-level claims. Source: https://arxiv.org/abs/2412.11385
+- GPTZero's 2026 paper supports the architecture: hierarchical signals, granular findings, adversarial testing, and transparent mixed evidence. It does not add a prose-style rule by itself. Source: https://arxiv.org/abs/2602.13042
+- Stanford HAI's detector-bias reporting supports warnings over accusations, especially for non-native English writers. Use process evidence and user review rather than detector-style verdicts. Source: https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers
+
+**Useful but tentative style sources:**
+
+- GPTZero's AI Vocabulary page is useful as a phrase list, but its own framing separates vocabulary scanning from AI-probability scoring. Use all 100 public table rows only as clustering signals. Source: https://gptzero.me/ai-vocabulary
+- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
+- OpenAI's April 2025 GPT-4o sycophancy rollback supports hard-failing assistant flattery and fake affirmation such as "great question" and "you're absolutely right." Source: https://openai.com/index/sycophancy-in-gpt-4o/
+
+**Domain and provenance signals:**
+
+- Walsh, Preus, and Gronski support poetry-specific manual checks: constrained uniformity, rhyme/quatrain defaults, first-person plural overuse, and mood-word clusters. Keep this genre-specific. Source: https://arxiv.org/abs/2410.15299
+- Clarkesworld reporting supports fiction as a submission/provenance problem and a manual craft-audit area. Use it for flat dialogue, exposition, pacing, lack of subtext, and over-resolved endings, not as a global regex rule. Source: https://www.npr.org/2023/02/24/1159286436/ai-chatbot-chatgpt-magazine-clarkesworld-artificial-intelligence
+- Futurism's Sports Illustrated reporting supports journalism and review-provenance checks: fake bylines, fake bios, AI headshots, affiliate product-review sludge, undisclosed generated content, and byline laundering. Source: https://futurism.com/sports-illustrated-ai-generated-writers
+
+**2026 operating stance:**
+
+- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They may be preserved only in Light mode with explicit disclosure; Medium and Hard require removal.
+- The best signals are clusters: GPTZero/Kobak vocabulary density, contrived contrast laundering, empty endings, vague demonstrative starts, placeholder residue, sycophantic assistant residue, unrequested headings/lists/Unicode flair, paragraph uniformity, generic email closers, and fake citations or provenance artifacts.
+
+---
+
+## Content patterns
+
+### 1. Significance inflation
+
+**Words to watch:** stands/serves as, is a testament/reminder, a vital/significant/crucial/pivotal/key role/moment, underscores/highlights its importance, reflects broader, symbolizing its ongoing/enduring/lasting, setting the stage for, marking/shaping the, represents/marks a shift, key turning point, evolving landscape, indelible mark, deeply rooted, remarkably, strikingly, staggering/staggeringly
+
+Inflates importance by claiming things "represent" or "contribute to" broader trends without explaining why anyone should care.
+
+**Before:**
+> The Statistical Institute of Catalonia was officially established in 1989, marking a pivotal moment in the evolution of regional statistics in Spain. This initiative was part of a broader movement across Spain to decentralize administrative functions and enhance regional governance.
+
+**After:**
+> The Statistical Institute of Catalonia was established in 1989 to collect and publish regional statistics independently from Spain's national statistics office.
+
+
+### 2. Notability claims
+
+**Words to watch:** independent coverage, local/regional/national media outlets, written by a leading expert, active social media presence
+
+Asserts notability by listing sources without context, as though the mention itself is the story.
+
+**Before:**
+> Her views have been cited in The New York Times, BBC, Financial Times, and The Hindu. She maintains an active social media presence with over 500,000 followers.
+
+**After:**
+> In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.
+
+
+### 3. Superficial -ing analyses
+
+**Words to watch:** highlighting/underscoring/emphasizing..., ensuring..., reflecting/symbolizing..., contributing to..., cultivating/fostering..., encompassing..., showcasing...
+
+Present participle phrases tacked onto sentences to simulate analytical depth without adding information.
+
+**Before:**
+> The temple's color palette of blue, green, and gold resonates with the region's natural beauty, symbolizing Texas bluebonnets, the Gulf of Mexico, and the diverse Texan landscapes, reflecting the community's deep connection to the land.
+
+**After:**
+> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
+
+
+### 4. Promotional language
+
+**Words to watch:** boasts a, vibrant, rich (figurative), profound, enhancing its, showcasing, exemplifies, commitment to, natural beauty, nestled, in the heart of, groundbreaking (figurative), renowned, breathtaking, must-visit, stunning
+
+Reads like tourism marketing rather than description.
+
+**Before:**
+> Nestled within the breathtaking region of Gonder in Ethiopia, Alamata Raya Kobo stands as a vibrant town with a rich cultural heritage and stunning natural beauty.
+
+**After:**
+> Alamata Raya Kobo is a town in the Gonder region of Ethiopia, known for its weekly market and 18th-century church.
+
+
+### 5. Vague attributions
+
+**Words to watch:** Industry reports, Observers have cited, Experts argue, Some critics argue, several sources/publications (when few cited)
+
+Attributes opinions to vague authorities without specific sources, creating illusions of consensus.
+
+**Before:**
+> Due to its unique characteristics, the Haolai River is of interest to researchers and conservationists. Experts believe it plays a crucial role in the regional ecosystem.
+
+**After:**
+> The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.
+
+
+### 6. Formulaic challenges sections
+
+**Words to watch:** Despite its... faces several challenges..., Despite these challenges, Challenges and Legacy, Future Outlook
+
+Formulaic "Challenges" sections that acknowledge a problem then immediately reassure the reader things are fine.
+
+**Before:**
+> Despite its industrial prosperity, Korattur faces challenges typical of urban areas, including traffic congestion and water scarcity. Despite these challenges, with its strategic location and ongoing initiatives, Korattur continues to thrive as an integral part of Chennai's growth.
+
+**After:**
+> Traffic congestion increased after 2015 when three new IT parks opened. The municipal corporation began a stormwater drainage project in 2022 to address recurring floods.
+
+---
+
+## Language and grammar
+
+### 7. AI vocabulary words
+
+**High-frequency words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant, realm, harness, illuminate, facilitate, bolster, streamline, shed light on, revolutionize, innovative, cutting-edge, game-changing, transformative, seamless/seamlessly, genuinely, actually (as filler intensifier), land/lands/landed (as metaphor for "how something is received"), surface/surfaced (as metaphor for "appears in the discourse"), unspoken, hidden (when used to inflate significance of something ordinary), unparalleled, invaluable, bolstered, meticulous
+
+**AI transition phrases** (a whole category AI overuses): "that being said", "at its core", "to put it simply", "a key takeaway is", "from a broader perspective", "in today's fast-paced world", "as technology continues to evolve", "but here's..."
+
+These words and phrases appear far more frequently in post-2023 text than in human writing from earlier periods. They often cluster in the same paragraph, which is a strong tell. No single word is proof, but density is: three or more in one paragraph is a fingerprint.
+
+**Soft scaffold phrases:** "One useful area...", "Another useful area...", "The main strength...", "The main risk...", "Good use usually comes down to..." These phrases are not flashy, which is why they survive rewrites. They mark a generated explainer that is arranging information into bland labelled blocks instead of writing from a real line of thought.
+
+**Tentative high-ratio phrase list:** GPTZero's April 2026 AI Vocabulary page is based on 3.3 million texts and exposes 100 public table rows. Use all 100 as clustering signals only. A single phrase is not proof of AI writing, but several in one paragraph is a strong smell.
+
+Full GPTZero phrase list used by the grader:
+
+1. provide a valuable insight
+2. left an indelible mark
+3. a stark reminder
+4. a nuanced understanding
+5. significant role in shaping
+6. the complex interplay
+7. broad implication
+8. an unwavering commitment
+9. endure a legacy
+10. underscore the importance
+11. play a pivotal role
+12. a pivotal moment
+13. navigate the complex
+14. mark a turning point
+15. continue to inspire
+16. gain a deeper understanding
+17. the transformative power
+18. hold a significant
+19. play a crucial role
+20. particularly a concern
+21. the relentless pursuit
+22. emphasize the need
+23. target an intervention
+24. a multi-faceted approach
+25. a serf reminder
+26. highlight the potential
+27. a significant milestone
+28. implication to understand
+29. potential risk associated
+30. leave a lasting
+31. add a layer
+32. offer a valuable
+33. a profound implication
+34. case highlights the importance
+35. finding a highlight of the importance
+36. pave the way for the future
+37. a significant step forward
+38. face a significant
+39. finding an important implication
+40. emphasize the importance
+41. a significant implication
+42. delve deeper into
+43. reply in tone
+44. raise an important question
+45. make an informed decision in regard to
+46. far-reaching implications
+47. a comprehensive framework
+48. importance to consider
+49. a unique blend
+50. couldn't help but wonder
+51. underscore the need
+52. framework for understanding
+53. highlight the need
+54. a comprehensive understanding
+55. the journey begins
+56. understanding the fundamental
+57. despite the face
+58. a delicate balance
+59. the path ahead
+60. gain an insight
+61. laid the groundwork
+62. understand the behavior
+63. renew a sense
+64. aim to explore
+65. present a unique challenge
+66. provide a comprehensive
+67. particularly with regard to
+68. address the root cause
+69. loom large in
+70. the implication of the finding
+71. approach ensures a
+72. an ongoing dialogue
+73. carry a weight
+74. ability to navigate
+75. present a significant
+76. study shed light on
+
+exec
+/bin/zsh -lc 'python3 grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/01-personal-essay-parents.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:34:41.472946Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:34:41.473157Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 134ms:
+Initial assessment
+Summary: 7 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 7 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were headings in prose. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 2/4, so this check stayed clear.
+
+Main issues found
+- Generic staccato emphasis: Flagged. What it looks for: Checks for repeated short dramatic sentences used as generic emphasis. What happened here: Found sequence of 3 consecutive short sentences. Why this matters: Repeated short emphasis beats can make prose sound generated rather than naturally paced. Hard action: Fix.
+- Mechanical repeated sentence starts: Flagged. What it looks for: Checks for repeated sentence openings that read like template rhythm. What happened here: Found 5 consecutive sentences starting with 'you'. Why this matters: Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. Hard action: Fix.
+- Curly quotes: Flagged. What it looks for: Checks for curly quotation marks when plain output is expected. What happened here: Found 15 curly quote(s). Why this matters: Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. Hard action: Fix.
+- Ghost/spectral atmosphere: Flagged. What it looks for: Checks for clichéd ghost, shadow, whisper, and echo language. What happened here: Found 3 ghost/spectral words: "hidden". Why this matters: Stock spectral language can make atmosphere feel generated or borrowed. Hard action: Fix.
+- Headings in prose: Flagged. What it looks for: Checks for markdown headings and plain title headings when prose should flow. What happened here: Found 1 heading(s): "# The first crack in the porcelain". Why this matters: Headings can make prose feel packaged by an assistant rather than written as a continuous piece. Hard action: Fix.
+- Vocabulary diversity: Flagged. What it looks for: Checks for unusually repetitive vocabulary in longer text. What happened here: Type-token ratio: 0.388 (630 unique / 1622 total, target: >0.40). Why this matters: Low vocabulary variety can make longer prose feel repetitive and mechanically produced. Hard action: Fix.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 4 triad(s), including "then folded it, unfolded it, pressed her fingers to", "picked up the bill, scanned it, made a small sound", "money, work, the thousand small humiliations", plus 1 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Flagged | Checks for repeated short dramatic sentences used as generic emphasis. | Found sequence of 3 consecutive short sentences. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | Fix |
+| Mechanical repeated sentence starts | Flagged | Checks for repeated sentence openings that read like template rhythm. | Found 5 consecutive sentences starting with 'you'. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | Fix |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Flagged | Checks for curly quotation marks when plain output is expected. | Found 15 curly quote(s). | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | Fix |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Flagged | Checks for clichéd ghost, shadow, whisper, and echo language. | Found 3 ghost/spectral words: "hidden". | Stock spectral language can make atmosphere feel generated or borrowed. | Fix |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Flagged | Checks for markdown headings and plain title headings when prose should flow. | Found 1 heading(s): "# The first crack in the porcelain". | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | Fix |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Flagged | Checks for unusually repetitive vocabulary in longer text. | Type-token ratio: 0.388 (630 unique / 1622 total, target: >0.40). | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | Fix |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 4 triad(s), including "then folded it, unfolded it, pressed her fingers to", "picked up the bill, scanned it, made a small sound", "money, work, the thousand small humiliations", plus 1 more. | Too many three-part lists create a recognisable generated cadence. | Fix |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+2026-04-28T16:35:26.707543Z ERROR codex_core::tools::router: error=exec_command failed for `<command included NUL byte>`: CreateProcess { message: "Rejected(\"Failed to create unified exec process: nul byte found in provided data\")" }
+2026-04-28T16:35:26.787146Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:35:26.787547Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:36:05.155723Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:36:05.155987Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "printf '%s' "'$'"'I was twenty-four when I first understood that my parents were not in charge of the world. There was no family secret, no door slammed hard enough to rattle the frame. It happened on a Tuesday evening, with my father in the driveway holding a split garden hose and my mother at the dining table, crying over an electricity bill.\\n\\nThe house looked the way it always had: brick path, agapanthus along the fence, the bowl by the front door filling with keys, coins and receipts. Nothing had announced a change. I think that was why it unsettled me. The room had not moved. My eyes had.\\n\\nI had come home for dinner because I was tired, broke and pretending to be more adult than I was. My twenties had started with the confidence of someone who had an email signature and mistook that for a life plan. I paid rent every fortnight and had opinions about how other people should organise themselves. I could spot their habits, but I did not yet understand what those habits had cost them, or what they had spared me.\\n\\nUntil then I had treated them almost like part of the house. My father knew where the torch lived, how to reverse a trailer, what to do when the hot water went cold. My mother remembered birthdays, medical histories and the names of teachers I had forgotten. Between them, they seemed to hold the operating manual for ordinary life.\\n\\nThat evening, the manual was no use.\\n\\nThe hose split while my father was watering the lemon tree. I heard the hiss first, then his sharp breath. He turned the tap too hard and the handle spun loosely in his hand. For a second he just looked at it, offended by the smallness of the problem and by his inability to make it obey.\\n\\nInside, my mother had opened the bill and gone quiet in a way that changed the room. She flattened the paper with both hands, folded it once, then pressed her fingers to her mouth. When she looked up, she did not look older. She looked caught. Her face had lost the composure I associated with her. She had reached the end of the sums and there was still more to pay.\\n\\nMy first reaction was irritation. I am not proud of that. I wanted them to deal with it, to absorb the bill, mend the hose, get dinner moving. I had come home to be looked after. Instead I found two people inside their own limits.\\n\\n\"Is it that bad?\" I asked.\\n\\nMy mother said, \"It is fine.\"\\n\\nIt was the first time I heard that sentence as a habit rather than an answer. Fine meant she had no solution yet. Fine meant she was trying to keep me outside a worry I was already old enough to see. Fine meant, yes, actually, this is difficult, but I do not know how to say that without making it worse.\\n\\nMy father came in with wet cuffs and a face arranged into calm. He read the bill and made a small sound through his nose. Then he said he would call them tomorrow. My mother said she had already called. He asked what they said. She said they said what they always said.\\n\\nThey did not fight. That was almost worse. I had grown up thinking strain would announce itself loudly. I did not yet understand the quieter forms: the postponed appointment, the envelope left unopened, the adult conversation lowered because children are in the next room.\\n\\nThey spoke around each other, each trying not to make the other more afraid. My father wanted a practical problem, because practical problems gave him a role. My mother wanted someone to admit that the worry was real. Neither could give the other what they needed just then. Not because they lacked love. Because their ways of surviving did not meet in the middle.\\n\\nFor years I had mistaken their strengths for completeness. My father used competence to cover his terror of helplessness. My mother used care to cover the anger of having to notice everything. I used to think their flaws were things they could fix if they tried harder: his stubbornness, her worrying, his silence, the sharpness in her voice when she was tired. At that table, with the bill between them and water dripping from his trouser hem, I saw something less convenient. Those flaws were part of the machinery. Old defences. Compromises made so long ago they had begun to look like personality.\\n\\nI did not become generous all at once. If anything, I became worse for a while. There is a particular cruelty available in your twenties, when you have just enough language to diagnose everyone else. I could talk about family dynamics, emotional avoidance and gendered labour. I saw patterns and mistook seeing them for being wiser than the people living inside them.\\n\\nI wanted my parents to speak the language I was learning. I wanted my father to say he felt frightened when he could not fix things. I wanted my mother to say she was exhausted from being the person who anticipated consequences. Instead, he went back outside with a wrench, and she peeled potatoes harder than she needed to.\\n\\nThat was how they knew how to keep going.\\n\\nDinner was late. The potatoes were hard in the middle. Nobody mentioned the bill again. My father made a joke about the hose, and my mother looked at him with an expression that was not quite amusement and not quite forgiveness. I remember sitting there with a grief I could not explain. Nothing terrible had happened, but something had gone.\\n\\nWhat went was exemption.\\n\\nChildren exempt their parents from personhood because they need them weatherproof. Even our rebellions can depend on that. We accuse them of being controlling, embarrassing, old-fashioned or impossible, as if those are fixed traits rather than behaviours grown out of fear, fatigue, class, disappointment, marriage, money and work.\\n\\nTo see a parent as imperfect is ordinary. To see them as contingent is harder. They could have become other people. They were made.\\n\\nAfter that night, old memories changed shape. My father sitting in the car after work before coming inside no longer seemed merely odd. It looked like a man taking three minutes of silence before the house needed him. My mother checking the oven twice before a holiday was not just anxiety. It was the habit of someone who knew she would blame herself if anything went wrong. Their caution, rules and emotional awkwardness had roots.\\n\\nNone of this cleared their debts with me. That mattered then, and it matters more now. Understanding is not forgiveness by another name. Some wounds stay wounds even after you learn why the person who made them was shaking. But the case I had built against my parents became harder to prosecute. There were fewer clean lines, more evidence.\\n\\nOver the next years I noticed other things. My father sometimes did not know the answer. My mother sometimes made herself indispensable and then resented being needed. They both remembered events in ways that protected them. They gave advice shaped by fear as often as truth. They loved me imperfectly, with the tools they had been handed and the ones they had managed to make.\\n\\nThat night did not make me stop needing them. It made needing them less simple. I could no longer fall back into the fantasy that somewhere behind ordinary life my parents were still in charge. There was no committee of adults elsewhere. No one had the complete manual.\\n\\nFor a while that scared me. Later it became a mercy. If my parents were unfinished, maybe I did not have to become flawless before I could be decent. Maybe adulthood was not a gate competent people passed through, but a room everyone entered carrying whatever they had.\\n\\nI still think of my father in the driveway, holding the broken hose while water ran across the concrete. I think of my mother pressing the bill flat with both hands. At twenty-four I thought I was watching them fail. Now I think I was watching something truer: two tired people trying to keep the house running anyway.\\n\\nThat was when they became smaller.\\n\\nIt was also when they became real.\\n' | python3 grade.py --format markdown --mode medium /dev/stdin" in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:36:47.757308Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:36:47.759793Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 155ms:
+Initial assessment
+Summary: 3 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 3 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. This text did not stack enough weak signals to suggest machine-packaged structure. Score: 0/4, so this check stayed clear.
+
+Main issues found
+- Mechanical repeated sentence starts: Flagged. What it looks for: Checks for repeated sentence openings that read like template rhythm. What happened here: Found 3 consecutive sentences starting with 'fine'. Why this matters: Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. Medium action: Disclose or ask before preserving.
+- Vocabulary diversity: Flagged. What it looks for: Checks for unusually repetitive vocabulary in longer text. What happened here: Type-token ratio: 0.387 (539 unique / 1394 total, target: >0.40). Why this matters: Low vocabulary variety can make longer prose feel repetitive and mechanically produced. Medium action: Disclose or ask before preserving.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 7 triad(s), including "door filling with keys, coins, receipts", "because i was tired, broke, pretending to be more", "my mother remembered birthdays, medical histories, the names of teachers", plus 4 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Medium action: Disclose or ask before preserving.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Medium action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Clear | Checks for repeated short dramatic sentences used as generic emphasis. | No issue found in this text. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | None |
+| Mechanical repeated sentence starts | Flagged | Checks for repeated sentence openings that read like template rhythm. | Found 3 consecutive sentences starting with 'fine'. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | Disclose or ask before preserving |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Clear | Checks for curly quotation marks when plain output is expected. | No issue found in this text. | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | None |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Clear | Checks for markdown headings and plain title headings when prose should flow. | No issue found in this text. | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | None |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Flagged | Checks for unusually repetitive vocabulary in longer text. | Type-token ratio: 0.387 (539 unique / 1394 total, target: >0.40). | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | Disclose or ask before preserving |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 7 triad(s), including "door filling with keys, coins, receipts", "because i was tired, broke, pretending to be more", "my mother remembered birthdays, medical histories, the names of teachers", plus 4 more. | Too many three-part lists create a recognisable generated cadence. | Disclose or ask before preserving |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+exec
+/bin/zsh -lc "printf '%s' "'$'"'I was twenty-four when I first understood that my parents were not in charge of the world. There was no family secret, no door slammed hard enough to rattle the frame. It happened on a Tuesday evening, with my father in the driveway holding a split garden hose and my mother at the dining table, crying over an electricity bill.\\n\\nThe house looked the way it always had: brick path, agapanthus along the fence, the bowl by the front door filling with coins and old receipts. Nothing had announced a change. I think that was why it unsettled me. The room had not moved. My eyes had.\\n\\nI had come home for dinner because I was tired and broke, pretending to be more adult than I was. My twenties had started with the confidence of someone who had an email signature and mistook that for a life plan. I paid rent every fortnight and had opinions about how other people should organise themselves. I could spot their habits, but I did not yet understand what those habits had cost them, or what they had spared me.\\n\\nUntil then I had treated them almost like part of the house. My father knew where the torch lived and how to reverse a trailer. My mother remembered birthdays, allergies and the names of teachers I had forgotten. Between them, they seemed to hold the operating manual for ordinary life.\\n\\nThat evening, the manual was no use.\\n\\nThe hose split while my father was watering the lemon tree. I heard the hiss first, then his sharp breath. He turned the tap too hard and the handle spun loosely in his hand. For a second he just looked at it, offended by the smallness of the problem and by his inability to make it obey.\\n\\nInside, my mother had opened the bill and gone quiet in a way that changed the room. She flattened the paper with both hands, folded it once, then pressed her fingers to her mouth. When she looked up, she did not look older. She looked caught. Her face had lost the composure I associated with her. She had reached the end of the sums and there was still more to pay.\\n\\nMy first reaction was irritation. I am not proud of that. I wanted them to deal with it, to absorb the bill, mend the hose, get dinner moving. I had come home to be looked after. Instead I found two people inside their own limits.\\n\\n\"Is it that bad?\" I asked.\\n\\nMy mother said, \"It is fine.\"\\n\\nFor the first time, I heard that sentence as a habit rather than an answer. It meant she had no solution yet. It meant she was trying to keep me outside a worry I was already old enough to see. It meant, yes, actually, this is difficult, but I do not know how to say that without making it worse.\\n\\nMy father came in with wet cuffs and a face arranged into calm. He read the bill and made a small sound through his nose. Then he said he would call them tomorrow. My mother said she had already called. He asked what they said. She said they said what they always said.\\n\\nThey did not fight. That was almost worse. I had grown up thinking strain would announce itself loudly. I did not yet understand the quieter forms: the postponed appointment, the unopened envelope, the adult conversation lowered because children are in the next room.\\n\\nThey spoke around each other, each trying not to make the other more afraid. My father wanted a practical problem, because practical problems gave him a role. My mother wanted someone to admit that the worry was real. Neither could give the other what they needed just then. Not because they lacked love. Because their ways of surviving did not meet in the middle.\\n\\nFor years I had mistaken their strengths for completeness. My father used competence to cover his terror of helplessness. My mother used care to cover the anger of having to notice everything. I used to think their flaws were things they could fix if they tried harder: his stubbornness, her worrying, his silence, the sharpness in her voice when she was tired. At that table, with the bill between them and water dripping from his trouser hem, I saw something less convenient. Those flaws were part of the machinery. Old defences. Compromises made so long ago they had begun to look like personality.\\n\\nI did not become generous all at once. If anything, I became worse for a while. There is a particular cruelty available in your twenties, when you have just enough language to diagnose everyone else. I could talk about family dynamics, emotional avoidance and gendered labour. I saw patterns and mistook seeing them for being wiser than the people living inside them.\\n\\nI wanted my parents to speak the language I was learning. I wanted my father to say he felt frightened when he could not fix things. I wanted my mother to say she was exhausted from being the person who anticipated consequences. Instead, he went back outside with a wrench, and she peeled potatoes harder than she needed to.\\n\\nThat was how they knew how to keep going.\\n\\nDinner was late. The potatoes were hard in the middle. Nobody mentioned the bill again. My father made a joke about the hose, and my mother looked at him with an expression that was not quite amusement and not quite forgiveness. I remember sitting there with a grief I could not explain. Nothing terrible had happened, but something had gone.\\n\\nWhat went was exemption.\\n\\nChildren exempt their parents from personhood because they need them weatherproof. Even our rebellions can depend on that. We accuse them of being controlling, embarrassing, old-fashioned or impossible, as if those are fixed traits rather than behaviours grown out of fear, fatigue, class, disappointment, marriage, money and work.\\n\\nTo see a parent as imperfect is ordinary. To see them as contingent is harder. They could have become other people. They were made.\\n\\nAfter that night, old memories changed shape. My father sitting in the car after work before coming inside no longer seemed merely odd. It looked like a man taking three minutes of silence before the house needed him. My mother checking the oven twice before a holiday was not just anxiety. It was the habit of someone who knew she would blame herself if anything went wrong. Their caution, rules and emotional awkwardness had roots.\\n\\nNone of this cleared their debts with me. That mattered then, and it matters more now. Understanding is not forgiveness by another name. Some wounds stay wounds even after you learn why the person who made them was shaking. But the case I had built against my parents became harder to prosecute. There were fewer clean lines, more evidence.\\n\\nOver the next years I noticed other things. My father sometimes did not know the answer. My mother sometimes made herself indispensable and then resented being needed. They both remembered events in ways that protected them. They gave advice shaped by fear as often as truth. They loved me imperfectly, with the tools they had been handed and the ones they had managed to make.\\n\\nThat night did not make me stop needing them. It made needing them less simple. I could no longer fall back into the fantasy that somewhere behind ordinary life my parents were still in charge. There was no committee of adults elsewhere. No one had the complete manual.\\n\\nFor a while that scared me. Later it became a mercy. If my parents were unfinished, maybe I did not have to become flawless before I could be decent. Maybe adulthood was not a gate competent people passed through, but a room everyone entered carrying whatever they had.\\n\\nI still think of my father in the driveway, holding the broken hose while water ran across the concrete. I think of my mother pressing the bill flat with both hands. At twenty-four I thought I was watching them fail. Now I think I was watching something truer: two tired people trying to keep the house running anyway.\\n\\nThat was when they became smaller.\\n\\nIt was also when they became real.\\n' | python3 grade.py --format markdown --mode medium /dev/stdin" in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+2026-04-28T16:37:25.392968Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:37:25.393600Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+ succeeded in 118ms:
+Initial assessment
+Summary: 3 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 3 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. This text did not stack enough weak signals to suggest machine-packaged structure. Score: 0/4, so this check stayed clear.
+
+Main issues found
+- Mechanical repeated sentence starts: Flagged. What it looks for: Checks for repeated sentence openings that read like template rhythm. What happened here: Found 3 consecutive sentences starting with 'they'. Why this matters: Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. Medium action: Disclose or ask before preserving.
+- Vocabulary diversity: Flagged. What it looks for: Checks for unusually repetitive vocabulary in longer text. What happened here: Type-token ratio: 0.386 (534 unique / 1383 total, target: >0.40). Why this matters: Low vocabulary variety can make longer prose feel repetitive and mechanically produced. Medium action: Disclose or ask before preserving.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 5 triad(s), including "my mother remembered birthdays, allergies, the names of teachers", "talk about family dynamics, emotional avoidance, gendered labour", "embarrassing, old-fashioned, impossible", plus 2 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Medium action: Disclose or ask before preserving.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Medium action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Clear | Checks for repeated short dramatic sentences used as generic emphasis. | No issue found in this text. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | None |
+| Mechanical repeated sentence starts | Flagged | Checks for repeated sentence openings that read like template rhythm. | Found 3 consecutive sentences starting with 'they'. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | Disclose or ask before preserving |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Clear | Checks for curly quotation marks when plain output is expected. | No issue found in this text. | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | None |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Clear | Checks for markdown headings and plain title headings when prose should flow. | No issue found in this text. | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | None |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Clear | Checks whether negation markers are unusually dense across prose. | No issue found in this text. | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | None |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Flagged | Checks for unusually repetitive vocabulary in longer text. | Type-token ratio: 0.386 (534 unique / 1383 total, target: >0.40). | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | Disclose or ask before preserving |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 5 triad(s), including "my mother remembered birthdays, allergies, the names of teachers", "talk about family dynamics, emotional avoidance, gendered labour", "embarrassing, old-fashioned, impossible", plus 2 more. | Too many three-part lists create a recognisable generated cadence. | Disclose or ask before preserving |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+codex
+Action: Rewrite
+
+Mode selected: Medium. This is a reflective personal essay, so I preserved the memoir voice and some deliberate rhythm, but removed the most packaged AI-style signals.
+
+Initial audit: 7 of 43 checks flagged. Confidence was medium: the draft had several context-sensitive AI-style signs, especially the title heading, repeated dramatic short sentences, curly quotes, ghost-style wording, low vocabulary variety, repeated sentence starts, and triad density. None of this proves authorship, but the accumulation made the piece feel more polished and patterned than lived-in.
+
+Rewrite:
+
+I was twenty-four when I first understood that my parents were not in charge of the world. There was no family secret, no door slammed hard enough to rattle the frame. It happened on a Tuesday evening, with my father in the driveway holding a split garden hose and my mother at the dining table, crying over an electricity bill.
+
+The house looked the way it always had: brick path, agapanthus along the fence, the bowl by the front door filling with coins and old receipts. Nothing had announced a change. I think that was why it unsettled me. The room had not moved. My eyes had.
+
+I had come home for dinner because I was tired and broke, pretending to be more adult than I was. My twenties had started with the confidence of someone who had an email signature and mistook that for a life plan. I paid rent every fortnight and had opinions about how other people should organise themselves. I could spot their habits, but I did not yet understand what those habits had cost them, or what they had spared me.
+
+Until then I had treated them almost like part of the house. My father knew where the torch lived and how to reverse a trailer. My mother remembered birthdays, allergies and the names of teachers I had forgotten. Between them, they seemed to hold the operating manual for ordinary life.
+
+That evening, the manual was no use.
+
+The hose split while my father was watering the lemon tree. I heard the hiss first, then his sharp breath. He turned the tap too hard and the handle spun loosely in his hand. For a second he just looked at it, offended by the smallness of the problem and by his inability to make it obey.
+
+Inside, my mother had opened the bill and gone quiet in a way that changed the room. She flattened the paper with both hands, folded it once, then pressed her fingers to her mouth. When she looked up, she did not look older. She looked caught. Her face had lost the composure I associated with her. She had reached the end of the sums and there was still more to pay.
+
+My first reaction was irritation. I am not proud of that. I wanted them to deal with it, to absorb the bill, mend the hose, get dinner moving. I had come home to be looked after. Instead I found two people inside their own limits.
+
+"Is it that bad?" I asked.
+
+My mother said, "It is fine."
+
+For the first time, I heard that sentence as a habit rather than an answer. It meant she had no solution yet. It meant she was trying to keep me outside a worry I was already old enough to see. Underneath it was something plainer: yes, actually, this is difficult, and I do not know how to say that without making it worse.
+
+My father came in with wet cuffs and a face arranged into calm. He read the bill and made a small sound through his nose. Then he said he would call them tomorrow. My mother said she had already called. He asked what they said. She said they said what they always said.
+
+They did not fight. That was almost worse. I had grown up thinking strain would announce itself loudly. I did not yet understand the quieter forms: the postponed appointment, the unopened envelope, the adult conversation lowered because children are in the next room.
+
+They spoke around each other, each trying not to make the other more afraid. My father wanted a practical problem, because practical problems gave him a role. My mother wanted someone to admit that the worry was real. Neither could give the other what they needed just then. Not because they lacked love. Because their ways of surviving did not meet in the middle.
+
+For years I had mistaken their strengths for completeness. My father used competence to cover his terror of helplessness. My mother used care to cover the anger of having to notice everything. I used to think their flaws were things they could fix if they tried harder: his stubbornness, her worrying, his silence, the sharpness in her voice when she was tired. At that table, with the bill between them and water dripping from his trouser hem, I saw something less convenient. Those flaws were part of the machinery. Old defences. Compromises made so long ago they had begun to look like personality.
+
+I did not become generous all at once. If anything, I became worse for a while. There is a particular cruelty available in your twenties, when you have just enough language to diagnose everyone else. I could talk about family dynamics, emotional avoidance and gendered labour. I saw patterns and mistook seeing them for being wiser than the people living inside them.
+
+I wanted my parents to speak the language I was learning. I wanted my father to say he felt frightened when he could not fix things. I wanted my mother to say she was exhausted from being the person who anticipated consequences. Instead, he went back outside with a wrench, and she peeled potatoes harder than she needed to.
+
+That was how they knew how to keep going.
+
+Dinner was late. The potatoes were hard in the middle. Nobody mentioned the bill again. My father made a joke about the hose, and my mother looked at him with an expression that was not quite amusement and not quite forgiveness. I remember sitting there with a grief I could not explain. Nothing terrible had happened, but something had gone.
+
+What went was exemption.
+
+Children exempt their parents from personhood because they need them weatherproof. Even our rebellions can depend on that. We accuse them of being controlling, embarrassing, old-fashioned or impossible, as if those are fixed traits rather than behaviours grown out of fear, fatigue, class, disappointment, marriage, money and work.
+
+To see a parent as imperfect is ordinary. To see them as contingent is harder. They could have become other people. They were made.
+
+After that night, old memories changed shape. My father sitting in the car after work before coming inside no longer seemed merely odd. It looked like a man taking three minutes of silence before the house needed him. My mother checking the oven twice before a holiday was not just anxiety. It was the habit of someone who knew she would blame herself if anything went wrong. Their caution, rules and emotional awkwardness had roots.
+
+None of this cleared their debts with me. That mattered then, and it matters more now. Understanding is not forgiveness by another name. Some wounds stay wounds even after you learn why the person who made them was shaking. But the case I had built against my parents became harder to prosecute. There were fewer clean lines, more evidence.
+
+Over the next years I noticed other things. My father sometimes did not know the answer. My mother sometimes made herself indispensable and then resented being needed. Memory protected them both in different ways. Their advice was shaped by fear as often as truth. They loved me imperfectly, with the tools they had been handed and the ones they had managed to make.
+
+That night did not make me stop needing them. It made needing them less simple. I could no longer fall back into the fantasy that somewhere behind ordinary life my parents were still in charge. There was no committee of adults elsewhere. No one had the complete manual.
+
+For a while that scared me. Later it became a mercy. If my parents were unfinished, maybe I did not have to become flawless before I could be decent. Maybe adulthood was not a gate competent people passed through, but a room everyone entered carrying whatever they had.
+
+I still think of my father in the driveway, holding the broken hose while water ran across the concrete. I think of my mother pressing the bill flat with both hands. At twenty-four I thought I was watching them fail. Now I think I was watching something truer: two tired people trying to keep the house running anyway.
+
+That was when they became smaller.
+
+It was also when they became real.
+
+Structural self-check:
+Section arcs: varied across 31 paragraphs; not a repeated template.
+Resolution density: several reflective endings remain, but not most paragraphs.
+Register breaks: preserved at "I am not proud of that" and the potatoes scene.
+Triads: reduced, with a few memoir-purposeful lists retained.
+Reframe laundering: none retained.
+Purposeful devices preserved: short paragraphs and repetition around "manual", "fine", and "exemption" because they support the essay's memory rhythm.
+Stance: preserved. The piece still argues that seeing parents as limited people complicates love without excusing harm.
+Remaining tells: low vocabulary diversity and some triad/list cadence may still read polished, but the major packaged signals were removed.
+
+Final report: 7 initial flags reduced to minor context-level risk. Removed the markdown title, curly quotes, ghost wording, generic staccato pileups, and some repeated list rhythm while preserving the essay's reflective voice.
+2026-04-28T16:38:12.967394Z  WARN codex_core::shell_snapshot: Failed to delete shell snapshot at AbsolutePathBuf("/Users/mae/.codex/shell_snapshots/019dd4f1-0d4a-79f0-984a-c9848aa23172.1777394060619943000.sh"): Os { code: 2, kind: NotFound, message: "No such file or directory" }
+2026-04-28T16:38:12.973131Z  WARN codex_rmcp_client::stdio_server_launcher: Failed to terminate MCP process group 18141: No such process (os error 3)
+tokens used
+75,419

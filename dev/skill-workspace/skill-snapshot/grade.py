@@ -661,16 +661,32 @@ def check_overall_signal_pressure(text):
         "bland_critical_template": 1,
         "false_concession": 1,
     }
+    component_labels = {
+        "manufactured_insight": "manufactured insight framing",
+        "negative_parallelism": "contrived contrast framing",
+        "formulaic_openers": "formulaic openings",
+        "soft_scaffolding": "soft scaffolding",
+        "section_scaffolding": "section scaffolding",
+        "tidy_endings": "tidy paragraph endings",
+        "paragraph_uniformity": "paragraph length uniformity",
+        "markdown_headings": "headings in prose",
+        "excessive_lists": "excessive lists",
+        "collaborative_artifacts": "assistant residue",
+        "generic_conclusions": "generic conclusion endings",
+        "bland_critical_template": "bland critical template",
+        "false_concession": "false-concession hedges",
+    }
+    assert set(weights) <= set(component_labels), (
+        f"component_labels missing keys: {sorted(set(weights) - set(component_labels))}"
+    )
 
     vocab = vocabulary_pressure_profile(text)
     score = vocab["points"]
     components = []
-    if vocab["points"]:
-        components.append(f"vocabulary_pressure(+{vocab['points']}:{', '.join(vocab['reasons'])})")
     for name, result in checks.items():
         if not result["passed"]:
             score += weights[name]
-            components.append(name)
+            components.append(component_labels[name])
 
     failed = score >= 4
     return {
@@ -689,7 +705,7 @@ def check_overall_signal_pressure(text):
             "kobak_style_sample": vocab["kobak"]["style_sample"],
         },
         "evidence": (
-            f"Overall AI-signal pressure {score}/4 from {components}; "
+            f"Overall AI-signal pressure {score}/4 from [{', '.join(components)}]; "
             f"vocab={vocab['points']} point(s), "
             f"worst_generic={vocab['worst_generic']}, "
             f"gptzero={vocab['gptzero_matches']}, "
@@ -698,7 +714,7 @@ def check_overall_signal_pressure(text):
             f"sample={vocab['kobak']['style_sample']}"
             if failed
             else (
-                f"Overall AI-signal pressure {score}/4 from {components}; "
+                f"Overall AI-signal pressure {score}/4 from [{', '.join(components)}]; "
                 f"vocab={vocab['points']} point(s), "
                 f"worst_generic={vocab['worst_generic']}, "
                 f"gptzero={vocab['gptzero_matches']}, "
@@ -2044,16 +2060,6 @@ ACTION_LABELS = {
 }
 
 
-PRESSURE_COMPONENT_TEXT = {
-    "paragraph_uniformity": "paragraph length uniformity",
-    "markdown_headings": "headings in prose",
-    "formulaic_openers": "formulaic openings",
-    "tidy_endings": "tidy paragraph endings",
-    "reframes": "contrived contrast or reveal framing",
-    "vocabulary": "clustered AI vocabulary",
-}
-
-
 def check_report_text(check_name):
     """Return a plain-English label and description for a check."""
     return CHECK_REPORT_TEXT.get(
@@ -2067,19 +2073,21 @@ def friendly_evidence(result):
     if result["text"] == "overall-ai-signal-pressure":
         score = result.get("score")
         threshold = result.get("threshold")
-        components = [
-            PRESSURE_COMPONENT_TEXT.get(name, name.replace("_", " "))
-            for name in result.get("components", [])
-        ]
-        component_text = ", ".join(components) if components else "no stacked weak signals"
+        components = list(result.get("components", []))
         vocab = result.get("vocabulary_pressure", {})
-        vocabulary_text = ""
-        if vocab.get("points", 0):
-            vocabulary_text = f" Vocabulary pressure added {vocab.get('points')} point(s)."
+        vocab_points = vocab.get("points", 0)
+        if components:
+            component_text = ", ".join(components)
+            sentence = (
+                f"Stacked weak signals: {component_text}. Score: {score}/{threshold}. "
+                "This points to machine-packaged structure rather than one isolated wording choice."
+            )
+            if vocab_points:
+                sentence += f" Clustered AI vocabulary added {vocab_points} point(s)."
+            return sentence
         return (
-            f"Stacked weak signals: {component_text}. Score: {score}/{threshold}. "
-            "This points to machine-packaged structure rather than one isolated wording choice."
-            f"{vocabulary_text}"
+            f"Clustered AI vocabulary alone reached {vocab_points} point(s) at score {score}/{threshold}. "
+            "The pressure check fired on vocabulary patterns rather than stacked structural signals."
         )
     evidence = result.get("evidence", "")
     list_match = re.search(r":\s*(\[[^\]]+\])", evidence)
@@ -2202,30 +2210,40 @@ def human_report(results):
         overview = f"All {total} checks were clear."
 
     pressure_components = []
+    vocab_points = 0
     for result in results:
         if result["text"] == "overall-ai-signal-pressure":
-            pressure_components = [
-                PRESSURE_COMPONENT_TEXT.get(name, name.replace("_", " "))
-                for name in result.get("components", [])
-            ]
+            pressure_components = list(result.get("components", []))
+            vocab_points = result.get("vocabulary_pressure", {}).get("points", 0)
             break
+    pressure_lead = (
+        "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
+        "but become more meaningful when they appear together. "
+    )
+    pressure_tail = (
+        f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, "
+        f"so this check {'was flagged' if ai_pressure.get('triggered') else 'stayed clear'}."
+    )
     if pressure_components:
-        pressure_component_text = ", ".join(pressure_components)
-        ai_pressure_explanation = (
-            "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
-            "but become more meaningful when they appear together. Here the stacked signals were "
-            f"{pressure_component_text}. That means the draft looked machine-packaged, with "
-            "too much visible structure and too little natural variation. "
-            f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, so this check "
-            f"{'was flagged' if ai_pressure.get('triggered') else 'stayed clear'}."
+        vocab_clause = (
+            f", plus {vocab_points} point(s) from clustered AI vocabulary"
+            if vocab_points
+            else ""
+        )
+        pressure_middle = (
+            f"Here the stacked signals were {', '.join(pressure_components)}{vocab_clause}. "
+            "That means the draft looked machine-packaged, with too much visible structure "
+            "and too little natural variation. "
+        )
+    elif vocab_points:
+        pressure_middle = (
+            f"The only contribution here was {vocab_points} point(s) from clustered AI vocabulary. "
         )
     else:
-        ai_pressure_explanation = (
-            "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
-            "but become more meaningful when they appear together. This text did not stack enough "
-            "weak signals to suggest machine-packaged structure. "
-            f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, so this check stayed clear."
+        pressure_middle = (
+            "This text did not stack enough weak signals to suggest machine-packaged structure. "
         )
+    ai_pressure_explanation = pressure_lead + pressure_middle + pressure_tail
 
     return {
         "overview": overview,

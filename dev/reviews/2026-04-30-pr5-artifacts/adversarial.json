@@ -1,0 +1,316 @@
+{
+  "reviewer": "adversarial",
+  "findings": [
+    {
+      "id": "adv-1",
+      "title": "Cascade: subprocess timeout orphans claude/codex children consuming CPU and tokens after harness gives up",
+      "severity": "high",
+      "confidence": 90,
+      "category": "cascade",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1339-1346, 1405-1411",
+      "evidence": [
+        "Trigger: a single eval (e.g. a long input file or model retry storm) takes longer than the 900s timeout in run_claude or run_codex.",
+        "Step 1: subprocess.run raises TimeoutExpired. Per CPython docs, TimeoutExpired does NOT terminate the child; it only releases the parent's wait. The claude/codex process keeps running.",
+        "Step 2: TimeoutExpired propagates up through run_model into the future. In run_iteration's as_completed loop (line 2185-2201), the exception is caught and the worker is marked failed.",
+        "Step 3: ThreadPoolExecutor schedules the next job on that worker thread. The previously-orphaned claude subprocess is still consuming CPU, RAM, and (for paid models) burning tokens against the user's account.",
+        "Step 4: With --workers 8 and a recurring failure mode (e.g., a model that stalls on a particular input), the harness can accumulate 8+ orphaned subprocesses per iteration, all running for an unbounded duration.",
+        "Step 5: A second invocation of the harness (or `--no-reset` flow) starts new subprocesses while old ones are still running, doubling resource pressure.",
+        "Failure outcome: silent token burn, machine slowdown, and unkillable processes that only die when the user notices and runs `pkill claude` / `pkill codex`."
+      ],
+      "recommendation": "Wrap subprocess.run in try/except TimeoutExpired that calls proc.kill() (or use subprocess.Popen + communicate(timeout=) with explicit kill in finally). At minimum, catch TimeoutExpired in run_claude/run_codex and re-raise after killing.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-2",
+      "title": "Resource leak: codex tempfile is never cleaned up when subprocess.run raises (timeout, signal, or pre-exec failure)",
+      "severity": "medium",
+      "confidence": 95,
+      "category": "assumption-violation",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1387-1428",
+      "evidence": [
+        "run_codex creates a NamedTemporaryFile with delete=False at line 1388 to give codex an --output-last-message path.",
+        "The cleanup path (output_path.unlink) is inside the try/finally block at lines 1412-1420. That try/finally only wraps the read of output_path AFTER subprocess.run returns.",
+        "Trigger: subprocess.run at line 1405 raises TimeoutExpired (timeout=900) or KeyboardInterrupt or OSError (e.g. codex binary missing).",
+        "Step 1: The exception escapes run_codex BEFORE reaching the try/finally that owns the unlink. The tempfile, ~/var/folders/.../humanise-codex-output-*.md, leaks.",
+        "Step 2: With repeated failures (a flaky model, ctrl-c during runs, dev iteration loops), /tmp accumulates one orphan per failed call.",
+        "Step 3: On macOS the temp dir is per-user and is cleared periodically, but on Linux CI runners /tmp can fill before clean-up.",
+        "Failure outcome: silent disk-space leak; under pathological retry loops can fill the volume."
+      ],
+      "recommendation": "Move the `try: ... finally: output_path.unlink(missing_ok=True)` to wrap the entire subprocess.run call, not just the read.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-3",
+      "title": "Cancellation safety: Ctrl-C leaves up to 8 orphaned subprocesses and a partial workspace",
+      "severity": "high",
+      "confidence": 85,
+      "category": "cascade",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2180-2201, 2146-2158",
+      "evidence": [
+        "Trigger: user hits Ctrl-C while run_iteration is mid-flight with --workers 8.",
+        "Step 1: KeyboardInterrupt is delivered to the main thread. ThreadPoolExecutor's __exit__ blocks on shutdown(wait=True) by default. It will not cancel pending futures until they return.",
+        "Step 2: Each worker thread is sitting inside subprocess.run(..., timeout=900). The signal does NOT propagate to those Popen children automatically; Python only delivers signals to the main thread.",
+        "Step 3: The main thread is now blocked inside ThreadPoolExecutor.__exit__ waiting for 8 workers, each waiting for its claude/codex child. Effective hang of up to 15 minutes per worker.",
+        "Step 4: Even after shutdown completes, the workspace at dev/skill-workspace/iteration-N has partial outputs: some response.md files written, some not, no benchmark.json, no performance-report.md.",
+        "Step 5: A subsequent rerun without --no-reset will shutil.rmtree the partial workspace; a rerun WITH --no-reset will mix old and new outputs (see adv-7).",
+        "Failure outcome: 'unresponsive Ctrl-C' that wastes 15 minutes of machine time, plus hidden mixed state on resume."
+      ],
+      "recommendation": "Install a SIGINT handler that propagates SIGTERM to running subprocesses (track them in a list / WeakSet), and pass cancel_futures=True to executor.shutdown on KeyboardInterrupt. Alternatively, use Popen + communicate so signal handlers can reach children directly.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-4",
+      "title": "Stale-data poisoning: --no-reset path silently re-grades old run outputs against new assertions",
+      "severity": "medium",
+      "confidence": 90,
+      "category": "abuse-case",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2146-2150, 1634-1639, 2265",
+      "evidence": [
+        "Trigger: developer runs `--no-reset` after editing evals.json (changed assertions, renamed evals, or dropped/added evals).",
+        "Step 1: prepare_workspace skips shutil.rmtree because reset=False. Stale eval directories from prior runs remain.",
+        "Step 2: If the new evals.json has fewer entries than the prior run, the orphan eval-N-* directories are still on disk.",
+        "Step 3: grade_completed_runs (line 2203) iterates the NEW evals list — not the disk — so orphan directories are not graded. OK so far.",
+        "Step 4: BUT for an existing eval-id whose assertions list has changed, run_dir/outputs/response.md still exists from the prior run. grade_run loads stale response.md and grades it against new assertions — producing pass/fail signals on output the new prompt never produced.",
+        "Step 5: Worse: build_performance_report reads benchmark.json which was generated by aggregate_benchmark.py against the new run — but only over jobs in `jobs` list. If a worker failed silently last time and we're re-running just that one, the unmodified runs from last iteration get treated as 'this iteration's results' in the report.",
+        "Failure outcome: corpus_baseline / regression tables present misleading numbers attributed to the current iteration. The PR's core claim (deterministic across iterations) is invalidated by ordinary developer ergonomics."
+      ],
+      "recommendation": "When --no-reset is set, either (a) refuse to run if evals.json mtime > workspace mtime, or (b) per-eval-dir invalidate cached response.md whose timing.json is older than evals.json.",
+      "autofix_class": "advisory",
+      "owner": "human"
+    },
+    {
+      "id": "adv-5",
+      "title": "Path traversal via evals.json item.name: attacker-controlled or careless eval name escapes the workspace",
+      "severity": "medium",
+      "confidence": 80,
+      "category": "abuse-case",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1277-1278, 2151-2158, 2147",
+      "evidence": [
+        "eval_dir_name returns f'eval-{item[\"id\"]}-{item[\"name\"]}'. item['name'] is a string field copied from evals.json with no sanitisation.",
+        "Trigger: an evals.json entry has name set to '../../etc/passwd' or '../../../private-key' or contains a slash.",
+        "Step 1: prepare_workspace at line 2151 builds `directory = ITERATION / eval_dir_name(item)`. With name='../foo', directory becomes WORKSPACE/iteration-1/eval-0-../foo == WORKSPACE/iteration-1/foo (one level up via .. resolution by the filesystem).",
+        "Step 2: directory.mkdir(parents=True, exist_ok=True) creates the directory outside ITERATION. Subsequent writes (eval_metadata.json, prompt.md, response.md, grading.json) land outside the intended workspace.",
+        "Step 3: if reset=True, shutil.rmtree(ITERATION) at line 2148 happens BEFORE the malformed mkdir, so the original target is wiped — but the new directory is created elsewhere and now persists across resets. Each iteration leaks files into ROOT or higher.",
+        "Step 4: With name=`/tmp/x` (absolute), Path() / '/tmp/x' resolves to '/tmp/x', writes happen in /tmp regardless of the workspace.",
+        "Failure outcome: eval outputs and metadata land outside the workspace; files can be overwritten arbitrarily within the user's permission set. Concrete on macOS/Linux. Mitigated only by evals.json being a repo file, but no defence-in-depth."
+      ],
+      "recommendation": "Validate item['name'] against ^[a-zA-Z0-9_-]+$ in load time, or sanitise via re.sub(r'[^a-zA-Z0-9_-]', '_', name) inside eval_dir_name.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-6",
+      "title": "Argv length overflow: a single corpus file >~1MB makes claude/codex invocation fail with E2BIG",
+      "severity": "medium",
+      "confidence": 85,
+      "category": "assumption-violation",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1294-1316, 1319-1331, 1390-1403",
+      "evidence": [
+        "build_prompt reads each input file into memory and embeds its full text into the prompt string. The prompt is then passed as an argv element: `claude -p <prompt>` or `codex exec ... <prompt>`.",
+        "POSIX ARG_MAX on macOS is ~1MB; on Linux it's typically 128KB-2MB. The total size of argv + envp must fit under ARG_MAX.",
+        "Trigger: someone adds a long-form essay or merged corpus file >256KB to evals.json `files`. Two such files combined push argv past ARG_MAX.",
+        "Step 1: subprocess.run raises OSError with errno E2BIG ('Argument list too long') BEFORE the child runs.",
+        "Step 2: run_claude/run_codex don't catch OSError. The exception escapes run_model and is caught by the as_completed loop's `except Exception` (line 2191), producing an ERROR response.md and a synthetic timing.json showing 0 duration.",
+        "Step 3: grade_run runs against 'ERROR: ...' content. catalogue_hits, audit_shape checks, regrade — all evaluate against the error string. Many programmatic checks will spuriously pass or fail (e.g., 'no-em-dashes' will pass; 'audit-flags-present' will fail; 'rewrite-produced' will fail).",
+        "Step 4: aggregate_benchmark.py and build_performance_report happily aggregate the bogus pass/fail signal. Iteration-N comparison will show a regression caused entirely by argv overflow.",
+        "Failure outcome: silent regression introduced by adding a longer corpus file; the actual root cause (argv overflow) appears nowhere in the report."
+      ],
+      "recommendation": "Pass long inputs via stdin (subprocess.run(..., input=prompt, text=True)) or via a temp file referenced by path; cap embedded file size with an explicit warning.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-7",
+      "title": "Race-free but redundant: every grading.json is written twice per iteration; if grader code path differs the second write silently masks the first",
+      "severity": "low",
+      "confidence": 100,
+      "category": "composition-failure",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2185-2201, 2203, 1634-1639, 1578-1631",
+      "evidence": [
+        "In run_iteration, the as_completed loop calls grade_run(item, run_dir) at line 2190 for each successfully-completed worker, AND at line 2200 for each failed worker.",
+        "Then at line 2203, grade_completed_runs(evals) iterates ALL evals and re-runs grade_run on every (item, with_skill, run-1) and (item, old_skill, run-1) directory whose response.md exists.",
+        "Step 1: First write: grading.json written from inside the as_completed loop on the worker outcome (per-item).",
+        "Step 2: Second write: grade_completed_runs overwrites it. If between the two writes any state changed (timing.json modtime, response.md edited by hand mid-run), grade_run reads the new state.",
+        "Step 3: Anyone debugging will see only the second result. Diagnostic gymnastics: if the as_completed grading raises (e.g., one run produced a corrupt timing.json), grade_completed_runs runs anyway and silently 'fixes' the result.",
+        "Failure outcome: not a crash, but the second pass masks intermittent grading failures that would otherwise be visible."
+      ],
+      "recommendation": "Drop the call at line 2203, OR remove the per-future grade_run calls at lines 2190/2200. Pick one place to do the work.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-8",
+      "title": "Determinism claim violated: changing humanise/grade.py thresholds makes 'iteration N' corpus baseline incomparable to 'iteration N-1' though the PR claims they are",
+      "severity": "medium",
+      "confidence": 75,
+      "category": "assumption-violation",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1709-1730, 1733-1752, 1942-1962",
+      "evidence": [
+        "The PR documents (line 1986, in the report markdown) and the task summary state that group means are 'deterministic — independent of how the skill renders its audit'.",
+        "But group means come from grade_sample_file(filepath) which calls GRADE.grade_file(...). GRADE is humanise/grade.py loaded fresh at module import every iteration.",
+        "Trigger: developer tunes a regex threshold in humanise/grade.py between iteration 3 and iteration 4 (the normal iteration loop).",
+        "Step 1: iteration 4 corpus_baseline is computed with the new grade.py rules; iteration 3's baseline (read from previous_iteration_dir/performance-report.json) was computed with the old rules.",
+        "Step 2: regression_rows compares per_eval pass rates only — but that depends on the grader too via 'rewrite-passes-balanced-grader' and 'rewrite-passes-all-grader' assertions (lines 1551-1559). A grader change alone causes a regression flag.",
+        "Step 3: build_performance_report's narrative claims 'deterministic across both iterations' but the code makes no version check on grade.py.",
+        "Step 4: The README performance block (line 2101-2138) inherits the misleading numbers and is auto-published to the project README.",
+        "Failure outcome: false regression alarms or false 'no regression' signals after a grader edit; the documented determinism claim is unenforceable."
+      ],
+      "recommendation": "Record GRADE module's git rev (or content hash) into performance-report.json; in regression rows, refuse to compare across mismatched grader hashes and emit a clear note.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-9",
+      "title": "Empty-corpus crash path: a corpus group present in corpus.json but with all paths missing produces n=0 means and degrades downstream tables",
+      "severity": "low",
+      "confidence": 85,
+      "category": "assumption-violation",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1771-1787, 1880-1898, 1900-1903",
+      "evidence": [
+        "load_corpus_groups silently swallows FileNotFoundError per path (line 1782-1785). A group with all paths missing returns an empty list rather than failing.",
+        "Trigger: a corpus.json refactor renames samples but forgets to update one group (e.g., 'ai_rewrite' paths all moved).",
+        "Step 1: corpus_data['groups']['ai_rewrite'] = [] (empty).",
+        "Step 2: group_rows['ai_rewrite'] never gets populated because corpus_rows iterates only paths that resolved (loop 1849-1858 iterates paths, which is empty).",
+        "Step 3: group_summary therefore omits 'ai_rewrite' entirely. Pairwise gaps section omits the group silently.",
+        "Step 4: BUT if load_corpus_groups is called and a non-human group has SOME paths but the human group ends up empty (paths all missing), `_gap_pct(o['total'], human['total'])` divides by 0; the function handles 0 (returns 'n/a'), but the pairwise_gaps dict in structured (line 2079-2089) computes gaps for groups other than 'human'. Edge-case path: `if 'human' in group_summary` — passes. But human['total'] is 0.0 because the group has 0 entries (after _mean returns 0 for empty list). All gaps become 'n/a'. Report renders meaningless table.",
+        "Step 5: Worse — there is no warning logged. The user sees the report and assumes the corpus baseline ran fine.",
+        "Failure outcome: silently misleading performance report on a stale corpus."
+      ],
+      "recommendation": "Log a warning when a group resolves to fewer paths than corpus.json declared. Refuse to render gap rows when n=0.",
+      "autofix_class": "manual",
+      "owner": "downstream-resolver"
+    },
+    {
+      "id": "adv-10",
+      "title": "Auth assumption: stripping ANTHROPIC_API_KEY from env breaks any environment that authenticates via API key, not subscription",
+      "severity": "medium",
+      "confidence": 70,
+      "category": "abuse-case",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1335-1338",
+      "evidence": [
+        "run_claude builds env without ANTHROPIC_API_KEY: `env = {k: v for k, v in os.environ.items() if k not in {'CLAUDECODE', 'ANTHROPIC_API_KEY'}}`.",
+        "Trigger: a user (or CI) authenticates claude CLI via the API key env var rather than `claude login` subscription.",
+        "Step 1: subprocess invocation lacks the key. claude CLI returns non-zero exit with auth-error message.",
+        "Step 2: run_claude detects proc.returncode != 0 and writes a synthetic 'ERROR: claude run failed' response.",
+        "Step 3: grade_run grades the error string — many checks fail or pass nonsensically.",
+        "Step 4: The performance report shows ~0% pass rate across all evals, and the regression table flags every eval as regressed. The actual cause (env stripped by harness) is invisible.",
+        "Failure outcome: a CI run that 'works on my machine' silently produces a broken report on a machine using API-key auth. No clear error path."
+      ],
+      "recommendation": "Either keep ANTHROPIC_API_KEY (preferred — it's the documented auth path) or, if the intent is to force interactive subscription auth, fail fast with a precondition check rather than running 8 subprocesses that all fail.",
+      "autofix_class": "advisory",
+      "owner": "human"
+    },
+    {
+      "id": "adv-11",
+      "title": "Workspace re-entrancy: shutil.rmtree(ITERATION) races with a viewer subprocess from a previous run",
+      "severity": "low",
+      "confidence": 70,
+      "category": "composition-failure",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2237-2249, 2146-2148",
+      "evidence": [
+        "When --static-viewer is NOT set, the script launches a long-lived viewer via subprocess.Popen at line 2240 and exits without waiting. The viewer reads files from ITERATION (benchmark.json, response.md, etc.).",
+        "Trigger: developer leaves the viewer running, edits the skill, runs the iteration script again with default --reset.",
+        "Step 1: shutil.rmtree(ITERATION) at line 2148 deletes the directory the viewer's webserver is serving.",
+        "Step 2: The viewer is serving a Flask/HTTP request from the user's browser; reads of deleted files raise FileNotFoundError, returning 500s.",
+        "Step 3: New iteration writes new files into the same path. The old viewer process is still bound to the old working dir / file handles; behaviour is undefined (may serve mixed old/new content depending on how the viewer caches).",
+        "Step 4: At minimum the user sees confusing data; at worst the viewer process needs manual restart.",
+        "Failure outcome: stale-server confusion across iteration runs."
+      ],
+      "recommendation": "On --reset, warn (or error) if a viewer.log exists with a recent mtime; or write the viewer's PID and SIGTERM it before rmtree.",
+      "autofix_class": "advisory",
+      "owner": "human"
+    },
+    {
+      "id": "adv-12",
+      "title": "Subprocess output buffer growth: claude --verbose JSON output is fully buffered in memory by capture_output=True; 8 workers produce unbounded memory pressure",
+      "severity": "low",
+      "confidence": 60,
+      "category": "assumption-violation",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1339-1346, 1405-1411, 2180",
+      "evidence": [
+        "subprocess.run(..., capture_output=True, text=True) buffers all stdout and stderr in memory until the child exits.",
+        "claude with --verbose --output-format json emits one JSON-array element per tool call/message and can grow to hundreds of MB on a long run that uses Bash and Read heavily.",
+        "Trigger: --workers 8 with all 8 jobs hitting verbose claude in parallel.",
+        "Step 1: Each Python worker thread holds a Popen with growing stdout/stderr buffers; total RSS grows ~8x per-worker peak.",
+        "Step 2: On a 16GB MacBook, 8 * 1GB peak = 16GB; system swaps, then OOM killer (or activity slowdown).",
+        "Step 3: When a worker is OOM-killed mid-run, its tempfile (codex case) is leaked (see adv-2) and its grading.json never gets written. The harness exception path catches it (line 2191) — but the OOM may take down sibling workers too.",
+        "Failure outcome: large-corpus runs sporadically OOM or thrash; no diagnostic surface. Lower confidence because typical runs are smaller, but the design has no bound."
+      ],
+      "recommendation": "Stream stdout to a file with subprocess.Popen and a writer thread, or set a max-output-bytes budget per call.",
+      "autofix_class": "advisory",
+      "owner": "human"
+    },
+    {
+      "id": "adv-13",
+      "title": "JSON-as-state assumption: malformed evals.json (duplicate keys / non-dict entry) crashes the whole iteration mid-run",
+      "severity": "low",
+      "confidence": 75,
+      "category": "assumption-violation",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1252-1253, 2170-2171, 1277-1278, 1294-1316",
+      "evidence": [
+        "read_json uses json.loads which silently keeps the LAST value for duplicate keys and accepts arbitrary structures.",
+        "Trigger: hand-edit of evals.json introduces a duplicate eval id, a missing 'name', or 'files' as a string instead of list.",
+        "Step 1: prepare_workspace iterates evals — if name is missing, eval_dir_name raises KeyError. The harness has no try/except around prepare_workspace; the iteration aborts with an opaque traceback before any work runs.",
+        "Step 2: If 'files' is a string instead of list, build_prompt iterates characters of the string and tries resolve_eval_file on each character. Each char is a 1-char path; resolve_eval_file raises FileNotFoundError. The exception escapes run_model into the worker future, caught by the broad Exception handler at 2191. ALL evals fail with the same misleading error.",
+        "Step 3: User sees N failures, no clear root cause; root cause requires reading the evals.json file by hand to spot the typo.",
+        "Failure outcome: confusing failure mode for a config typo that should be caught at load time."
+      ],
+      "recommendation": "Add a load-time validator (jsonschema or hand-rolled): require id:int, name:str-without-slashes, files:list[str], assertions:list. Fail fast with a precise message.",
+      "autofix_class": "advisory",
+      "owner": "human"
+    },
+    {
+      "id": "adv-14",
+      "title": "Section parsing brittleness: a model output with `**Rewrite**` inside an inline phrase or with a different cap (e.g. `**REWRITE**`) bypasses extract_generated_text and breaks every rewrite-related assertion silently",
+      "severity": "low",
+      "confidence": 80,
+      "category": "composition-failure",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1468-1479, 1534-1559",
+      "evidence": [
+        "section_text matches `^\\*\\*{header}\\*\\*\\s*$` MULTILINE|IGNORECASE. The IGNORECASE flag makes case insensitive — fine.",
+        "BUT: it requires the bold marker to be on its own line. A model that writes '**Rewrite:** ...' inline (with a colon, common in markdown), or '## Rewrite', or '### Rewrite', or '**Rewrite**\\n\\n' followed by no content — is not matched.",
+        "Trigger: a perfectly valid model rewrite that uses '## Rewrite' heading instead of '**Rewrite**' bold-line.",
+        "Step 1: extract_generated_text returns the WHOLE output (the audit + rewrite + chitchat) as `generated`.",
+        "Step 2: 'no-em-dashes-in-rewrite' check at line 1541 evaluates `'—' not in generated` — but `generated` is now the whole audit, which by design quotes the input's em-dashes. The check fails even if the rewrite itself has none.",
+        "Step 3: 'rewrite-passes-balanced-grader' at line 1551 calls GRADE.regrade(generated, depth='balanced') against the audit text — graders (no-manufactured-insight, no-signposted-conclusions) flag the audit's commentary, not the rewrite. The check fails not because the rewrite is bad but because the grader is grading the wrong text.",
+        "Step 4: pass_rate drops sharply for that eval; build_performance_report shows a regression. The PR's regression detection fires false positives on a benign formatting choice.",
+        "Failure outcome: pass-rate metric is sensitive to model formatting whim, undermining iteration-to-iteration comparability."
+      ],
+      "recommendation": "Allow heading variants (## / ### prefixes), require the rewrite section to be the LAST section, or require the model to use a fenced block. Document expectations in the prompt itself.",
+      "autofix_class": "advisory",
+      "owner": "human"
+    }
+  ],
+  "residual_risks": [
+    "ThreadPoolExecutor with subprocess.run inside threads is the wrong concurrency primitive when subprocesses need to be cancelled; the codebase will keep accumulating cancellation/cleanup hazards until this is migrated to Popen + a signal-aware supervisor.",
+    "humanise/grade.py is imported once at module load via importlib (line 1240-1249); any test or dev script that mutates GRADE.* state will leak across iteration runs in the same process, since GRADE is a module-level singleton.",
+    "The PR introduces a 'comparative report' that becomes a public artefact (auto-published to README.md via update_readme_performance_block). Any data-quality bug in the harness now writes directly to a public surface — there is no review gate.",
+    "Subprocess call uses cwd=ROOT and the executor inherits the parent's filesystem permissions; a malicious skill prompt that bypasses claude's allowedTools could read repo secrets. claude --allowedTools Read,Bash is permissive — Bash with cwd=ROOT can do anything the user can do."
+  ],
+  "testing_gaps": [
+    "No integration test exists for run_iteration end-to-end; failure modes adv-1 through adv-6 are reachable only by running the script for real with crafted inputs.",
+    "No test for what happens when subprocess.run raises TimeoutExpired (the most common failure on flaky models). The exception path is exercised only by a real timeout in production.",
+    "No test for KeyboardInterrupt during run_iteration; the cancellation path is unverified.",
+    "No test for malformed evals.json or corpus.json (duplicate ids, missing files, wrong types).",
+    "No test for re-entrancy: running iteration N+1 while the iteration N viewer is still alive.",
+    "No assertion that the determinism claim holds: there is no test that runs the same corpus twice and verifies group_summary is byte-identical.",
+    "No test for the case where every input file is empty (the no-input-draft-required assertion exists but no e2e check for it)."
+  ]
+}

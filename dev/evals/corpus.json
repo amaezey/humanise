@@ -1,0 +1,59 @@
+{
+  "description": "Genre-paired corpus for the comparative human-vs-AI baseline. Long-form first-person essay register. Each topic has a human original, an AI fresh-write from a matched prompt, and an AI-rewrite of the human original.",
+  "register": "long-form first-person essay (literary review, practitioner blog, business memo, personal philosophy, confessional memoir)",
+  "groups": {
+    "human": [
+      "evals/samples/human-sourced/21c-image-first-men-original-sins.md",
+      "evals/samples/human-sourced/21c-opencoop-belonging-superpower.md",
+      "evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md",
+      "evals/samples/human-sourced/21c-critchlow-workshops.md",
+      "evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md"
+    ],
+    "ai_fresh": [
+      "evals/samples/generated-ai/21c-ai-belonging-superpower.md",
+      "evals/samples/generated-ai/21c-ai-workshops-as-portals.md",
+      "evals/samples/generated-ai/21c-ai-mdma-therapy.md",
+      "evals/samples/generated-ai/21c-ai-servant-hedonism.md",
+      "evals/samples/generated-ai/21c-ai-first-men-original-sins.md"
+    ],
+    "ai_rewrite": [
+      "evals/samples/generated-ai/21c-ai-rewrite-belonging-superpower.md",
+      "evals/samples/generated-ai/21c-ai-rewrite-workshops-as-portals.md",
+      "evals/samples/generated-ai/21c-ai-rewrite-mdma-therapy.md",
+      "evals/samples/generated-ai/21c-ai-rewrite-servant-hedonism.md",
+      "evals/samples/generated-ai/21c-ai-rewrite-first-men-original-sins.md"
+    ]
+  },
+  "pairs": [
+    {
+      "topic": "belonging-superpower",
+      "human": "evals/samples/human-sourced/21c-opencoop-belonging-superpower.md",
+      "ai_fresh": "evals/samples/generated-ai/21c-ai-belonging-superpower.md",
+      "ai_rewrite": "evals/samples/generated-ai/21c-ai-rewrite-belonging-superpower.md"
+    },
+    {
+      "topic": "workshops-as-portals",
+      "human": "evals/samples/human-sourced/21c-critchlow-workshops.md",
+      "ai_fresh": "evals/samples/generated-ai/21c-ai-workshops-as-portals.md",
+      "ai_rewrite": "evals/samples/generated-ai/21c-ai-rewrite-workshops-as-portals.md"
+    },
+    {
+      "topic": "mdma-therapy",
+      "human": "evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md",
+      "ai_fresh": "evals/samples/generated-ai/21c-ai-mdma-therapy.md",
+      "ai_rewrite": "evals/samples/generated-ai/21c-ai-rewrite-mdma-therapy.md"
+    },
+    {
+      "topic": "servant-hedonism",
+      "human": "evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md",
+      "ai_fresh": "evals/samples/generated-ai/21c-ai-servant-hedonism.md",
+      "ai_rewrite": "evals/samples/generated-ai/21c-ai-rewrite-servant-hedonism.md"
+    },
+    {
+      "topic": "first-men-original-sins",
+      "human": "evals/samples/human-sourced/21c-image-first-men-original-sins.md",
+      "ai_fresh": "evals/samples/generated-ai/21c-ai-first-men-original-sins.md",
+      "ai_rewrite": "evals/samples/generated-ai/21c-ai-rewrite-first-men-original-sins.md"
+    }
+  ]
+}

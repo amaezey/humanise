@@ -1,0 +1,111 @@
+{
+  "reviewer": "maintainability",
+  "findings": [
+    {
+      "title": "Two new reference files added but never linked from SKILL.md or any other reference (orphan docs-as-code)",
+      "severity": "high",
+      "file": "/Users/mae/Documents/humanise/humanise/references/example.md",
+      "line": 1,
+      "confidence": 100,
+      "autofix_class": "trivial",
+      "owner": "author",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "humanise/references/example.md (65 LOC) and humanise/references/severity-detail.md (59 LOC) were added in this PR but are not referenced from humanise/SKILL.md, any other reference markdown, or any code. The SKILL.md 'References' section (lines 254-259) lists only patterns/voice/alternatives/process. For skill prose treated as code-as-instructions, an unreferenced reference file is dead code: the runtime model never loads it, and a future maintainer will not know whether to update it when patterns change. Either (a) link both files from SKILL.md (e.g., add a reference under Severity rules pointing at severity-detail.md, and a reference under Action 3: Rewrite pointing at example.md), or (b) delete them. The current state guarantees they will drift from the canonical patterns.md / process.md immediately."
+    },
+    {
+      "title": "humanise/examples ai.txt is a 575-line orphan file with a space in the filename",
+      "severity": "high",
+      "file": "/Users/mae/Documents/humanise/humanise/examples ai.txt",
+      "line": 1,
+      "confidence": 100,
+      "autofix_class": "trivial",
+      "owner": "author",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "humanise/examples ai.txt was added in this PR but is referenced nowhere (not from SKILL.md, references/*.md, grade.py, run_skill_creator_iteration.py, evals.json, or corpus.json). The filename contains a literal space, which forces every shell consumer to quote it and breaks naive globbing. Two problems compound: (1) a 575-line file with no consumer is dead weight inside the skill bundle that ships to the model, polluting the skill directory listing the model browses; (2) the spaced filename suggests this was a manual paste that ended up in the wrong directory. Likely belongs under dev/evals/manual-pastes/ or dev/evals/samples/generated-ai/, with hyphens-not-spaces. Move and rename, or delete."
+    },
+    {
+      "title": "evals.json.bak is checked into the repo and not gitignored",
+      "severity": "medium",
+      "file": "/Users/mae/Documents/humanise/dev/evals/evals.json.bak",
+      "line": 1,
+      "confidence": 100,
+      "autofix_class": "trivial",
+      "owner": "author",
+      "requires_verification": false,
+      "pre_existing": true,
+      "suggested_fix": "dev/evals/evals.json.bak (24kB) is a tracked file; the PR touches .gitignore (adding .DS_Store) but does not add *.bak. .bak files are ad-hoc snapshots that diverge silently from the live file and accumulate. Either delete the file (git supplies the prior version on demand) or, if it documents an intentional baseline, give it a meaningful name like evals.json.pre-genre-paired and add a comment. Also add *.bak to .gitignore so future ad-hoc snapshots do not get committed."
+    },
+    {
+      "title": "Magic numbers in grade_one_assertion are spread across 8 callsites with no shared definition",
+      "severity": "medium",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 299,
+      "confidence": 75,
+      "autofix_class": "manual",
+      "owner": "author",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "grade_one_assertion (lines 299-371) hard-codes assertion thresholds: >= 5 (audit-flags-present, 302), <= 3 (low-flag-count-on-human-prose, 305), <= 12 (runaway-guard, 308), max(50, 0.45 * input_words) (rewrite-produced, 334), > 35 (paragraph-length-not-uniform stdev, 365), 213 <= count <= 288 (word-count-near-target, 370). These are the pass/fail boundaries of every eval — when an iteration regresses, the first question is 'what threshold did it cross', and the second is 'where do I tune that'. Right now the answer is 'grep through a 73-line if/elif chain'. Lift them to module-level named constants (LOW_FLAG_THRESHOLD, RUNAWAY_FLAG_THRESHOLD, REWRITE_MIN_RATIO, etc.) with one-line comments documenting why each value was chosen. Also makes the link between corpus.json group sizes and these thresholds visible in one place."
+    },
+    {
+      "title": "Module-level mutable global ITERATION rebound in main() — coupling risk for any importer",
+      "severity": "medium",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 31,
+      "confidence": 75,
+      "autofix_class": "manual",
+      "owner": "author",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "ITERATION is initialised at module load (line 31) to WORKSPACE / 'iteration-1', then rebound inside main() via 'global ITERATION' (line 1064) using the --iteration argv. Eight functions reference the global directly: prepare_workspace, run_iteration, grade_completed_runs, build_performance_report (via callers), etc. This works only because the runner is exec'd by __main__; if anything ever imports run_iteration() programmatically (e.g., a future test or sweep script), the iteration directory will silently be iteration-1 regardless of what the caller wants. Pass iteration_dir as an explicit parameter through run_iteration / prepare_workspace / grade_completed_runs and drop the global. Keeps the harness scriptable and removes a footgun for any future importer."
+    },
+    {
+      "title": "_relative_report_path takes readme_path parameter it never uses",
+      "severity": "low",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 937,
+      "confidence": 100,
+      "autofix_class": "trivial",
+      "owner": "author",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "_relative_report_path(readme_path: Path, structured: dict) -> str at line 937-939 ignores readme_path entirely and just formats f'dev/skill-workspace/{iteration}/performance-report.md'. Either compute the relative path properly (e.g., os.path.relpath(report_path, readme_path.parent)) so the README link survives if README ever moves, or drop the unused parameter. Currently the signature lies about what the function depends on."
+    },
+    {
+      "title": "mode_counts variable name is stale leftover from --mode rename in run_grade_sweep.py",
+      "severity": "low",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_grade_sweep.py",
+      "line": 54,
+      "confidence": 100,
+      "autofix_class": "trivial",
+      "owner": "author",
+      "requires_verification": false,
+      "pre_existing": false,
+      "suggested_fix": "Inside summarise() (line 51), the variable is mode_counts (line 54), the loop iterates over depth (line 63), and the output key is depth_check_status_counts (line 80). The variable name is a leftover from the --mode → --depth rename done in this PR. Rename mode_counts → depth_check_status_counts (matching the output key) so a reader can grep one term and find every reference."
+    },
+    {
+      "title": "grade_input_file marked 'legacy' in its own docstring but still has live callers",
+      "severity": "low",
+      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "line": 551,
+      "confidence": 75,
+      "autofix_class": "manual",
+      "owner": "author",
+      "requires_verification": true,
+      "pre_existing": false,
+      "suggested_fix": "grade_input_file's docstring (line 552-553) says 'Legacy single-file grader used in earlier audit-case-driven baselines. Kept for backward compatibility; new code uses grade_sample_file directly.' But it has two live callers in this same file (lines 663, 714) that are not legacy paths — they are the audit-fidelity table and the audit-cases fallback for older evals.json formats. Either (a) the docstring is wrong and the function is genuinely current code, in which case rewrite the docstring to describe its actual role; or (b) the callers should be migrated to grade_sample_file and grade_input_file deleted. The current state plants a 'this is on its way out' marker that future maintainers will trip over when refactoring."
+    }
+  ],
+  "residual_risks": [
+    "Naming consistency in run_skill_creator_iteration.py: catalogue_hits, audit_case_corpus_class, extract_audit_reported_count, normalize_benchmark_config_order are descriptive but the file mixes 'mode' (legacy) and 'depth' (current) terminology in places. Not severe enough to flag individually but worth a sweep next time the file is touched.",
+    "build_performance_report is ~275 lines (615-890) and builds four distinct sections (per-eval table, corpus baseline, audit fidelity, regression). It is borderline for splitting but currently each section is clearly delimited by comments and a section split would also need a shared local-state struct, so the cost-benefit is roughly even today. If a fifth section is added, splitting becomes the right move.",
+    "The two-location candidate search in grade.py:_load_kobak_excess_vocab (lines 164-167) tolerates two layouts: humanise/references/kobak-excess-words.csv and parents[2]/humanise/references/kobak-excess-words.csv. Currently only one layout is in use. Acceptable defensive coding, but if the second branch never fires after another iteration or two, simplify."
+  ],
+  "testing_gaps": [
+    "test_grade.py (1300 LOC, 4 helper functions, hundreds of inline expect_pass/expect_fail calls) has no test for the new depth_results / depth_check_status_counts surface introduced when --mode → --depth was renamed. expect_depth_status and expect_depth_actions exist but the diff does not show new uses of them for the depth-renamed surface.",
+    "No test covers grade_one_assertion in run_skill_creator_iteration.py (the 73-line dispatch with hard-coded thresholds). A regression that flips one of the threshold comparisons (e.g., < to <=) would not be caught by anything currently in the harness.",
+    "load_corpus_groups silently swallows FileNotFoundError per path (line 580). If the corpus.json file lists a path that has been renamed, the group will silently shrink and the comparative report will quietly become less robust. A test covering 'corpus.json references a missing file' should at minimum log a warning."
+  ]
+}

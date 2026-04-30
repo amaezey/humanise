@@ -1,0 +1,48 @@
+{
+  "eval_id": 3,
+  "eval_name": "suggestions-ai-wellbeing",
+  "prompt": "Audit this draft and give me a list of suggestions for each AI tell.",
+  "assertions": [
+    {
+      "name": "audit-shown-before-suggestions",
+      "type": "programmatic",
+      "description": "Audit findings appear in output before the suggestions list",
+      "check": "audit-shape block precedes suggestions-shape block"
+    },
+    {
+      "name": "audit-flags-present",
+      "type": "programmatic",
+      "description": "Output references at least 5 distinct AI patterns from the catalogue",
+      "check": "distinct catalogue patterns referenced >= 5"
+    },
+    {
+      "name": "each-flag-has-quoted-phrase",
+      "type": "programmatic",
+      "description": "Every flagged pattern shows a quoted phrase from the input draft",
+      "check": "every flag block contains a substring from the input file"
+    },
+    {
+      "name": "suggestion-count-matches-flag-count",
+      "type": "programmatic",
+      "description": "Number of suggestions equals number of flagged tells",
+      "check": "suggestion-block-count == flag-count"
+    },
+    {
+      "name": "each-suggestion-has-replacement",
+      "type": "programmatic",
+      "description": "Every suggestion offers a concrete alternative phrasing",
+      "check": "every suggestion block contains a 'Try' or replacement phrase"
+    },
+    {
+      "name": "no-full-rewrite",
+      "type": "programmatic",
+      "description": "Output does not contain a full rewritten draft",
+      "check": "no large prose block in output that wasn't in the input"
+    },
+    {
+      "name": "lexical-suggestions-look-vetted",
+      "type": "qualitative",
+      "description": "Suggestions for lexical patterns (delve, hedging, em-dashes) feel like vetted human alternatives, not freshly generated AI prose. They should match what's in references/alternatives.md when applicable."
+    }
+  ]
+}

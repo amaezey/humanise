@@ -1,0 +1,485 @@
+Reading additional input from stdin...
+OpenAI Codex v0.125.0 (research preview)
+--------
+workdir: /Users/mae/Documents/humanise
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: medium
+reasoning summaries: none
+session id: 019dd4eb-32c7-7be2-9162-82a2ec6b9596
+--------
+user
+You are running an evaluation of a local writing skill.
+
+Use the skill at:
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+
+Read that skill and any referenced files you need from the same skill directory.
+Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
+Do not mention this evaluation harness.
+
+Task prompt:
+Audit this draft and give me a list of suggestions for each AI tell.
+
+Inputs:
+Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md
+
+```markdown
+# The hour grief comes looking
+
+Grief has its own clock. It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep. In the first weeks after a loss, night can stop being a place of rest and become a second room where the dead feel closer, the mind gets louder, and the body refuses the simple mercy of switching off.
+
+This is one of the crueller parts of grief. The person most in need of rest is often the least able to get it.
+
+Research supports what many grieving people already know in their bones: bereavement and sleep disturbance are closely linked. A systematic review found a high prevalence of sleep problems after bereavement, with stronger grief often associated with greater sleep difficulty. It also found higher rates of sleep disturbance among people experiencing complicated or prolonged grief, particularly where depression is also present.
+
+That matters because sleep is not just a pause from consciousness. It is an active biological process that affects memory, emotional regulation, attention, immune function and the body’s capacity to recover.   When grief disrupts sleep, it does not simply make us tired. It can change the texture of grief itself. Everything becomes harder to metabolise. Small decisions feel punitive. Social contact becomes more effortful. The ordinary world can seem too bright, too fast, too indifferent.
+
+After a death, insomnia is not always dramatic. Sometimes it is a clean, brutal wakefulness at 3 am. Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said. Sometimes sleep comes easily but breaks apart before dawn. Sometimes the body sleeps for ten hours and still wakes exhausted.
+
+There is a particular loneliness to being awake while everyone else is sleeping. During the day, grief may be held in place by tasks. There are forms to complete, people to update, meals to make, children to collect, work to return to too soon. At night, the scaffolding comes down. The mind has no meeting to attend, no polite sentence to finish. It begins its inventory.
+
+This is why advice about “good sleep habits” can land badly with grieving people. A fixed bedtime, less caffeine, a dark room and no phone in bed are useful. Most adults need around 7 to 9 hours of sleep each night, and regular routines can support sleep quality.   But grief is not poor time management. It is not caused by bad lighting or an overused screen. A person who has lost someone may already know exactly what sleep hygiene requires and still be unable to obey it.
+
+The better question is not “How do I force myself to sleep?” but “How do I make the night less hostile?”
+
+That might mean lowering the stakes. If sleep does not come, rest still counts. Lying in the dark with one hand on the chest, listening to something familiar, moving to the couch for a while, or making tea without turning the kitchen into daylight can help the body remain in a quieter state. The goal is not to win against grief. It is to reduce the secondary panic that says, “Now I am grieving and failing at sleep.”
+
+There is also a difference between remembering and ruminating, though they can feel identical at night. Remembering may hurt, but it has movement in it: a face, a phrase, a scene, a tenderness. Rumination loops. It prosecutes. It asks the same unanswerable question until the body becomes alert again. Writing can help, not because it solves anything, but because it gives the mind somewhere to put the loop. A notebook beside the bed can become a holding place for the thought that insists it must be dealt with at 2.17 am.
+
+Dreams add another layer. Grieving people often report dreams in which the dead return with startling ordinariness. They are in the kitchen. They are wearing the old jumper. They have not died after all. Waking from these dreams can feel like losing the person again before breakfast. A dream can be comforting, but it can also make the day harder. Wellness culture often wants to interpret every dream as healing. Some dreams are not healing. Some are just the sleeping mind trying to process an impossible absence.
+
+The research field is still developing. One review noted that, despite the obvious connection between bereavement and sleep, the literature has been relatively limited compared with related areas such as depression and trauma.   That limitation is important. It means we should be careful about neat claims. Poor sleep may intensify grief, and intense grief may disrupt sleep. The relationship can move in both directions. Recent work continues to examine this bidirectional pattern, especially in prolonged grief disorder.
+
+For some people, sleep gradually returns as the nervous system begins to trust the world again. The first full night can feel almost disloyal. There is a strange guilt in waking rested. Grief can make rest feel like abandonment, as if vigilance were a form of love. But exhaustion is not devotion. Staying awake does not keep the person closer. It only keeps the body in distress.
+
+For others, sleep problems persist and become their own condition. That is when support matters. Acute grief can include sadness, tearfulness and insomnia, and it may not require clinical treatment. But prolonged grief disorder describes grief that remains intense and disabling over time, preventing a person from adapting to the loss.   Persistent insomnia, especially when paired with depression, anxiety, intrusive thoughts or inability to function, deserves professional attention. This is not weakness. It is a health issue sitting inside a human loss.
+
+The most compassionate approach to sleep in grief is therefore practical but not simplistic. Keep the room cool and dark. Limit alcohol, which can make sleep more fragmented even if it initially makes you drowsy. Be careful with late caffeine. Use a routine, not as a command, but as a signal to the body.   Let mornings carry some light and movement, even if both feel offensive at first. Tell someone if nights are becoming frightening.
+
+And be wary of anyone who turns sleep into a moral achievement. Grief already gives people enough to feel guilty about. The aim is not perfect sleep. The aim is enough safety for the body to stand down, even briefly.
+
+Over time, sleep can become one of the ways grief changes shape. Not disappears. Not resolves neatly. But changes. The bed becomes less like a witness stand. The dark becomes less accusatory. The first thought on waking is not always the loss. Some mornings, there is a second or two before memory returns. Later, there may be mornings when memory returns gently.
+
+Sleep does not cure grief. It gives the grieving body a place to repair while the heart does harder work than anyone else can see.
+
+```
+
+2026-04-28T16:27:57.580478Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:27:57.582768Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:27:58.222442Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:27:58.222889Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:28:12.060286Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:28:12.060493Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+2026-04-28T16:28:27.094985Z  WARN codex_core::session::turn: stream disconnected - retrying sampling request (1/5 in 194ms)...
+2026-04-28T16:28:42.291149Z  WARN codex_core::session::turn: stream disconnected - retrying sampling request (2/5 in 431ms)...
+ERROR: Reconnecting... 2/5
+exec
+/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md && printf '\\n---INPUT---\\n' && sed -n '1,260p' /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+---
+name: humanise
+description: >-
+  Audits text for AI-style writing patterns, rewrites existing drafts to remove
+  them, or writes new content that avoids them. Uses 38 patterns and 43
+  programmatic checks across vocabulary, structure, tone, voice, and formatting.
+  Default action is Audit (analyse and explain findings); Rewrite and Write
+  fire only when the user explicitly asks for them. Useful when a draft feels
+  flat, robotic, over-polished, structurally repetitive, or voice-neutralised,
+  or when drafting prose that needs to read as human.
+---
+
+# Humanise: Audit, rewrite, or write without AI patterns
+
+Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
+
+## Your task
+
+When given input, identify which of three actions to take:
+
+1. **Audit** (default) — analyse text for AI-style writing patterns and explain the findings. No mode pre-classification; the audit is mode-agnostic.
+2. **Rewrite** — given existing text, produce a cleaner version. Always runs an audit first, then asks for a rewrite intensity (Light / Medium / Hard).
+3. **Write** — given a brief or topic, draft new content under AI-avoidance constraints at a chosen intensity.
+
+Modifiers (orthogonal to action; combine freely):
+
+- **Recommendation** — after an audit, optionally suggest a rewrite intensity tied to genre and findings.
+- **Save** — write the chosen action's output to a Markdown file.
+
+Default to Audit when the action is ambiguous. Do not rewrite or compose new content unless the user explicitly asks.
+
+---
+
+## Modes
+
+Three intensities for Rewrite and Write. Audit is mode-agnostic — the 43 checks pass or fail based on the text, not on a chosen mode. Default to Medium when the user does not specify.
+
+- **Light** — for fiction, memoir, voiced essays, humour, dialogue, interviews, literary prose. Removes the most obvious AI tells (assistant residue, sycophancy, manufactured insight) but preserves your voice. Devices like staccato, triads, em dashes can stay if they serve the writing; disclose what you preserve and why.
+- **Medium** — the default. For blog posts, workplace writing, newsletters, product copy, generic prose. Removes obvious patterns and all strong tells. Preserves voice where the device is doing real work; trims it where it is autopilot.
+- **Hard** — for prose that needs to read as unambiguously human. Strips every flagged pattern unless removing it would change what you mean. No em dashes, no manufactured-insight framing, no decorative triads. Voice can take a hit; risk reduction is the goal.
+
+When the user has not chosen a mode and the genre makes the answer ambiguous, ask:
+
+> How hard should I go: Light, Medium, or Hard?
+
+If you cannot ask, infer from the genre — Light for voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), Medium otherwise. Record the chosen mode and the reason in the output.
+
+A failed grader check is a failed check in every mode. Mode decides what to *do* about it (fix, disclose, preserve), not whether the pattern was detected. The Severity classes section below lists which actions apply by severity in each mode.
+
+---
+
+## Actions
+
+### 1. Audit (default)
+
+Use this when the user asks things like:
+
+- "Does this sound AI?"
+- "Check this for AI writing."
+- "Audit this draft."
+- "Run humanise on this."
+- "What's flagged here?"
+
+Or any input where the user provides text without an explicit Rewrite or Write instruction.
+
+Do:
+
+1. Run the grader with no mode constraint.
+2. Render the audit report with all 43 checks classified by severity.
+3. Explain the flagged patterns in plain English.
+4. Stop.
+
+End with a short next-step question:
+
+> Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+
+The audit table uses a `Severity` column and a severity-tiered `Recommended action` column. It does not pre-pick a single mode for the user — that decision belongs to the user, after they've seen the indicators.
+
+### 2. Rewrite
+
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+
+Do:
+
+1. Run the audit (Action 1's behaviour) regardless of any prior context. The rewrite must be informed by the indicators.
+2. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+3. Rewrite under the chosen intensity. Address structural patterns first, then surface patterns.
+4. Run the structural self-check (Process Step 7).
+5. Run the semantic preservation check (Process Step 6).
+6. Run the post-check at the chosen intensity (Process Step 8).
+7. Report before/after, with remaining issues.
+
+### 3. Write
+
+Use this when the user asks for new content rather than analysis or rewriting:
+
+- "Write a 500-word essay on X."
+- "Draft an opening paragraph about Y."
+- "Compose a blog post on Z without sounding AI."
+- "Help me write something on W that doesn't read like AI."
+
+Do:
+
+1. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
+2. Draft the content under the chosen intensity's constraints — same severity rules as a Rewrite. Avoid hard failures, avoid strong warnings, treat context warnings per the mode.
+3. Apply the [Personality and soul](#personality-and-soul) guidance directly. Write must produce content that reads as human, not just content that lacks AI tells.
+4. Run the structural self-check on the draft.
+5. Run the post-check at the chosen intensity.
+6. Report status and remaining issues.
+
+There is no initial audit — there is no input text to audit.
+
+### Modifiers
+
+- **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+
+---
+
+## Severity and the purpose test
+
+The grader is a diagnostic tool, not an authorship verdict. A failed check stays a failed check in every mode. Mode decides what to do about it.
+
+Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
+
+- **Fixed**
+- **Recommended preserve**
+- **Needs user decision**
+
+Do not silently classify your own writing as the exception. If you preserve a flagged device, name it, quote or identify the relevant passage briefly, and explain the concrete function it serves.
+
+### Severity classes
+
+- **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
+- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
+- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings including plain title headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
+- **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
+
+Em dashes get their own deep-dive in [Hard constraints](#hard-constraints) below — they are a strong-warning-class pattern with mode-specific rules, kept separate because they are the highest-volume single AI tell of 2026.
+
+### Purpose test
+
+For any context warning, ask:
+
+> Is this device doing real work here, or is it autopilot?
+
+You may recommend preserving it if it reveals character, controls timing, creates humour, mirrors thought, supports a period voice, or clarifies structure. Remove it if it is generic emphasis, tidy profundity, decorative balance, or a default article template. If you are unsure, mark it **Needs user decision** rather than deciding for the user.
+
+Examples:
+
+- Poe-style staccato can be voice. "That matters. A lot." in a productivity article is usually autopilot.
+- A Sedaris-style comic escalation can stay. A corporate triad like "clarity, collaboration, and innovation" should go.
+- Curly quotes in a sourced literary sample are not an AI tell. Curly quotes in this skill's final plain-text output may still be normalised if the user asked for hard cleanup.
+
+---
+
+## Hard constraints (deep-dive)
+
+The four most distinctive AI tells — em dashes, manufactured insight, adversarial reframes, generic staccato fragments — have expanded rules and word lists at [references/severity-detail.md](references/severity-detail.md). When these patterns appear, that file is the canonical source of truth. Read it during Rewrite (Step 5) and Write (Step 5) before settling on the final draft.
+
+---
+
+## Personality and soul
+
+Removing AI patterns is only half the job. AI also **subtracts** — Abdulhai et al. (2026) found extensive LLM use produces a ~70% increase in neutral-stance essays, 50% fewer pronouns, and fewer anecdotes. Sterile, voiceless, perfectly balanced writing is as obvious as slop.
+
+Voice-craft guidance for Rewrite and Write — what to watch for, what to add or preserve, signs of soulless writing, before/after examples — is in [references/voice.md](references/voice.md). Read it during Step 5 (Rewrite or Write under mode), and especially before drafting in the Write action.
+
+---
+
+## Pattern catalogue
+
+Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
+
+- **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
+- **Language and grammar (7-12):** AI vocabulary words and phrases, Kobak biomedical excess-vocabulary clusters, copula avoidance, contrived contrast / negative parallelisms, rule of three, synonym cycling, false ranges
+- **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
+- **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
+- **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
+- **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
+- **Structural tells (29-32, 38):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, section scaffolding
+- **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
+
+Search for specific patterns when needed:
+```bash
+grep -i "promotional" references/patterns.md
+```
+
+---
+
+## Process
+
+### Step 1: Pick the action
+
+Decide which of the three actions applies:
+
+- If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
+- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
+- If the input has text but no clear instruction: use **Audit** and ask what's next.
+- If the input has no text and the request is unclear: ask what they want.
+
+Record the chosen action in the output.
+
+If the action is unclear and you can ask:
+
+> Do you want me to audit this, rewrite it, or write something new?
+
+If you cannot ask, default to Audit. The audit is read-only and lets the user decide the next action with full information. An unwanted audit costs a round-trip; an unwanted rewrite or write loses trust.
+
+### Step 2: Audit (Audit and Rewrite actions only — Write skips)
+
+Save the input text to a unique temp file using `mktemp` for portability:
+
+```bash
+INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+# write the input text to "$INPUT_PATH"
+python3 grade.py --format markdown "$INPUT_PATH"
+```
+
+The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
+
+The script returns a plain-English Markdown report built from `human_report`: `overview`, `score`, `confidence`, `ai_pressure_explanation`, `failed_checks`, and `all_checks`. If you need debugging details, run the script with `--format json` to get JSON diagnostics. The older fields (`triggered_checks`, `failure_mode_results`, `mode_results`, and raw expectations) are for debugging only.
+
+Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
+
+The audit report must include:
+
+- **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
+- **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
+- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Explain accumulation in user-facing terms: several weak signals can stack into machine-packaged rhythm or structure.
+- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, what it looks for, what happened here, why it matters, severity, and severity-tiered recommended action.
+- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `What it looks for`, `What happened here`, `Why this matters`, `Severity`, and `Recommended action`. For clear checks, use "Clear", the plain reason, "—", and "None". For flagged checks, show what happened, why it matters, the severity class, and the severity-tiered recommended action.
+
+The severity-tiered recommended actions are:
+
+- Hard failure → "Fix in any mode."
+- Strong warning → "Fix in Light, Medium, and Hard. Disclose only if explicitly preserved."
+- Context warning → "Preserve in Light if purposeful (disclose). Fix in Medium and Hard."
+- Em dash → "Preserve in Light only with disclosure. Fix in Medium and Hard."
+
+---INPUT---
+# The hour grief comes looking
+
+Grief has its own clock. It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep. In the first weeks after a loss, night can stop being a place of rest and become a second room where the dead feel closer, the mind gets louder, and the body refuses the simple mercy of switching off.
+
+This is one of the crueller parts of grief. The person most in need of rest is often the least able to get it.
+
+Research supports what many grieving people already know in their bones: bereavement and sleep disturbance are closely linked. A systematic review found a high prevalence of sleep problems after bereavement, with stronger grief often associated with greater sleep difficulty. It also found higher rates of sleep disturbance among people experiencing complicated or prolonged grief, particularly where depression is also present.
+
+That matters because sleep is not just a pause from consciousness. It is an active biological process that affects memory, emotional regulation, attention, immune function and the body’s capacity to recover.   When grief disrupts sleep, it does not simply make us tired. It can change the texture of grief itself. Everything becomes harder to metabolise. Small decisions feel punitive. Social contact becomes more effortful. The ordinary world can seem too bright, too fast, too indifferent.
+
+After a death, insomnia is not always dramatic. Sometimes it is a clean, brutal wakefulness at 3 am. Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said. Sometimes sleep comes easily but breaks apart before dawn. Sometimes the body sleeps for ten hours and still wakes exhausted.
+
+There is a particular loneliness to being awake while everyone else is sleeping. During the day, grief may be held in place by tasks. There are forms to complete, people to update, meals to make, children to collect, work to return to too soon. At night, the scaffolding comes down. The mind has no meeting to attend, no polite sentence to finish. It begins its inventory.
+
+This is why advice about “good sleep habits” can land badly with grieving people. A fixed bedtime, less caffeine, a dark room and no phone in bed are useful. Most adults need around 7 to 9 hours of sleep each night, and regular routines can support sleep quality.   But grief is not poor time management. It is not caused by bad lighting or an overused screen. A person who has lost someone may already know exactly what sleep hygiene requires and still be unable to obey it.
+
+The better question is not “How do I force myself to sleep?” but “How do I make the night less hostile?”
+
+That might mean lowering the stakes. If sleep does not come, rest still counts. Lying in the dark with one hand on the chest, listening to something familiar, moving to the couch for a while, or making tea without turning the kitchen into daylight can help the body remain in a quieter state. The goal is not to win against grief. It is to reduce the secondary panic that says, “Now I am grieving and failing at sleep.”
+
+There is also a difference between remembering and ruminating, though they can feel identical at night. Remembering may hurt, but it has movement in it: a face, a phrase, a scene, a tenderness. Rumination loops. It prosecutes. It asks the same unanswerable question until the body becomes alert again. Writing can help, not because it solves anything, but because it gives the mind somewhere to put the loop. A notebook beside the bed can become a holding place for the thought that insists it must be dealt with at 2.17 am.
+
+Dreams add another layer. Grieving people often report dreams in which the dead return with startling ordinariness. They are in the kitchen. They are wearing the old jumper. They have not died after all. Waking from these dreams can feel like losing the person again before breakfast. A dream can be comforting, but it can also make the day harder. Wellness culture often wants to interpret every dream as healing. Some dreams are not healing. Some are just the sleeping mind trying to process an impossible absence.
+
+The research field is still developing. One review noted that, despite the obvious connection between bereavement and sleep, the literature has been relatively limited compared with related areas such as depression and trauma.   That limitation is important. It means we should be careful about neat claims. Poor sleep may intensify grief, and intense grief may disrupt sleep. The relationship can move in both directions. Recent work continues to examine this bidirectional pattern, especially in prolonged grief disorder.
+
+For some people, sleep gradually returns as the nervous system begins to trust the world again. The first full night can feel almost disloyal. There is a strange guilt in waking rested. Grief can make rest feel like abandonment, as if vigilance were a form of love. But exhaustion is not devotion. Staying awake does not keep the person closer. It only keeps the body in distress.
+
+For others, sleep problems persist and become their own condition. That is when support matters. Acute grief can include sadness, tearfulness and insomnia, and it may not require clinical treatment. But prolonged grief disorder describes grief that remains intense and disabling over time, preventing a person from adapting to the loss.   Persistent insomnia, especially when paired with depression, anxiety, intrusive thoughts or inability to function, deserves professional attention. This is not weakness. It is a health issue sitting inside a human loss.
+
+The most compassionate approach to sleep in grief is therefore practical but not simplistic. Keep the room cool and dark. Limit alcohol, which can make sleep more fragmented even if it initially makes you drowsy. Be careful with late caffeine. Use a routine, not as a command, but as a signal to the body.   Let mornings carry some light and movement, even if both feel offensive at first. Tell someone if nights are becoming frightening.
+
+And be wary of anyone who turns sleep into a moral achievement. Grief already gives people enough to feel guilty about. The aim is not perfect sleep. The aim is enough safety for the body to stand down, even briefly.
+
+Over time, sleep can become one of the ways grief changes shape. Not disappears. Not resolves neatly. But changes. The bed becomes less like a witness stand. The dark becomes less accusatory. The first thought on waking is not always the loss. Some mornings, there is a second or two before memory returns. Later, there may be mornings when memory returns gently.
+
+Sleep does not cure grief. It gives the grieving body a place to repair while the heart does harder work than anyone else can see.
+
+2026-04-28T16:28:49.677897Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:28:49.678111Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc "rg --files /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot | sed -n '1,120p'" in /Users/mae/Documents/humanise
+ succeeded in 0ms:
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/examples ai.txt
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/kobak-excess-words.csv
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/patterns.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/example.md
+/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/voice.md
+
+2026-04-28T16:28:53.250555Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:28:53.250800Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+exec
+/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+ succeeded in 0ms:
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-Qwc8PKX8' (errno=Operation not permitted)
+python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
+python3: error: couldn't create cache file '/tmp/xcrun_db-I7iU0wvv' (errno=Operation not permitted)
+Initial assessment
+Summary: 6 of 43 checks were flagged for AI-style writing patterns.
+
+Confidence: Medium. Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 6 context-sensitive signal(s).
+Note: This is a confidence assessment about AI-writing signs, not an authorship verdict.
+
+AI-pressure explanation: AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. Here the stacked signals were headings in prose. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. Score: 2/4, so this check stayed clear.
+
+Main issues found
+- Generic staccato emphasis: Flagged. What it looks for: Checks for repeated short dramatic sentences used as generic emphasis. What happened here: Found sequence of 3 consecutive short sentences. Why this matters: Repeated short emphasis beats can make prose sound generated rather than naturally paced. Hard action: Fix.
+- Mechanical repeated sentence starts: Flagged. What it looks for: Checks for repeated sentence openings that read like template rhythm. What happened here: Found 4 consecutive sentences starting with 'sometimes'. Why this matters: Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. Hard action: Fix.
+- Curly quotes: Flagged. What it looks for: Checks for curly quotation marks when plain output is expected. What happened here: Found 9 curly quote(s). Why this matters: Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. Hard action: Fix.
+- Headings in prose: Flagged. What it looks for: Checks for markdown headings and plain title headings when prose should flow. What happened here: Found 1 heading(s): "# The hour grief comes looking". Why this matters: Headings can make prose feel packaged by an assistant rather than written as a continuous piece. Hard action: Fix.
+- Dense negation: Flagged. What it looks for: Checks whether negation markers are unusually dense across prose. What happened here: Found 18 negation markers (15.6 per 1000 words). Why this matters: Dense negation can make a piece feel over-framed around what it is not instead of what it is. Hard action: Fix.
+- Triad density: Flagged. What it looks for: Checks whether three-part list structures are overused across the piece. What happened here: Found 7 triad(s), including "the dead feel closer, the mind gets louder, the body refuses the", "attention, immune function, the body", "less caffeine, a dark room, no phone in bed", plus 4 more. Why this matters: Too many three-part lists create a recognisable generated cadence. Hard action: Fix.
+
+Full check table
+
+| Check | Status | What it looks for | What happened here | Why this matters | Hard action |
+|---|---|---|---|---|---|
+| Em dashes | Clear | Checks for em dash punctuation, a strong current AI-style signal in this skill. | No issue found in this text. | Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation. | None |
+| Clustered AI vocabulary | Clear | Checks whether generic AI-associated words and phrases cluster together. | No issue found in this text. | Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context. | None |
+| Nonliteral land/surface phrasing | Clear | Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale. | No issue found in this text. | Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged. | None |
+| AI pressure from stacked signals | Clear | Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive. | No issue found in this text. | Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable. | None |
+| Manufactured insight framing | Clear | Checks for phrases that perform hidden depth or secret significance without earning it. | No issue found in this text. | Manufactured insight framing performs depth without adding specific evidence or thought. | None |
+| Generic staccato emphasis | Flagged | Checks for repeated short dramatic sentences used as generic emphasis. | Found sequence of 3 consecutive short sentences. | Repeated short emphasis beats can make prose sound generated rather than naturally paced. | Fix |
+| Mechanical repeated sentence starts | Flagged | Checks for repeated sentence openings that read like template rhythm. | Found 4 consecutive sentences starting with 'sometimes'. | Mechanical repeated openings can signal template rhythm instead of intentional rhetoric. | Fix |
+| Assistant residue | Clear | Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue. | No issue found in this text. | Assistant residue makes the text look like chat output rather than finished prose. | None |
+| Curly quotes | Flagged | Checks for curly quotation marks when plain output is expected. | Found 9 curly quote(s). | Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text. | Fix |
+| Sentence rhythm variance | Clear | Checks whether sentence lengths are too uniform across longer prose. | No issue found in this text. | Low rhythm variation makes paragraphs feel mechanically produced. | None |
+| Generic promotional language | Clear | Checks for stock hype and sales-like adjectives. | No issue found in this text. | Stock hype weakens credibility and often appears in generated product or venue copy. | None |
+| Inflated significance | Clear | Checks for language that makes ordinary claims sound historically important. | No issue found in this text. | Inflated importance makes ordinary claims sound artificially momentous. | None |
+| Contrived contrast | Clear | Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures. | No issue found in this text. | Contrived contrast creates a fake reveal instead of making a direct, supported claim. | None |
+| Avoiding plain 'is' | Clear | Checks for inflated replacements such as serves as, functions as, or stands as. | No issue found in this text. | Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis. | None |
+| Filler phrases | Clear | Checks for stock padding such as in order to or it is worth noting. | No issue found in this text. | Filler phrases add polish without information. | None |
+| Generic conclusion | Clear | Checks for empty endings such as the future looks bright. | No issue found in this text. | Generic conclusions make the ending feel templated and interchangeable. | None |
+| False balance or concession | Clear | Checks for fake both-sides framing that avoids taking a position. | No issue found in this text. | False balance can hide the writer's actual position. | None |
+| Placeholder residue | Clear | Checks for unfilled template markers and placeholder instructions. | No issue found in this text. | Placeholder residue signals unfinished generated or templated text. | None |
+| Soft explainer scaffolding | Clear | Checks for phrases that announce structure instead of making a point. | No issue found in this text. | Soft scaffolding announces structure instead of doing useful writing work. | None |
+| Vague 'this/that' starts | Clear | Checks for repeated vague sentence subjects such as This highlights or That shows. | No issue found in this text. | Vague this/that openings blur the actual subject and create generic analysis. | None |
+| Decorative three-part lists | Clear | Checks for forced triads used as rhythm rather than substance. | No issue found in this text. | Decorative three-part lists can create artificial rhythm without substance. | None |
+| Tacked-on -ing analysis | Clear | Checks for trailing -ing clauses that pretend to analyse without adding meaning. | No issue found in this text. | Tacked-on -ing clauses often pretend to analyse while adding little. | None |
+| Ghost/spectral atmosphere | Clear | Checks for clichéd ghost, shadow, whisper, and echo language. | No issue found in this text. | Stock spectral language can make atmosphere feel generated or borrowed. | None |
+| Generic quiet/still mood | Clear | Checks for overused quiet, still, soft, and hushed atmosphere. | No issue found in this text. | Overused quiet/still mood language can create generic literary atmosphere. | None |
+| Template rhetorical questions | Clear | Checks for article-style questions followed by obvious answers. | No issue found in this text. | Template questions often simulate engagement without adding real inquiry. | None |
+| Excessive list formatting | Clear | Checks whether prose has been over-converted into bullets or numbered lists. | No issue found in this text. | Too much list formatting can make prose feel like generated notes or slides. | None |
+| Decorative Unicode | Clear | Checks for symbols and decorative punctuation that look like generated formatting. | No issue found in this text. | Decorative symbols can make output look like generated formatting. | None |
+| Unearned dramatic transitions | Clear | Checks for generic turning points such as something shifted or everything changed. | No issue found in this text. | Unearned turning-point language claims drama the prose has not built. | None |
+| Formulaic openers | Clear | Checks for generated openings such as at its core or from a broader perspective. | No issue found in this text. | Formulaic openings make paragraphs feel assembled from templates. | None |
+| Signposted conclusion | Clear | Checks for explicit conclusion labels and summary signposts. | No issue found in this text. | Conclusion signposts often flatten the ending into a generic summary. | None |
+| Headings in prose | Flagged | Checks for markdown headings and plain title headings when prose should flow. | Found 1 heading(s): "# The hour grief comes looking". | Headings can make prose feel packaged by an assistant rather than written as a continuous piece. | Fix |
+| Corporate AI-speak | Clear | Checks for vague delivery, alignment, outcomes, and cross-functional clichés. | No issue found in this text. | Corporate AI-speak hides specific work behind vague operational language. | None |
+| Repeated 'This...' chains | Clear | Checks for several consecutive sentences beginning with vague This constructions. | No issue found in this text. | Repeated vague This sentences create generic analysis and weak subject control. | None |
+| Excessive hedging | Clear | Checks for evasive qualification and impersonal uncertainty. | No issue found in this text. | Too much hedging weakens stance and can make prose feel evasive or machine-neutral. | None |
+| Countdown negation | Clear | Checks for repeated no/not/cannot setups that build toward a reveal. | No issue found in this text. | Countdown negation creates a synthetic reveal structure. | None |
+| Dense negation | Flagged | Checks whether negation markers are unusually dense across prose. | Found 18 negation markers (15.6 per 1000 words). | Dense negation can make a piece feel over-framed around what it is not instead of what it is. | Fix |
+| Paragraph length uniformity | Clear | Checks whether paragraphs are suspiciously similar in length. | No issue found in this text. | Paragraphs of similar length can signal generated structure and low natural variation. | None |
+| Tidy paragraph endings | Clear | Checks for repeated miniature conclusions at paragraph ends. | No issue found in this text. | Repeated tidy endings make paragraphs feel over-resolved and templated. | None |
+| Bland critical template | Clear | Checks for generic review language instead of concrete critical claims. | No issue found in this text. | Bland critical language replaces concrete judgment with portable review phrases. | None |
+| Rubric echoing | Clear | Checks for assignment or rubric phrasing leaking into the prose. | No issue found in this text. | Rubric echoing makes writing sound like assignment compliance rather than independent thought. | None |
+| Vocabulary diversity | Clear | Checks for unusually repetitive vocabulary in longer text. | No issue found in this text. | Low vocabulary variety can make longer prose feel repetitive and mechanically produced. | None |
+| Triad density | Flagged | Checks whether three-part list structures are overused across the piece. | Found 7 triad(s), including "the dead feel closer, the mind gets louder, the body refuses the", "attention, immune function, the body", "less caffeine, a dark room, no phone in bed", plus 4 more. | Too many three-part lists create a recognisable generated cadence. | Fix |
+| Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
+
+2026-04-28T16:28:57.187071Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
+2026-04-28T16:28:57.187296Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
+codex
+Audit: 6 AI-style tells flagged. Medium confidence. This is about writing patterns, not authorship.
+
+1. **Generic staccato emphasis**
+   - Issue: Several short dramatic sentences stack together: “Not disappears. Not resolves neatly. But changes.”
+   - Suggestion: Merge some fragments into fuller sentences, or keep only one hard stop where it genuinely lands emotionally.
+
+2. **Mechanical repeated sentence starts**
+   - Issue: Four consecutive sentences begin with “Sometimes”.
+   - Suggestion: Keep one or two for rhythm, then vary the structure: “For some people…”, “In other cases…”, “Sleep may come easily, then break before dawn.”
+
+3. **Curly quotes**
+   - Issue: Curly quotation marks appear throughout.
+   - Suggestion: If this is meant to be plain Markdown or cleaned web copy, convert them to straight quotes. This is a surface tell, not a deep writing problem.
+
+4. **Heading in prose**
+   - Issue: The Markdown title makes the piece feel packaged.
+   - Suggestion: If this is an essay/article draft, keep the title only as publication metadata. If it should read as continuous prose, remove the `#` heading marker.
+
+5. **Dense negation**
+   - Issue: The piece repeatedly defines grief and sleep by what they are *not*: “not dramatic”, “not poor time management”, “not caused by…”, “not weakness”, “not perfect sleep”.
+   - Suggestion: Convert some negative framing into direct positive claims. For example, instead of “Grief is not poor time management,” try something like “Grief changes the body’s sense of safety.”
+
+6. **Triad density**
+   - Issue: Three-part lists recur often: “work, meals, messages”, “attention, immune function…”, “cool and dark… alcohol… caffeine…”
+   - Suggestion: Break some lists into sharper single details, or vary the rhythm with longer, messier human-feeling sentences. Keep the triads that carry real cadence; trim the ones that feel decorative.
+
+Overall: the draft is strong and voice-led, but it has a polished, patterned rhythm in places. The main fix is not to “make it casual”; it is to roughen the repeated structures so the emotional intelligence feels less packaged.
+
+Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+2026-04-28T16:29:14.826868Z  WARN codex_core::shell_snapshot: Failed to delete shell snapshot at AbsolutePathBuf("/Users/mae/.codex/shell_snapshots/019dd4eb-32c7-7be2-9162-82a2ec6b9596.1777393677000323000.sh"): Os { code: 2, kind: NotFound, message: "No such file or directory" }
+tokens used
+22,047
+2026-04-28T16:29:14.837052Z  WARN codex_rmcp_client::stdio_server_launcher: Failed to terminate MCP process group 14602: No such process (os error 3)

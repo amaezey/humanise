@@ -3,264 +3,856 @@
   "evals": [
     {
       "id": 0,
-      "name": "harris-free-will",
-      "prompt": "Humanise the following essay about free will and moral responsibility.",
-      "expected_output": "Text that reads like a thoughtful philosophical essay with personal voice, varied sentence rhythm, and no AI tells",
-      "files": ["evals/samples/harris-free-will.md"],
+      "name": "audit-ai-cultural",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "A located + explained list of every detected AI tell, ending with a question offering the next step (suggestions / rewrite / done). No rewrite produced.",
+      "files": [
+        "evals/samples/generated-ai/02-cultural-didion.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
-        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied sentence rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
-        {"name": "no-significance-inflation", "type": "programmatic", "description": "No significance inflation", "check": "count == 0"},
-        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers free will objection, good/evil distinction, surgeon example, lack of ultimate control over desires"},
-        {"name": "voice-naturalness", "type": "qualitative", "description": "Reads as though a specific human wrote it, not a generic overview. Has opinions, acknowledges uncertainty, or uses first person where appropriate"}
+        {
+          "name": "audit-flags-present",
+          "type": "programmatic",
+          "description": "Output references at least 5 distinct AI patterns from the catalogue",
+          "check": "distinct catalogue patterns referenced >= 5"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Every flagged pattern shows a quoted phrase from the input draft",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Every flagged pattern has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "explanations-are-educational",
+          "type": "qualitative",
+          "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        }
       ]
     },
     {
       "id": 1,
-      "name": "murray-doctors-die",
-      "prompt": "Humanise the following essay about how doctors approach their own end-of-life care.",
-      "expected_output": "Text that reads like a personal medical essay with storytelling, direct observations, and no AI tells",
-      "files": ["evals/samples/murray-doctors-die.md"],
+      "name": "audit-human-reflective-essay",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "An audit on known-human reflective essay prose from the repo corpus. The real false-positive guard is the cross-corpus comparative report (human samples should be flagged less than AI samples on average); the per-case programmatic check is now a runaway-guard only.",
+      "files": [
+        "evals/samples/human-sourced/21c-dillard-this-is-the-life.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
-        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied sentence rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
-        {"name": "no-significance-inflation", "type": "programmatic", "description": "No significance inflation", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers Charlie's anecdote, doctors choosing less treatment, knowledge of medicine's limits, fear of dying in pain/alone"},
-        {"name": "voice-naturalness", "type": "qualitative", "description": "Reads like personal medical essay, not a health article overview"}
+        {
+          "name": "low-flag-count-on-human-prose-runaway-guard",
+          "type": "programmatic",
+          "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "check": "distinct catalogue patterns referenced <= 12"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Any flag present shows a quoted phrase from the input",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Any flag present has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "any-flags-are-defensible",
+          "type": "qualitative",
+          "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        }
       ]
     },
     {
       "id": 2,
-      "name": "woolf-moth",
-      "prompt": "Humanise the following descriptive essay about watching a moth at a window.",
-      "expected_output": "Text that reads like literary observation with sensory detail and natural rhythm, not a nature article",
-      "files": ["evals/samples/woolf-moth.md"],
+      "name": "audit-human-literary",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "An audit on known-human literary prose from the repo corpus. False-positive guard via cross-corpus comparison; per-case programmatic check is a runaway-guard only.",
+      "files": [
+        "evals/samples/human-sourced/20c-woolf-room.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
-        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "no-copula-avoidance", "type": "programmatic", "description": "No copula avoidance", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Captures the moth at the window, the September morning, the outdoor energy, the moth as embodiment of life force"},
-        {"name": "literary-quality", "type": "qualitative", "description": "Uses concrete sensory detail rather than atmospheric adjectives. Shows rather than tells"}
+        {
+          "name": "low-flag-count-on-human-prose-runaway-guard",
+          "type": "programmatic",
+          "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "check": "distinct catalogue patterns referenced <= 12"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Any flag present shows a quoted phrase from the input",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Any flag present has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "any-flags-are-defensible",
+          "type": "qualitative",
+          "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        }
       ]
     },
     {
       "id": 3,
-      "name": "wong-monkeysphere",
-      "prompt": "Humanise the following humorous essay about Dunbar's number and the Monkeysphere.",
-      "expected_output": "Text that retains irreverent humor, specific details (monkey names, pirate costume), and conversational tone without AI patterns",
-      "files": ["evals/samples/wong-monkeysphere.md"],
+      "name": "suggestions-ai-wellbeing",
+      "prompt": "Audit this draft and give me a list of suggestions for each AI tell.",
+      "expected_output": "Audit findings followed by a per-flag suggestions list. One suggestion per flagged tell. No full-document rewrite.",
+      "files": [
+        "evals/samples/generated-ai/06-wellbeing-sleep-grief.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-significance-inflation", "type": "programmatic", "description": "No significance inflation", "check": "count == 0"},
-        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
-        {"name": "humor-preserved", "type": "qualitative", "description": "The irreverent, conversational tone survives humanisation. Specific funny details (monkey names, pirate costume, jokes) are intact or replaced with equally specific humor"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers Dunbar's number, the monkey thought experiment, brain-size research, the 150 limit, and why this matters for how we treat strangers"}
+        {
+          "name": "audit-shown-before-suggestions",
+          "type": "programmatic",
+          "description": "Audit findings appear in output before the suggestions list",
+          "check": "audit-shape block precedes suggestions-shape block"
+        },
+        {
+          "name": "audit-flags-present",
+          "type": "programmatic",
+          "description": "Output references at least 5 distinct AI patterns from the catalogue",
+          "check": "distinct catalogue patterns referenced >= 5"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Every flagged pattern shows a quoted phrase from the input draft",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "suggestion-count-matches-flag-count",
+          "type": "programmatic",
+          "description": "Number of suggestions equals number of flagged tells",
+          "check": "suggestion-block-count == flag-count"
+        },
+        {
+          "name": "each-suggestion-has-replacement",
+          "type": "programmatic",
+          "description": "Every suggestion offers a concrete alternative phrasing",
+          "check": "every suggestion block contains a 'Try' or replacement phrase"
+        },
+        {
+          "name": "no-full-rewrite",
+          "type": "programmatic",
+          "description": "Output does not contain a full rewritten draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "lexical-suggestions-look-vetted",
+          "type": "qualitative",
+          "description": "Suggestions for lexical patterns (delve, hedging, em-dashes) feel like vetted human alternatives, not freshly generated AI prose. They should match what's in references/alternatives.md when applicable."
+        }
       ]
     },
     {
       "id": 4,
-      "name": "orwell-why-write",
-      "prompt": "Humanise the following autobiographical essay about knowing from childhood you would be a writer.",
-      "expected_output": "Text that reads like honest autobiography with self-deprecation, specific memories, and direct prose",
-      "files": ["evals/samples/orwell-why-write.md"],
+      "name": "rewrite-balanced-tech",
+      "prompt": "Audit and rewrite this at balanced depth.",
+      "expected_output": "Audit findings followed by a rewritten draft at balanced depth. Surface AI tells (delve, hedging, em-dashes, formulaic openers) and strong tells (signposted conclusions, manufactured insight, AI vocabulary clustering) gone; structural tells (paragraph-length uniformity, anaphoric scaffolding) may remain.",
+      "files": [
+        "evals/samples/generated-ai/03-tech-productivity-apps.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
-        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No 'not just...but' or 'not only...but also' constructions", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers childhood conviction of being a writer, lonely upbringing, early poems, the continuous mental story/internal narration habit"},
-        {"name": "voice-naturalness", "type": "qualitative", "description": "First-person, self-deprecating, honest about failures and limitations. Not a 'journey of self-discovery' narrative"}
+        {
+          "name": "audit-shown-before-rewrite",
+          "type": "programmatic",
+          "description": "Audit findings appear in output before the rewrite",
+          "check": "audit-shape block precedes rewrite block"
+        },
+        {
+          "name": "rewrite-produced",
+          "type": "programmatic",
+          "description": "Output contains a rewritten version of the input draft",
+          "check": "output contains a prose block of similar length to input that differs from input"
+        },
+        {
+          "name": "no-em-dashes-in-rewrite",
+          "type": "programmatic",
+          "description": "Rewrite has zero em dashes",
+          "check": "count of '—' in rewrite == 0"
+        },
+        {
+          "name": "no-delve-in-rewrite",
+          "type": "programmatic",
+          "description": "Rewrite has no instances of 'delve' or 'delves' or 'delving'",
+          "check": "regex '\\bdelv(e|es|ing)\\b' count in rewrite == 0"
+        },
+        {
+          "name": "rewrite-passes-balanced-grader",
+          "type": "programmatic",
+          "description": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "check": "regrade(rewrite, depth='balanced').fails == 0"
+        },
+        {
+          "name": "meaning-preserved",
+          "type": "qualitative",
+          "description": "Rewrite preserves the original argument, structure of points, and stance"
+        },
+        {
+          "name": "structural-tells-may-remain",
+          "type": "qualitative",
+          "description": "At balanced depth, paragraph-length uniformity and other structural patterns are NOT expected to be addressed; their presence in the rewrite is acceptable"
+        }
       ]
     },
     {
       "id": 5,
-      "name": "essay-libraries",
-      "prompt": "Humanise the following essay about the importance of public libraries.",
-      "expected_output": "Text that reads like a thoughtful essay with personal voice and no AI tells",
-      "files": ["evals/samples/1-essay-libraries.md"],
+      "name": "rewrite-balanced-personal",
+      "prompt": "Audit and rewrite this at balanced depth.",
+      "expected_output": "Audit findings followed by a rewritten draft at balanced depth. Surface tells gone, plus most strong tells (manufactured insight, signposted conclusions, formulaic openers, AI vocabulary clustering) addressed.",
+      "files": [
+        "evals/samples/generated-ai/01-personal-essay-parents.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "no-copula-avoidance", "type": "programmatic", "description": "No copula avoidance", "check": "count == 0"},
-        {"name": "no-forced-triads", "type": "programmatic", "description": "No forced abstract triads", "check": "count == 0"},
-        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers equitable access, combating misinformation, lifelong learning, and social cohesion arguments for libraries"}
+        {
+          "name": "audit-shown-before-rewrite",
+          "type": "programmatic",
+          "description": "Audit findings appear in output before the rewrite",
+          "check": "audit-shape block precedes rewrite block"
+        },
+        {
+          "name": "rewrite-produced",
+          "type": "programmatic",
+          "description": "Output contains a rewritten version of the input draft",
+          "check": "output contains a prose block of similar length to input that differs from input"
+        },
+        {
+          "name": "no-em-dashes-in-rewrite",
+          "type": "programmatic",
+          "description": "Rewrite has zero em dashes",
+          "check": "count of '—' in rewrite == 0"
+        },
+        {
+          "name": "no-manufactured-insight",
+          "type": "programmatic",
+          "description": "No manufactured insight phrases in rewrite",
+          "check": "manufactured-insight count in rewrite == 0"
+        },
+        {
+          "name": "no-signposted-conclusions",
+          "type": "programmatic",
+          "description": "No signposted conclusion phrases in rewrite",
+          "check": "signposted-conclusion count in rewrite == 0"
+        },
+        {
+          "name": "rewrite-passes-balanced-grader",
+          "type": "programmatic",
+          "description": "Re-grading the rewrite at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "check": "regrade(rewrite, depth='balanced').fails == 0"
+        },
+        {
+          "name": "meaning-preserved",
+          "type": "qualitative",
+          "description": "Rewrite preserves the personal anecdote, the central realisation, and the reflective stance"
+        }
       ]
     },
     {
       "id": 6,
-      "name": "blog-cooking",
-      "prompt": "Humanise the following blog post about why everyone should learn to cook.",
-      "expected_output": "Text that reads like a personal blog post with opinions and no AI tells",
-      "files": ["evals/samples/2-blog-cooking.md"],
+      "name": "rewrite-all-science",
+      "prompt": "Audit and rewrite this at all depth, including subtle structural tells.",
+      "expected_output": "Audit findings followed by a rewritten draft at all depth. Every flagged pattern addressed, including structural ones (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance).",
+      "files": [
+        "evals/samples/generated-ai/04-science-mycorrhizal.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No negative parallelisms", "check": "count == 0"},
-        {"name": "no-filler-phrases", "type": "programmatic", "description": "No filler phrases", "check": "count == 0"},
-        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers cooking as capability, autonomy, connection, and self-expression"}
+        {
+          "name": "audit-shown-before-rewrite",
+          "type": "programmatic",
+          "description": "Audit findings appear in output before the rewrite",
+          "check": "audit-shape block precedes rewrite block"
+        },
+        {
+          "name": "rewrite-produced",
+          "type": "programmatic",
+          "description": "Output contains a rewritten version of the input draft",
+          "check": "output contains a prose block of similar length to input that differs from input"
+        },
+        {
+          "name": "no-em-dashes-in-rewrite",
+          "type": "programmatic",
+          "description": "Rewrite has zero em dashes",
+          "check": "count of '—' in rewrite == 0"
+        },
+        {
+          "name": "sentence-length-variance-improved",
+          "type": "programmatic",
+          "description": "Rewrite has higher sentence-length variance than input",
+          "check": "stdev(sentence-lengths) in rewrite > stdev(sentence-lengths) in input"
+        },
+        {
+          "name": "paragraph-length-not-uniform",
+          "type": "programmatic",
+          "description": "Rewrite has varied paragraph lengths",
+          "check": "stdev(paragraph-word-counts) in rewrite > threshold"
+        },
+        {
+          "name": "rewrite-passes-all-grader",
+          "type": "programmatic",
+          "description": "Re-grading the rewrite at all depth produces 0 hits across all severity classes",
+          "check": "regrade(rewrite, depth='all').fails == 0"
+        },
+        {
+          "name": "meaning-preserved",
+          "type": "qualitative",
+          "description": "Rewrite preserves the scientific accuracy, key examples, and explanatory arc"
+        }
       ]
     },
     {
       "id": 7,
-      "name": "listicle-remote",
-      "prompt": "Humanise the following listicle about remote work transforming the workplace.",
-      "expected_output": "Text that reads like a natural article rather than a slide deck, with no AI tells",
-      "files": ["evals/samples/3-listicle-remote.md"],
+      "name": "write-balanced-brief",
+      "prompt": "Write a 250-word reflection on first-time linocut printing at balanced depth.",
+      "expected_output": "A new ~250-word reflective draft that addresses the brief and avoids AI patterns at balanced depth.",
+      "files": [],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-anaphora", "type": "programmatic", "description": "No 3+ consecutive sentences starting with same word", "check": "max run < 3"},
-        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No negative parallelisms", "check": "count == 0"},
-        {"name": "no-forced-triads", "type": "programmatic", "description": "No forced abstract triads", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-corporate-ai-speak", "type": "programmatic", "description": "No corporate AI register", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers location-agnostic work, productivity redefinition, and talent strategy shifts"}
+        {
+          "name": "no-input-draft-required",
+          "type": "programmatic",
+          "description": "This case has no input file; the agent should compose from the brief alone",
+          "check": "files array is empty"
+        },
+        {
+          "name": "word-count-near-target",
+          "type": "programmatic",
+          "description": "Output word count is within 15% of 250 (i.e., 213-288)",
+          "check": "213 <= word_count(draft) <= 288"
+        },
+        {
+          "name": "no-em-dashes",
+          "type": "programmatic",
+          "description": "Draft has zero em dashes",
+          "check": "count of '—' in draft == 0"
+        },
+        {
+          "name": "no-delve",
+          "type": "programmatic",
+          "description": "Draft has no instances of 'delve' or its variants",
+          "check": "regex '\\bdelv(e|es|ing)\\b' count == 0"
+        },
+        {
+          "name": "draft-passes-balanced-grader",
+          "type": "programmatic",
+          "description": "Grading the draft at balanced depth produces 0 hard_fail and 0 strong_warning hits",
+          "check": "regrade(draft, depth='balanced').fails == 0"
+        },
+        {
+          "name": "addresses-brief",
+          "type": "qualitative",
+          "description": "Draft is genuinely about first-time linocut printing, not generic 'creative practice' filler"
+        },
+        {
+          "name": "voice-feels-natural",
+          "type": "qualitative",
+          "description": "Draft reads as a real reflection with specific sensory or emotional detail, not a generic AI essay structure"
+        }
       ]
     },
     {
       "id": 8,
-      "name": "reflection-travel",
-      "prompt": "Humanise the following reflective essay about what travel teaches us.",
-      "expected_output": "Text that reads like personal reflection with specific observations, not generic travel writing",
-      "files": ["evals/samples/4-reflection-travel.md"],
+      "name": "audit-human-image-first-men-original-sins",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired human essay 'Image Journal — First Men and Original Sins'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/human-sourced/21c-image-first-men-original-sins.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No negative parallelisms", "check": "count == 0"},
-        {"name": "no-filler-phrases", "type": "programmatic", "description": "No filler phrases", "check": "count == 0"},
-        {"name": "no-forced-triads", "type": "programmatic", "description": "No forced abstract triads", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers how travel disrupts identity assumptions and reveals coping mechanisms"}
+        {
+          "name": "low-flag-count-on-human-prose-runaway-guard",
+          "type": "programmatic",
+          "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "check": "distinct catalogue patterns referenced <= 12"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Any flag present shows a quoted phrase from the input",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Any flag present has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "any-flags-are-defensible",
+          "type": "qualitative",
+          "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        }
       ]
     },
     {
       "id": 9,
-      "name": "explainer-quantum",
-      "prompt": "Humanise the following explainer about quantum computing for a general audience.",
-      "expected_output": "Text that reads like a clear, engaging explainer without AI tells",
-      "files": ["evals/samples/5-explainer-quantum.md"],
+      "name": "audit-human-opencoop-belonging-superpower",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired human essay 'Open.coop — Belonging is a Superpower'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/human-sourced/21c-opencoop-belonging-superpower.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers classical bits vs qubits, superposition, and quantum computing applications"}
+        {
+          "name": "low-flag-count-on-human-prose-runaway-guard",
+          "type": "programmatic",
+          "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "check": "distinct catalogue patterns referenced <= 12"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Any flag present shows a quoted phrase from the input",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Any flag present has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "any-flags-are-defensible",
+          "type": "qualitative",
+          "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        }
       ]
     },
     {
       "id": 10,
-      "name": "cover-letter",
-      "prompt": "Humanise the following cover letter for a senior software engineer position.",
-      "expected_output": "Text that reads like a genuine personal letter, not a corporate template",
-      "files": ["evals/samples/6-cover-letter.md"],
+      "name": "audit-human-fortelabs-servant-hedonism",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired human essay 'Forte Labs — Servant Hedonism'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-corporate-ai-speak", "type": "programmatic", "description": "No corporate AI register", "check": "count == 0"},
-        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "no-this-chains", "type": "programmatic", "description": "No 3+ consecutive 'This [verb]' sentences", "check": "max < 3"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers experience with scalable systems, leadership, and startup capabilities"},
-        {"name": "voice-naturalness", "type": "qualitative", "description": "Reads like a person talking about their work, not a corporate template"}
+        {
+          "name": "low-flag-count-on-human-prose-runaway-guard",
+          "type": "programmatic",
+          "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "check": "distinct catalogue patterns referenced <= 12"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Any flag present shows a quoted phrase from the input",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Any flag present has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "any-flags-are-defensible",
+          "type": "qualitative",
+          "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        }
       ]
     },
     {
       "id": 11,
-      "name": "hotel-description",
-      "prompt": "Humanise the following boutique hotel product description.",
-      "expected_output": "Text that reads like genuine copy rather than AI-generated tourism marketing",
-      "files": ["evals/samples/7-hotel-description.md"],
+      "name": "audit-human-critchlow-workshops",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired human essay 'Tom Critchlow — Workshops as Portals'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/human-sourced/21c-critchlow-workshops.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
-        {"name": "no-copula-avoidance", "type": "programmatic", "description": "No copula avoidance", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "no-ghost-spectral-density", "type": "programmatic", "description": "No ghost/spectral language density", "check": "count < 3"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers the 18th-century building, heritage preservation, design, and location"}
+        {
+          "name": "low-flag-count-on-human-prose-runaway-guard",
+          "type": "programmatic",
+          "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "check": "distinct catalogue patterns referenced <= 12"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Any flag present shows a quoted phrase from the input",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Any flag present has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "any-flags-are-defensible",
+          "type": "qualitative",
+          "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        }
       ]
     },
     {
       "id": 12,
-      "name": "email-decline",
-      "prompt": "Humanise the following short email declining a meeting invitation.",
-      "expected_output": "Text that reads like a natural, brief email",
-      "files": ["evals/samples/8-email-decline.md"],
+      "name": "audit-human-tuckermax-mdma-therapy",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired human essay 'Tucker Max — What MDMA Therapy Did For Me'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
-        {"name": "no-filler-phrases", "type": "programmatic", "description": "No filler phrases", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "meaning-preservation", "type": "qualitative", "description": "Declines the meeting and proposes alternative times"}
+        {
+          "name": "low-flag-count-on-human-prose-runaway-guard",
+          "type": "programmatic",
+          "description": "Catastrophic over-flagging guard: human prose should not produce more than 12 distinct flags",
+          "check": "distinct catalogue patterns referenced <= 12"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Any flag present shows a quoted phrase from the input",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Any flag present has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "any-flags-are-defensible",
+          "type": "qualitative",
+          "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        }
       ]
     },
     {
       "id": 13,
-      "name": "passthrough-human",
-      "prompt": "Humanise the following personal essay.",
-      "expected_output": "Text should be left mostly unchanged since it is already human-written with no AI tells",
-      "files": ["evals/samples/9-passthrough-human.md"],
+      "name": "audit-ai-fresh-belonging-superpower",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired AI fresh-write 'AI fresh-write of OpenCoop belonging-superpower'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/generated-ai/21c-ai-belonging-superpower.md"
+      ],
       "assertions": [
-        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
-        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
-        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
-        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
-        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
-        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
-        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
-        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
-        {"name": "no-excessive-hedging", "type": "programmatic", "description": "No excessive hedging", "check": "count < 4"},
-        {"name": "passthrough-quality", "type": "qualitative", "description": "Output should be minimally changed from input since the input has no AI tells. Named people, specific memories, and personal voice should be preserved intact."}
+        {
+          "name": "audit-flags-present",
+          "type": "programmatic",
+          "description": "Output references at least 5 distinct AI patterns from the catalogue",
+          "check": "distinct catalogue patterns referenced >= 5"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Every flagged pattern shows a quoted phrase from the input draft",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Every flagged pattern has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "explanations-are-educational",
+          "type": "qualitative",
+          "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "audit-ai-fresh-workshops-as-portals",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired AI fresh-write 'AI fresh-write of Critchlow workshops'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/generated-ai/21c-ai-workshops-as-portals.md"
+      ],
+      "assertions": [
+        {
+          "name": "audit-flags-present",
+          "type": "programmatic",
+          "description": "Output references at least 5 distinct AI patterns from the catalogue",
+          "check": "distinct catalogue patterns referenced >= 5"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Every flagged pattern shows a quoted phrase from the input draft",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Every flagged pattern has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "explanations-are-educational",
+          "type": "qualitative",
+          "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "audit-ai-fresh-mdma-therapy",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired AI fresh-write 'AI fresh-write of Tucker Max MDMA therapy'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/generated-ai/21c-ai-mdma-therapy.md"
+      ],
+      "assertions": [
+        {
+          "name": "audit-flags-present",
+          "type": "programmatic",
+          "description": "Output references at least 5 distinct AI patterns from the catalogue",
+          "check": "distinct catalogue patterns referenced >= 5"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Every flagged pattern shows a quoted phrase from the input draft",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Every flagged pattern has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "explanations-are-educational",
+          "type": "qualitative",
+          "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "audit-ai-fresh-servant-hedonism",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired AI fresh-write 'AI fresh-write of Forte Labs servant hedonism'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/generated-ai/21c-ai-servant-hedonism.md"
+      ],
+      "assertions": [
+        {
+          "name": "audit-flags-present",
+          "type": "programmatic",
+          "description": "Output references at least 5 distinct AI patterns from the catalogue",
+          "check": "distinct catalogue patterns referenced >= 5"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Every flagged pattern shows a quoted phrase from the input draft",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Every flagged pattern has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "explanations-are-educational",
+          "type": "qualitative",
+          "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "audit-ai-fresh-first-men-original-sins",
+      "prompt": "Audit this draft for AI tells.",
+      "expected_output": "Audit on the genre-paired AI fresh-write 'AI fresh-write of Image Journal first men'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "files": [
+        "evals/samples/generated-ai/21c-ai-first-men-original-sins.md"
+      ],
+      "assertions": [
+        {
+          "name": "audit-flags-present",
+          "type": "programmatic",
+          "description": "Output references at least 5 distinct AI patterns from the catalogue",
+          "check": "distinct catalogue patterns referenced >= 5"
+        },
+        {
+          "name": "each-flag-has-quoted-phrase",
+          "type": "programmatic",
+          "description": "Every flagged pattern shows a quoted phrase from the input draft",
+          "check": "every flag block contains a substring from the input file"
+        },
+        {
+          "name": "each-flag-has-explanation",
+          "type": "programmatic",
+          "description": "Every flagged pattern has a brief 'why' explanation",
+          "check": "every flag block contains an explanation paragraph or 'Why' line"
+        },
+        {
+          "name": "ends-with-next-step-question",
+          "type": "programmatic",
+          "description": "Output ends with a question offering suggestions / rewrite / done",
+          "check": "final non-empty line ends with '?'"
+        },
+        {
+          "name": "no-rewritten-draft",
+          "type": "programmatic",
+          "description": "Output does not contain a rewritten version of the input draft",
+          "check": "no large prose block in output that wasn't in the input"
+        },
+        {
+          "name": "explanations-are-educational",
+          "type": "qualitative",
+          "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        }
       ]
     }
   ]

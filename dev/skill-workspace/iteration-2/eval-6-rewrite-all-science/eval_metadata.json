@@ -1,0 +1,48 @@
+{
+  "eval_id": 6,
+  "eval_name": "rewrite-all-science",
+  "prompt": "Audit and rewrite this at all depth, including subtle structural tells.",
+  "assertions": [
+    {
+      "name": "audit-shown-before-rewrite",
+      "type": "programmatic",
+      "description": "Audit findings appear in output before the rewrite",
+      "check": "audit-shape block precedes rewrite block"
+    },
+    {
+      "name": "rewrite-produced",
+      "type": "programmatic",
+      "description": "Output contains a rewritten version of the input draft",
+      "check": "output contains a prose block of similar length to input that differs from input"
+    },
+    {
+      "name": "no-em-dashes-in-rewrite",
+      "type": "programmatic",
+      "description": "Rewrite has zero em dashes",
+      "check": "count of '\u2014' in rewrite == 0"
+    },
+    {
+      "name": "sentence-length-variance-improved",
+      "type": "programmatic",
+      "description": "Rewrite has higher sentence-length variance than input",
+      "check": "stdev(sentence-lengths) in rewrite > stdev(sentence-lengths) in input"
+    },
+    {
+      "name": "paragraph-length-not-uniform",
+      "type": "programmatic",
+      "description": "Rewrite has varied paragraph lengths",
+      "check": "stdev(paragraph-word-counts) in rewrite > threshold"
+    },
+    {
+      "name": "rewrite-passes-all-grader",
+      "type": "programmatic",
+      "description": "Re-grading the rewrite at all depth produces 0 hits across all severity classes",
+      "check": "regrade(rewrite, depth='all').fails == 0"
+    },
+    {
+      "name": "meaning-preserved",
+      "type": "qualitative",
+      "description": "Rewrite preserves the scientific accuracy, key examples, and explanatory arc"
+    }
+  ]
+}
