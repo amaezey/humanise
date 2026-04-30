@@ -46,8 +46,9 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
-4. Render the audit using the output template below.
-5. End with the next-step question and stop without proceeding to a rewrite.
+4. **Run the agent-judgement reading.** Read `humanise/judgement.yaml` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
+5. Render the audit using the output template below. The programmatic block carries the regex findings; the agent-judgement block carries the eight-item reading. Both blocks always render in Phase 1 — Phase 3 (U11/U12) introduces an all-clear collapse and the two-layer Layer 1/Layer 2 split.
+6. End with the next-step question and stop without proceeding to a rewrite.
 
 ### Audit output
 
@@ -73,6 +74,35 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 Render four fields from the grader: the level (low / medium / high / very high), the meaning string explaining what the level implies, the basis list summarising why, and a note that this assessment describes AI-writing signs rather than offering a verdict about who wrote the text.
 
+---
+
+**Agent-judgement reading (8 items)**
+
+structural_monotony — <flagged | clear>
+  <Per-item evidence: state value (varied / partly_uniform / fully_locked) plus a one-sentence rationale.>
+
+tonal_uniformity — <flagged | clear>
+  <state value (locked / has_breaks / mixed_intentional) plus rationale.>
+
+faux_specificity — <flagged | clear>
+  <List of phrases that perform specificity without grounding, each with a why_unspecific note. Empty list when clear.>
+
+neutrality_collapse — <flagged | clear>
+  <state value (committed / hedged / fully_neutralised) plus rationale.>
+
+even_jargon_distribution — <flagged | clear>
+  <state value (clumped / spread_naturally / suspiciously_uniform) plus rationale.>
+
+forced_synesthesia — <flagged | clear>
+  <List of cross-modal phrases that don't earn grounding, each with a why_forced note. Empty list when clear.>
+
+generic_metaphors — <flagged | clear>
+  <List of plausible-but-anyone's metaphors, each with a why_generic note. Empty list when clear.>
+
+genre_specific — <flagged | clear>
+  Genre detected: <academic | student_essay | poetry | fiction | default>.
+  <Watchlist findings, or "Watchlist coverage pending." when the genre's sub_records.watchlist is empty.>
+
 **Next step**
 
 Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
@@ -84,11 +114,13 @@ Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to s
 - Structural patterns (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) get a `Where:` line that describes where the pattern shows up and what it looks like in the draft. They have no single quotable instance to point at.
 - Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
 
-If no patterns are detected, say so plainly:
+If both blocks come back clear (no programmatic patterns flagged AND every agent-judgement item `clear`), say so plainly:
 
-> Audit clean: no AI tells detected. Want me to look at a specific aspect of the draft more closely?
+> Audit clean: no AI tells detected, agent reading clean. Want me to look at a specific aspect of the draft more closely?
 
-If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+If only the programmatic block is clean but agent-judgement flagged at least one item, render the agent-judgement block as usual and surface that the regex layer found nothing while the semantic layer surfaced findings.
+
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md` and run the agent-judgement reading directly from `humanise/judgement.yaml`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
 
 ---
 
