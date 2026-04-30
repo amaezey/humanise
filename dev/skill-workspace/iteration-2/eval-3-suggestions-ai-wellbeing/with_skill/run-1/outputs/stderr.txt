@@ -35,7 +35,7 @@ Grief has its own clock. It does not respect the ordinary architecture of a day:
 
 This is one of the crueller parts of grief. The person most in need of rest is often the least able to get it.
 
-Research supports what many grieving people already know in their bones: bereavement and sleep disturbance are closely linked. A systematic review found a high prevalence of sleep problems after bereavement, with stronger grief often associated with greater sleep difficulty. It also found higher rates of sleep disturbance among people experiencing complicated or prolonged grief, particularly where depression is also present.  
+Research supports what many grieving people already know in their bones: bereavement and sleep disturbance are closely linked. A systematic review found a high prevalence of sleep problems after bereavement, with stronger grief often associated with greater sleep difficulty. It also found higher rates of sleep disturbance among people experiencing complicated or prolonged grief, particularly where depression is also present.
 
 That matters because sleep is not just a pause from consciousness. It is an active biological process that affects memory, emotional regulation, attention, immune function and the body’s capacity to recover.   When grief disrupts sleep, it does not simply make us tired. It can change the texture of grief itself. Everything becomes harder to metabolise. Small decisions feel punitive. Social contact becomes more effortful. The ordinary world can seem too bright, too fast, too indifferent.
 
@@ -53,7 +53,7 @@ There is also a difference between remembering and ruminating, though they can f
 
 Dreams add another layer. Grieving people often report dreams in which the dead return with startling ordinariness. They are in the kitchen. They are wearing the old jumper. They have not died after all. Waking from these dreams can feel like losing the person again before breakfast. A dream can be comforting, but it can also make the day harder. Wellness culture often wants to interpret every dream as healing. Some dreams are not healing. Some are just the sleeping mind trying to process an impossible absence.
 
-The research field is still developing. One review noted that, despite the obvious connection between bereavement and sleep, the literature has been relatively limited compared with related areas such as depression and trauma.   That limitation is important. It means we should be careful about neat claims. Poor sleep may intensify grief, and intense grief may disrupt sleep. The relationship can move in both directions. Recent work continues to examine this bidirectional pattern, especially in prolonged grief disorder.  
+The research field is still developing. One review noted that, despite the obvious connection between bereavement and sleep, the literature has been relatively limited compared with related areas such as depression and trauma.   That limitation is important. It means we should be careful about neat claims. Poor sleep may intensify grief, and intense grief may disrupt sleep. The relationship can move in both directions. Recent work continues to examine this bidirectional pattern, especially in prolonged grief disorder.
 
 For some people, sleep gradually returns as the nervous system begins to trust the world again. The first full night can feel almost disloyal. There is a strange guilt in waking rested. Grief can make rest feel like abandonment, as if vigilance were a form of love. But exhaustion is not devotion. Staying awake does not keep the person closer. It only keeps the body in distress.
 
@@ -2439,41 +2439,41 @@ exec
 /bin/zsh -lc "nl -ba /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md | sed -n '1,220p'" in /Users/mae/Documents/humanise
  succeeded in 0ms:
      1	# The hour grief comes looking
-     2	
+     2
      3	Grief has its own clock. It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep. In the first weeks after a loss, night can stop being a place of rest and become a second room where the dead feel closer, the mind gets louder, and the body refuses the simple mercy of switching off.
-     4	
+     4
      5	This is one of the crueller parts of grief. The person most in need of rest is often the least able to get it.
-     6	
-     7	Research supports what many grieving people already know in their bones: bereavement and sleep disturbance are closely linked. A systematic review found a high prevalence of sleep problems after bereavement, with stronger grief often associated with greater sleep difficulty. It also found higher rates of sleep disturbance among people experiencing complicated or prolonged grief, particularly where depression is also present.  
-     8	
+     6
+     7	Research supports what many grieving people already know in their bones: bereavement and sleep disturbance are closely linked. A systematic review found a high prevalence of sleep problems after bereavement, with stronger grief often associated with greater sleep difficulty. It also found higher rates of sleep disturbance among people experiencing complicated or prolonged grief, particularly where depression is also present.
+     8
      9	That matters because sleep is not just a pause from consciousness. It is an active biological process that affects memory, emotional regulation, attention, immune function and the body’s capacity to recover.   When grief disrupts sleep, it does not simply make us tired. It can change the texture of grief itself. Everything becomes harder to metabolise. Small decisions feel punitive. Social contact becomes more effortful. The ordinary world can seem too bright, too fast, too indifferent.
-    10	
+    10
     11	After a death, insomnia is not always dramatic. Sometimes it is a clean, brutal wakefulness at 3 am. Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said. Sometimes sleep comes easily but breaks apart before dawn. Sometimes the body sleeps for ten hours and still wakes exhausted.
-    12	
+    12
     13	There is a particular loneliness to being awake while everyone else is sleeping. During the day, grief may be held in place by tasks. There are forms to complete, people to update, meals to make, children to collect, work to return to too soon. At night, the scaffolding comes down. The mind has no meeting to attend, no polite sentence to finish. It begins its inventory.
-    14	
+    14
     15	This is why advice about “good sleep habits” can land badly with grieving people. A fixed bedtime, less caffeine, a dark room and no phone in bed are useful. Most adults need around 7 to 9 hours of sleep each night, and regular routines can support sleep quality.   But grief is not poor time management. It is not caused by bad lighting or an overused screen. A person who has lost someone may already know exactly what sleep hygiene requires and still be unable to obey it.
-    16	
+    16
     17	The better question is not “How do I force myself to sleep?” but “How do I make the night less hostile?”
-    18	
+    18
     19	That might mean lowering the stakes. If sleep does not come, rest still counts. Lying in the dark with one hand on the chest, listening to something familiar, moving to the couch for a while, or making tea without turning the kitchen into daylight can help the body remain in a quieter state. The goal is not to win against grief. It is to reduce the secondary panic that says, “Now I am grieving and failing at sleep.”
-    20	
+    20
     21	There is also a difference between remembering and ruminating, though they can feel identical at night. Remembering may hurt, but it has movement in it: a face, a phrase, a scene, a tenderness. Rumination loops. It prosecutes. It asks the same unanswerable question until the body becomes alert again. Writing can help, not because it solves anything, but because it gives the mind somewhere to put the loop. A notebook beside the bed can become a holding place for the thought that insists it must be dealt with at 2.17 am.
-    22	
+    22
     23	Dreams add another layer. Grieving people often report dreams in which the dead return with startling ordinariness. They are in the kitchen. They are wearing the old jumper. They have not died after all. Waking from these dreams can feel like losing the person again before breakfast. A dream can be comforting, but it can also make the day harder. Wellness culture often wants to interpret every dream as healing. Some dreams are not healing. Some are just the sleeping mind trying to process an impossible absence.
-    24	
-    25	The research field is still developing. One review noted that, despite the obvious connection between bereavement and sleep, the literature has been relatively limited compared with related areas such as depression and trauma.   That limitation is important. It means we should be careful about neat claims. Poor sleep may intensify grief, and intense grief may disrupt sleep. The relationship can move in both directions. Recent work continues to examine this bidirectional pattern, especially in prolonged grief disorder.  
-    26	
+    24
+    25	The research field is still developing. One review noted that, despite the obvious connection between bereavement and sleep, the literature has been relatively limited compared with related areas such as depression and trauma.   That limitation is important. It means we should be careful about neat claims. Poor sleep may intensify grief, and intense grief may disrupt sleep. The relationship can move in both directions. Recent work continues to examine this bidirectional pattern, especially in prolonged grief disorder.
+    26
     27	For some people, sleep gradually returns as the nervous system begins to trust the world again. The first full night can feel almost disloyal. There is a strange guilt in waking rested. Grief can make rest feel like abandonment, as if vigilance were a form of love. But exhaustion is not devotion. Staying awake does not keep the person closer. It only keeps the body in distress.
-    28	
+    28
     29	For others, sleep problems persist and become their own condition. That is when support matters. Acute grief can include sadness, tearfulness and insomnia, and it may not require clinical treatment. But prolonged grief disorder describes grief that remains intense and disabling over time, preventing a person from adapting to the loss.   Persistent insomnia, especially when paired with depression, anxiety, intrusive thoughts or inability to function, deserves professional attention. This is not weakness. It is a health issue sitting inside a human loss.
-    30	
+    30
     31	The most compassionate approach to sleep in grief is therefore practical but not simplistic. Keep the room cool and dark. Limit alcohol, which can make sleep more fragmented even if it initially makes you drowsy. Be careful with late caffeine. Use a routine, not as a command, but as a signal to the body.   Let mornings carry some light and movement, even if both feel offensive at first. Tell someone if nights are becoming frightening.
-    32	
+    32
     33	And be wary of anyone who turns sleep into a moral achievement. Grief already gives people enough to feel guilty about. The aim is not perfect sleep. The aim is enough safety for the body to stand down, even briefly.
-    34	
+    34
     35	Over time, sleep can become one of the ways grief changes shape. Not disappears. Not resolves neatly. But changes. The bed becomes less like a witness stand. The dark becomes less accusatory. The first thought on waking is not always the loss. Some mornings, there is a second or two before memory returns. Later, there may be mornings when memory returns gently.
-    36	
+    36
     37	Sleep does not cure grief. It gives the grieving body a place to repair while the heart does harder work than anyone else can see.
 
 2026-04-28T16:59:01.936449Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
@@ -2481,27 +2481,27 @@ exec
 codex
 **Audit, 6 AI tells found**
 
-Generic staccato emphasis (1 instance)  
-- "Not disappears. Not resolves neatly. But changes."  
+Generic staccato emphasis (1 instance)
+- "Not disappears. Not resolves neatly. But changes."
 Why: The clipped three-beat rhythm creates a dramatic emphasis pattern that can read generated when it appears as a polished literary flourish rather than a natural sentence.
 
-Mechanical repeated sentence starts (1 instance)  
-- Four consecutive sentences begin with "Sometimes..." in the insomnia paragraph.  
+Mechanical repeated sentence starts (1 instance)
+- Four consecutive sentences begin with "Sometimes..." in the insomnia paragraph.
 Why: Repeated openings can be intentional, but here the rhythm starts to feel templated: example, example, example, example.
 
-Curly quotes (9 instances)  
+Curly quotes (9 instances)
 - "body’s"
 - "good sleep habits"
 - "How do I force myself to sleep?"
 - "How do I make the night less hostile?"
-- "Now I am grieving and failing at sleep."  
+- "Now I am grieving and failing at sleep."
 Why: Curly quotes are not proof of AI, but they can look like polished generated output when plain Markdown or cleaned prose is expected.
 
-Headings in prose (1 instance)  
-- "# The hour grief comes looking"  
+Headings in prose (1 instance)
+- "# The hour grief comes looking"
 Why: A Markdown heading can make a reflective essay feel packaged as assistant output, especially if the piece is meant to read as continuous prose.
 
-Dense negation (18 markers)  
+Dense negation (18 markers)
 - "not just"
 - "does not simply"
 - "not always"
@@ -2509,42 +2509,42 @@ Dense negation (18 markers)
 - "not caused"
 - "not weakness"
 - "not perfect sleep"
-- "does not cure grief"  
+- "does not cure grief"
 Why: The draft often defines grief and sleep by saying what they are not. That can create an over-framed, generated cadence even when the individual lines are good.
 
-Triad density (7 instances)  
+Triad density (7 instances)
 - "the dead feel closer, the mind gets louder, and the body refuses..."
 - "memory, emotional regulation, attention, immune function..."
 - "less caffeine, a dark room and no phone in bed"
 - "sadness, tearfulness and insomnia"
-- "depression, anxiety, intrusive thoughts or inability to function"  
+- "depression, anxiety, intrusive thoughts or inability to function"
 Why: Three-part lists are useful, but repeated triads create a recognisable polished rhythm. The piece starts to sound arranged rather than discovered.
 
 **Confidence**
 
-Level: Medium  
-Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.  
-Basis: 6 context-sensitive signals.  
+Level: Medium
+Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 6 context-sensitive signals.
 Note: This describes AI-writing signs, not a verdict about who wrote the text.
 
 **Suggestions, one per flag**
 
-Generic staccato emphasis  
+Generic staccato emphasis
 Try: "It does not disappear or resolve neatly; it changes."
 
-Mechanical repeated sentence starts  
+Mechanical repeated sentence starts
 Try: Keep one or two "Sometimes" sentences, then vary the rest: "It may be a clean, brutal wakefulness at 3 am. For some people, the mind replays the last conversation, the hospital room, the phone call. Sleep may come easily, then break apart before dawn."
 
-Curly quotes  
+Curly quotes
 Try: Use straight quotes and apostrophes if this is plain Markdown: `"good sleep habits"`, `"How do I force myself to sleep?"`, `body's`.
 
-Headings in prose  
+Headings in prose
 Try: If this is an essay, remove the Markdown marker and let the title sit as plain text, or open directly with: "Grief has its own clock."
 
-Dense negation  
+Dense negation
 Try: Convert some negative claims into direct positive claims. For example, change "Sleep does not cure grief" to "Sleep gives grief-struck bodies a little room to repair."
 
-Triad density  
+Triad density
 Try: Break some three-part lists into uneven shapes. For example, change "less caffeine, a dark room and no phone in bed" to "less caffeine, a dark room, and, for some people, leaving the phone outside the bedroom."
 2026-04-28T16:59:27.927881Z  WARN codex_core::shell_snapshot: Failed to delete shell snapshot at AbsolutePathBuf("/Users/mae/.codex/shell_snapshots/019dd507-3e70-7073-ab54-54d0e06ae05f.1777395515012583000.sh"): Os { code: 2, kind: NotFound, message: "No such file or directory" }
 2026-04-28T16:59:27.929729Z  WARN codex_rmcp_client::stdio_server_launcher: Failed to terminate MCP process group 31909: No such process (os error 3)

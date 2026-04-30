@@ -33,9 +33,9 @@ AI pressure from stacked signals
 
 **Confidence**
 
-Level: High  
-Meaning: Multiple strong or structural signals fired. Treat this as a high-confidence style diagnosis, not proof of authorship.  
-Basis: 2 strong AI-writing signals, 5 context-sensitive signals, and AI-pressure reached the threshold.  
+Level: High
+Meaning: Multiple strong or structural signals fired. Treat this as a high-confidence style diagnosis, not proof of authorship.
+Basis: 2 strong AI-writing signals, 5 context-sensitive signals, and AI-pressure reached the threshold.
 Note: This assessment describes AI-writing signs, not a verdict about who wrote the text.
 
 **Next step**

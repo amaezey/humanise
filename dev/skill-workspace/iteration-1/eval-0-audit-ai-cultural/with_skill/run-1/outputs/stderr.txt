@@ -2496,42 +2496,42 @@ exec
 /bin/zsh -lc "nl -ba /Users/mae/.codex/memories/MEMORY.md | sed -n '228,290p'" in /Users/mae/Documents/humanise
  succeeded in 0ms:
    228	# Task Group: humanise audit-first skill design, report contract, and adversarial eval expansion
-   229	
+   229
    230	scope: Use for `humanise` skill redesign, AI-writing audit workflows, report-language changes, adversarial detector hardening, and human-source eval expansion in the `humanise` repo.
    231	applies_to: cwd=/Users/mae/Documents/humanise; reuse_rule=safe for future `humanise` skill/report/eval work in this checkout, but re-check current grader duplication, workflow wording, and external-source availability before reusing exact implementation details
-   232	
+   232
    233	## Task 1: Refactor the skill into an audit-first workflow with end-user-readable reports, outcome success
-   234	
+   234
    235	### rollout_summary_files
-   236	
+   236
    237	- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, skill operating model shifted from rewrite-first to audit-first)
-   238	
+   238
    239	### keywords
-   240	
+   240
    241	- humanise, SKILL.md, audit-only, audit plus recommendation, audit agree then rewrite, rewrite and verify, save report, What it looks for, What happened here, Why this matters, human_report, markdown_checks_table, README.md, dev/plans/2026-04-28-humanise-skill-operating-model-issue.md
-   242	
+   242
    243	## Task 2: Harden contrived contrast / negative parallelism detection without overfitting, outcome success
-   244	
+   244
    245	### rollout_summary_files
-   246	
+   246
    247	- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, adversarial rule broadening with regression coverage)
-   248	
+   248
    249	### keywords
-   250	
+   250
    251	- contrived contrast, negative parallelism, check_negative_parallelisms, It's Y not X, Less X than Y, You might think X Actually Y, No X No Y Just Z, humanise/references/patterns.md, humanise/grade.py, dev/evals/grade.py, dev/evals/test_grade.py, no-staccato-sequences, ALL PASSED
-   252	
+   252
    253	## Task 3: Expand source manifests and extraction workflows for human writing samples, outcome partial
-   254	
+   254
    255	### rollout_summary_files
-   256	
+   256
    257	- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, modern-source extraction landed with blocked-source notes preserved)
-   258	
+   258
    259	### keywords
-   260	
+   260
    261	- dev/evals/samples/human-sourced/manifest.json, dev/evals/fetch_human_sources.py, dev/evals/fetch_historical_sources.py, Enchanting Marketing, BeautifulSoup, requests, Cloudflare block, 403, 21c-nyt-quarantine-mustache.md, 21c-paris-review-mister-lytle.md
-   262	
+   262
    263	## User preferences
-   264	
+   264
    265	- when the user says the tool "can be used in many ways" and should support audit-only, audit-plus-recommendation, audit-then-decide, and rewrite-verify workflows -> treat `humanise` as a protocol-driven AI detection skill, not a one-shot rewrite flow [Task 1]
    266	- when the user says the current setup feels like a "one shot" rewrite framework and that it is "a AI detection skill" -> default to audit-first behavior and ask before rewriting when intent is unclear or voice-sensitive [Task 1]
    267	- when the user says rows like "shows signs" are not helpful and the report should explain "what is wrong, what it means, and what the user should do next" -> write end-user-facing reports, not checker-justification prose [Task 1]
@@ -2539,9 +2539,9 @@ exec
    269	- when the user says the skill may be "overindexed to the test samples" -> treat human passthrough fixtures as false-positive guardrails and avoid overfitting detection rules to the visible samples [Task 2]
    270	- when the user asks for a "variety of time periods," "literature," "essays," "short stories," and "a few random longform articles" -> build broad sample diversity instead of narrowing the corpus to one content category [Task 3]
    271	- when the user says "please write your understanding of my issue in a file here and save it to a doc." -> leave a durable local note that captures the workflow problem and success criteria, not just an in-chat acknowledgment [Task 1]
-   272	
+   272
    273	## Reusable knowledge
-   274	
+   274
    275	- In `humanise`, the duplicated grader logic is real: `humanise/grade.py` and `dev/evals/grade.py` both need matching detection and report changes or the skill/report contract drifts [Task 1][Task 2]
    276	- The validated operating model is five explicit workflows in `humanise/SKILL.md`: audit only, audit plus recommendation, audit, agree, then rewrite, rewrite and verify, and save report. If intent is unclear, audit-only is the safe default [Task 1]
    277	- The user-facing report contract that survived review is `What it looks for / What happened here / Why this matters / Recommended action`, with `Clear` / `Flagged` labels instead of implementation-facing status names [Task 1]
@@ -2551,9 +2551,9 @@ exec
    281	- `dev/evals/samples/human-sourced/manifest.json` is the source-of-truth list for the broader human-source set, while `dev/evals/fetch_human_sources.py` and `dev/evals/fetch_historical_sources.py` are the extraction entry points [Task 3]
    282	- The extractor needs to distinguish index pages from article pages; otherwise it will harvest site chrome or about/contact pages instead of the intended writing samples [Task 3]
    283	- Related artifact: `dev/plans/2026-04-28-humanise-skill-operating-model-issue.md` is the saved collaboration note for the product/workflow problem statement [Task 1]
-   284	
+   284
    285	## Failures and how to do differently
-   286	
+   286
    287	- Symptom: the skill keeps jumping into edits before the user has agreed on the operating model. Cause: rewrite-first framing. Fix: align on audit-only vs recommendation vs rewrite workflow first, especially when the user is describing product behavior rather than asking for one patch [Task 1]
    288	- Symptom: report output sounds like checker bookkeeping instead of useful writing feedback. Cause: the report explains internal pressure/accounting rather than the writing issue. Fix: enforce `What it looks for / What happened here / Why this matters` and strip implementation-first phrases from the normal report path and tests [Task 1]
    289	- Symptom: a broadened detector starts flagging ordinary human prose. Cause: the regex generalized past the intended semantic move. Fix: narrow toward abstract reveal / fake profundity patterns, then re-run passthrough fixtures until legitimate contrast cases clear again [Task 2]

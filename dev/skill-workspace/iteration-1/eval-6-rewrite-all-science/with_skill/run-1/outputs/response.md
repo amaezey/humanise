@@ -1,29 +1,29 @@
 **Audit, 5 AI tells found**
 
-Curly quotes (14 instances)  
+Curly quotes (14 instances)
 Why: The draft uses typographic quotation marks throughout. That is not proof of AI writing, but for a plain cleaned draft it reads as packaged output rather than working prose.
 
-Avoiding plain "is" (1 instance)  
+Avoiding plain "is" (1 instance)
 - "represent a substantial share"
 Why: "Represent" inflates a simple claim. Plain scientific prose can usually say what something is or how much of it exists.
 
-Headings in prose (1 instance)  
+Headings in prose (1 instance)
 Where: The draft opens with a Markdown title.
 Why: In a continuous essay, the heading makes the piece feel delivered as a formatted assistant response.
 
-Dense negation  
+Dense negation
 Where: The draft repeatedly corrects what the subject is "not" before saying what it is.
 Why: Some correction is needed here, because the "wood-wide web" myth needs handling. At this density, though, the prose starts to lean on rebuttal rhythm instead of moving forward.
 
-Triad density  
+Triad density
 Where: The piece repeatedly uses three-part lists: "recover, compete and store carbon", "infrastructure, marketplace, digestive system and battleground", and many more.
 Why: Three-part rhythm is one of the strongest subtle structural tells here. The draft often sounds smooth because it keeps returning to the same list shape.
 
 **Confidence**
 
-Level: Medium  
-Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.  
-Basis: 1 strong AI-writing signal and 4 context-sensitive signals.  
+Level: Medium
+Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 1 strong AI-writing signal and 4 context-sensitive signals.
 Note: This describes AI-writing signs, not an authorship verdict.
 
 **Depth: All**

@@ -633,7 +633,7 @@ AI-generated articles with numbered sections often repeat the same structural la
 > How to make this work:
 > Start with small wins...
 >
-> 2. Communicate clearly  
+> 2. Communicate clearly
 > How to make this work:
 > Hold regular standups...
 >

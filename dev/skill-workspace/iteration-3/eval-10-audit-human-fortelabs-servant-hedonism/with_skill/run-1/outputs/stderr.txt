@@ -2415,79 +2415,79 @@ exec
     20	  ]
     21	}
     22	---
-    23	
+    23
     24	# Servant Hedonism: My Life Philosophy
-    25	
+    25
     26	On a recent Sunday afternoon, while reading on the couch, I was startled to realize that I had a life philosophy.
-    27	
+    27
     28	It’s not a very deep or sophisticated one. It’s not rooted in a grand narrative. It doesn’t specify precisely which rules to follow or which decisions to make.
-    29	
+    29
     30	But it has served me well. It’s been a guide during dark times, when the world seemed hopelessly uncertain and complex.
-    31	
+    31
     32	I call it Servant Hedonism – *serving yourself by serving others*.
-    33	
+    33
     34	It combines two ideas that are often seen as opposites – service and pleasure – into one unified whole.
-    35	
+    35
     36	Let’s start with “servant.”
-    37	
+    37
     38	“Servant” is meant in the same sense as “Servant Leadership.” It proposes that the essence of life is a kind of unattached generosity – the willingness and determination to be of service, in any way possible, as much of the time as possible.
-    39	
+    39
     40	I have found time and again that whenever I wasn’t sure which decision to make, this principle has led me to the most fulfilling and satisfying places. It’s a good rule because it’s simple – we are very good at telling how we can help. And it’s an easy one to satisfy – there are so many people in need all around us.
-    41	
+    41
     42	Being of service is a fundamentally humble orientation toward life. It recognizes that you emerged from an ecosystem, and to an ecosystem you will ultimately return. It acknowledges that you have to pay your own way in this world. But you can do so by contributing to others, not taking from them.
-    43	
+    43
     44	In other words, you are not yours. You belong to a community that existed long before you and will continue long after you. In this brief moment of participation, you have the choice to make a contribution to the human project.
-    45	
+    45
     46	Being of service also has many practical benefits. It leads to positive sum interactions. It gives you a great reputation. It unites the people around you in common causes as you seek to be of service together.
-    47	
+    47
     48	But even with all these practical benefits, there is one reason to serve others that stands well above the rest: it feels good.
-    49	
+    49
     50	This leads us to the second part, to “hedonism.” And it is the even more important part.
-    51	
+    51
     52	Serving others is the absolute most blissful state I know. Nothing else even comes close. Sharing your knowledge and gifts with someone and seeing their eyes light up at the sight of a new possibility for their life is a transcendent, out-of-body experience. The ultimate privilege in a relentlessly self-centered world.
-    53	
+    53
     54	But service by itself so easily leads to unnecessary sacrifice, martyrdom, and even self-destruction. The cold mandate to “be of value” to others can paradoxically lead to devaluing our own intrinsic worth.
-    55	
+    55
     56	As activist adrienne maree brown writes, “You cannot create freedom for others through your own bondage. You cannot empower others through your own demoralization. You cannot create a fulfilling life for others by draining your own of its color. You are a seed, and that is not how seeds work.”
-    57	
+    57
     58	Service needs pleasure to avoid becoming yet another form of struggle and control.
-    59	
+    59
     60	These two principles, service and pleasure, are often pitted against each other. As if you can only do one at a time, or only pick one at all. As if any investment in one is automatically a disservice to the other.
-    61	
+    61
     62	But I don’t believe that to be the case.
-    63	
+    63
     64	I believe service and pleasure can be one and the same, like two sides of the same coin. By asking yourself how you can be of service, you evolve into a more generous person who you enjoy seeing in the mirror. By enjoying yourself – including your mistakes and your defects – you become a more self-accepting and generative person who has more capacity to give.
-    65	
+    65
     66	Servant Hedonism is ultimately about self-love.
-    67	
+    67
     68	You love yourself enough to include yourself in the sphere of your love. You love your life too much to allow pain to be the defining experience of your days. You have the courage to ask yourself, as brown suggests, “What is happening and why did I decide to endure it?”
-    69	
+    69
     70	As Charles Eisenstein [writes](https://charleseisenstein.org/books/the-more-beautiful-world-our-hearts-know-is-possible/eng/pleasure/), “Pleasure is the feeling we get from satisfying a need. The more powerful the need, the greater the pleasure. To follow this principle requires, first, accepting that our needs are valid and even beautiful. And not just our needs, but our desires as well, coming as they do from unmet needs.”
-    71	
+    71
     72	I don’t think it matters that much whose needs those are. There’s a kind of blurring that happens when you intentionally collapse service and pleasure. It becomes hard to distinguish whose needs you are satisfying. It becomes meaningless to decide who is serving, and who is receiving.
-    73	
+    73
     74	There is a viral quality to Servant Hedonism. Once a person’s needs for safety, belonging, intimacy, and connection have been met, they find within themselves their own desire to serve. And thus the virus spreads.
-    75	
+    75
     76	Some might object to the word “hedonism.” It conjures images of drunken debauchery, dangerous excess, and even taking advantage of others. But I think it’s essential.
-    77	
+    77
     78	You and your good have to be centered at all times. Because if your life is only a means to something else, then human life can’t be your highest value. And if you don’t value human life above all, you will soon find yourself in turn using the lives of others as a means to an end.
-    79	
+    79
     80	Servant Hedonism creates a magnetic attraction that draws others in. Instead of guilt trips and calls for personal sacrifice, people see that you are having great fun and reveling in your transformation.
-    81	
+    81
     82	There’s no need to recruit them, or incentivize them, or convince them to join you. Pleasure is the gravity well of the human condition – it pulls and it pulls always and forever, the only form of perpetual motion yet discovered.
-    83	
+    83
     84	[Pleasure can be an organizing principle](https://fortelabs.com/pleasure-as-an-organizing-principle/) for a generative, flourishing life. It can be the organizing principle for our social movements, for our activism, for our economy. It might be the only organizing principle that is truly sustainable.
-    85	
+    85
     86	Embracing Servant Hedonism is, paradoxically, a little painful at first.
-    87	
+    87
     88	I think we fear that we’ll lose control, that we’ll go off the deep end of self-gratification. It feels almost impossible to escape the moralistic framing of pain as somehow intrinsically good, and pleasure bad. It feels like we have to completely meet all our needs before we can afford to give to others. Yet our needs are endless.
-    89	
+    89
     90	I find the courage to go on by reminding myself: you get to be part of the future you are creating. You don’t have to be a casualty of the transformation you are seeking. Your freedom and pleasure are essential ingredients of the freedom and pleasure of the world.
-    91	
+    91
     92	*Thank you to Ben Ford, Javier Rodriguez, and Michael Ashcroft for their feedback and suggestions.*
-    93	
+    93
     94	---
-    95	
+    95
     96	**Follow us for the latest updates and insights around productivity and Building a Second Brain on [X](https://twitter.com/fortelabs/), [Facebook](https://www.facebook.com/fortelabs/), [Instagram](https://www.instagram.com/fortelabsco/), [LinkedIn](https://www.linkedin.com/in/tiagoforte/), and [YouTube](https://www.youtube.com/@TiagoForte). And if you're ready to start building your Second Brain, [get the book](https://www.buildingasecondbrain.com/book) and learn the proven method to organize your digital life and unlock your creative potential.**
 
 exec
@@ -2639,34 +2639,34 @@ Full check table
 codex
 **Audit, 7 AI tells found**
 
-AI pressure from stacked signals  
-Where: the grader saw a combination of contrived contrast framing plus prose headings.  
+AI pressure from stacked signals
+Where: the grader saw a combination of contrived contrast framing plus prose headings.
 Why: weaker signals can become more noticeable together, making the draft feel packaged. In this case, the signal is probably inflated by the fact that this is a formatted blog post.
 
-Mechanical repeated sentence starts  
-Where: three consecutive sentences begin with “You” in the self-love section.  
+Mechanical repeated sentence starts
+Where: three consecutive sentences begin with “You” in the self-love section.
 Why: repeated openings can read like template rhythm, though here it also works as deliberate exhortation.
 
-Curly quotes  
-Where: 38 curly quotes appear throughout the draft.  
+Curly quotes
+Where: 38 curly quotes appear throughout the draft.
 Why: curly quotes are not an authorship signal by themselves. They only matter if the expected output is plain cleaned text.
 
-Contrived contrast  
-- “not just our needs, but our desires as well”  
+Contrived contrast
+- “not just our needs, but our desires as well”
 Why: not-X-but-Y structures can create a fake reveal. Here it appears inside a quoted passage, so it should be treated as quoted source style rather than automatically revised.
 
-Decorative three-part lists  
-- “belonging, intimacy, and connection”  
+Decorative three-part lists
+- “belonging, intimacy, and connection”
 Why: three-part abstract lists can create a polished generated cadence when overused.
 
-Headings in prose  
-- “# Servant Hedonism: My Life Philosophy”  
+Headings in prose
+- “# Servant Hedonism: My Life Philosophy”
 Why: markdown headings can look assistant-packaged when prose is expected to flow. In a blog-post export, this is likely normal formatting.
 
-Triad density  
-- “unnecessary sacrifice, martyrdom, and even self-destruction”  
-- “service and pleasure” structures recur across the piece  
-- “drunken debauchery, dangerous excess, and even taking advantage of others”  
+Triad density
+- “unnecessary sacrifice, martyrdom, and even self-destruction”
+- “service and pleasure” structures recur across the piece
+- “drunken debauchery, dangerous excess, and even taking advantage of others”
 Why: repeated three-part list rhythm can become recognisable and overly smooth.
 
 **Confidence**

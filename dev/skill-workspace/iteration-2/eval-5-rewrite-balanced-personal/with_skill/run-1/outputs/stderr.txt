@@ -2797,32 +2797,32 @@ if __name__ == "__main__":
 codex
 **Audit, 7 AI tells found**
 
-Generic staccato emphasis  
-Where: Several short sentences are stacked for dramatic weight, especially around the "manual failed" and ending beats.  
+Generic staccato emphasis
+Where: Several short sentences are stacked for dramatic weight, especially around the "manual failed" and ending beats.
 Why: The rhythm is literary, but repeated short emphasis can start to feel too neatly staged.
 
-Mechanical repeated sentence starts  
-Where: The paragraph beginning "You learn where the torch is..." repeats the same sentence pattern.  
+Mechanical repeated sentence starts
+Where: The paragraph beginning "You learn where the torch is..." repeats the same sentence pattern.
 Why: Repeated openings can read as a generated cadence unless the repetition feels deliberately earned.
 
-Curly quotes  
+Curly quotes
   - "Is it that bad?"
   - "It's fine."
 Why: Not an authorship issue, but curly quotes can conflict with plain cleaned output.
 
-Ghost/spectral atmosphere  
+Ghost/spectral atmosphere
   - "hidden"
 Why: Words like "hidden" can become stock atmosphere when used to make ordinary emotional material feel more mysterious than it is.
 
-Headings in prose  
+Headings in prose
   - "# The first crack in the porcelain"
 Why: A Markdown title can make a personal essay feel packaged rather than simply written.
 
-Vocabulary diversity  
-Where: The draft repeats a few abstract nouns and family-analysis terms across the essay.  
+Vocabulary diversity
+Where: The draft repeats a few abstract nouns and family-analysis terms across the essay.
 Why: Repetition is not automatically bad, but too much of the same abstract register can make long prose feel mechanically smoothed.
 
-Triad density  
+Triad density
   - "then folded it, unfolded it, and pressed her fingers to"
   - "picked up the bill, scanned it, and made a small sound"
   - "money, work, and the thousand small humiliations"
@@ -2831,12 +2831,12 @@ Why: Three-part lists create a polished rhythm. A few are fine; several in a ref
 
 **Confidence**
 
-Level: Medium  
-Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.  
-Basis: 7 context-sensitive signals; no hard AI-residue failures; no em dashes or clustered AI vocabulary.  
+Level: Medium
+Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 7 context-sensitive signals; no hard AI-residue failures; no em dashes or clustered AI vocabulary.
 Note: This describes AI-writing signs, not who wrote the text.
 
-**Depth: Balanced**  
+**Depth: Balanced**
 Why: The piece already has a coherent literary voice, so a balanced rewrite should reduce polish and patterning without stripping the essay’s reflective style.
 
 **Rewrite**

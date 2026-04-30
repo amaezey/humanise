@@ -25,13 +25,13 @@
 
 ### INFO TECH OF ANCIENT DEMOCRACY
 
-Info Tech of Ancient Athenian Democracy  
+Info Tech of Ancient Athenian Democracy
 By Julian Dibbell
 
-1) [Introduction](#1)  
-2) [The Technology of Allotment](#2)  
-3) [The Technology of Identification](#3)  
-4) [The Technology of Deliberation and Decision](#4)  
+1) [Introduction](#1)
+2) [The Technology of Allotment](#2)
+3) [The Technology of Identification](#3)
+4) [The Technology of Deliberation and Decision](#4)
 5) [The Technology of Decree](#5)
 
 ---
@@ -280,8 +280,8 @@ Julian Dibbell ([julian@mostly.com](mailto:julian@mostly.com))
 
 ---
 
-  
-ALAMUT.COM is the property of PAUL PERRY  
-Feedback (+ error reports) to --> [feedback@alamut.com](mailto:feedback@alamut.com)  
-This page was first created on --> 14/9/98; 17:58:42 CET  
+
+ALAMUT.COM is the property of PAUL PERRY
+Feedback (+ error reports) to --> [feedback@alamut.com](mailto:feedback@alamut.com)
+This page was first created on --> 14/9/98; 17:58:42 CET
 This page was last modified on --> 14/7/99; 8:19:58 CET

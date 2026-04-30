@@ -41,13 +41,13 @@ Input file: /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-im
 
 ### Faith and the American Space Program
 
-**Kendrick Oliver.*****To Touch the Face of God: The Sacred, the Profane,  
+**Kendrick Oliver.*****To Touch the Face of God: The Sacred, the Profane,
 and the American Space Program, 1957–1975*****.** Johns Hopkins, 2013.
 
-**Catherine L. Newell.*****Destined for the Stars: Faith, Future,  
+**Catherine L. Newell.*****Destined for the Stars: Faith, Future,
 and America’s Final Frontier*.** Pittsburgh, 2019.
 
-***First Man*****.****Directed by Damien Chazelle.**  
+***First Man*****.****Directed by Damien Chazelle.**
 Universal/Amblin/DreamWorks, 2018.
 
 ---
@@ -130,7 +130,7 @@ Indeed *First Man* is, I think, saying something quite radical about the blankne
 
 \+ Click [here](/journal/subscribe/) to subscribe to *Image*.
 
-  
+
 
 The *Image* archive is supported in part by an award from the National Endowment for the Arts.
 

@@ -1,33 +1,33 @@
 **Audit, 7 AI tells found**
 
-Generic staccato emphasis (1 instance)  
-Where: several short declarative beats are stacked for emphasis, especially around the revelation moments.  
+Generic staccato emphasis (1 instance)
+Where: several short declarative beats are stacked for emphasis, especially around the revelation moments.
 Why: short sentences can work in memoir, but repeated dramatic beats can start to feel arranged rather than naturally paced.
 
-Mechanical repeated sentence starts (1 instance)  
-Where: the ending repeats five consecutive "You..." sentences.  
+Mechanical repeated sentence starts (1 instance)
+Where: the ending repeats five consecutive "You..." sentences.
 Why: repetition can be a deliberate rhetorical device, but this much of it creates a template-like cadence.
 
-Curly quotes (15 instances)  
+Curly quotes (15 instances)
 - "“Is it that bad?”"
 - "“It’s fine.”"
 Why: not an authorship signal by itself, but in plain cleaned prose curly quotes can read like generated or formatted output rather than a final manuscript choice.
 
-Ghost/spectral atmosphere (3 instances)  
+Ghost/spectral atmosphere (3 instances)
 - "hidden his terror"
 - "hidden her resentment"
 - "hidden committee"
 Why: repeated "hidden" language can make emotional description feel borrowed or over-literary.
 
-Headings in prose (1 instance)  
-- "# The first crack in the porcelain"  
+Headings in prose (1 instance)
+- "# The first crack in the porcelain"
 Why: a markdown title can make a personal essay feel packaged instead of flowing as prose.
 
-Vocabulary diversity (1 instance)  
-Where: type-token ratio was 0.388, just under the target of 0.40.  
+Vocabulary diversity (1 instance)
+Where: type-token ratio was 0.388, just under the target of 0.40.
 Why: repeated vocabulary across a long piece can make prose feel mechanically smoothed, though memoir often repeats family nouns for good reason.
 
-Triad density (4 instances)  
+Triad density (4 instances)
 - "then folded it, unfolded it, and pressed her fingers to"
 - "picked up the bill, scanned it, and made a small sound"
 - "money, work, and the thousand small humiliations"
@@ -35,12 +35,12 @@ Why: too many three-part lists create a recognisable generated rhythm, especiall
 
 **Confidence**
 
-Level: Medium  
-Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.  
-Basis: 7 context-sensitive signals.  
+Level: Medium
+Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 7 context-sensitive signals.
 Note: this describes AI-writing signs, not a verdict about who wrote the text.
 
-**Depth: Balanced**  
+**Depth: Balanced**
 Why: Balanced fits this personal essay because the draft already has a coherent voice; the useful work is removing the most packaged signals without flattening the reflective style.
 
 **Rewrite**

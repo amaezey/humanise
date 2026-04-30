@@ -1959,7 +1959,7 @@ python3: error: couldn't create cache file '/tmp/xcrun_db-6gEMRppf' (errno=Opera
 codex
 **Brief:** A 250-word reflection on first-time linocut printing.
 
-**Depth: Balanced**  
+**Depth: Balanced**
 Why: Balanced keeps the reflection natural while avoiding the obvious AI-style tells.
 
 **Draft**
@@ -1972,19 +1972,19 @@ Rolling the ink was the best part. The brayer made that sticky whispering sound 
 
 By the third pull I understood the appeal. Linocut is slow, blunt, and slightly unforgiving, but it gives back a very direct kind of evidence. You can see every choice. You can also see every accident, which is less comfortable and probably more honest on the damp paper.
 
-**Structural self-check**  
-1. Section arcs: 0/4 repeated template arcs. The piece moves through discovery, cutting, printing, and reflection.  
-2. Resolution density: 1/4 tidy endings. The final paragraph resolves, the others stay scene-based.  
-3. Register breaks: “It did not” and “the gouge had its own opinions” break the smooth reflective tone.  
-4. Triads: 1 found and preserved because it tracks three real causes of the patchy print.  
-5. Reframe laundering: none.  
-6. Purposeful devices preserved: sensory detail and one repeated “Push” construction to show trial and error.  
-7. Stance: preserved as personal and mildly self-critical.  
+**Structural self-check**
+1. Section arcs: 0/4 repeated template arcs. The piece moves through discovery, cutting, printing, and reflection.
+2. Resolution density: 1/4 tidy endings. The final paragraph resolves, the others stay scene-based.
+3. Register breaks: “It did not” and “the gouge had its own opinions” break the smooth reflective tone.
+4. Triads: 1 found and preserved because it tracks three real causes of the patchy print.
+5. Reframe laundering: none.
+6. Purposeful devices preserved: sensory detail and one repeated “Push” construction to show trial and error.
+7. Stance: preserved as personal and mildly self-critical.
 8. Remaining tells: none identified.
 
-**Post-check at Balanced**  
-- Score: 0 required checks failed; AI-pressure stayed clear.  
-- Confidence: Low, meaning no programmatic checks showed AI-writing patterns. This describes AI-writing signs, not authorship.  
+**Post-check at Balanced**
+- Score: 0 required checks failed; AI-pressure stayed clear.
+- Confidence: Low, meaning no programmatic checks showed AI-writing patterns. This describes AI-writing signs, not authorship.
 - Remaining issues: none.
 tokens used
 55,594

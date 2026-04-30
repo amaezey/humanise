@@ -65,4 +65,3 @@ Note: This is an assessment of AI-writing signs, not a verdict about who wrote t
 **Next step**
 
 Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
-

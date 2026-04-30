@@ -171,8 +171,8 @@ Then she asked me why I wanted to do it. I told her basically what I told you ab
 3. Then I’d put on an eyeshade, Anne would put on some relaxing music, I’d lay back on the therapy sofa, and I’d let whatever comes up, come up.
 4. The instructions for “the medicine” are the same as the book title:
 
-> ***Trust the medicine.  
-> Surrender to the medicine.  
+> ***Trust the medicine.
+> Surrender to the medicine.
 > Receive what comes up.***
 
 5\. Then, after an hour, if I felt I needed it, I could take the second dose of 75mg.
@@ -775,7 +775,7 @@ This is the [MAPS protocol for MDMA-assisted therapy](https://maps.org/research-
 
 If you are thinking about taking MDMA, [make sure you understand the risks and how to properly do it](https://rollsafe.org/).
 
-If you are thinking about taking MDMA for the treatment of trauma, I would highly recommend reading [Trust, Surrender, Receive](https://www.amazon.com/Trust-Surrender-Receive-Release-Trauma-ebook/dp/B074MD56RY). This is the book that started it all for me. Written by the woman who led me through my MDMA therapy, it contains case studies of some of the PTSD victims she has worked with, including many war veterans and assault survivors.  
+If you are thinking about taking MDMA for the treatment of trauma, I would highly recommend reading [Trust, Surrender, Receive](https://www.amazon.com/Trust-Surrender-Receive-Release-Trauma-ebook/dp/B074MD56RY). This is the book that started it all for me. Written by the woman who led me through my MDMA therapy, it contains case studies of some of the PTSD victims she has worked with, including many war veterans and assault survivors.
 \_\_\_\_\_\_\_\_\_
 
 **If you’d like to read more about Tucker’s experiences with alternative therapies,** [**subscribe to his email list here**](https://mailchi.mp/d7b4b5d2956f/personalbusiness)**.**
@@ -1748,7 +1748,7 @@ AI-generated articles with numbered sections often repeat the same structural la
 > How to make this work:
 > Start with small wins...
 >
-> 2. Communicate clearly  
+> 2. Communicate clearly
 > How to make this work:
 > Hold regular standups...
 >
@@ -4144,7 +4144,7 @@ exec
 741:## 9\. MDMA Reading & Resources
 743:If you want to understand more about the efficacy of MDMA in treating trauma, this is a great list of some of the [major MDMA studies](https://maps.org/research/mdma).
 747:If you are thinking about taking MDMA, [make sure you understand the risks and how to properly do it](https://rollsafe.org/).
-749:If you are thinking about taking MDMA for the treatment of trauma, I would highly recommend reading [Trust, Surrender, Receive](https://www.amazon.com/Trust-Surrender-Receive-Release-Trauma-ebook/dp/B074MD56RY). This is the book that started it all for me. Written by the woman who led me through my MDMA therapy, it contains case studies of some of the PTSD victims she has worked with, including many war veterans and assault survivors.  
+749:If you are thinking about taking MDMA for the treatment of trauma, I would highly recommend reading [Trust, Surrender, Receive](https://www.amazon.com/Trust-Surrender-Receive-Release-Trauma-ebook/dp/B074MD56RY). This is the book that started it all for me. Written by the woman who led me through my MDMA therapy, it contains case studies of some of the PTSD victims she has worked with, including many war veterans and assault survivors.
 796:## Written by Tucker Max
 806:## Responses (83)[
 

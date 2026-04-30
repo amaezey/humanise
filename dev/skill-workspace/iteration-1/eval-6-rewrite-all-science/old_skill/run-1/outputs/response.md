@@ -1,4 +1,4 @@
-Action: Rewrite  
+Action: Rewrite
 Mode selected: Hard, because you asked for all-depth cleanup, including structural tells.
 
 Initial audit: 5 of 43 checks flagged. The main problems were curly quotes, the title heading, one inflated "represent a" construction, dense negation, and heavy triad/list cadence. The rewrite removes the packaged article shape, reduces negation-framing, strips curly quotes, cuts the title, and breaks up repeated three-part structures.

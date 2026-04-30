@@ -76,7 +76,7 @@ To see why, consider the hypothetical Acme Saddle Company. They could just sell 
 
 Or, they could sell *horseback riding*. Being successful at selling horseback riding means they grow the market for their product while giving the perfect context for talking about their saddles. It lets them position themselves as the leader and affords them different kinds of marketing and promotion opportunities (e.g., sponsoring school programs to promote riding to kids, working on land conservation or trail maps). It lets them think big and potentially be big.
 
-> Because the best possible way to find product-market fit  
+> Because the best possible way to find product-market fit
 > is to define your own market.
 
 This isn’t a new idea. There are many brands whose marketing activities or positioning has them selling something other than (and usually larger than) their product: Harley Davidson sells motorcycle riding, but it especially sells freedom and independence. Most luxury brands sell something that comes down to “being better than you are” (richer, better looking, more attractive to those you find desirable, etc.)
@@ -112,7 +112,7 @@ The reason for saying we need to do ‘an exceptional, near-perfect job of execu
 
 That means we have to find all those petty irritations, and quash them. We need to look at our own work from the perspective of a new potential customer and *actually see what’s there.* Does it make sense? Can you predict what’s going to happen when you click that button or open that menu? Is there sufficient feedback to know if the click or tap worked? Is it fast enough? If I read the email on my phone and click the link, is it broken?
 
-> *None of the work we are doing to develop  
+> *None of the work we are doing to develop
 > the product is an end in itself.*
 
 It is always harder to do this with one’s own product: we skip over the bad parts knowing that we plan to fix it later. We already know the model we’re using and the terms we use to describe it. It is very difficult to approach Slack with beginner’s mind. But we have to, all of us, and we have to do it every day, over and over and polish every rough edge off until this product is as smooth as lacquered mahogany.

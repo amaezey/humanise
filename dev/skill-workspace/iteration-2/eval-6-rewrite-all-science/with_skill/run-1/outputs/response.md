@@ -33,9 +33,9 @@ Triad density (21 instances)
 
 **Confidence**
 
-Level: Medium  
-Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.  
-Basis: 1 strong AI-writing signal; 4 context-sensitive signals.  
+Level: Medium
+Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 1 strong AI-writing signal; 4 context-sensitive signals.
 Note: This assessment describes AI-writing signs rather than offering a verdict about who wrote the text.
 
 **Depth: All**

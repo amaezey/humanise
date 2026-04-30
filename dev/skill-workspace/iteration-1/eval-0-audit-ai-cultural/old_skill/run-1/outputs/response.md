@@ -65,4 +65,3 @@ Main issues found:
 | Repeated section scaffolding | Clear | Repeated labels or structural templates. | No issue found. | Makes the whole piece feel assembled. | — | None |
 
 Question: Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
-

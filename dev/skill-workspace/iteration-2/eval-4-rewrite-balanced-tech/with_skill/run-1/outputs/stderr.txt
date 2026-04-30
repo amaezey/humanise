@@ -5829,51 +5829,51 @@ That is harder to package as software. It is also why it works.
 codex
 **Audit, 7 AI tells found**
 
-Generic staccato emphasis (1 instance)  
-Where: A run of 15 short sentences creates a clipped, dramatic rhythm through the middle of the essay.  
+Generic staccato emphasis (1 instance)
+Where: A run of 15 short sentences creates a clipped, dramatic rhythm through the middle of the essay.
 Why: Short sentences can work well, but long runs of them often feel machine-shaped: each beat lands with the same weight, so the cadence starts to feel engineered rather than naturally paced.
 
-Mechanical repeated sentence starts (1 instance)  
-- "Capture the task. Capture the idea. Capture the meeting note. Capture the article. Capture the insight. Capture the thing someone mentioned in passing that might matter later. Capture everything..."  
+Mechanical repeated sentence starts (1 instance)
+- "Capture the task. Capture the idea. Capture the meeting note. Capture the article. Capture the insight. Capture the thing someone mentioned in passing that might matter later. Capture everything..."
 Why: The repetition is rhetorically clear, but seven consecutive "Capture..." openings make the paragraph feel templated.
 
-Curly quotes (4 instances)  
-- ""Later""  
+Curly quotes (4 instances)
+- ""Later""
 Why: Curly quotes are not an authorship signal by themselves, but in plain cleaned prose they can read like polished generated output rather than ordinary draft text.
 
-Headings in prose (1 instance)  
-- "# Why I stopped using productivity apps"  
+Headings in prose (1 instance)
+- "# Why I stopped using productivity apps"
 Why: A markdown heading can make a personal essay feel packaged. For a continuous essay, the title can usually be removed or folded into the opening.
 
-Dense negation (1 instance)  
-Where: The draft uses 24 negation markers, about 13.4 per 1,000 words.  
+Dense negation (1 instance)
+Where: The draft uses 24 negation markers, about 13.4 per 1,000 words.
 Why: Too much "not / no / did not / cannot" framing can make a piece feel built around correction and reversal instead of direct claims.
 
-Vocabulary diversity (1 instance)  
-Where: Type-token ratio is 0.388, below the target of 0.40 for a longer piece.  
+Vocabulary diversity (1 instance)
+Where: Type-token ratio is 0.388, below the target of 0.40 for a longer piece.
 Why: The essay repeats useful words such as "task", "app", "system", "capture", "list", and "attention". Some repetition is inherent to the subject, but too much can flatten the prose.
 
-Triad density (10 instances)  
-- "tabs, notifications, vague dread"  
-- "capture everything, because storage is cheap, forgetting feels irresponsible"  
-- "archive, review, reframe"  
-- "requested, deferred, worried about"  
-- "workload, priority, boundary problems"  
-- "conversation, discomfort, need"  
-- "today, later, nowhere"  
-- "it depends on judgement, which is inconvenient, cannot be fully automated"  
-- "tagged, dated, deferred"  
-- "what to abandon, what to renegotiate, what kind of day"  
+Triad density (10 instances)
+- "tabs, notifications, vague dread"
+- "capture everything, because storage is cheap, forgetting feels irresponsible"
+- "archive, review, reframe"
+- "requested, deferred, worried about"
+- "workload, priority, boundary problems"
+- "conversation, discomfort, need"
+- "today, later, nowhere"
+- "it depends on judgement, which is inconvenient, cannot be fully automated"
+- "tagged, dated, deferred"
+- "what to abandon, what to renegotiate, what kind of day"
 Why: Three-part lists are a common generated cadence. The original uses them often enough that the rhythm becomes noticeable.
 
 **Confidence**
 
-Level: Medium  
-Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.  
-Basis: 7 context-sensitive signals.  
+Level: Medium
+Meaning: Several signs of AI-like writing appeared, but the evidence is pattern-based and should be read in context.
+Basis: 7 context-sensitive signals.
 Note: This describes AI-writing signs, not a verdict about who wrote the text.
 
-**Depth: Balanced**  
+**Depth: Balanced**
 Why: The source is a personal essay with a clear argument, so the rewrite removes the strongest surface tells while preserving the reflective voice and some deliberate rhythm.
 
 **Rewrite**

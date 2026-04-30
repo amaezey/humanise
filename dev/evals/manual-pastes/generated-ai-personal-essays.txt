@@ -1,4 +1,4 @@
-1 
+1
 I walked into the session expecting a tools demo. What I got instead was a set of organising instincts—patterns the Loomio founders have learned the hard way while building software for groups that don’t rely on hierarchy to get things done. The throughline was simple: decentralisation doesn’t happen by default. It’s designed, practised, and maintained.
 
 Below are the eight patterns as they were taught, with what landed for me in the room and how we’ve started to apply them.

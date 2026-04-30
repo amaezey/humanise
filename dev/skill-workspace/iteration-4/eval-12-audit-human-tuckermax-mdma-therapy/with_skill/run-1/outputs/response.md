@@ -59,7 +59,7 @@ Vocabulary diversity (TTR 0.180)
   Why: Heavy repetition of MDMA, trauma, therapy, session, anger, processing across the piece. Some of that is unavoidable in a focused essay, but it does flatten the vocabulary surface.
 
 Repeated section scaffolding
-  Where: The character `[` repeats seven times in a stacked block at the end (the medium.com link/footer artefacts: tag links, sign-in links, follower count). 
+  Where: The character `[` repeats seven times in a stacked block at the end (the medium.com link/footer artefacts: tag links, sign-in links, follower count).
   Why: A scraped trailing block of repeated bracketed link templates reads as boilerplate scaffolding, not prose. Likely a defuddle artefact rather than authored content — but the grader sees it as packaging.
 
 AI pressure from stacked weak signals
