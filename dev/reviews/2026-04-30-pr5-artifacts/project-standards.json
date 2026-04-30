@@ -1,0 +1,31 @@
+{
+  "reviewer": "project-standards",
+  "summary": "No CLAUDE.md or AGENTS.md standards files exist in this repository. A recursive search of /Users/mae/Documents/humanise (excluding .git and node_modules) returned zero matches at root, in humanise/, dev/, .claude/, .github/, or any subdirectory. The only repo-level meta files are README.md, LICENCE, dev/TESTING.md, dev/ISSUES.md, and .claude/settings.json. None of these define authoring conventions for skills, references, naming, frontmatter, reference inclusion modes, cross-platform tool policies, or commit conventions that the diff could be audited against. Per reviewer policy, no findings are fabricated against unwritten standards.",
+  "standards_files_found": [],
+  "files_checked_for_standards": [
+    "/Users/mae/Documents/humanise/CLAUDE.md (absent)",
+    "/Users/mae/Documents/humanise/AGENTS.md (absent)",
+    "/Users/mae/Documents/humanise/humanise/CLAUDE.md (absent)",
+    "/Users/mae/Documents/humanise/humanise/AGENTS.md (absent)",
+    "/Users/mae/Documents/humanise/dev/CLAUDE.md (absent)",
+    "/Users/mae/Documents/humanise/dev/AGENTS.md (absent)",
+    "/Users/mae/Documents/humanise/.claude/CLAUDE.md (absent)",
+    "/Users/mae/Documents/humanise/dev/evals/CLAUDE.md (absent)",
+    "/Users/mae/Documents/humanise/dev/evals/AGENTS.md (absent)"
+  ],
+  "findings": [],
+  "residual_risks": [
+    {
+      "id": "no-standards-file",
+      "severity": "info",
+      "description": "Repository has no CLAUDE.md or AGENTS.md. Skill authoring conventions (frontmatter shape, reference inclusion mode, naming, cross-platform tool selection, agent reference syntax, protected-artifact policy) are not codified in-repo. Consequently this PR cannot be audited for standards compliance and future contributors have no written rules to follow. Recommend adding a top-level AGENTS.md or CLAUDE.md if you want this reviewer (or analogous lints) to enforce conventions on subsequent diffs.",
+      "evidence": "find /Users/mae/Documents/humanise -type f \\( -iname CLAUDE.md -o -iname AGENTS.md \\) returned no results."
+    },
+    {
+      "id": "testing-md-not-a-standards-file",
+      "severity": "info",
+      "description": "dev/TESTING.md and dev/ISSUES.md describe testing methodology, grader bug history, and Anthropic skill best-practices compliance notes, but they are not authored as enforceable project standards. The 'SKILL.md best practices compliance' section in ISSUES.md cites Anthropic's external best-practices doc rather than codifying repo-local rules, so it cannot serve as the cited rule for findings under this reviewer's evidence requirements."
+    }
+  ],
+  "testing_gaps": []
+}

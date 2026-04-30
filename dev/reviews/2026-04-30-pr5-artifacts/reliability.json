@@ -1,0 +1,166 @@
+{
+  "reviewer": "reliability",
+  "scope": {
+    "primary_file": "dev/evals/run_skill_creator_iteration.py",
+    "loc_added": 1079,
+    "secondary": ["dev/evals/run_grade_sweep.py", "dev/evals/test_grade.py"]
+  },
+  "findings": [
+    {
+      "id": "rel-001",
+      "title": "TimeoutExpired in run_codex leaks tempfile and propagates uncaught",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1387-1428",
+      "severity": "medium",
+      "confidence": 90,
+      "anchor": 75,
+      "category": "missing_error_handling",
+      "autofix_class": "gated_auto",
+      "evidence": "run_codex creates a NamedTemporaryFile with delete=False at line 1388, then calls subprocess.run with timeout=900 at line 1405-1411. If the subprocess times out, subprocess.TimeoutExpired is raised BEFORE the try/finally block at line 1412 begins. The try/finally only wraps output_path.read_text() and the unlink. Result: on timeout the tempfile is never deleted (leaked under /tmp), and the exception propagates uncaught out of run_codex into run_model, which has no try/except. The worker thread's generic except Exception in run_iteration catches it, but the tempfile is permanently orphaned. Repeated timeouts during a long run will accumulate /tmp pressure.",
+      "fix": "Wrap the entire subprocess.run + output handling in try/finally so the tempfile unlink runs on every exit path including TimeoutExpired. Or use tempfile.TemporaryDirectory as a context manager."
+    },
+    {
+      "id": "rel-002",
+      "title": "Default invocation destroys prior iteration directory (no resume)",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2146-2149, 2265, 2274",
+      "severity": "high",
+      "confidence": 95,
+      "anchor": 75,
+      "category": "partial_failure_recovery",
+      "autofix_class": "manual",
+      "evidence": "prepare_workspace runs shutil.rmtree(ITERATION) when reset=True. main() sets reset = not args.no_reset, and --no-reset is opt-in (action=store_true with default False). So the default invocation of the runner WIPES the entire iteration-N directory, including any in-progress or partially completed work from a prior crash. There is no resume contract: if iteration-3 crashes after 12/18 evals complete, the operator cannot re-run with --no-reset confidently because the script will still re-execute every job (no per-job 'already done' check) and could overwrite the existing outputs. The contract should be: either (a) default to non-destructive and require explicit --reset, or (b) make resume a real feature that skips eval dirs whose response.md already exists. Right now it's neither.",
+      "fix": "Invert the default (require explicit --reset to wipe), and/or add a 'skip if response.md exists' check at the top of run_model. Document the resume contract in the docstring."
+    },
+    {
+      "id": "rel-003",
+      "title": "No retries on subprocess executor calls",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1319-1428, 1431-1465",
+      "severity": "medium",
+      "confidence": 90,
+      "anchor": 75,
+      "category": "no_retry",
+      "autofix_class": "gated_auto",
+      "evidence": "Both run_claude and run_codex are single-shot subprocess.run calls. No retry on non-zero return code, no retry on transient stderr patterns (rate-limited, network reset), no exponential backoff. If a single eval out of 18 hits a transient failure (the claude/codex CLI flapping, brief network blip, OAuth refresh hiccup), it is marked permanently failed for the entire iteration. The runner is idempotent per-eval (each eval writes to its own run_dir), so retry would be safe; the design just doesn't include it.",
+      "fix": "Add a small retry wrapper around run_claude/run_codex with max 2 retries and exponential backoff (e.g., 5s, 30s). Only retry when proc.returncode != 0 or on TimeoutExpired. Cap total per-eval wall-time so retries don't extend a 15-min job to 45 min."
+    },
+    {
+      "id": "rel-004",
+      "title": "No timeout on aggregate_benchmark and viewer subprocess calls",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2207-2215, 2226-2236, 2240-2248",
+      "severity": "medium",
+      "confidence": 100,
+      "anchor": 100,
+      "category": "missing_timeout",
+      "autofix_class": "gated_auto",
+      "evidence": "Three subprocess invocations have NO timeout argument: (1) aggregate_benchmark.py at line 2207-2215 with check=True, (2) the static viewer generate_review.py at line 2226-2236 with check=True, (3) the live viewer Popen at line 2240-2248 (long-running by design, but never tracked or cleaned up). The first two are blocking calls executing third-party code from the skill-creator repo. If aggregate_benchmark hangs (file lock, infinite loop, hanging subprocess of its own), the runner hangs forever after a 90+ minute eval pass. The viewer Popen has no PID tracking, no cleanup on parent exit — orphaned child process when the runner finishes.",
+      "fix": "Add timeout=600 (or similar) to the two subprocess.run calls. For the viewer Popen, either document that it intentionally outlives the parent, or use start_new_session and write the PID to a file the operator can use to kill it."
+    },
+    {
+      "id": "rel-005",
+      "title": "No SIGINT/SIGTERM handler — Ctrl+C orphans subprocess children",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2180-2201",
+      "severity": "medium",
+      "confidence": 80,
+      "anchor": 75,
+      "category": "graceful_shutdown",
+      "autofix_class": "manual",
+      "evidence": "ThreadPoolExecutor with up to 8 workers, each running subprocess.run with a 15-minute timeout. On Ctrl+C: the main thread receives KeyboardInterrupt and exits as_completed(). But subprocess.run blocks the worker thread — the worker thread cannot be cancelled. The Python interpreter waits for non-daemon threads to finish unless the executor is exited via context manager which calls shutdown(wait=True) by default. Net effect: Ctrl+C hangs until all 8 in-flight claude/codex subprocesses complete or hit their 900s timeout. Children continue running, consuming API quota / tokens for work that will be discarded. No partial output is flushed for in-flight evals.",
+      "fix": "Install a SIGINT handler that records 'shutdown requested', calls executor.shutdown(wait=False, cancel_futures=True), and iterates over future_to_proc map killing the underlying subprocess.Popen objects. Requires switching from subprocess.run to subprocess.Popen with explicit poll/kill loop."
+    },
+    {
+      "id": "rel-006",
+      "title": "No health check on claude/codex executor binaries before spawning N workers",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1319-1331, 1387-1403, 2161-2179",
+      "severity": "low",
+      "confidence": 90,
+      "anchor": 75,
+      "category": "health_check",
+      "autofix_class": "gated_auto",
+      "evidence": "The runner immediately submits all N jobs to the ThreadPoolExecutor without verifying that the chosen executor binary (claude or codex) is on PATH. If the binary is missing, every worker will fail with FileNotFoundError from subprocess.run — wasting time spinning up 18 threads only to immediately fail them all and produce 18 grading.json files marked as ERROR. The diagnostic for the operator is also poor: each failure shows up as 'failed eval-X / with_skill: [Errno 2]' rather than a single clear 'codex CLI not found on PATH, install it first'.",
+      "fix": "At the top of run_iteration, run shutil.which(executor_name). If missing, raise a clear error and exit before any workspace prep."
+    },
+    {
+      "id": "rel-007",
+      "title": "Non-atomic JSON writes — partial writes possible on crash or SIGINT",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "1256-1258",
+      "severity": "low",
+      "confidence": 100,
+      "anchor": 100,
+      "category": "atomic_writes",
+      "autofix_class": "gated_auto",
+      "evidence": "write_json is the only path used to persist benchmark.json, performance-report.json, grading.json, timing.json, and metrics.json. It calls path.write_text(json.dumps(...) + '\\n') directly. If the process is killed mid-write (SIGKILL, OOM, host reboot), the file is left half-written. Subsequent re-runs that read this file with json.loads will raise JSONDecodeError. Subsequent iterations that compare against performance-report.json (see previous_iteration_dir flow at line 1942-1948) will fail to compute regression rows.",
+      "fix": "Implement atomic write: write to path.with_suffix('.tmp'), then os.replace(tmp, path). One-line change inside write_json."
+    },
+    {
+      "id": "rel-008",
+      "title": "Worker exception handler logs message but no traceback — hard to diagnose",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2185-2201",
+      "severity": "low",
+      "confidence": 90,
+      "anchor": 75,
+      "category": "logging",
+      "autofix_class": "gated_auto",
+      "evidence": "The except Exception block at line 2191 captures the exception and prints only f'failed {item[name]} / {config}: {exc}'. No traceback, no stderr capture beyond what was already on disk. For a 1079-LOC orchestrator running 36 jobs in parallel, when a single eval fails with 'KeyError' or 'AttributeError' deep inside grade_run, the operator gets a one-line message and has to bisect manually. The response.md is overwritten with 'ERROR: {exc}' which loses any partial output the model produced before the failure.",
+      "fix": "import traceback; in the except block call traceback.format_exc() and write the full trace to outputs/error.txt, while still keeping the one-line console summary. Also: only overwrite response.md if it does not already exist."
+    },
+    {
+      "id": "rel-009",
+      "title": "Detached viewer Popen has no cleanup or supervision",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2238-2249",
+      "severity": "low",
+      "confidence": 95,
+      "anchor": 75,
+      "category": "background_jobs",
+      "autofix_class": "manual",
+      "evidence": "When --static-viewer is NOT passed (the default behaviour for live review), the runner does subprocess.Popen([...viewer...], stdout=log, stderr=STDOUT) and immediately returns. The Popen object is dropped on the floor — no PID is recorded, no signal handler kills it on parent exit, no health check verifies it actually started. If the viewer crashes 5 seconds after spawn the operator sees 'viewer launched' but no viewer is running. If the runner is invoked twice in a row, two viewer processes accumulate. There is no shutdown story.",
+      "fix": "Write the viewer PID to ITERATION/viewer.pid. On startup, check if a prior viewer PID is alive and kill it before spawning the new one. Log a 1-second probe to confirm the viewer is still alive after launch."
+    },
+    {
+      "id": "rel-010",
+      "title": "Double-grading: grade_run runs inside worker thread and again in grade_completed_runs",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2185-2203",
+      "severity": "low",
+      "confidence": 85,
+      "anchor": 75,
+      "category": "redundant_io",
+      "autofix_class": "gated_auto",
+      "evidence": "Inside the as_completed loop, grade_run is called on each completed run_dir at line 2190 (success path) and 2200 (error path). Then immediately after the executor block exits, grade_completed_runs(evals) at line 2203 walks every eval dir and calls grade_run again on every with_skill and old_skill run_dir that has a response.md. So every successful run is graded twice and every grading.json is overwritten with the same content. Not a correctness bug but it doubles the post-run grading I/O and creates a small race window where readers of grading.json see one version then the other. If write_json were made atomic (rel-007), this is harmless waste; if not, it widens the partial-write window.",
+      "fix": "Remove the grade_run call inside the as_completed loop; rely on grade_completed_runs as the single grading pass. Or remove grade_completed_runs and trust the inline grading."
+    },
+    {
+      "id": "rel-011",
+      "title": "No circuit breaker — 18 evals with the same upstream failure all run to completion",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "lines": "2180-2201",
+      "severity": "low",
+      "confidence": 70,
+      "anchor": 50,
+      "category": "circuit_breaker",
+      "autofix_class": "manual",
+      "evidence": "If the chosen executor (claude/codex) hits an authentication failure, a model availability error, or rate-limit-with-no-retry, all 18 (or 36) jobs will keep running and failing for ~15 minutes each (or up to the 900s timeout). There is no early-exit path that says 'first 3 jobs all failed with the same return code, abort the rest'. With workers=8 this isn't catastrophic — wall time is bounded by ceil(18/8) * 15min = ~45 min worst case — but it wastes operator time and quota. The default workers=8 also means all 8 instantly try to spawn the (potentially missing/broken) executor.",
+      "fix": "Track consecutive failures by error signature; if the first 3 jobs all fail with the same returncode + first 200 chars of stderr, cancel remaining futures and exit with a clear diagnostic."
+    }
+  ],
+  "residual_risks": [
+    "Tokenisation of usage in run_claude is brittle — if the claude CLI changes its --output-format json schema, the int(usage.get(...)) calls will silently produce 0 (the json.JSONDecodeError except block falls through with pass). Not a reliability hazard for the run itself, just for the metrics report.",
+    "performance-report.json is read by previous_iteration_dir / build_performance_report on the next iteration. If that file was partially written (rel-007) the next iteration crashes at json.loads. No fallback.",
+    "Workers default = 8 means up to 8 concurrent claude/codex CLI subprocesses, each of which can itself spawn subprocesses for tools. On a developer laptop this can spike memory/CPU. No guidance on right-sizing or auto-detection."
+  ],
+  "testing_gaps": [
+    "No test exercises the run_codex tempfile cleanup on TimeoutExpired path. Reproducer: monkeypatch subprocess.run to raise TimeoutExpired and assert the tempfile is gone.",
+    "No test covers what happens when claude/codex binary is missing. Should fail fast, currently fails 18 times.",
+    "No test for the --no-reset / resume path. The contract is undefined and untested; partial-iteration recovery is purely operator memory.",
+    "No test for SIGINT during a run — verify children are reaped, partial outputs are flushed, no orphaned tempfiles.",
+    "No test for benchmark.json / performance-report.json corruption on crash — does the next iteration cope or wedge?",
+    "No integration test of the full pipeline with a fake executor (a script that writes a known response and exits 0 / exits 1 / hangs). Would catch most of the failure modes above cheaply."
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "reviewer": "feasibility",
+  "summary": "The proposed plan is largely buildable on the existing architecture, but four issues block straightforward execution: (1) several 'new candidate signals' already exist as grader checks, so the plan's framing is wrong and an implementer needs guidance on tune-vs-add; (2) the variance-threshold mismatch between corpus findings and existing check is unaddressed; (3) the audit-voice reframe lacks a concrete contract and risks breaking eval prompts and assertions that contain the exact phrase 'AI tells'; (4) corpus-growth past N=5 has no sourcing strategy, copyright posture, or topic-matching method, and the grow target is unspecified.",
+  "findings": [
+    {
+      "severity": "P1",
+      "confidence": 100,
+      "anchor": "100",
+      "title": "Three of four 'new' candidate signals already exist as grader checks",
+      "evidence": "humanise/grade.py defines check_ghost_spectral (line 1042, ALL_CHECKS key 'no-ghost-spectral-density'), check_negation_density (line 1365, key 'no-negation-density'), and check_unicode_flair (line 1115, key 'no-unicode-flair'). All three are wired into ALL_CHECKS, CHECK_REPORT_TEXT, CHECK_WHY_IT_MATTERS, and have severity classifications in CHECK_METADATA. The genre-paired-corpus-findings doc (lines 1146-1149 of doc-diff) calls these 'new tell candidates' and the README diff calls them 'new candidate signals'.",
+      "impact": "An implementer reading 'add candidate signals' will either duplicate work, or be unsure whether the request is to add new checks, retune existing checks, or promote existing context_warning checks to strong_warning. The plan needs to be rewritten as 'tune thresholds and reclassify' for ghost-spectral / negation / unicode-flair, not 'add'.",
+      "recommendation": "Rewrite the candidate-signals work item to: (a) tune thresholds on existing ghost-spectral / negation / unicode-flair checks against the genre-paired corpus, (b) decide whether to promote any to strong_warning, (c) only sentence-length-mean is genuinely new."
+    },
+    {
+      "severity": "P1",
+      "confidence": 100,
+      "anchor": "100",
+      "title": "Existing sentence-length-variance threshold is well below the human-vs-AI gap the corpus actually shows",
+      "evidence": "humanise/grade.py line 836 sets `passed: sd > 4`. The findings doc (doc-diff lines 1119-1125) reports human stdev 17.0 vs AI 7.3 — both clear the 4.0 threshold. The findings doc line 1127 itself flags this: 'Sentence-length variance is currently a grader check, but in practice it's not catching the gap reliably — the threshold and computation may need genre-aware tuning.' The implementation plan doesn't pick this up; it lists 'sentence-length-mean' as an addition without mentioning the variance retune.",
+      "impact": "A 'sentence-length-mean' check added without a variance retune leaves the load-bearing variance signal uncalibrated. The plan should treat both as a single tuning workstream tied to the genre-paired corpus baseline.",
+      "recommendation": "Plan the sentence-length work as: (1) add sentence-length-mean check, (2) retune sentence-length-variance threshold from 4 to a genre-aware value (~10-12 by the corpus data), (3) decide whether short-text skip threshold (n<6 sentences AND <100 words) needs revisiting for long-form."
+    },
+    {
+      "severity": "P1",
+      "confidence": 100,
+      "anchor": "100",
+      "title": "Audit-voice reframe lacks a concrete contract and breaks eval prompts and the audit-shape header",
+      "evidence": "The findings doc proposes replacing 'AI tell' with 'high-risk pattern' or 'review priority' (doc-diff lines 1093, 1101). Multiple downstream artefacts contain the exact phrase: SKILL.md line 55 hardcodes the audit header `**Audit, N AI tells found**`; SKILL.md line 89 hardcodes the empty-state response 'Audit clean: no AI tells detected'; references/severity-detail.md title is 'Severity detail: deep-dive on the four most distinctive AI tells'; references/alternatives.md uses 'AI tell' as a column header in 16 different tables (lines 42, 113, 130, 146, 161, 179, 196, 214, 229, 246, 264, 281, 297, 322, 339); evals.json line 7 uses prompt 'Audit this draft for AI tells.' (15 occurrences), and assertion descriptions in evals.json say 'every flagged pattern' / 'tell'. The implementation plan does not list these as files-to-update.",
+      "impact": "A reframe that touches only SKILL.md will produce inconsistent voice across audit output, references, prompts, and assertion descriptions. Worse: changing the prompt 'Audit this draft for AI tells' may itself shift model behaviour and re-baseline iteration scores. An implementer can't start without a decision on whether to change the prompt or just the audit header.",
+      "recommendation": "Add an explicit voice-reframe checklist to the plan covering: SKILL.md (audit header, empty-state, 4 other refs), all 6 references/*.md files, evals.json (15 prompt copies + assertion descriptions), grade.py CHECK_REPORT_TEXT and CHECK_WHY_IT_MATTERS strings (currently say 'AI-style writing patterns'). Decide whether eval prompts change (and re-run baselines) or stay constant (and the reframe lives only in skill output)."
+    },
+    {
+      "severity": "P1",
+      "confidence": 100,
+      "anchor": "100",
+      "title": "Demote/reclassify path will break test_grade.py expectations and prior iteration baselines",
+      "evidence": "test_grade.py contains hard pass/fail expectations on patterns the findings doc proposes to demote: no-em-dashes (line 94, 97), no-manufactured-insight (lines 215-231 expect_fail x5 + expect_pass x1), no-anaphora (lines 250-253), no-markdown-headings (lines 619-628 with 4 expectations), vocabulary-diversity (line 783). evals.json hardcodes flag-count thresholds tied to current severity weights (e.g., 'distinct catalogue patterns referenced >= 5' for AI samples, '<=12' for humans). Iteration 1-4 outputs in dev/skill-workspace/iteration-{1,2,3,4}/ are saved with grader scores at current severities; the README's auto-generated performance block (`<!-- performance:start -->`) reports 'human-vs-ai_fresh strong +11%' at current weights.",
+      "impact": "Demoting em dashes from strong_warning to context_warning, or removing manufactured-insight from strong_warning, will: (a) change test_grade.py outcomes that currently expect_fail; (b) shift evals.json flag counts above/below assertion thresholds; (c) re-baseline the 'strong AI signal' delta in performance reports, making iteration-N comparisons no longer apples-to-apples.",
+      "recommendation": "Plan needs an explicit migration step: (1) freeze a baseline grader version, (2) make demotion changes, (3) re-run all iterations against new grader so comparisons are coherent, (4) update test_grade.py expectations, (5) add a CHANGELOG note in grade.py header so saved evals can be matched to grader-version. Without this, prior iteration outputs become unreadable artefacts."
+    },
+    {
+      "severity": "P1",
+      "confidence": 75,
+      "anchor": "75",
+      "title": "Corpus growth past N=5 has no sourcing, licensing, or topic-pairing strategy",
+      "evidence": "The implementation plan and findings doc both list 'Larger N — extend the matched-pair corpus to >=10 per group' as queued work but provide no method. The current corpus uses long-form pieces from Image Journal, Open.coop, Forte Labs, Tom Critchlow, Tucker Max (genre-paired-personal-essay-prompts.md). Each pairing required hand-authoring a writing brief that mirrors the human source closely enough to be 'matched-topic'. dev/evals/fetch_human_sources.py exists, suggesting fetch tooling is in place, but there's no equivalent for prompt authoring. Sample sizes from existing run: human mean 3568 words, AI fresh 1849 — already a length asymmetry the findings doc flags as a confound (doc-diff line 1166).",
+      "impact": "'Grow corpus' is hours-of-work-uncertain. Doubling N requires 5 more human sources sourced under copyright that allows local storage + matched-topic AI-fresh prompts authored to brief depth + AI-rewrites generated. Without a sourcing protocol the work will either stall, or produce a corpus with weaker matching that confounds the comparative report.",
+      "recommendation": "Plan should specify: target N (10? 15?), source criteria (length floor/ceiling, register guardrails, copyright posture), prompt-authoring rubric, model used for AI-fresh and AI-rewrite (currently unspecified — findings doc line 1167 calls this out), and whether to retire any of the existing 5 pairs. If matched-topic pairing is the bottleneck, consider whether a non-paired same-register sample pool would suffice for some checks."
+    },
+    {
+      "severity": "P1",
+      "confidence": 75,
+      "anchor": "75",
+      "title": "Validation strategy is missing for whether each proposed change improves human-vs-AI discrimination",
+      "evidence": "The headline finding (doc-diff lines 24-32) is that current strong-signal patterns do not separate humans from AI in the genre-paired corpus. The plan proposes: reframe voice, add sentence-length-mean, demote em-dashes / manufactured-insight / triad-density, promote ghost-spectral / negation / unicode-flair. None of the proposed changes have a 'success means X' definition that maps back to the discrimination problem. The implementation plan section 'Success criteria' (doc-diff lines 763-771) is about iteration pass rates, trigger-eval scores, and SKILL.md length — none of these measure whether the grader actually distinguishes humans from AI better after the changes.",
+      "impact": "Implementer can land all proposed changes and ship, but the central problem the corpus identified — patterns that don't separate humans from AI — may be unchanged or worse. There's no go/no-go gate tied to the human-vs-AI gap improving. README's auto-generated performance block already tracks 'human-vs-ai_fresh flag gap' but the plan doesn't tie change-acceptance to gap improvement.",
+      "recommendation": "Add a discrimination-improvement gate before merging changes: 'each demotion/promotion/threshold-tune must be accepted only if the genre-paired corpus run shows the human-vs-AI gap moving in the predicted direction (or at minimum, not regressing).' Wire run_skill_creator_iteration.py / run_grade_sweep.py to emit before/after gap diffs alongside the per-eval pass rates."
+    },
+    {
+      "severity": "P2",
+      "confidence": 75,
+      "anchor": "75",
+      "title": "Sequencing: voice reframe before grader changes will produce stale assertion outputs in the meantime",
+      "evidence": "The findings doc (doc-diff lines 1170-1177) lists work as: (1) reframe audit voice, (2) recalibrate/demote, (3) add new checks, (4) genre-aware thresholds, (5) larger N. evals.json assertions reference flag counts that depend on severity weights. If voice change ships first (relatively cheap text edits), test_grade.py and eval assertions still expect old severities; if grader changes ship first, audit output still uses old voice on changed flags.",
+      "impact": "Mid-flight inconsistency produces noisy iteration runs that are hard to attribute to which change caused which pass-rate delta.",
+      "recommendation": "Bundle voice reframe + grader severity changes + assertion updates into a single iteration cycle so the next run produces a coherent baseline, rather than treating them as independent steps."
+    },
+    {
+      "severity": "P2",
+      "confidence": 75,
+      "anchor": "75",
+      "title": "'Genre-aware thresholds' (queued work item 4 in findings) implies an architectural addition the grader doesn't currently have",
+      "evidence": "humanise/grade.py has no notion of input register or genre. All 43 checks run with global thresholds. The findings doc proposes 'possibly let the audit pre-classify the input register (literary essay vs journalism vs technical) and adjust which patterns fire as which severity' (doc-diff line 1176). This is a substantial architectural change: register classification, threshold-by-register tables, possibly per-genre alternative pools. The implementation plan does not allocate any work for this.",
+      "impact": "Item is queued but underspecified. If picked up, it could be a multi-day refactor; if not, the markdown-headings inversion (humans 5/5 fire, AI fresh 1/5 fire — doc-diff line 1142) will keep producing wrong-direction signal in long-form blog register.",
+      "recommendation": "Either descope genre-aware thresholds entirely from this iteration (and capture as a separate brainstorm), or scope an MVP: a single per-genre override file that the audit reads when the user supplies a `--register` hint, defaulting to current global behaviour."
+    },
+    {
+      "severity": "P2",
+      "confidence": 75,
+      "anchor": "75",
+      "title": "Reversibility: removing a proposed signal that turns out to be noise will invalidate all saved iteration outputs that included it",
+      "evidence": "dev/skill-workspace/iteration-{1,2,3,4}/ each contain per-eval grading.json with full check tables. If sentence-length-mean is added in iteration 5, then removed in iteration 6 because it's noise, the iteration-5 outputs reference a check that no longer exists in ALL_CHECKS. There's no grader-version metadata in the iteration outputs to disambiguate.",
+      "impact": "Saved evals become uninterpretable across grader-version changes. Bisecting a regression across iterations becomes guesswork.",
+      "recommendation": "Add `grader_version` field to the iteration grading output (could be a git SHA of grade.py or a manual semver in CHECK_VERSION at the top of grade.py). Increments on any change to ALL_CHECKS or CHECK_METADATA. Cheap, makes saved evals self-describing."
+    },
+    {
+      "severity": "P3",
+      "confidence": 75,
+      "anchor": "75",
+      "title": "Plan splits 'audit voice' from 'rewrite policy' but the implementation has no place for that split",
+      "evidence": "Findings doc (doc-diff lines 1101-1109) explicitly states the reframe applies to 'audit voice to human writer' but NOT to 'rewrite policy when AI executes' — the rewrite should still strip these patterns conservatively. In humanise/grade.py, severity (in CHECK_METADATA) currently drives both audit display (via friendly_evidence, format_human_report) and rewrite action (via action_for_depth). There's no wedge between 'how the audit talks' and 'what the rewrite does'.",
+      "impact": "An implementer following the reframe naively will either soften both paths (loosening rewrites — wrong) or stiffen both (audit still scolding — also wrong). Achieving the intended split requires either a second metadata field (audit_severity vs rewrite_severity) or text-template separation.",
+      "recommendation": "Spell out in the plan: keep CHECK_METADATA.severity governing rewrite behaviour; add a presentation layer (e.g., AUDIT_FRAMING or new strings in CHECK_REPORT_TEXT) that controls how the audit talks. Two outputs from one severity classification."
+    }
+  ],
+  "residual_risks": [
+    "If the audit prompt 'Audit this draft for AI tells.' changes in evals.json, model behaviour may shift — re-baseline cost is one full iteration run.",
+    "Findings doc treats N=5 results as directional; demoting strong-warning patterns based on N=5 risks reverting if larger-N corpus tells a different story. Recommend gating demotions on >=N=10 corroboration or marking them provisional.",
+    "Asymmetric AI-fresh length (1849w vs human 3568w mean) is a confound in the comparative-report data. Some 'differences' between groups may be length effects, not authorship effects. Plan should require length-matched samples or length-normalised metrics.",
+    "Description optimization step (plan step 6) runs against trigger-eval.json which the plan acknowledges 'may need refreshing if any of its should-trigger queries assume the old humanise = rewrite framing'. Untracked work item.",
+    "AI-rewrite samples in the corpus were 'generated by an unspecified model' (findings doc caveat) — comparative results are not reproducible without recording which model and prompt produced them."
+  ],
+  "testing_gaps": [
+    "No test for the human-vs-AI discrimination gap on the comparative corpus — current test_grade.py is per-check unit assertions, not end-to-end discrimination metrics.",
+    "No regression test for audit-output text contracts (the SKILL.md template promises specific output shape but only AUDIT_SHAPE_CHECKS validates structural shape, not voice/wording).",
+    "No test that audit voice ('AI tell' vs 'review priority') is consistent across SKILL.md, references/, grade.py CHECK_REPORT_TEXT, and CHECK_WHY_IT_MATTERS — easy to drift.",
+    "No reproducibility metadata for AI corpus samples (model, prompt, date, temperature). Without this, regenerating the corpus is impossible and replicating findings depends on cached files.",
+    "No baseline-snapshot mechanism: when CHECK_METADATA changes, prior iteration outputs become incomparable. Need a grader-version stamp or an explicit re-baseline step in the plan.",
+    "trigger-eval.json (description-optimisation harness) not updated for the four-action model — plan acknowledges it 'may need refreshing' but doesn't include this as a step."
+  ]
+}

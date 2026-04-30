@@ -1,0 +1,113 @@
+{
+  "reviewer": "cli-readiness",
+  "summary": "Two CLIs added: run_skill_creator_iteration.py (1079 LOC, argparse-based) and run_grade_sweep.py (101 LOC, no argparse at all). The iteration runner is functional for humans but underdocumented for agents — required flags carry no help text, exit code masks subprocess failures, and stdout is prose progress with no machine-readable status. The grade sweep is a single-purpose script with zero CLI surface: --help is silently ignored and triggers a full sweep that clobbers grade-sweep-report.json. For an agent probing capabilities by running --help, this is a destructive footgun. Both scripts mutate state outside the workspace (README performance block, repo-tracked grade-sweep-report.json) without dry-run or confirmation flags.",
+  "framework_detected": "argparse (run_skill_creator_iteration.py); none (run_grade_sweep.py)",
+  "findings": [
+    {
+      "id": "cli-readiness-1",
+      "severity": "P1",
+      "title": "run_grade_sweep.py ignores --help and unconditionally runs the full sweep",
+      "file": "dev/evals/run_grade_sweep.py",
+      "line_range": "86-101",
+      "evidence": "main() takes no arguments and parses none. sys.argv is never inspected. Calling `python3 run_grade_sweep.py --help` skips help and executes the full sweep (grade ~50+ sample files via humanise/grade.py, then write grade-sweep-report.json + print summary JSON). Confirmed empirically: running with --help printed the summary and would have rewritten the report.",
+      "impact": "An agent that probes a script with --help to learn how to invoke it will (a) trigger a multi-second compute job, (b) overwrite a repo-tracked artefact (grade-sweep-report.json, ~221KB), and (c) get a JSON summary instead of usage info — which it may then mistake for valid help output and parse incorrectly. This is the worst class of CLI footgun: the discovery action itself is the destructive action.",
+      "suggested_fix": "Add an argparse.ArgumentParser with --help support even if there are no other arguments. Optionally add --output PATH (default to current report path) and --groups (subset). Minimum viable: `parser = argparse.ArgumentParser(description='Regenerate the corpus-wide grade sweep report'); parser.parse_args()` before any work.",
+      "confidence": 100,
+      "autofix_class": "manual",
+      "owner": "human"
+    },
+    {
+      "id": "cli-readiness-2",
+      "severity": "P1",
+      "title": "main() always returns 0 even when subprocess runs failed",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "line_range": "983-997, 1075",
+      "evidence": "In run_iteration(), the per-future try/except catches subprocess failures, writes 'ERROR: ...' into response.md, prints 'failed ...' to stdout, and continues. Then main() unconditionally returns 0 (line 1075). Additionally, run_claude/run_codex set response = 'ERROR: ...' on non-zero return codes but never propagate the failure. There is no failure summary, no exit-code distinction between 'all evals passed', 'some evals failed', 'config error', and 'fatal'.",
+      "impact": "An agent invoking this in an iteration loop and checking $? will see success even when half the evals errored. The agent will downstream-process garbage benchmark.json data and report 'iteration completed' when in fact it didn't. This is silent failure — the worst case for autonomous loops.",
+      "suggested_fix": "Track failed_runs count in run_iteration. After the loop, return non-zero if any run produced an ERROR response. Conventional codes: 0=all passed, 1=some evals errored, 2=config/usage error, 3=fatal (e.g. skill-creator scripts missing). Also write a top-level run_summary.json with {'status': 'ok'|'partial'|'failed', 'failed_runs': [...]} so agents don't have to scrape stdout.",
+      "confidence": 95,
+      "autofix_class": "manual",
+      "owner": "human"
+    },
+    {
+      "id": "cli-readiness-3",
+      "severity": "P2",
+      "title": "Required --skill-creator-path has no help text, no default, no env var fallback",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "line_range": "1051",
+      "evidence": "`parser.add_argument('--skill-creator-path', type=Path, required=True)` — no help= string, no default, no SKILL_CREATOR_PATH env var support. The --help output simply shows '--skill-creator-path SKILL_CREATOR_PATH' with no explanation of what to point at. README.md mentions the script (line 209) but never shows an invocation example or where skill-creator lives.",
+      "impact": "Agents cannot discover the correct value. They will either guess (likely wrong), fall back to asking the human, or error out with 'the following arguments are required'. The first time an agent runs this script in a fresh checkout, it has no way to proceed.",
+      "suggested_fix": "Add help text: `help='Path to the skill-creator repo checkout. Defaults to $SKILL_CREATOR_PATH or ../skill-creator.'`. Add `default=Path(os.environ.get('SKILL_CREATOR_PATH', ROOT.parent / 'skill-creator'))` and drop required=True; validate existence with a clear error early in main(). Add an example invocation to README.md or to the parser description.",
+      "confidence": 100,
+      "autofix_class": "manual",
+      "owner": "human"
+    },
+    {
+      "id": "cli-readiness-4",
+      "severity": "P2",
+      "title": "Most argparse flags carry no help= text",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "line_range": "1051-1062",
+      "evidence": "Of 8 flags (--skill-creator-path, --iteration, --model, --executor, --workers, --include-old-skill, --no-reset, --static-viewer), only --include-old-skill has a help= string. --iteration default=1 is not explained (does it overwrite iteration-1? does it auto-increment?). --no-reset and --static-viewer flip behavior but are silent. --model is unbounded — what models are valid for which executor?",
+      "impact": "An agent reading --help gets argument names but not their meaning. It cannot tell: that --no-reset preserves work in progress (and is the resumability flag); that --workers controls parallelism that affects rate limits; that --static-viewer skips a backgrounded HTTP server. Agents will pick wrong defaults or trip over surprising side effects.",
+      "suggested_fix": "Add help= to every flag. Particularly important: --iteration ('Workspace dir number; uses dev/skill-workspace/iteration-N. Default 1.'), --no-reset ('Preserve existing iteration-N dir contents instead of wiping it. Use to resume after interruption.'), --static-viewer ('Generate review.html instead of launching the live viewer subprocess.'), --workers ('Concurrent eval runs. Each spawns claude/codex; high values can hit rate limits.'). Also add an examples section via parser.epilog.",
+      "confidence": 100,
+      "autofix_class": "manual",
+      "owner": "human"
+    },
+    {
+      "id": "cli-readiness-5",
+      "severity": "P2",
+      "title": "Default behavior wipes iteration dir and mutates README; no --dry-run, no confirmation",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "line_range": "942-945, 1017, 1061",
+      "evidence": "prepare_workspace() does `shutil.rmtree(ITERATION)` when reset=True, which is the default (only --no-reset opts out). update_readme_performance_block() rewrites a marker-bounded section of README.md (line 1017) — this is a repo-tracked file. There is no --dry-run, no --no-readme-update, no confirmation prompt, no warning printed on startup that names what will be modified. An agent re-running the script with --iteration 4 to fix a single eval will silently delete every other eval's outputs in iteration-4.",
+      "impact": "Mutating destructive defaults are dangerous for agents that retry on failure. A failed run + automated retry = double-deleted workspace. The README mutation also means every successful run produces a working-tree change the agent has to reason about (commit? revert? leave?). For agents that diff `git status` before/after to detect side effects, this is noise.",
+      "suggested_fix": "Flip the default: --reset must be explicit, default is preserve. Add --dry-run that prints the action plan (which dirs will be wiped, which subprocess calls will run, which files written) and exits 0. Add --no-readme-update flag. At startup, print to stderr a one-line summary of what will be mutated: 'Will write to dev/skill-workspace/iteration-1/, update README.md performance block.'",
+      "confidence": 90,
+      "autofix_class": "manual",
+      "owner": "human"
+    },
+    {
+      "id": "cli-readiness-6",
+      "severity": "P2",
+      "title": "Progress output is prose on stdout; no machine-readable status, no stderr/stdout discipline",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "line_range": "985, 997, 1018, 1045",
+      "evidence": "All progress messages use bare `print(...)` to stdout: 'completed audit-ai-fresh-3 / with_skill in 12.4s', 'failed audit-... / old_skill: timeout', 'performance report written to ...', 'viewer launched; log=...'. There is no --format json, no --quiet, no JSON Lines event stream. There is no separation: stdout carries both progress logs AND would carry any data output if the script grew that. Subprocess stderr from claude/codex is captured to per-run stderr.txt files, not surfaced in real time.",
+      "impact": "An agent that wants to monitor progress has to regex prose. An agent that wants to extract 'which evals failed' has to grep stdout for 'failed' prefix. Format changes break agent parsers. There's no way to ask 'just give me JSON, I'll render it'. For long iteration loops where the harness wraps this script, the inability to get structured progress events forces the wrapper to either dump all stdout or invent its own status discovery (e.g. polling grading.json files).",
+      "suggested_fix": "Send progress to stderr; keep stdout reserved for machine output. Add --format {text,jsonl}: with jsonl, emit `{'event': 'run_completed', 'eval': 'audit-...', 'config': 'with_skill', 'duration_s': 12.4, 'status': 'ok'}` per event. At end, emit a final `{'event': 'run_summary', 'iteration_dir': '...', 'failed': [...], 'passed': N}`. Default --format=auto: jsonl when stdout is not a TTY, text when it is. Add --quiet to suppress per-eval lines.",
+      "confidence": 95,
+      "autofix_class": "manual",
+      "owner": "human"
+    },
+    {
+      "id": "cli-readiness-7",
+      "severity": "P3",
+      "title": "Not resumable; --no-reset preserves dir but does not skip already-completed runs",
+      "file": "dev/evals/run_skill_creator_iteration.py",
+      "line_range": "957-999",
+      "evidence": "run_iteration() builds `jobs` from evals.json and submits every (item, config) pair to the executor pool unconditionally. There is no check for existing run_dir/outputs/response.md to skip already-completed work. With reset=True (default), the dir is wiped first; with --no-reset, the dir survives but jobs still re-run from scratch. An interrupted run that completed 12/18 evals cannot be resumed cheaply — the next invocation reruns all 18.",
+      "impact": "Each eval costs LLM tokens and ~10–60s. A 30-minute run interrupted at 80% means starting over. For agent loops that iterate this script, this multiplies cost. Also makes the script poorly suited for incremental debugging ('rerun just the one that failed').",
+      "suggested_fix": "Add --resume that skips jobs whose run_dir/outputs/response.md exists and is not an ERROR. Add --only NAME[,NAME...] to run a subset by eval name. Add --only-failed to rerun only evals whose grading.json shows summary.failed > 0 in the existing iteration. Document the trio in --help as the resumability story.",
+      "confidence": 90,
+      "autofix_class": "manual",
+      "owner": "human"
+    }
+  ],
+  "residual_risks": [
+    "Subprocess timeout=900 is hard-coded with no flag override. Slow models or large prompts will silently timeout; failure surfaces as 'ERROR: claude run failed' but the timeout cause is buried in stderr.",
+    "python_for_skill_creator() probes /opt/homebrew/bin/python3.12 first — macOS-specific. On Linux CI this still works (falls through to python3.12 in PATH or sys.executable) but the magic is undocumented; agents on a fresh Linux VM might wonder why their python3.10 was passed to skill-creator's type-syntax-requiring scripts.",
+    "update_readme_performance_block edits README.md as a side effect. Agents that run the script and then read README.md will see the new content; agents that diff README before committing other changes will see surprise edits. The behavior is silent — no print line announces 'README updated'.",
+    "--workers default 8 is aggressive for rate-limited APIs. No backoff visible; if Anthropic API rate-limits, all 8 workers see ERROR responses in parallel and the run looks 'completed but failed' rather than 'rate limited, retry'.",
+    "When the backgrounded viewer is launched (default), subprocess.Popen leaks: there is no PID file, no --stop, no 'viewer already running' check. Re-running the script launches another viewer subprocess. The log path is printed but cleanup is the human's problem."
+  ],
+  "testing_gaps": [
+    "No test asserts that --help exits without side effects on either script. A trivial regression test would have caught the run_grade_sweep.py footgun.",
+    "No test that exit code reflects subprocess failure. Should be testable with a fake executor that always returns rc=1.",
+    "No test that --no-reset actually preserves existing files (it does, but only by virtue of not calling rmtree; resume semantics are untested because they don't exist yet).",
+    "No CLI snapshot test for --help output; flag descriptions can drift silently.",
+    "No test that the README marker-bounded block is restored or that --no-readme-update would honor opt-out (because that flag does not exist).",
+    "No assertion that stdout vs stderr discipline is maintained — currently everything is stdout, and any future caller piping to JSON parsers will break."
+  ]
+}
