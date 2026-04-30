@@ -875,6 +875,170 @@ expect_fail("no-section-scaffolding",
     "markdown heading stripped, matches plain version")
 
 
+# --- no-notability-claims (pattern 2) ---
+
+print("\n=== no-notability-claims ===")
+expect_fail("no-notability-claims",
+    "She maintains an active social media presence with over 500,000 followers.",
+    "active social media presence + follower count")
+expect_fail("no-notability-claims",
+    "He has gained widespread media attention and was profiled in several major outlets.",
+    "gained widespread media attention + profiled in several major outlets")
+expect_fail("no-notability-claims",
+    "The artist's work has received independent coverage from regional media outlets across the country.",
+    "independent coverage + regional media outlets")
+expect_pass("no-notability-claims",
+    "In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.",
+    "named source + specific date and claim")
+expect_pass("no-notability-claims",
+    "The town held its weekly market on Saturday, drawing roughly 200 traders from neighbouring villages.",
+    "concrete description, no notability framing")
+
+
+# --- no-vague-attributions (pattern 5) ---
+
+print("\n=== no-vague-attributions ===")
+expect_fail("no-vague-attributions",
+    "Experts argue that the policy will reshape the industry within a decade.",
+    "experts argue, no source")
+expect_fail("no-vague-attributions",
+    "Industry reports suggest a downturn is imminent across the sector.",
+    "industry reports suggest, no source")
+expect_fail("no-vague-attributions",
+    "Several critics argue the design prioritises form over function.",
+    "several critics argue, no source")
+expect_fail("no-vague-attributions",
+    "It is widely believed that remote work harms culture.",
+    "impersonal it is widely believed")
+expect_pass("no-vague-attributions",
+    "According to the 2024 Stanford Owl Labs survey, productivity rose by 13% among remote knowledge workers.",
+    "named source with date and figure")
+expect_pass("no-vague-attributions",
+    "The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.",
+    "patterns.md After example — clearly attributed")
+
+
+# --- no-boldface-overuse (pattern 13) ---
+
+print("\n=== no-boldface-overuse ===")
+expect_fail("no-boldface-overuse",
+    "It blends **OKRs (Objectives and Key Results)**, **KPIs (Key Performance Indicators)**, and visual strategy tools such as the **Business Model Canvas (BMC)** and **Balanced Scorecard (BSC)**.",
+    "patterns.md Before — four bold spans in one prose sentence")
+expect_fail("no-boldface-overuse",
+    "The team will deliver **product strategy**, **roadmap planning**, **stakeholder alignment**, and **executive reporting**.",
+    "four bold spans in prose")
+expect_pass("no-boldface-overuse",
+    "It blends OKRs, KPIs, and visual strategy tools like the Business Model Canvas and Balanced Scorecard.",
+    "patterns.md After — no bold")
+expect_pass("no-boldface-overuse",
+    "- **Apples:** sweet\n- **Bananas:** also sweet\n- **Carrots:** not a fruit\n- **Daikon:** also not a fruit",
+    "bold spans only inside list items — caught by no-inline-header-lists, ignored here")
+expect_pass("no-boldface-overuse",
+    "The **important** distinction is between **public** and **private** keys.",
+    "three bolded terms in prose — under threshold of 4")
+
+
+# --- no-inline-header-lists (pattern 14) ---
+
+print("\n=== no-inline-header-lists ===")
+expect_fail("no-inline-header-lists",
+    "- **User Experience:** The user experience has been significantly improved.\n- **Performance:** Performance has been enhanced through optimised algorithms.\n- **Security:** Security has been strengthened with end-to-end encryption.",
+    "patterns.md Before — three bolded-header bullets")
+expect_fail("no-inline-header-lists",
+    "1. **First step:** Do this thing.\n2. **Second step:** Do that thing.",
+    "two bolded-header numbered items")
+expect_pass("no-inline-header-lists",
+    "The update improves the interface, speeds up load times through optimised algorithms, and adds end-to-end encryption.",
+    "patterns.md After — flowing prose")
+expect_pass("no-inline-header-lists",
+    "- Apples are sweet\n- Bananas are also sweet\n- Carrots are not a fruit",
+    "plain bullets without bolded headers")
+expect_pass("no-inline-header-lists",
+    "- **One bolded header:** definition only",
+    "single bolded-header item — under threshold of 2")
+
+
+# --- no-compound-modifier-density (pattern 18) ---
+
+print("\n=== no-compound-modifier-density ===")
+expect_fail("no-compound-modifier-density",
+    "The cross-functional team delivered a high-quality, data-driven report on our client-facing tools.",
+    "patterns.md Before — four AI compounds in one sentence")
+expect_fail("no-compound-modifier-density",
+    "Our real-time, end-to-end, mission-critical platform handles every workload.",
+    "three compounds in one sentence")
+expect_pass("no-compound-modifier-density",
+    "The team, drawn from several departments, delivered a report grounded in usage data for our client-facing tools.",
+    "patterns.md After — single client-facing in prose")
+expect_pass("no-compound-modifier-density",
+    "She explained the long-term plan and the short-term tradeoffs in plain language.",
+    "two compounds in prose — under threshold of 3")
+
+
+# --- no-knowledge-cutoff-disclaimers (pattern 20) ---
+
+print("\n=== no-knowledge-cutoff-disclaimers ===")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "While specific details about the company's founding are not extensively documented in readily available sources, it appears to have been established in the 1990s.",
+    "patterns.md Before — limited-information hedge")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "Up to my last training update, the policy had not been amended.",
+    "up to my last training update")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "Based on publicly available information, the company employs roughly 200 people.",
+    "based on publicly available information")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "I am unable to verify the exact figure for 2024.",
+    "I am unable to verify")
+expect_pass("no-knowledge-cutoff-disclaimers",
+    "The company was founded in 1994, according to its registration documents.",
+    "patterns.md After — concrete claim with source")
+expect_pass("no-knowledge-cutoff-disclaimers",
+    "As of October 2025, the project had completed three pilot deployments.",
+    "as of [date] used to anchor a fact, not as a model-meta hedge")
+
+
+# --- no-unicode-flair extension (pattern 16 fold) ---
+
+print("\n=== no-unicode-flair (pattern 16 fold) ===")
+expect_fail("no-unicode-flair",
+    ":rocket: Launch Phase: The product launches in Q3.\n:bulb: Key Insight: Users prefer simplicity.",
+    "two emoji shortcodes in headings")
+expect_fail("no-unicode-flair",
+    "We've shipped 🎉 the new release 🚀 with confidence.",
+    "two supplemental-plane emojis in prose (broader range)")
+expect_pass("no-unicode-flair",
+    "The product launches in Q3. User research showed a preference for simplicity.",
+    "patterns.md After — plain prose, no symbols")
+expect_pass("no-unicode-flair",
+    "Visit https://example.com:8080 for the latest build.",
+    "URL with colon — not a shortcode")
+expect_pass("no-unicode-flair",
+    "The build finished at 12:30:45.",
+    "timestamp colons — not a shortcode")
+
+
+# --- Group A resolution markers (U1 meta-test) ---
+
+print("\n=== group-a-resolution-markers ===")
+import re as _re_meta
+_patterns_md = (ROOT / "humanise" / "references" / "patterns.md").read_text()
+_pattern_sections = _re_meta.split(r"(?=^### \d+[a-z]?\.\s)", _patterns_md, flags=_re_meta.MULTILINE)
+_GROUP_A = [2, 5, 11, 12, 13, 14, 15, 16, 18, 20, 21, 28, 30, 35, 36, 37, 41]
+_resolution_seen = {}
+for _sec in _pattern_sections:
+    _h = _re_meta.match(r"^### (\d+)([a-z])?\.\s", _sec)
+    if not _h or _h.group(2):
+        continue
+    _resolution_seen[int(_h.group(1))] = "**Detection:**" in _sec
+for _n in _GROUP_A:
+    if not _resolution_seen.get(_n):
+        FAILURES += 1
+        print(f"FAIL: pattern #{_n} is in Group A but missing **Detection:** marker in patterns.md")
+    else:
+        print(f"  ok: pattern #{_n} carries a Detection marker")
+
+
 # --- severity and mode architecture ---
 
 print("\n=== severity-and-mode-architecture ===")
@@ -922,6 +1086,13 @@ expected_checks = {
     "vocabulary-diversity",
     "no-triad-density",
     "no-section-scaffolding",
+    # U1 (audit-report redesign): Group A patterns 2, 5, 13, 14, 18, 20.
+    "no-notability-claims",
+    "no-vague-attributions",
+    "no-boldface-overuse",
+    "no-inline-header-lists",
+    "no-compound-modifier-density",
+    "no-knowledge-cutoff-disclaimers",
 }
 actual_checks = set(ALL_CHECKS)
 if actual_checks != expected_checks:
@@ -1160,15 +1331,16 @@ if _missing_phrase:
 else:
     print("  ok: failed-bullet renders friendly_evidence components+vocab phrasing")
 
+_total_checks = len(ALL_CHECKS)
 _full_table_report = human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})
     for name in ALL_CHECKS
 ])
-if len(_full_table_report["all_checks"]) != 43:
+if len(_full_table_report["all_checks"]) != _total_checks:
     FAILURES += 1
-    print(f"FAIL: full human_report should include 43 check rows; got {len(_full_table_report['all_checks'])}")
+    print(f"FAIL: full human_report should include {_total_checks} check rows; got {len(_full_table_report['all_checks'])}")
 else:
-    print("  ok: full human report includes all 43 check rows")
+    print(f"  ok: full human report includes all {_total_checks} check rows")
 
 _markdown_report = format_human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})
@@ -1178,23 +1350,23 @@ _markdown_rows = [
     line for line in _markdown_report.splitlines()
     if line.startswith("| ") and not line.startswith("|---")
 ]
-if "Summary: All 43 checks were clear." not in _markdown_report:
+if f"Summary: All {_total_checks} checks were clear." not in _markdown_report:
     FAILURES += 1
-    print("FAIL: Markdown report should include a plain-English summary")
+    print(f"FAIL: Markdown report should include a plain-English summary mentioning {_total_checks} checks")
 elif "| Check | Status | What it looks for | What happened here | Why this matters | All action |" not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should include a user-facing table header")
-elif len(_markdown_rows) != 44:
+elif len(_markdown_rows) != _total_checks + 1:
     FAILURES += 1
-    print(f"FAIL: Markdown report should include header plus 43 check rows; got {len(_markdown_rows)}")
+    print(f"FAIL: Markdown report should include header plus {_total_checks} check rows; got {len(_markdown_rows)}")
 elif "Why this matters" not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should explain why checks matter")
-elif "one of the 43 checks" in _markdown_report or "internal pressure score" in _markdown_report:
+elif "internal pressure score" in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should not expose implementation-first pressure language")
 else:
-    print("  ok: Markdown report renders a full 43-check user-facing table")
+    print(f"  ok: Markdown report renders a full {_total_checks}-check user-facing table")
 
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1

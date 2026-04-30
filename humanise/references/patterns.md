@@ -1,6 +1,6 @@
 # AI writing patterns
 
-38 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
+41 patterns plus three sub-letter variants (23a, 31a, 35a) to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Each entry also carries a **Detection** marker stating whether it is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
 
 ## Contents
 
@@ -11,7 +11,7 @@
 - [Filler and hedging (22-25)](#filler-and-hedging)
 - [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
 - [Structural tells (29-32, 38)](#structural-tells)
-- [Voice and register (33-37)](#voice-and-register)
+- [Voice and register (33-37, 39-41)](#voice-and-register)
 
 ---
 
@@ -72,6 +72,8 @@ Asserts notability by listing sources without context, as though the mention its
 **After:**
 > In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.
 
+**Detection:** Programmatic check `no-notability-claims` (added in U1 of the audit-report redesign).
+
 
 ### 3. Superficial -ing analyses
 
@@ -110,6 +112,8 @@ Attributes opinions to vague authorities without specific sources, creating illu
 
 **After:**
 > The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.
+
+**Detection:** Programmatic check `no-vague-attributions` (added in U1 of the audit-report redesign).
 
 
 ### 6. Formulaic challenges sections
@@ -328,6 +332,8 @@ Excessive synonym substitution, cycling through different words for the same ref
 **After:**
 > The protagonist faces many challenges but eventually triumphs and returns home.
 
+**Detection:** Manual self-audit only — no programmatic check. Reliable detection requires coreference resolution to recognise that two noun phrases share a referent, which is beyond regex.
+
 
 ### 12. False ranges
 
@@ -338,6 +344,8 @@ Excessive synonym substitution, cycling through different words for the same ref
 
 **After:**
 > The book covers the Big Bang, star formation, and current theories about dark matter.
+
+**Detection:** Manual self-audit only — no programmatic check. Judging whether range endpoints sit on a meaningful scale requires semantic context the grader does not have.
 
 ---
 
@@ -353,6 +361,8 @@ Emphasises phrases in boldface mechanically, bolding things that do not need vis
 **After:**
 > It blends OKRs, KPIs, and visual strategy tools like the Business Model Canvas and Balanced Scorecard.
 
+**Detection:** Programmatic check `no-boldface-overuse` (added in U1; flags four or more bold spans in non-list, non-heading prose).
+
 
 ### 14. Inline-header lists
 
@@ -366,6 +376,8 @@ List items start with bolded headers followed by colons, turning prose into a sl
 **After:**
 > The update improves the interface, speeds up load times through optimised algorithms, and adds end-to-end encryption.
 
+**Detection:** Programmatic check `no-inline-header-lists` (added in U1; flags two or more list items beginning with a bolded header and colon).
+
 
 ### 15. Title case in headings
 
@@ -376,6 +388,8 @@ Capitalising all main words in headings reads as formal to the point of stiffnes
 
 **After:**
 > ## Strategic negotiations and global partnerships
+
+**Detection:** Folded into `no-markdown-headings`. Once the heading itself is removed or normalised in prose, the title-case sub-rule resolves automatically; no separate check.
 
 
 ### 16. Emojis
@@ -389,6 +403,8 @@ Decorating headings or bullet points with emojis is almost never appropriate in 
 
 **After:**
 > The product launches in Q3. User research showed a preference for simplicity, so the next step is to schedule a follow-up meeting to discuss how that finding should shape the launch.
+
+**Detection:** Folded into `no-unicode-flair` (extended in U1 to cover broader Unicode emoji ranges and `:shortcode:` forms such as `:rocket:` or `:bulb:`).
 
 
 ### 17. Curly quotation marks
@@ -415,6 +431,8 @@ Individual hyphenations are often correct, but AI stacks four or five in a singl
 
 **After:**
 > The team, drawn from several departments, delivered a report grounded in usage data for our client-facing tools. Their process for making decisions was known for being thorough.
+
+**Detection:** Programmatic check `no-compound-modifier-density` (added in U1; flags three or more AI-stock hyphenated compounds in a single sentence, drawn from a watchlist of common offenders).
 
 ---
 
@@ -445,6 +463,8 @@ AI disclaimers about incomplete information left in the text.
 **After:**
 > The company was founded in 1994, according to its registration documents.
 
+**Detection:** Programmatic check `no-knowledge-cutoff-disclaimers` (added in U1). Note that this does not fold into `no-collaborative-artifacts` — that check covers chat residue ("I hope this helps", "great question") but not training-update or limited-information hedges.
+
 
 ### 21. Sycophantic/servile tone
 
@@ -455,6 +475,8 @@ Overly positive, people-pleasing language that performs agreement rather than en
 
 **After:**
 > The economic factors you mentioned are relevant here, particularly the trade deficit data from Q3.
+
+**Detection:** Folded into `no-collaborative-artifacts`. The headline sycophantic phrases ("you're absolutely right", "great question!", "what a thoughtful question/observation", "that's a brilliant observation") already live in the COLLABORATIVE_ARTIFACTS pattern set; no separate check.
 
 ---
 
@@ -567,6 +589,8 @@ AI blends senses inappropriately to simulate literary depth: emotions get tastes
 **After:**
 > Thursday felt like waiting. She kept pulling out old photographs and putting them back. The room was silent in a way that made her aware of her own breathing.
 
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — forced synesthesia is not regex-amenable.
+
 ---
 
 ## Structural tells
@@ -595,6 +619,8 @@ AI metaphors are plausible but specific to nobody. They gesture toward meaning w
 > The first week my fingers could not stretch far enough for a G chord and I kept muting the string next to it with the side of my index finger.
 
 When you spot a metaphor, ask: could anyone have written this, or does it come from a specific experience? If anyone could have written it, replace it with a concrete detail.
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — judging metaphor groundedness is not regex-amenable.
 
 
 ### 31. Excessive list-making
@@ -711,6 +737,8 @@ This pattern cannot be caught programmatically. During the self-audit, ask: does
 
 In reviews and criticism, tonal uniformity often appears as bland evaluative balance: "emotional range", "field of sympathy", "moral strength", "earns its weight", "ambitious in an old-fashioned way", "social texture", "slow revelation". Replace this with concrete claims about scenes, sentences, performances, or formal choices.
 
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — register lock is not regex-amenable.
+
 ### 35a. Orphaned demonstratives
 
 **Words to watch:** "This highlights...", "This underscores...", "This demonstrates...", "That speaks to...", "These point to..."
@@ -738,6 +766,8 @@ Related to experiential vacancy (see Personality and soul in SKILL.md) but names
 
 When you spot a "specific" detail, ask: could anyone have written this, or does it come from a particular person's experience? If it reads like a stock photo in prose form, replace it with something that could not have been generated from genre conventions.
 
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — distinguishing genuine specificity from genre-convention filler is not regex-amenable.
+
 
 ### 37. Neutrality collapse
 
@@ -755,6 +785,8 @@ Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral whe
 > Remote work is better for most knowledge workers. The productivity data from Stanford and Owl Labs both point the same way, and the main counterarguments — spontaneous collaboration, mentorship, culture — have not held up well in studies that actually measured them.
 
 When humanising, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14). The surface false-balance phrasing piece is partly covered by `check_false_concession` (#23a); expanding regex coverage of stance erasure is out of scope here.
 
 ### 39. Template and placeholder residue
 
@@ -776,3 +808,5 @@ These are not reliable enough for hard regex treatment yet, but they should be p
 - **Poetry:** watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.
 - **Fiction:** watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, locked POV with no pressure, over-resolved endings, and scene pacing that never surprises.
 - **Email/business:** watch for placeholders, over-warm openings, fake personalisation, and action lists dressed up with symbols.
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) as a polymorphic genre slot — the agent first detects genre (academic, student essay, poetry, fiction, default), then runs the matching watchlist.

@@ -1113,15 +1113,29 @@ def check_list_density(text):
 
 
 def check_unicode_flair(text):
-    """Detect decorative Unicode symbols that make prose look generated."""
-    symbols = re.findall(r"[✓✔✕✖★☆◆◇→⇒➜➤•●○◦※✨⭐🔥🚀✅❌]", text)
+    """Detect decorative Unicode symbols and emoji shortcodes (patterns 31a + 16).
+
+    Folds pattern 16 (Emojis) into this check: covers symbol glyphs, the
+    broader emoji ranges, and ``:shortcode:`` forms (``:rocket:``, ``:bulb:``)
+    that cluster in headings or bullet points.
+    """
+    symbols = re.findall(
+        r"[✓✔✕✖★☆◆◇→⇒➜➤•●○◦※✨⭐✅❌🔥🚀]"
+        r"|[\U0001F300-\U0001F9FF\U0001FA00-\U0001FAFF]",
+        text,
+    )
+    shortcodes = re.findall(
+        r"(?<![A-Za-z0-9]):[a-z][a-z0-9_]{2,}:(?![A-Za-z0-9])",
+        text,
+    )
+    findings = symbols + shortcodes
     return {
         "text": "no-unicode-flair",
-        "passed": len(symbols) < 2,
+        "passed": len(findings) < 2,
         "evidence": (
-            f"Found {len(symbols)} decorative Unicode symbol(s): {symbols[:8]}"
-            if len(symbols) >= 2
-            else f"Decorative Unicode symbols: {len(symbols)}"
+            f"Found {len(findings)} decorative symbol(s)/shortcode(s): {findings[:8]}"
+            if len(findings) >= 2
+            else f"Decorative symbols/shortcodes: {len(findings)}"
         ),
     }
 
@@ -1588,6 +1602,166 @@ def check_hedging_density(text):
     }
 
 
+NOTABILITY_CLAIMS = [
+    r"\bindependent (?:coverage|sources?|reviews?)\b",
+    r"\b(?:local|regional|national|international) (?:news )?(?:media )?outlets?\b",
+    r"\bwritten by a leading expert\b",
+    r"\b(?:has|have|maintains?|with|showcasing|boasts?) (?:an? )?active social media presence\b",
+    r"\bactive social media presence\b",
+    r"\b(?:over|more than) [\d,]+\+? (?:followers?|subscribers?|fans?)\b",
+    r"\b(?:cited|featured|covered|profiled) (?:in|by) (?:multiple|numerous|several) (?:major )?(?:outlets?|publications?|media)\b",
+    r"\bgained (?:significant|widespread|notable) (?:media )?attention\b",
+]
+
+
+def check_notability_claims(text):
+    """Detect notability claims that list authorities without context (pattern 2)."""
+    count, matches = count_pattern_matches(text, NOTABILITY_CLAIMS)
+    return {
+        "text": "no-notability-claims",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} notability claim(s): {matches[:3]}"
+            if count > 0
+            else "No notability claims"
+        ),
+    }
+
+
+VAGUE_ATTRIBUTIONS = [
+    r"\bindustry reports? (?:say|state|claim|note|suggest|indicate|highlight|reveal|show|find)\b",
+    r"\bobservers? (?:have )?(?:cited|noted|argued|claimed|suggested|pointed out)\b",
+    r"\bexperts? (?:argue|believe|say|note|suggest|claim|indicate|warn|caution|agree)\b",
+    r"\b(?:some|many|several|various|certain|a number of) (?:critics?|analysts?|scholars?|researchers?|commentators?|observers?) (?:argue|believe|say|note|suggest|claim|warn|cite|point out)\b",
+    r"\bseveral (?:sources?|publications?|outlets?|reports?) (?:have )?(?:cited|noted|reported|claimed|confirmed)\b",
+    r"\bit is (?:widely |often |frequently |commonly |generally )?(?:believed|argued|claimed|noted|reported|understood|accepted|acknowledged|recognised|recognized)\b",
+    r"\b(?:research|studies) (?:has|have)? ?(?:shown|demonstrated|indicated|suggested|found) that\b",
+]
+
+
+def check_vague_attributions(text):
+    """Detect vague-authority attributions without named sources (pattern 5)."""
+    count, matches = count_pattern_matches(text, VAGUE_ATTRIBUTIONS)
+    return {
+        "text": "no-vague-attributions",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} vague attribution(s): {matches[:3]}"
+            if count > 0
+            else "No vague attributions"
+        ),
+    }
+
+
+def check_boldface_overuse(text):
+    """Detect mechanical boldface emphasis in prose (pattern 13)."""
+    bold_pattern = re.compile(r"\*\*[^*\n]{1,80}\*\*")
+    list_or_heading = re.compile(r"^\s*(?:[-*+•]|\d+\.|#{1,6})\s+")
+    total = 0
+    matches = []
+    for line in text.split("\n"):
+        if list_or_heading.match(line):
+            continue
+        for m in bold_pattern.findall(line):
+            total += 1
+            matches.append(m)
+    return {
+        "text": "no-boldface-overuse",
+        "passed": total < 4,
+        "evidence": (
+            f"Found {total} bold span(s) in prose: {matches[:5]}"
+            if total >= 4
+            else f"Bold spans in prose: {total}"
+        ),
+    }
+
+
+def check_inline_header_lists(text):
+    """Detect list items that start with a bolded header and colon (pattern 14)."""
+    header_in_list = re.compile(
+        r"^\s*(?:[-*+•]|\d+\.)\s+\*\*[^*\n]{1,60}:\*\*",
+        re.MULTILINE,
+    )
+    matches = header_in_list.findall(text)
+    return {
+        "text": "no-inline-header-lists",
+        "passed": len(matches) < 2,
+        "evidence": (
+            f"Found {len(matches)} list item(s) with bolded headers"
+            if len(matches) >= 2
+            else f"List items with bolded headers: {len(matches)}"
+        ),
+    }
+
+
+COMPOUND_MODIFIERS = [
+    r"\bthird-party\b", r"\bcross-functional\b", r"\bclient-facing\b",
+    r"\bcustomer-facing\b", r"\buser-facing\b",
+    r"\bdata-driven\b", r"\bdecision-making\b",
+    r"\bwell-known\b", r"\bwell-established\b", r"\bwell-defined\b",
+    r"\bhigh-quality\b", r"\bhigh-impact\b", r"\bhigh-performance\b",
+    r"\bhigh-level\b", r"\bhigh-stakes\b",
+    r"\breal-time\b", r"\blong-term\b", r"\bshort-term\b",
+    r"\bend-to-end\b", r"\bday-to-day\b", r"\bback-and-forth\b",
+    r"\buser-friendly\b", r"\bcost-effective\b",
+    r"\bforward-thinking\b", r"\bforward-looking\b",
+    r"\bdetail-oriented\b", r"\bgoal-oriented\b", r"\bresults-oriented\b",
+    r"\bmission-critical\b", r"\bbest-in-class\b",
+    r"\bcutting-edge\b", r"\bnext-generation\b", r"\bworld-class\b",
+    r"\bbest-of-breed\b", r"\bstate-of-the-art\b",
+]
+
+
+def check_compound_modifier_density(text):
+    """Detect three or more hyphenated compound modifiers in a single sentence (pattern 18)."""
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    flagged = []
+    for sent in sentences:
+        sent_lower = sent.lower()
+        per_sentence = []
+        for pat in COMPOUND_MODIFIERS:
+            per_sentence.extend(re.findall(pat, sent_lower))
+        if len(per_sentence) >= 3:
+            flagged.append(per_sentence)
+    return {
+        "text": "no-compound-modifier-density",
+        "passed": len(flagged) == 0,
+        "evidence": (
+            f"Found {len(flagged)} sentence(s) with 3+ AI compound modifiers: {flagged[:2]}"
+            if flagged
+            else "No dense compound-modifier sentences"
+        ),
+    }
+
+
+KNOWLEDGE_CUTOFF_DISCLAIMERS = [
+    r"\bup to my (?:last )?(?:training |knowledge )?(?:update|cutoff|cut-off)\b",
+    r"\bas of my (?:last )?(?:training |knowledge )?(?:update|cutoff|cut-off)\b",
+    r"\bbased on (?:available|the available|publicly available|publicly accessible) information\b",
+    r"\bwhile (?:specific|exact|precise) (?:details|information|data) (?:are |is )?(?:limited|scarce|unavailable|sparse|not (?:extensively |readily )?(?:documented|available))\b",
+    r"\b(?:specific|exact|precise) (?:details|information|data) (?:about|regarding|concerning) [^.!?\n]{0,80} (?:are|is) (?:limited|scarce|unavailable|not (?:readily )?available)\b",
+    r"\bnot (?:extensively |widely |readily )?documented in (?:readily )?available sources\b",
+    r"\bin readily available sources\b",
+    r"\bi (?:do not|don't|cannot|can't) have (?:access to|information about|details on)\b",
+    r"\bi am unable to (?:access|verify|confirm|provide)\b",
+    r"\bmy (?:training|knowledge) (?:cutoff|cut-off|cuts off|ends|extends to|is limited to)\b",
+]
+
+
+def check_knowledge_cutoff_disclaimers(text):
+    """Detect AI knowledge-cutoff or training-update disclaimers (pattern 20)."""
+    count, matches = count_pattern_matches(text, KNOWLEDGE_CUTOFF_DISCLAIMERS)
+    return {
+        "text": "no-knowledge-cutoff-disclaimers",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} knowledge-cutoff disclaimer(s): {matches[:3]}"
+            if count > 0
+            else "No knowledge-cutoff disclaimers"
+        ),
+    }
+
+
 # --- Registry ---
 
 ALL_CHECKS = {
@@ -1634,6 +1808,12 @@ ALL_CHECKS = {
     "vocabulary-diversity": check_type_token_ratio,
     "no-triad-density": check_triad_density,
     "no-section-scaffolding": check_section_scaffolding,
+    "no-notability-claims": check_notability_claims,
+    "no-vague-attributions": check_vague_attributions,
+    "no-boldface-overuse": check_boldface_overuse,
+    "no-inline-header-lists": check_inline_header_lists,
+    "no-compound-modifier-density": check_compound_modifier_density,
+    "no-knowledge-cutoff-disclaimers": check_knowledge_cutoff_disclaimers,
 }
 
 
@@ -1681,6 +1861,12 @@ CHECK_REPORT_TEXT = {
     "vocabulary-diversity": ("Vocabulary diversity", "Checks for unusually repetitive vocabulary in longer text."),
     "no-triad-density": ("Triad density", "Checks whether three-part list structures are overused across the piece."),
     "no-section-scaffolding": ("Repeated section scaffolding", "Checks for repeated section labels or repeated structural templates."),
+    "no-notability-claims": ("Notability claims", "Checks for fake-prestige framing such as active social media presence or coverage by unnamed major outlets."),
+    "no-vague-attributions": ("Vague attributions", "Checks for unnamed-authority phrasing such as experts argue, observers note, or industry reports say."),
+    "no-boldface-overuse": ("Boldface overuse", "Checks for mechanical bold emphasis stacked across a passage of prose."),
+    "no-inline-header-lists": ("Inline-header lists", "Checks for list items that begin with a bolded header and colon, turning prose into a slide deck."),
+    "no-compound-modifier-density": ("Hyphenated compound modifier overuse", "Checks for three or more AI-stock hyphenated compound modifiers crammed into one sentence."),
+    "no-knowledge-cutoff-disclaimers": ("Knowledge-cutoff disclaimers", "Checks for AI training-update or limited-information hedges left in the prose."),
 }
 
 
@@ -1728,6 +1914,12 @@ CHECK_WHY_IT_MATTERS = {
     "vocabulary-diversity": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
     "no-triad-density": "Too many three-part lists create a recognisable generated cadence.",
     "no-section-scaffolding": "Repeated section structure makes the whole piece feel assembled from a template.",
+    "no-notability-claims": "Listing unnamed authorities or follower counts as if the mention itself were the story performs prestige instead of reporting it.",
+    "no-vague-attributions": "Unnamed expert and report citations create the illusion of consensus without naming a real source.",
+    "no-boldface-overuse": "Mechanical boldface stacking flattens prose into emphasis-by-default and reads like generated formatting.",
+    "no-inline-header-lists": "Bolded-header list items convert prose into slide-deck shapes, a strong frictionless-structure tell.",
+    "no-compound-modifier-density": "Stacking three or more hyphenated compound modifiers in one sentence is a recognisable AI cadence rather than a deliberate style choice.",
+    "no-knowledge-cutoff-disclaimers": "AI training-update and limited-information hedges are model meta-residue and almost never belong in finished prose.",
 }
 
 
@@ -1989,6 +2181,42 @@ CHECK_METADATA = {
         "failure_modes": ["frictionless_structure", "genre_misfit"],
         "evidence_role": "list_rhythm",
         "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+    },
+    "no-notability-claims": {
+        "severity": "strong_warning",
+        "failure_modes": ["synthetic_significance", "generic_abstraction"],
+        "evidence_role": "notability_inflation",
+        "guidance": "Fix at Balanced and All; replace abstract notability claims with named sources or remove the framing.",
+    },
+    "no-vague-attributions": {
+        "severity": "strong_warning",
+        "failure_modes": ["synthetic_significance", "generic_abstraction"],
+        "evidence_role": "attribution_vagueness",
+        "guidance": "Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote.",
+    },
+    "no-boldface-overuse": {
+        "severity": "context_warning",
+        "failure_modes": ["frictionless_structure"],
+        "evidence_role": "emphasis_pattern",
+        "guidance": "Fix mechanical bold stacking; preserve only when bolded terms are genuine definition headers.",
+    },
+    "no-inline-header-lists": {
+        "severity": "strong_warning",
+        "failure_modes": ["frictionless_structure", "generic_abstraction"],
+        "evidence_role": "list_template",
+        "guidance": "Fix at Balanced and All; fold bolded-header bullets back into prose unless the format is a real spec or reference list.",
+    },
+    "no-compound-modifier-density": {
+        "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "generic_abstraction"],
+        "evidence_role": "modifier_density",
+        "guidance": "Restructure sentences with three or more stock hyphenated compounds; preserve only when the compounds are domain-specific terms of art.",
+    },
+    "no-knowledge-cutoff-disclaimers": {
+        "severity": "strong_warning",
+        "failure_modes": ["provenance_residue"],
+        "evidence_role": "model_meta_residue",
+        "guidance": "Fix at every depth; training-update and limited-information hedges are model meta-residue, not authorial uncertainty.",
     },
 }
 
