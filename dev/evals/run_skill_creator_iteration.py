@@ -138,7 +138,7 @@ def run_claude(prompt: str, model: str | None) -> tuple[str, str, int]:
         env=env,
         text=True,
         capture_output=True,
-        timeout=900,
+        timeout=1800,
     )
 
     raw = proc.stdout.strip()
@@ -203,7 +203,7 @@ def run_codex(prompt: str, model: str | None) -> tuple[str, str, int]:
         cwd=ROOT,
         text=True,
         capture_output=True,
-        timeout=900,
+        timeout=1800,
     )
     try:
         response = output_path.read_text(encoding="utf-8")
@@ -1059,7 +1059,7 @@ def main() -> int:
     parser.add_argument("--iteration", type=int, default=1)
     parser.add_argument("--model", default=None)
     parser.add_argument("--executor", choices=["claude", "codex"], default="claude")
-    parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--workers", type=int, default=4)
     parser.add_argument(
         "--include-old-skill",
         action="store_true",
