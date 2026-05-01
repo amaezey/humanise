@@ -183,6 +183,19 @@ except KeyError:
 else:
     fail("judgement_for should raise KeyError for unknown id")
 
+try:
+    registries._validate_judgement({
+        "schema_version": "1",
+        "records": [{"id": "broken", "prompt": "Prompt", "answer_schema": {"type": "state"}}],
+    })
+except ValueError as e:
+    if "flagged_when" in str(e):
+        ok("load_judgement validation names missing fields")
+    else:
+        fail(f"judgement validation error should name missing field, got: {e}")
+else:
+    fail("judgement validation should reject records missing flagged_when")
+
 
 # --- summary ---
 

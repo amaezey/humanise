@@ -24,7 +24,13 @@ Loader fails fast on schema violations with field name and offending check_id.
 
 from pathlib import Path
 
-import yaml
+try:
+    import yaml
+except ModuleNotFoundError as exc:
+    raise ModuleNotFoundError(
+        "humanise's registry-backed grader requires PyYAML. "
+        "Install it with `python3 -m pip install PyYAML`, then rerun the grader."
+    ) from exc
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PATTERNS_PATH = REPO_ROOT / "humanise" / "patterns.yaml"
@@ -54,6 +60,9 @@ VALID_CATEGORIES = {
     "Voice and register",
     "Aggregate AI-signal pressure",
 }
+
+REQUIRED_JUDGEMENT_FIELDS = {"id", "prompt", "answer_schema", "flagged_when"}
+VALID_JUDGEMENT_SCHEMA_TYPES = {"trichotomy", "state", "list", "composite"}
 
 _PATTERNS_CACHE = None
 _JUDGEMENT_CACHE = None
@@ -105,11 +114,53 @@ def load_patterns():
 
 
 def load_judgement():
-    """Load judgement.yaml. Cached after first call."""
+    """Load and validate judgement.yaml. Cached after first call."""
     global _JUDGEMENT_CACHE
     if _JUDGEMENT_CACHE is None:
-        _JUDGEMENT_CACHE = yaml.safe_load(JUDGEMENT_PATH.read_text())
+        data = yaml.safe_load(JUDGEMENT_PATH.read_text())
+        _validate_judgement(data)
+        _JUDGEMENT_CACHE = data
     return _JUDGEMENT_CACHE
+
+
+def _validate_judgement(data):
+    if not isinstance(data, dict):
+        raise ValueError(
+            f"judgement.yaml: top-level must be a mapping, got {type(data).__name__}"
+        )
+    if data.get("schema_version") != "1":
+        raise ValueError(
+            f"judgement.yaml.schema_version: expected '1', got {data.get('schema_version')!r}"
+        )
+    records = data.get("records")
+    if not isinstance(records, list) or not records:
+        raise ValueError("judgement.yaml.records: must be a non-empty list")
+    seen = set()
+    for index, record in enumerate(records):
+        if not isinstance(record, dict):
+            raise ValueError(
+                f"judgement.yaml.records[{index}]: record must be a dict, got {type(record).__name__}"
+            )
+        item_id = record.get("id", f"<record {index}>")
+        missing = REQUIRED_JUDGEMENT_FIELDS - set(record)
+        if missing:
+            raise ValueError(
+                f"judgement.yaml[{item_id!r}]: missing required field(s) {sorted(missing)}"
+            )
+        if item_id in seen:
+            raise ValueError(f"judgement.yaml[{item_id!r}]: duplicate id")
+        seen.add(item_id)
+        answer_schema = record["answer_schema"]
+        if not isinstance(answer_schema, dict):
+            raise ValueError(
+                f"judgement.yaml[{item_id!r}].answer_schema: must be a dict"
+            )
+        schema_type = answer_schema.get("type")
+        if schema_type not in VALID_JUDGEMENT_SCHEMA_TYPES:
+            raise ValueError(
+                f"judgement.yaml[{item_id!r}].answer_schema.type: "
+                f"{schema_type!r} not in {sorted(VALID_JUDGEMENT_SCHEMA_TYPES)}"
+            )
 
 
 def pattern_for(check_id):
