@@ -46,7 +46,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
-4. **Run the agent-judgement reading.** Read `humanise/judgement.yaml` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
+4. **Run the agent-judgement reading.** Read `judgement.yaml` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
 5. Render the audit using the output template below. The programmatic block carries the regex findings; the agent-judgement block carries the eight-item reading. Both blocks always render in Phase 1 — Phase 3 (U11/U12) introduces an all-clear collapse and the two-layer Layer 1/Layer 2 split.
 6. End with the next-step question and stop without proceeding to a rewrite.
 
@@ -120,7 +120,7 @@ If both blocks come back clear (no programmatic patterns flagged AND every agent
 
 If only the programmatic block is clean but agent-judgement flagged at least one item, render the agent-judgement block as usual and surface that the regex layer found nothing while the semantic layer surfaced findings.
 
-If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md` and run the agent-judgement reading directly from `humanise/judgement.yaml`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md` and run the agent-judgement reading directly from `judgement.yaml`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
 
 ---
 

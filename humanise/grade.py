@@ -1710,6 +1710,7 @@ COMPOUND_MODIFIERS = [
     r"\bcutting-edge\b", r"\bnext-generation\b", r"\bworld-class\b",
     r"\bbest-of-breed\b", r"\bstate-of-the-art\b",
 ]
+COMPOUND_MODIFIER_RE = re.compile("|".join(COMPOUND_MODIFIERS))
 
 
 def check_compound_modifier_density(text):
@@ -1718,9 +1719,9 @@ def check_compound_modifier_density(text):
     flagged = []
     for sent in sentences:
         sent_lower = sent.lower()
-        per_sentence = []
-        for pat in COMPOUND_MODIFIERS:
-            per_sentence.extend(re.findall(pat, sent_lower))
+        if "-" not in sent_lower:
+            continue
+        per_sentence = COMPOUND_MODIFIER_RE.findall(sent_lower)
         if len(per_sentence) >= 3:
             flagged.append(per_sentence)
     return {
