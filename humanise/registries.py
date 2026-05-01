@@ -35,6 +35,7 @@ except ModuleNotFoundError as exc:
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PATTERNS_PATH = REPO_ROOT / "humanise" / "patterns.yaml"
 JUDGEMENT_PATH = REPO_ROOT / "humanise" / "judgement.yaml"
+VOCABULARY_PATH = REPO_ROOT / "humanise" / "vocabulary.yml"
 
 REQUIRED_PATTERN_FIELDS = {
     "category",
@@ -66,6 +67,7 @@ VALID_JUDGEMENT_SCHEMA_TYPES = {"trichotomy", "state", "list", "composite"}
 
 _PATTERNS_CACHE = None
 _JUDGEMENT_CACHE = None
+_VOCABULARY_CACHE = None
 
 
 def _validate_pattern(check_id, record):
@@ -229,3 +231,107 @@ def why_it_matters_for(check_id):
     except KeyError:
         return "This pattern can make prose read as generated or over-templated."
     return rec["why_it_matters"]
+
+
+# ---------------------------------------------------------------------------
+# vocabulary.yml — user-facing strings + prose templates.
+# ---------------------------------------------------------------------------
+
+
+def load_vocabulary():
+    """Load and validate vocabulary.yml. Cached after first call."""
+    global _VOCABULARY_CACHE
+    if _VOCABULARY_CACHE is None:
+        data = yaml.safe_load(VOCABULARY_PATH.read_text())
+        if not isinstance(data, dict):
+            raise ValueError(
+                "vocabulary.yml: top-level must be a mapping, got "
+                f"{type(data).__name__}"
+            )
+        if data.get("schema_version") != "1":
+            raise ValueError(
+                f"vocabulary.yml.schema_version: expected '1', got "
+                f"{data.get('schema_version')!r}"
+            )
+        _VOCABULARY_CACHE = data
+    return _VOCABULARY_CACHE
+
+
+def _resolve_vocab_path(key):
+    """Resolve a dotted key (e.g. 'pressure_explanation.lead') to a value.
+
+    Raises KeyError with the full key path on miss so callers can localise
+    the typo.
+    """
+    vocab = load_vocabulary()
+    parts = key.split(".")
+    node = vocab
+    for index, part in enumerate(parts):
+        if not isinstance(node, dict) or part not in node:
+            covered = ".".join(parts[:index]) or "<root>"
+            available = sorted(node.keys()) if isinstance(node, dict) else []
+            raise KeyError(
+                f"vocabulary.yml[{key!r}]: missing at {covered}; "
+                f"available keys at that level: {available}"
+            )
+        node = node[part]
+    return node
+
+
+def string_for(key, **placeholders):
+    """Look up a vocabulary string and format placeholders into it.
+
+    `key` is dotted (e.g. 'templates.summary_flagged'). Missing key fails
+    fast with the full key path. Missing placeholder fails fast with the
+    placeholder name and the template key.
+    """
+    template = _resolve_vocab_path(key)
+    if not isinstance(template, str):
+        raise TypeError(
+            f"vocabulary.yml[{key!r}]: expected string template, got "
+            f"{type(template).__name__}"
+        )
+    try:
+        return template.format(**placeholders)
+    except KeyError as exc:
+        missing = exc.args[0] if exc.args else "<unknown>"
+        raise KeyError(
+            f"vocabulary.yml[{key!r}]: template references {{{missing}}} "
+            f"but no value was supplied. Provided: {sorted(placeholders)}"
+        ) from None
+
+
+def severity_label(severity):
+    """User-facing label for a severity tier."""
+    return _resolve_vocab_path(f"severity_labels.{severity}")
+
+
+def action_label(action):
+    """User-facing label for a recommended-action key."""
+    return _resolve_vocab_path(f"action_labels.{action}")
+
+
+def status_label(status):
+    """User-facing label for a check status (clear/flagged/none)."""
+    return _resolve_vocab_path(f"status_labels.{status}")
+
+
+def pressure_status(triggered):
+    """Word for AI-pressure status — 'triggered' or 'clear'."""
+    return _resolve_vocab_path(
+        "pressure_status." + ("triggered" if triggered else "clear")
+    )
+
+
+def failure_mode_metadata():
+    """Return the failure-mode label/summary catalogue.
+
+    Shape mirrors the legacy FAILURE_MODE_METADATA constant so callers can
+    iterate `.items()` and read `.label` / `.summary` unchanged.
+    """
+    return _resolve_vocab_path("failure_modes")
+
+
+def depth_consequence_text(severity):
+    """Per-severity depth-consequence sentence."""
+    return _resolve_vocab_path(f"depth_consequence.{severity}")
