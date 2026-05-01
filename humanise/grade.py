@@ -1845,32 +1845,8 @@ ALL_CHECKS = {
 # registries.report_text_for / why_it_matters_for / metadata_for.
 
 
-FAILURE_MODE_METADATA = {
-    "provenance_residue": {
-        "label": "Provenance residue",
-        "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue.",
-    },
-    "synthetic_significance": {
-        "label": "Synthetic significance",
-        "summary": "Text performs importance, revelation, or depth without enough concrete support.",
-    },
-    "frictionless_structure": {
-        "label": "Frictionless structure",
-        "summary": "Text is packaged too evenly through headings, lists, repeated shapes, or tidy closures.",
-    },
-    "generic_abstraction": {
-        "label": "Generic abstraction",
-        "summary": "Text relies on portable abstractions, stock vocabulary, or low-specificity claims.",
-    },
-    "voice_erasure": {
-        "label": "Voice erasure",
-        "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure.",
-    },
-    "genre_misfit": {
-        "label": "Genre misfit",
-        "summary": "Text uses a device that may be valid in one genre but suspicious in another.",
-    },
-}
+# FAILURE_MODE_METADATA was migrated to humanise/vocabulary.yml in U9.
+# Access via registries.failure_mode_metadata().
 
 
 def annotate_result(result):
@@ -1883,13 +1859,14 @@ DEPTHS = ("balanced", "all")
 
 
 def depth_consequence(result):
-    """Describe what each severity means across rewrite depths."""
+    """Describe what each severity means across rewrite depths.
+
+    Strings live in humanise/vocabulary.yml (U9); look up by severity tier.
+    """
     severity = result["severity"]
-    if severity == "hard_fail":
-        return "Fix at Balanced and All."
-    if severity == "strong_warning":
-        return "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure."
-    return "Review at Balanced; All requires removal unless the user explicitly accepts the risk."
+    if severity not in {"hard_fail", "strong_warning", "context_warning"}:
+        severity = "context_warning"
+    return registries.depth_consequence_text(severity)
 
 
 def action_for_depth(result, depth):
@@ -1902,17 +1879,8 @@ def action_for_depth(result, depth):
     return "preserve_with_disclosure_or_user_decision"
 
 
-SEVERITY_LABELS = {
-    "hard_fail": "Must fix",
-    "strong_warning": "Strong AI-writing signal",
-    "context_warning": "Context-sensitive signal",
-}
-
-
-ACTION_LABELS = {
-    "fix": "Fix",
-    "preserve_with_disclosure_or_user_decision": "Disclose or ask before preserving",
-}
+# SEVERITY_LABELS and ACTION_LABELS were migrated to humanise/vocabulary.yml
+# in U9. Access via registries.severity_label() / registries.action_label().
 
 
 def check_report_text(check_name):
@@ -2118,27 +2086,32 @@ def format_human_report(results, depth="all", heading="Initial assessment"):
     total = len(contract["programmatic_checks"])
 
     if flagged:
-        summary = f"{len(flagged)} of {total} checks were flagged for AI-style writing patterns."
+        summary = registries.string_for(
+            "templates.summary_flagged", flagged=len(flagged), total=total,
+        )
     else:
-        summary = f"All {total} checks were clear."
+        summary = registries.string_for(
+            "templates.summary_all_clear", total=total,
+        )
 
-    severity_line = (
-        f"{by_sev['hard_fail']} hard_fail · "
-        f"{by_sev['strong_warning']} strong_warning · "
-        f"{by_sev['context_warning']} context_warning · "
-        f"pressure: {'triggered' if pressure['triggered'] else 'clear'}"
+    severity_line = registries.string_for(
+        "templates.severity_line",
+        hard_fail=by_sev["hard_fail"],
+        strong_warning=by_sev["strong_warning"],
+        context_warning=by_sev["context_warning"],
+        pressure=registries.pressure_status(pressure["triggered"]),
     )
 
     pressure_explanation = _compose_pressure_explanation(pressure)
 
     lines = [
         heading,
-        f"Summary: {summary}",
-        f"Severity: {severity_line}",
+        f"{registries.string_for('inline_labels.summary_prefix')} {summary}",
+        f"{registries.string_for('inline_labels.severity_prefix')} {severity_line}",
         "",
-        f"AI-pressure explanation: {pressure_explanation}",
+        f"{registries.string_for('inline_labels.pressure_explanation_prefix')} {pressure_explanation}",
         "",
-        "Main issues found",
+        registries.string_for("section_headings.main_issues"),
     ]
 
     if flagged:
@@ -2152,22 +2125,24 @@ def format_human_report(results, depth="all", heading="Initial assessment"):
                 label, description, why_matters = check["id"], "", ""
             evidence_str = check["evidence"]["raw"].get("evidence", "")
             why_here = sentence_text(_friendly_evidence_str(evidence_str))
-            action = ACTION_LABELS.get(
-                _action_for_check(check, depth_key), "Fix",
-            )
+            action = registries.action_label(_action_for_check(check, depth_key))
             lines.append(
-                f"- {label}: Flagged. "
-                f"What it looks for: {description} "
-                f"What happened here: {why_here} "
-                f"Why this matters: {why_matters} "
-                f"{depth_key.title()} action: {action}."
+                registries.string_for(
+                    "templates.flagged_row",
+                    label=label,
+                    description=description,
+                    why_here=why_here,
+                    why_matters=why_matters,
+                    depth=depth_key.title(),
+                    action=action,
+                )
             )
     else:
-        lines.append("- None.")
+        lines.append(registries.string_for("templates.none_bullet"))
 
     lines.extend([
         "",
-        "Full check table",
+        registries.string_for("section_headings.full_check_table"),
         "",
         _markdown_table_from_contract(contract, depth_key),
     ])
@@ -2177,35 +2152,38 @@ def format_human_report(results, depth="all", heading="Initial assessment"):
 def _compose_pressure_explanation(pressure):
     """Build the AI-pressure explanation paragraph from contract aggregates.
 
-    Hardcoded template here; U9 sources these strings from vocabulary.yml.
+    Strings live in humanise/vocabulary.yml under `pressure_explanation`.
     """
-    lead = (
-        "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
-        "but become more meaningful when they appear together. "
-    )
+    lead = registries.string_for("pressure_explanation.lead")
     components = pressure["components"]
     vocab_points = pressure["vocabulary_points"]
-    if components:
-        vocab_clause = (
-            f", plus {vocab_points} point(s) from clustered AI vocabulary"
-            if vocab_points else ""
+    if components and vocab_points:
+        middle = registries.string_for(
+            "pressure_explanation.components_with_vocab",
+            components=", ".join(components),
+            vocab_points=vocab_points,
         )
-        middle = (
-            f"Here the stacked signals were {', '.join(components)}{vocab_clause}. "
-            "That means the draft looked machine-packaged, with too much visible structure "
-            "and too little natural variation. "
+    elif components:
+        middle = registries.string_for(
+            "pressure_explanation.components_only",
+            components=", ".join(components),
         )
     elif vocab_points:
-        middle = (
-            f"The only contribution here was {vocab_points} point(s) from clustered AI vocabulary. "
+        middle = registries.string_for(
+            "pressure_explanation.vocab_only",
+            vocab_points=vocab_points,
         )
     else:
-        middle = (
-            "This text did not stack enough weak signals to suggest machine-packaged structure. "
-        )
-    tail = (
-        f"Score: {pressure['score']}/{pressure['threshold']}, "
-        f"so this check {'was flagged' if pressure['triggered'] else 'stayed clear'}."
+        middle = registries.string_for("pressure_explanation.no_components")
+    tail_key = (
+        "pressure_explanation.tail_triggered"
+        if pressure["triggered"]
+        else "pressure_explanation.tail_clear"
+    )
+    tail = registries.string_for(
+        tail_key,
+        score=pressure["score"],
+        threshold=pressure["threshold"],
     )
     return lead + middle + tail
 
@@ -2213,7 +2191,7 @@ def _compose_pressure_explanation(pressure):
 def _friendly_evidence_str(evidence_str):
     """Old friendly_evidence took a result dict. New version takes the prose string."""
     if not evidence_str:
-        return "No issue found in this text."
+        return registries.string_for("templates.no_issue_found")
     return evidence_str
 
 
@@ -2229,8 +2207,14 @@ def _action_for_check(check, depth):
 
 def _markdown_table_from_contract(contract, depth_key):
     """Render the full check table by joining contract entries with registry metadata."""
-    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {depth_key.title()} action |"
-    lines = [header, "|---|---|---|---|---|---|"]
+    header = registries.string_for(
+        "templates.table_header", depth=depth_key.title()
+    )
+    lines = [header, registries.string_for("templates.table_separator")]
+    no_issue_text = registries.string_for("templates.no_issue_found")
+    none_label = registries.status_label("none")
+    clear_label = registries.status_label("clear")
+    flagged_label = registries.status_label("flagged")
     for check in contract["programmatic_checks"]:
         try:
             rec = registries.pattern_for(check["id"])
@@ -2240,13 +2224,14 @@ def _markdown_table_from_contract(contract, depth_key):
         except KeyError:
             label, description, why_matters = check["id"], "", ""
         if check["status"] == "clear":
-            why_here = "No issue found in this text."
-            action_label = "None"
+            why_here = no_issue_text
+            action_label = none_label
+            status_label = clear_label
         else:
             evidence_str = check["evidence"]["raw"].get("evidence", "")
             why_here = sentence_text(_friendly_evidence_str(evidence_str))
-            action_label = ACTION_LABELS.get(_action_for_check(check, depth_key), "Fix")
-        status_label = "Clear" if check["status"] == "clear" else "Flagged"
+            action_label = registries.action_label(_action_for_check(check, depth_key))
+            status_label = flagged_label
         lines.append(
             "| "
             + " | ".join([
@@ -2326,7 +2311,7 @@ def failure_mode_results(results):
             "check_refs": [],
             "failures_by_severity": {},
         }
-        for key, meta in FAILURE_MODE_METADATA.items()
+        for key, meta in registries.failure_mode_metadata().items()
     }
 
     for result in results:
@@ -2374,6 +2359,17 @@ def depth_results(results):
     context_warnings = by_severity.get("context_warning", [])
     check_status = "fail" if failures else "pass"
 
+    if hard_failures or strong_warnings:
+        balanced_summary = registries.string_for("depth_summary.balanced_strong_or_hard")
+    elif context_warnings:
+        balanced_summary = registries.string_for("depth_summary.balanced_context_only")
+    else:
+        balanced_summary = registries.string_for("depth_summary.balanced_clean")
+
+    all_summary = registries.string_for(
+        "depth_summary.all_clean" if not failures else "depth_summary.all_failures"
+    )
+
     return {
         "balanced": {
             "status": check_status,
@@ -2383,15 +2379,7 @@ def depth_results(results):
             "user_decision_needed": context_warnings,
             "must_fix": hard_failures + strong_warnings,
             "needs_user_decision": context_warnings,
-            "summary": (
-                "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
-                if hard_failures or strong_warnings
-                else (
-                    "No hard failures or strong warnings; context warnings need user decision."
-                    if context_warnings
-                    else "No hard failures, strong warnings, or context warnings."
-                )
-            ),
+            "summary": balanced_summary,
         },
         "all": {
             "status": check_status,
@@ -2401,11 +2389,7 @@ def depth_results(results):
             "user_decision_needed": [],
             "must_fix": [r["text"] for r in failures],
             "needs_user_decision": [],
-            "summary": (
-                "All checks pass."
-                if not failures
-                else "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
-            ),
+            "summary": all_summary,
         },
     }
 
