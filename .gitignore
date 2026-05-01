@@ -1,2 +1,10 @@
 __pycache__/
 .DS_Store
+
+# Workspace iterations: iter-1..4 are the committed baseline; later iter-N
+# dirs are per-run workspace data and shouldn't show as untracked.
+dev/skill-workspace/iteration-*/
+!dev/skill-workspace/iteration-1/
+!dev/skill-workspace/iteration-2/
+!dev/skill-workspace/iteration-3/
+!dev/skill-workspace/iteration-4/
