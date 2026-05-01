@@ -785,9 +785,9 @@ AI-generated articles with numbered sections often repeat the same structural la
 
 ### 42. Manufactured insight framing
 
-**Words to watch:** "what's really", "the real answer", "here's what's really", "the real story is", "what's actually happening", "contrary to popular belief", "the uncomfortable truth", "what nobody is talking about", "what no one seems to realise", "what most people miss", "what (no one|nobody) noticed", "before anyone noticed", "without anyone noticing", "let that sink in", "read that again", "if you know, you know", "and that changes everything", "the real insight/challenge/takeaway/kicker/question", "a quiet/powerful/important/profound lesson", "sometimes the bravest/hardest/most important", "this isn't X. it's Y.", "that's not X. that's Y."
+**Words to watch:** "what's really", "the real answer", "here's what's really", "the real story is", "what's actually happening", "contrary to popular belief", "the uncomfortable truth", "what nobody is talking about", "what no one seems to realise", "what most people miss", "what (no one|nobody) noticed", "before anyone noticed", "without anyone noticing", "let that sink in", "read that again", "if you know, you know", "and that changes everything", "the real insight/challenge/takeaway/kicker/question", "a quiet/powerful/important/profound lesson", "sometimes the bravest/hardest/most important", "this isn't X. it's Y.", "that's not X. that's Y.", "the honest answer is", "here's the honest (answer|framing|truth)", "here's the (real) truth", "the real truth is", "if I'm being honest", "in all honesty", "to be (perfectly) honest,"
 
-Performs revelation through phrasing — claims hidden depth or secret significance without doing the evidentiary work. Includes "the real X?" rhetorical questions, performed knowingness ("read that again", "let that sink in"), pseudo-profundity ("quietly revolutionary", "the quiet part"), formulaic depth framing ("here's the thing", "the reason is straightforward"), and contrived contrast that reveals an inflated abstract payload.
+Performs revelation through phrasing — claims hidden depth or secret significance without doing the evidentiary work. Includes "the real X?" rhetorical questions, performed knowingness ("read that again", "let that sink in"), pseudo-profundity ("quietly revolutionary", "the quiet part"), formulaic depth framing ("here's the thing", "the reason is straightforward"), and contrived contrast that reveals an inflated abstract payload. Also includes **performed candour** — honesty/truth framing ("the honest answer is", "here's the real truth", "if I'm being honest", "in all honesty") that dresses an ordinary statement as a hard-won admission.
 
 **Before:**
 > Most people think project management is about tracking tasks. Here's the real insight: it's about managing attention. What nobody is talking about is that most projects fail because no one was watching the right thing. Let that sink in.
@@ -798,6 +798,8 @@ Performs revelation through phrasing — claims hidden depth or secret significa
 **Severity:** strong_warning · `no-manufactured-insight`
 
 **Detection:** Programmatic check `no-manufactured-insight` (introduced before the 2026-04-08 file-move refactor at 618c723; **strong_warning**). Closely related to #9 contrived contrast — manufactured insight framing is the *content* of the false reveal; #9 is the *syntactic shape*. A piece can carry one without the other but they often co-occur.
+
+**Hypothesis (performed candour):** The honesty/truth-framing phrases ("the honest answer is", "here's the real truth", "if I'm being honest") are folded into `no-manufactured-insight` rather than promoted to their own numbered entry. They share the same generative move as the rest of #42 (claiming significance through phrasing rather than earning it), so a single check captures the family. Promote to a sibling entry if either signal lands: the candour regex set grows materially beyond the current handful of phrases, or audit failures cluster on candour without co-occurring with the rest of #42's mechanisms. Until then, keep folded.
 
 
 ### 44. Signposted conclusions

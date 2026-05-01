@@ -228,9 +228,27 @@ expect_fail("no-manufactured-insight",
 expect_fail("no-manufactured-insight",
     "The shift nobody noticed was already underway.",
     "shift nobody noticed framing")
+expect_fail("no-manufactured-insight",
+    "The honest answer is that the data was incomplete from the start.",
+    "performed candour — 'the honest answer is'")
+expect_fail("no-manufactured-insight",
+    "Here's the honest framing: the project missed every milestone.",
+    "performed candour — 'here's the honest framing'")
+expect_fail("no-manufactured-insight",
+    "Here's the real truth — most teams skip retros entirely.",
+    "performed candour — 'here's the real truth'")
+expect_fail("no-manufactured-insight",
+    "If I'm being honest, the proposal needs more work.",
+    "performed candour — 'if I'm being honest'")
+expect_fail("no-manufactured-insight",
+    "In all honesty, the migration plan has too many unknowns.",
+    "performed candour — 'in all honesty'")
 expect_pass("no-manufactured-insight",
     "The manual was updated in 2024 to reflect new safety standards.",
     "plain factual statement")
+expect_pass("no-manufactured-insight",
+    "We strive to be honest about our limitations and update the docs as we learn.",
+    "'to be honest' without leading comma — not the AI tell")
 
 
 # --- no-staccato-sequences ---

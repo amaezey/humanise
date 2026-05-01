@@ -274,6 +274,16 @@ MANUFACTURED_INSIGHT = [
     # Contrived contrast as insight
     r"this isn't [\w\s]+\. it's ",
     r"that's not [\w\s]+\. that's ",
+    # Performed candour / honesty framing
+    # (Folded into manufactured insight for now — see #42 Hypothesis note in patterns.md
+    # for the promotion criteria if this cluster grows.)
+    r"the honest answer is",
+    r"here's the honest (?:answer|framing|truth|version|take|story)",
+    r"here's the (?:real )?truth\b",
+    r"the real truth is",
+    r"if i'm being honest",
+    r"in all honesty",
+    r"to be (?:perfectly )?honest,",
 ]
 
 COLLABORATIVE_ARTIFACTS = [
