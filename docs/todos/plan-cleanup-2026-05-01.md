@@ -1,6 +1,6 @@
 # Plan-file cleanup — drop scope-creep, keep substantive subtractions
 
-Status: deferred from 2026-05-01 session.
+Status: done — applied 2026-05-01.
 
 ## Context
 

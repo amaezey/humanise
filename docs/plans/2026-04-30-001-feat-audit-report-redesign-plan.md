@@ -52,7 +52,6 @@ See origin: `docs/ideation/2026-04-30-audit-report-redesign-ideation.md`.
 - R21. Phase 3 changes the renderer only. The JSON contract from Phase 2 does not change in Phase 3.
 - R21b. `humanise/references/patterns.md` is generated from `humanise/patterns.yaml`. A CI check asserts the on-disk file equals the regenerated output. Patterns.yaml is the master; patterns.md is a generated transparency artefact.
 - R22. The audit output surfaces *what severity does* (action consequences at Balanced depth — Fix / Disclose or ask before preserving), not just *what severity is named* (tier labels). Layer 2 carries an Action column derived from severity; severity tier counts remain in the verdict line.
-
 ---
 
 ## Scope Boundaries
@@ -136,6 +135,9 @@ None — `docs/solutions/` does not exist in this repo. The PR5 ideation flags t
 - **alternatives.md**: migrates into `patterns.yaml` in U7 (no longer a separate flat file at runtime).
 - **`agent_judgement[]` writer**: the agent at response-render time. `grade.py` emits the programmatic half only.
 - **`patterns.md` source of truth**: generated from `patterns.yaml` (R21b, U15).
+- **U6 README update placement**: deferred entirely to Phase 3 (folded into U13). The original Phase-1 placement was wrong — the README will get touched again in Phase 3 anyway when the renderer changes shape, and Phase 2 might shift severities or rename categories that re-invalidate any earlier README work. The README isn't load-bearing for users (it's project marketing), so stale numbers through Phase 2/3 are fine. U13 handles counts, pattern table, and dual-layer description in one pass. Worktree commit `471a460` (the original U6 work) is now narratively orphaned — PR #6 reviewer decides whether to revert it before merge.
+- **Reconciling main's humanised README rewrite**: not a plan concern. Mae commits main's uncommitted humanise edits independently on `main` whenever she chooses. U13 will take whatever `main`'s `README.md` is at that point as its base.
+- **Pre-existing P1 + P2 fixes already shipped**: P1 (seven unnumbered checks) resolved by `13b4e9d` before this plan update was authored — the unit I drafted as "U16" was a phantom, removed. P2 (unanchored `ALL_CLEAR_LINE_RE`) resolved by `f671cc4` (anchors regex + enforces shape mutex). Both captured in Risks; no plan units needed.
 
 ### Deferred to Implementation
 
@@ -145,7 +147,6 @@ None — `docs/solutions/` does not exist in this repo. The PR5 ideation flags t
 - **Diff-harness corpus selection for U10**: corpus needs to exercise (a) all-clear, (b) heavy-flagging, (c) every category, (d) agent-judgement-only. No existing iteration sample is all-clear; synthetic samples likely required. Corpus is locked **before U7 starts** so the baseline can be captured pre-Phase-2 (see U10 split).
 - **PyYAML dependency**: accept as a required dep, hand-roll a minimal parser for the registries' flat shape, or use JSON instead of YAML. Decide before U7. PyYAML is the simplest path; the no-deps stance is broken either way once `jsonschema` is considered for U8 — be consistent.
 - **Whether `jsonschema` is added in U8**: coupled to the evidence-envelope decision (already taken — common envelope simplifies validation). Decide whether hand-rolled or library at U8 implementation time.
-- **U6 README update placement**: ship in Phase 1 (current placement) or defer to Phase 3 alongside U13 to avoid the "README describes a target shape the grader can't yet emit" mismatch. Current placement honours the ideation's substep ordering.
 
 ---
 
@@ -454,35 +455,21 @@ No `confidence` block. The verdict line is composed at render time from `aggrega
 
 ---
 
-- U6. **Update README to reflect dual-layer audit and resolved checks ↔ patterns map**
+- U6. *Removed 2026-05-01 — deferred entirely to U13. See `docs/todos/pr-6-readme-resolution.md`.*
 
-**Goal:** Update `README.md` to describe the dual-layer audit (programmatic + agent-judgement) and reflect the cleaned-up patterns ↔ checks map after U1, U2, U3.
+---
 
-**Requirements:** R19.
+- U16. *Removed 2026-05-01 — already shipped in commit `13b4e9d` before this plan update was authored.*
 
-**Dependencies:** U1, U2, U3, U4.
+Commit `13b4e9d fix: resolve 7 orphan checks into numbered/sub-lettered entries` promoted 5 checks to numbered patterns (#49 Em dashes, #50 Formulaic openers, #51 Mechanical repeated sentence starts, #52 Sentence length variance, #53 Vocabulary diversity), folded 2 into sub-letter entries (#10a Triad density, #35b Repeated 'This …' chains), and removed the `Severity for unnumbered checks` subsection from `humanise/references/patterns.md`. The P1 finding from `docs/todos/pr-6-code-review-handoff.md` is closed.
 
-**Files:**
-- Modify: `README.md` — sections describing the audit output, the patterns catalogue, the checks list.
-- Verify: `dev/evals/run_skill_creator_iteration.py:893-894` (the `README_PERFORMANCE_START` / `README_PERFORMANCE_END` markers) — the auto-rewritten block must not contradict the new prose.
+U16's U-ID is preserved as a gap.
 
-**Approach:**
-- Read the current README. Identify all sections that describe audit output, pattern coverage, the checks list.
-- Update the audit-output section to describe the two-layer shape plus the parallel agent-judgement block.
-- Update the patterns / checks listing to reflect Group A and Group B resolutions and the new severity → Action mapping.
-- Note: this unit pre-dates Phase 3's renderer. Either (a) flag in README that the redesigned audit output is in progress; or (b) defer this unit to Phase 3 alongside U13. Decision deferred to scope-guardian round; current placement honours the ideation's ordering.
+---
 
-**Patterns to follow:**
-- Existing README structure.
+- U17. *Removed 2026-05-01 — never should have existed.*
 
-**Test scenarios:**
-- Happy path: README mentions both programmatic and agent-judgement layers.
-- Happy path: README's patterns ↔ checks listing matches the catalogue (manual review).
-- Integration: meta-test (optional) parses the README's checks listing and asserts each entry maps to an `ALL_CHECKS` entry.
-- Test expectation: prose review by Mae before merge.
-
-**Verification:**
-- Mae reviews the README diff.
+I (the agent on 2026-05-01) invented a "README dogfood test" unit and a corresponding R23 requirement. Mae had asked to test the Phase 1 changes; I overshot by inventing a regression target for the README. Removed. The README is project marketing — testing the grader against its own example table is a self-defeating exercise (it always fails because the table contains examples of every pattern by design). The U-ID is preserved as a gap.
 
 ---
 
@@ -780,35 +767,45 @@ No `confidence` block. The verdict line is composed at render time from `aggrega
 
 ---
 
-- U13. **SKILL.md audit template + cross-corpus sanity check**
+- U13. **SKILL.md audit template + full README update + cross-corpus sanity check** *(scope extended 2026-05-01 with Mae sign-off — owns all README work; absorbs the deferred U6)*
 
-**Goal:** Update `humanise/SKILL.md` Audit-output template (lines 42-92) to match the Phase 3 layout. Update `humanise/references/example.md` to a representative new-shape render. Run the new renderer over the iteration corpus and confirm output matches the redesign.
+**Goal:** Update every place the audit's user-facing shape is described — `humanise/SKILL.md` Audit-output template, `humanise/references/example.md`, and `README.md` — so they all match what the new renderer actually emits. README work absorbs U6's original scope (counts, pattern table, "What's next" bullet) **plus** the dual-layer audit description, all in one pass. Run the new renderer over the iteration corpus and confirm output matches the redesign.
 
-**Requirements:** R1-R8, R22 (cross-cutting verification).
+**Requirements:** R1-R8, R19 (completes — owns the entire README update), R22 (cross-cutting verification).
 
-**Dependencies:** U11, U12.
+**Dependencies:** U11, U12. Independent of any Phase-1 README work (none exists — U6 was deferred here).
 
 **Files:**
 - Modify: `humanise/SKILL.md:42-92` — Audit output template replaced.
 - Modify: `humanise/SKILL.md` Action 2 (Suggestions) — references to the audit template updated.
 - Modify: `humanise/references/example.md` — example output replaced.
 - Modify: `humanise/references/process.md` — Step C reference updated if needed.
+- Modify: `README.md` — full update in one pass:
+  1. **Counts and pattern table:** Replace stale count strings (`38 patterns`, `43 programmatic checks`) with the actual catalogue state at Phase-3-merge time. Extend the pattern table with every numbered/sub-letter heading then in `humanise/references/patterns.md`.
+  2. **Dual-layer audit description:** Update "What it does" / "Representative output" / "Performance" sections to describe the orientation block + coverage receipt + parallel agent-judgement block + all-clear single-line case.
+  3. **"What's next" bullet:** Drop the "Promote the seven unnumbered checks" bullet (work done in `13b4e9d`).
+  4. **Reconcile against `main`:** Take whatever `README.md` exists on `main` at U13-start as the base prose. Apply 1-3 on top.
+  5. **Dogfood gate:** Verify `python3 dev/evals/test_readme_humanise.py` passes after the rewrite.
 
 **Approach:**
 - Generate representative renders (one all-clear, one heavy-flagging, one agent-judgement-only) using U11 + U12.
 - Update SKILL.md template to match. Preserve the action-selection table.
 - Update `humanise/references/example.md` with one representative render.
-- No confidence-level references anywhere in the templates (R14).
+- Update README in one pass: counts + table + dual-layer description + dropped bullet, all faithful to the renderer. No confidence-level references (R14).
 
 **Test scenarios:**
 - Happy path: SKILL.md Action 1 audit template matches U11 + U12 renderer output on a representative input.
 - Happy path: `humanise/references/example.md` renders the new shape (no confidence label).
+- Happy path: README's audit-output description matches the same renders SKILL.md and example.md describe (template parity check across the three files).
+- Happy path: README count strings match `len(ALL_CHECKS)` and the heading count in `patterns.md`.
+- Happy path: README pattern table contains a row for every numbered/sub-letter heading in `patterns.md`.
 - Integration: a fresh iteration run via `dev/evals/run_skill_creator_iteration.py` passes all audit-shape assertions (existing + new from U5).
-- Integration: README's audit-output description matches the new template (cross-check with U6).
+- Integration: `python3 dev/evals/test_readme_humanise.py` passes against the updated README (no strong_warnings introduced).
 
 **Verification:**
-- SKILL.md template matches representative renders.
-- Mae reviews the example.md update.
+- SKILL.md template, example.md, and README all describe the same shape.
+- Counts and pattern table reconcile with the catalogue.
+- Mae reviews the README, example.md, and SKILL.md diffs together as one cross-cutting review.
 - One full iteration run passes audit-shape assertions end-to-end.
 
 ---
@@ -853,8 +850,11 @@ No `confidence` block. The verdict line is composed at render time from `aggrega
 | U10 baseline drifts after capture (someone re-runs `grade.py` and overwrites baseline files). | Baseline is captured in U10a as a single commit; subsequent harness runs read the committed baseline, never overwrite. |
 | `humanise/grade.py` exceeds size budget after U7-U9. | Plan for split into `humanise/render.py` if grade.py crosses ~2900 LOC. |
 | Polymorphic genre slot (#41) ships with no watchlist data. | Plan defers per-genre watchlist content. The runner emits "Genre detected: <genre>. Watchlist coverage pending." until follow-up data lands. |
-| README update (U6) describes a target shape the live grader doesn't yet emit. | U6 prose flags this; or move to Phase 3 alongside U13. Decision deferred to scope-guardian round. |
+| README update (U6) describes a target shape the live grader doesn't yet emit. | **Resolved 2026-05-01:** U6 deferred entirely to U13 in Phase 3. All README work (counts, pattern table, dual-layer description) lands together when the renderer actually emits the shape. The README stays stale through Phase 1 and Phase 2 — acceptable, because the README is project marketing, not load-bearing infrastructure. |
 | Cross-tree concern: `docs/todos/grader-integrity-gaps.md` was untracked in main and the worktree. | A precursor `chore: track grader-integrity-gaps.md` commit lands before U1 starts, separating "track the file" from "edit the file" cleanly. |
+| Worktree commit `471a460 docs: U6 — refresh README` is now narratively orphaned (its corresponding plan unit was deferred). | PR #6 reviewer choice: revert `471a460` before merge, or accept it as a stale snapshot that U13 will rewrite. `pr-6-readme-resolution.md` retains the original diff for reference. |
+| Main's uncommitted humanise rewrite of `README.md` is parallel work, not Phase-1 work. | Mae commits these edits independently on `main` whenever she chooses. Phase 1 closure does not depend on them. U13 takes whatever `README.md` exists on `main` at U13-start as the base prose. |
+| `pr-6-code-review-handoff.md` flagged 2 findings: P1 (seven unnumbered checks) and P2 (`ALL_CLEAR_LINE_RE` unanchored). | P1 resolved by `13b4e9d`. P2 resolved by `f671cc4` (anchors `ALL_CLEAR_LINE_RE` + enforces shape mutex). Both fixes verified present before merge. |
 | Phase 3 introduces edge cases (single-line all-clear, agent-judgement-only) the existing harness doesn't cover. | U11 and U12 each add fixture-level test coverage. U13's iteration run is the integration gate. |
 | PyYAML adds a hard third-party dep. | Decide before U7: accept, hand-roll a flat-shape parser, or use JSON instead of YAML. SKILL.md's "no-Python" fallback does not catch missing-package; document the dep in README. |
 | `additionalProperties: true` at evidence level was the original design — the common envelope replaces it. New checks must populate `quoted_phrases`, `locations`, `counts`, `raw`. | U7's new `check_*` template (for Group A additions) includes the envelope shape. Meta-test asserts every `programmatic_checks[].evidence` carries the four common fields. |
@@ -865,23 +865,39 @@ No `confidence` block. The verdict line is composed at render time from `aggrega
 ## Phased Delivery
 
 ### Phase 1 — Regression-fix + agent-judgement registry
-U1, U2, U3 (sequential). U14 lands before U4 (`judgement.yaml` is the canonical source U4 references). U5 depends on U4. U6 depends on U1-U4.
+
+**Status as of 2026-05-01:** Done in commits, awaiting PR #6 merge.
+
+| Unit | Status | Commit |
+|---|---|---|
+| U1 | Done | `d46943b` |
+| U2 | Done | `4b9eb84` |
+| U3 | Done | `4303d44` |
+| U14 | Done | `38d7c29` |
+| U4 | Done | `526b865` |
+| U5 | Done | `57db888` |
+| U6 | **Removed** — deferred to U13 | (was `471a460`; orphaned) |
+| U16 | **Removed** — already shipped | `13b4e9d` |
+
+Plus side-fixes that landed without plan units: `1b58968` (extended #42 with candour cluster), `fbbe0ab` (review-handoff fixes), `f671cc4` (anchored `ALL_CLEAR_LINE_RE`).
+
+**Remaining Phase-1 work:** Verify audit-shape via `dev/evals/run_skill_creator_iteration.py` (done in iter-8 — see `dev/skill-workspace/iteration-8/performance-report.md`). Merge PR #6.
 
 ### Phase 2 — Architecture as no-op refactor
 U10a (baseline capture, runs after Phase 1 settles, before U7) → U7 → U8 → U9. U10b runs after each of U7, U8, U9. U15 (generator) runs after U7. Phase 2 not done until U10b is green at U9.
 
 ### Phase 3 — Layout redesign
-U11 and U12 can be parallelised after U10b is green. U13 requires both.
+U11 and U12 can be parallelised after U10b is green. U13 requires both. **U13 owns all README work** (counts, pattern table, dual-layer description) — the entire deferred U6 plus the original U13 scope. SKILL.md template, example.md render, and README description all land together.
 
 ---
 
 ## Documentation / Operational Notes
 
-- README update (U6) lands within Phase 1 unless deferred to Phase 3.
+- README update lands entirely in Phase 3 (U13). Through Phase 1 and Phase 2, the README has stale counts and a stale pattern table — acceptable, because the README is project marketing rather than load-bearing infrastructure.
 - `humanise/references/example.md` updated in U13 — agents reading this file see the new audit shape.
 - `humanise/references/severity-detail.md` may shift in U2/U3.
 - No external rollout, monitoring, or feature flag — the skill is local.
-- Document new dep (PyYAML and possibly `jsonschema`) in README install section.
+- Document new dep (PyYAML and possibly `jsonschema`) in README install section as part of U13.
 
 ---
 
@@ -889,6 +905,10 @@ U11 and U12 can be parallelised after U10b is green. U13 requires both.
 
 - **Origin document:** [`docs/ideation/2026-04-30-audit-report-redesign-ideation.md`](../ideation/2026-04-30-audit-report-redesign-ideation.md)
 - **Required reading enforced by origin:** [`docs/todos/grader-integrity-gaps.md`](../todos/grader-integrity-gaps.md), [`docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md`](../ideation/2026-04-30-pr5-strategic-moves-ideation.md)
+- **2026-05-01 update inputs:**
+  - [`docs/todos/pr-6-readme-resolution.md`](../todos/pr-6-readme-resolution.md) — captures the worktree's original U6 README diff (`471a460`) and the post-merge reconciliation problem this update resolves.
+  - [`docs/todos/pr-6-code-review-handoff.md`](../todos/pr-6-code-review-handoff.md) — captures the P1 (seven unnumbered checks → U16) and P2 (`ALL_CLEAR_LINE_RE` → already shipped in `f671cc4`) findings.
+  - Branch state at update time: `docs/audit-report` 13 commits ahead of `main`, with main carrying uncommitted README edits that humanise the prose without updating counts.
 - **Current renderer surface:** `humanise/SKILL.md:42-92`, `humanise/grade.py:2206-2337`, `humanise/grade.py:2550-2672`
 - **Severity source:** `humanise/grade.py:1734-1993` (`CHECK_METADATA[id]["severity"]`).
 - **Pattern catalogue:** `humanise/references/patterns.md` (8 category H2 headings; 41 numbered patterns + 23a/31a/35a sub-letters).
