@@ -1317,37 +1317,43 @@ if not _ai_pressure or _ai_pressure["score"] != 5 or _ai_pressure["threshold"] !
 else:
     print("  ok: score summary exposes AI-signal pressure")
 
-if _human_report["overview"] != "2 of 3 checks were flagged for AI-style writing patterns.":
-    FAILURES += 1
-    print(f"FAIL: human_report should expose a plain-English overview; got {_human_report['overview']}")
-else:
-    print("  ok: human report exposes plain-English overview")
+# U8: human_report now returns the audit-format-v1 contract (structured-only).
+# The OLD assertions on overview/all_checks/ai_pressure_explanation/confidence
+# moved to the contract's aggregates + programmatic_checks shape.
 
-if len(_human_report["all_checks"]) != 3:
+_failed_count = sum(1 for c in _human_report["programmatic_checks"] if c["status"] == "flagged")
+_total = len(_human_report["programmatic_checks"])
+if _failed_count != 2 or _total != 3:
     FAILURES += 1
-    print(f"FAIL: human_report should include every check row; got {len(_human_report['all_checks'])}")
+    print(f"FAIL: contract should report 2 of 3 flagged; got {_failed_count} of {_total}")
 else:
-    print("  ok: human report includes every check row")
+    print("  ok: contract programmatic_checks reports failed/total counts")
 
-_pressure_row = _human_report["all_checks"][0]
-if _pressure_row["check"] != "AI pressure from stacked signals" or _pressure_row["status"] != "Flagged":
+_pressure_check = next(
+    (c for c in _human_report["programmatic_checks"] if c["id"] == "overall-ai-signal-pressure"),
+    None,
+)
+if not _pressure_check or _pressure_check["status"] != "flagged":
     FAILURES += 1
-    print(f"FAIL: human_report should describe aggregate pressure as a check; got {_pressure_row}")
+    print(f"FAIL: contract should include flagged aggregate-pressure check; got {_pressure_check}")
 else:
-    print("  ok: aggregate pressure is reported as one check")
+    print("  ok: aggregate pressure is reported as one programmatic check")
 
-if "paragraph length uniformity" not in _human_report["ai_pressure_explanation"]:
+_pressure_aggr = _human_report["aggregates"]["ai_pressure"]
+if "paragraph length uniformity" not in _pressure_aggr["components"]:
     FAILURES += 1
-    print(f"FAIL: human_report should list pressure components in plain English; got {_human_report['ai_pressure_explanation']}")
+    print(f"FAIL: aggregates.ai_pressure should list components; got {_pressure_aggr['components']}")
 else:
-    print("  ok: human report lists pressure components in plain English")
+    print("  ok: aggregates.ai_pressure lists components")
 
-if _human_report["confidence"]["level"] != "Medium":
+if "confidence" in _human_report:
     FAILURES += 1
-    print(f"FAIL: human_report confidence should be Medium for this mix; got {_human_report['confidence']}")
+    print("FAIL: U8/R14 removed the labelled confidence block; contract should not include 'confidence'")
 else:
-    print("  ok: human report includes confidence assessment")
+    print("  ok: contract has no confidence block (R14 removal)")
 
+# Vocab-only AI-pressure branch: aggregates.ai_pressure.vocabulary_points carries
+# the signal that the OLD ai_pressure_explanation prose used to mention.
 _human_report_vocab_only = human_report([
     annotate_result({
         "text": "overall-ai-signal-pressure",
@@ -1367,11 +1373,12 @@ _human_report_vocab_only = human_report([
         },
     }),
 ])
-if "clustered AI vocabulary" not in _human_report_vocab_only["ai_pressure_explanation"]:
+_vocab_pressure = _human_report_vocab_only["aggregates"]["ai_pressure"]
+if _vocab_pressure["vocabulary_points"] != 4 or _vocab_pressure["components"]:
     FAILURES += 1
-    print(f"FAIL: human_report vocab-only branch should mention clustered AI vocabulary; got {_human_report_vocab_only['ai_pressure_explanation']}")
+    print(f"FAIL: vocab-only branch should expose vocabulary_points without components; got {_vocab_pressure}")
 else:
-    print("  ok: human report handles vocab-only AI pressure")
+    print("  ok: contract aggregates handle vocab-only AI pressure")
 
 _friendly_vocab_only = friendly_evidence({
     "text": "overall-ai-signal-pressure",
@@ -1426,27 +1433,32 @@ if _missing_label:
 else:
     print("  ok: format_human_report failed-bullet branch renders new labels")
 
+# U8: format_human_report's prose templates changed. Verify the new
+# AI-pressure paragraph still names the components and vocabulary contribution.
 _missing_phrase = next(
-    (phrase for phrase in ("Stacked weak signals:", "paragraph length uniformity", "Clustered AI vocabulary added 1 point(s)")
-     if phrase not in _failed_markdown),
+    (phrase for phrase in (
+        "AI-pressure looks for accumulation",
+        "paragraph length uniformity",
+        "1 point(s) from clustered AI vocabulary",
+    ) if phrase not in _failed_markdown),
     None,
 )
 if _missing_phrase:
     FAILURES += 1
-    print(f"FAIL: failed-bullet should include friendly_evidence phrase '{_missing_phrase}'; got:\n{_failed_markdown[:600]}")
+    print(f"FAIL: pressure-explanation paragraph should include '{_missing_phrase}'; got:\n{_failed_markdown[:600]}")
 else:
-    print("  ok: failed-bullet renders friendly_evidence components+vocab phrasing")
+    print("  ok: pressure-explanation paragraph names components and vocabulary contribution")
 
 _total_checks = len(ALL_CHECKS)
 _full_table_report = human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})
     for name in ALL_CHECKS
 ])
-if len(_full_table_report["all_checks"]) != _total_checks:
+if len(_full_table_report["programmatic_checks"]) != _total_checks:
     FAILURES += 1
-    print(f"FAIL: full human_report should include {_total_checks} check rows; got {len(_full_table_report['all_checks'])}")
+    print(f"FAIL: full contract should include {_total_checks} programmatic_checks; got {len(_full_table_report['programmatic_checks'])}")
 else:
-    print(f"  ok: full human report includes all {_total_checks} check rows")
+    print(f"  ok: full contract includes all {_total_checks} programmatic checks")
 
 _markdown_report = format_human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})

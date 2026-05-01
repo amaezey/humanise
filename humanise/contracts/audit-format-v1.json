@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "humanise/contracts/audit-format-v1.json",
+  "title": "Humanise audit report contract (v1)",
+  "description": "The shape of human_report() output. Structured data only — no pre-formatted prose. The renderer composes prose by filling vocabulary.yml templates with structured contract fields.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "programmatic_checks",
+    "agent_judgement",
+    "aggregates",
+    "metadata"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1"
+    },
+    "programmatic_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status", "severity", "category", "failure_modes", "evidence"],
+        "properties": {
+          "id": {"type": "string"},
+          "status": {"type": "string", "enum": ["clear", "flagged"]},
+          "severity": {"type": "string", "enum": ["hard_fail", "strong_warning", "context_warning"]},
+          "category": {"type": "string"},
+          "failure_modes": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["quoted_phrases", "locations", "counts", "raw"],
+            "properties": {
+              "quoted_phrases": {"type": "array", "items": {"type": "string"}},
+              "locations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["line", "col"],
+                  "properties": {
+                    "line": {"type": "integer", "minimum": 1},
+                    "col": {"type": "integer", "minimum": 1}
+                  }
+                }
+              },
+              "counts": {"type": "object", "additionalProperties": {"type": ["integer", "number"]}},
+              "raw": {"type": "object"}
+            }
+          }
+        }
+      }
+    },
+    "agent_judgement": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status", "answer", "evidence"],
+        "properties": {
+          "id": {"type": "string"},
+          "status": {"type": "string", "enum": ["clear", "flagged"]},
+          "answer": {},
+          "evidence": {"type": "object"}
+        }
+      }
+    },
+    "aggregates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["by_severity", "by_category", "ai_pressure"],
+      "properties": {
+        "by_severity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hard_fail", "strong_warning", "context_warning"],
+          "properties": {
+            "hard_fail": {"type": "integer", "minimum": 0},
+            "strong_warning": {"type": "integer", "minimum": 0},
+            "context_warning": {"type": "integer", "minimum": 0}
+          }
+        },
+        "by_category": {
+          "type": "object",
+          "additionalProperties": {"type": "integer", "minimum": 0}
+        },
+        "ai_pressure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["score", "threshold", "triggered", "components", "vocabulary_points"],
+          "properties": {
+            "score": {"type": "integer", "minimum": 0},
+            "threshold": {"type": "integer", "minimum": 0},
+            "triggered": {"type": "boolean"},
+            "components": {"type": "array", "items": {"type": "string"}},
+            "vocabulary_points": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "grader_version"],
+      "properties": {
+        "schema_version": {"type": "string", "const": "1"},
+        "grader_version": {"type": "string"},
+        "timestamp": {"type": "string"},
+        "run_id": {"type": "string"}
+      }
+    }
+  }
+}

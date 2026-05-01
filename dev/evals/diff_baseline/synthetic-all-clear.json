@@ -658,663 +658,1239 @@
   "failures_by_severity": {},
   "file": "dev/evals/samples/synthetic/synthetic-all-clear.md",
   "human_report": {
-    "ai_pressure_explanation": "AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. This text did not stack enough weak signals to suggest machine-packaged structure. Score: 0/4, so this check stayed clear.",
-    "all_checks": [
+    "agent_judgement": [],
+    "aggregates": {
+      "ai_pressure": {
+        "components": [],
+        "score": 0,
+        "threshold": 4,
+        "triggered": false,
+        "vocabulary_points": 0
+      },
+      "by_category": {},
+      "by_severity": {
+        "context_warning": 0,
+        "hard_fail": 0,
+        "strong_warning": 0
+      }
+    },
+    "metadata": {
+      "grader_version": "phase-2-u8",
+      "schema_version": "1"
+    },
+    "programmatic_checks": [
       {
-        "check": "Em dashes",
-        "check_id": "no-em-dashes",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No em dashes found",
+            "evidence_role": "punctuation_signal",
+            "failure_modes": [
+              "genre_misfit"
+            ],
+            "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for em dash punctuation, a strong current AI-style signal in this skill.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Em dashes are now a strong style fingerprint in generated prose, especially when they appear as default punctuation."
+        "failure_modes": [
+          "genre_misfit"
+        ],
+        "id": "no-em-dashes",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Clustered AI vocabulary",
-        "check_id": "no-ai-vocabulary-clustering",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Max AI words per paragraph: 0 (0 total in text)",
+            "evidence_role": "vocabulary_cluster",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks whether generic AI-associated words and phrases cluster together.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Generic AI-associated words become more suspicious when they cluster instead of appearing naturally in context."
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-ai-vocabulary-clustering",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Nonliteral land/surface phrasing",
-        "check_id": "no-nonliteral-land-surface",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No nonliteral land/surface constructions found",
+            "evidence_role": "metaphor_residue",
+            "failure_modes": [
+              "generic_abstraction",
+              "synthetic_significance"
+            ],
+            "guidance": "Fix nonliteral land/surface phrasing; replace with the concrete action or claim.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on a scale.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Abstract land/surface phrasing often makes ordinary ideas sound artificially managed or packaged."
+        "failure_modes": [
+          "generic_abstraction",
+          "synthetic_significance"
+        ],
+        "id": "no-nonliteral-land-surface",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "AI pressure from stacked signals",
-        "check_id": "overall-ai-signal-pressure",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Aggregate AI-signal pressure",
+        "evidence": {
+          "counts": {
+            "score": 0,
+            "threshold": 4
+          },
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "components": [],
+            "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=5 distinct/4.2/1000",
+            "evidence_role": "aggregate_pressure",
+            "failure_modes": [
+              "generic_abstraction",
+              "frictionless_structure"
+            ],
+            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "score": 0,
+            "severity": "context_warning",
+            "threshold": 4,
+            "vocabulary_pressure": {
+              "gptzero_matches": [],
+              "kobak_style_density": 4.233700254022015,
+              "kobak_style_distinct": 5,
+              "kobak_style_sample": [
+                "address",
+                "faces",
+                "outlines",
+                "using",
+                "within"
+              ],
+              "points": 0,
+              "reasons": [],
+              "worst_generic": 0
+            }
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Looks for several weaker AI-writing signals appearing together, which can make a draft feel machine-packaged even when no single signal is decisive.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Several weak signals appearing together can make a draft feel machine-packaged even when each signal alone is explainable."
+        "failure_modes": [
+          "generic_abstraction",
+          "frictionless_structure"
+        ],
+        "id": "overall-ai-signal-pressure",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Manufactured insight framing",
-        "check_id": "no-manufactured-insight",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No manufactured insight phrases",
+            "evidence_role": "rhetorical_pattern",
+            "failure_modes": [
+              "synthetic_significance"
+            ],
+            "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for phrases that perform hidden depth or secret significance without earning it.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Manufactured insight framing performs depth without adding specific evidence or thought."
+        "failure_modes": [
+          "synthetic_significance"
+        ],
+        "id": "no-manufactured-insight",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Generic staccato emphasis",
-        "check_id": "no-staccato-sequences",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Max consecutive short sentences: 2",
+            "evidence_role": "rhythm_signal",
+            "failure_modes": [
+              "genre_misfit",
+              "frictionless_structure"
+            ],
+            "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for repeated short dramatic sentences used as generic emphasis.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Repeated short emphasis beats can make prose sound generated rather than naturally paced."
+        "failure_modes": [
+          "genre_misfit",
+          "frictionless_structure"
+        ],
+        "id": "no-staccato-sequences",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Mechanical repeated sentence starts",
-        "check_id": "no-anaphora",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Max anaphora run: 1",
+            "evidence_role": "rhythm_signal",
+            "failure_modes": [
+              "genre_misfit",
+              "frictionless_structure"
+            ],
+            "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for repeated sentence openings that read like template rhythm.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric."
+        "failure_modes": [
+          "genre_misfit",
+          "frictionless_structure"
+        ],
+        "id": "no-anaphora",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Assistant residue",
-        "check_id": "no-collaborative-artifacts",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Communication",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No collaborative artifacts",
+            "evidence_role": "assistant_residue",
+            "failure_modes": [
+              "provenance_residue"
+            ],
+            "guidance": "Fix at every depth; this is assistant residue, not authorial style.",
+            "severity": "hard_fail"
+          }
         },
-        "severity": "Must fix",
-        "status": "Clear",
-        "what_it_checks": "Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Assistant residue makes the text look like chat output rather than finished prose."
+        "failure_modes": [
+          "provenance_residue"
+        ],
+        "id": "no-collaborative-artifacts",
+        "severity": "hard_fail",
+        "status": "clear"
       },
       {
-        "check": "Curly quotes",
-        "check_id": "no-curly-quotes",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No curly quotes",
+            "evidence_role": "typographic_signal",
+            "failure_modes": [
+              "genre_misfit"
+            ],
+            "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for curly quotation marks when plain output is expected.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Curly quotes are not proof of AI, but they matter when the output is expected to be plain cleaned text."
+        "failure_modes": [
+          "genre_misfit"
+        ],
+        "id": "no-curly-quotes",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Sentence rhythm variance",
-        "check_id": "sentence-length-variance",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Sentence length stdev: 8.8 (target: >4)",
+            "evidence_role": "rhythm_signal",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks whether sentence lengths are too uniform across longer prose.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Low rhythm variation makes paragraphs feel mechanically produced."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "sentence-length-variance",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Generic promotional language",
-        "check_id": "no-promotional-language",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No promotional language",
+            "evidence_role": "hype_language",
+            "failure_modes": [
+              "generic_abstraction",
+              "synthetic_significance"
+            ],
+            "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for stock hype and sales-like adjectives.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Stock hype weakens credibility and often appears in generated product or venue copy."
+        "failure_modes": [
+          "generic_abstraction",
+          "synthetic_significance"
+        ],
+        "id": "no-promotional-language",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Inflated significance",
-        "check_id": "no-significance-inflation",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No significance inflation",
+            "evidence_role": "importance_inflation",
+            "failure_modes": [
+              "synthetic_significance"
+            ],
+            "guidance": "Fix inflated importance unless the source genuinely argues significance.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for language that makes ordinary claims sound historically important.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Inflated importance makes ordinary claims sound artificially momentous."
+        "failure_modes": [
+          "synthetic_significance"
+        ],
+        "id": "no-significance-inflation",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Contrived contrast",
-        "check_id": "no-negative-parallelisms",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No negative parallelisms or contrived reframes",
+            "evidence_role": "rhetorical_pattern",
+            "failure_modes": [
+              "synthetic_significance"
+            ],
+            "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Contrived contrast creates a fake reveal instead of making a direct, supported claim."
+        "failure_modes": [
+          "synthetic_significance"
+        ],
+        "id": "no-negative-parallelisms",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Avoiding plain 'is'",
-        "check_id": "no-copula-avoidance",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No copula avoidance",
+            "evidence_role": "grammar_substitution",
+            "failure_modes": [
+              "synthetic_significance",
+              "generic_abstraction"
+            ],
+            "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for inflated replacements such as serves as, functions as, or stands as.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis."
+        "failure_modes": [
+          "synthetic_significance",
+          "generic_abstraction"
+        ],
+        "id": "no-copula-avoidance",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Filler phrases",
-        "check_id": "no-filler-phrases",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No filler phrases",
+            "evidence_role": "filler_phrase",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for stock padding such as in order to or it is worth noting.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Filler phrases add polish without information."
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-filler-phrases",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Generic conclusion",
-        "check_id": "no-generic-conclusions",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No generic conclusions",
+            "evidence_role": "generic_closure",
+            "failure_modes": [
+              "provenance_residue",
+              "synthetic_significance"
+            ],
+            "guidance": "Fix at every depth unless quoted from source text.",
+            "severity": "hard_fail"
+          }
         },
-        "severity": "Must fix",
-        "status": "Clear",
-        "what_it_checks": "Checks for empty endings such as the future looks bright.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Generic conclusions make the ending feel templated and interchangeable."
+        "failure_modes": [
+          "provenance_residue",
+          "synthetic_significance"
+        ],
+        "id": "no-generic-conclusions",
+        "severity": "hard_fail",
+        "status": "clear"
       },
       {
-        "check": "False balance or concession",
-        "check_id": "no-false-concession-hedges",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No false concession hedges",
+            "evidence_role": "stance_erasure",
+            "failure_modes": [
+              "voice_erasure"
+            ],
+            "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for fake both-sides framing that avoids taking a position.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "False balance can hide the writer's actual position."
+        "failure_modes": [
+          "voice_erasure"
+        ],
+        "id": "no-false-concession-hedges",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Placeholder residue",
-        "check_id": "no-placeholder-residue",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No placeholder residue",
+            "evidence_role": "template_residue",
+            "failure_modes": [
+              "provenance_residue"
+            ],
+            "guidance": "Fix at every depth; unfilled placeholders are generated/template residue.",
+            "severity": "hard_fail"
+          }
         },
-        "severity": "Must fix",
-        "status": "Clear",
-        "what_it_checks": "Checks for unfilled template markers and placeholder instructions.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Placeholder residue signals unfinished generated or templated text."
+        "failure_modes": [
+          "provenance_residue"
+        ],
+        "id": "no-placeholder-residue",
+        "severity": "hard_fail",
+        "status": "clear"
       },
       {
-        "check": "Soft explainer scaffolding",
-        "check_id": "no-soft-scaffolding",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Soft scaffold phrases: 0",
+            "evidence_role": "explainer_scaffold",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for phrases that announce structure instead of making a point.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Soft scaffolding announces structure instead of doing useful writing work."
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "no-soft-scaffolding",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Vague 'this/that' starts",
-        "check_id": "no-orphaned-demonstratives",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Vague demonstrative subjects: 0",
+            "evidence_role": "sentence_subject",
+            "failure_modes": [
+              "voice_erasure",
+              "generic_abstraction"
+            ],
+            "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for repeated vague sentence subjects such as This highlights or That shows.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Vague this/that openings blur the actual subject and create generic analysis."
+        "failure_modes": [
+          "voice_erasure",
+          "generic_abstraction"
+        ],
+        "id": "no-orphaned-demonstratives",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Decorative three-part lists",
-        "check_id": "no-forced-triads",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No forced triads",
+            "evidence_role": "list_rhythm",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for forced triads used as rhythm rather than substance.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Decorative three-part lists can create artificial rhythm without substance."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-forced-triads",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Tacked-on -ing analysis",
-        "check_id": "no-superficial-ing",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No superficial -ing phrases",
+            "evidence_role": "analysis_substitution",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for trailing -ing clauses that pretend to analyse without adding meaning.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Tacked-on -ing clauses often pretend to analyse while adding little."
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-superficial-ing",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Ghost/spectral atmosphere",
-        "check_id": "no-ghost-spectral-density",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Sensory and atmospheric",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Ghost/spectral words: 0",
+            "evidence_role": "atmospheric_cliche",
+            "failure_modes": [
+              "generic_abstraction",
+              "genre_misfit"
+            ],
+            "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for clich\u00e9d ghost, shadow, whisper, and echo language.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Stock spectral language can make atmosphere feel generated or borrowed."
+        "failure_modes": [
+          "generic_abstraction",
+          "genre_misfit"
+        ],
+        "id": "no-ghost-spectral-density",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Generic quiet/still mood",
-        "check_id": "no-quietness-obsession",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Sensory and atmospheric",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Quietness words: 0",
+            "evidence_role": "atmospheric_cliche",
+            "failure_modes": [
+              "synthetic_significance",
+              "genre_misfit"
+            ],
+            "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for overused quiet, still, soft, and hushed atmosphere.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Overused quiet/still mood language can create generic literary atmosphere."
+        "failure_modes": [
+          "synthetic_significance",
+          "genre_misfit"
+        ],
+        "id": "no-quietness-obsession",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Template rhetorical questions",
-        "check_id": "no-rhetorical-questions",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Rhetorical questions: 0",
+            "evidence_role": "rhetorical_template",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for article-style questions followed by obvious answers.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Template questions often simulate engagement without adding real inquiry."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-rhetorical-questions",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Excessive list formatting",
-        "check_id": "no-excessive-lists",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "List ratio: 0%",
+            "evidence_role": "listification",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks whether prose has been over-converted into bullets or numbered lists.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Too much list formatting can make prose feel like generated notes or slides."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-excessive-lists",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Decorative Unicode",
-        "check_id": "no-unicode-flair",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Decorative symbols/shortcodes: 0",
+            "evidence_role": "formatting_residue",
+            "failure_modes": [
+              "provenance_residue",
+              "genre_misfit"
+            ],
+            "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for symbols and decorative punctuation that look like generated formatting.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Decorative symbols can make output look like generated formatting."
+        "failure_modes": [
+          "provenance_residue",
+          "genre_misfit"
+        ],
+        "id": "no-unicode-flair",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Unearned dramatic transitions",
-        "check_id": "no-dramatic-transitions",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No dramatic transitions",
+            "evidence_role": "narrative_template",
+            "failure_modes": [
+              "synthetic_significance",
+              "genre_misfit"
+            ],
+            "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for generic turning points such as something shifted or everything changed.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Unearned turning-point language claims drama the prose has not built."
+        "failure_modes": [
+          "synthetic_significance",
+          "genre_misfit"
+        ],
+        "id": "no-dramatic-transitions",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Formulaic openers",
-        "check_id": "no-formulaic-openers",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No formulaic openers",
+            "evidence_role": "formulaic_structure",
+            "failure_modes": [
+              "frictionless_structure",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for generated openings such as at its core or from a broader perspective.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Formulaic openings make paragraphs feel assembled from templates."
+        "failure_modes": [
+          "frictionless_structure",
+          "generic_abstraction"
+        ],
+        "id": "no-formulaic-openers",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Signposted conclusion",
-        "check_id": "no-signposted-conclusions",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No signposted conclusions",
+            "evidence_role": "structural_signpost",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for explicit conclusion labels and summary signposts.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Conclusion signposts often flatten the ending into a generic summary."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-signposted-conclusions",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Headings in prose",
-        "check_id": "no-markdown-headings",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No headings",
+            "evidence_role": "formatting_signal",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for markdown headings and plain title headings when prose should flow.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Headings can make prose feel packaged by an assistant rather than written as a continuous piece."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-markdown-headings",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Corporate AI-speak",
-        "check_id": "no-corporate-ai-speak",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No corporate AI speak",
+            "evidence_role": "domain_cliche",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at every depth; recommend preserving only when quoting corporate source language.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for vague delivery, alignment, outcomes, and cross-functional clich\u00e9s.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Corporate AI-speak hides specific work behind vague operational language."
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-corporate-ai-speak",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Repeated 'This...' chains",
-        "check_id": "no-this-chains",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Max 'This [verb]' run: 0",
+            "evidence_role": "sentence_subject",
+            "failure_modes": [
+              "frictionless_structure",
+              "voice_erasure"
+            ],
+            "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for several consecutive sentences beginning with vague This constructions.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Repeated vague This sentences create generic analysis and weak subject control."
+        "failure_modes": [
+          "frictionless_structure",
+          "voice_erasure"
+        ],
+        "id": "no-this-chains",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Excessive hedging",
-        "check_id": "no-excessive-hedging",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Hedging constructions: 0",
+            "evidence_role": "stance_erasure",
+            "failure_modes": [
+              "voice_erasure"
+            ],
+            "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for evasive qualification and impersonal uncertainty.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Too much hedging weakens stance and can make prose feel evasive or machine-neutral."
+        "failure_modes": [
+          "voice_erasure"
+        ],
+        "id": "no-excessive-hedging",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Countdown negation",
-        "check_id": "no-countdown-negation",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No countdown negation",
+            "evidence_role": "rhetorical_pattern",
+            "failure_modes": [
+              "synthetic_significance",
+              "frictionless_structure"
+            ],
+            "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for repeated no/not/cannot setups that build toward a reveal.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Countdown negation creates a synthetic reveal structure."
+        "failure_modes": [
+          "synthetic_significance",
+          "frictionless_structure"
+        ],
+        "id": "no-countdown-negation",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Dense negation",
-        "check_id": "no-negation-density",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Negation markers: 5 (4.2 per 1000 words)",
+            "evidence_role": "rhetorical_density",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks whether negation markers are unusually dense across prose.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Dense negation can make a piece feel over-framed around what it is not instead of what it is."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-negation-density",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Paragraph length uniformity",
-        "check_id": "paragraph-length-uniformity",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Paragraph length CV: 0.45 across 20 paragraphs",
+            "evidence_role": "layout_rhythm",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks whether paragraphs are suspiciously similar in length.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Paragraphs of similar length can signal generated structure and low natural variation."
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "paragraph-length-uniformity",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Tidy paragraph endings",
-        "check_id": "no-tidy-paragraph-endings",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Tidy paragraph endings: 0",
+            "evidence_role": "paragraph_closure",
+            "failure_modes": [
+              "frictionless_structure",
+              "voice_erasure"
+            ],
+            "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for repeated miniature conclusions at paragraph ends.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Repeated tidy endings make paragraphs feel over-resolved and templated."
+        "failure_modes": [
+          "frictionless_structure",
+          "voice_erasure"
+        ],
+        "id": "no-tidy-paragraph-endings",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Bland critical template",
-        "check_id": "no-bland-critical-template",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Bland critical template phrases: 0",
+            "evidence_role": "genre_cliche",
+            "failure_modes": [
+              "generic_abstraction",
+              "voice_erasure"
+            ],
+            "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for generic review language instead of concrete critical claims.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Bland critical language replaces concrete judgment with portable review phrases."
+        "failure_modes": [
+          "generic_abstraction",
+          "voice_erasure"
+        ],
+        "id": "no-bland-critical-template",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Rubric echoing",
-        "check_id": "no-rubric-echoing",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Rubric echo phrases: 0",
+            "evidence_role": "assignment_residue",
+            "failure_modes": [
+              "provenance_residue",
+              "voice_erasure"
+            ],
+            "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for assignment or rubric phrasing leaking into the prose.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Rubric echoing makes writing sound like assignment compliance rather than independent thought."
+        "failure_modes": [
+          "provenance_residue",
+          "voice_erasure"
+        ],
+        "id": "no-rubric-echoing",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Vocabulary diversity",
-        "check_id": "vocabulary-diversity",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Type-token ratio: 0.402 (473 unique / 1176 total, target: >0.40)",
+            "evidence_role": "lexical_distribution",
+            "failure_modes": [
+              "generic_abstraction",
+              "genre_misfit"
+            ],
+            "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for unusually repetitive vocabulary in longer text.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced."
+        "failure_modes": [
+          "generic_abstraction",
+          "genre_misfit"
+        ],
+        "id": "vocabulary-diversity",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Triad density",
-        "check_id": "no-triad-density",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Triads: 2",
+            "evidence_role": "list_rhythm",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks whether three-part list structures are overused across the piece.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Too many three-part lists create a recognisable generated cadence."
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-triad-density",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Repeated section scaffolding",
-        "check_id": "no-section-scaffolding",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No repeated section labels",
+            "evidence_role": "repeated_template",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for repeated section labels or repeated structural templates.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Repeated section structure makes the whole piece feel assembled from a template."
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "no-section-scaffolding",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Notability claims",
-        "check_id": "no-notability-claims",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No notability claims",
+            "evidence_role": "notability_inflation",
+            "failure_modes": [
+              "synthetic_significance",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; replace abstract notability claims with named sources or remove the framing.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for fake-prestige framing such as active social media presence or coverage by unnamed major outlets.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Listing unnamed authorities or follower counts as if the mention itself were the story performs prestige instead of reporting it."
+        "failure_modes": [
+          "synthetic_significance",
+          "generic_abstraction"
+        ],
+        "id": "no-notability-claims",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Vague attributions",
-        "check_id": "no-vague-attributions",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No vague attributions",
+            "evidence_role": "attribution_vagueness",
+            "failure_modes": [
+              "synthetic_significance",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for unnamed-authority phrasing such as experts argue, observers note, or industry reports say.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Unnamed expert and report citations create the illusion of consensus without naming a real source."
+        "failure_modes": [
+          "synthetic_significance",
+          "generic_abstraction"
+        ],
+        "id": "no-vague-attributions",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Boldface overuse",
-        "check_id": "no-boldface-overuse",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Bold spans in prose: 0",
+            "evidence_role": "emphasis_pattern",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Fix mechanical bold stacking; preserve only when bolded terms are genuine definition headers.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for mechanical bold emphasis stacked across a passage of prose.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Mechanical boldface stacking flattens prose into emphasis-by-default and reads like generated formatting."
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "no-boldface-overuse",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Inline-header lists",
-        "check_id": "no-inline-header-lists",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "List items with bolded headers: 0",
+            "evidence_role": "list_template",
+            "failure_modes": [
+              "frictionless_structure",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; fold bolded-header bullets back into prose unless the format is a real spec or reference list.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for list items that begin with a bolded header and colon, turning prose into a slide deck.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Bolded-header list items convert prose into slide-deck shapes, a strong frictionless-structure tell."
+        "failure_modes": [
+          "frictionless_structure",
+          "generic_abstraction"
+        ],
+        "id": "no-inline-header-lists",
+        "severity": "strong_warning",
+        "status": "clear"
       },
       {
-        "check": "Hyphenated compound modifier overuse",
-        "check_id": "no-compound-modifier-density",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No dense compound-modifier sentences",
+            "evidence_role": "modifier_density",
+            "failure_modes": [
+              "frictionless_structure",
+              "generic_abstraction"
+            ],
+            "guidance": "Restructure sentences with three or more stock hyphenated compounds; preserve only when the compounds are domain-specific terms of art.",
+            "severity": "context_warning"
+          }
         },
-        "severity": "Context-sensitive signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for three or more AI-stock hyphenated compound modifiers crammed into one sentence.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "Stacking three or more hyphenated compound modifiers in one sentence is a recognisable AI cadence rather than a deliberate style choice."
+        "failure_modes": [
+          "frictionless_structure",
+          "generic_abstraction"
+        ],
+        "id": "no-compound-modifier-density",
+        "severity": "context_warning",
+        "status": "clear"
       },
       {
-        "check": "Knowledge-cutoff disclaimers",
-        "check_id": "no-knowledge-cutoff-disclaimers",
-        "recommended_action": {
-          "all": "None",
-          "balanced": "None"
+        "category": "Communication",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No knowledge-cutoff disclaimers",
+            "evidence_role": "model_meta_residue",
+            "failure_modes": [
+              "provenance_residue"
+            ],
+            "guidance": "Fix at every depth; training-update and limited-information hedges are model meta-residue, not authorial uncertainty.",
+            "severity": "strong_warning"
+          }
         },
-        "severity": "Strong AI-writing signal",
-        "status": "Clear",
-        "what_it_checks": "Checks for AI training-update or limited-information hedges left in the prose.",
-        "why": "No issue found in this text.",
-        "why_it_matters": "AI training-update and limited-information hedges are model meta-residue and almost never belong in finished prose."
+        "failure_modes": [
+          "provenance_residue"
+        ],
+        "id": "no-knowledge-cutoff-disclaimers",
+        "severity": "strong_warning",
+        "status": "clear"
       }
     ],
-    "confidence": {
-      "basis": [
-        "all checks passed"
-      ],
-      "caveat": "This is a confidence assessment about AI-writing signs, not an authorship verdict.",
-      "level": "Low",
-      "meaning": "No programmatic checks showed AI-writing patterns."
-    },
-    "failed_checks": [],
-    "overview": "All 49 checks were clear.",
-    "score": {
-      "failed_checks": 0,
-      "pass_rate": "49/49",
-      "severity_counts": {},
-      "status": "pass",
-      "total_checks": 49
-    }
+    "schema_version": "1"
   },
   "pass_rate": "49/49",
   "score_summary": {

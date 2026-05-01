@@ -1969,148 +1969,127 @@ def sentence_text(text):
     return f"{stripped}."
 
 
-def confidence_assessment(results):
-    """Assess confidence that the text shows AI-writing patterns, not authorship."""
-    summary = score_summary(results)
-    failures = summary["failed_checks"]
-    severities = summary["failures_by_severity"]
-    ai_pressure = summary.get("ai_signal_pressure") or {}
-    hard = severities.get("hard_fail", 0)
-    strong = severities.get("strong_warning", 0)
-    context = severities.get("context_warning", 0)
-    pressure_triggered = ai_pressure.get("triggered", False)
+# confidence_assessment, checks_table, and markdown_checks_table were removed in U8
+# of the audit-report redesign. R14 drops the labelled-confidence framing
+# entirely; severity counts + ai_pressure aggregate carry the verdict signal.
+# checks_table / markdown_checks_table fed the old human_report's prose-shaped
+# all_checks rows; the new contract carries structured-only data and the
+# renderer assembles its own table via _markdown_table_from_contract.
 
-    if failures == 0:
-        level = "Low"
-        explanation = "No programmatic checks showed AI-writing patterns."
-    elif hard or strong >= 3 or (pressure_triggered and failures >= 6) or failures >= 8:
-        level = "High"
-        explanation = (
-            "Multiple strong or structural signals fired. Treat this as a high-confidence "
-            "style diagnosis, not proof of authorship."
-        )
-    elif strong or pressure_triggered or failures >= 3:
-        level = "Medium"
-        explanation = (
-            "Several signs of AI-like writing appeared, but the evidence is pattern-based "
-            "and should be read in context."
-        )
-    else:
-        level = "Low to medium"
-        explanation = "Only a small number of context-sensitive signals appeared."
 
-    basis = []
-    if hard:
-        basis.append(f"{hard} must-fix issue(s)")
-    if strong:
-        basis.append(f"{strong} strong AI-writing signal(s)")
-    if context:
-        basis.append(f"{context} context-sensitive signal(s)")
-    if pressure_triggered:
-        basis.append(
-            f"AI pressure score reached {ai_pressure.get('score')}/{ai_pressure.get('threshold')}"
-        )
-    if not basis:
-        basis.append("all checks passed")
+CONTRACT_SCHEMA_VERSION = "1"
+GRADER_VERSION = "phase-2-u8"
 
+
+def _extract_quoted_phrases(result):
+    """Best-effort extract quoted phrases from a check result for the
+    common evidence envelope. Looks at a `matches` list field first, then
+    parses literal-list patterns out of the `evidence` string.
+    """
+    if isinstance(result.get("matches"), list):
+        return [str(m) for m in result["matches"]]
+    evidence_str = result.get("evidence", "")
+    if not isinstance(evidence_str, str):
+        return []
+    m = re.search(r"\[([^\[\]]*)\]", evidence_str)
+    if not m:
+        return []
+    try:
+        parsed = ast.literal_eval(f"[{m.group(1)}]")
+    except (ValueError, SyntaxError):
+        return []
+    return [str(p) for p in parsed if not isinstance(p, (list, dict))]
+
+
+def _extract_counts(result):
+    """Pick numeric count-like fields off a check result for the envelope."""
+    counts = {}
+    for key in ("count", "score", "threshold"):
+        v = result.get(key)
+        if isinstance(v, (int, float)) and not isinstance(v, bool):
+            counts[key] = v
+    return counts
+
+
+_ENVELOPE_OMIT_KEYS = {"text", "passed"}
+
+
+def _evidence_envelope(result):
+    """Build the common evidence envelope for one programmatic check."""
+    raw = {k: v for k, v in result.items() if k not in _ENVELOPE_OMIT_KEYS}
     return {
-        "level": level,
-        "meaning": explanation,
-        "basis": basis,
-        "caveat": "This is a confidence assessment about AI-writing signs, not an authorship verdict.",
+        "quoted_phrases": _extract_quoted_phrases(result),
+        "locations": [],  # location tracking not yet wired through the checks
+        "counts": _extract_counts(result),
+        "raw": raw,
     }
 
 
-def checks_table(results):
-    """Return every check as a plain-English row for user-facing reports."""
-    rows = []
+def _aggregates(results):
+    """Build the aggregates block: severity counts, category counts, AI-pressure."""
+    by_severity = {"hard_fail": 0, "strong_warning": 0, "context_warning": 0}
+    by_category = {}
+    ai_pressure = {
+        "score": 0,
+        "threshold": 4,
+        "triggered": False,
+        "components": [],
+        "vocabulary_points": 0,
+    }
     for result in results:
-        label, description = check_report_text(result["text"])
-        action = None
-        if not result["passed"]:
-            action = {
-                depth: ACTION_LABELS.get(action_for_depth(result, depth), action_for_depth(result, depth))
-                for depth in DEPTHS
-            }
-        rows.append({
-            "check_id": result["text"],
-            "check": label,
-            "what_it_checks": description,
-            "why_it_matters": registries.why_it_matters_for(result["text"]),
-            "status": "Clear" if result["passed"] else "Flagged",
-            "severity": SEVERITY_LABELS.get(result["severity"], "Context-sensitive signal"),
-            "why": "No issue found in this text." if result["passed"] else sentence_text(friendly_evidence(result)),
-            "recommended_action": action or {depth: "None" for depth in DEPTHS},
-        })
-    return rows
+        if result["text"] == "overall-ai-signal-pressure":
+            ai_pressure["score"] = int(result.get("score", 0))
+            ai_pressure["threshold"] = int(result.get("threshold", 4))
+            ai_pressure["triggered"] = not result["passed"]
+            ai_pressure["components"] = list(result.get("components", []))
+            ai_pressure["vocabulary_points"] = int(result.get("vocabulary_pressure", {}).get("points", 0))
+        if result["passed"]:
+            continue
+        sev = result.get("severity", "context_warning")
+        if sev in by_severity:
+            by_severity[sev] += 1
+        try:
+            category = registries.pattern_for(result["text"])["category"]
+        except KeyError:
+            category = "Unknown"
+        by_category[category] = by_category.get(category, 0) + 1
+    return {
+        "by_severity": by_severity,
+        "by_category": by_category,
+        "ai_pressure": ai_pressure,
+    }
 
 
 def human_report(results):
-    """Return a plain-English report contract for agents and end users."""
-    summary = score_summary(results)
-    confidence = confidence_assessment(results)
-    ai_pressure = summary.get("ai_signal_pressure") or {}
-    table = checks_table(results)
-    failed = [row for row in table if row["status"] != "Clear"]
-    failed_count = summary["failed_checks"]
-    total = summary["total_checks"]
-    if failed_count:
-        overview = f"{failed_count} of {total} checks were flagged for AI-style writing patterns."
-    else:
-        overview = f"All {total} checks were clear."
+    """Return the audit-format-v1 contract payload — structured data only.
 
-    pressure_components = []
-    vocab_points = 0
+    Schema: humanise/contracts/audit-format-v1.json. The renderer composes
+    user-facing prose by combining contract data with templates (vocabulary.yml
+    in U9; hardcoded inline in U8).
+    """
+    programmatic = []
     for result in results:
-        if result["text"] == "overall-ai-signal-pressure":
-            pressure_components = list(result.get("components", []))
-            vocab_points = result.get("vocabulary_pressure", {}).get("points", 0)
-            break
-    pressure_lead = (
-        "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
-        "but become more meaningful when they appear together. "
-    )
-    pressure_tail = (
-        f"Score: {ai_pressure.get('score')}/{ai_pressure.get('threshold')}, "
-        f"so this check {'was flagged' if ai_pressure.get('triggered') else 'stayed clear'}."
-    )
-    if pressure_components:
-        vocab_clause = (
-            f", plus {vocab_points} point(s) from clustered AI vocabulary"
-            if vocab_points
-            else ""
-        )
-        pressure_middle = (
-            f"Here the stacked signals were {', '.join(pressure_components)}{vocab_clause}. "
-            "That means the draft looked machine-packaged, with too much visible structure "
-            "and too little natural variation. "
-        )
-    elif vocab_points:
-        pressure_middle = (
-            f"The only contribution here was {vocab_points} point(s) from clustered AI vocabulary. "
-        )
-    else:
-        pressure_middle = (
-            "This text did not stack enough weak signals to suggest machine-packaged structure. "
-        )
-    ai_pressure_explanation = pressure_lead + pressure_middle + pressure_tail
-
+        try:
+            category = registries.pattern_for(result["text"])["category"]
+        except KeyError:
+            category = "Unknown"
+        programmatic.append({
+            "id": result["text"],
+            "status": "clear" if result["passed"] else "flagged",
+            "severity": result.get("severity", "context_warning"),
+            "category": category,
+            "failure_modes": list(result.get("failure_modes", ["genre_misfit"])),
+            "evidence": _evidence_envelope(result),
+        })
     return {
-        "overview": overview,
-        "score": {
-            "status": summary["check_status"],
-            "failed_checks": failed_count,
-            "total_checks": total,
-            "pass_rate": summary["pass_rate"],
-            "severity_counts": {
-                SEVERITY_LABELS.get(key, key): value
-                for key, value in summary["failures_by_severity"].items()
-            },
+        "schema_version": CONTRACT_SCHEMA_VERSION,
+        "programmatic_checks": programmatic,
+        "agent_judgement": [],
+        "aggregates": _aggregates(results),
+        "metadata": {
+            "schema_version": CONTRACT_SCHEMA_VERSION,
+            "grader_version": GRADER_VERSION,
         },
-        "confidence": confidence,
-        "ai_pressure_explanation": ai_pressure_explanation,
-        "failed_checks": failed,
-        "all_checks": table,
     }
 
 
@@ -2119,63 +2098,163 @@ def table_cell(value):
     return str(value).replace("\n", " ").replace("|", "\\|")
 
 
-def markdown_checks_table(rows, depth):
-    """Render every check row as a Markdown table."""
-    depth_key = depth.lower()
-    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {depth_key.title()} action |"
-    lines = [header, "|---|---|---|---|---|---|"]
-    for row in rows:
-        action = row["recommended_action"].get(depth_key, row["recommended_action"].get("all", "None"))
-        lines.append(
-            "| "
-            + " | ".join([
-                table_cell(row["check"]),
-                table_cell(row["status"]),
-                table_cell(row["what_it_checks"]),
-                table_cell(row["why"]),
-                table_cell(row["why_it_matters"]),
-                table_cell(action),
-            ])
-            + " |"
-        )
-    return "\n".join(lines)
-
-
 def format_human_report(results, depth="all", heading="Initial assessment"):
-    """Render the plain-English report contract as user-facing Markdown."""
+    """Render the audit contract as user-facing Markdown.
+
+    Reads from human_report()'s contract output. U8 strips confidence/level
+    framing per R14; verdict signal comes from severity counts + AI-pressure
+    boolean. Phase 3 (U11) replaces this renderer with the dual-layer design.
+    """
     depth_key = depth.lower()
-    report = human_report(results)
-    confidence = report["confidence"]
+    contract = human_report(results)
+    aggregates = contract["aggregates"]
+    by_sev = aggregates["by_severity"]
+    pressure = aggregates["ai_pressure"]
+    flagged = [c for c in contract["programmatic_checks"] if c["status"] == "flagged"]
+    total = len(contract["programmatic_checks"])
+
+    if flagged:
+        summary = f"{len(flagged)} of {total} checks were flagged for AI-style writing patterns."
+    else:
+        summary = f"All {total} checks were clear."
+
+    severity_line = (
+        f"{by_sev['hard_fail']} hard_fail · "
+        f"{by_sev['strong_warning']} strong_warning · "
+        f"{by_sev['context_warning']} context_warning · "
+        f"pressure: {'triggered' if pressure['triggered'] else 'clear'}"
+    )
+
+    pressure_explanation = _compose_pressure_explanation(pressure)
+
     lines = [
         heading,
-        f"Summary: {report['overview']}",
+        f"Summary: {summary}",
+        f"Severity: {severity_line}",
         "",
-        f"Confidence: {confidence['level']}. {confidence['meaning']}",
-        f"Basis: {'; '.join(confidence['basis'])}.",
-        f"Note: {confidence['caveat']}",
-        "",
-        f"AI-pressure explanation: {report['ai_pressure_explanation']}",
+        f"AI-pressure explanation: {pressure_explanation}",
         "",
         "Main issues found",
     ]
-    if report["failed_checks"]:
-        for row in report["failed_checks"]:
-            action = row["recommended_action"].get(depth_key, row["recommended_action"].get("all", "Fix"))
+
+    if flagged:
+        for check in flagged:
+            try:
+                rec = registries.pattern_for(check["id"])
+                label = rec["short_name"]
+                description = rec["description"]
+                why_matters = rec["why_it_matters"]
+            except KeyError:
+                label, description, why_matters = check["id"], "", ""
+            evidence_str = check["evidence"]["raw"].get("evidence", "")
+            why_here = sentence_text(_friendly_evidence_str(evidence_str))
+            action = ACTION_LABELS.get(
+                _action_for_check(check, depth_key), "Fix",
+            )
             lines.append(
-                f"- {row['check']}: {row['status']}. "
-                f"What it looks for: {row['what_it_checks']} "
-                f"What happened here: {sentence_text(row['why'])} "
-                f"Why this matters: {row['why_it_matters']} "
+                f"- {label}: Flagged. "
+                f"What it looks for: {description} "
+                f"What happened here: {why_here} "
+                f"Why this matters: {why_matters} "
                 f"{depth_key.title()} action: {action}."
             )
     else:
         lines.append("- None.")
+
     lines.extend([
         "",
         "Full check table",
         "",
-        markdown_checks_table(report["all_checks"], depth_key),
+        _markdown_table_from_contract(contract, depth_key),
     ])
+    return "\n".join(lines)
+
+
+def _compose_pressure_explanation(pressure):
+    """Build the AI-pressure explanation paragraph from contract aggregates.
+
+    Hardcoded template here; U9 sources these strings from vocabulary.yml.
+    """
+    lead = (
+        "AI-pressure looks for accumulation: weaker patterns that may be harmless alone "
+        "but become more meaningful when they appear together. "
+    )
+    components = pressure["components"]
+    vocab_points = pressure["vocabulary_points"]
+    if components:
+        vocab_clause = (
+            f", plus {vocab_points} point(s) from clustered AI vocabulary"
+            if vocab_points else ""
+        )
+        middle = (
+            f"Here the stacked signals were {', '.join(components)}{vocab_clause}. "
+            "That means the draft looked machine-packaged, with too much visible structure "
+            "and too little natural variation. "
+        )
+    elif vocab_points:
+        middle = (
+            f"The only contribution here was {vocab_points} point(s) from clustered AI vocabulary. "
+        )
+    else:
+        middle = (
+            "This text did not stack enough weak signals to suggest machine-packaged structure. "
+        )
+    tail = (
+        f"Score: {pressure['score']}/{pressure['threshold']}, "
+        f"so this check {'was flagged' if pressure['triggered'] else 'stayed clear'}."
+    )
+    return lead + middle + tail
+
+
+def _friendly_evidence_str(evidence_str):
+    """Old friendly_evidence took a result dict. New version takes the prose string."""
+    if not evidence_str:
+        return "No issue found in this text."
+    return evidence_str
+
+
+def _action_for_check(check, depth):
+    """Derive the recommended-action key from a contract check entry."""
+    severity = check["severity"]
+    if depth == "all":
+        return "fix"
+    if severity in {"hard_fail", "strong_warning"}:
+        return "fix"
+    return "preserve_with_disclosure_or_user_decision"
+
+
+def _markdown_table_from_contract(contract, depth_key):
+    """Render the full check table by joining contract entries with registry metadata."""
+    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {depth_key.title()} action |"
+    lines = [header, "|---|---|---|---|---|---|"]
+    for check in contract["programmatic_checks"]:
+        try:
+            rec = registries.pattern_for(check["id"])
+            label = rec["short_name"]
+            description = rec["description"]
+            why_matters = rec["why_it_matters"]
+        except KeyError:
+            label, description, why_matters = check["id"], "", ""
+        if check["status"] == "clear":
+            why_here = "No issue found in this text."
+            action_label = "None"
+        else:
+            evidence_str = check["evidence"]["raw"].get("evidence", "")
+            why_here = sentence_text(_friendly_evidence_str(evidence_str))
+            action_label = ACTION_LABELS.get(_action_for_check(check, depth_key), "Fix")
+        status_label = "Clear" if check["status"] == "clear" else "Flagged"
+        lines.append(
+            "| "
+            + " | ".join([
+                table_cell(label),
+                table_cell(status_label),
+                table_cell(description),
+                table_cell(why_here),
+                table_cell(why_matters),
+                table_cell(action_label),
+            ])
+            + " |"
+        )
     return "\n".join(lines)
 
 
