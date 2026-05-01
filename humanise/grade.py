@@ -274,6 +274,16 @@ MANUFACTURED_INSIGHT = [
     # Contrived contrast as insight
     r"this isn't [\w\s]+\. it's ",
     r"that's not [\w\s]+\. that's ",
+    # Performed candour / honesty framing
+    # (Folded into manufactured insight for now — see #42 Hypothesis note in patterns.md
+    # for the promotion criteria if this cluster grows.)
+    r"the honest answer is",
+    r"here's the honest (?:answer|framing|truth|version|take|story)",
+    r"here's the (?:real )?truth\b",
+    r"the real truth is",
+    r"if i'm being honest",
+    r"in all honesty",
+    r"to be (?:perfectly )?honest,",
 ]
 
 COLLABORATIVE_ARTIFACTS = [
@@ -1113,15 +1123,29 @@ def check_list_density(text):
 
 
 def check_unicode_flair(text):
-    """Detect decorative Unicode symbols that make prose look generated."""
-    symbols = re.findall(r"[✓✔✕✖★☆◆◇→⇒➜➤•●○◦※✨⭐🔥🚀✅❌]", text)
+    """Detect decorative Unicode symbols and emoji shortcodes (patterns 31a + 16).
+
+    Folds pattern 16 (Emojis) into this check: covers symbol glyphs, the
+    broader emoji ranges, and ``:shortcode:`` forms (``:rocket:``, ``:bulb:``)
+    that cluster in headings or bullet points.
+    """
+    symbols = re.findall(
+        r"[✓✔✕✖★☆◆◇→⇒➜➤•●○◦※✨⭐✅❌🔥🚀]"
+        r"|[\U0001F300-\U0001F9FF\U0001FA00-\U0001FAFF]",
+        text,
+    )
+    shortcodes = re.findall(
+        r"(?<![A-Za-z0-9]):[a-z][a-z0-9_]{2,}:(?![A-Za-z0-9])",
+        text,
+    )
+    findings = symbols + shortcodes
     return {
         "text": "no-unicode-flair",
-        "passed": len(symbols) < 2,
+        "passed": len(findings) < 2,
         "evidence": (
-            f"Found {len(symbols)} decorative Unicode symbol(s): {symbols[:8]}"
-            if len(symbols) >= 2
-            else f"Decorative Unicode symbols: {len(symbols)}"
+            f"Found {len(findings)} decorative symbol(s)/shortcode(s): {findings[:8]}"
+            if len(findings) >= 2
+            else f"Decorative symbols/shortcodes: {len(findings)}"
         ),
     }
 
@@ -1588,6 +1612,167 @@ def check_hedging_density(text):
     }
 
 
+NOTABILITY_CLAIMS = [
+    r"\bindependent (?:coverage|sources?|reviews?)\b",
+    r"\b(?:local|regional|national|international) (?:news )?(?:media )?outlets?\b",
+    r"\bwritten by a leading expert\b",
+    r"\b(?:has|have|maintains?|with|showcasing|boasts?) (?:an? )?active social media presence\b",
+    r"\bactive social media presence\b",
+    r"\b(?:over|more than) [\d,]+\+? (?:followers?|subscribers?|fans?)\b",
+    r"\b(?:cited|featured|covered|profiled) (?:in|by) (?:multiple|numerous|several) (?:major )?(?:outlets?|publications?|media)\b",
+    r"\bgained (?:significant|widespread|notable) (?:media )?attention\b",
+]
+
+
+def check_notability_claims(text):
+    """Detect notability claims that list authorities without context (pattern 2)."""
+    count, matches = count_pattern_matches(text, NOTABILITY_CLAIMS)
+    return {
+        "text": "no-notability-claims",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} notability claim(s): {matches[:3]}"
+            if count > 0
+            else "No notability claims"
+        ),
+    }
+
+
+VAGUE_ATTRIBUTIONS = [
+    r"\bindustry reports? (?:say|state|claim|note|suggest|indicate|highlight|reveal|show|find)\b",
+    r"\bobservers? (?:have )?(?:cited|noted|argued|claimed|suggested|pointed out)\b",
+    r"\bexperts? (?:argue|believe|say|note|suggest|claim|indicate|warn|caution|agree)\b",
+    r"\b(?:some|many|several|various|certain|a number of) (?:critics?|analysts?|scholars?|researchers?|commentators?|observers?) (?:argue|believe|say|note|suggest|claim|warn|cite|point out)\b",
+    r"\bseveral (?:sources?|publications?|outlets?|reports?) (?:have )?(?:cited|noted|reported|claimed|confirmed)\b",
+    r"\bit is (?:widely |often |frequently |commonly |generally )?(?:believed|argued|claimed|noted|reported|understood|accepted|acknowledged|recognised|recognized)\b",
+    r"\b(?:research|studies) (?:has|have)? ?(?:shown|demonstrated|indicated|suggested|found) that\b",
+]
+
+
+def check_vague_attributions(text):
+    """Detect vague-authority attributions without named sources (pattern 5)."""
+    count, matches = count_pattern_matches(text, VAGUE_ATTRIBUTIONS)
+    return {
+        "text": "no-vague-attributions",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} vague attribution(s): {matches[:3]}"
+            if count > 0
+            else "No vague attributions"
+        ),
+    }
+
+
+def check_boldface_overuse(text):
+    """Detect mechanical boldface emphasis in prose (pattern 13)."""
+    bold_pattern = re.compile(r"\*\*[^*\n]{1,80}\*\*")
+    list_or_heading = re.compile(r"^\s*(?:[-*+•]|\d+\.|#{1,6})\s+")
+    total = 0
+    matches = []
+    for line in text.split("\n"):
+        if list_or_heading.match(line):
+            continue
+        for m in bold_pattern.findall(line):
+            total += 1
+            matches.append(m)
+    return {
+        "text": "no-boldface-overuse",
+        "passed": total < 4,
+        "evidence": (
+            f"Found {total} bold span(s) in prose: {matches[:5]}"
+            if total >= 4
+            else f"Bold spans in prose: {total}"
+        ),
+    }
+
+
+def check_inline_header_lists(text):
+    """Detect list items that start with a bolded header and colon (pattern 14)."""
+    header_in_list = re.compile(
+        r"^\s*(?:[-*+•]|\d+\.)\s+\*\*[^*\n]{1,60}:\*\*",
+        re.MULTILINE,
+    )
+    matches = header_in_list.findall(text)
+    return {
+        "text": "no-inline-header-lists",
+        "passed": len(matches) < 2,
+        "evidence": (
+            f"Found {len(matches)} list item(s) with bolded headers"
+            if len(matches) >= 2
+            else f"List items with bolded headers: {len(matches)}"
+        ),
+    }
+
+
+COMPOUND_MODIFIERS = [
+    r"\bthird-party\b", r"\bcross-functional\b", r"\bclient-facing\b",
+    r"\bcustomer-facing\b", r"\buser-facing\b",
+    r"\bdata-driven\b", r"\bdecision-making\b",
+    r"\bwell-known\b", r"\bwell-established\b", r"\bwell-defined\b",
+    r"\bhigh-quality\b", r"\bhigh-impact\b", r"\bhigh-performance\b",
+    r"\bhigh-level\b", r"\bhigh-stakes\b",
+    r"\breal-time\b", r"\blong-term\b", r"\bshort-term\b",
+    r"\bend-to-end\b", r"\bday-to-day\b", r"\bback-and-forth\b",
+    r"\buser-friendly\b", r"\bcost-effective\b",
+    r"\bforward-thinking\b", r"\bforward-looking\b",
+    r"\bdetail-oriented\b", r"\bgoal-oriented\b", r"\bresults-oriented\b",
+    r"\bmission-critical\b", r"\bbest-in-class\b",
+    r"\bcutting-edge\b", r"\bnext-generation\b", r"\bworld-class\b",
+    r"\bbest-of-breed\b", r"\bstate-of-the-art\b",
+]
+COMPOUND_MODIFIER_RE = re.compile("|".join(COMPOUND_MODIFIERS))
+
+
+def check_compound_modifier_density(text):
+    """Detect three or more hyphenated compound modifiers in a single sentence (pattern 18)."""
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    flagged = []
+    for sent in sentences:
+        sent_lower = sent.lower()
+        if "-" not in sent_lower:
+            continue
+        per_sentence = COMPOUND_MODIFIER_RE.findall(sent_lower)
+        if len(per_sentence) >= 3:
+            flagged.append(per_sentence)
+    return {
+        "text": "no-compound-modifier-density",
+        "passed": len(flagged) == 0,
+        "evidence": (
+            f"Found {len(flagged)} sentence(s) with 3+ AI compound modifiers: {flagged[:2]}"
+            if flagged
+            else "No dense compound-modifier sentences"
+        ),
+    }
+
+
+KNOWLEDGE_CUTOFF_DISCLAIMERS = [
+    r"\bup to my (?:last )?(?:training |knowledge )?(?:update|cutoff|cut-off)\b",
+    r"\bas of my (?:last )?(?:training |knowledge )?(?:update|cutoff|cut-off)\b",
+    r"\bbased on (?:available|the available|publicly available|publicly accessible) information\b",
+    r"\bwhile (?:specific|exact|precise) (?:details|information|data) (?:are |is )?(?:limited|scarce|unavailable|sparse|not (?:extensively |readily )?(?:documented|available))\b",
+    r"\b(?:specific|exact|precise) (?:details|information|data) (?:about|regarding|concerning) [^.!?\n]{0,80} (?:are|is) (?:limited|scarce|unavailable|not (?:readily )?available)\b",
+    r"\bnot (?:extensively |widely |readily )?documented in (?:readily )?available sources\b",
+    r"\bin readily available sources\b",
+    r"\bi (?:do not|don't|cannot|can't) have (?:access to|information about|details on)\b",
+    r"\bi am unable to (?:access|verify|confirm|provide)\b",
+    r"\bmy (?:training|knowledge) (?:cutoff|cut-off|cuts off|ends|extends to|is limited to)\b",
+]
+
+
+def check_knowledge_cutoff_disclaimers(text):
+    """Detect AI knowledge-cutoff or training-update disclaimers (pattern 20)."""
+    count, matches = count_pattern_matches(text, KNOWLEDGE_CUTOFF_DISCLAIMERS)
+    return {
+        "text": "no-knowledge-cutoff-disclaimers",
+        "passed": count == 0,
+        "evidence": (
+            f"Found {count} knowledge-cutoff disclaimer(s): {matches[:3]}"
+            if count > 0
+            else "No knowledge-cutoff disclaimers"
+        ),
+    }
+
+
 # --- Registry ---
 
 ALL_CHECKS = {
@@ -1634,6 +1819,12 @@ ALL_CHECKS = {
     "vocabulary-diversity": check_type_token_ratio,
     "no-triad-density": check_triad_density,
     "no-section-scaffolding": check_section_scaffolding,
+    "no-notability-claims": check_notability_claims,
+    "no-vague-attributions": check_vague_attributions,
+    "no-boldface-overuse": check_boldface_overuse,
+    "no-inline-header-lists": check_inline_header_lists,
+    "no-compound-modifier-density": check_compound_modifier_density,
+    "no-knowledge-cutoff-disclaimers": check_knowledge_cutoff_disclaimers,
 }
 
 
@@ -1681,6 +1872,12 @@ CHECK_REPORT_TEXT = {
     "vocabulary-diversity": ("Vocabulary diversity", "Checks for unusually repetitive vocabulary in longer text."),
     "no-triad-density": ("Triad density", "Checks whether three-part list structures are overused across the piece."),
     "no-section-scaffolding": ("Repeated section scaffolding", "Checks for repeated section labels or repeated structural templates."),
+    "no-notability-claims": ("Notability claims", "Checks for fake-prestige framing such as active social media presence or coverage by unnamed major outlets."),
+    "no-vague-attributions": ("Vague attributions", "Checks for unnamed-authority phrasing such as experts argue, observers note, or industry reports say."),
+    "no-boldface-overuse": ("Boldface overuse", "Checks for mechanical bold emphasis stacked across a passage of prose."),
+    "no-inline-header-lists": ("Inline-header lists", "Checks for list items that begin with a bolded header and colon, turning prose into a slide deck."),
+    "no-compound-modifier-density": ("Hyphenated compound modifier overuse", "Checks for three or more AI-stock hyphenated compound modifiers crammed into one sentence."),
+    "no-knowledge-cutoff-disclaimers": ("Knowledge-cutoff disclaimers", "Checks for AI training-update or limited-information hedges left in the prose."),
 }
 
 
@@ -1728,6 +1925,12 @@ CHECK_WHY_IT_MATTERS = {
     "vocabulary-diversity": "Low vocabulary variety can make longer prose feel repetitive and mechanically produced.",
     "no-triad-density": "Too many three-part lists create a recognisable generated cadence.",
     "no-section-scaffolding": "Repeated section structure makes the whole piece feel assembled from a template.",
+    "no-notability-claims": "Listing unnamed authorities or follower counts as if the mention itself were the story performs prestige instead of reporting it.",
+    "no-vague-attributions": "Unnamed expert and report citations create the illusion of consensus without naming a real source.",
+    "no-boldface-overuse": "Mechanical boldface stacking flattens prose into emphasis-by-default and reads like generated formatting.",
+    "no-inline-header-lists": "Bolded-header list items convert prose into slide-deck shapes, a strong frictionless-structure tell.",
+    "no-compound-modifier-density": "Stacking three or more hyphenated compound modifiers in one sentence is a recognisable AI cadence rather than a deliberate style choice.",
+    "no-knowledge-cutoff-disclaimers": "AI training-update and limited-information hedges are model meta-residue and almost never belong in finished prose.",
 }
 
 
@@ -1989,6 +2192,42 @@ CHECK_METADATA = {
         "failure_modes": ["frictionless_structure", "genre_misfit"],
         "evidence_role": "list_rhythm",
         "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+    },
+    "no-notability-claims": {
+        "severity": "strong_warning",
+        "failure_modes": ["synthetic_significance", "generic_abstraction"],
+        "evidence_role": "notability_inflation",
+        "guidance": "Fix at Balanced and All; replace abstract notability claims with named sources or remove the framing.",
+    },
+    "no-vague-attributions": {
+        "severity": "strong_warning",
+        "failure_modes": ["synthetic_significance", "generic_abstraction"],
+        "evidence_role": "attribution_vagueness",
+        "guidance": "Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote.",
+    },
+    "no-boldface-overuse": {
+        "severity": "context_warning",
+        "failure_modes": ["frictionless_structure"],
+        "evidence_role": "emphasis_pattern",
+        "guidance": "Fix mechanical bold stacking; preserve only when bolded terms are genuine definition headers.",
+    },
+    "no-inline-header-lists": {
+        "severity": "strong_warning",
+        "failure_modes": ["frictionless_structure", "generic_abstraction"],
+        "evidence_role": "list_template",
+        "guidance": "Fix at Balanced and All; fold bolded-header bullets back into prose unless the format is a real spec or reference list.",
+    },
+    "no-compound-modifier-density": {
+        "severity": "context_warning",
+        "failure_modes": ["frictionless_structure", "generic_abstraction"],
+        "evidence_role": "modifier_density",
+        "guidance": "Restructure sentences with three or more stock hyphenated compounds; preserve only when the compounds are domain-specific terms of art.",
+    },
+    "no-knowledge-cutoff-disclaimers": {
+        "severity": "strong_warning",
+        "failure_modes": ["provenance_residue"],
+        "evidence_role": "model_meta_residue",
+        "guidance": "Fix at every depth; training-update and limited-information hedges are model meta-residue, not authorial uncertainty.",
     },
 }
 
@@ -2508,8 +2747,26 @@ AUDIT_HEADER_RE = re.compile(r"^\*\*Audit[,]?[^*]*\*\*\s*$", re.MULTILINE)
 REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
 DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
+AGENT_JUDGEMENT_HEADER_RE = re.compile(r"^\*\*Agent[- ]judgement reading[^*]*\*\*\s*$", re.MULTILINE)
 SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
 QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
+
+# Phase 1 all-clear shape (per humanise/SKILL.md after U4): a single line
+# stating both blocks came back clean. Phase 3 (U11/U12) will replace this
+# with the canonical "X of X clear · agent reading clean · pressure: clear"
+# shape; for U5 we match the Phase-1 form.
+#
+# The regex anchors to the start of a line (re.MULTILINE) so the canonical
+# phrase cannot be embedded inside a longer malformed response. A leading
+# blockquote marker `> ` is allowed because the canonical form is rendered
+# as a blockquote in some contexts. The audit-shape checks below also
+# enforce mutual exclusivity: a response containing both this all-clear
+# phrase AND a block header (**Audit**, **Agent-judgement reading**) is
+# ambiguous and fails — agents must choose one shape, not both.
+ALL_CLEAR_LINE_RE = re.compile(
+    r"^\s*(?:>\s*)?audit clean[:.]?\s+no\s+ai\s+tells?\s+detected,?\s+agent\s+reading\s+clean\b",
+    re.IGNORECASE | re.MULTILINE,
+)
 
 
 def _section_text(output_text, header_re):
@@ -2653,6 +2910,74 @@ def check_every_suggestion_block_has_replacement(output_text, input_text=None):
     return {"text": name, "passed": True, "evidence": f"all {len(blocks)} suggestion block(s) include 'Try'"}
 
 
+def check_audit_shape_has_programmatic_block(output_text, input_text=None):
+    """An Audit response must carry the programmatic block (`**Audit, ...**`)
+    or be in the all-clear single-line shape. The two shapes are mutually
+    exclusive — a response containing both fails as ambiguous."""
+    name = "audit-shape-has-programmatic-block"
+    has_block = bool(AUDIT_HEADER_RE.search(output_text))
+    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
+    if has_block and has_all_clear:
+        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both **Audit** header and the all-clear single-line phrase"}
+    if has_block:
+        return {"text": name, "passed": True, "evidence": "**Audit** header present"}
+    if has_all_clear:
+        return {"text": name, "passed": True, "evidence": "all-clear single-line shape (programmatic block implicit)"}
+    return {"text": name, "passed": False, "evidence": "no **Audit** header and no all-clear line"}
+
+
+def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
+    """An Audit response must carry the agent-judgement block
+    (`**Agent-judgement reading...**`) or be in the all-clear single-line
+    shape. The two shapes are mutually exclusive — a response containing
+    both fails as ambiguous.
+
+    Phase 1 (U4) introduced the block; Phase 3 (U12) will redesign it but
+    keep the header recognisable. This check holds across both phases."""
+    name = "audit-shape-has-agent-judgement-block"
+    has_block = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
+    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
+    if has_block and has_all_clear:
+        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both **Agent-judgement reading** header and the all-clear single-line phrase"}
+    if has_block:
+        return {"text": name, "passed": True, "evidence": "**Agent-judgement reading** header present"}
+    if has_all_clear:
+        return {"text": name, "passed": True, "evidence": "all-clear single-line shape (agent-judgement block implicit)"}
+    return {"text": name, "passed": False, "evidence": "no **Agent-judgement reading** header and no all-clear line"}
+
+
+def check_audit_shape_all_clear_line_format(output_text, input_text=None):
+    """When neither block is present in the output, the response is expected
+    to be the all-clear single-line shape: `Audit clean: no AI tells detected,
+    agent reading clean.` followed by the next-step question. The canonical
+    phrase must START a line (the regex is anchored with re.MULTILINE) so it
+    cannot be embedded inside a longer malformed response.
+
+    On non-all-clear outputs (where the bold headers are present and there
+    is no all-clear phrase), the check vacuously passes — the all-clear
+    shape only applies to all-clear runs. A response containing BOTH the
+    canonical all-clear phrase AND any block header fails as ambiguous —
+    the two shapes are mutually exclusive.
+    """
+    name = "audit-shape-all-clear-line-format"
+    has_programmatic = bool(AUDIT_HEADER_RE.search(output_text))
+    has_agent_judgement = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
+    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
+
+    if has_all_clear and (has_programmatic or has_agent_judgement):
+        which = []
+        if has_programmatic:
+            which.append("**Audit**")
+        if has_agent_judgement:
+            which.append("**Agent-judgement reading**")
+        return {"text": name, "passed": False, "evidence": f"ambiguous shape: all-clear phrase appears alongside {' and '.join(which)} block header(s)"}
+    if has_programmatic or has_agent_judgement:
+        return {"text": name, "passed": True, "evidence": "non-all-clear output (vacuously passes)"}
+    if has_all_clear:
+        return {"text": name, "passed": True, "evidence": "all-clear single-line shape matches Phase-1 canonical form"}
+    return {"text": name, "passed": False, "evidence": "all-clear shape expected but neither block headers nor canonical line found"}
+
+
 AUDIT_SHAPE_CHECKS = {
     "audit-shape-block-precedes-rewrite-block": check_audit_shape_block_precedes_rewrite_block,
     "every-flag-block-contains-input-substring": check_every_flag_block_contains_input_substring,
@@ -2661,6 +2986,9 @@ AUDIT_SHAPE_CHECKS = {
     "no-large-prose-block-not-in-input": check_no_large_prose_block_not_in_input,
     "suggestion-block-count-equals-flag-count": check_suggestion_block_count_equals_flag_count,
     "every-suggestion-block-has-replacement": check_every_suggestion_block_has_replacement,
+    "audit-shape-has-programmatic-block": check_audit_shape_has_programmatic_block,
+    "audit-shape-has-agent-judgement-block": check_audit_shape_has_agent_judgement_block,
+    "audit-shape-all-clear-line-format": check_audit_shape_all_clear_line_format,
 }
 
 

@@ -1,6 +1,6 @@
 # AI writing patterns
 
-38 patterns to detect and fix. Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example.
+48 patterns plus three sub-letter variants (23a, 31a, 35a) to detect and fix, plus one unnumbered meta-check (`overall-ai-signal-pressure`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
 
 ## Contents
 
@@ -8,10 +8,11 @@
 - [Language and grammar (7-12)](#language-and-grammar)
 - [Style (13-18)](#style)
 - [Communication (19-21)](#communication)
-- [Filler and hedging (22-25)](#filler-and-hedging)
+- [Filler and hedging (22-25, 47-48)](#filler-and-hedging)
 - [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
-- [Structural tells (29-32, 38)](#structural-tells)
-- [Voice and register (33-37)](#voice-and-register)
+- [Structural tells (29-32, 38, 42, 44)](#structural-tells)
+- [Voice and register (33-37, 39-41, 43, 45-46)](#voice-and-register)
+- [Aggregate AI-signal pressure (meta-check)](#aggregate-ai-signal-pressure-meta-check)
 
 ---
 
@@ -59,6 +60,8 @@ Inflates importance by claiming things "represent" or "contribute to" broader tr
 **After:**
 > The Statistical Institute of Catalonia was established in 1989 to collect and publish regional statistics independently from Spain's national statistics office.
 
+**Severity:** context_warning · `no-significance-inflation`
+
 
 ### 2. Notability claims
 
@@ -71,6 +74,10 @@ Asserts notability by listing sources without context, as though the mention its
 
 **After:**
 > In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.
+
+**Severity:** strong_warning · `no-notability-claims`
+
+**Detection:** Programmatic check `no-notability-claims` (added in U1 of the audit-report redesign).
 
 
 ### 3. Superficial -ing analyses
@@ -85,6 +92,8 @@ Present participle phrases tacked onto sentences to simulate analytical depth wi
 **After:**
 > The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
 
+**Severity:** strong_warning · `no-superficial-ing`
+
 
 ### 4. Promotional language
 
@@ -98,6 +107,8 @@ Reads like tourism marketing rather than description.
 **After:**
 > Alamata Raya Kobo is a town in the Gonder region of Ethiopia, known for its weekly market and 18th-century church.
 
+**Severity:** context_warning · `no-promotional-language`
+
 
 ### 5. Vague attributions
 
@@ -110,6 +121,10 @@ Attributes opinions to vague authorities without specific sources, creating illu
 
 **After:**
 > The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.
+
+**Severity:** strong_warning · `no-vague-attributions`
+
+**Detection:** Programmatic check `no-vague-attributions` (added in U1 of the audit-report redesign).
 
 
 ### 6. Formulaic challenges sections
@@ -127,6 +142,8 @@ Formulaic "Challenges" sections that acknowledge a problem then immediately reas
 ---
 
 ## Language and grammar
+
+**Severity:** N/A · manual self-audit only (no programmatic check; pattern is described but not enforced)
 
 ### 7. AI vocabulary words
 
@@ -253,6 +270,8 @@ Current threshold: vocabulary pressure contributes points to an overall score. T
 **After:**
 > Somali cuisine also includes camel meat, which is considered a delicacy. Pasta dishes, introduced during Italian colonisation, remain common, especially in the south.
 
+**Severity:** strong_warning · `no-ai-vocabulary-clustering` (the soft-scaffold sub-bullet now also references `no-soft-scaffolding` — see #47)
+
 
 ### 8. Copula avoidance
 
@@ -265,6 +284,8 @@ Substitutes elaborate constructions for simple "is", "are", or "has".
 
 **After:**
 > Gallery 825 is LAAA's exhibition space for contemporary art. The gallery has four rooms totalling 3,000 square feet.
+
+**Severity:** strong_warning · `no-copula-avoidance`
 
 
 ### 9. Contrived contrast / negative parallelism
@@ -304,6 +325,8 @@ Do not preserve the structure by swapping words, reversing the order, replacing 
 **After:**
 > The app earns trust by showing exactly what changed and letting users undo each step.
 
+**Severity:** strong_warning · `no-negative-parallelisms`
+
 
 ### 10. Rule of three
 
@@ -317,6 +340,23 @@ Ideas forced into groups of three to appear comprehensive, even when the items d
 **After:**
 > The event includes talks and panels, with time for informal networking between sessions.
 
+**Severity:** context_warning · `no-forced-triads` (the density variant lives at #10a)
+
+
+### 10a. Triad density
+
+The density variant of #10 rule of three. While #10 catches a single forced triad as a content pattern, #10a fires when triads cluster across longer prose: four or more "X, Y, and Z" / "X, Y, or Z" structures in a piece of 300+ words. This is the rate-of-triads metric — even when each individual triad reads naturally, the aggregate cadence becomes mechanical.
+
+**Before:**
+> The team values clarity, directness, and rigour. Their meetings are short, focused, and outcome-driven. The retros surface what worked, what didn't, and what to try next. The roadmap balances delivery, learning, and team health.
+
+**After:**
+> The team runs short meetings and uses retros to decide what to try next. The roadmap is mostly about delivery, with deliberate space for the things the team is still learning how to do well.
+
+**Severity:** context_warning · `no-triad-density`
+
+**Detection:** Programmatic check `no-triad-density` (added in 42e4d00 on 2026-04-02 as part of the structural AI detection expansion; **context_warning**). Counts "X, Y, and/or Z" patterns where each item is 1-4 words; fails at 4+ triads in prose of 300+ words. Distinct from #10 forced triads (single-instance, semantic check); #10a is the cumulative-density check across a piece.
+
 
 ### 11. Synonym cycling
 
@@ -328,6 +368,10 @@ Excessive synonym substitution, cycling through different words for the same ref
 **After:**
 > The protagonist faces many challenges but eventually triumphs and returns home.
 
+**Severity:** N/A · manual self-audit only (see Detection)
+
+**Detection:** Manual self-audit only — no programmatic check. Reliable detection requires coreference resolution to recognise that two noun phrases share a referent, which is beyond regex.
+
 
 ### 12. False ranges
 
@@ -338,6 +382,27 @@ Excessive synonym substitution, cycling through different words for the same ref
 
 **After:**
 > The book covers the Big Bang, star formation, and current theories about dark matter.
+
+**Severity:** N/A · manual self-audit only (see Detection)
+
+**Detection:** Manual self-audit only — no programmatic check. Judging whether range endpoints sit on a meaningful scale requires semantic context the grader does not have.
+
+
+### 53. Vocabulary diversity
+
+A coarse type-token ratio metric for prose of 150+ words: the ratio of unique words to total words. AI-generated prose often shows lower lexical diversity than human writing of the same length, leaning on a small core of stock phrases and reusing them across paragraphs. Human writing on the same topic typically reaches further into the lexicon.
+
+**Tolerance note:** Several legitimate forms run low on type-token ratio: dialogue (where characters reuse words), technical writing (where domain terms repeat by necessity), and old prose styles that favour repetition for rhetorical effect. Treat low diversity as a coarse signal, not a hard fail — preserve when the genre genuinely calls for it.
+
+**Before:**
+> The strategy emphasises customer outcomes. The strategy emphasises operational efficiency. The strategy emphasises sustainable growth. The strategy emphasises team alignment.
+
+**After:**
+> The strategy chases four things at once: customer outcomes, operational efficiency, sustainable growth, and team alignment. Each one feeds the next, which is the bet that makes the document work or fall apart.
+
+**Severity:** context_warning · `vocabulary-diversity`
+
+**Detection:** Programmatic check `vocabulary-diversity` (added in PR #3 at 3c013e3 on 2026-04-01 as part of the AI-writing research expansion; **context_warning**). Computes type-token ratio on stripped lowercased words and fails below a corpus-tuned threshold. Skipped on prose under 150 words. Distinct from #11 synonym cycling (which targets the *opposite* failure mode — over-substituting synonyms for the same referent — and is a manual-only check) and from #7 AI vocabulary words (which targets specific stock vocabulary, not the lexical-density distribution).
 
 ---
 
@@ -353,6 +418,10 @@ Emphasises phrases in boldface mechanically, bolding things that do not need vis
 **After:**
 > It blends OKRs, KPIs, and visual strategy tools like the Business Model Canvas and Balanced Scorecard.
 
+**Severity:** context_warning · `no-boldface-overuse`
+
+**Detection:** Programmatic check `no-boldface-overuse` (added in U1; flags four or more bold spans in non-list, non-heading prose).
+
 
 ### 14. Inline-header lists
 
@@ -366,6 +435,10 @@ List items start with bolded headers followed by colons, turning prose into a sl
 **After:**
 > The update improves the interface, speeds up load times through optimised algorithms, and adds end-to-end encryption.
 
+**Severity:** strong_warning · `no-inline-header-lists`
+
+**Detection:** Programmatic check `no-inline-header-lists` (added in U1; flags two or more list items beginning with a bolded header and colon).
+
 
 ### 15. Title case in headings
 
@@ -376,6 +449,10 @@ Capitalising all main words in headings reads as formal to the point of stiffnes
 
 **After:**
 > ## Strategic negotiations and global partnerships
+
+**Severity:** inherits context_warning from `no-markdown-headings` (see Detection)
+
+**Detection:** Folded into `no-markdown-headings`. Once the heading itself is removed or normalised in prose, the title-case sub-rule resolves automatically; no separate check.
 
 
 ### 16. Emojis
@@ -390,6 +467,10 @@ Decorating headings or bullet points with emojis is almost never appropriate in 
 **After:**
 > The product launches in Q3. User research showed a preference for simplicity, so the next step is to schedule a follow-up meeting to discuss how that finding should shape the launch.
 
+**Severity:** inherits context_warning from `no-unicode-flair` (see Detection)
+
+**Detection:** Folded into `no-unicode-flair` (extended in U1 to cover broader Unicode emoji ranges and `:shortcode:` forms such as `:rocket:` or `:bulb:`).
+
 
 ### 17. Curly quotation marks
 
@@ -403,6 +484,8 @@ ChatGPT uses curly quotes instead of straight quotes.
 **After:**
 > He said "the project is on track" but others disagreed.
 
+**Severity:** context_warning · `no-curly-quotes`
+
 
 ### 18. Hyphenated compound modifier overuse
 
@@ -415,6 +498,27 @@ Individual hyphenations are often correct, but AI stacks four or five in a singl
 
 **After:**
 > The team, drawn from several departments, delivered a report grounded in usage data for our client-facing tools. Their process for making decisions was known for being thorough.
+
+**Severity:** context_warning · `no-compound-modifier-density`
+
+**Detection:** Programmatic check `no-compound-modifier-density` (added in U1; flags three or more AI-stock hyphenated compounds in a single sentence, drawn from a watchlist of common offenders).
+
+
+### 49. Em dashes
+
+ChatGPT and similar systems use the em dash (`—`) as default mid-sentence punctuation where most human writers would use a comma, a semicolon, a period, or a parenthetical pair of dashes. A single em dash reads naturally; routine em dashes in plain web prose are a strong 2026 AI-style fingerprint.
+
+**Tolerance note:** Em dashes are legitimate punctuation in literary prose, narrative voice, and publication-ready formatting where they are part of an author's deliberate style. Treat them as a strong AI-style signal in plain web prose, technical writing, instructional reference, and policy briefs. Preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
+
+**Before:**
+> The framework offers a unified approach — one that combines flexibility with rigour — and integrates with existing tooling without friction.
+
+**After:**
+> The framework combines flexibility with rigour, and it integrates with existing tooling without friction.
+
+**Severity:** strong_warning · `no-em-dashes`
+
+**Detection:** Programmatic check `no-em-dashes` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **strong_warning**). Counts U+2014 occurrences and fails on any. Distinct from #17 curly quotes (a typographic substitution at the quotation-mark level); this check targets the long-dash glyph as default mid-sentence punctuation.
 
 ---
 
@@ -432,6 +536,8 @@ Chatbot correspondence pasted directly into content without being cleaned up.
 **After:**
 > The French Revolution began in 1789 when financial crisis and food shortages led to widespread unrest.
 
+**Severity:** hard_fail · `no-collaborative-artifacts`
+
 
 ### 20. Knowledge-cutoff disclaimers
 
@@ -445,6 +551,10 @@ AI disclaimers about incomplete information left in the text.
 **After:**
 > The company was founded in 1994, according to its registration documents.
 
+**Severity:** strong_warning · `no-knowledge-cutoff-disclaimers`
+
+**Detection:** Programmatic check `no-knowledge-cutoff-disclaimers` (added in U1). Note that this does not fold into `no-collaborative-artifacts` — that check covers chat residue ("I hope this helps", "great question") but not training-update or limited-information hedges.
+
 
 ### 21. Sycophantic/servile tone
 
@@ -455,6 +565,10 @@ Overly positive, people-pleasing language that performs agreement rather than en
 
 **After:**
 > The economic factors you mentioned are relevant here, particularly the trade deficit data from Q3.
+
+**Severity:** inherits hard_fail from `no-collaborative-artifacts` (see Detection)
+
+**Detection:** Folded into `no-collaborative-artifacts`. The headline sycophantic phrases ("you're absolutely right", "great question!", "what a thoughtful question/observation", "that's a brilliant observation") already live in the COLLABORATIVE_ARTIFACTS pattern set; no separate check.
 
 ---
 
@@ -476,6 +590,8 @@ Common substitutions:
 - "Broadly speaking" -> "Overall" or cut
 - "From a broader perspective" -> cut or state the perspective directly
 
+**Severity:** strong_warning · `no-filler-phrases`
+
 
 ### 23. Excessive hedging
 
@@ -486,6 +602,8 @@ Over-qualifying statements to the point where the sentence commits to nothing.
 
 **After:**
 > The policy may affect outcomes.
+
+**Severity:** context_warning · `no-excessive-hedging`
 
 ### 23a. False concession hedges
 
@@ -499,6 +617,8 @@ AI often performs nuance by staging two generic positions and then landing in a 
 **After:**
 > Remote work improves flexibility for most desk workers, but it exposes weak management habits that office routines used to hide.
 
+**Severity:** strong_warning · `no-false-concession-hedges`
+
 
 ### 24. Generic positive conclusions
 
@@ -509,6 +629,8 @@ Vague upbeat endings that could be appended to any article on any topic.
 
 **After:**
 > The company plans to open two more locations next year, both in the southeast.
+
+**Severity:** hard_fail · `no-generic-conclusions`
 
 
 ### 25. Staccato rhythm in extended contexts
@@ -522,6 +644,59 @@ This supplements the hard constraint on staccato fragments. Beyond the obvious s
 
 **After:**
 > The data pointed unambiguously in one direction: every metric was declining, and the trend had been consistent for three consecutive quarters.
+
+**Severity:** context_warning · `no-staccato-sequences`
+
+
+### 47. Soft scaffolding
+
+**Words to watch:** "One useful area...", "Another useful area...", "The main strength...", "The main risk...", "Good use usually comes down to...", "Comes down to giving/using/making...", "This can be helpful when...", "Especially useful when...", "In those cases,...", "With that distinction in mind,..."
+
+Bland transition phrases from generated explainers. They are not flashy, which is why they survive rewrites — they mark a generated explainer that is arranging information into bland labelled blocks instead of writing from a real line of thought. Distinct from #22 filler phrases (which are stock padding) and #34 tidy paragraph endings (which close paragraphs); soft scaffolding sits between sentences as a connective tissue tic.
+
+**Before:**
+> One useful area is structuring feedback. Another useful area is timing it well. The main strength of these approaches is consistency. Good use usually comes down to giving the receiver enough context.
+
+**After:**
+> Feedback works best when you can name the screen, the moment, and what surprised you. The reviewer who said "this dashboard is confusing" cost me half a day; the reviewer who said "the metric on the top-right is the one I read first and I can't tell what it's measuring" saved me a week.
+
+**Severity:** strong_warning · `no-soft-scaffolding`
+
+**Detection:** Programmatic check `no-soft-scaffolding` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion). The soft-scaffold phrase set is also referenced in pattern #7's preamble as part of AI vocabulary discussion, but it is enforced as its own check rather than folded into the vocabulary cluster.
+
+
+### 48. Dense negation
+
+**Words to watch:** clusters of "is not", "are not", "was not", "were not", "does not", "do not", "isn't", "aren't", "wasn't", "weren't", "doesn't", "don't", "not merely", "not simply", "not just" — across longer prose, not in a single sentence.
+
+Distinct from #9 (contrived contrast in a single sentence) and #33 (countdown negation across two or three consecutive sentences). This is sustained negation density across a piece: a draft that defines itself by what it isn't, paragraph after paragraph. The check activates only on prose of 300+ words to avoid penalising short polemics where dense negation is the deliberate rhetorical move.
+
+**Before:**
+> The model isn't trying to imitate writing. It isn't merely fitting a template. It isn't just generating tokens. It's not really thinking, but it's also not just predicting next word. The output isn't original, but it isn't copied either. The system isn't conscious, but it isn't a simple lookup either. None of this is what most people assume.
+
+**After:**
+> The model is doing pattern completion at very large scale, with no internal model of meaning. The output looks like writing because the training data is writing, not because the system understands anything. Treat the result as a draft, not a thought.
+
+**Severity:** context_warning · `no-negation-density`
+
+**Detection:** Programmatic check `no-negation-density` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion). Triggers only on prose of 300+ words.
+
+
+### 50. Formulaic openers
+
+**Words to watch:** "At its core,", "At a foundational/fundamental/practical level,", "Beyond this/that/[abstract noun],", "There is also a [\…] dimension/aspect/element,", "It is worth recognising/noting/mentioning,", "From a [\…] perspective/standpoint,", "On a [\…] level,", "In a broader/wider/larger/similar context/sense/vein,", "Perhaps most importantly/significantly/notably/crucially,", "What makes this particularly/especially/uniquely [\…]"
+
+Generated paragraph openers that frame the next bit as a step up in abstraction. They survive rewrites because they are bland connectives rather than vocabulary tells, but they mark prose that stitches paragraphs together with the same handful of moves.
+
+**Before:**
+> At its core, the proposal is about consolidation. From a broader perspective, it reduces operational overhead. Perhaps most importantly, it aligns with the strategic plan.
+
+**After:**
+> The proposal consolidates three legacy tools into one, which reduces integration points and on-call rotations. It is also the move the strategic plan has been pointing at since 2025.
+
+**Severity:** strong_warning · `no-formulaic-openers`
+
+**Detection:** Programmatic check `no-formulaic-openers` (added in PR #1 at ee05591 on 2026-04-01; **strong_warning**). Anchored regex against the first line of each paragraph; flags any paragraph whose opener fits the formulaic-opener template. Distinct from #7 AI vocabulary words (which lists opener phrases as one sub-bullet under the broader vocabulary check) and from #47 soft scaffolding (which catches between-sentence connectives like "One useful area..." rather than paragraph-opening abstractions).
 
 ---
 
@@ -541,6 +716,8 @@ AI defaults to spectral, ghostly, shadowy imagery for anything it wants to make 
 **After:**
 > The pebbles are fragments of larger rocks, broken down over centuries by water and weather. They collect in the spaces between tide lines where the current drops them.
 
+**Severity:** context_warning · `no-ghost-spectral-density`
+
 
 ### 27. Quietness obsession
 
@@ -556,6 +733,8 @@ Adjacent manufactured-insight frames include "when no one noticed", "the shift n
 **After:**
 > The morning light was on the table. The coffee was getting cold. Outside, a truck reversed into the loading bay and someone dropped a crate.
 
+**Severity:** context_warning · `no-quietness-obsession`
+
 
 ### 28. Forced synesthesia
 
@@ -566,6 +745,10 @@ AI blends senses inappropriately to simulate literary depth: emotions get tastes
 
 **After:**
 > Thursday felt like waiting. She kept pulling out old photographs and putting them back. The room was silent in a way that made her aware of her own breathing.
+
+**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — forced synesthesia is not regex-amenable.
 
 ---
 
@@ -583,6 +766,8 @@ Short questions dropped mid-paragraph as a pacing device, followed by a declarat
 **After:**
 > Once you notice it, you will keep noticing it. The solution is simpler than most people assume, though whether anyone is ready to act on it is a separate issue.
 
+**Severity:** context_warning · `no-rhetorical-questions`
+
 
 ### 30. Generic/ungrounded metaphors
 
@@ -596,6 +781,10 @@ AI metaphors are plausible but specific to nobody. They gesture toward meaning w
 
 When you spot a metaphor, ask: could anyone have written this, or does it come from a specific experience? If anyone could have written it, replace it with a concrete detail.
 
+**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — judging metaphor groundedness is not regex-amenable.
+
 
 ### 31. Excessive list-making
 
@@ -603,11 +792,15 @@ AI converts prose to bullet points when the content does not warrant it. This is
 
 When you encounter unnecessary bullet points or numbered lists, fold the content back into prose. Lists are appropriate for genuinely discrete items (ingredients, steps, specifications). They are not appropriate for flowing arguments, observations, or narrative.
 
+**Severity:** context_warning · `no-excessive-lists`
+
 ### 31a. Unicode flair
 
 **Words/symbols to watch:** arrows, checkmarks, stars, ornamental bullets, emoji-style symbols in prose or professional content.
 
 Decorative Unicode makes prose look like a generated checklist or social post. Remove it unless the symbols are part of a real UI, quoted material, or an actual checklist whose visual form matters.
+
+**Severity:** context_warning · `no-unicode-flair`
 
 
 ### 32. Dramatic narrative transitions
@@ -621,6 +814,8 @@ Standalone sentences that claim a narrative turning point without earning it. Th
 
 **After:**
 > I stopped trying to do more in less time and started paying attention to when I had energy and when I did not. The change was not dramatic, but over a few months the difference was obvious in my work.
+
+**Severity:** context_warning · `no-dramatic-transitions`
 
 ### 38. Section scaffolding
 
@@ -651,6 +846,63 @@ AI-generated articles with numbered sections often repeat the same structural la
 > 3. Measure outcomes
 > We learned the hard way that vanity metrics kill momentum. Define what actually matters before you start tracking anything.
 
+**Severity:** strong_warning · `no-section-scaffolding`
+
+
+### 42. Manufactured insight framing
+
+**Words to watch:** "what's really", "the real answer", "here's what's really", "the real story is", "what's actually happening", "contrary to popular belief", "the uncomfortable truth", "what nobody is talking about", "what no one seems to realise", "what most people miss", "what (no one|nobody) noticed", "before anyone noticed", "without anyone noticing", "let that sink in", "read that again", "if you know, you know", "and that changes everything", "the real insight/challenge/takeaway/kicker/question", "a quiet/powerful/important/profound lesson", "sometimes the bravest/hardest/most important", "this isn't X. it's Y.", "that's not X. that's Y.", "the honest answer is", "here's the honest (answer|framing|truth)", "here's the (real) truth", "the real truth is", "if I'm being honest", "in all honesty", "to be (perfectly) honest,"
+
+Performs revelation through phrasing — claims hidden depth or secret significance without doing the evidentiary work. Includes "the real X?" rhetorical questions, performed knowingness ("read that again", "let that sink in"), pseudo-profundity ("quietly revolutionary", "the quiet part"), formulaic depth framing ("here's the thing", "the reason is straightforward"), and contrived contrast that reveals an inflated abstract payload. Also includes **performed candour** — honesty/truth framing ("the honest answer is", "here's the real truth", "if I'm being honest", "in all honesty") that dresses an ordinary statement as a hard-won admission.
+
+**Before:**
+> Most people think project management is about tracking tasks. Here's the real insight: it's about managing attention. What nobody is talking about is that most projects fail because no one was watching the right thing. Let that sink in.
+
+**After:**
+> Most projects fail because the project manager loses track of which decisions are still open. The Q3 launch slipped because three blocking decisions sat on someone's desk for two weeks before anyone surfaced them.
+
+**Severity:** strong_warning · `no-manufactured-insight`
+
+**Detection:** Programmatic check `no-manufactured-insight` (introduced before the 2026-04-08 file-move refactor at 618c723; **strong_warning**). Closely related to #9 contrived contrast — manufactured insight framing is the *content* of the false reveal; #9 is the *syntactic shape*. A piece can carry one without the other but they often co-occur.
+
+**Hypothesis (performed candour):** The honesty/truth-framing phrases ("the honest answer is", "here's the real truth", "if I'm being honest") are folded into `no-manufactured-insight` rather than promoted to their own numbered entry. They share the same generative move as the rest of #42 (claiming significance through phrasing rather than earning it), so a single check captures the family. Promote to a sibling entry if either signal lands: the candour regex set grows materially beyond the current handful of phrases, or audit failures cluster on candour without co-occurring with the rest of #42's mechanisms. Until then, keep folded.
+
+
+### 44. Signposted conclusions
+
+**Words to watch:** "In summary,", "In conclusion,", "To summarise,", "To summarize,", "To conclude,", "To sum up,", "To wrap up,", section headings "Conclusion", "Final thoughts", "Key takeaways", "Summing up".
+
+Explicit conclusion labels turn the ending into a generic summary. AI overuses them — both at sentence level ("In conclusion, …") and as standalone section headings. Human writers usually let the argument's last sentence carry the closing weight; explicit signposts often appear because the model has nothing left to say but still wants the piece to feel finished.
+
+**Tolerance note:** Academic abstracts, formal reports, instructional reference material, and structured policy briefs may legitimately use "Conclusion" or "Summary" headings as navigational signposts. The check fires on prose contexts where the signpost flattens the ending; preserve when the genre genuinely calls for one.
+
+**Before:**
+> In conclusion, the policy demonstrates the value of long-term thinking and the importance of stakeholder buy-in. Key takeaways include the need for clear communication and disciplined follow-through.
+
+**After:**
+> The policy succeeded because the council kept three commitments visible: weekly progress notes, named owners on every line item, and a public deadline. Each one was easy to abandon and the team didn't.
+
+**Severity:** context_warning · `no-signposted-conclusions`
+
+**Detection:** Programmatic check `no-signposted-conclusions` (introduced before the 2026-04-08 file-move refactor at 618c723; **context_warning**).
+
+
+### 52. Sentence length variance
+
+A coarse rhythm metric for prose of 100+ words. Human writing varies sentence length naturally, mixing short punch sentences with longer connective passages. AI prose tends toward the centre of the distribution: most sentences land in a similar word count band, and the resulting cadence reads mechanical even when individual sentences are competent.
+
+**Tolerance note:** Some genres legitimately run uniform: instructional steps, headlines, dialogue, dictionary entries, telegraphic memos. The check skips short-form prose under 100 words. Treat low variance as a signal, not a hard fail — preserve when the form genuinely calls for uniformity.
+
+**Before:**
+> The team uses agile methods. They run two-week sprints. Each sprint starts with planning. Each sprint ends with a retro. The team values feedback. They iterate based on what they learn.
+
+**After:**
+> The team uses agile methods, running two-week sprints that bracket each piece of work between planning and a retro. Feedback drives iteration: each sprint adjusts based on what the last one taught them.
+
+**Severity:** context_warning · `sentence-length-variance`
+
+**Detection:** Programmatic check `sentence-length-variance` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **context_warning**). Computes the standard deviation of sentence word counts and fails when the SD drops below 4. Skipped on prose under 100 words and 6 sentences. Distinct from #34 paragraph-length uniformity (which measures paragraph block sizes, not sentence-level rhythm) and from #25 staccato (which targets very short standalone sentences regardless of variance).
+
 ---
 
 ## Voice and register
@@ -675,6 +927,8 @@ A multi-sentence rhetorical arc where AI negates two or more things before revea
 **After:**
 > The automation question is less about the technology itself and more about how it changes the day-to-day work that people build their identity around.
 
+**Severity:** context_warning · `no-countdown-negation`
+
 
 ### 34. Per-paragraph miniature conclusions
 
@@ -696,6 +950,8 @@ Watch for endings such as "That is why...", "The takeaway is...", "The result is
 
 Also check paragraph size. AI-generated longform often settles into near-identical blocks: ten paragraphs of 65-85 words, each making one balanced point. Human paragraphs usually show uneven pressure; some are short, some wander, some carry a scene or example longer than expected.
 
+**Severity:** context_warning · `no-tidy-paragraph-endings` and context_warning · `paragraph-length-uniformity` (this pattern covers two related checks)
+
 
 ### 35. Tonal uniformity / register lock
 
@@ -711,6 +967,10 @@ This pattern cannot be caught programmatically. During the self-audit, ask: does
 
 In reviews and criticism, tonal uniformity often appears as bland evaluative balance: "emotional range", "field of sympathy", "moral strength", "earns its weight", "ambitious in an old-fashioned way", "social texture", "slow revelation". Replace this with concrete claims about scenes, sentences, performances, or formal choices.
 
+**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — register lock is not regex-amenable.
+
 ### 35a. Orphaned demonstratives
 
 **Words to watch:** "This highlights...", "This underscores...", "This demonstrates...", "That speaks to...", "These point to..."
@@ -722,6 +982,23 @@ The problem is not the word "this"; it is the vague subject. If "this" points to
 
 **After:**
 > The missed deadline exposed a communication gap between product and engineering.
+
+**Severity:** context_warning · `no-orphaned-demonstratives` (the related sentence-start chain check lives at #35b)
+
+
+### 35b. Repeated 'This …' chains
+
+Three or more consecutive sentences in a paragraph that begin with "This [verb]" — typically "This shows…", "This means…", "This highlights…", "This underscores…". Distinct from #35a orphaned demonstratives, which catches a single vague-subject `this` sentence; #35b is the chain pattern, where a paragraph keeps using `This` as the subject placeholder sentence after sentence.
+
+**Before:**
+> The framework launched in March. This brought consolidation. This reduced operational cost. This freed engineering time. This let the team focus on the next initiative.
+
+**After:**
+> The framework launched in March, consolidating tooling that had drifted across three teams since 2024. The reduced operational cost is what gave engineering room to focus on the next initiative.
+
+**Severity:** context_warning · `no-this-chains`
+
+**Detection:** Programmatic check `no-this-chains` (added in PR #1 at ee05591 on 2026-04-01; **context_warning**). Walks each paragraph and flags 3+ consecutive sentences matching `^this\s+(?!is)\w+`. Distinct from #35a orphaned demonstratives (single-sentence vague-subject `this`); #35b is the multi-sentence chain pattern within a paragraph.
 
 
 ### 36. Faux specificity
@@ -737,6 +1014,10 @@ Related to experiential vacancy (see Personality and soul in SKILL.md) but names
 > My grandmother wrote to me every month until she died. Her handwriting got worse each year — by the end I could only read about half the words. I kept every letter in a shoebox under my bed.
 
 When you spot a "specific" detail, ask: could anyone have written this, or does it come from a particular person's experience? If it reads like a stock photo in prose form, replace it with something that could not have been generated from genre conventions.
+
+**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — distinguishing genuine specificity from genre-convention filler is not regex-amenable.
 
 
 ### 37. Neutrality collapse
@@ -756,17 +1037,25 @@ Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral whe
 
 When humanising, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
 
+**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14). The surface false-balance phrasing piece is partly covered by `check_false_concession` (#23a); expanding regex coverage of stance erasure is out of scope here.
+
 ### 39. Template and placeholder residue
 
 **Words to watch:** `{client_name}`, `[Company Name]`, `[insert date]`, `<source>`, "Hi {name}".
 
 Unfilled placeholders are not style issues; they are generated/template residue. Replace them with real values if known, or remove the surrounding sentence if not.
 
+**Severity:** hard_fail · `no-placeholder-residue`
+
 ### 40. Rubric echoing
 
 **Words to watch:** "the author creates a tone", "I can tell because", "this quote shows that", "according to the rubric", "meets the criteria".
 
 Common in AI-generated student essays. It mirrors assignment language instead of analysing the text. Preserve only if the piece is explicitly about the rubric.
+
+**Severity:** context_warning · `no-rubric-echoing`
 
 ### 41. Genre-specific manual checks
 
@@ -776,3 +1065,106 @@ These are not reliable enough for hard regex treatment yet, but they should be p
 - **Poetry:** watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.
 - **Fiction:** watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, locked POV with no pressure, over-resolved endings, and scene pacing that never surprises.
 - **Email/business:** watch for placeholders, over-warm openings, fake personalisation, and action lists dressed up with symbols.
+
+**Severity:** N/A · agent-judgement (polymorphic genre slot; registered in U14's `humanise/judgement.yaml`)
+
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) as a polymorphic genre slot — the agent first detects genre (academic, student essay, poetry, fiction, default), then runs the matching watchlist.
+
+
+### 43. Corporate AI-speak
+
+**Words to watch:** "delivering impact", "measurable outcomes", "deliverable outcomes", "scalable, production-grade", "pragmatic approach", "drives outcomes", "cross-functional", "end-to-end (development|delivery|solution)", "translate requirements into outcomes/deliverables/solutions", "stakeholder (alignment|engagement|management)", "actionable insights", "leverage (my|our|the) experience/expertise".
+
+Generic LinkedIn-AI corporate register. Hides specific work behind operational abstractions: "delivers", "drives", "leverages", "aligns". Often clusters in CVs, capability decks, vendor pitches, and "who we are" pages where the writer wants to sound credible without naming any actual project.
+
+**Before:**
+> Our cross-functional team leverages decades of expertise to deliver measurable outcomes through end-to-end execution and stakeholder alignment, driving actionable insights for our partners.
+
+**After:**
+> The team includes designers, engineers, and customer researchers. We worked with three local councils on their tax-collection workflows; the redesign cut average resolution time from 14 days to 6 over six months.
+
+**Severity:** strong_warning · `no-corporate-ai-speak`
+
+**Detection:** Programmatic check `no-corporate-ai-speak` (introduced before the 2026-04-08 file-move refactor at 618c723; **strong_warning**).
+
+
+### 45. Nonliteral land/surface phrasing
+
+**Words to watch:** "the argument lands", "the idea lands", "your point lands", "where my draft landed", "lands with the reader/audience/team/stakeholders", "lands in the rubric/scale/category", "surfaces in the conversation/discussion/debate/work/writing", "what surfaces", "what surfaced".
+
+Treats abstract ideas as physical objects that land or surface. Often used to make ordinary feedback or analysis sound managed or packaged. Distinct from #30 generic metaphors (which is about reaching for plausible-but-unanchored figurative language) — this is a specific stock cliché shape: noun + lands / surfaces.
+
+**Before:**
+> The argument lands somewhere between cautious optimism and quiet despair. What surfaces in the discussion is a recognition that no clean answer exists.
+
+**After:**
+> The argument is cautious — the writer thinks the policy will work but is not willing to predict by how much. Three of the seven examples she cites support the optimistic reading; the other four are ambiguous.
+
+**Severity:** strong_warning · `no-nonliteral-land-surface`
+
+**Detection:** Programmatic check `no-nonliteral-land-surface` (added in 1422bad on 2026-04-27 during a hard-mode calibration pass; **strong_warning**).
+
+
+### 46. Bland critical template
+
+**Words to watch:** "the kind of contemporary novel/film/book/album/show/essay that", "doing several familiar things at once", "what makes it more than", "emotional range", "field of sympathy", "moral strengths", "earns (much of) its weight", "ambitious in an old-fashioned way", "social texture", "slow revelation of", "difficult to dismiss".
+
+Generated literary, film, or review criticism that sounds balanced but generic. Replaces concrete claims about scenes, sentences, performances, or formal choices with portable evaluative phrases. The hallmark is a sentence that could appear in a review of any contemporary novel/film without changing a word.
+
+**Before:**
+> Tóibín's novel is the kind of contemporary book that earns its weight through emotional range and slow revelation, doing several familiar things at once with a social texture that is difficult to dismiss.
+
+**After:**
+> The opening forty pages stay close to Henry's silences — when his mother asks why he won't write home from Rome, he changes the subject three times in two paragraphs. That refusal is the book's structural engine, not its theme.
+
+**Severity:** strong_warning · `no-bland-critical-template`
+
+**Detection:** Programmatic check `no-bland-critical-template` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **strong_warning**). Closely related to #35 tonal uniformity in reviews and criticism — the tonal-uniformity entry mentions the same evaluative phrases ("emotional range", "field of sympathy", "moral strength") as a register signal; this check enforces them at phrase level.
+
+
+### 51. Mechanical repeated sentence starts
+
+Three or more consecutive sentences whose first word matches — "The X… The Y… The Z…", "We did… We saw… We learned…", "It was… It was… It was…". Anaphora is a real rhetorical device when it earns its weight (Lincoln, Churchill, Baldwin), but AI reaches for it as a default rhythm pattern when it has run out of structural ideas. The tell is repetition without escalation: three sentences starting the same way that do not build, contrast, or accumulate force.
+
+**Tolerance note:** Deliberate anaphora is one of the oldest rhetorical figures in English. Preserve when the repetition is doing structural work — building, contrasting, intensifying — or when it is character voice, oratory, or quoted speech.
+
+**Before:**
+> The team adopted the new framework. The team rewrote the docs. The team trained the support staff. The team rolled out the migration in three phases.
+
+**After:**
+> Adopting the new framework meant rewriting the docs and training the support staff before the team could roll out the migration in three phases.
+
+**Severity:** context_warning · `no-anaphora`
+
+**Detection:** Programmatic check `no-anaphora` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **context_warning**). Flags three or more consecutive sentences whose first word matches case-insensitively, ignoring trivial starts ("I", "A", "The", "It", "It's"). Distinct from #25 staccato rhythm (which fires on short standalone sentences regardless of opener) and from #35a orphaned demonstratives (vague-subject `this` in a single sentence) and #35b `This …` chains (paragraph-level repetition of `This` as subject).
+
+---
+
+## Aggregate AI-signal pressure (meta-check)
+
+The grader also runs one meta-check that does not correspond to a single AI tell.
+
+`overall-ai-signal-pressure` rolls up several weak/medium signals into a single pressure score. The component checks are:
+
+- manufactured insight framing (#42)
+- contrived contrast / negative parallelism (#9)
+- formulaic openers (#50)
+- soft scaffolding (#47)
+- section scaffolding (#38)
+- tidy paragraph endings (in #34)
+- paragraph length uniformity (in #34)
+- markdown headings in prose
+- excessive lists (#31)
+- assistant residue / collaborative artifacts (#19)
+- generic conclusions (#24)
+- bland critical template (#46)
+- false concession (#23a)
+
+Plus Kobak et al. excess-vocabulary evidence (style-annotated terms from the `kobak-excess-words.csv` reference file).
+
+The check fires when the weighted score crosses a threshold AND vocabulary pressure combines with structural signals. Per Kobak et al.'s corpus-level logic, vocabulary alone cannot decide authorship — the meta-check therefore requires both vocabulary and structural pressure before tripping. Individually, each component may be weak; their combination indicates a generated piece that has been polished enough to dodge any single regex.
+
+**Severity:** context_warning · `overall-ai-signal-pressure`
+
+
+**Detection:** Programmatic meta-check `overall-ai-signal-pressure` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **context_warning**). Not numbered as a single AI tell; rolls up the components above. The check exposes its component breakdown and Kobak vocabulary profile in its evidence so the writer can read which signals contributed.

@@ -1,0 +1,161 @@
+# humanise/judgement.yaml
+#
+# Canonical agent-judgement registry. The Audit action reads this file
+# (introduced in U4 of the audit-report redesign plan) for the seven
+# semantic items + one polymorphic genre slot that the regex grader
+# cannot perform.
+#
+# Status vocabulary on every record is binary: `flagged` or `clear`.
+# No severity column. No `mixed` state. Sort order in the rendered
+# block is registry order (the order records appear below).
+#
+# Per-genre watchlist content for #41 is deferred to a follow-up PR;
+# non-default sub-records carry empty watchlists today and the runner
+# emits "Genre detected: <genre>. Watchlist coverage pending." until
+# follow-up data lands.
+
+schema_version: "1"
+
+records:
+
+  - id: structural_monotony
+    pattern_ref: null
+    prompt: >-
+      Do all sections of the text follow the same arc (problem → evidence →
+      anecdote → advice, or hook → claim → evidence → close)? Human writers
+      vary section structure; AI defaults to a uniform shape across
+      every section.
+    answer_schema:
+      type: trichotomy
+      values: [varied, partly_uniform, fully_locked]
+    flagged_when: [partly_uniform, fully_locked]
+
+  - id: tonal_uniformity
+    pattern_ref: 35
+    prompt: >-
+      Does the whole text sit in one register (formal, academic-accessible,
+      warm-but-authoritative), or does the writer drift between registers
+      — formal to colloquial, careful to loose, sincere to wry? Tonal
+      uniformity is the consistency itself, not any particular register.
+    answer_schema:
+      type: state
+      values: [locked, has_breaks, mixed_intentional]
+    flagged_when: [locked]
+
+  - id: faux_specificity
+    pattern_ref: 36
+    prompt: >-
+      Are the "specific" examples actually specific (someone's lived
+      detail with names, dates, places, sensory grounding), or
+      genre-convention filler that anyone could have written ("the
+      smell of coffee on a Sunday morning", "the way light hits the
+      kitchen table")? List specific phrases that perform specificity
+      without achieving it.
+    answer_schema:
+      type: list
+      items: [phrase, why_unspecific]
+    flagged_when: non_empty
+
+  - id: neutrality_collapse
+    pattern_ref: 37
+    prompt: >-
+      Does the text commit to a position, or default to "balanced"
+      treatment of everything? Look for "there are compelling arguments
+      on both sides" framing where the original had a clear stance.
+      Surface false-balance phrasing is partly covered by
+      `no-false-concession-hedges` (#23a); this item flags the broader
+      stance erasure.
+    answer_schema:
+      type: trichotomy
+      values: [committed, hedged, fully_neutralised]
+    flagged_when: [hedged, fully_neutralised]
+
+  - id: even_jargon_distribution
+    pattern_ref: null
+    prompt: >-
+      Is technical vocabulary clumped (the writer is in the weeds
+      where they actually know things, plain prose elsewhere) or
+      spread evenly across the piece (suspicious — humans don't
+      distribute jargon uniformly)?
+    answer_schema:
+      type: trichotomy
+      values: [clumped, spread_naturally, suspiciously_uniform]
+    flagged_when: [suspiciously_uniform]
+
+  - id: forced_synesthesia
+    pattern_ref: 28
+    prompt: >-
+      Are there forced cross-modal metaphors — emotions get tastes,
+      sounds get colours, abstract concepts get textures — that don't
+      earn their grounding? Real synesthetic writing is specific and
+      grounded ("a great plateful of blue water" — Woolf had stood
+      before a view and sat down to a meal). AI synesthesia is
+      unanchored. List specific phrases that map senses unjustifiably.
+    answer_schema:
+      type: list
+      items: [phrase, why_forced]
+    flagged_when: non_empty
+
+  - id: generic_metaphors
+    pattern_ref: 30
+    prompt: >-
+      Are the metaphors plausible-but-anyone's ("learning the ukulele
+      is like teaching your fingers to dance again"), or do they come
+      from the writer's specific experience ("the first week my
+      fingers couldn't stretch far enough for a G chord")? List
+      specific metaphors that draw from the statistical middle rather
+      than personal grounding.
+    answer_schema:
+      type: list
+      items: [phrase, why_generic]
+    flagged_when: non_empty
+
+  - id: genre_specific
+    pattern_ref: 41
+    prompt: >-
+      First detect the genre of the text (academic, student_essay,
+      poetry, fiction, or default if none of these fit). Then run the
+      genre's watchlist below. Report `Genre detected: <genre>.` plus
+      either watchlist findings or "Watchlist coverage pending." if
+      the genre's watchlist is empty.
+    answer_schema:
+      type: composite
+      fields:
+        genre_detected:
+          type: state
+          values: [academic, student_essay, poetry, fiction, default]
+        watchlist_findings:
+          type: list
+          items: [phrase, why_flagged]
+    flagged_when: non_empty_findings
+    sub_records:
+      academic:
+        description: >-
+          Verify citations, DOIs, dates, journals, reference order,
+          and whether cited works actually support the claim. Plausible
+          citation format is not evidence.
+        watchlist: []  # populating deferred to follow-up PR
+      student_essay:
+        description: >-
+          Watch for rubric language echoing back ("the author creates
+          a tone", "I can tell because", "this quote shows that").
+          Common in AI-generated student essays.
+        watchlist: []  # populating deferred to follow-up PR
+      poetry:
+        description: >-
+          Watch for default quatrains, unrequested rhyme, first-person
+          plural overuse, mood-word accumulation, and formal gestures
+          that do not follow through.
+        watchlist: []  # populating deferred to follow-up PR
+      fiction:
+        description: >-
+          Watch for flattened dialogue, "as-you-know" exposition,
+          parenthetical stage directions, locked POV with no pressure,
+          over-resolved endings, and scene pacing that never surprises.
+        watchlist: []  # populating deferred to follow-up PR
+      default:
+        description: >-
+          No genre-specific watchlist applies. The agent reports
+          "Genre detected: default. No genre-specific findings." and
+          moves on.
+        watchlist: []

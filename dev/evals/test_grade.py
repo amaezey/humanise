@@ -228,9 +228,27 @@ expect_fail("no-manufactured-insight",
 expect_fail("no-manufactured-insight",
     "The shift nobody noticed was already underway.",
     "shift nobody noticed framing")
+expect_fail("no-manufactured-insight",
+    "The honest answer is that the data was incomplete from the start.",
+    "performed candour — 'the honest answer is'")
+expect_fail("no-manufactured-insight",
+    "Here's the honest framing: the project missed every milestone.",
+    "performed candour — 'here's the honest framing'")
+expect_fail("no-manufactured-insight",
+    "Here's the real truth — most teams skip retros entirely.",
+    "performed candour — 'here's the real truth'")
+expect_fail("no-manufactured-insight",
+    "If I'm being honest, the proposal needs more work.",
+    "performed candour — 'if I'm being honest'")
+expect_fail("no-manufactured-insight",
+    "In all honesty, the migration plan has too many unknowns.",
+    "performed candour — 'in all honesty'")
 expect_pass("no-manufactured-insight",
     "The manual was updated in 2024 to reflect new safety standards.",
     "plain factual statement")
+expect_pass("no-manufactured-insight",
+    "We strive to be honest about our limitations and update the docs as we learn.",
+    "'to be honest' without leading comma — not the AI tell")
 
 
 # --- no-staccato-sequences ---
@@ -875,6 +893,248 @@ expect_fail("no-section-scaffolding",
     "markdown heading stripped, matches plain version")
 
 
+# --- no-notability-claims (pattern 2) ---
+
+print("\n=== no-notability-claims ===")
+expect_fail("no-notability-claims",
+    "She maintains an active social media presence with over 500,000 followers.",
+    "active social media presence + follower count")
+expect_fail("no-notability-claims",
+    "He has gained widespread media attention and was profiled in several major outlets.",
+    "gained widespread media attention + profiled in several major outlets")
+expect_fail("no-notability-claims",
+    "The artist's work has received independent coverage from regional media outlets across the country.",
+    "independent coverage + regional media outlets")
+expect_pass("no-notability-claims",
+    "In a 2024 New York Times interview, she argued that AI regulation should focus on outcomes rather than methods.",
+    "named source + specific date and claim")
+expect_pass("no-notability-claims",
+    "The town held its weekly market on Saturday, drawing roughly 200 traders from neighbouring villages.",
+    "concrete description, no notability framing")
+
+
+# --- no-vague-attributions (pattern 5) ---
+
+print("\n=== no-vague-attributions ===")
+expect_fail("no-vague-attributions",
+    "Experts argue that the policy will reshape the industry within a decade.",
+    "experts argue, no source")
+expect_fail("no-vague-attributions",
+    "Industry reports suggest a downturn is imminent across the sector.",
+    "industry reports suggest, no source")
+expect_fail("no-vague-attributions",
+    "Several critics argue the design prioritises form over function.",
+    "several critics argue, no source")
+expect_fail("no-vague-attributions",
+    "It is widely believed that remote work harms culture.",
+    "impersonal it is widely believed")
+expect_pass("no-vague-attributions",
+    "According to the 2024 Stanford Owl Labs survey, productivity rose by 13% among remote knowledge workers.",
+    "named source with date and figure")
+expect_pass("no-vague-attributions",
+    "The Haolai River supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.",
+    "patterns.md After example — clearly attributed")
+
+
+# --- no-boldface-overuse (pattern 13) ---
+
+print("\n=== no-boldface-overuse ===")
+expect_fail("no-boldface-overuse",
+    "It blends **OKRs (Objectives and Key Results)**, **KPIs (Key Performance Indicators)**, and visual strategy tools such as the **Business Model Canvas (BMC)** and **Balanced Scorecard (BSC)**.",
+    "patterns.md Before — four bold spans in one prose sentence")
+expect_fail("no-boldface-overuse",
+    "The team will deliver **product strategy**, **roadmap planning**, **stakeholder alignment**, and **executive reporting**.",
+    "four bold spans in prose")
+expect_pass("no-boldface-overuse",
+    "It blends OKRs, KPIs, and visual strategy tools like the Business Model Canvas and Balanced Scorecard.",
+    "patterns.md After — no bold")
+expect_pass("no-boldface-overuse",
+    "- **Apples:** sweet\n- **Bananas:** also sweet\n- **Carrots:** not a fruit\n- **Daikon:** also not a fruit",
+    "bold spans only inside list items — caught by no-inline-header-lists, ignored here")
+expect_pass("no-boldface-overuse",
+    "The **important** distinction is between **public** and **private** keys.",
+    "three bolded terms in prose — under threshold of 4")
+
+
+# --- no-inline-header-lists (pattern 14) ---
+
+print("\n=== no-inline-header-lists ===")
+expect_fail("no-inline-header-lists",
+    "- **User Experience:** The user experience has been significantly improved.\n- **Performance:** Performance has been enhanced through optimised algorithms.\n- **Security:** Security has been strengthened with end-to-end encryption.",
+    "patterns.md Before — three bolded-header bullets")
+expect_fail("no-inline-header-lists",
+    "1. **First step:** Do this thing.\n2. **Second step:** Do that thing.",
+    "two bolded-header numbered items")
+expect_pass("no-inline-header-lists",
+    "The update improves the interface, speeds up load times through optimised algorithms, and adds end-to-end encryption.",
+    "patterns.md After — flowing prose")
+expect_pass("no-inline-header-lists",
+    "- Apples are sweet\n- Bananas are also sweet\n- Carrots are not a fruit",
+    "plain bullets without bolded headers")
+expect_pass("no-inline-header-lists",
+    "- **One bolded header:** definition only",
+    "single bolded-header item — under threshold of 2")
+
+
+# --- no-compound-modifier-density (pattern 18) ---
+
+print("\n=== no-compound-modifier-density ===")
+expect_fail("no-compound-modifier-density",
+    "The cross-functional team delivered a high-quality, data-driven report on our client-facing tools.",
+    "patterns.md Before — four AI compounds in one sentence")
+expect_fail("no-compound-modifier-density",
+    "Our real-time, end-to-end, mission-critical platform handles every workload.",
+    "three compounds in one sentence")
+expect_pass("no-compound-modifier-density",
+    "The team, drawn from several departments, delivered a report grounded in usage data for our client-facing tools.",
+    "patterns.md After — single client-facing in prose")
+expect_pass("no-compound-modifier-density",
+    "She explained the long-term plan and the short-term tradeoffs in plain language.",
+    "two compounds in prose — under threshold of 3")
+
+
+# --- no-knowledge-cutoff-disclaimers (pattern 20) ---
+
+print("\n=== no-knowledge-cutoff-disclaimers ===")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "While specific details about the company's founding are not extensively documented in readily available sources, it appears to have been established in the 1990s.",
+    "patterns.md Before — limited-information hedge")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "Up to my last training update, the policy had not been amended.",
+    "up to my last training update")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "Based on publicly available information, the company employs roughly 200 people.",
+    "based on publicly available information")
+expect_fail("no-knowledge-cutoff-disclaimers",
+    "I am unable to verify the exact figure for 2024.",
+    "I am unable to verify")
+expect_pass("no-knowledge-cutoff-disclaimers",
+    "The company was founded in 1994, according to its registration documents.",
+    "patterns.md After — concrete claim with source")
+expect_pass("no-knowledge-cutoff-disclaimers",
+    "As of October 2025, the project had completed three pilot deployments.",
+    "as of [date] used to anchor a fact, not as a model-meta hedge")
+
+
+# --- no-unicode-flair extension (pattern 16 fold) ---
+
+print("\n=== no-unicode-flair (pattern 16 fold) ===")
+expect_fail("no-unicode-flair",
+    ":rocket: Launch Phase: The product launches in Q3.\n:bulb: Key Insight: Users prefer simplicity.",
+    "two emoji shortcodes in headings")
+expect_fail("no-unicode-flair",
+    "We've shipped 🎉 the new release 🚀 with confidence.",
+    "two supplemental-plane emojis in prose (broader range)")
+expect_pass("no-unicode-flair",
+    "The product launches in Q3. User research showed a preference for simplicity.",
+    "patterns.md After — plain prose, no symbols")
+expect_pass("no-unicode-flair",
+    "Visit https://example.com:8080 for the latest build.",
+    "URL with colon — not a shortcode")
+expect_pass("no-unicode-flair",
+    "The build finished at 12:30:45.",
+    "timestamp colons — not a shortcode")
+
+
+# --- Group A resolution markers (U1 meta-test) ---
+
+print("\n=== group-a-resolution-markers ===")
+import re as _re_meta
+_patterns_md = (ROOT / "humanise" / "references" / "patterns.md").read_text()
+_pattern_sections = _re_meta.split(r"(?=^### \d+[a-z]?\.\s)", _patterns_md, flags=_re_meta.MULTILINE)
+_GROUP_A = [2, 5, 11, 12, 13, 14, 15, 16, 18, 20, 21, 28, 30, 35, 36, 37, 41]
+_resolution_seen = {}
+for _sec in _pattern_sections:
+    _h = _re_meta.match(r"^### (\d+)([a-z])?\.\s", _sec)
+    if not _h or _h.group(2):
+        continue
+    _resolution_seen[int(_h.group(1))] = "**Detection:**" in _sec
+for _n in _GROUP_A:
+    if not _resolution_seen.get(_n):
+        FAILURES += 1
+        print(f"FAIL: pattern #{_n} is in Group A but missing **Detection:** marker in patterns.md")
+    else:
+        print(f"  ok: pattern #{_n} carries a Detection marker")
+
+
+# --- Group B resolution coverage (U2 meta-test) ---
+
+print("\n=== group-b-resolution-coverage ===")
+_GROUP_B_CHECKS = [
+    "no-manufactured-insight",
+    "no-corporate-ai-speak",
+    "no-signposted-conclusions",
+    "no-nonliteral-land-surface",
+    "no-bland-critical-template",
+    "no-soft-scaffolding",
+    "no-negation-density",
+    "overall-ai-signal-pressure",
+]
+for _check in _GROUP_B_CHECKS:
+    if f"`{_check}`" not in _patterns_md:
+        FAILURES += 1
+        print(f"FAIL: Group B check `{_check}` not referenced anywhere in patterns.md")
+    else:
+        print(f"  ok: Group B check `{_check}` documented in patterns.md")
+
+
+# --- Severity propagation: patterns.md ↔ CHECK_METADATA (U3 meta-test) ---
+
+print("\n=== severity-propagation ===")
+
+# Parse every Severity line in patterns.md. Format options:
+#   **Severity:** <tier> · `check-id` [trailing prose]
+#   **Severity:** <tier> · `check-id` and <tier> · `check-id` ...   (composite patterns)
+#   **Severity:** inherits <tier> from `parent-check-id` ...        (folded patterns)
+#   **Severity:** N/A · ...                                          (manual / agent-judgement)
+#
+# For each (tier, check-id) pair pulled from a programmatic-check Severity line,
+# assert it matches CHECK_METADATA[check-id]["severity"].
+#
+# The audit-report redesign closed the orphan-table escape hatch: every check
+# in CHECK_METADATA must reach a real numbered or sub-lettered pattern entry's
+# **Severity:** line. A separate orphan table no longer counts as coverage.
+
+_severity_pairs = []  # list of (tier, check_id, source_label)
+for _i, _line in enumerate(_patterns_md.splitlines(), 1):
+    if _line.startswith("**Severity:**"):
+        # Direct: "**Severity:** <tier> · `check-id`"
+        for _tier, _cid in _re_meta.findall(r"(hard_fail|strong_warning|context_warning)\s*·\s*`([\w-]+)`", _line):
+            _severity_pairs.append((_tier, _cid, f"line {_i}"))
+        # Inherits: "**Severity:** inherits <tier> from `parent`"
+        for _tier, _cid in _re_meta.findall(r"inherits\s+(hard_fail|strong_warning|context_warning)\s+from\s+`([\w-]+)`", _line):
+            _severity_pairs.append((_tier, _cid, f"line {_i} (inherited)"))
+
+# Regression guard: the "Severity for unnumbered checks" section was a known
+# escape hatch — it let new checks land without a real pattern entry. The
+# audit-report redesign removed it. If anyone reintroduces a section heading
+# that matches that shape, fail loudly so we don't grow a parallel registry.
+_orphan_section_re = _re_meta.compile(r"^##\s+severity\s+for\s+unnumbered", _re_meta.IGNORECASE)
+for _i, _line in enumerate(_patterns_md.splitlines(), 1):
+    if _orphan_section_re.match(_line):
+        FAILURES += 1
+        print(f"FAIL: patterns.md line {_i} reintroduces the orphan 'Severity for unnumbered checks' section. Every check must live in a numbered or sub-lettered pattern entry.")
+
+_seen_checks = set()
+for _tier, _cid, _src in _severity_pairs:
+    _seen_checks.add(_cid)
+    _expected = CHECK_METADATA.get(_cid, {}).get("severity")
+    if _expected is None:
+        FAILURES += 1
+        print(f"FAIL: patterns.md {_src} references unknown check `{_cid}`")
+    elif _expected != _tier:
+        FAILURES += 1
+        print(f"FAIL: patterns.md {_src} declares {_cid}={_tier} but CHECK_METADATA says {_expected}")
+
+# Every check in CHECK_METADATA must appear at least once in a Severity declaration.
+_missing = sorted(set(CHECK_METADATA) - _seen_checks)
+if _missing:
+    FAILURES += 1
+    print(f"FAIL: {len(_missing)} check(s) in CHECK_METADATA have no Severity declaration in patterns.md: {_missing}")
+else:
+    print(f"  ok: every check in CHECK_METADATA ({len(CHECK_METADATA)}) carries a Severity declaration in patterns.md")
+
+
 # --- severity and mode architecture ---
 
 print("\n=== severity-and-mode-architecture ===")
@@ -922,6 +1182,13 @@ expected_checks = {
     "vocabulary-diversity",
     "no-triad-density",
     "no-section-scaffolding",
+    # U1 (audit-report redesign): Group A patterns 2, 5, 13, 14, 18, 20.
+    "no-notability-claims",
+    "no-vague-attributions",
+    "no-boldface-overuse",
+    "no-inline-header-lists",
+    "no-compound-modifier-density",
+    "no-knowledge-cutoff-disclaimers",
 }
 actual_checks = set(ALL_CHECKS)
 if actual_checks != expected_checks:
@@ -1160,15 +1427,16 @@ if _missing_phrase:
 else:
     print("  ok: failed-bullet renders friendly_evidence components+vocab phrasing")
 
+_total_checks = len(ALL_CHECKS)
 _full_table_report = human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})
     for name in ALL_CHECKS
 ])
-if len(_full_table_report["all_checks"]) != 43:
+if len(_full_table_report["all_checks"]) != _total_checks:
     FAILURES += 1
-    print(f"FAIL: full human_report should include 43 check rows; got {len(_full_table_report['all_checks'])}")
+    print(f"FAIL: full human_report should include {_total_checks} check rows; got {len(_full_table_report['all_checks'])}")
 else:
-    print("  ok: full human report includes all 43 check rows")
+    print(f"  ok: full human report includes all {_total_checks} check rows")
 
 _markdown_report = format_human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})
@@ -1178,23 +1446,23 @@ _markdown_rows = [
     line for line in _markdown_report.splitlines()
     if line.startswith("| ") and not line.startswith("|---")
 ]
-if "Summary: All 43 checks were clear." not in _markdown_report:
+if f"Summary: All {_total_checks} checks were clear." not in _markdown_report:
     FAILURES += 1
-    print("FAIL: Markdown report should include a plain-English summary")
+    print(f"FAIL: Markdown report should include a plain-English summary mentioning {_total_checks} checks")
 elif "| Check | Status | What it looks for | What happened here | Why this matters | All action |" not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should include a user-facing table header")
-elif len(_markdown_rows) != 44:
+elif len(_markdown_rows) != _total_checks + 1:
     FAILURES += 1
-    print(f"FAIL: Markdown report should include header plus 43 check rows; got {len(_markdown_rows)}")
+    print(f"FAIL: Markdown report should include header plus {_total_checks} check rows; got {len(_markdown_rows)}")
 elif "Why this matters" not in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should explain why checks matter")
-elif "one of the 43 checks" in _markdown_report or "internal pressure score" in _markdown_report:
+elif "internal pressure score" in _markdown_report:
     FAILURES += 1
     print("FAIL: Markdown report should not expose implementation-first pressure language")
 else:
-    print("  ok: Markdown report renders a full 43-check user-facing table")
+    print(f"  ok: Markdown report renders a full {_total_checks}-check user-facing table")
 
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1
@@ -1270,6 +1538,216 @@ _hard_only = [
 ]
 expect_depth_status(_hard_only, "balanced", "fail", "hard failure")
 expect_depth_status(_hard_only, "all", "fail", "hard failure")
+
+
+# --- Audit-shape: U5 dual-block assertions ---
+
+print("\n=== audit-shape U5 (dual-block assertions) ===")
+check_audit_shape = _grade.check_audit_shape
+
+_BOTH_BLOCKS = """**Audit, 2 AI tells found**
+
+no-em-dashes (1 instance)
+  - "still—keen"
+  Why: Em dashes are a strong 2026 AI-style signal.
+
+**Confidence**
+
+Level: medium.
+
+---
+
+**Agent-judgement reading (8 items)**
+
+structural_monotony — clear
+  varied — sections shift arc.
+
+tonal_uniformity — clear
+  has_breaks — register breaks at paragraph 3.
+
+faux_specificity — clear
+  No phrases.
+
+neutrality_collapse — clear
+  committed — author defends a specific position.
+
+even_jargon_distribution — clear
+  clumped — jargon concentrated in section 2.
+
+forced_synesthesia — clear
+  No phrases.
+
+generic_metaphors — clear
+  No metaphors.
+
+genre_specific — clear
+  Genre detected: default. No genre-specific findings.
+
+**Next step**
+
+Want suggestions, a rewrite, or to save?"""
+
+_PROGRAMMATIC_ONLY = """**Audit, 1 AI tell found**
+
+no-em-dashes (1 instance)
+  - "still—keen"
+  Why: Em dashes are a strong 2026 AI-style signal.
+
+**Next step**
+
+Want suggestions?"""
+
+_AGENT_JUDGEMENT_ONLY = """---
+
+**Agent-judgement reading (8 items)**
+
+structural_monotony — flagged
+  fully_locked.
+
+**Next step**
+
+Want suggestions?"""
+
+_ALL_CLEAR_PHASE_1 = """Audit clean: no AI tells detected, agent reading clean. Want me to look at a specific aspect of the draft more closely?"""
+
+_NEITHER_BLOCK_NOR_CLEAR = """**Some other report**
+
+Nothing recognisable here.
+
+Want help?"""
+
+# Regression fixture for Finding #2 of pr-6-code-review-handoff:
+# the canonical all-clear phrase buried mid-line in a longer malformed
+# response must NOT pass the audit-shape checks. The anchored regex
+# (^\s*(?:>\s*)?audit clean ...) only matches phrases that start a line.
+_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "Audit clean: no AI tells detected, agent reading clean" but the model returned a hallucinated paragraph instead.
+
+We tried to render no-em-dashes (1 instance) but the structured block did not materialise.
+
+Want help?"""
+
+# Regression fixture for Finding #2: a response containing BOTH the
+# canonical all-clear phrase AND block headers is ambiguous — agents must
+# pick one shape, not both. All three audit-shape checks must fail.
+_ALL_CLEAR_PLUS_BLOCKS = """Audit clean: no AI tells detected, agent reading clean. Want suggestions?
+
+**Audit, 1 AI tell found**
+
+no-em-dashes (1 instance)
+  - "still—keen"
+  Why: Em dashes are a strong 2026 AI-style signal.
+
+**Agent-judgement reading (8 items)**
+
+structural_monotony — clear
+  varied — sections shift arc."""
+
+# has-programmatic-block
+_r = check_audit_shape("audit-shape-has-programmatic-block", _BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: has-programmatic-block passes on dual-block output")
+else:
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on dual-block: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _PROGRAMMATIC_ONLY)
+if _r["passed"]:
+    print("  ok: has-programmatic-block passes on programmatic-only output")
+else:
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on programmatic-only: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _AGENT_JUDGEMENT_ONLY)
+if not _r["passed"]:
+    print("  ok: has-programmatic-block fails on agent-judgement-only output")
+else:
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail on agent-judgement-only output")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _ALL_CLEAR_PHASE_1)
+if _r["passed"]:
+    print("  ok: has-programmatic-block passes on all-clear single-line shape")
+else:
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on all-clear: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-programmatic-block", _NEITHER_BLOCK_NOR_CLEAR)
+if not _r["passed"]:
+    print("  ok: has-programmatic-block fails when no block and no all-clear line")
+else:
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail when no block and no all-clear line")
+
+# has-agent-judgement-block
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: has-agent-judgement-block passes on dual-block output")
+else:
+    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on dual-block: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _PROGRAMMATIC_ONLY)
+if not _r["passed"]:
+    print("  ok: has-agent-judgement-block fails on programmatic-only output")
+else:
+    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail on programmatic-only output")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _AGENT_JUDGEMENT_ONLY)
+if _r["passed"]:
+    print("  ok: has-agent-judgement-block passes on agent-judgement-only output")
+else:
+    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on agent-judgement-only: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _ALL_CLEAR_PHASE_1)
+if _r["passed"]:
+    print("  ok: has-agent-judgement-block passes on all-clear single-line shape")
+else:
+    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on all-clear: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-has-agent-judgement-block", _NEITHER_BLOCK_NOR_CLEAR)
+if not _r["passed"]:
+    print("  ok: has-agent-judgement-block fails when no block and no all-clear line")
+else:
+    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail when no block and no all-clear line")
+
+# all-clear-line-format
+_r = check_audit_shape("audit-shape-all-clear-line-format", _BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: all-clear-line-format vacuously passes on dual-block output")
+else:
+    FAILURES += 1; print(f"FAIL: all-clear-line-format on dual-block: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-all-clear-line-format", _ALL_CLEAR_PHASE_1)
+if _r["passed"]:
+    print("  ok: all-clear-line-format passes on canonical Phase-1 all-clear shape")
+else:
+    FAILURES += 1; print(f"FAIL: all-clear-line-format on canonical all-clear: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-all-clear-line-format", _NEITHER_BLOCK_NOR_CLEAR)
+if not _r["passed"]:
+    print("  ok: all-clear-line-format fails when neither blocks nor canonical line")
+else:
+    FAILURES += 1; print("FAIL: all-clear-line-format should fail when neither blocks nor canonical line")
+
+# Finding #2 regressions: buried phrase and all-clear-plus-blocks must fail
+# all three audit-shape checks. The anchored regex catches the buried case;
+# the mutex logic catches the both-shapes-present case.
+
+print("\n--- Finding #2 regressions: buried all-clear and all-clear+blocks ---")
+
+for _check_name in ("audit-shape-has-programmatic-block",
+                    "audit-shape-has-agent-judgement-block",
+                    "audit-shape-all-clear-line-format"):
+    _r = check_audit_shape(_check_name, _BURIED_ALL_CLEAR)
+    if not _r["passed"]:
+        print(f"  ok: {_check_name} fails when all-clear phrase is buried mid-line")
+    else:
+        FAILURES += 1
+        print(f"FAIL: {_check_name} should fail when all-clear phrase is buried mid-line (got: {_r['evidence']})")
+
+for _check_name in ("audit-shape-has-programmatic-block",
+                    "audit-shape-has-agent-judgement-block",
+                    "audit-shape-all-clear-line-format"):
+    _r = check_audit_shape(_check_name, _ALL_CLEAR_PLUS_BLOCKS)
+    if not _r["passed"]:
+        print(f"  ok: {_check_name} fails when all-clear phrase appears alongside block headers")
+    else:
+        FAILURES += 1
+        print(f"FAIL: {_check_name} should fail when all-clear phrase appears alongside block headers (got: {_r['evidence']})")
 
 
 # --- Human passthrough: opinion piece ---

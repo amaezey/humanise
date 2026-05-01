@@ -8,19 +8,21 @@ Forked from [blader/humanizer](https://github.com/blader/humanizer), restructure
 
 People can usually tell when something was written by AI. They often can't explain why. The patterns are real — there's a body of research on stylometric markers (Kobak, Przystalski, Zaitsu, Abdulhai), a larger body of practitioner anecdata (the Wikipedia AI Cleanup project, GPTZero, Grammarly, NYT, Substack writers), and a small industry of detectors that mostly don't work.
 
-We pulled what was credible from both, turned it into 43 programmatic checks across 38 patterns, ran it on a corpus of human and AI writing, learned which checks actually distinguish the two, refined what we kept, and noted where the patterns are register-coded rather than authorship-coded. This README is an honest account of what we found, what works, where the limits are, and what's next.
+We pulled what was credible from both, turned it into 49 programmatic checks across 48 numbered patterns plus three sub-letter variants and one unnumbered meta-check, ran it on a corpus of human and AI writing, learned which checks actually distinguish the two, refined what we kept, and noted where the patterns are register-coded rather than authorship-coded. The audit is dual-layer: a deterministic regex/density grader plus an eight-item agent-judgement reading for the semantic territory regex cannot cover (structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and a polymorphic genre slot). This README is an honest account of what we found, what works, where the limits are, and what's next.
 
 ## What it does
 
 Give it text and the skill can:
 
-1. **Audit** — list flagged patterns, quoting the input, with a one-line "why" for each.
+1. **Audit** — list flagged patterns from the regex grader (quoted from the input with a one-line "why") *and* an eight-item agent-judgement reading for what regex cannot see.
 2. **Suggestions** — for each flag, propose a concrete alternative phrasing.
 3. **Rewrite** — Balanced (fix surface and strong tells, leave structural patterns) or All (also rework structural ones).
 4. **Write** — produce a fresh draft to a brief, with the patterns held in mind.
 5. **Save report** — write the audit or before/after comparison to Markdown.
 
 The audit always comes first. Suggestions and rewrites only happen when asked.
+
+The dual-layer audit shape is in active redesign. The agent-judgement layer is live (since the Phase 1 work in `docs/plans/2026-04-30-001-feat-audit-report-redesign-plan.md`); the layout overhaul — orientation block on top, eight per-category coverage sub-tables underneath, plus a parallel agent-judgement block — lands in Phase 3 of that plan.
 
 ## Install
 
@@ -105,7 +107,7 @@ Excerpt from `python3 humanise/grade.py --format markdown --depth all dev/evals/
 
 ```text
 Initial assessment
-Summary: 5 of 43 checks were flagged for AI-style writing patterns.
+Summary: 5 of 49 checks were flagged for AI-style writing patterns.
 
 Confidence: Medium. Several signs of AI-like writing appeared, but the
 evidence is pattern-based and should be read in context.
@@ -117,13 +119,17 @@ Main issues found
 - AI pressure from stacked signals: Flagged. Stacked weak signals:
   paragraph length uniformity, headings in prose. Score: 4/4.
 - Headings in prose: Flagged. Found 2 heading(s).
+- Dense negation: Flagged. Found 10 negation markers (12.4 per 1000 words).
+- Paragraph length uniformity: Flagged. Paragraph length CV: 0.08 across
+  10 paragraphs (target: >=0.18).
+- Triad density: Flagged. Found 12 triad(s).
 ```
 
-Rewrite workflows include the rewritten draft, a structural self-check, and the post-check report.
+This is the grader's output (the regex/density layer). The agent's full Audit response also includes an **Agent-judgement reading** block underneath that covers the eight semantic items the grader cannot decide. Rewrite workflows additionally include the rewritten draft, a structural self-check, and the post-check report.
 
 ## Patterns
 
-38 patterns across 8 categories. Full before/after examples in `humanise/references/patterns.md`.
+48 numbered patterns across 8 categories, plus three sub-letter variants (23a, 31a, 35a) and one unnumbered aggregate meta-check (`overall-ai-signal-pressure`). Full before/after examples and per-pattern severity in `humanise/references/patterns.md`.
 
 | # | Pattern | Example |
 |---|---|---|
@@ -155,8 +161,11 @@ Rewrite workflows include the rewritten draft, a structural self-check, and the 
 | | **Filler and hedging** | |
 | 22 | Filler phrases | "In today's fast-paced world", "Generally speaking" |
 | 23 | Excessive hedging | "It could potentially possibly be argued..." |
+| 23a | False concession hedges | "While critics argue... supporters say... the truth lies somewhere in the middle" |
 | 24 | Generic positive conclusions | "The future looks bright", "Exciting times lie ahead" |
 | 25 | Staccato rhythm | Short sentences at predictable positions |
+| 47 | Soft scaffolding | "One useful area...", "The main strength..." |
+| 48 | Dense negation | Sustained "is not / does not / isn't" density across long prose |
 | | **Sensory and atmospheric** | |
 | 26 | Ghost/spectral language | shadows, whispers, echoes, phantoms |
 | 27 | Quietness obsession | "quiet" 10 times in 759 words about pebbles |
@@ -165,16 +174,43 @@ Rewrite workflows include the rewritten draft, a structural self-check, and the 
 | 29 | Mid-sentence rhetorical questions | "The solution? It's simpler than you think." |
 | 30 | Generic/ungrounded metaphors | Plausible but specific to nobody |
 | 31 | Excessive list-making | Converting prose to bullets unnecessarily |
+| 31a | Unicode flair | Decorative arrows, checkmarks, ornamental bullets |
 | 32 | Dramatic narrative transitions | "Something shifted.", "Everything changed." |
+| 38 | Section scaffolding | Identical subheadings repeated across sections |
+| 42 | Manufactured insight framing | "the real insight", "let that sink in", "what nobody is talking about" |
+| 44 | Signposted conclusions | "In conclusion,", "Key takeaways:", "Final thoughts:" |
 | | **Voice and register** | |
 | 33 | Countdown negation | "It wasn't X. It wasn't Y. It was Z." |
 | 34 | Per-paragraph miniature conclusions | Every paragraph wraps up neatly |
 | 35 | Tonal uniformity / register lock | One register throughout, no human drift |
+| 35a | Orphaned demonstratives | "This highlights...", "That underscores..." |
 | 36 | Faux specificity | "The smell of coffee on a Sunday morning", specific to nobody |
 | 37 | Neutrality collapse | Stripping the author's stance, defaulting to balanced |
-| 38 | Section scaffolding | "Let's explore...", "Let's dive into..." |
+| 39 | Template and placeholder residue | `{client_name}`, `[Company Name]`, "Hi {name}" |
+| 40 | Rubric echoing | "the author creates a tone", "I can tell because" |
+| 41 | Genre-specific manual checks | Citation/DOI checks (academic), default quatrains (poetry), etc. |
+| 43 | Corporate AI-speak | "deliverable outcomes", "drives outcomes", "stakeholder alignment" |
+| 45 | Nonliteral land/surface phrasing | "the argument lands", "what surfaces in the discussion" |
+| 46 | Bland critical template | "emotional range", "earns its weight", "social texture" |
+| | **Meta** | |
+| — | Aggregate AI-signal pressure | Rolls up component checks plus Kobak excess-vocabulary evidence |
 
-Density and stacking matter more than any single occurrence. The grader's `overall-ai-signal-pressure` check fires when several weaker patterns appear together — that's usually a stronger signal than any individual flag.
+Density and stacking matter more than any single occurrence. The unnumbered `overall-ai-signal-pressure` meta-check fires when several weaker patterns appear together with vocabulary pressure — that's usually a stronger signal than any individual flag.
+
+The patterns ↔ checks map is enforced by meta-tests in `dev/evals/test_grade.py`: every Group A entry carries a `**Detection:**` marker stating its resolution (programmatic / folded / manual / agent-judgement), every Group B check is referenced in the catalogue, and every check in `CHECK_METADATA` carries a Severity declaration that the catalogue and the grader agree on.
+
+The eight items the regex grader cannot decide live in `humanise/judgement.yaml` and are read by the agent at audit time:
+
+| Item | Pattern ref | Schema |
+|---|---|---|
+| Structural monotony | — | trichotomy (varied / partly_uniform / fully_locked) |
+| Tonal uniformity | #35 | state (locked / has_breaks / mixed_intentional) |
+| Faux specificity | #36 | list of (phrase, why_unspecific) |
+| Neutrality collapse | #37 | trichotomy (committed / hedged / fully_neutralised) |
+| Even jargon distribution | — | trichotomy (clumped / spread_naturally / suspiciously_uniform) |
+| Forced synesthesia | #28 | list of (phrase, why_forced) |
+| Generic metaphors | #30 | list of (phrase, why_generic) |
+| Genre-specific watchlist | #41 | composite (genre + per-genre findings) |
 
 ## Where to be careful
 
@@ -186,30 +222,36 @@ Density and stacking matter more than any single occurrence. The grader's `overa
 
 ## What's next
 
-Active work on:
+Active work, tracked in `docs/plans/`:
 
-- Reframing the audit voice so flagged patterns read as *review priorities* rather than verdicts.
-- Calibrating thresholds by register (literary essay vs corporate doc vs news copy).
-- Adding new candidate signals (sentence-length mean, ghost-spectral density, negation density, unicode flair) where evidence supports.
-- Demoting pattern checks that don't separate humans from AI in matched genres (em dashes, manufactured insight, triad density may belong in softer categories).
-- Growing the matched corpus past N=5 per group.
+- **Audit-report redesign (Phase 1 landed; Phase 2-3 in progress).** Phase 1 of `2026-04-30-001-feat-audit-report-redesign-plan.md` shipped: catalogue ↔ checks integrity gaps resolved, severity propagated into the catalogue, the eight-item agent-judgement registry created at `humanise/judgement.yaml`, and the Audit action rewired to read it. Phase 2 lands a no-op architectural refactor (`patterns.yaml`, `vocabulary.yml`, JSON contract). Phase 3 delivers the layout redesign — orientation block on top, eight per-category coverage sub-tables underneath, parallel agent-judgement block.
+- **Calibrating thresholds by register** (literary essay vs corporate doc vs news copy).
+- **Demoting pattern checks that don't separate humans from AI** in matched genres (em dashes, manufactured insight, triad density may belong in softer categories — explicitly out of scope for the active plan; tracked separately).
+- **Growing the matched corpus past N=5 per group.**
+- **Promoting the seven unnumbered checks** (`no-em-dashes`, `no-formulaic-openers`, `no-anaphora`, `sentence-length-variance`, `no-this-chains`, `no-triad-density`, `vocabulary-diversity`) to numbered patterns or explicit folds — currently documented in the "Severity for unnumbered checks" subsection of `humanise/references/patterns.md`.
 
 ## File structure
 
 ```
 humanise/                          Skill (this is what gets installed)
 ├── SKILL.md                       Main skill instructions
-├── grade.py                       43-check grading script
+├── grade.py                       49-check grading script (the regex/density layer)
+├── judgement.yaml                 Eight-item agent-judgement registry (the semantic layer)
 └── references/                    Pattern catalogue, alternatives, process
 
 dev/                               Development only (not installed)
 ├── evals/                         Eval suite, samples, harness
-│   ├── evals.json                 18 eval cases (audit / suggest / rewrite / write)
+│   ├── evals.json                 Eval cases (audit / suggest / rewrite / write)
 │   ├── corpus.json                Genre-paired comparative-baseline corpus
 │   ├── run_skill_creator_iteration.py
 │   └── samples/{human-sourced,generated-ai}/
 ├── research/                      Findings and source-pattern analysis
 └── skill-workspace/iteration-N/   Iteration outputs and review viewers
+
+docs/                              Active design and implementation plans
+├── ideation/                      Source documents that drive plans
+├── plans/                         Active and historical plans
+└── todos/                         Cross-plan known-issue tracking
 ```
 
 ## Sources

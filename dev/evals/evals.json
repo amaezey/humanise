@@ -44,6 +44,24 @@
           "name": "explanations-are-educational",
           "type": "qualitative",
           "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -90,6 +108,24 @@
           "name": "any-flags-are-defensible",
           "type": "qualitative",
           "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -136,6 +172,24 @@
           "name": "any-flags-are-defensible",
           "type": "qualitative",
           "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -188,6 +242,24 @@
           "name": "lexical-suggestions-look-vetted",
           "type": "qualitative",
           "description": "Suggestions for lexical patterns (delve, hedging, em-dashes) feel like vetted human alternatives, not freshly generated AI prose. They should match what's in references/alternatives.md when applicable."
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -216,7 +288,7 @@
           "name": "no-em-dashes-in-rewrite",
           "type": "programmatic",
           "description": "Rewrite has zero em dashes",
-          "check": "count of '—' in rewrite == 0"
+          "check": "count of '\u2014' in rewrite == 0"
         },
         {
           "name": "no-delve-in-rewrite",
@@ -239,6 +311,24 @@
           "name": "structural-tells-may-remain",
           "type": "qualitative",
           "description": "At balanced depth, paragraph-length uniformity and other structural patterns are NOT expected to be addressed; their presence in the rewrite is acceptable"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -267,7 +357,7 @@
           "name": "no-em-dashes-in-rewrite",
           "type": "programmatic",
           "description": "Rewrite has zero em dashes",
-          "check": "count of '—' in rewrite == 0"
+          "check": "count of '\u2014' in rewrite == 0"
         },
         {
           "name": "no-manufactured-insight",
@@ -291,6 +381,24 @@
           "name": "meaning-preserved",
           "type": "qualitative",
           "description": "Rewrite preserves the personal anecdote, the central realisation, and the reflective stance"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -319,7 +427,7 @@
           "name": "no-em-dashes-in-rewrite",
           "type": "programmatic",
           "description": "Rewrite has zero em dashes",
-          "check": "count of '—' in rewrite == 0"
+          "check": "count of '\u2014' in rewrite == 0"
         },
         {
           "name": "sentence-length-variance-improved",
@@ -343,6 +451,24 @@
           "name": "meaning-preserved",
           "type": "qualitative",
           "description": "Rewrite preserves the scientific accuracy, key examples, and explanatory arc"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -369,7 +495,7 @@
           "name": "no-em-dashes",
           "type": "programmatic",
           "description": "Draft has zero em dashes",
-          "check": "count of '—' in draft == 0"
+          "check": "count of '\u2014' in draft == 0"
         },
         {
           "name": "no-delve",
@@ -399,7 +525,7 @@
       "id": 8,
       "name": "audit-human-image-first-men-original-sins",
       "prompt": "Audit this draft for AI tells.",
-      "expected_output": "Audit on the genre-paired human essay 'Image Journal — First Men and Original Sins'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "expected_output": "Audit on the genre-paired human essay 'Image Journal \u2014 First Men and Original Sins'. Comparative anchor for human-vs-AI gap in personal-essay register.",
       "files": [
         "evals/samples/human-sourced/21c-image-first-men-original-sins.md"
       ],
@@ -438,6 +564,24 @@
           "name": "any-flags-are-defensible",
           "type": "qualitative",
           "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -445,7 +589,7 @@
       "id": 9,
       "name": "audit-human-opencoop-belonging-superpower",
       "prompt": "Audit this draft for AI tells.",
-      "expected_output": "Audit on the genre-paired human essay 'Open.coop — Belonging is a Superpower'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "expected_output": "Audit on the genre-paired human essay 'Open.coop \u2014 Belonging is a Superpower'. Comparative anchor for human-vs-AI gap in personal-essay register.",
       "files": [
         "evals/samples/human-sourced/21c-opencoop-belonging-superpower.md"
       ],
@@ -484,6 +628,24 @@
           "name": "any-flags-are-defensible",
           "type": "qualitative",
           "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -491,7 +653,7 @@
       "id": 10,
       "name": "audit-human-fortelabs-servant-hedonism",
       "prompt": "Audit this draft for AI tells.",
-      "expected_output": "Audit on the genre-paired human essay 'Forte Labs — Servant Hedonism'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "expected_output": "Audit on the genre-paired human essay 'Forte Labs \u2014 Servant Hedonism'. Comparative anchor for human-vs-AI gap in personal-essay register.",
       "files": [
         "evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md"
       ],
@@ -530,6 +692,24 @@
           "name": "any-flags-are-defensible",
           "type": "qualitative",
           "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -537,7 +717,7 @@
       "id": 11,
       "name": "audit-human-critchlow-workshops",
       "prompt": "Audit this draft for AI tells.",
-      "expected_output": "Audit on the genre-paired human essay 'Tom Critchlow — Workshops as Portals'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "expected_output": "Audit on the genre-paired human essay 'Tom Critchlow \u2014 Workshops as Portals'. Comparative anchor for human-vs-AI gap in personal-essay register.",
       "files": [
         "evals/samples/human-sourced/21c-critchlow-workshops.md"
       ],
@@ -576,6 +756,24 @@
           "name": "any-flags-are-defensible",
           "type": "qualitative",
           "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -583,7 +781,7 @@
       "id": 12,
       "name": "audit-human-tuckermax-mdma-therapy",
       "prompt": "Audit this draft for AI tells.",
-      "expected_output": "Audit on the genre-paired human essay 'Tucker Max — What MDMA Therapy Did For Me'. Comparative anchor for human-vs-AI gap in personal-essay register.",
+      "expected_output": "Audit on the genre-paired human essay 'Tucker Max \u2014 What MDMA Therapy Did For Me'. Comparative anchor for human-vs-AI gap in personal-essay register.",
       "files": [
         "evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md"
       ],
@@ -622,6 +820,24 @@
           "name": "any-flags-are-defensible",
           "type": "qualitative",
           "description": "Any patterns flagged on this human draft are genuinely worth surfacing, not over-eager false positives"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -668,6 +884,24 @@
           "name": "explanations-are-educational",
           "type": "qualitative",
           "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -714,6 +948,24 @@
           "name": "explanations-are-educational",
           "type": "qualitative",
           "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -760,6 +1012,24 @@
           "name": "explanations-are-educational",
           "type": "qualitative",
           "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -806,6 +1076,24 @@
           "name": "explanations-are-educational",
           "type": "qualitative",
           "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     },
@@ -852,6 +1140,24 @@
           "name": "explanations-are-educational",
           "type": "qualitative",
           "description": "Each pattern's explanation teaches the writer to spot the pattern next time, rather than just naming it"
+        },
+        {
+          "name": "has-programmatic-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
+          "check": "audit-shape header present, or all-clear line present"
+        },
+        {
+          "name": "has-agent-judgement-block",
+          "type": "programmatic",
+          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
+          "check": "agent-judgement header present, or all-clear line present"
+        },
+        {
+          "name": "all-clear-line-format",
+          "type": "programmatic",
+          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
+          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         }
       ]
     }
