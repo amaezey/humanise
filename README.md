@@ -27,6 +27,9 @@ The dual-layer audit shape is in active redesign. The agent-judgement layer is l
 ## Install
 
 ```bash
+# Python dependency used by the registry-backed grader
+python3 -m pip install PyYAML
+
 # Claude Code CLI
 npx skills@latest add amaezey/humanise/humanise
 
