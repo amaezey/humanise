@@ -55,12 +55,17 @@ def sample_id(path):
 def canonicalise(payload, input_path):
     """Strip volatile fields and normalise path for stable diffing.
 
-    grade.py currently emits no timestamp or run_id. The `file` field is
-    the only path-dependent value. Normalise it to the canonical relative
+    The `file` field is path-dependent; normalise it to the canonical relative
     path from CORPUS so baselines are independent of how grade.py was invoked.
+    audit-format-v1 metadata carries volatile timestamp/run_id fields; strip
+    those nested fields before comparing baselines.
     """
     payload["file"] = input_path
     payload.pop("metadata", None)  # defensive — none today, future-proof
+    report_metadata = payload.get("human_report", {}).get("metadata")
+    if isinstance(report_metadata, dict):
+        report_metadata.pop("timestamp", None)
+        report_metadata.pop("run_id", None)
     return payload
 
 

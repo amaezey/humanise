@@ -104,7 +104,7 @@
     "metadata": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schema_version", "grader_version"],
+      "required": ["schema_version", "grader_version", "timestamp", "run_id"],
       "properties": {
         "schema_version": {"type": "string", "const": "1"},
         "grader_version": {"type": "string"},

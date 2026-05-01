@@ -3,9 +3,11 @@
 
 import csv
 import ast
+from datetime import datetime, timezone
 import json
 import re
 import sys
+import uuid
 from pathlib import Path
 from statistics import stdev
 
@@ -2089,6 +2091,8 @@ def human_report(results):
         "metadata": {
             "schema_version": CONTRACT_SCHEMA_VERSION,
             "grader_version": GRADER_VERSION,
+            "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+            "run_id": str(uuid.uuid4()),
         },
     }
 

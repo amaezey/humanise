@@ -223,6 +223,14 @@ if "grader_version" not in md:
     fail("metadata.grader_version missing")
 else:
     ok(f"metadata.grader_version = {md['grader_version']!r}")
+if "timestamp" not in md:
+    fail("metadata.timestamp missing")
+else:
+    ok("metadata.timestamp present")
+if "run_id" not in md:
+    fail("metadata.run_id missing")
+else:
+    ok("metadata.run_id present")
 
 
 # --- no prose strings at the top level ---
