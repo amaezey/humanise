@@ -44,6 +44,14 @@ def load_grade_module():
 
 GRADE = load_grade_module()
 
+# patterns.yaml replaces CHECK_REPORT_TEXT (U7 of the audit-report redesign).
+# Loaded once at module scope; consumers iterate _PATTERN_LABELS for (id, label) pairs.
+import yaml as _yaml
+_PATTERN_LABELS = {
+    cid: rec["short_name"]
+    for cid, rec in _yaml.safe_load((ROOT / "humanise" / "patterns.yaml").read_text()).items()
+}
+
 
 def read_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -302,7 +310,7 @@ _PATTERNS_MD_ALIASES = {
 def catalogue_hits(output: str) -> set[str]:
     lower = output.lower()
     hits: set[str] = set()
-    for check_id, (label, _) in GRADE.CHECK_REPORT_TEXT.items():
+    for check_id, label in _PATTERN_LABELS.items():
         terms = {label.lower(), check_id.replace("-", " ")}
         if any(term in lower for term in terms):
             hits.add(check_id)

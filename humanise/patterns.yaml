@@ -1,0 +1,1107 @@
+no-ai-vocabulary-clustering:
+  category: Language and grammar
+  short_name: Clustered AI vocabulary
+  description: Checks whether generic AI-associated words and phrases cluster together.
+  why_it_matters: Generic AI-associated words become more suspicious when they cluster instead of appearing
+    naturally in context.
+  severity: strong_warning
+  failure_modes:
+  - generic_abstraction
+  evidence_role: vocabulary_cluster
+  guidance: Fix clustered generic AI vocabulary; individual words may be fine in context.
+  alternatives: 'Words that appear far more frequently in post-2023 LLM output than in human writing.
+    No single word is proof. The tell is density: three or more in one paragraph reads as AI even when
+    each word is individually defensible.
+
+
+    The vocabulary clusters by semantic function: verbs of intellectual work, inflation verbs, action-flavoured
+    corporate verbs, and abstract scenery nouns. The middle column names what the AI word usually stands
+    in for. The writer picks the meaning that fits and uses that word, or cuts the verb if none of the
+    meanings apply.
+
+
+    For long-tail vocabulary (the Kobak 900-word list, the GPTZero 100-phrase list), Suggestions does
+    not look up individual entries here. It uses the cluster guidance below to draft a rewrite appropriate
+    to the flagged occurrence.
+
+
+    ### Verbs of intellectual work
+
+
+    | AI word | What it usually means | Notes |
+
+    |---|---|---|
+
+    | delve / delve into | analyse, investigate, research, study, get into the detail | Pick the verb
+    that names what you are actually doing. If none fit, the sentence does not need the verb. |
+
+    | explore | try, test, investigate, look at possibilities | Fine when the genuine meaning is *consider
+    possibilities*. AI-flavoured when it stands in for any verb of inquiry. |
+
+    | examine | check, read, study, test | Often the sentence works without it. "Examine the data" usually
+    wants to be "the data shows…". |
+
+    | navigate (figurative) | manage, handle, work out | Drop entirely when the object is concrete. "Navigate
+    the system" wants to be "use the system". |
+
+    | unpack | explain, work out, take apart | Now AI-flavoured despite colloquial origin. |
+
+
+    ### Inflation verbs
+
+
+    These words promise analytical work the sentence does not do. The plain alternatives are usually shorter
+    and more honest.
+
+
+    | AI word | What it usually means | Notes |
+
+    |---|---|---|
+
+    | underscore(s) | shows, says, repeats | If the sentence already shows the thing, cut the verb entirely.
+    |
+
+    | highlight(s) | shows, picks out, names | A sign the writer has not done the work of saying *what*
+    it shows. |
+
+    | emphasise(s) | stresses, repeats, focuses on | Often empty when the next clause is already doing
+    the emphasis. |
+
+    | illustrate(s) | shows, gives an example of | The next sentence should be the example. The verb is
+    doing nothing. |
+
+    | reflect(s) (figurative) | shows, comes from, follows from | Drop entirely when the connection is
+    already explicit. |
+
+
+    ### Action-flavoured corporate verbs
+
+
+    | AI word | What it usually means | Notes |
+
+    |---|---|---|
+
+    | leverage | use, apply, draw on | "Use" is almost always right. "Leverage" carries no extra information.
+    |
+
+    | harness | use, take advantage of | Almost always means "use". |
+
+    | foster | encourage, build, support | If the subject cannot actually foster (an abstraction "fostering"
+    something), rewrite. |
+
+    | facilitate | run, host, lead, let, help | Almost always means "do" or "let happen". Say which. |
+
+    | enable | let, allow | Fine occasionally. Flag when it stacks with other corporate verbs. |
+
+    | streamline | simplify, cut, shorten, speed up | Name what was cut. |
+
+
+    ### Abstract scenery nouns
+
+
+    | AI word | What it usually means | Notes |
+
+    |---|---|---|
+
+    | landscape (figurative) | the field, the topic, the situation, or just cut | "The funding landscape"
+    wants to be "funding". "The political landscape" wants to be "politics". |
+
+    | tapestry | a mix, a list of named things | Almost never lands. Replace with a concrete plural such
+    as "traditions" or "histories". |
+
+    | realm | the field, the area, or just cut | "The realm of X" wants to be "X". |
+
+    | interplay | how X and Y work together | Fine in academic writing about specific dynamics. AI-flavoured
+    when it stands in for "the thing". |
+
+    | mosaic of / tapestry of | mix of, list of, range of | Often a wrapper around a plural noun. Drop
+    it. |
+
+
+    ### Cluster-level fix
+
+
+    When a paragraph trips the AI-vocabulary density check (three or more in one paragraph), single-word
+    substitution rarely fixes it. Rewrite the paragraph around its concrete claim, with concrete verbs
+    in place of the abstract ones and no scenery nouns.'
+no-anaphora:
+  category: Voice and register
+  short_name: Mechanical repeated sentence starts
+  description: Checks for repeated sentence openings that read like template rhythm.
+  why_it_matters: Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.
+  severity: context_warning
+  failure_modes:
+  - genre_misfit
+  - frictionless_structure
+  evidence_role: rhythm_signal
+  guidance: Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.
+no-bland-critical-template:
+  category: Voice and register
+  short_name: Bland critical template
+  description: Checks for generic review language instead of concrete critical claims.
+  why_it_matters: Bland critical language replaces concrete judgment with portable review phrases.
+  severity: strong_warning
+  failure_modes:
+  - generic_abstraction
+  - voice_erasure
+  evidence_role: genre_cliche
+  guidance: Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims
+    from the work.
+  alternatives: 'Stock evaluation phrases used in book and film reviews. They sound critical but commit
+    to nothing specific. Common in AI-generated reviews because they are common in the genre''s training
+    data.
+
+
+    The middle column says what concrete claim the phrase usually substitutes for. The rewrite has to
+    point at a specific scene, sentence, performance, or formal choice.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | ambitious in an old-fashioned way | (a specific formal choice the reviewer should name) | What is
+    ambitious about it, and which old-fashioned tradition does it follow? |
+
+    | earns its weight | (a specific scene or argument that justifies the length) | Empty without an example.
+    |
+
+    | social texture | (specific details about what people do, say, and own in the work) | Replace with
+    the texture itself. |
+
+    | emotional range | (the specific emotions the work covers, with examples) | Name two or three of
+    them. |
+
+    | field of sympathy | (which characters or positions the work treats with warmth) | Name them. |
+
+    | moral strength | (the specific stance the work takes, and on what) | Empty without a position. |
+
+    | slow revelation | (what specifically is revealed, and over what time) | Fine when the revelation
+    is named. |
+
+    | quietly devastating | (the specific scene or line that does the work) | Cliché unless anchored.
+    |
+
+    | richly observed | (the specific observations) | Same. |
+
+    | beautifully crafted | (the specific formal choices) | Same. |'
+no-boldface-overuse:
+  category: Style
+  short_name: Boldface overuse
+  description: Checks for mechanical bold emphasis stacked across a passage of prose.
+  why_it_matters: Mechanical boldface stacking flattens prose into emphasis-by-default and reads like
+    generated formatting.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  evidence_role: emphasis_pattern
+  guidance: Fix mechanical bold stacking; preserve only when bolded terms are genuine definition headers.
+no-collaborative-artifacts:
+  category: Communication
+  short_name: Assistant residue
+  description: Checks for assistant-like collaboration phrases, follow-up offers, or generated-chat residue.
+  why_it_matters: Assistant residue makes the text look like chat output rather than finished prose.
+  severity: hard_fail
+  failure_modes:
+  - provenance_residue
+  evidence_role: assistant_residue
+  guidance: Fix at every depth; this is assistant residue, not authorial style.
+  alternatives: 'Chatbot turn-taking residue left in published prose. These come from the assistant register
+    and have no business in finished writing.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | Great question! | (cut entirely) | Never appropriate in published prose. |
+
+    | Of course! | (cut) | Same. |
+
+    | Certainly! | (cut) | Same. |
+
+    | You''re absolutely right! | (cut) | Same. |
+
+    | I hope this helps! | (cut) | Same. |
+
+    | Let me know if you''d like me to expand | (cut) | Same. |
+
+    | Here is an overview of | (cut; just give the overview) | Meta-narration that points at the content
+    instead of being it. |
+
+    | Would you like | (cut; or rephrase as a direct question to the reader if appropriate) | Chat register.
+    |'
+no-compound-modifier-density:
+  category: Style
+  short_name: Hyphenated compound modifier overuse
+  description: Checks for three or more AI-stock hyphenated compound modifiers crammed into one sentence.
+  why_it_matters: Stacking three or more hyphenated compound modifiers in one sentence is a recognisable
+    AI cadence rather than a deliberate style choice.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - generic_abstraction
+  evidence_role: modifier_density
+  guidance: Restructure sentences with three or more stock hyphenated compounds; preserve only when the
+    compounds are domain-specific terms of art.
+no-copula-avoidance:
+  category: Language and grammar
+  short_name: Avoiding plain 'is'
+  description: Checks for inflated replacements such as serves as, functions as, or stands as.
+  why_it_matters: Avoiding plain 'is' often turns simple claims into inflated pseudo-analysis.
+  severity: strong_warning
+  failure_modes:
+  - synthetic_significance
+  - generic_abstraction
+  evidence_role: grammar_substitution
+  guidance: Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic
+    or technical.
+  alternatives: 'Constructions that substitute elaborate verbs for "is", "are", or "has". Often the elaborate
+    verb does nothing the simple copula could not.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | serves as | is | Almost always. "X serves as the venue for Y" wants to be "X is the venue for Y".
+    |
+
+    | stands as | is | Same as serves as. |
+
+    | marks | is, was | "X marks the largest Y" wants to be "X is the largest Y". |
+
+    | represents (literal) | is, shows | "X represents an attempt to Y" wants to be "X is an attempt to
+    Y". |
+
+    | boasts | has | "The town boasts three museums" wants to be "The town has three museums". |
+
+    | features | has, includes | "The building features X" wants to be "The building has X". |
+
+    | offers | has, gives | "The role offers flexibility" wants to be "The role has flexible hours" (be
+    specific about what). |'
+no-corporate-ai-speak:
+  category: Voice and register
+  short_name: Corporate AI-speak
+  description: Checks for vague delivery, alignment, outcomes, and cross-functional clichés.
+  why_it_matters: Corporate AI-speak hides specific work behind vague operational language.
+  severity: strong_warning
+  failure_modes:
+  - generic_abstraction
+  evidence_role: domain_cliche
+  guidance: Fix at every depth; recommend preserving only when quoting corporate source language.
+no-countdown-negation:
+  category: Voice and register
+  short_name: Countdown negation
+  description: Checks for repeated no/not/cannot setups that build toward a reveal.
+  why_it_matters: Countdown negation creates a synthetic reveal structure.
+  severity: context_warning
+  failure_modes:
+  - synthetic_significance
+  - frictionless_structure
+  evidence_role: rhetorical_pattern
+  guidance: Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason.
+no-curly-quotes:
+  category: Style
+  short_name: Curly quotes
+  description: Checks for curly quotation marks when plain output is expected.
+  why_it_matters: Curly quotes are not proof of AI, but they matter when the output is expected to be
+    plain cleaned text.
+  severity: context_warning
+  failure_modes:
+  - genre_misfit
+  evidence_role: typographic_signal
+  guidance: Normalise in All/plain output; recommend preserving in sourced literary or typographic text.
+no-dramatic-transitions:
+  category: Structural tells
+  short_name: Unearned dramatic transitions
+  description: Checks for generic turning points such as something shifted or everything changed.
+  why_it_matters: Unearned turning-point language claims drama the prose has not built.
+  severity: context_warning
+  failure_modes:
+  - synthetic_significance
+  - genre_misfit
+  evidence_role: narrative_template
+  guidance: Fix generic turning-point beats; recommend preserving memoir or scene structure when earned.
+no-em-dashes:
+  category: Style
+  short_name: Em dashes
+  description: Checks for em dash punctuation, a strong current AI-style signal in this skill.
+  why_it_matters: Em dashes are now a strong style fingerprint in generated prose, especially when they
+    appear as default punctuation.
+  severity: strong_warning
+  failure_modes:
+  - genre_misfit
+  evidence_role: punctuation_signal
+  guidance: Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit
+    disclosure; All requires removal.
+  alternatives: 'In publication-ready plain prose, em dashes are now a strong AI signal. Density is the
+    giveaway: a writer using one or two intentionally is fine; a piece with em dashes in every other paragraph
+    reads as machine-flavoured even when each individual use is grammatical.
+
+
+    Most em dashes are doing the job of a different punctuation mark. The right replacement depends on
+    what the dash was actually doing.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | Em dash between two independent clauses | A period or semicolon | Period if both halves carry weight.
+    Semicolon if the two clauses are independent and the relationship is real. |
+
+    | Em dash setting off an aside | A comma or parentheses | Parentheses if the aside could be cut without
+    losing the sentence. Comma if it could not. |
+
+    | Em dash introducing a list or explanation | A colon | "X, and here is what X means" is colon work.
+    |
+
+    | Em dash separating a beat or shift | A comma | The most common case. Try the comma first. |
+
+    | Em dash that fits none of the above | A sentence with bad structure | Rewrite. |'
+no-excessive-hedging:
+  category: Filler and hedging
+  short_name: Excessive hedging
+  description: Checks for evasive qualification and impersonal uncertainty.
+  why_it_matters: Too much hedging weakens stance and can make prose feel evasive or machine-neutral.
+  severity: context_warning
+  failure_modes:
+  - voice_erasure
+  evidence_role: stance_erasure
+  guidance: Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty.
+  alternatives: 'Stacking three or more qualifiers on a single claim until the sentence commits to nothing.
+    The fix is rarely to find a less hedgy word; it is to drop the hedges and let the claim stand or fall
+    on its own.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | could potentially possibly | might, could | Pick one qualifier or none. Three is meaningless. |
+
+    | It could be argued that | (just argue it) | If the writer thinks X, they should claim X. |
+
+    | It might be the case that | maybe, possibly | One word, not five. |
+
+    | seems to suggest | suggests, hints at | "Seems to" almost always cuts cleanly. |
+
+    | there is some evidence that may indicate | the evidence shows, the evidence is mixed | Either claim
+    it or admit the evidence is mixed. The hedge stack disguises uncertainty as caution. |
+
+    | it is worth considering whether | (just consider it) | If it is worth considering, the writer can
+    do the considering on the page. |'
+no-excessive-lists:
+  category: Structural tells
+  short_name: Excessive list formatting
+  description: Checks whether prose has been over-converted into bullets or numbered lists.
+  why_it_matters: Too much list formatting can make prose feel like generated notes or slides.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: listification
+  guidance: Fix unnecessary listification; recommend preserving reference, instructional, or interview
+    structure.
+no-false-concession-hedges:
+  category: Filler and hedging
+  short_name: False balance or concession
+  description: Checks for fake both-sides framing that avoids taking a position.
+  why_it_matters: False balance can hide the writer's actual position.
+  severity: strong_warning
+  failure_modes:
+  - voice_erasure
+  evidence_role: stance_erasure
+  guidance: Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues
+    both positions with evidence.
+  alternatives: 'Performing balance by staging two generic positions and landing in the middle. Real nuance
+    names the evidence and stakes; false concession just balances abstractions.
+
+
+    The middle column names what the writer was trying to do. Substitution does not work; the rewrite
+    has to drop the staged debate and make a direct claim.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | While critics argue X, supporters say Y | The writer wants to avoid taking a position | Pick a position,
+    support it. The staged debate is performative. |
+
+    | The truth lies somewhere in the middle | The writer has not committed to a claim | Either name the
+    actual middle position with evidence, or drop the framing and pick a side. |
+
+    | Both sides have valid points | Same as above | If both sides have valid points, name which points
+    and on what evidence. |
+
+    | It depends on context | (when used to dodge) | Acceptable when the dependence is named. Empty when
+    "it depends" is the whole answer. |
+
+    | There are merits and drawbacks to both | The writer is dodging | Same as above. List the actual
+    merits and drawbacks. |
+
+    | On the one hand X, on the other hand Y | The writer is staging a debate without picking | Pick the
+    side the evidence supports, or admit the question is genuinely open and name what would settle it.
+    |'
+no-filler-phrases:
+  category: Filler and hedging
+  short_name: Filler phrases
+  description: Checks for stock padding such as in order to or it is worth noting.
+  why_it_matters: Filler phrases add polish without information.
+  severity: strong_warning
+  failure_modes:
+  - generic_abstraction
+  evidence_role: filler_phrase
+  guidance: Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to
+    quoted or intentionally casual voice.
+  alternatives: 'Multi-word constructions that compress to one or two words, or cut entirely. Filler is
+    the easiest tell to remove because the meaning rarely depends on it.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | in order to | to | Always. "In order to" never adds anything. |
+
+    | due to the fact that | because | Always. |
+
+    | at this point in time | now, today, currently | Pick the one that fits the tense. |
+
+    | in the event that | if | Always. |
+
+    | has the ability to | can | Always. |
+
+    | it is important to note that | (cut the whole phrase) | The next clause should make its own importance
+    evident. |
+
+    | at the end of the day | (cut entirely; or state the actual conclusion) | Adds nothing. |
+
+    | from a broader perspective | (cut, or name the perspective) | Vague gesture. Either name the wider
+    context or drop it. |
+
+    | generally / broadly speaking | usually, often, mostly | Or cut. |'
+no-forced-triads:
+  category: Language and grammar
+  short_name: Decorative three-part lists
+  description: Checks for forced triads used as rhythm rather than substance.
+  why_it_matters: Decorative three-part lists can create artificial rhythm without substance.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: list_rhythm
+  guidance: Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric.
+no-formulaic-openers:
+  category: Filler and hedging
+  short_name: Formulaic openers
+  description: Checks for generated openings such as at its core or from a broader perspective.
+  why_it_matters: Formulaic openings make paragraphs feel assembled from templates.
+  severity: strong_warning
+  failure_modes:
+  - frictionless_structure
+  - generic_abstraction
+  evidence_role: formulaic_structure
+  guidance: Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre.
+  alternatives: 'Standard AI-essay opening patterns that signal the piece was generated rather than written.
+    The first sentence often gives the game away.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | In today''s fast-paced world | (cut entirely; start with the actual subject) | The world is not
+    the subject of the piece. |
+
+    | As technology continues to evolve | (cut; start with the actual claim) | Time and progress are not
+    arguments. |
+
+    | In an era of (X) | (cut; or name a specific year) | Vague historical framing. Pin to a date or remove.
+    |
+
+    | In recent years | recently, since (year), in the past (n) years | If recent matters, pick a specific
+    window. |
+
+    | Throughout history | (almost always cut) | Rarely true. The claim usually applies to a much narrower
+    window. |
+
+    | It is no secret that | (cut entirely) | If everyone knows, the writer has not earned the sentence.
+    |
+
+    | Many people believe / It is widely known | (name the people, or drop the claim) | Vague attribution.
+    |
+
+    | Imagine a world where | (cut; just describe the situation) | Hypothetical-opener cliché. |'
+no-generic-conclusions:
+  category: Filler and hedging
+  short_name: Generic conclusion
+  description: Checks for empty endings such as the future looks bright.
+  why_it_matters: Generic conclusions make the ending feel templated and interchangeable.
+  severity: hard_fail
+  failure_modes:
+  - provenance_residue
+  - synthetic_significance
+  evidence_role: generic_closure
+  guidance: Fix at every depth unless quoted from source text.
+  alternatives: 'Vague upbeat endings that could be appended to any article. The fix is to replace with
+    a specific fact, observation, or claim.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | The future looks bright | (replace with a specific plan, statistic, or expectation) | Generic optimism.
+    Name what specifically looks bright and why. |
+
+    | Exciting times lie ahead | (replace with a specific upcoming event or development) | Same. |
+
+    | This represents a step in the right direction | (claim the specific improvement) | "Right direction"
+    is a placeholder. Say what improved and how. |
+
+    | The journey continues | (cut entirely, or name the next stage) | Empty rhetorical close. |
+
+    | Only time will tell | (replace with a specific question or test) | Hedged optimism. Name the unresolved
+    question. |
+
+    | Continues to thrive | (state the specific evidence of thriving) | Empty without numbers or examples.
+    |'
+no-ghost-spectral-density:
+  category: Sensory and atmospheric
+  short_name: Ghost/spectral atmosphere
+  description: Checks for clichéd ghost, shadow, whisper, and echo language.
+  why_it_matters: Stock spectral language can make atmosphere feel generated or borrowed.
+  severity: context_warning
+  failure_modes:
+  - generic_abstraction
+  - genre_misfit
+  evidence_role: atmospheric_cliche
+  guidance: Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose.
+no-inline-header-lists:
+  category: Style
+  short_name: Inline-header lists
+  description: Checks for list items that begin with a bolded header and colon, turning prose into a slide
+    deck.
+  why_it_matters: Bolded-header list items convert prose into slide-deck shapes, a strong frictionless-structure
+    tell.
+  severity: strong_warning
+  failure_modes:
+  - frictionless_structure
+  - generic_abstraction
+  evidence_role: list_template
+  guidance: Fix at Balanced and All; fold bolded-header bullets back into prose unless the format is a
+    real spec or reference list.
+no-knowledge-cutoff-disclaimers:
+  category: Communication
+  short_name: Knowledge-cutoff disclaimers
+  description: Checks for AI training-update or limited-information hedges left in the prose.
+  why_it_matters: AI training-update and limited-information hedges are model meta-residue and almost
+    never belong in finished prose.
+  severity: strong_warning
+  failure_modes:
+  - provenance_residue
+  evidence_role: model_meta_residue
+  guidance: Fix at every depth; training-update and limited-information hedges are model meta-residue,
+    not authorial uncertainty.
+  alternatives: 'AI hedges about its own training data left in published text. The fix is either to find
+    the actual information or to cut the disclaimer.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | As of (date) | (cut, or replace with a specific date and source) | Often left over from prompts
+    asking the model what it knows. |
+
+    | Up to my last training update | (cut) | Pure model artefact. |
+
+    | While specific details are (limited / scarce / not extensively documented) | (find the details,
+    or rewrite the sentence to make a different claim) | If the writer cannot find the detail, the sentence
+    should not pretend to. |
+
+    | Based on available information | (cut, or name the source) | Vague hedge. |
+
+    | It appears that | (claim it, or hedge with a specific reason) | "It appears that" with no follow-up
+    evidence is empty. |'
+no-manufactured-insight:
+  category: Structural tells
+  short_name: Manufactured insight framing
+  description: Checks for phrases that perform hidden depth or secret significance without earning it.
+  why_it_matters: Manufactured insight framing performs depth without adding specific evidence or thought.
+  severity: strong_warning
+  failure_modes:
+  - synthetic_significance
+  evidence_role: rhetorical_pattern
+  guidance: Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the
+    writer's voice.
+  alternatives: 'Phrases that promise revelation without doing the evidentiary work. They include false
+    revelation ("the real answer is"), contrived contrarianism ("what nobody is talking about"), and privileged
+    perception ("when no one was watching").
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | The real X is | (claim X directly without the "real" frame) | If the writer has the real answer,
+    they can just state it. |
+
+    | Here''s what''s really happening | (state what is happening) | The "really" is doing nothing. |
+
+    | What nobody is talking about | (cite a specific source for the silence, or drop) | Almost always
+    false. Many people talk about most things. |
+
+    | Contrary to popular belief | (name the belief and source it; or drop) | If the popular belief is
+    real, name it specifically. |
+
+    | The uncomfortable truth | (state the truth without the framing) | The framing inflates ordinary
+    claims. |
+
+    | What gets lost in the conversation | (state what is missing, with evidence) | Often manufactured.
+    |
+
+    | When no one was watching | (cut; the writer probably was not there) | Privileged-perception cliché.
+    |
+
+    | Without anyone noticing | (cut) | Same. |
+
+    | The shift nobody noticed | (cut, or name the shift and source the silence) | Same. |'
+no-markdown-headings:
+  category: Style
+  short_name: Headings in prose
+  description: Checks for markdown headings and plain title headings when prose should flow.
+  why_it_matters: Headings can make prose feel packaged by an assistant rather than written as a continuous
+    piece.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: formatting_signal
+  guidance: Fix markdown headings and plain title headings when prose should flow; recommend preserving
+    web articles, guides, and reference docs.
+no-negation-density:
+  category: Filler and hedging
+  short_name: Dense negation
+  description: Checks whether negation markers are unusually dense across prose.
+  why_it_matters: Dense negation can make a piece feel over-framed around what it is not instead of what
+    it is.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: rhetorical_density
+  guidance: Review dense negation as a style signal; preserve polemic or technical qualification when
+    purposeful.
+no-negative-parallelisms:
+  category: Language and grammar
+  short_name: Contrived contrast
+  description: Checks for not-X-but-Y, beyond-X, less-X-than-Y, and related reveal structures.
+  why_it_matters: Contrived contrast creates a fake reveal instead of making a direct, supported claim.
+  severity: strong_warning
+  failure_modes:
+  - synthetic_significance
+  evidence_role: rhetorical_pattern
+  guidance: Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast
+    at Balanced.
+  alternatives: 'The "not just X, it''s Y" construction and its variants. The problem is structural: a
+    flat interpretation gets dismissed so an inflated abstraction can arrive with fake depth. Substitution
+    does not fix this. The rewrite has to drop the contrast altogether and make a direct claim.
+
+
+    The middle column names what the writer was *trying* to say. The Notes column says how to rewrite.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | It''s not X, it''s Y | The writer wants to claim Y but has not supported it | Pick Y, support it
+    with evidence, drop the rejection of X. |
+
+    | It''s Y, not X | Same as above | Reversing the order does not change the construction. |
+
+    | Less X than Y | The writer wants to claim Y but has hedged with the comparison | "Less interesting
+    than important" wants to be "important, because…". |
+
+    | More Y than X | Same as Less X than Y | Same construction, opposite framing. |
+
+    | Not so much X as Y | Same as above | The "as much" softening adds nothing. |
+
+    | Beyond X, it is Y | The writer wants Y to be the subject | "Beyond grief, it becomes a meditation
+    on belonging" wants to be "The film is about how belonging changes after a death." |
+
+    | You might think X. Actually, Y | The writer wants to claim Y but has manufactured suspense | Just
+    claim Y. The reader was not thinking X. |
+
+    | No X. No Y. Just Z | The writer wants to state Z dramatically | State Z directly. The negation series
+    performs depth without earning it. |
+
+
+    ### When the contrast is real
+
+
+    Not every contrast is contrived. A concrete distinction between two specific things ("the laptop is
+    powerful, not cheap") is doing real work. Two named positions in genuine tension ("the problem is
+    not collaboration, the problem is performative attendance") can carry an argument.
+
+
+    The tell is the *inflated reveal*: the second half of the contrast is an abstract noun (meaning, identity,
+    humanity, trust, belonging, connection) that the writer has not actually argued for. If the Y side
+    is concrete and supported, the contrast is probably fine. If the Y side is an abstract payload, rewrite
+    it as a direct claim.'
+no-nonliteral-land-surface:
+  category: Voice and register
+  short_name: Nonliteral land/surface phrasing
+  description: Checks for abstract uses such as ideas landing, concerns surfacing, or work landing on
+    a scale.
+  why_it_matters: Abstract land/surface phrasing often makes ordinary ideas sound artificially managed
+    or packaged.
+  severity: strong_warning
+  failure_modes:
+  - generic_abstraction
+  - synthetic_significance
+  evidence_role: metaphor_residue
+  guidance: Fix nonliteral land/surface phrasing; replace with the concrete action or claim.
+no-notability-claims:
+  category: Content patterns
+  short_name: Notability claims
+  description: Checks for fake-prestige framing such as active social media presence or coverage by unnamed
+    major outlets.
+  why_it_matters: Listing unnamed authorities or follower counts as if the mention itself were the story
+    performs prestige instead of reporting it.
+  severity: strong_warning
+  failure_modes:
+  - synthetic_significance
+  - generic_abstraction
+  evidence_role: notability_inflation
+  guidance: Fix at Balanced and All; replace abstract notability claims with named sources or remove the
+    framing.
+no-orphaned-demonstratives:
+  category: Voice and register
+  short_name: Vague 'this/that' starts
+  description: Checks for repeated vague sentence subjects such as This highlights or That shows.
+  why_it_matters: Vague this/that openings blur the actual subject and create generic analysis.
+  severity: context_warning
+  failure_modes:
+  - voice_erasure
+  - generic_abstraction
+  evidence_role: sentence_subject
+  guidance: Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns
+    when the antecedent is unclear.
+no-placeholder-residue:
+  category: Voice and register
+  short_name: Placeholder residue
+  description: Checks for unfilled template markers and placeholder instructions.
+  why_it_matters: Placeholder residue signals unfinished generated or templated text.
+  severity: hard_fail
+  failure_modes:
+  - provenance_residue
+  evidence_role: template_residue
+  guidance: Fix at every depth; unfilled placeholders are generated/template residue.
+no-promotional-language:
+  category: Content patterns
+  short_name: Generic promotional language
+  description: Checks for stock hype and sales-like adjectives.
+  why_it_matters: Stock hype weakens credibility and often appears in generated product or venue copy.
+  severity: context_warning
+  failure_modes:
+  - generic_abstraction
+  - synthetic_significance
+  evidence_role: hype_language
+  guidance: Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.
+no-quietness-obsession:
+  category: Sensory and atmospheric
+  short_name: Generic quiet/still mood
+  description: Checks for overused quiet, still, soft, and hushed atmosphere.
+  why_it_matters: Overused quiet/still mood language can create generic literary atmosphere.
+  severity: context_warning
+  failure_modes:
+  - synthetic_significance
+  - genre_misfit
+  evidence_role: atmospheric_cliche
+  guidance: Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.
+no-rhetorical-questions:
+  category: Structural tells
+  short_name: Template rhetorical questions
+  description: Checks for article-style questions followed by obvious answers.
+  why_it_matters: Template questions often simulate engagement without adding real inquiry.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: rhetorical_template
+  guidance: Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate
+    argument.
+no-rubric-echoing:
+  category: Voice and register
+  short_name: Rubric echoing
+  description: Checks for assignment or rubric phrasing leaking into the prose.
+  why_it_matters: Rubric echoing makes writing sound like assignment compliance rather than independent
+    thought.
+  severity: context_warning
+  failure_modes:
+  - provenance_residue
+  - voice_erasure
+  evidence_role: assignment_residue
+  guidance: Review student/assignment prose for mirrored rubric language; preserve only where explicitly
+    analysing a rubric.
+no-section-scaffolding:
+  category: Structural tells
+  short_name: Repeated section scaffolding
+  description: Checks for repeated section labels or repeated structural templates.
+  why_it_matters: Repeated section structure makes the whole piece feel assembled from a template.
+  severity: strong_warning
+  failure_modes:
+  - frictionless_structure
+  evidence_role: repeated_template
+  guidance: Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured
+    reference material.
+no-significance-inflation:
+  category: Content patterns
+  short_name: Inflated significance
+  description: Checks for language that makes ordinary claims sound historically important.
+  why_it_matters: Inflated importance makes ordinary claims sound artificially momentous.
+  severity: context_warning
+  failure_modes:
+  - synthetic_significance
+  evidence_role: importance_inflation
+  guidance: Fix inflated importance unless the source genuinely argues significance.
+  alternatives: 'Constructions that claim symbolic weight for ordinary things: "stands as a testament",
+    "marks a pivotal moment", "plays a crucial role", "represents a shift". The construction promises
+    significance without supplying evidence.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | stands as a testament to | shows, is evidence for, proves | Often the sentence already says it.
+    Cut the construction. |
+
+    | marks a pivotal moment in | started, changed, was the first | Pick the verb that names what actually
+    happened. |
+
+    | plays a crucial role in | matters for, is part of, helps | Cut "crucial role" and name the role.
+    |
+
+    | represents a (shift / turning point) | started, changed, ended | The construction promises drama.
+    Just say what changed. |
+
+    | reflects (broader / wider / deeper) | comes from, is part of, is one example of | Drop the inflation
+    adjective; name the specific connection. |
+
+    | sets the stage for | started, made possible, came before | Almost always padding. Cut. |
+
+    | has left an indelible mark | shaped, changed, influenced | If the mark is real, it can be named.
+    |
+
+    | paves the way for | leads to, comes before, makes possible | Cliché. Pick the plain verb. |'
+no-signposted-conclusions:
+  category: Structural tells
+  short_name: Signposted conclusion
+  description: Checks for explicit conclusion labels and summary signposts.
+  why_it_matters: Conclusion signposts often flatten the ending into a generic summary.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: structural_signpost
+  guidance: Fix generic signposts in prose; recommend preserving academic/instructional structure when
+    useful.
+  alternatives: 'Phrases that announce a conclusion is coming. They tell the reader what to feel rather
+    than letting the conclusion arrive on its own merits.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | In conclusion | (cut; let the final paragraph stand) | Reading the last paragraph is enough cue.
+    |
+
+    | To sum up | (cut) | Same. |
+
+    | To summarise | (cut) | Same. |
+
+    | Ultimately | (cut, or claim the conclusion directly) | "Ultimately, X" usually works as just "X".
+    |
+
+    | In the end | (cut) | Same. |
+
+    | All things considered | (cut) | Performs balance the writer has not actually shown. |
+
+    | The takeaway is | (cut; just state the takeaway) | The reader does not need a label on it. |
+
+    | With that distinction in mind | (cut) | Filler transition. |
+
+    | Looking ahead | (cut; or state the specific prediction) | Vague forward-glance. |'
+no-soft-scaffolding:
+  category: Filler and hedging
+  short_name: Soft explainer scaffolding
+  description: Checks for phrases that announce structure instead of making a point.
+  why_it_matters: Soft scaffolding announces structure instead of doing useful writing work.
+  severity: strong_warning
+  failure_modes:
+  - frictionless_structure
+  evidence_role: explainer_scaffold
+  guidance: Fix at Balanced and All; these phrases usually mark generated explainer structure rather than
+    content.
+  alternatives: 'Bland labelled-block introductions that mark a generated explainer arranging information
+    into balanced sections. The phrases survive because they are not flashy, which is exactly the problem.
+
+
+    | AI tell | What it usually means | Notes |
+
+    |---|---|---|
+
+    | One useful area is | (cut; name the area directly) | "One useful area is product design" wants to
+    be "Product design is one example". |
+
+    | Another useful area is | (cut; name the area) | Same. |
+
+    | The main strength is | (claim the strength directly) | "The main strength is X" wants to be "X".
+    |
+
+    | The main risk is | (claim the risk) | Same. |
+
+    | Good use usually comes down to | (cut; state what good use looks like) | Vague gesture toward criteria.
+    State them. |
+
+    | One thing to consider is | (cut; just consider it) | "One thing to consider is Y" wants to be "Consider
+    Y" or just "Y". |
+
+    | It is worth noting that | (cut; note it) | If it is worth noting, just note it. |
+
+    | What''s interesting is | (cut; state what is interesting) | The writer is announcing rather than
+    showing. |'
+no-staccato-sequences:
+  category: Filler and hedging
+  short_name: Generic staccato emphasis
+  description: Checks for repeated short dramatic sentences used as generic emphasis.
+  why_it_matters: Repeated short emphasis beats can make prose sound generated rather than naturally paced.
+  severity: context_warning
+  failure_modes:
+  - genre_misfit
+  - frictionless_structure
+  evidence_role: rhythm_signal
+  guidance: Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary
+    rhythm.
+no-superficial-ing:
+  category: Content patterns
+  short_name: Tacked-on -ing analysis
+  description: Checks for trailing -ing clauses that pretend to analyse without adding meaning.
+  why_it_matters: Tacked-on -ing clauses often pretend to analyse while adding little.
+  severity: strong_warning
+  failure_modes:
+  - generic_abstraction
+  evidence_role: analysis_substitution
+  guidance: Fix tacked-on analysis clauses unless they carry precise causal meaning.
+no-this-chains:
+  category: Voice and register
+  short_name: Repeated 'This...' chains
+  description: Checks for several consecutive sentences beginning with vague This constructions.
+  why_it_matters: Repeated vague This sentences create generic analysis and weak subject control.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - voice_erasure
+  evidence_role: sentence_subject
+  guidance: Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate.
+no-tidy-paragraph-endings:
+  category: Voice and register
+  short_name: Tidy paragraph endings
+  description: Checks for repeated miniature conclusions at paragraph ends.
+  why_it_matters: Repeated tidy endings make paragraphs feel over-resolved and templated.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - voice_erasure
+  evidence_role: paragraph_closure
+  guidance: Cut generic paragraph-final summaries unless they carry a necessary argument turn.
+no-triad-density:
+  category: Language and grammar
+  short_name: Triad density
+  description: Checks whether three-part list structures are overused across the piece.
+  why_it_matters: Too many three-part lists create a recognisable generated cadence.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: list_rhythm
+  guidance: Fix density-driven triads; recommend preserving if lists are structural or rhetorical.
+no-unicode-flair:
+  category: Structural tells
+  short_name: Decorative Unicode
+  description: Checks for symbols and decorative punctuation that look like generated formatting.
+  why_it_matters: Decorative symbols can make output look like generated formatting.
+  severity: context_warning
+  failure_modes:
+  - provenance_residue
+  - genre_misfit
+  evidence_role: formatting_residue
+  guidance: Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist,
+    or quoted source.
+no-vague-attributions:
+  category: Content patterns
+  short_name: Vague attributions
+  description: Checks for unnamed-authority phrasing such as experts argue, observers note, or industry
+    reports say.
+  why_it_matters: Unnamed expert and report citations create the illusion of consensus without naming
+    a real source.
+  severity: strong_warning
+  failure_modes:
+  - synthetic_significance
+  - generic_abstraction
+  evidence_role: attribution_vagueness
+  guidance: Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote.
+overall-ai-signal-pressure:
+  category: Aggregate AI-signal pressure
+  short_name: AI pressure from stacked signals
+  description: Looks for several weaker AI-writing signals appearing together, which can make a draft
+    feel machine-packaged even when no single signal is decisive.
+  why_it_matters: Several weak signals appearing together can make a draft feel machine-packaged even
+    when each signal alone is explainable.
+  severity: context_warning
+  failure_modes:
+  - generic_abstraction
+  - frictionless_structure
+  evidence_role: aggregate_pressure
+  guidance: Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence
+    but is not an authorship verdict.
+paragraph-length-uniformity:
+  category: Structural tells
+  short_name: Paragraph length uniformity
+  description: Checks whether paragraphs are suspiciously similar in length.
+  why_it_matters: Paragraphs of similar length can signal generated structure and low natural variation.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  evidence_role: layout_rhythm
+  guidance: Review as a structural signal; vary paragraph lengths when the piece reads like a generated
+    article template.
+sentence-length-variance:
+  category: Structural tells
+  short_name: Sentence rhythm variance
+  description: Checks whether sentence lengths are too uniform across longer prose.
+  why_it_matters: Low rhythm variation makes paragraphs feel mechanically produced.
+  severity: context_warning
+  failure_modes:
+  - frictionless_structure
+  - genre_misfit
+  evidence_role: rhythm_signal
+  guidance: Use as a rhythm signal, not a hard failure for short or intentionally uniform forms.
+vocabulary-diversity:
+  category: Language and grammar
+  short_name: Vocabulary diversity
+  description: Checks for unusually repetitive vocabulary in longer text.
+  why_it_matters: Low vocabulary variety can make longer prose feel repetitive and mechanically produced.
+  severity: context_warning
+  failure_modes:
+  - generic_abstraction
+  - genre_misfit
+  evidence_role: lexical_distribution
+  guidance: Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.

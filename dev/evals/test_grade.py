@@ -19,7 +19,16 @@ if _spec.loader is None:
 _spec.loader.exec_module(_grade)
 
 ALL_CHECKS = _grade.ALL_CHECKS
-CHECK_METADATA = _grade.CHECK_METADATA
+
+# CHECK_METADATA was removed from grade.py in U7 (audit-report redesign).
+# Reconstruct the four-field metadata view from humanise/patterns.yaml so the
+# severity-propagation and failure-mode meta-tests below keep working.
+import yaml as _yaml
+_patterns_data = _yaml.safe_load((ROOT / "humanise" / "patterns.yaml").read_text())
+CHECK_METADATA = {
+    _cid: {k: _rec[k] for k in ("severity", "failure_modes", "evidence_role", "guidance")}
+    for _cid, _rec in _patterns_data.items()
+}
 annotate_result = _grade.annotate_result
 failure_mode_results = _grade.failure_mode_results
 format_human_report = _grade.format_human_report
