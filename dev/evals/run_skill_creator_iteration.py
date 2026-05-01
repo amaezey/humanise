@@ -1042,7 +1042,8 @@ def run_iteration(
     report_md, report_data = build_performance_report(evals, ITERATION)
     (ITERATION / "performance-report.md").write_text(report_md, encoding="utf-8")
     write_json(ITERATION / "performance-report.json", report_data)
-    update_readme_performance_block(report_data, ROOT / "README.md")
+    if only is None:
+        update_readme_performance_block(report_data, ROOT / "README.md")
     print(f"performance report written to {ITERATION / 'performance-report.md'}", flush=True)
 
     viewer = skill_creator_path / "eval-viewer" / "generate_review.py"
