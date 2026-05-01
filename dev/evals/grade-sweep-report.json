@@ -3,7 +3,7 @@
     "existing_samples": [
       {
         "file": "dev/evals/samples/1-essay-libraries.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "strong_warning": 5,
           "context_warning": 4
@@ -91,7 +91,7 @@
       },
       {
         "file": "dev/evals/samples/10-human-opinion.md",
-        "pass_rate": "43/43",
+        "pass_rate": "49/49",
         "failures_by_severity": {},
         "depth_results": {
           "balanced": {
@@ -119,7 +119,7 @@
       },
       {
         "file": "dev/evals/samples/11-human-instructional.md",
-        "pass_rate": "43/43",
+        "pass_rate": "49/49",
         "failures_by_severity": {},
         "depth_results": {
           "balanced": {
@@ -147,7 +147,7 @@
       },
       {
         "file": "dev/evals/samples/12-ai-tutorial.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "strong_warning": 3,
           "context_warning": 3
@@ -219,7 +219,7 @@
       },
       {
         "file": "dev/evals/samples/13-ai-product-review.md",
-        "pass_rate": "41/43",
+        "pass_rate": "47/49",
         "failures_by_severity": {
           "strong_warning": 1,
           "context_warning": 1
@@ -269,7 +269,7 @@
       },
       {
         "file": "dev/evals/samples/14-ai-personal-reflection.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "strong_warning": 3,
           "context_warning": 3
@@ -341,7 +341,7 @@
       },
       {
         "file": "dev/evals/samples/2-blog-cooking.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "strong_warning": 4,
           "context_warning": 2
@@ -412,7 +412,7 @@
       },
       {
         "file": "dev/evals/samples/3-listicle-remote.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 4
@@ -485,7 +485,7 @@
       },
       {
         "file": "dev/evals/samples/4-reflection-travel.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "strong_warning": 3,
           "context_warning": 3
@@ -557,7 +557,7 @@
       },
       {
         "file": "dev/evals/samples/5-explainer-quantum.md",
-        "pass_rate": "41/43",
+        "pass_rate": "47/49",
         "failures_by_severity": {
           "strong_warning": 1,
           "hard_fail": 1
@@ -603,7 +603,7 @@
       },
       {
         "file": "dev/evals/samples/6-cover-letter.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "hard_fail": 1,
           "context_warning": 1,
@@ -659,7 +659,7 @@
       },
       {
         "file": "dev/evals/samples/7-hotel-description.md",
-        "pass_rate": "41/43",
+        "pass_rate": "47/49",
         "failures_by_severity": {
           "strong_warning": 2
         },
@@ -704,7 +704,7 @@
       },
       {
         "file": "dev/evals/samples/8-email-decline.md",
-        "pass_rate": "41/43",
+        "pass_rate": "47/49",
         "failures_by_severity": {
           "strong_warning": 1,
           "hard_fail": 1
@@ -750,7 +750,7 @@
       },
       {
         "file": "dev/evals/samples/9-passthrough-human.md",
-        "pass_rate": "42/43",
+        "pass_rate": "48/49",
         "failures_by_severity": {
           "context_warning": 1
         },
@@ -792,7 +792,7 @@
       },
       {
         "file": "dev/evals/samples/harris-free-will.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 5
@@ -871,7 +871,7 @@
       },
       {
         "file": "dev/evals/samples/murray-doctors-die.md",
-        "pass_rate": "33/43",
+        "pass_rate": "39/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 8
@@ -968,7 +968,7 @@
       },
       {
         "file": "dev/evals/samples/orwell-why-write.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 5
@@ -1047,9 +1047,9 @@
       },
       {
         "file": "dev/evals/samples/wong-monkeysphere.md",
-        "pass_rate": "36/43",
+        "pass_rate": "41/49",
         "failures_by_severity": {
-          "strong_warning": 1,
+          "strong_warning": 2,
           "context_warning": 6
         },
         "depth_results": {
@@ -1057,7 +1057,8 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "no-em-dashes"
+              "no-em-dashes",
+              "no-manufactured-insight"
             ],
             "preservable_with_disclosure": [
               "overall-ai-signal-pressure",
@@ -1076,7 +1077,8 @@
               "paragraph-length-uniformity"
             ],
             "must_fix": [
-              "no-em-dashes"
+              "no-em-dashes",
+              "no-manufactured-insight"
             ],
             "needs_user_decision": [
               "overall-ai-signal-pressure",
@@ -1094,6 +1096,7 @@
             "required_fixes": [
               "no-em-dashes",
               "overall-ai-signal-pressure",
+              "no-manufactured-insight",
               "no-anaphora",
               "no-significance-inflation",
               "no-signposted-conclusions",
@@ -1105,6 +1108,7 @@
             "must_fix": [
               "no-em-dashes",
               "overall-ai-signal-pressure",
+              "no-manufactured-insight",
               "no-anaphora",
               "no-significance-inflation",
               "no-signposted-conclusions",
@@ -1118,6 +1122,7 @@
         "failed_checks": [
           "no-em-dashes",
           "overall-ai-signal-pressure",
+          "no-manufactured-insight",
           "no-anaphora",
           "no-significance-inflation",
           "no-signposted-conclusions",
@@ -1127,7 +1132,7 @@
       },
       {
         "file": "dev/evals/samples/woolf-moth.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "strong_warning": 3,
           "context_warning": 4
@@ -1207,7 +1212,7 @@
     "generated_ai": [
       {
         "file": "dev/evals/samples/generated-ai/01-personal-essay-parents.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 7
         },
@@ -1285,7 +1290,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/02-cultural-didion.md",
-        "pass_rate": "33/43",
+        "pass_rate": "39/49",
         "failures_by_severity": {
           "strong_warning": 3,
           "context_warning": 7
@@ -1381,7 +1386,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/03-tech-productivity-apps.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 7
         },
@@ -1459,7 +1464,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/04-science-mycorrhizal.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -1527,7 +1532,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/05-craft-mentoring-designers.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 1
@@ -1607,7 +1612,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 6
         },
@@ -1679,7 +1684,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/07-ideas-stoicism-revival.md",
-        "pass_rate": "35/43",
+        "pass_rate": "41/49",
         "failures_by_severity": {
           "context_warning": 7,
           "strong_warning": 1
@@ -1765,7 +1770,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/08-travel-lisbon-weekend.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "context_warning": 8,
           "strong_warning": 1
@@ -1857,7 +1862,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/09-hobby-bread-making.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -1917,7 +1922,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/10-opinion-slow-creativity.md",
-        "pass_rate": "32/43",
+        "pass_rate": "38/49",
         "failures_by_severity": {
           "context_warning": 9,
           "strong_warning": 2
@@ -2020,7 +2025,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-belonging-superpower.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 5
@@ -2099,7 +2104,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-first-men-original-sins.md",
-        "pass_rate": "31/43",
+        "pass_rate": "37/49",
         "failures_by_severity": {
           "strong_warning": 4,
           "context_warning": 8
@@ -2206,7 +2211,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-mdma-therapy.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 7
@@ -2297,7 +2302,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-belonging-superpower.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "strong_warning": 1,
           "context_warning": 2
@@ -2353,7 +2358,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-first-men-original-sins.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "strong_warning": 4,
           "context_warning": 5
@@ -2442,7 +2447,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-mdma-therapy.md",
-        "pass_rate": "35/43",
+        "pass_rate": "41/49",
         "failures_by_severity": {
           "strong_warning": 3,
           "context_warning": 5
@@ -2526,7 +2531,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-servant-hedonism.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "strong_warning": 4,
           "context_warning": 5
@@ -2615,7 +2620,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-rewrite-workshops-as-portals.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "strong_warning": 1,
           "context_warning": 5
@@ -2689,7 +2694,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-servant-hedonism.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "strong_warning": 1,
           "context_warning": 6
@@ -2769,7 +2774,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/21c-ai-workshops-as-portals.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "strong_warning": 1,
           "context_warning": 6
@@ -2849,7 +2854,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-01-slow-mornings.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 3
         },
@@ -2903,7 +2908,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-02-ai-coding-assistants.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 1
@@ -2983,7 +2988,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-03-meetings-productivity.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 3
         },
@@ -3037,7 +3042,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-04-learning-an-instrument.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 6
         },
@@ -3109,7 +3114,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-05-train-stations.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 5
         },
@@ -3175,7 +3180,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-06-lightweight-laptop-review.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -3243,7 +3248,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-07-hybrid-work.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -3311,7 +3316,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-08-feedback-education.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 5
         },
@@ -3377,7 +3382,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-09-walking-wellness.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -3437,7 +3442,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-10-heat-islands.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -3497,7 +3502,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-11-museum-exhibition.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -3565,7 +3570,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-12-better-emails.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 5,
           "hard_fail": 1,
@@ -3645,7 +3650,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-13-moving-apartments-memoir.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -3713,7 +3718,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-14-lost-umbrella-vignette.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 3
         },
@@ -3767,7 +3772,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-15-contemporary-novel-review.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 2,
           "strong_warning": 1
@@ -3823,7 +3828,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-16-attention-newsletter.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 1
@@ -3903,7 +3908,7 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-17-school-phone-bans-opinion.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 5
         },
@@ -3969,9 +3974,9 @@
       },
       {
         "file": "dev/evals/samples/generated-ai/ai-18-community-organiser-interview.md",
-        "pass_rate": "39/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
-          "context_warning": 4
+          "context_warning": 5
         },
         "depth_results": {
           "balanced": {
@@ -3982,20 +3987,23 @@
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "user_decision_needed": [
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "must_fix": [],
             "needs_user_decision": [
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "summary": "No hard failures or strong warnings; context warnings need user decision."
           },
@@ -4006,7 +4014,8 @@
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -4014,7 +4023,8 @@
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -4024,14 +4034,15 @@
           "no-staccato-sequences",
           "no-anaphora",
           "no-markdown-headings",
-          "no-triad-density"
+          "no-triad-density",
+          "no-boldface-overuse"
         ]
       }
     ],
     "human_sourced": [
       {
         "file": "dev/evals/samples/human-sourced/19c-austen-pride-and-prejudice.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 2,
           "strong_warning": 1
@@ -4087,7 +4098,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/19c-darwin-origin.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 5,
           "strong_warning": 1
@@ -4161,7 +4172,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/19c-gilman-yellow-wallpaper.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -4221,7 +4232,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/19c-poe-tell-tale-heart.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 7
         },
@@ -4299,7 +4310,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/20c-christie-styles.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 5,
           "strong_warning": 1
@@ -4373,7 +4384,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/20c-dubois-souls.md",
-        "pass_rate": "35/43",
+        "pass_rate": "41/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 2
@@ -4458,7 +4469,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/20c-glaspell-jury-of-her-peers.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 5
@@ -4537,7 +4548,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/20c-woolf-room.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 1
@@ -4617,9 +4628,9 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-alamut-agora-museum.md",
-        "pass_rate": "34/43",
+        "pass_rate": "39/49",
         "failures_by_severity": {
-          "context_warning": 7,
+          "context_warning": 8,
           "strong_warning": 2
         },
         "depth_results": {
@@ -4637,7 +4648,8 @@
               "no-rhetorical-questions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "user_decision_needed": [
               "overall-ai-signal-pressure",
@@ -4646,7 +4658,8 @@
               "no-rhetorical-questions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "must_fix": [
               "no-negative-parallelisms",
@@ -4659,7 +4672,8 @@
               "no-rhetorical-questions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
           },
@@ -4675,7 +4689,8 @@
               "no-rhetorical-questions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -4688,7 +4703,8 @@
               "no-rhetorical-questions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -4703,15 +4719,16 @@
           "no-rhetorical-questions",
           "no-markdown-headings",
           "vocabulary-diversity",
-          "no-triad-density"
+          "no-triad-density",
+          "no-boldface-overuse"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-astra-dreamers-in-broad-daylight.md",
-        "pass_rate": "33/43",
+        "pass_rate": "38/49",
         "failures_by_severity": {
           "context_warning": 7,
-          "strong_warning": 3
+          "strong_warning": 4
         },
         "depth_results": {
           "balanced": {
@@ -4720,7 +4737,8 @@
             "required_fixes": [
               "no-negative-parallelisms",
               "no-filler-phrases",
-              "no-superficial-ing"
+              "no-superficial-ing",
+              "no-vague-attributions"
             ],
             "preservable_with_disclosure": [
               "no-staccato-sequences",
@@ -4743,7 +4761,8 @@
             "must_fix": [
               "no-negative-parallelisms",
               "no-filler-phrases",
-              "no-superficial-ing"
+              "no-superficial-ing",
+              "no-vague-attributions"
             ],
             "needs_user_decision": [
               "no-staccato-sequences",
@@ -4769,7 +4788,8 @@
               "no-ghost-spectral-density",
               "no-quietness-obsession",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-vague-attributions"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -4783,7 +4803,8 @@
               "no-ghost-spectral-density",
               "no-quietness-obsession",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-vague-attributions"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -4799,12 +4820,13 @@
           "no-ghost-spectral-density",
           "no-quietness-obsession",
           "vocabulary-diversity",
-          "no-triad-density"
+          "no-triad-density",
+          "no-vague-attributions"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-butterfield-we-dont-sell-saddles.md",
-        "pass_rate": "32/43",
+        "pass_rate": "38/49",
         "failures_by_severity": {
           "strong_warning": 5,
           "context_warning": 6
@@ -4904,9 +4926,9 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-critchlow-workshops.md",
-        "pass_rate": "34/43",
+        "pass_rate": "39/49",
         "failures_by_severity": {
-          "context_warning": 8,
+          "context_warning": 9,
           "strong_warning": 1
         },
         "depth_results": {
@@ -4924,7 +4946,8 @@
               "no-signposted-conclusions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "user_decision_needed": [
               "overall-ai-signal-pressure",
@@ -4934,7 +4957,8 @@
               "no-signposted-conclusions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "must_fix": [
               "no-manufactured-insight"
@@ -4947,7 +4971,8 @@
               "no-signposted-conclusions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
           },
@@ -4963,7 +4988,8 @@
               "no-signposted-conclusions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -4976,7 +5002,8 @@
               "no-signposted-conclusions",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -4991,12 +5018,13 @@
           "no-signposted-conclusions",
           "no-markdown-headings",
           "vocabulary-diversity",
-          "no-triad-density"
+          "no-triad-density",
+          "no-boldface-overuse"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-dillard-this-is-the-life.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 5,
           "strong_warning": 1
@@ -5070,7 +5098,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-01-29-ways-to-improve-your-writing-skills-and-escape-mediocrity.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -5130,7 +5158,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-02-what-makes-writing-good.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 3
         },
@@ -5184,7 +5212,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-03-what-makes-copy-truly-persuasive.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 2
@@ -5257,7 +5285,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-04-how-to-write-seductive-sales-copy-like-apple-2022-edition.md",
-        "pass_rate": "35/43",
+        "pass_rate": "41/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 2
@@ -5342,7 +5370,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-05-5-lovable-sales-techniques-how-a-wine-merchant-sells-without-being-pushy.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 1
@@ -5422,7 +5450,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-06-23-snazzy-copywriting-examples-to-inspire-your-work.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "strong_warning": 2,
           "context_warning": 7
@@ -5513,7 +5541,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-07-how-to-write-a-seductive-sales-email-without-feeling-icky.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -5573,7 +5601,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-08-how-to-sell-your-ideas-to-fidgety-skeptics.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "context_warning": 8,
           "strong_warning": 1
@@ -5665,7 +5693,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-09-how-to-make-your-voice-heard-as-a-writer.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 5
         },
@@ -5731,7 +5759,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-10-how-to-get-personal-in-your-content-marketing.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 1
@@ -5811,7 +5839,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-11-how-to-write-like-a-human-wholeheartedly.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -5871,7 +5899,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-12-how-a-bestselling-author-revises-one-sentence-case-study.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 6
         },
@@ -5943,17 +5971,18 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-13-how-to-write-your-story-4-tips-to-captivate-your-readers.md",
-        "pass_rate": "38/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 4,
-          "strong_warning": 1
+          "strong_warning": 2
         },
         "depth_results": {
           "balanced": {
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "no-negative-parallelisms"
+              "no-negative-parallelisms",
+              "no-vague-attributions"
             ],
             "preservable_with_disclosure": [
               "no-curly-quotes",
@@ -5968,7 +5997,8 @@
               "no-triad-density"
             ],
             "must_fix": [
-              "no-negative-parallelisms"
+              "no-negative-parallelisms",
+              "no-vague-attributions"
             ],
             "needs_user_decision": [
               "no-curly-quotes",
@@ -5986,7 +6016,8 @@
               "no-negative-parallelisms",
               "no-tidy-paragraph-endings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-vague-attributions"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -5995,7 +6026,8 @@
               "no-negative-parallelisms",
               "no-tidy-paragraph-endings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-vague-attributions"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -6006,12 +6038,13 @@
           "no-negative-parallelisms",
           "no-tidy-paragraph-endings",
           "vocabulary-diversity",
-          "no-triad-density"
+          "no-triad-density",
+          "no-vague-attributions"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-14-how-to-write-simply-without-dumbing-down.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 3
         },
@@ -6065,7 +6098,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-15-5-tips-to-turn-a-dry-text-into-a-gripping-adventure.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -6133,7 +6166,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-16-how-to-infuse-your-writing-with-enthusiasm.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -6193,7 +6226,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-17-how-to-write-clear-explanations-a-brilliant-example.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 3
         },
@@ -6247,7 +6280,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-18-how-to-invite-readers-out-of-their-bubbles-3-fab-examples.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -6307,7 +6340,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-19-how-to-fire-up-your-readers-interest-in-any-topic.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -6375,7 +6408,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-20-how-to-make-your-blog-feel-like-a-chat-with-a-good-friend.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -6443,7 +6476,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-21-how-i-turned-31-measly-words-into-a-valuable-blog-post.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -6503,7 +6536,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-22-the-1-storytelling-format-to-spruce-up-drab-writing.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 5,
           "strong_warning": 1
@@ -6577,7 +6610,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-23-3-ways-to-craft-irresistible-opening-paragraphs.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -6645,7 +6678,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-24-5-ways-to-end-your-blog-posts-and-fire-up-your-audience.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 5,
           "strong_warning": 1
@@ -6719,7 +6752,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-25-how-to-write-like-hemingway.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -6779,7 +6812,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-26-how-to-write-precisely-and-pierce-through-readers-wariness.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -6847,7 +6880,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-27-how-to-improve-your-writing-style.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -6915,7 +6948,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-28-how-vivid-words-make-your-message-unforgettable-case-study.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 5
         },
@@ -6981,7 +7014,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-29-how-to-jazz-up-any-writing-5-creative-techniques.md",
-        "pass_rate": "37/43",
+        "pass_rate": "43/49",
         "failures_by_severity": {
           "context_warning": 5,
           "strong_warning": 1
@@ -7055,7 +7088,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-30-11-creative-writing-techniques-to-add-pizzazz-to-your-writing.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 4,
           "strong_warning": 1
@@ -7123,7 +7156,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-example-31-how-to-simplify-fortify-your-writing.md",
-        "pass_rate": "39/43",
+        "pass_rate": "45/49",
         "failures_by_severity": {
           "context_warning": 4
         },
@@ -7183,7 +7216,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-enchanting-marketing-writing-examples.md",
-        "pass_rate": "40/43",
+        "pass_rate": "46/49",
         "failures_by_severity": {
           "context_warning": 3
         },
@@ -7237,7 +7270,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 1
@@ -7317,52 +7350,60 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-guardian-south-korea-teachers-exams.md",
-        "pass_rate": "42/43",
+        "pass_rate": "47/49",
         "failures_by_severity": {
-          "context_warning": 1
+          "context_warning": 1,
+          "strong_warning": 1
         },
         "depth_results": {
           "balanced": {
             "status": "fail",
             "check_status": "fail",
-            "required_fixes": [],
+            "required_fixes": [
+              "no-vague-attributions"
+            ],
             "preservable_with_disclosure": [
               "no-markdown-headings"
             ],
             "user_decision_needed": [
               "no-markdown-headings"
             ],
-            "must_fix": [],
+            "must_fix": [
+              "no-vague-attributions"
+            ],
             "needs_user_decision": [
               "no-markdown-headings"
             ],
-            "summary": "No hard failures or strong warnings; context warnings need user decision."
+            "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
           },
           "all": {
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "no-markdown-headings"
+              "no-markdown-headings",
+              "no-vague-attributions"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "no-markdown-headings"
+              "no-markdown-headings",
+              "no-vague-attributions"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
           }
         },
         "failed_checks": [
-          "no-markdown-headings"
+          "no-markdown-headings",
+          "no-vague-attributions"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-image-first-men-original-sins.md",
-        "pass_rate": "36/43",
+        "pass_rate": "41/49",
         "failures_by_severity": {
           "strong_warning": 2,
-          "context_warning": 5
+          "context_warning": 6
         },
         "depth_results": {
           "balanced": {
@@ -7377,14 +7418,16 @@
               "no-promotional-language",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "user_decision_needed": [
               "no-curly-quotes",
               "no-promotional-language",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "must_fix": [
               "no-em-dashes",
@@ -7395,7 +7438,8 @@
               "no-promotional-language",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
           },
@@ -7409,7 +7453,8 @@
               "no-copula-avoidance",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -7420,7 +7465,8 @@
               "no-copula-avoidance",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -7433,12 +7479,13 @@
           "no-copula-avoidance",
           "no-markdown-headings",
           "vocabulary-diversity",
-          "no-triad-density"
+          "no-triad-density",
+          "no-boldface-overuse"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-kanter-what-is-amazon.md",
-        "pass_rate": "31/43",
+        "pass_rate": "37/49",
         "failures_by_severity": {
           "context_warning": 9,
           "strong_warning": 3
@@ -7546,7 +7593,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-medium-mindstorms-papert.md",
-        "pass_rate": "33/43",
+        "pass_rate": "39/49",
         "failures_by_severity": {
           "strong_warning": 4,
           "context_warning": 6
@@ -7641,7 +7688,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-new-yorker-understanding-owls.md",
-        "pass_rate": "36/43",
+        "pass_rate": "42/49",
         "failures_by_severity": {
           "context_warning": 5,
           "strong_warning": 2
@@ -7720,7 +7767,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-nyt-opinionator-i-know-what-you-think-of-me.md",
-        "pass_rate": "38/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
           "context_warning": 3,
           "strong_warning": 2
@@ -7787,7 +7834,7 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-nyt-quarantine-mustache.md",
-        "pass_rate": "43/43",
+        "pass_rate": "49/49",
         "failures_by_severity": {},
         "depth_results": {
           "balanced": {
@@ -7815,9 +7862,9 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-opencoop-belonging-superpower.md",
-        "pass_rate": "39/43",
+        "pass_rate": "44/49",
         "failures_by_severity": {
-          "context_warning": 3,
+          "context_warning": 4,
           "strong_warning": 1
         },
         "depth_results": {
@@ -7830,12 +7877,14 @@
             "preservable_with_disclosure": [
               "no-curly-quotes",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "user_decision_needed": [
               "no-curly-quotes",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "must_fix": [
               "no-filler-phrases"
@@ -7843,7 +7892,8 @@
             "needs_user_decision": [
               "no-curly-quotes",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
           },
@@ -7854,7 +7904,8 @@
               "no-curly-quotes",
               "no-filler-phrases",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -7862,7 +7913,8 @@
               "no-curly-quotes",
               "no-filler-phrases",
               "no-markdown-headings",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -7872,12 +7924,13 @@
           "no-curly-quotes",
           "no-filler-phrases",
           "no-markdown-headings",
-          "no-triad-density"
+          "no-triad-density",
+          "no-boldface-overuse"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-paris-review-mister-lytle.md",
-        "pass_rate": "42/43",
+        "pass_rate": "48/49",
         "failures_by_severity": {
           "context_warning": 1
         },
@@ -7919,10 +7972,10 @@
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md",
-        "pass_rate": "30/43",
+        "pass_rate": "35/49",
         "failures_by_severity": {
           "strong_warning": 4,
-          "context_warning": 9
+          "context_warning": 10
         },
         "depth_results": {
           "balanced": {
@@ -7943,7 +7996,8 @@
               "no-forced-triads",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "user_decision_needed": [
               "overall-ai-signal-pressure",
@@ -7954,7 +8008,8 @@
               "no-forced-triads",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "must_fix": [
               "no-em-dashes",
@@ -7971,7 +8026,8 @@
               "no-forced-triads",
               "no-markdown-headings",
               "vocabulary-diversity",
-              "no-triad-density"
+              "no-triad-density",
+              "no-boldface-overuse"
             ],
             "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
           },
@@ -7991,7 +8047,8 @@
               "no-markdown-headings",
               "vocabulary-diversity",
               "no-triad-density",
-              "no-section-scaffolding"
+              "no-section-scaffolding",
+              "no-boldface-overuse"
             ],
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
@@ -8008,7 +8065,8 @@
               "no-markdown-headings",
               "vocabulary-diversity",
               "no-triad-density",
-              "no-section-scaffolding"
+              "no-section-scaffolding",
+              "no-boldface-overuse"
             ],
             "needs_user_decision": [],
             "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
@@ -8027,12 +8085,13 @@
           "no-markdown-headings",
           "vocabulary-diversity",
           "no-triad-density",
-          "no-section-scaffolding"
+          "no-section-scaffolding",
+          "no-boldface-overuse"
         ]
       },
       {
         "file": "dev/evals/samples/human-sourced/21c-yale-review-wild-sublime-body.md",
-        "pass_rate": "34/43",
+        "pass_rate": "40/49",
         "failures_by_severity": {
           "context_warning": 6,
           "strong_warning": 3
@@ -8125,13 +8184,13 @@
   "summary": {
     "existing_samples": {
       "n": 19,
-      "avg_failed_checks": 4.68,
+      "avg_failed_checks": 4.74,
       "min_failed_checks": 0,
       "max_failed_checks": 10,
       "severity_totals": {
         "context_warning": 50,
         "hard_fail": 3,
-        "strong_warning": 36
+        "strong_warning": 37
       },
       "depth_check_status_counts": {
         "balanced": {
@@ -8145,12 +8204,12 @@
       },
       "depth_action_totals": {
         "balanced": {
-          "required_fixes": 39,
+          "required_fixes": 40,
           "preservable_with_disclosure": 50,
           "user_decision_needed": 50
         },
         "all": {
-          "required_fixes": 89,
+          "required_fixes": 90,
           "preservable_with_disclosure": 0,
           "user_decision_needed": 0
         }
@@ -8189,6 +8248,10 @@
           4
         ],
         [
+          "no-manufactured-insight",
+          4
+        ],
+        [
           "no-promotional-language",
           4
         ],
@@ -8198,10 +8261,6 @@
         ],
         [
           "no-formulaic-openers",
-          3
-        ],
-        [
-          "no-manufactured-insight",
           3
         ],
         [
@@ -8220,11 +8279,11 @@
     },
     "generated_ai": {
       "n": 38,
-      "avg_failed_checks": 6.24,
+      "avg_failed_checks": 6.26,
       "min_failed_checks": 3,
       "max_failed_checks": 12,
       "severity_totals": {
-        "context_warning": 196,
+        "context_warning": 197,
         "hard_fail": 1,
         "strong_warning": 40
       },
@@ -8239,11 +8298,11 @@
       "depth_action_totals": {
         "balanced": {
           "required_fixes": 41,
-          "preservable_with_disclosure": 196,
-          "user_decision_needed": 196
+          "preservable_with_disclosure": 197,
+          "user_decision_needed": 197
         },
         "all": {
-          "required_fixes": 237,
+          "required_fixes": 238,
           "preservable_with_disclosure": 0,
           "user_decision_needed": 0
         }
@@ -8313,12 +8372,12 @@
     },
     "human_sourced": {
       "n": 57,
-      "avg_failed_checks": 5.84,
+      "avg_failed_checks": 5.98,
       "min_failed_checks": 0,
-      "max_failed_checks": 13,
+      "max_failed_checks": 14,
       "severity_totals": {
-        "context_warning": 271,
-        "strong_warning": 62
+        "context_warning": 276,
+        "strong_warning": 65
       },
       "depth_check_status_counts": {
         "balanced": {
@@ -8332,12 +8391,12 @@
       },
       "depth_action_totals": {
         "balanced": {
-          "required_fixes": 62,
-          "preservable_with_disclosure": 271,
-          "user_decision_needed": 271
+          "required_fixes": 65,
+          "preservable_with_disclosure": 276,
+          "user_decision_needed": 276
         },
         "all": {
-          "required_fixes": 333,
+          "required_fixes": 341,
           "preservable_with_disclosure": 0,
           "user_decision_needed": 0
         }
@@ -8400,8 +8459,8 @@
           7
         ],
         [
-          "no-em-dashes",
-          4
+          "no-boldface-overuse",
+          5
         ]
       ]
     }

@@ -138,7 +138,7 @@ def run_claude(prompt: str, model: str | None) -> tuple[str, str, int]:
         env=env,
         text=True,
         capture_output=True,
-        timeout=900,
+        timeout=1800,
     )
 
     raw = proc.stdout.strip()
@@ -203,7 +203,7 @@ def run_codex(prompt: str, model: str | None) -> tuple[str, str, int]:
         cwd=ROOT,
         text=True,
         capture_output=True,
-        timeout=900,
+        timeout=1800,
     )
     try:
         response = output_path.read_text(encoding="utf-8")
@@ -285,13 +285,29 @@ def paragraph_lengths(text: str) -> list[int]:
     return [len(re.findall(r"\b\w+\b", p)) for p in paragraphs]
 
 
+# patterns.md headings the audit uses (per SKILL.md) that don't substring-match
+# the corresponding CHECK_REPORT_TEXT label. Dedupes via check_id.
+_PATTERNS_MD_ALIASES = {
+    "copula avoidance": "no-copula-avoidance",
+    "contrived contrast / negative parallelism": "no-negative-parallelisms",
+    "rule of three": "no-forced-triads",
+    "curly quotation marks": "no-curly-quotes",
+    "staccato rhythm in extended contexts": "no-staccato-sequences",
+    "ghost/spectral language": "no-ghost-spectral-density",
+    "unicode flair": "no-unicode-flair",
+    "aggregate ai-signal pressure": "overall-ai-signal-pressure",
+}
+
+
 def catalogue_hits(output: str) -> set[str]:
     lower = output.lower()
-    hits = set()
+    hits: set[str] = set()
     for check_id, (label, _) in GRADE.CHECK_REPORT_TEXT.items():
         terms = {label.lower(), check_id.replace("-", " ")}
-        terms.add(label.lower().replace("ai", "AI").lower())
         if any(term in lower for term in terms):
+            hits.add(check_id)
+    for heading_lc, check_id in _PATTERNS_MD_ALIASES.items():
+        if heading_lc in lower:
             hits.add(check_id)
     return hits
 
@@ -971,8 +987,13 @@ def run_iteration(
     static_viewer: bool,
     executor_name: str,
     include_old_skill: bool,
+    only: set[str] | None = None,
 ) -> None:
     evals = read_json(EVALS_PATH)["evals"]
+    if only:
+        evals = [e for e in evals if e["name"] in only]
+        if not evals:
+            raise SystemExit(f"--only matched no evals: {sorted(only)}")
     prepare_workspace(evals, reset=reset)
 
     jobs = []
@@ -1021,7 +1042,8 @@ def run_iteration(
     report_md, report_data = build_performance_report(evals, ITERATION)
     (ITERATION / "performance-report.md").write_text(report_md, encoding="utf-8")
     write_json(ITERATION / "performance-report.json", report_data)
-    update_readme_performance_block(report_data, ROOT / "README.md")
+    if only is None:
+        update_readme_performance_block(report_data, ROOT / "README.md")
     print(f"performance report written to {ITERATION / 'performance-report.md'}", flush=True)
 
     viewer = skill_creator_path / "eval-viewer" / "generate_review.py"
@@ -1059,7 +1081,7 @@ def main() -> int:
     parser.add_argument("--iteration", type=int, default=1)
     parser.add_argument("--model", default=None)
     parser.add_argument("--executor", choices=["claude", "codex"], default="claude")
-    parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--workers", type=int, default=4)
     parser.add_argument(
         "--include-old-skill",
         action="store_true",
@@ -1067,8 +1089,14 @@ def main() -> int:
     )
     parser.add_argument("--no-reset", action="store_true")
     parser.add_argument("--static-viewer", action="store_true")
+    parser.add_argument(
+        "--only",
+        default=None,
+        help="Comma-separated list of eval names to run; skips all others.",
+    )
     args = parser.parse_args()
     ITERATION = WORKSPACE / f"iteration-{args.iteration}"
+    only = {n.strip() for n in args.only.split(",") if n.strip()} if args.only else None
 
     run_iteration(
         skill_creator_path=args.skill_creator_path.resolve(),
@@ -1078,6 +1106,7 @@ def main() -> int:
         static_viewer=args.static_viewer,
         executor_name=args.executor,
         include_old_skill=args.include_old_skill,
+        only=only,
     )
     return 0
 
