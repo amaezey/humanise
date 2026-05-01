@@ -1616,6 +1616,32 @@ Nothing recognisable here.
 
 Want help?"""
 
+# Regression fixture for Finding #2 of pr-6-code-review-handoff:
+# the canonical all-clear phrase buried mid-line in a longer malformed
+# response must NOT pass the audit-shape checks. The anchored regex
+# (^\s*(?:>\s*)?audit clean ...) only matches phrases that start a line.
+_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "Audit clean: no AI tells detected, agent reading clean" but the model returned a hallucinated paragraph instead.
+
+We tried to render no-em-dashes (1 instance) but the structured block did not materialise.
+
+Want help?"""
+
+# Regression fixture for Finding #2: a response containing BOTH the
+# canonical all-clear phrase AND block headers is ambiguous — agents must
+# pick one shape, not both. All three audit-shape checks must fail.
+_ALL_CLEAR_PLUS_BLOCKS = """Audit clean: no AI tells detected, agent reading clean. Want suggestions?
+
+**Audit, 1 AI tell found**
+
+no-em-dashes (1 instance)
+  - "still—keen"
+  Why: Em dashes are a strong 2026 AI-style signal.
+
+**Agent-judgement reading (8 items)**
+
+structural_monotony — clear
+  varied — sections shift arc."""
+
 # has-programmatic-block
 _r = check_audit_shape("audit-shape-has-programmatic-block", _BOTH_BLOCKS)
 if _r["passed"]:
@@ -1696,6 +1722,32 @@ if not _r["passed"]:
     print("  ok: all-clear-line-format fails when neither blocks nor canonical line")
 else:
     FAILURES += 1; print("FAIL: all-clear-line-format should fail when neither blocks nor canonical line")
+
+# Finding #2 regressions: buried phrase and all-clear-plus-blocks must fail
+# all three audit-shape checks. The anchored regex catches the buried case;
+# the mutex logic catches the both-shapes-present case.
+
+print("\n--- Finding #2 regressions: buried all-clear and all-clear+blocks ---")
+
+for _check_name in ("audit-shape-has-programmatic-block",
+                    "audit-shape-has-agent-judgement-block",
+                    "audit-shape-all-clear-line-format"):
+    _r = check_audit_shape(_check_name, _BURIED_ALL_CLEAR)
+    if not _r["passed"]:
+        print(f"  ok: {_check_name} fails when all-clear phrase is buried mid-line")
+    else:
+        FAILURES += 1
+        print(f"FAIL: {_check_name} should fail when all-clear phrase is buried mid-line (got: {_r['evidence']})")
+
+for _check_name in ("audit-shape-has-programmatic-block",
+                    "audit-shape-has-agent-judgement-block",
+                    "audit-shape-all-clear-line-format"):
+    _r = check_audit_shape(_check_name, _ALL_CLEAR_PLUS_BLOCKS)
+    if not _r["passed"]:
+        print(f"  ok: {_check_name} fails when all-clear phrase appears alongside block headers")
+    else:
+        FAILURES += 1
+        print(f"FAIL: {_check_name} should fail when all-clear phrase appears alongside block headers (got: {_r['evidence']})")
 
 
 # --- Human passthrough: opinion piece ---

@@ -2755,9 +2755,17 @@ QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
 # stating both blocks came back clean. Phase 3 (U11/U12) will replace this
 # with the canonical "X of X clear · agent reading clean · pressure: clear"
 # shape; for U5 we match the Phase-1 form.
+#
+# The regex anchors to the start of a line (re.MULTILINE) so the canonical
+# phrase cannot be embedded inside a longer malformed response. A leading
+# blockquote marker `> ` is allowed because the canonical form is rendered
+# as a blockquote in some contexts. The audit-shape checks below also
+# enforce mutual exclusivity: a response containing both this all-clear
+# phrase AND a block header (**Audit**, **Agent-judgement reading**) is
+# ambiguous and fails — agents must choose one shape, not both.
 ALL_CLEAR_LINE_RE = re.compile(
-    r"audit clean[:.]?\s+no\s+ai\s+tells?\s+detected,?\s+agent\s+reading\s+clean",
-    re.IGNORECASE,
+    r"^\s*(?:>\s*)?audit clean[:.]?\s+no\s+ai\s+tells?\s+detected,?\s+agent\s+reading\s+clean\b",
+    re.IGNORECASE | re.MULTILINE,
 )
 
 
@@ -2904,25 +2912,36 @@ def check_every_suggestion_block_has_replacement(output_text, input_text=None):
 
 def check_audit_shape_has_programmatic_block(output_text, input_text=None):
     """An Audit response must carry the programmatic block (`**Audit, ...**`)
-    or be in the all-clear single-line shape."""
+    or be in the all-clear single-line shape. The two shapes are mutually
+    exclusive — a response containing both fails as ambiguous."""
     name = "audit-shape-has-programmatic-block"
-    if AUDIT_HEADER_RE.search(output_text):
+    has_block = bool(AUDIT_HEADER_RE.search(output_text))
+    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
+    if has_block and has_all_clear:
+        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both **Audit** header and the all-clear single-line phrase"}
+    if has_block:
         return {"text": name, "passed": True, "evidence": "**Audit** header present"}
-    if ALL_CLEAR_LINE_RE.search(output_text):
+    if has_all_clear:
         return {"text": name, "passed": True, "evidence": "all-clear single-line shape (programmatic block implicit)"}
     return {"text": name, "passed": False, "evidence": "no **Audit** header and no all-clear line"}
 
 
 def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
     """An Audit response must carry the agent-judgement block
-    (`**Agent-judgement reading...**`) or be in the all-clear single-line shape.
+    (`**Agent-judgement reading...**`) or be in the all-clear single-line
+    shape. The two shapes are mutually exclusive — a response containing
+    both fails as ambiguous.
 
     Phase 1 (U4) introduced the block; Phase 3 (U12) will redesign it but
     keep the header recognisable. This check holds across both phases."""
     name = "audit-shape-has-agent-judgement-block"
-    if AGENT_JUDGEMENT_HEADER_RE.search(output_text):
+    has_block = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
+    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
+    if has_block and has_all_clear:
+        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both **Agent-judgement reading** header and the all-clear single-line phrase"}
+    if has_block:
         return {"text": name, "passed": True, "evidence": "**Agent-judgement reading** header present"}
-    if ALL_CLEAR_LINE_RE.search(output_text):
+    if has_all_clear:
         return {"text": name, "passed": True, "evidence": "all-clear single-line shape (agent-judgement block implicit)"}
     return {"text": name, "passed": False, "evidence": "no **Agent-judgement reading** header and no all-clear line"}
 
@@ -2930,17 +2949,31 @@ def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
 def check_audit_shape_all_clear_line_format(output_text, input_text=None):
     """When neither block is present in the output, the response is expected
     to be the all-clear single-line shape: `Audit clean: no AI tells detected,
-    agent reading clean.` followed by the next-step question.
+    agent reading clean.` followed by the next-step question. The canonical
+    phrase must START a line (the regex is anchored with re.MULTILINE) so it
+    cannot be embedded inside a longer malformed response.
 
-    On non-all-clear outputs (where the bold headers are present), the check
-    vacuously passes — the all-clear shape only applies to all-clear runs.
+    On non-all-clear outputs (where the bold headers are present and there
+    is no all-clear phrase), the check vacuously passes — the all-clear
+    shape only applies to all-clear runs. A response containing BOTH the
+    canonical all-clear phrase AND any block header fails as ambiguous —
+    the two shapes are mutually exclusive.
     """
     name = "audit-shape-all-clear-line-format"
     has_programmatic = bool(AUDIT_HEADER_RE.search(output_text))
     has_agent_judgement = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
+    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
+
+    if has_all_clear and (has_programmatic or has_agent_judgement):
+        which = []
+        if has_programmatic:
+            which.append("**Audit**")
+        if has_agent_judgement:
+            which.append("**Agent-judgement reading**")
+        return {"text": name, "passed": False, "evidence": f"ambiguous shape: all-clear phrase appears alongside {' and '.join(which)} block header(s)"}
     if has_programmatic or has_agent_judgement:
         return {"text": name, "passed": True, "evidence": "non-all-clear output (vacuously passes)"}
-    if ALL_CLEAR_LINE_RE.search(output_text):
+    if has_all_clear:
         return {"text": name, "passed": True, "evidence": "all-clear single-line shape matches Phase-1 canonical form"}
     return {"text": name, "passed": False, "evidence": "all-clear shape expected but neither block headers nor canonical line found"}
 
