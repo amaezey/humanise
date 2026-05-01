@@ -46,10 +46,12 @@ GRADE = load_grade_module()
 
 # patterns.yaml replaces CHECK_REPORT_TEXT (U7 of the audit-report redesign).
 # Loaded once at module scope; consumers iterate _PATTERN_LABELS for (id, label) pairs.
+# Skips _meta / _extra_entries (page-level content for U15 generator).
 import yaml as _yaml
 _PATTERN_LABELS = {
     cid: rec["short_name"]
     for cid, rec in _yaml.safe_load((ROOT / "humanise" / "patterns.yaml").read_text()).items()
+    if not cid.startswith("_")
 }
 
 

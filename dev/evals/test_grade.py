@@ -28,6 +28,7 @@ _patterns_data = _yaml.safe_load((ROOT / "humanise" / "patterns.yaml").read_text
 CHECK_METADATA = {
     _cid: {k: _rec[k] for k in ("severity", "failure_modes", "evidence_role", "guidance")}
     for _cid, _rec in _patterns_data.items()
+    if not _cid.startswith("_")  # skip _meta, _extra_entries (page-level content)
 }
 annotate_result = _grade.annotate_result
 failure_mode_results = _grade.failure_mode_results

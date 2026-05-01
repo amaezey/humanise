@@ -1,5 +1,7 @@
 # AI writing patterns
 
+<!-- This file is generated from `humanise/patterns.yaml`. Edit the YAML and regenerate via `python3 dev/tools/render_patterns_md.py --write`. -->
+
 48 patterns plus three sub-letter variants (23a, 31a, 35a) to detect and fix, plus one unnumbered meta-check (`overall-ai-signal-pressure`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
 
 ## Contents

@@ -84,7 +84,12 @@ def _validate_pattern(check_id, record):
 
 
 def load_patterns():
-    """Load and validate patterns.yaml. Cached after first call."""
+    """Load and validate patterns.yaml, returning only per-check records.
+
+    Underscore-prefixed top-level keys (`_meta`, `_extra_entries`) carry
+    page-level patterns.md content used by the U15 generator and are filtered
+    out of the per-check view returned here. Cached after first call.
+    """
     global _PATTERNS_CACHE
     if _PATTERNS_CACHE is None:
         data = yaml.safe_load(PATTERNS_PATH.read_text())
@@ -92,9 +97,10 @@ def load_patterns():
             raise ValueError(
                 "patterns.yaml: top-level must be a mapping of check_id → record"
             )
-        for check_id, record in data.items():
+        per_check = {k: v for k, v in data.items() if not k.startswith("_")}
+        for check_id, record in per_check.items():
             _validate_pattern(check_id, record)
-        _PATTERNS_CACHE = data
+        _PATTERNS_CACHE = per_check
     return _PATTERNS_CACHE
 
 
