@@ -1088,10 +1088,12 @@ print("\n=== severity-propagation ===")
 #   **Severity:** inherits <tier> from `parent-check-id` ...        (folded patterns)
 #   **Severity:** N/A · ...                                          (manual / agent-judgement)
 #
-# Plus the unnumbered-checks table rows: | `check-id` | <tier> | ... |
-#
 # For each (tier, check-id) pair pulled from a programmatic-check Severity line,
 # assert it matches CHECK_METADATA[check-id]["severity"].
+#
+# The audit-report redesign closed the orphan-table escape hatch: every check
+# in CHECK_METADATA must reach a real numbered or sub-lettered pattern entry's
+# **Severity:** line. A separate orphan table no longer counts as coverage.
 
 _severity_pairs = []  # list of (tier, check_id, source_label)
 for _i, _line in enumerate(_patterns_md.splitlines(), 1):
@@ -1102,11 +1104,16 @@ for _i, _line in enumerate(_patterns_md.splitlines(), 1):
         # Inherits: "**Severity:** inherits <tier> from `parent`"
         for _tier, _cid in _re_meta.findall(r"inherits\s+(hard_fail|strong_warning|context_warning)\s+from\s+`([\w-]+)`", _line):
             _severity_pairs.append((_tier, _cid, f"line {_i} (inherited)"))
-# Table rows in the orphan-checks section: "| `check-id` | <tier> | ..."
+
+# Regression guard: the "Severity for unnumbered checks" section was a known
+# escape hatch — it let new checks land without a real pattern entry. The
+# audit-report redesign removed it. If anyone reintroduces a section heading
+# that matches that shape, fail loudly so we don't grow a parallel registry.
+_orphan_section_re = _re_meta.compile(r"^##\s+severity\s+for\s+unnumbered", _re_meta.IGNORECASE)
 for _i, _line in enumerate(_patterns_md.splitlines(), 1):
-    _m = _re_meta.match(r"\|\s*`([\w-]+)`\s*\|\s*(hard_fail|strong_warning|context_warning)\s*\|", _line)
-    if _m:
-        _severity_pairs.append((_m.group(2), _m.group(1), f"line {_i} (orphan table)"))
+    if _orphan_section_re.match(_line):
+        FAILURES += 1
+        print(f"FAIL: patterns.md line {_i} reintroduces the orphan 'Severity for unnumbered checks' section. Every check must live in a numbered or sub-lettered pattern entry.")
 
 _seen_checks = set()
 for _tier, _cid, _src in _severity_pairs:

@@ -340,7 +340,22 @@ Ideas forced into groups of three to appear comprehensive, even when the items d
 **After:**
 > The event includes talks and panels, with time for informal networking between sessions.
 
-**Severity:** context_warning · `no-forced-triads` (the density variant lives at the unnumbered `no-triad-density` check — see Severity for unnumbered checks)
+**Severity:** context_warning · `no-forced-triads` (the density variant lives at #10a)
+
+
+### 10a. Triad density
+
+The density variant of #10 rule of three. While #10 catches a single forced triad as a content pattern, #10a fires when triads cluster across longer prose: four or more "X, Y, and Z" / "X, Y, or Z" structures in a piece of 300+ words. This is the rate-of-triads metric — even when each individual triad reads naturally, the aggregate cadence becomes mechanical.
+
+**Before:**
+> The team values clarity, directness, and rigour. Their meetings are short, focused, and outcome-driven. The retros surface what worked, what didn't, and what to try next. The roadmap balances delivery, learning, and team health.
+
+**After:**
+> The team runs short meetings and uses retros to decide what to try next. The roadmap is mostly about delivery, with deliberate space for the things the team is still learning how to do well.
+
+**Severity:** context_warning · `no-triad-density`
+
+**Detection:** Programmatic check `no-triad-density` (added in 42e4d00 on 2026-04-02 as part of the structural AI detection expansion; **context_warning**). Counts "X, Y, and/or Z" patterns where each item is 1-4 words; fails at 4+ triads in prose of 300+ words. Distinct from #10 forced triads (single-instance, semantic check); #10a is the cumulative-density check across a piece.
 
 
 ### 11. Synonym cycling
@@ -371,6 +386,23 @@ Excessive synonym substitution, cycling through different words for the same ref
 **Severity:** N/A · manual self-audit only (see Detection)
 
 **Detection:** Manual self-audit only — no programmatic check. Judging whether range endpoints sit on a meaningful scale requires semantic context the grader does not have.
+
+
+### 53. Vocabulary diversity
+
+A coarse type-token ratio metric for prose of 150+ words: the ratio of unique words to total words. AI-generated prose often shows lower lexical diversity than human writing of the same length, leaning on a small core of stock phrases and reusing them across paragraphs. Human writing on the same topic typically reaches further into the lexicon.
+
+**Tolerance note:** Several legitimate forms run low on type-token ratio: dialogue (where characters reuse words), technical writing (where domain terms repeat by necessity), and old prose styles that favour repetition for rhetorical effect. Treat low diversity as a coarse signal, not a hard fail — preserve when the genre genuinely calls for it.
+
+**Before:**
+> The strategy emphasises customer outcomes. The strategy emphasises operational efficiency. The strategy emphasises sustainable growth. The strategy emphasises team alignment.
+
+**After:**
+> The strategy chases four things at once: customer outcomes, operational efficiency, sustainable growth, and team alignment. Each one feeds the next, which is the bet that makes the document work or fall apart.
+
+**Severity:** context_warning · `vocabulary-diversity`
+
+**Detection:** Programmatic check `vocabulary-diversity` (added in PR #3 at 3c013e3 on 2026-04-01 as part of the AI-writing research expansion; **context_warning**). Computes type-token ratio on stripped lowercased words and fails below a corpus-tuned threshold. Skipped on prose under 150 words. Distinct from #11 synonym cycling (which targets the *opposite* failure mode — over-substituting synonyms for the same referent — and is a manual-only check) and from #7 AI vocabulary words (which targets specific stock vocabulary, not the lexical-density distribution).
 
 ---
 
@@ -470,6 +502,23 @@ Individual hyphenations are often correct, but AI stacks four or five in a singl
 **Severity:** context_warning · `no-compound-modifier-density`
 
 **Detection:** Programmatic check `no-compound-modifier-density` (added in U1; flags three or more AI-stock hyphenated compounds in a single sentence, drawn from a watchlist of common offenders).
+
+
+### 49. Em dashes
+
+ChatGPT and similar systems use the em dash (`—`) as default mid-sentence punctuation where most human writers would use a comma, a semicolon, a period, or a parenthetical pair of dashes. A single em dash reads naturally; routine em dashes in plain web prose are a strong 2026 AI-style fingerprint.
+
+**Tolerance note:** Em dashes are legitimate punctuation in literary prose, narrative voice, and publication-ready formatting where they are part of an author's deliberate style. Treat them as a strong AI-style signal in plain web prose, technical writing, instructional reference, and policy briefs. Preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
+
+**Before:**
+> The framework offers a unified approach — one that combines flexibility with rigour — and integrates with existing tooling without friction.
+
+**After:**
+> The framework combines flexibility with rigour, and it integrates with existing tooling without friction.
+
+**Severity:** strong_warning · `no-em-dashes`
+
+**Detection:** Programmatic check `no-em-dashes` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **strong_warning**). Counts U+2014 occurrences and fails on any. Distinct from #17 curly quotes (a typographic substitution at the quotation-mark level); this check targets the long-dash glyph as default mid-sentence punctuation.
 
 ---
 
@@ -631,6 +680,23 @@ Distinct from #9 (contrived contrast in a single sentence) and #33 (countdown ne
 **Severity:** context_warning · `no-negation-density`
 
 **Detection:** Programmatic check `no-negation-density` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion). Triggers only on prose of 300+ words.
+
+
+### 50. Formulaic openers
+
+**Words to watch:** "At its core,", "At a foundational/fundamental/practical level,", "Beyond this/that/[abstract noun],", "There is also a [\…] dimension/aspect/element,", "It is worth recognising/noting/mentioning,", "From a [\…] perspective/standpoint,", "On a [\…] level,", "In a broader/wider/larger/similar context/sense/vein,", "Perhaps most importantly/significantly/notably/crucially,", "What makes this particularly/especially/uniquely [\…]"
+
+Generated paragraph openers that frame the next bit as a step up in abstraction. They survive rewrites because they are bland connectives rather than vocabulary tells, but they mark prose that stitches paragraphs together with the same handful of moves.
+
+**Before:**
+> At its core, the proposal is about consolidation. From a broader perspective, it reduces operational overhead. Perhaps most importantly, it aligns with the strategic plan.
+
+**After:**
+> The proposal consolidates three legacy tools into one, which reduces integration points and on-call rotations. It is also the move the strategic plan has been pointing at since 2025.
+
+**Severity:** strong_warning · `no-formulaic-openers`
+
+**Detection:** Programmatic check `no-formulaic-openers` (added in PR #1 at ee05591 on 2026-04-01; **strong_warning**). Anchored regex against the first line of each paragraph; flags any paragraph whose opener fits the formulaic-opener template. Distinct from #7 AI vocabulary words (which lists opener phrases as one sub-bullet under the broader vocabulary check) and from #47 soft scaffolding (which catches between-sentence connectives like "One useful area..." rather than paragraph-opening abstractions).
 
 ---
 
@@ -820,6 +886,23 @@ Explicit conclusion labels turn the ending into a generic summary. AI overuses t
 
 **Detection:** Programmatic check `no-signposted-conclusions` (introduced before the 2026-04-08 file-move refactor at 618c723; **context_warning**).
 
+
+### 52. Sentence length variance
+
+A coarse rhythm metric for prose of 100+ words. Human writing varies sentence length naturally, mixing short punch sentences with longer connective passages. AI prose tends toward the centre of the distribution: most sentences land in a similar word count band, and the resulting cadence reads mechanical even when individual sentences are competent.
+
+**Tolerance note:** Some genres legitimately run uniform: instructional steps, headlines, dialogue, dictionary entries, telegraphic memos. The check skips short-form prose under 100 words. Treat low variance as a signal, not a hard fail — preserve when the form genuinely calls for uniformity.
+
+**Before:**
+> The team uses agile methods. They run two-week sprints. Each sprint starts with planning. Each sprint ends with a retro. The team values feedback. They iterate based on what they learn.
+
+**After:**
+> The team uses agile methods, running two-week sprints that bracket each piece of work between planning and a retro. Feedback drives iteration: each sprint adjusts based on what the last one taught them.
+
+**Severity:** context_warning · `sentence-length-variance`
+
+**Detection:** Programmatic check `sentence-length-variance` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **context_warning**). Computes the standard deviation of sentence word counts and fails when the SD drops below 4. Skipped on prose under 100 words and 6 sentences. Distinct from #34 paragraph-length uniformity (which measures paragraph block sizes, not sentence-level rhythm) and from #25 staccato (which targets very short standalone sentences regardless of variance).
+
 ---
 
 ## Voice and register
@@ -900,7 +983,22 @@ The problem is not the word "this"; it is the vague subject. If "this" points to
 **After:**
 > The missed deadline exposed a communication gap between product and engineering.
 
-**Severity:** context_warning · `no-orphaned-demonstratives` (the related sentence-start chain check is unnumbered: `no-this-chains` — see Severity for unnumbered checks)
+**Severity:** context_warning · `no-orphaned-demonstratives` (the related sentence-start chain check lives at #35b)
+
+
+### 35b. Repeated 'This …' chains
+
+Three or more consecutive sentences in a paragraph that begin with "This [verb]" — typically "This shows…", "This means…", "This highlights…", "This underscores…". Distinct from #35a orphaned demonstratives, which catches a single vague-subject `this` sentence; #35b is the chain pattern, where a paragraph keeps using `This` as the subject placeholder sentence after sentence.
+
+**Before:**
+> The framework launched in March. This brought consolidation. This reduced operational cost. This freed engineering time. This let the team focus on the next initiative.
+
+**After:**
+> The framework launched in March, consolidating tooling that had drifted across three teams since 2024. The reduced operational cost is what gave engineering room to focus on the next initiative.
+
+**Severity:** context_warning · `no-this-chains`
+
+**Detection:** Programmatic check `no-this-chains` (added in PR #1 at ee05591 on 2026-04-01; **context_warning**). Walks each paragraph and flags 3+ consecutive sentences matching `^this\s+(?!is)\w+`. Distinct from #35a orphaned demonstratives (single-sentence vague-subject `this`); #35b is the multi-sentence chain pattern within a paragraph.
 
 
 ### 36. Faux specificity
@@ -1023,6 +1121,23 @@ Generated literary, film, or review criticism that sounds balanced but generic. 
 
 **Detection:** Programmatic check `no-bland-critical-template` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **strong_warning**). Closely related to #35 tonal uniformity in reviews and criticism — the tonal-uniformity entry mentions the same evaluative phrases ("emotional range", "field of sympathy", "moral strength") as a register signal; this check enforces them at phrase level.
 
+
+### 51. Mechanical repeated sentence starts
+
+Three or more consecutive sentences whose first word matches — "The X… The Y… The Z…", "We did… We saw… We learned…", "It was… It was… It was…". Anaphora is a real rhetorical device when it earns its weight (Lincoln, Churchill, Baldwin), but AI reaches for it as a default rhythm pattern when it has run out of structural ideas. The tell is repetition without escalation: three sentences starting the same way that do not build, contrast, or accumulate force.
+
+**Tolerance note:** Deliberate anaphora is one of the oldest rhetorical figures in English. Preserve when the repetition is doing structural work — building, contrasting, intensifying — or when it is character voice, oratory, or quoted speech.
+
+**Before:**
+> The team adopted the new framework. The team rewrote the docs. The team trained the support staff. The team rolled out the migration in three phases.
+
+**After:**
+> Adopting the new framework meant rewriting the docs and training the support staff before the team could roll out the migration in three phases.
+
+**Severity:** context_warning · `no-anaphora`
+
+**Detection:** Programmatic check `no-anaphora` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **context_warning**). Flags three or more consecutive sentences whose first word matches case-insensitively, ignoring trivial starts ("I", "A", "The", "It", "It's"). Distinct from #25 staccato rhythm (which fires on short standalone sentences regardless of opener) and from #35a orphaned demonstratives (vague-subject `this` in a single sentence) and #35b `This …` chains (paragraph-level repetition of `This` as subject).
+
 ---
 
 ## Aggregate AI-signal pressure (meta-check)
@@ -1033,7 +1148,7 @@ The grader also runs one meta-check that does not correspond to a single AI tell
 
 - manufactured insight framing (#42)
 - contrived contrast / negative parallelism (#9)
-- formulaic openers
+- formulaic openers (#50)
 - soft scaffolding (#47)
 - section scaffolding (#38)
 - tidy paragraph endings (in #34)
@@ -1053,22 +1168,3 @@ The check fires when the weighted score crosses a threshold AND vocabulary press
 
 
 **Detection:** Programmatic meta-check `overall-ai-signal-pressure` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **context_warning**). Not numbered as a single AI tell; rolls up the components above. The check exposes its component breakdown and Kobak vocabulary profile in its evidence so the writer can read which signals contributed.
-
-
----
-
-## Severity for unnumbered checks
-
-Seven programmatic checks in `humanise/grade.py` map to themes documented in this catalogue but do not have their own numbered pattern entry. They were not included in Group B (`docs/todos/grader-integrity-gaps.md`) because each maps to existing prose elsewhere in the file, but they need a Severity declaration for completeness.
-
-| Check ID | Severity | Mapped topic |
-|---|---|---|
-| `no-em-dashes` | strong_warning | "2026 operating stance" preamble (em dashes are a strong AI-style signal) |
-| `no-formulaic-openers` | strong_warning | #7 AI vocabulary words — "AI transition phrases" sub-bullet ("at its core", "from a broader perspective") |
-| `no-anaphora` | context_warning | Adjacent to #25 staccato (sentence-rhythm signals); detects 3+ consecutive sentences starting with the same word/phrase |
-| `sentence-length-variance` | context_warning | Adjacent to #34 paragraph-length uniformity (rhythm signals); coarse rhythm metric across longer prose |
-| `no-this-chains` | context_warning | Adjacent to #35a orphaned demonstratives; detects several consecutive `This …` sentence starts |
-| `no-triad-density` | context_warning | Density variant of #10 rule of three; flags overall triad rate across the piece |
-| `vocabulary-diversity` | context_warning | Type-token ratio coarse signal; old prose, dialogue, and technical writing may fail legitimately |
-
-These will be promoted to numbered patterns (or folded explicitly into existing numbered entries) in a follow-up pass after Phase 1.
