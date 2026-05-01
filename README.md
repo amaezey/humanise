@@ -89,14 +89,14 @@ The findings above shape how the skill talks:
 Each iteration runs the skill against an eval suite. The block below is auto-generated.
 
 <!-- performance:start -->
-**iteration-4** (2026-04-29T12:55:01Z)
+**iteration-8** (2026-05-01T12:04:34Z)
 
-- Mean pass rate: 95.5% across 18 evals
-- Human-vs-ai_fresh flag gap: total +5% / strong +11%
-- Human-vs-ai_rewrite flag gap: total -12% / strong +44%
+- Mean pass rate: 91.7% across 4 evals
+- Human-vs-ai_fresh flag gap: total -5% / strong +11%
+- Human-vs-ai_rewrite flag gap: total -20% / strong +44%
 - Regressions vs prev iteration: 0
 
-[Full report](dev/skill-workspace/iteration-4/performance-report.md)
+[Full report](dev/skill-workspace/iteration-8/performance-report.md)
 <!-- performance:end -->
 
 The "human-vs-ai gap" lines are the load-bearing claim — humans should trigger fewer flags than AI in matched-genre comparisons. In long-form essay register, the gap is small on totals and inverted on strong signals. That's the finding the rest of this README is built around.
