@@ -1,7 +1,7 @@
 ---
 title: "feat: Audit report redesign — dual-layer output, registry-backed architecture"
 type: feat
-status: active
+status: completed
 date: 2026-04-30
 deepened: 2026-05-01
 refreshed: 2026-05-02
