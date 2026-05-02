@@ -112,6 +112,20 @@ templates:
   # All-clear single-line response (R8). Both halves clear, no tables.
   all_clear_single_line: "{total} of {total} clear · agent reading clean · pressure: clear."
 
+  # Agent-judgement parallel block (Phase 3, U12). Read by format_agent_judgement().
+  # Header carries flagged-of-total counts; clean form is used when programmatic
+  # block forces a non-all-clear render but every agent-judgement item is clear.
+  agent_judgement_header: "**Agent-judgement reading — {flagged} flagged of {total}**"
+  agent_judgement_clean_header: "**Agent-judgement reading**"
+  agent_judgement_clean_body: "agent reading clean"
+  agent_judgement_item_with_value: "- {label} — {status}: {value}"
+  agent_judgement_item_status_only: "- {label} — {status}"
+  agent_judgement_item_status_then_findings: "- {label} — {status}:"
+  agent_judgement_finding_with_why: "  - \"{phrase}\" — {why}"
+  agent_judgement_finding_phrase_only: "  - \"{phrase}\""
+  agent_judgement_genre_with_findings: "- {label} — {status}: Genre detected: {genre}."
+  agent_judgement_genre_pending: "- {label} — {status}: Genre detected: {genre}. Watchlist coverage pending."
+
 # Layer 1 short pressure explanation (R3 follow-up). One sentence, four
 # variants by component / vocabulary / triggered combinations.
 short_pressure_explanation:

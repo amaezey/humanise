@@ -1524,19 +1524,19 @@ Level: medium.
 **Agent-judgement reading (8 items)**
 
 structural_monotony — clear
-  varied — sections shift arc.
+  sections vary — sections shift arc.
 
 tonal_uniformity — clear
-  has_breaks — register breaks at paragraph 3.
+  register breaks at least once — register breaks at paragraph 3.
 
 faux_specificity — clear
   No phrases.
 
 neutrality_collapse — clear
-  committed — author defends a specific position.
+  takes a position — author defends a specific position.
 
 even_jargon_distribution — clear
-  clumped — jargon concentrated in section 2.
+  jargon clumps where the writer knows things — jargon concentrated in section 2.
 
 forced_synesthesia — clear
   No phrases.
@@ -1566,7 +1566,7 @@ _AGENT_JUDGEMENT_ONLY = """---
 **Agent-judgement reading (8 items)**
 
 structural_monotony — flagged
-  fully_locked.
+  every section follows the same arc.
 
 **Next step**
 
@@ -1604,7 +1604,7 @@ no-em-dashes (1 instance)
 **Agent-judgement reading (8 items)**
 
 structural_monotony — clear
-  varied — sections shift arc."""
+  sections vary — sections shift arc."""
 
 # has-programmatic-block
 _r = check_audit_shape("audit-shape-has-programmatic-block", _BOTH_BLOCKS)
