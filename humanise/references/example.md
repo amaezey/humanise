@@ -1,6 +1,6 @@
-# Worked example: AI-sounding draft → human-sounding rewrite
+# Worked example: AI-sounding draft → audit → rewrite
 
-End-to-end demonstration of a rewrite at All depth: an AI-generated essay through audit, rewrite, structural self-check, and revised rewrite. Use as a reference for what a real Rewrite action's output should look like.
+End-to-end demonstration on a single AI-generated essay: the dual-layer audit it produces, then a rewrite at All depth with structural self-check and revised rewrite. Use as a reference for what a real Audit and Rewrite action's outputs look like.
 
 ## Before (AI-sounding)
 
@@ -15,6 +15,125 @@ End-to-end demonstration of a rewrite at All depth: an AI-generated essay throug
 > While specific details are limited based on available information, it could potentially be argued that these tools might have some positive effect. Despite challenges typical of emerging technologies, the ecosystem continues to thrive. In order to fully realize this potential, teams must align with best practices.
 >
 > In conclusion, the future looks bright. Exciting times lie ahead as we continue this journey toward excellence. Let me know if you'd like me to expand on any section!
+
+## Audit
+
+Real `python3 humanise/grade.py --format markdown --depth balanced` output on the input above, with a representative agent-judgement block underneath. Severity glyphs in Layer 1: `x` hard_fail, `!` strong_warning, `?` context_warning. Layer 2 collapses categories where every check is clear; expanded sub-tables include the clear rows so coverage stays visible. The agent-judgement block uses the eight-item registry in `humanise/judgement.yaml` and renders status binary (Flagged / Clear) with no severity column.
+
+```
+Audit
+Severity: 2 hard_fail · 8 strong_warning · 3 context_warning · pressure: triggered
+Pressure triggered: weaker AI-writing signals stacked to 9 of the 4-point threshold (formulaic openings, assistant residue, generic conclusion endings, plus 4 clustered AI-vocabulary point(s)).
+
+! **Clustered AI vocabulary** — "enduring", "landscape", "pivotal" (+4 more) — Action: Fix
+x **Assistant residue** — "i hope this helps", "great question", "let me know if" — Action: Fix
+? **Generic promotional language** — "nestled", "groundbreaking" — Action: Disclose or ask before preserving
+? **Inflated significance** — "pivotal", "vital role", "testament" — Action: Disclose or ask before preserving
+! **Avoiding plain 'is'** — "serves as", "serves as", "stands as" (+1 more) — Action: Fix
+! **Filler phrases** — "in order to" — Action: Fix
+x **Generic conclusion** — "the future looks bright", "exciting times", "continue this journey" — Action: Fix
+! **Tacked-on -ing analysis** — Action: Fix
+! **Formulaic openers** — "At its core, the value proposition is clear: streamlining pr" — Action: Fix
+? **Signposted conclusion** — "In conclusion, the future looks bright. Exciting times lie a" — Action: Disclose or ask before preserving
+! **Corporate AI-speak** — "cross-functional" — Action: Fix
+! **Vague attributions** — "observers have noted" — Action: Fix
+! **Knowledge-cutoff disclaimers** — "based on available information", "while specific details are limited" — Action: Fix
+
+---
+
+**Content patterns** — 4 flagged of 5
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Generic promotional language | Flagged | Disclose or ask before preserving |
+| Inflated significance | Flagged | Disclose or ask before preserving |
+| Tacked-on -ing analysis | Flagged | Fix |
+| Notability claims | Clear |  |
+| Vague attributions | Flagged | Fix |
+
+**Language and grammar** — 2 flagged of 6
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Clustered AI vocabulary | Flagged | Fix |
+| Contrived contrast | Clear |  |
+| Avoiding plain 'is' | Flagged | Fix |
+| Decorative three-part lists | Clear |  |
+| Vocabulary diversity | Clear |  |
+| Triad density | Clear |  |
+
+**Style** — 6/6 clear
+
+**Communication** — 2 flagged of 2
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Assistant residue | Flagged | Fix |
+| Knowledge-cutoff disclaimers | Flagged | Fix |
+
+**Filler and hedging** — 3 flagged of 8
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Generic staccato emphasis | Clear |  |
+| Filler phrases | Flagged | Fix |
+| Generic conclusion | Flagged | Fix |
+| False balance or concession | Clear |  |
+| Soft explainer scaffolding | Clear |  |
+| Formulaic openers | Flagged | Fix |
+| Excessive hedging | Clear |  |
+| Dense negation | Clear |  |
+
+**Sensory and atmospheric** — 2/2 clear
+
+**Structural tells** — 1 flagged of 9
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Manufactured insight framing | Clear |  |
+| Sentence rhythm variance | Clear |  |
+| Template rhetorical questions | Clear |  |
+| Excessive list formatting | Clear |  |
+| Decorative Unicode | Clear |  |
+| Unearned dramatic transitions | Clear |  |
+| Signposted conclusion | Flagged | Disclose or ask before preserving |
+| Paragraph length uniformity | Clear |  |
+| Repeated section scaffolding | Clear |  |
+
+**Voice and register** — 1 flagged of 10
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Nonliteral land/surface phrasing | Clear |  |
+| Mechanical repeated sentence starts | Clear |  |
+| Placeholder residue | Clear |  |
+| Vague 'this/that' starts | Clear |  |
+| Corporate AI-speak | Flagged | Fix |
+| Repeated 'This...' chains | Clear |  |
+| Countdown negation | Clear |  |
+| Tidy paragraph endings | Clear |  |
+| Bland critical template | Clear |  |
+| Rubric echoing | Clear |  |
+
+---
+
+**Agent-judgement reading — 4 flagged of 8**
+
+- Structural monotony — Flagged: every section follows the same arc
+- Tonal uniformity — Flagged: register holds without breaks
+- Faux specificity — Clear
+- Neutrality collapse — Flagged: hedges its position
+- Even jargon distribution — Clear: jargon clumps where the writer knows things
+- Forced synesthesia — Clear
+- Generic metaphors — Clear
+- Genre specific — Flagged: Genre detected: default.
+
+**Next step**
+
+Want suggestions for per-flag replacements, a rewrite at a chosen depth, or to save this audit as a Markdown file?
+```
+
+The all-clear case collapses to a single line — `<N> of <N> clear · agent reading clean · pressure: clear.` followed by the next-step prompt. No tables, no glyphs, no level label.
 
 ## Rewrite
 

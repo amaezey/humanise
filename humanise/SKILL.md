@@ -47,80 +47,76 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`. The pattern name is the human-readable heading from `references/patterns.md` (e.g., "Em dashes", "Triad density", "Curly quotes") — never the internal check ID (`no-em-dashes`, `no_triad_density`, etc.). Check IDs are assertion names, not user-facing labels.
 4. **Run the agent-judgement reading.** Read `judgement.yaml` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
-5. Render the audit using the output template below. The programmatic block carries the regex findings; the agent-judgement block carries the eight-item reading. Both blocks always render in Phase 1 — Phase 3 (U11/U12) introduces an all-clear collapse and the two-layer Layer 1/Layer 2 split.
+5. Render the audit using the output template below. The programmatic block carries the regex findings as a two-layer surface (Layer 1 orientation + Layer 2 coverage receipt); the agent-judgement block carries the eight-item reading as a parallel block. The renderer collapses to a single line when both halves are clear and aggregate AI-pressure has not triggered.
 6. End with the next-step question and stop without proceeding to a rewrite.
 
 ### Audit output
 
+The renderer (`humanise/grade.py format_two_layer`) emits one of three shapes depending on what fired. The all-clear case collapses to a single line; everything else composes a programmatic block, an agent-judgement block, or both — separated by `---`.
+
 ```
-**Audit, N AI tells found**
+Audit
+Severity: <hard_fail count> hard_fail · <strong_warning count> strong_warning · <context_warning count> context_warning · pressure: <triggered | clear>
+<one-sentence pressure explanation: triggered or clear, score vs threshold, components and vocabulary points>
 
-<pattern-name-1> (M instances)
-  - "<quoted phrase from input>"
-  - "<another quoted phrase>"
-  Why: <brief explanation, ~1-2 sentences>
-
-<pattern-name-2> (M instances)
-  - "<quoted phrase>"
-  Why: <explanation>
-
-<structural-pattern-name>
-  Where: <description of where the pattern appears, e.g., "every paragraph in section 2 is 4-5 sentences and ends with a summary line">
-  Why: <explanation>
-
+<severity glyph> **<pattern short_name>** — "<quoted phrase>" — Action: <Fix | Disclose or ask before preserving>
+<severity glyph> **<pattern short_name>** — Action: <action>
 ...
-
-**Confidence**
-
-Render four fields from the grader: the level (low / medium / high / very high), the meaning string explaining what the level implies, the basis list summarising why, and a note that this assessment describes AI-writing signs rather than offering a verdict about who wrote the text.
 
 ---
 
-**Agent-judgement reading (8 items)**
+**<Category>** — <clear>/<total> clear
 
-structural_monotony — <flagged | clear>
-  <Per-item evidence: trichotomy value (sections vary / some sections share a shape / every section follows the same arc) plus a one-sentence rationale.>
+**<Category>** — <flagged> flagged of <total>
 
-tonal_uniformity — <flagged | clear>
-  <state value (register holds without breaks / register breaks at least once / register shifts deliberately) plus rationale.>
+| Pattern | Result | Action |
+| --- | --- | --- |
+| <pattern short_name> | <Flagged | Clear> | <action when flagged, empty when clear> |
+| ... | ... | ... |
 
-faux_specificity — <flagged | clear>
-  <List of phrases that perform specificity without grounding, each with a why_unspecific note. Empty list when clear.>
+(eight category sub-tables in `humanise/references/patterns.md` heading order: Content patterns, Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, Voice and register. Categories where every check is clear collapse to a one-liner; categories with at least one flag render the full sub-table including the clear rows for coverage.)
 
-neutrality_collapse — <flagged | clear>
-  <trichotomy value (takes a position / hedges its position / flattens to balanced framing) plus rationale.>
+---
 
-even_jargon_distribution — <flagged | clear>
-  <trichotomy value (jargon clumps where the writer knows things / jargon spreads naturally / jargon spreads uniformly across the text) plus rationale.>
+**Agent-judgement reading — <flagged> flagged of <total>**
 
-forced_synesthesia — <flagged | clear>
-  <List of cross-modal phrases that don't earn grounding, each with a why_forced note. Empty list when clear.>
-
-generic_metaphors — <flagged | clear>
-  <List of plausible-but-anyone's metaphors, each with a why_generic note. Empty list when clear.>
-
-genre_specific — <flagged | clear>
-  Genre detected: <academic | student_essay | poetry | fiction | default>.
-  <Watchlist findings, or "Watchlist coverage pending." when the genre's sub_records.watchlist is empty.>
+- <Item label> — <Status>: <state or trichotomy value>
+- <Item label> — Flagged:
+  - "<phrase>" — <why>
+- <Item label> — Clear
+- Genre specific — <Status>: Genre detected: <genre>.
+  - "<phrase>" — <why>
 
 **Next step**
 
 Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
 ```
 
+If every programmatic check is clear AND every agent-judgement item is clear AND aggregate AI-pressure has not triggered, the renderer collapses everything to a single line:
+
+```
+<N> of <N> clear · agent reading clean · pressure: clear.
+Next: re-run with --depth all to inspect lower-tier signals.
+```
+
+If only one half has anything to surface, the renderer omits the empty side. Programmatic flagged + agent fully clear renders the programmatic block plus a clean-form agent block (`**Agent-judgement reading**` header followed by `agent reading clean`). Programmatic fully clear but agent flagged renders the agent block alone, with no Layer 1 / Layer 2 above it. The `---` separator only appears between blocks that actually render.
+
 ### Rendering rules
 
-- Lexical patterns (specific words or phrases) get the `- "<quoted>"` shape.
-- Structural patterns (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) get a `Where:` line that describes where the pattern shows up and what it looks like in the draft. They have no single quotable instance to point at.
+- **Severity glyphs** in Layer 1's per-flagged-pattern blocks: `x` for hard_fail, `!` for strong_warning, `?` for context_warning. No glyphs in Layer 2 sub-tables or in the agent-judgement block.
+- **Pattern names** are the human-readable `short_name` from `humanise/patterns.yaml` (e.g., "Em dashes", "Triad density", "Assistant residue") — never the internal check ID (`no-em-dashes`, `no-triad-density`). Check IDs are assertion names, not user-facing labels. Agent-judgement labels are computed mechanically from the registry id (`structural_monotony` → "Structural monotony").
+- **Lexical patterns** (specific words or phrases) carry a quoted phrase in their Layer 1 block: `<glyph> **<name>** — "<phrase>" — Action: ...`. The Layer 1 phrase list caps at three with a `(+N more)` overflow suffix when more phrases are present.
+- **Structural patterns** (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) carry no quoted phrase — they render as `<glyph> **<name>** — Action: ...` in Layer 1. The pattern's "where" lives in the grader's evidence object, not in the rendered prose.
+- **Category collapse**: a Layer 2 category with every check clear renders as one line — `**<Category>** — <N>/<N> clear`. A category with at least one flagged check renders the full Pattern/Result/Action sub-table including the clear rows so coverage stays visible.
+- **Agent-judgement per-type rendering**:
+    - `state` / `trichotomy` items render as `- <label> — <Status>: <value>` (clear or flagged carries the same shape; the value is one human-readable phrase from the schema).
+    - `list` flagged items render as `- <label> — Flagged:` followed by nested `  - "<phrase>" — <why>` bullets. List items with no entries render as `- <label> — Clear`.
+    - `composite` (the genre slot only) always shows the detected genre. When the registered watchlist for that genre is empty, the rendering ends with `Watchlist coverage pending.` regardless of status.
+- **Aggregate AI-signal pressure** is suppressed from Layer 1 and Layer 2 — its signal lives in the verdict line's `pressure: <triggered | clear>` token. The verdict-line severity counts read from visible programmatic checks only; agent-judgement findings cannot inflate them.
+- **No "Why this matters" or "What it looks for" prose** in the audit output. Per-pattern explanations live in `humanise/references/patterns.md` and are read on drill-in for Suggestions or Rewrite — not in the audit itself.
 - Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
 
-If both blocks come back clear (no programmatic patterns flagged AND every agent-judgement item `clear`), say so plainly:
-
-> Audit clean: no AI tells detected, agent reading clean. Want me to look at a specific aspect of the draft more closely?
-
-If only the programmatic block is clean but agent-judgement flagged at least one item, render the agent-judgement block as usual and surface that the regex layer found nothing while the semantic layer surfaced findings.
-
-If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md` and run the agent-judgement reading directly from `judgement.yaml`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `humanise/references/patterns.md` and run the agent-judgement reading directly from `humanise/judgement.yaml`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
 
 ---
 
