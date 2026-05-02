@@ -4,6 +4,7 @@ type: feat
 status: active
 date: 2026-04-30
 deepened: 2026-05-01
+refreshed: 2026-05-02
 origin: docs/ideation/2026-04-30-audit-report-redesign-ideation.md
 ---
 
@@ -74,18 +75,20 @@ See origin: `docs/ideation/2026-04-30-audit-report-redesign-ideation.md`.
 
 ### Relevant Code and Patterns
 
-- `humanise/SKILL.md:42-92` — current Audit output template (the per-pattern blocks the redesign replaces). Audit-output heading at line 52.
-- `humanise/SKILL.md:148-189` — Rewrite action.
-- `humanise/grade.py:1640-1993` — `CHECK_REPORT_TEXT`, `CHECK_WHY_IT_MATTERS`, `CHECK_METADATA`. `CHECK_METADATA[id]` carries `severity`, `failure_modes`, `evidence_role`, `guidance`. Severity already lives here — it is *not* split across two sources.
-- `humanise/grade.py:1996` — `FAILURE_MODE_METADATA` (per-failure-mode catalogue, six entries: provenance_residue, synthetic_significance, frictionless_structure, generic_abstraction, voice_erasure, genre_misfit). NOT per-pattern severity. Destination decision deferred to U7.
-- `humanise/grade.py:2024` — `annotate_result()` reads `guidance` per check.
-- `humanise/grade.py:2058` — `SEVERITY_LABELS`. `humanise/grade.py:2065` — `ACTION_LABELS`.
-- `humanise/grade.py:2130-2179` — `confidence_assessment()`. Removed in this plan (R14).
-- `humanise/grade.py:2206-2272` — `human_report()`. Becomes the JSON contract emitter in U8 with all pre-formatted prose stripped.
-- `humanise/grade.py:2280-2337` — `markdown_checks_table()` and `format_human_report()`. The 6-column table the redesign replaces.
-- `humanise/grade.py:2404` — `failure_mode_results()` reads `failure_modes` per check.
-- `humanise/grade.py:2550-2672` — `check_audit_shape_*` family (seven functions) plus `AUDIT_SHAPE_CHECKS` registry and the `check_audit_shape()` dispatcher.
-- `humanise/grade.py:2679` — `regrade()`.
+- `humanise/SKILL.md` (291 lines) — Audit action at line 42; output template at line 53; ends ~line 125. Rewrite action at line 180. SKILL.md:50 already mentions Phase 3 (U11/U12) introducing the all-clear collapse and Layer 1/Layer 2 split — partial groundwork laid.
+- `humanise/grade.py` (2763 LOC after Phase 2 — under the 2900 split threshold). Phase 2 migrations:
+  - `CHECK_REPORT_TEXT`, `CHECK_WHY_IT_MATTERS`, `CHECK_METADATA` — migrated to `humanise/patterns.yaml` in U7. Accessor: `registries.pattern_for(id)` and helpers `metadata_for`, `report_text_for`, `why_it_matters_for`.
+  - `FAILURE_MODE_METADATA`, `SEVERITY_LABELS`, `ACTION_LABELS`, depth-consequence strings, depth-summary strings, every renderer template — migrated to `humanise/vocabulary.yml` in U9. Accessor: `registries.string_for(dotted_key, **placeholders)` plus `severity_label`, `action_label`, `status_label`, `pressure_status`, `failure_mode_metadata`, `depth_consequence_text`.
+  - `confidence_assessment()` — removed in U8 per R14.
+  - `markdown_checks_table()` — removed in U8; replaced by `_markdown_table_from_contract()` (line 2208) reading from the JSON contract.
+- `humanise/grade.py:1852` — `annotate_result()` reads `guidance` via the registry.
+- `humanise/grade.py:2033` — `human_report()` returns the audit-format-v1 contract shape.
+- `humanise/grade.py:2073` — `format_human_report()`. Replaced by `format_two_layer()` in U11.
+- `humanise/grade.py:2198` — `_action_for_check()`. Maps severity + depth → action key (`fix` or `preserve_with_disclosure_or_user_decision`). U11's Action column reads from this.
+- `humanise/grade.py:2208` — `_markdown_table_from_contract()`. The 6-column table U11 replaces.
+- `humanise/grade.py:2305` — `failure_mode_results()` reads `failure_modes` via the registry.
+- `humanise/grade.py:2477-2665` — `check_audit_shape_*` family (ten functions including U5 additions) plus `AUDIT_SHAPE_CHECKS` registry and `check_audit_shape()` dispatcher.
+- `humanise/grade.py:2677` — `regrade()`.
 - `humanise/references/patterns.md` — eight `## ` category headings (lines 48, 129, 344, 421, 461, 528, 572, 656). Numbered patterns 1-41 plus 23a/31a/35a sub-letters. After R21b, this file becomes a generated view of `patterns.yaml`. The preamble currently says "38 patterns" — stale; U1 fixes this.
 - `humanise/references/severity-detail.md` — deep-dive prose for the four most distinctive AI tells.
 - `humanise/references/alternatives.md` — vetted alternatives. Migrates into `patterns.yaml` in U7.
@@ -139,14 +142,18 @@ None — `docs/solutions/` does not exist in this repo. The PR5 ideation flags t
 - **Reconciling main's humanised README rewrite**: not a plan concern. Mae commits main's uncommitted humanise edits independently on `main` whenever she chooses. U13 will take whatever `main`'s `README.md` is at that point as its base.
 - **Pre-existing P1 + P2 fixes already shipped**: P1 (seven unnumbered checks) resolved by `13b4e9d` before this plan update was authored — the unit I drafted as "U16" was a phantom, removed. P2 (unanchored `ALL_CLEAR_LINE_RE`) resolved by `f671cc4` (anchors regex + enforces shape mutex). Both captured in Risks; no plan units needed.
 
+### Resolved by Phase 2 (2026-05-02)
+
+- **Exact `vocabulary.yml` key names**: resolved in U9 — schema lives in `humanise/vocabulary.yml` (sections: `severity_labels`, `action_labels`, `status_labels`, `pressure_status`, `failure_modes`, `depth_consequence`, `depth_summary`, `section_headings`, `inline_labels`, `templates`, `pressure_explanation`).
+- **Whether `guidance` is redundant with `why_it_matters` and folds**: resolved in U7 — both kept. Guidance is depth-aware action advice; why_it_matters is rationale.
+- **`FAILURE_MODE_METADATA` destination**: resolved in U9 — folded into `vocabulary.yml` under `failure_modes` with `label` and `summary` per entry.
+- **Diff-harness corpus for U10**: resolved before U10a — 11 baselines committed under `dev/evals/diff_baseline/` covering 4 cultural/tech/science/wellbeing samples, 3 comparative pairs (Darwin, Woolf, Alamut), 2 synthetic edges (all-clear, hard-fail-only), 1 iteration capture, 1 opinion sample.
+- **PyYAML dependency**: resolved in U7 — accepted as required dep.
+- **Whether `jsonschema` is added in U8**: resolved — hand-rolled validation in `registries.py`. No library dep added.
+
 ### Deferred to Implementation
 
-- **Exact `vocabulary.yml` key names**: schema design happens in U9.
-- **Whether `guidance` is redundant with `why_it_matters` and folds**: decide in U7 by reading both side-by-side on representative checks.
-- **`FAILURE_MODE_METADATA` destination**: stays in code, gets its own `failure-modes.yaml`, or folds into `vocabulary.yml`. Decide in U7. Likely candidate: own yaml file because the catalogue is referenced by `failure_mode_results()` and is per-failure-mode (not per-pattern).
-- **Diff-harness corpus selection for U10**: corpus needs to exercise (a) all-clear, (b) heavy-flagging, (c) every category, (d) agent-judgement-only. No existing iteration sample is all-clear; synthetic samples likely required. Corpus is locked **before U7 starts** so the baseline can be captured pre-Phase-2 (see U10 split).
-- **PyYAML dependency**: accept as a required dep, hand-roll a minimal parser for the registries' flat shape, or use JSON instead of YAML. Decide before U7. PyYAML is the simplest path; the no-deps stance is broken either way once `jsonschema` is considered for U8 — be consistent.
-- **Whether `jsonschema` is added in U8**: coupled to the evidence-envelope decision (already taken — common envelope simplifies validation). Decide whether hand-rolled or library at U8 implementation time.
+- *No outstanding items as of 2026-05-02. Phase 3 begins from a settled architecture.*
 
 ---
 
@@ -522,7 +529,7 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 - Test: `dev/evals/test_registries.py` — round-trip load tests, schema validation, completeness tests; following `dev/evals/test_grade.py:35-88` convention.
 
 **Approach:**
-- Define `patterns.yaml` schema in a `registries.py` docstring. Required fields: `check_id`, `category`, `severity`, `failure_modes`, `short_name`, `why_it_matters`. Optional: `evidence_role`, `alternatives`, `references`, `mode_actions`, `structural`. (`guidance` may join required fields if it doesn't fold into `why_it_matters`.)
+- Define `patterns.yaml` schema in a `registries.py` docstring. Required fields: `check_id`, `category`, `severity`, `failure_modes`, `short_name`, `why_it_matters`. Optional: `evidence_role`, `alternatives`, `references`, `guidance`, `structural`. (`mode_actions` was considered but not adopted — actions are computed by `_action_for_check()` from severity + depth, not stored per-pattern.)
 - Generate `patterns.yaml` from existing constants via a one-shot migration script (`dev/evals/migrate_constants_to_yaml.py`). Hand-edit afterwards for cleanups, including:
   - Per-check `category` assignment (43 decisions; not currently encoded anywhere — derive from `patterns.md` H2 walk + per-check classification for meta-checks like `overall-ai-signal-pressure`).
   - Per-check `structural` boolean.
@@ -698,18 +705,18 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 **Dependencies:** U10b green.
 
 **Files:**
-- Modify: `humanise/grade.py` — replace `format_human_report()` with `format_two_layer()`; replace `markdown_checks_table()` with `markdown_category_subtables()`. Old functions removed.
-- Modify: `humanise/vocabulary.yml` — add severity glyphs, category-collapse template, per-row Action verbs.
+- Modify: `humanise/grade.py` — replace `format_human_report()` (line 2073) with `format_two_layer()`; replace `_markdown_table_from_contract()` (line 2208) with a category-grouped renderer (`markdown_category_subtables()` or similar). Old functions removed.
+- Modify: `humanise/vocabulary.yml` — **new keys to add**: severity glyphs (one per tier), category-collapse line template (e.g. `"{category} — {clear}/{total} clear"`), Layer-1 per-flagged-pattern block template, sub-table headers, all-clear single-line template. **Already present** (re-used as-is): `severity_labels`, `action_labels`, `status_labels`, `pressure_status`, `templates.severity_line`. The existing `templates.flagged_row`, `templates.table_header`, `templates.table_separator`, `templates.summary_*` are superseded by U11's templates and removed.
 - Test: `dev/evals/test_two_layer_render.py`.
 
 **Approach:**
-- Layer 1 verdict line: severity counts (e.g. `1 hard_fail · 4 strong_warning · 2 context_warning`) + pressure status (`pressure: triggered` / `pressure: clear`). No confidence label. Template from vocabulary.
-- Layer 1 per-flagged-pattern blocks: severity-glyph + `short_name` + quoted phrase(s) from `evidence.quoted_phrases` + one-verb action from `mode_actions[balanced]`. No "why this matters" prose (R5).
-- Layer 2: group by `category`. For each of the 8 categories: if every check is `clear`, emit one-liner; otherwise emit sub-table with `Pattern | Result | Action` columns. Action column is derived from severity: `Fix` (hard_fail or strong_warning) or `Disclose or ask before preserving` (context_warning). Render order matches `humanise/references/patterns.md`.
+- Layer 1 verdict line: severity counts (e.g. `1 hard_fail · 4 strong_warning · 2 context_warning`) + pressure status (`pressure: triggered` / `pressure: clear`). No confidence label. Reuses the existing `templates.severity_line` from `vocabulary.yml`.
+- Layer 1 per-flagged-pattern blocks: severity-glyph + `short_name` + quoted phrase(s) from `evidence.quoted_phrases` + one-verb action. The action verb comes from `_action_for_check()` (grade.py:2198), which maps severity + depth → action key (`fix` for hard_fail/strong_warning at any depth; `preserve_with_disclosure_or_user_decision` for context_warning at Balanced; everything → `fix` at All depth). The verb string then resolves through `registries.action_label(...)` from `vocabulary.yml`'s `action_labels`. No "why this matters" prose (R5). (Note: there is no `mode_actions` field on patterns.yaml records — earlier plan drafts assumed one; the action is computed, not stored per-pattern.)
+- Layer 2: group by `category`. For each of the 8 categories: if every check is `clear`, emit one-liner; otherwise emit sub-table with `Pattern | Result | Action` columns. Action column is derived from severity via the same `_action_for_check()` path: `Fix` (hard_fail or strong_warning at Balanced) or `Disclose or ask before preserving` (context_warning at Balanced). Render order matches `humanise/references/patterns.md`.
 - All-clear case: every programmatic check clear AND every agent-judgement clear → R8 single-line response. No tables, no level label.
 
 **Patterns to follow:**
-- Existing `markdown_checks_table()` for table-rendering mechanics.
+- Existing `_markdown_table_from_contract()` (grade.py:2208) for table-rendering mechanics — same accessors (`registries.pattern_for(check["id"])`, `registries.action_label(...)`, `registries.status_label(...)`), grouped by category.
 
 **Test scenarios:**
 - Happy path: a sample with one flagged check in each category produces all 8 sub-tables.
@@ -733,19 +740,20 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 
 **Requirements:** R6, R7, R8, R14.
 
-**Dependencies:** U14 (`judgement.yaml` exists), U11 (programmatic block exists for ordering).
+**Dependencies:** U14 (done — `humanise/judgement.yaml` shipped in commit `38d7c29`); U11 (programmatic block exists for ordering).
 
 **Files:**
-- Modify: `humanise/grade.py` — add `format_agent_judgement()` reading `agent_judgement[]`; per-item dispatchers based on `answer_schema.type`.
-- Modify: `humanise/vocabulary.yml` — strings for the agent-judgement block (header, status labels, "agent reading clean" copy, genre tag template, watchlist-pending copy).
+- Modify: `humanise/grade.py` — add `format_agent_judgement()` reading `agent_judgement[]`; per-item dispatchers based on `answer_schema.type`. Lookup via `registries.judgement_for(id)` (already implemented in `humanise/registries.py`).
+- Modify: `humanise/vocabulary.yml` — strings for the agent-judgement block (header, status labels, "agent reading clean" copy, genre tag template, watchlist-pending copy). Reuses existing `status_labels` (`clear`, `flagged`).
 - Test: `dev/evals/test_agent_judgement_render.py`.
 
 **Approach:**
-- For each item: read `id`, look up registry record, dispatch on `answer_schema.type`:
-  - `state` → render the state value.
-  - `list` → render bulleted entries (or empty → `clear`).
-  - `presence` → render the bool.
-  - `trichotomy` → render the chosen value.
+- For each item: read `id`, look up registry record via `registries.judgement_for(id)`, dispatch on `answer_schema.type` (the four types defined in `judgement.yaml` today):
+  - `state` → render the state value (e.g. `locked`, `has_breaks`, `mixed_intentional`).
+  - `list` → render bulleted entries with the per-item fields (e.g. `[phrase, why_unspecific]`); empty list → `clear`.
+  - `presence` → render the boolean.
+  - `trichotomy` → render the chosen value (e.g. `varied`, `partly_uniform`, `fully_locked`).
+- Each record carries a `flagged_when` field that maps the answer to status (`flagged` / `clear`). The renderer uses this to decide block-level status, not the answer value alone.
 - Genre slot: special-case dispatcher. Read detected genre. If watchlist for that genre is empty → emit "Genre detected: <genre>. Watchlist coverage pending." Otherwise emit findings.
 - Sort by `judgement.yaml` registry order.
 - All-clear case: every item clear → single "agent reading clean" line within the block (or block omitted if Layer 2 also clear; R8 single-line response wins).
@@ -776,8 +784,8 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 **Dependencies:** U11, U12. Independent of any Phase-1 README work (none exists — U6 was deferred here).
 
 **Files:**
-- Modify: `humanise/SKILL.md:42-92` — Audit output template replaced.
-- Modify: `humanise/SKILL.md` Action 2 (Suggestions) — references to the audit template updated.
+- Modify: `humanise/SKILL.md` — Audit output template (Audit section at line 42, output template at line 53, ends ~line 125 in current 291-line file) replaced.
+- Modify: `humanise/SKILL.md` Action 2 (Suggestions, line 127) — references to the audit template updated.
 - Modify: `humanise/references/example.md` — example output replaced.
 - Modify: `humanise/references/process.md` — Step C reference updated if needed.
 - Modify: `README.md` — full update in one pass:
@@ -785,7 +793,8 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
   2. **Dual-layer audit description:** Update "What it does" / "Representative output" / "Performance" sections to describe the orientation block + coverage receipt + parallel agent-judgement block + all-clear single-line case.
   3. **"What's next" bullet:** Drop the "Promote the seven unnumbered checks" bullet (work done in `13b4e9d`).
   4. **Reconcile against `main`:** Take whatever `README.md` exists on `main` at U13-start as the base prose. Apply 1-3 on top.
-  5. **Dogfood gate:** Verify `python3 dev/evals/test_readme_humanise.py` passes after the rewrite.
+
+No README dogfood gate. The README is project marketing, not load-bearing infrastructure; auditing it against the grader is self-defeating because the example/pattern table fires on every pattern by design (see `feedback_session_2026_05_01_failures.md` for the prior session that learned this the hard way).
 
 **Approach:**
 - Generate representative renders (one all-clear, one heavy-flagging, one agent-judgement-only) using U11 + U12.
@@ -800,7 +809,6 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 - Happy path: README count strings match `len(ALL_CHECKS)` and the heading count in `patterns.md`.
 - Happy path: README pattern table contains a row for every numbered/sub-letter heading in `patterns.md`.
 - Integration: a fresh iteration run via `dev/evals/run_skill_creator_iteration.py` passes all audit-shape assertions (existing + new from U5).
-- Integration: `python3 dev/evals/test_readme_humanise.py` passes against the updated README (no strong_warnings introduced).
 
 **Verification:**
 - SKILL.md template, example.md, and README all describe the same shape.
@@ -843,22 +851,30 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 
 ## Risks & Dependencies
 
+### Active risks for Phase 3
+
 | Risk | Mitigation |
 |------|------------|
-| Group A / Group B resolution drags on; Phase 1 timebox slips. | Each sub-decision is a separate small commit. Mae can pause without leaving Phase 1 broken. |
-| Severity recalibration (U3) shifts confidence on existing iteration outputs in unwanted ways. | U3 produces a corpus shift summary before merge. Constraint: severity changes limited to documented mismatches; discretionary re-tiering requires sign-off *before* the change. |
-| U10 baseline drifts after capture (someone re-runs `grade.py` and overwrites baseline files). | Baseline is captured in U10a as a single commit; subsequent harness runs read the committed baseline, never overwrite. |
-| `humanise/grade.py` exceeds size budget after U7-U9. | Plan for split into `humanise/render.py` if grade.py crosses ~2900 LOC. |
 | Polymorphic genre slot (#41) ships with no watchlist data. | Plan defers per-genre watchlist content. The runner emits "Genre detected: <genre>. Watchlist coverage pending." until follow-up data lands. |
-| README update (U6) describes a target shape the live grader doesn't yet emit. | **Resolved 2026-05-01:** U6 deferred entirely to U13 in Phase 3. All README work (counts, pattern table, dual-layer description) lands together when the renderer actually emits the shape. The README stays stale through Phase 1 and Phase 2 — acceptable, because the README is project marketing, not load-bearing infrastructure. |
-| Cross-tree concern: `docs/todos/grader-integrity-gaps.md` was untracked in main and the worktree. | A precursor `chore: track grader-integrity-gaps.md` commit lands before U1 starts, separating "track the file" from "edit the file" cleanly. |
-| Worktree commit `471a460 docs: U6 — refresh README` is now narratively orphaned (its corresponding plan unit was deferred). | PR #6 reviewer choice: revert `471a460` before merge, or accept it as a stale snapshot that U13 will rewrite. `pr-6-readme-resolution.md` retains the original diff for reference. |
-| Main's uncommitted humanise rewrite of `README.md` is parallel work, not Phase-1 work. | Mae commits these edits independently on `main` whenever she chooses. Phase 1 closure does not depend on them. U13 takes whatever `README.md` exists on `main` at U13-start as the base prose. |
-| `pr-6-code-review-handoff.md` flagged 2 findings: P1 (seven unnumbered checks) and P2 (`ALL_CLEAR_LINE_RE` unanchored). | P1 resolved by `13b4e9d`. P2 resolved by `f671cc4` (anchors `ALL_CLEAR_LINE_RE` + enforces shape mutex). Both fixes verified present before merge. |
+| Main's uncommitted humanise rewrite of `README.md` is parallel work, not Phase-3 work. | Mae commits these edits independently on `main` whenever she chooses. U13 takes whatever `README.md` exists on `main` at U13-start as the base prose. |
 | Phase 3 introduces edge cases (single-line all-clear, agent-judgement-only) the existing harness doesn't cover. | U11 and U12 each add fixture-level test coverage. U13's iteration run is the integration gate. |
-| PyYAML adds a hard third-party dep. | Decide before U7: accept, hand-roll a flat-shape parser, or use JSON instead of YAML. SKILL.md's "no-Python" fallback does not catch missing-package; document the dep in README. |
-| `additionalProperties: true` at evidence level was the original design — the common envelope replaces it. New checks must populate `quoted_phrases`, `locations`, `counts`, `raw`. | U7's new `check_*` template (for Group A additions) includes the envelope shape. Meta-test asserts every `programmatic_checks[].evidence` carries the four common fields. |
 | `agent_judgement[]` is populated by the agent, not by `grade.py` — a Python eval harness can't easily assert what the agent writes there. | U5 audit-shape checks operate on the rendered response (the agent's final output), not on grade.py's JSON. Consistent with how the agent's response is the user-facing artefact. |
+| U11's new vocabulary keys (severity glyphs, category-collapse template, sub-table headers) drift from the existing template style in `vocabulary.yml`. | Layer-1 verdict line reuses the existing `templates.severity_line`. New keys mirror the dotted-key + placeholder convention already in the file. `test_vocabulary.py` covers schema/placeholder shape. |
+
+### Resolved (Phase 1 / Phase 2)
+
+| Risk | Resolution |
+|------|------------|
+| Group A / Group B resolution drags on; Phase 1 timebox slips. | Resolved — Phase 1 done in PR #6. |
+| Severity recalibration (U3) shifts confidence on existing iteration outputs in unwanted ways. | Resolved — U3 corpus shift reviewed before merge; commit `4303d44`. |
+| U10 baseline drifts after capture. | Resolved — baselines committed in `dev/evals/diff_baseline/`; harness reads only, never overwrites. |
+| `humanise/grade.py` exceeds size budget after U7-U9. | Resolved — 2763 LOC after U9, under the 2900 split threshold. |
+| README update (U6) describes a target shape the live grader doesn't yet emit. | Resolved — U6 deferred to U13. |
+| Cross-tree concern: `docs/todos/grader-integrity-gaps.md` was untracked. | Resolved — file is tracked. |
+| Worktree commit `471a460 docs: U6 — refresh README` is now narratively orphaned. | Resolved — `471a460` stayed on `docs/audit-report` and was not merged to `main`. PR #6 merged without it. U13 will write the README from scratch. |
+| `pr-6-code-review-handoff.md` P1 (seven unnumbered checks) and P2 (`ALL_CLEAR_LINE_RE` unanchored). | Resolved — P1 by `13b4e9d`; P2 by `f671cc4`. |
+| PyYAML adds a hard third-party dep. | Resolved — accepted in U7. |
+| `additionalProperties: true` at evidence level was the original design. | Resolved — U8 common envelope; meta-test asserts the four common fields. |
 
 ---
 
@@ -866,7 +882,7 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 
 ### Phase 1 — Regression-fix + agent-judgement registry
 
-**Status as of 2026-05-01:** Done in commits, awaiting PR #6 merge.
+**Status as of 2026-05-02:** Done. PR #6 merged (commit `49a9be2` on `origin/main`).
 
 | Unit | Status | Commit |
 |---|---|---|
@@ -876,28 +892,41 @@ I (the agent on 2026-05-01) invented a "README dogfood test" unit and a correspo
 | U14 | Done | `38d7c29` |
 | U4 | Done | `526b865` |
 | U5 | Done | `57db888` |
-| U6 | **Removed** — deferred to U13 | (was `471a460`; orphaned) |
+| U6 | **Removed** — deferred to U13 | `471a460` (stayed on `docs/audit-report`, never merged to `main`) |
 | U16 | **Removed** — already shipped | `13b4e9d` |
 
 Plus side-fixes that landed without plan units: `1b58968` (extended #42 with candour cluster), `fbbe0ab` (review-handoff fixes), `f671cc4` (anchored `ALL_CLEAR_LINE_RE`).
 
-**Remaining Phase-1 work:** Verify audit-shape via `dev/evals/run_skill_creator_iteration.py` (done in iter-8 — see `dev/skill-workspace/iteration-8/performance-report.md`). Merge PR #6.
-
 ### Phase 2 — Architecture as no-op refactor
-U10a (baseline capture, runs after Phase 1 settles, before U7) → U7 → U8 → U9. U10b runs after each of U7, U8, U9. U15 (generator) runs after U7. Phase 2 not done until U10b is green at U9.
+
+**Status as of 2026-05-02:** Done. U10b harness green (`11/11 baselines match current grade.py output`).
+
+| Unit | Status | Commit |
+|---|---|---|
+| U10a | Done | `6dd3721` (PR #8) |
+| U7 | Done | `14ff9cd` (PR #8) |
+| U15 | Done | `b63eaf3` (PR #8) |
+| U8 | Done | `5b02b12` + `886ffde` (volatile metadata fix) (PR #9) |
+| U9 | Done | `7498814` (on `feat/audit-phase-2-continued`; PR pending) |
+| U10b | Green | n/a — verification harness, runs against committed baselines |
+
+Plus side-work: `0ca4150` (`fix(grader): document and validate YAML registries` — on `refactor/audit-phase-2`).
 
 ### Phase 3 — Layout redesign
-U11 and U12 can be parallelised after U10b is green. U13 requires both. **U13 owns all README work** (counts, pattern table, dual-layer description) — the entire deferred U6 plus the original U13 scope. SKILL.md template, example.md render, and README description all land together.
+
+**Status as of 2026-05-02:** Not started. Phase 2 settled; ready to begin.
+
+U11 and U12 can be parallelised. U13 requires both. **U13 owns all README work** (counts, pattern table, dual-layer description) — the entire deferred U6 plus the original U13 scope. SKILL.md template, example.md render, and README description all land together. No README dogfood gate (see U13 Files).
 
 ---
 
 ## Documentation / Operational Notes
 
-- README update lands entirely in Phase 3 (U13). Through Phase 1 and Phase 2, the README has stale counts and a stale pattern table — acceptable, because the README is project marketing rather than load-bearing infrastructure.
+- README update lands entirely in Phase 3 (U13). Through Phase 1 and Phase 2 the README has stale counts and a stale pattern table — acceptable, because the README is project marketing rather than load-bearing infrastructure.
 - `humanise/references/example.md` updated in U13 — agents reading this file see the new audit shape.
-- `humanise/references/severity-detail.md` may shift in U2/U3.
+- `humanise/references/severity-detail.md` shifted during U2/U3 (resolved in Phase 1).
 - No external rollout, monitoring, or feature flag — the skill is local.
-- Document new dep (PyYAML and possibly `jsonschema`) in README install section as part of U13.
+- Document the PyYAML dep in the README install section as part of U13. (`jsonschema` is not added — validation is hand-rolled in `humanise/registries.py`.)
 
 ---
 
