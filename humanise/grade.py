@@ -2125,10 +2125,18 @@ def format_two_layer(results, depth="balanced", heading="Audit"):
     if not flagged_visible and not judgement_flagged and not pressure["triggered"]:
         return _format_all_clear(len(visible))
 
-    layer_1 = _format_layer_1(heading, pressure, flagged_visible, depth_key)
-    layer_2 = _format_layer_2(visible, depth_key)
     separator = registries.string_for("section_headings.layer_separator")
-    return f"{layer_1}\n\n{separator}\n\n{layer_2}"
+    parts = []
+
+    if flagged_visible or pressure["triggered"]:
+        layer_1 = _format_layer_1(heading, pressure, flagged_visible, depth_key)
+        layer_2 = _format_layer_2(visible, depth_key)
+        parts.append(f"{layer_1}\n\n{separator}\n\n{layer_2}")
+
+    if judgement:
+        parts.append(format_agent_judgement(judgement))
+
+    return f"\n\n{separator}\n\n".join(parts)
 
 
 def _format_all_clear(total):
@@ -2264,6 +2272,162 @@ def _layer_2_row(check, depth_key):
         result = registries.status_label("clear")
         action = ""
     return f"| {table_cell(name)} | {table_cell(result)} | {table_cell(action)} |"
+
+
+def _judgement_label(item_id):
+    """Compute human-readable label from a judgement-record id (snake_case → Title)."""
+    return item_id.replace("_", " ").capitalize()
+
+
+def format_agent_judgement(judgement):
+    """Render the agent-judgement parallel block (Phase 3, U12).
+
+    Reads each item's status from the contract and dispatches on the
+    record's `answer_schema.type` (looked up via registries.judgement_for)
+    to render the answer. Items render in judgement.yaml registry order.
+
+    When every item is clear, the block reduces to a 'agent reading clean'
+    line under a plain header — the R8 single-line response in
+    format_two_layer takes precedence when the programmatic side is also
+    clear; this clean form only appears alongside a programmatic block.
+    """
+    if not judgement:
+        return ""
+
+    flagged_count = sum(1 for it in judgement if it.get("status") == "flagged")
+    total = len(judgement)
+
+    if flagged_count == 0:
+        header = registries.string_for("templates.agent_judgement_clean_header")
+        body = registries.string_for("templates.agent_judgement_clean_body")
+        return f"{header}\n{body}"
+
+    records = registries.load_judgement().get("records", [])
+    order = {r["id"]: i for i, r in enumerate(records)}
+    sorted_items = sorted(judgement, key=lambda it: order.get(it.get("id"), len(records)))
+
+    header = registries.string_for(
+        "templates.agent_judgement_header",
+        flagged=flagged_count, total=total,
+    )
+    lines = [header, ""]
+    for item in sorted_items:
+        lines.extend(_render_judgement_item(item))
+    return "\n".join(lines)
+
+
+def _render_judgement_item(item):
+    """Render one agent-judgement item — returns a list of lines."""
+    item_id = item.get("id", "")
+    label = _judgement_label(item_id)
+    status_value = item.get("status", "clear")
+    status_label = registries.status_label(status_value)
+    answer = item.get("answer")
+
+    try:
+        record = registries.judgement_for(item_id)
+    except KeyError:
+        return [registries.string_for(
+            "templates.agent_judgement_item_status_only",
+            label=label, status=status_label,
+        )]
+
+    schema_type = record.get("answer_schema", {}).get("type")
+
+    if schema_type in {"state", "trichotomy"}:
+        # Always render the value — both clear and flagged carry the same enum.
+        return [registries.string_for(
+            "templates.agent_judgement_item_with_value",
+            label=label, status=status_label, value=str(answer),
+        )]
+
+    if schema_type == "list":
+        if status_value == "flagged" and answer:
+            return _render_judgement_list_item(item, record, label, status_label)
+        return [registries.string_for(
+            "templates.agent_judgement_item_status_only",
+            label=label, status=status_label,
+        )]
+
+    if schema_type == "composite":
+        return _render_judgement_composite_item(item, record, label, status_label)
+
+    return [registries.string_for(
+        "templates.agent_judgement_item_status_only",
+        label=label, status=status_label,
+    )]
+
+
+def _render_judgement_list_item(item, record, label, status_label):
+    answer = item.get("answer") or []
+    if not answer:
+        return [registries.string_for(
+            "templates.agent_judgement_item_status_only",
+            label=label, status=status_label,
+        )]
+    fields = record.get("answer_schema", {}).get("items", []) or []
+    why_field = next((f for f in fields if f.startswith("why_")), None)
+    lines = [registries.string_for(
+        "templates.agent_judgement_item_status_then_findings",
+        label=label, status=status_label,
+    )]
+    for entry in answer:
+        if not isinstance(entry, dict):
+            continue
+        phrase = entry.get("phrase", "")
+        why = entry.get(why_field, "") if why_field else ""
+        if why:
+            lines.append(registries.string_for(
+                "templates.agent_judgement_finding_with_why",
+                phrase=phrase, why=why,
+            ))
+        else:
+            lines.append(registries.string_for(
+                "templates.agent_judgement_finding_phrase_only",
+                phrase=phrase,
+            ))
+    return lines
+
+
+def _render_judgement_composite_item(item, record, label, status_label):
+    answer = item.get("answer") if isinstance(item.get("answer"), dict) else {}
+    genre = answer.get("genre_detected", "default")
+    findings = answer.get("watchlist_findings") or []
+
+    if findings:
+        lines = [registries.string_for(
+            "templates.agent_judgement_genre_with_findings",
+            label=label, status=status_label, genre=genre,
+        )]
+        for entry in findings:
+            if not isinstance(entry, dict):
+                continue
+            phrase = entry.get("phrase", "")
+            why = entry.get("why_flagged", "")
+            if why:
+                lines.append(registries.string_for(
+                    "templates.agent_judgement_finding_with_why",
+                    phrase=phrase, why=why,
+                ))
+            else:
+                lines.append(registries.string_for(
+                    "templates.agent_judgement_finding_phrase_only",
+                    phrase=phrase,
+                ))
+        return lines
+
+    sub_records = record.get("sub_records", {}) or {}
+    sub = sub_records.get(genre, {}) or {}
+    watchlist = sub.get("watchlist") or []
+    if not watchlist:
+        return [registries.string_for(
+            "templates.agent_judgement_genre_pending",
+            label=label, status=status_label, genre=genre,
+        )]
+    return [registries.string_for(
+        "templates.agent_judgement_genre_with_findings",
+        label=label, status=status_label, genre=genre,
+    )]
 
 
 def _short_pressure_explanation(pressure):
