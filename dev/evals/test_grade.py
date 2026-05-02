@@ -32,7 +32,7 @@ CHECK_METADATA = {
 }
 annotate_result = _grade.annotate_result
 failure_mode_results = _grade.failure_mode_results
-format_human_report = _grade.format_human_report
+format_two_layer = _grade.format_two_layer
 friendly_evidence = _grade.friendly_evidence
 human_report = _grade.human_report
 depth_results = _grade.depth_results
@@ -1402,53 +1402,6 @@ if "no stacked weak signals" in _friendly_vocab_only or "Clustered AI vocabulary
 else:
     print("  ok: friendly_evidence handles vocab-only AI pressure cleanly")
 
-_failed_markdown = format_human_report([
-    annotate_result({
-        "text": "overall-ai-signal-pressure",
-        "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
-        "score": 5,
-        "threshold": 4,
-        "components": ["paragraph length uniformity", "headings in prose"],
-        "vocabulary_pressure": {
-            "points": 1,
-            "reasons": ["generic cluster"],
-            "worst_generic": 2,
-            "gptzero_matches": [],
-            "kobak_style_distinct": 4,
-            "kobak_style_density": 7.5,
-            "kobak_style_sample": ["valuable"],
-        },
-    }),
-    annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
-    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
-], depth="all")
-_missing_label = next(
-    (label for label in ("What it looks for:", "What happened here:", "Why this matters:") if label not in _failed_markdown),
-    None,
-)
-if _missing_label:
-    FAILURES += 1
-    print(f"FAIL: format_human_report failed-bullet branch should include '{_missing_label}'; got:\n{_failed_markdown[:600]}")
-else:
-    print("  ok: format_human_report failed-bullet branch renders new labels")
-
-# U8: format_human_report's prose templates changed. Verify the new
-# AI-pressure paragraph still names the components and vocabulary contribution.
-_missing_phrase = next(
-    (phrase for phrase in (
-        "AI-pressure looks for accumulation",
-        "paragraph length uniformity",
-        "1 point(s) from clustered AI vocabulary",
-    ) if phrase not in _failed_markdown),
-    None,
-)
-if _missing_phrase:
-    FAILURES += 1
-    print(f"FAIL: pressure-explanation paragraph should include '{_missing_phrase}'; got:\n{_failed_markdown[:600]}")
-else:
-    print("  ok: pressure-explanation paragraph names components and vocabulary contribution")
-
 _total_checks = len(ALL_CHECKS)
 _full_table_report = human_report([
     annotate_result({"text": name, "passed": True, "evidence": "clean"})
@@ -1460,31 +1413,20 @@ if len(_full_table_report["programmatic_checks"]) != _total_checks:
 else:
     print(f"  ok: full contract includes all {_total_checks} programmatic checks")
 
-_markdown_report = format_human_report([
-    annotate_result({"text": name, "passed": True, "evidence": "clean"})
-    for name in ALL_CHECKS
-], depth="all")
-_markdown_rows = [
-    line for line in _markdown_report.splitlines()
-    if line.startswith("| ") and not line.startswith("|---")
-]
-if f"Summary: All {_total_checks} checks were clear." not in _markdown_report:
+# U11: format_two_layer is the renderer. Deep coverage lives in
+# dev/evals/test_two_layer_render.py; this is a smoke test only.
+_two_layer_smoke = format_two_layer([
+    annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
+    annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
+], depth="balanced")
+if not isinstance(_two_layer_smoke, str) or "---" not in _two_layer_smoke:
     FAILURES += 1
-    print(f"FAIL: Markdown report should include a plain-English summary mentioning {_total_checks} checks")
-elif "| Check | Status | What it looks for | What happened here | Why this matters | All action |" not in _markdown_report:
+    print(f"FAIL: format_two_layer should return a string with a Layer 1/Layer 2 separator; got:\n{_two_layer_smoke[:400]}")
+elif "internal pressure score" in _two_layer_smoke:
     FAILURES += 1
-    print("FAIL: Markdown report should include a user-facing table header")
-elif len(_markdown_rows) != _total_checks + 1:
-    FAILURES += 1
-    print(f"FAIL: Markdown report should include header plus {_total_checks} check rows; got {len(_markdown_rows)}")
-elif "Why this matters" not in _markdown_report:
-    FAILURES += 1
-    print("FAIL: Markdown report should explain why checks matter")
-elif "internal pressure score" in _markdown_report:
-    FAILURES += 1
-    print("FAIL: Markdown report should not expose implementation-first pressure language")
+    print("FAIL: format_two_layer should not expose implementation-first pressure language")
 else:
-    print(f"  ok: Markdown report renders a full {_total_checks}-check user-facing table")
+    print("  ok: format_two_layer smoke test renders both layers")
 
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1
