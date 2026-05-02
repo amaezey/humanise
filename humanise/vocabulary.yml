@@ -88,7 +88,9 @@ section_headings:
 # Inline labels for the human-readable markdown report.
 inline_labels:
   severity_prefix: "Severity:"
-  next_step_prompt: "Next: re-run with --depth all to inspect lower-tier signals."
+  # Phrased as a question so it composes with the audit's `final-non-empty-line-ends-with-question`
+  # shape check (the all-clear single-line response uses this as its final line).
+  next_step_prompt: "Want me to re-run with --depth all to inspect lower-tier signals?"
 
 # Templates for the dual-layer renderer. Phase 3 (U11) — replaces the legacy
 # format_human_report() templates. Strings flow through registries.string_for().

@@ -8,7 +8,7 @@ Forked from [blader/humanizer](https://github.com/blader/humanizer), restructure
 
 People can usually tell when something was written by AI. They often can't explain why. The patterns are real — there's a body of research on stylometric markers (Kobak, Przystalski, Zaitsu, Abdulhai), a larger body of practitioner anecdata (the Wikipedia AI Cleanup project, GPTZero, Grammarly, NYT, Substack writers), and a small industry of detectors that mostly don't work.
 
-We pulled what was credible from both, turned it into 49 programmatic checks across 48 numbered patterns plus three sub-letter variants and one unnumbered meta-check, ran it on a corpus of human and AI writing, learned which checks actually distinguish the two, refined what we kept, and noted where the patterns are register-coded rather than authorship-coded. The audit is dual-layer: a deterministic regex/density grader plus an eight-item agent-judgement reading for the semantic territory regex cannot cover (structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and a polymorphic genre slot). This README is an honest account of what we found, what works, where the limits are, and what's next.
+We pulled what was credible from both, turned it into 49 programmatic checks across 53 numbered patterns plus five sub-letter variants and one unnumbered aggregate meta-check, ran it on a corpus of human and AI writing, learned which checks actually distinguish the two, refined what we kept, and noted where the patterns are register-coded rather than authorship-coded. The audit is dual-layer: a deterministic regex/density grader plus an eight-item agent-judgement reading for the semantic territory regex cannot cover (structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and a polymorphic genre slot). This README is an honest account of what we found, what works, where the limits are, and what's next.
 
 ## What it does
 
@@ -22,7 +22,7 @@ Give it text and the skill can:
 
 The audit always comes first. Suggestions and rewrites only happen when asked.
 
-The dual-layer audit shape is in active redesign. The agent-judgement layer is live (since the Phase 1 work in `docs/plans/2026-04-30-001-feat-audit-report-redesign-plan.md`); the layout overhaul — orientation block on top, eight per-category coverage sub-tables underneath, plus a parallel agent-judgement block — lands in Phase 3 of that plan.
+The audit renders dual-layer. Layer 1 is an orientation block: a severity verdict line (`Severity: <N> hard_fail · <N> strong_warning · <N> context_warning · pressure: triggered|clear`) followed by per-flagged-pattern blocks with severity glyphs (`x` hard_fail, `!` strong_warning, `?` context_warning), bolded short names, quoted phrases, and an Action verb. Layer 2 is a coverage receipt: eight per-category sub-tables keyed to the patterns.md headings (Pattern / Result / Action), with categories where every check is clear collapsed to a one-liner (`**<Category>** — N/N clear`). A parallel agent-judgement block follows, separated by `---`, carrying the eight-item registry's reading on what regex cannot decide. When every check in both halves is clear and aggregate AI-pressure has not triggered, the audit collapses to a single line.
 
 ## Install
 
@@ -106,33 +106,46 @@ The "human-vs-ai gap" lines are the load-bearing claim — humans should trigger
 
 ## Representative output
 
-Excerpt from `python3 humanise/grade.py --format markdown --depth all dev/evals/samples/generated-ai/ai-08-feedback-education.md`:
+Excerpt from `python3 humanise/grade.py --format markdown --depth balanced dev/evals/samples/generated-ai/02-cultural-didion.md`:
 
 ```text
-Initial assessment
-Summary: 5 of 49 checks were flagged for AI-style writing patterns.
+Audit
+Severity: 0 hard_fail · 3 strong_warning · 6 context_warning · pressure: triggered
+Pressure triggered: weaker AI-writing signals stacked to 4 of the 4-point threshold (contrived contrast framing, headings in prose).
 
-Confidence: Medium. Several signs of AI-like writing appeared, but the
-evidence is pattern-based and should be read in context.
-Basis: 5 context-sensitive signal(s); AI pressure score reached 4/4.
-Note: This is a confidence assessment about AI-writing signs, not an
-authorship verdict.
+! **Nonliteral land/surface phrasing** — "scene lands" — Action: Fix
+! **Contrived contrast** — Action: Fix
+! **Filler phrases** — "is often described as" — Action: Fix
+? **Generic staccato emphasis** — Action: Disclose or ask before preserving
+? **Mechanical repeated sentence starts** — Action: Disclose or ask before preserving
+? **Curly quotes** — Action: Disclose or ask before preserving
+? **Headings in prose** — "# Why The year of magical thinking should be rerea" — Action: Disclose or ask before preserving
+? **Dense negation** — Action: Disclose or ask before preserving
+? **Triad density** — "medical language, social performance, the collapse of ordinary" (+9 more) — Action: Disclose or ask before preserving
 
-Main issues found
-- AI pressure from stacked signals: Flagged. Stacked weak signals:
-  paragraph length uniformity, headings in prose. Score: 4/4.
-- Headings in prose: Flagged. Found 2 heading(s).
-- Dense negation: Flagged. Found 10 negation markers (12.4 per 1000 words).
-- Paragraph length uniformity: Flagged. Paragraph length CV: 0.08 across
-  10 paragraphs (target: >=0.18).
-- Triad density: Flagged. Found 12 triad(s).
+---
+
+**Content patterns** — 5/5 clear
+
+**Language and grammar** — 2 flagged of 6
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Clustered AI vocabulary | Clear |  |
+| Contrived contrast | Flagged | Fix |
+| Avoiding plain 'is' | Clear |  |
+| Decorative three-part lists | Clear |  |
+| Vocabulary diversity | Clear |  |
+| Triad density | Flagged | Disclose or ask before preserving |
+
+(...further category sub-tables: Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, Voice and register — collapsed to a one-liner where every check is clear, expanded where any check flagged.)
 ```
 
-This is the grader's output (the regex/density layer). The agent's full Audit response also includes an **Agent-judgement reading** block underneath that covers the eight semantic items the grader cannot decide. Rewrite workflows additionally include the rewritten draft, a structural self-check, and the post-check report.
+That is the grader's markdown render of the programmatic block (Layer 1 + Layer 2). The agent's full Audit response composes the same content plus a parallel `**Agent-judgement reading**` block underneath, carrying the eight semantic items the grader cannot decide (status binary, no severity column). When every check in both halves is clear and aggregate AI-pressure has not triggered, the renderer collapses everything to a single line: `<N> of <N> clear · agent reading clean · pressure: clear.` followed by a next-step prompt — no tables, no glyphs, no level label. See `humanise/references/example.md` for an end-to-end worked example with the agent-judgement block populated.
 
 ## Patterns
 
-48 numbered patterns across 8 categories, plus three sub-letter variants (23a, 31a, 35a) and one unnumbered aggregate meta-check (`overall-ai-signal-pressure`). Full before/after examples and per-pattern severity in `humanise/references/patterns.md`.
+53 numbered patterns across 8 categories, plus five sub-letter variants (10a, 23a, 31a, 35a, 35b) and one unnumbered aggregate meta-check (`overall-ai-signal-pressure`). Full before/after examples and per-pattern severity in `humanise/references/patterns.md`.
 
 | # | Pattern | Example |
 |---|---|---|
@@ -148,8 +161,10 @@ This is the grader's output (the regex/density layer). The agent's full Audit re
 | 8 | Copula avoidance | "serves as", "stands as" instead of "is" |
 | 9 | Contrived contrast / negative parallelism | "It's not X; it's Y" / "It's Y, not X" |
 | 10 | Rule of three | Forcing ideas into triads |
+| 10a | Triad density | "X, Y, and Z" stacked across multiple sentences |
 | 11 | Synonym cycling | "the protagonist... the main character... the central figure" |
 | 12 | False ranges | "from X to Y, from A to B" |
+| 53 | Vocabulary diversity | Type-token ratio below the corpus-tuned threshold (lexical density too low) |
 | | **Style** | |
 | 13 | Boldface overuse | Mechanical bolding of terms that don't need emphasis |
 | 14 | Inline-header lists | Bolded label + colon turning prose into slides |
@@ -157,6 +172,7 @@ This is the grader's output (the regex/density layer). The agent's full Audit re
 | 16 | Emojis in professional content | Emoji-led bullet points |
 | 17 | Curly quotation marks | "..." instead of "..." |
 | 18 | Hyphenated modifier clusters | 3+ hyphenated compounds in one sentence |
+| 49 | Em dashes | The U+2014 long-dash glyph as default mid-sentence punctuation |
 | | **Communication** | |
 | 19 | Collaborative artifacts | "I hope this helps!", "Let me know if..." |
 | 20 | Knowledge-cutoff disclaimers | "as of my last training update..." |
@@ -169,6 +185,7 @@ This is the grader's output (the regex/density layer). The agent's full Audit re
 | 25 | Staccato rhythm | Short sentences at predictable positions |
 | 47 | Soft scaffolding | "One useful area...", "The main strength..." |
 | 48 | Dense negation | Sustained "is not / does not / isn't" density across long prose |
+| 50 | Formulaic openers | "In today's fast-paced world...", "At its core..." |
 | | **Sensory and atmospheric** | |
 | 26 | Ghost/spectral language | shadows, whispers, echoes, phantoms |
 | 27 | Quietness obsession | "quiet" 10 times in 759 words about pebbles |
@@ -182,11 +199,13 @@ This is the grader's output (the regex/density layer). The agent's full Audit re
 | 38 | Section scaffolding | Identical subheadings repeated across sections |
 | 42 | Manufactured insight framing | "the real insight", "let that sink in", "what nobody is talking about" |
 | 44 | Signposted conclusions | "In conclusion,", "Key takeaways:", "Final thoughts:" |
+| 52 | Sentence length variance | Sentence-length standard deviation below 4 (uniform sentence sizes) |
 | | **Voice and register** | |
 | 33 | Countdown negation | "It wasn't X. It wasn't Y. It was Z." |
 | 34 | Per-paragraph miniature conclusions | Every paragraph wraps up neatly |
 | 35 | Tonal uniformity / register lock | One register throughout, no human drift |
 | 35a | Orphaned demonstratives | "This highlights...", "That underscores..." |
+| 35b | Repeated 'This …' chains | 3+ consecutive sentences in a paragraph starting with "This..." |
 | 36 | Faux specificity | "The smell of coffee on a Sunday morning", specific to nobody |
 | 37 | Neutrality collapse | Stripping the author's stance, defaulting to balanced |
 | 39 | Template and placeholder residue | `{client_name}`, `[Company Name]`, "Hi {name}" |
@@ -195,6 +214,7 @@ This is the grader's output (the regex/density layer). The agent's full Audit re
 | 43 | Corporate AI-speak | "deliverable outcomes", "drives outcomes", "stakeholder alignment" |
 | 45 | Nonliteral land/surface phrasing | "the argument lands", "what surfaces in the discussion" |
 | 46 | Bland critical template | "emotional range", "earns its weight", "social texture" |
+| 51 | Mechanical repeated sentence starts | 3+ consecutive sentences whose first word matches |
 | | **Meta** | |
 | — | Aggregate AI-signal pressure | Rolls up component checks plus Kobak excess-vocabulary evidence |
 
@@ -206,11 +226,11 @@ The eight items the regex grader cannot decide live in `humanise/judgement.yaml`
 
 | Item | Pattern ref | Schema |
 |---|---|---|
-| Structural monotony | — | trichotomy (varied / partly_uniform / fully_locked) |
-| Tonal uniformity | #35 | state (locked / has_breaks / mixed_intentional) |
+| Structural monotony | — | trichotomy (sections vary / some sections share a shape / every section follows the same arc) |
+| Tonal uniformity | #35 | state (register holds without breaks / register breaks at least once / register shifts deliberately) |
 | Faux specificity | #36 | list of (phrase, why_unspecific) |
-| Neutrality collapse | #37 | trichotomy (committed / hedged / fully_neutralised) |
-| Even jargon distribution | — | trichotomy (clumped / spread_naturally / suspiciously_uniform) |
+| Neutrality collapse | #37 | trichotomy (takes a position / hedges its position / flattens to balanced framing) |
+| Even jargon distribution | — | trichotomy (jargon clumps where the writer knows things / jargon spreads naturally / jargon spreads uniformly across the text) |
 | Forced synesthesia | #28 | list of (phrase, why_forced) |
 | Generic metaphors | #30 | list of (phrase, why_generic) |
 | Genre-specific watchlist | #41 | composite (genre + per-genre findings) |
@@ -227,11 +247,10 @@ The eight items the regex grader cannot decide live in `humanise/judgement.yaml`
 
 Active work, tracked in `docs/plans/`:
 
-- **Audit-report redesign (Phase 1 landed; Phase 2-3 in progress).** Phase 1 of `2026-04-30-001-feat-audit-report-redesign-plan.md` shipped: catalogue ↔ checks integrity gaps resolved, severity propagated into the catalogue, the eight-item agent-judgement registry created at `humanise/judgement.yaml`, and the Audit action rewired to read it. Phase 2 lands a no-op architectural refactor (`patterns.yaml`, `vocabulary.yml`, JSON contract). Phase 3 delivers the layout redesign — orientation block on top, eight per-category coverage sub-tables underneath, parallel agent-judgement block.
+- **Audit-report redesign (Phase 1-3 landed).** `2026-04-30-001-feat-audit-report-redesign-plan.md` is complete. Phase 1 propagated severity into the catalogue and created the eight-item agent-judgement registry at `humanise/judgement.yaml`. Phase 2 was a no-op architectural refactor (`humanise/patterns.yaml`, `humanise/vocabulary.yml`, the audit-format-v1 JSON contract) gated by a JSON-equivalence diff harness. Phase 3 delivered the layout redesign — orientation block + eight per-category coverage sub-tables (U11), parallel agent-judgement block (U12), and the SKILL.md / example.md / README sweep (U13).
 - **Calibrating thresholds by register** (literary essay vs corporate doc vs news copy).
 - **Demoting pattern checks that don't separate humans from AI** in matched genres (em dashes, manufactured insight, triad density may belong in softer categories — explicitly out of scope for the active plan; tracked separately).
 - **Growing the matched corpus past N=5 per group.**
-- **Promoting the seven unnumbered checks** (`no-em-dashes`, `no-formulaic-openers`, `no-anaphora`, `sentence-length-variance`, `no-this-chains`, `no-triad-density`, `vocabulary-diversity`) to numbered patterns or explicit folds — currently documented in the "Severity for unnumbered checks" subsection of `humanise/references/patterns.md`.
 
 ## File structure
 

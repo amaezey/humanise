@@ -2642,7 +2642,11 @@ def grade_file(filepath, assertion_names=None):
 # arguments (output_text, input_text) and produce contract-shape results, not
 # AI-writing-pattern results. They are not annotated with severity metadata.
 
-AUDIT_HEADER_RE = re.compile(r"^\*\*Audit[,]?[^*]*\*\*\s*$", re.MULTILINE)
+# Phase 3 (U11/U13) — the audit's programmatic block opens with a plain
+# "Audit" line followed by a "Severity:" verdict line. The lookahead pins
+# the match to that pair so a stray "Audit" word in a longer malformed
+# response cannot trigger a false positive.
+AUDIT_HEADER_RE = re.compile(r"^Audit[ \t]*$(?=\r?\nSeverity:)", re.MULTILINE)
 REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
 DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
@@ -2650,21 +2654,33 @@ AGENT_JUDGEMENT_HEADER_RE = re.compile(r"^\*\*Agent[- ]judgement reading[^*]*\*\
 SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
 QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
 
-# Phase 1 all-clear shape (per humanise/SKILL.md after U4): a single line
-# stating both blocks came back clean. Phase 3 (U11/U12) will replace this
-# with the canonical "X of X clear · agent reading clean · pressure: clear"
-# shape; for U5 we match the Phase-1 form.
+# Phase 3 (U11/U13) — the canonical all-clear single-line response emitted
+# by format_two_layer when every programmatic check is clear, every
+# agent-judgement item is clear, and aggregate AI-pressure has not
+# triggered. Replaces the Phase-1 "Audit clean: no AI tells detected,
+# agent reading clean" form (which was the placeholder shape U4-U10
+# inherited and is now retired).
 #
 # The regex anchors to the start of a line (re.MULTILINE) so the canonical
 # phrase cannot be embedded inside a longer malformed response. A leading
-# blockquote marker `> ` is allowed because the canonical form is rendered
-# as a blockquote in some contexts. The audit-shape checks below also
-# enforce mutual exclusivity: a response containing both this all-clear
-# phrase AND a block header (**Audit**, **Agent-judgement reading**) is
-# ambiguous and fails — agents must choose one shape, not both.
+# blockquote marker `> ` is allowed for cases where the line is rendered
+# as a blockquote. The audit-shape checks below enforce mutual exclusivity:
+# a response containing both this line AND a block header (Audit/Severity
+# pair, **Agent-judgement reading**) is ambiguous and fails — agents must
+# choose one shape, not both.
 ALL_CLEAR_LINE_RE = re.compile(
-    r"^\s*(?:>\s*)?audit clean[:.]?\s+no\s+ai\s+tells?\s+detected,?\s+agent\s+reading\s+clean\b",
+    r"^\s*(?:>\s*)?\d+\s+of\s+\d+\s+clear\s*·\s*agent\s+reading\s+clean\s*·\s*pressure:\s*clear\.",
     re.IGNORECASE | re.MULTILINE,
+)
+
+# Phase 3 (U11/U13) — the new Layer 1 per-flagged-pattern block format.
+# Single-line shape: `<glyph> **<short_name>** — ["<phrase>" — ]Action: <action>`.
+# Glyphs are x (hard_fail), ! (strong_warning), ? (context_warning).
+# The quoted-phrase clause is optional — structural patterns carry no
+# quotable instance and render as `<glyph> **<name>** — Action: ...`.
+LAYER_1_BLOCK_RE = re.compile(
+    r"^[x!?]\s+\*\*[^*]+\*\*\s+—\s+(?:.+?\s+—\s+)?Action:\s+\S.*$",
+    re.MULTILINE,
 )
 
 
@@ -2688,11 +2704,35 @@ def _suggestions_section(output_text):
 
 
 def _flag_blocks(audit_text):
-    """Return paragraphs in the audit that contain a 'Why:' line."""
+    """Return Layer 1 per-flagged-pattern blocks in the new audit shape.
+
+    Each block is a single line of the form
+    `<glyph> **<short_name>** — ["<phrase>" — ]Action: <action>`. Returns the
+    raw line strings so callers can re-parse for quoted phrases or Action
+    presence.
+    """
     if not audit_text:
         return []
-    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit_text) if p.strip()]
-    return [p for p in paragraphs if re.search(r"^\s*Why\s*:", p, re.MULTILINE)]
+    return LAYER_1_BLOCK_RE.findall(audit_text)
+
+
+def _agent_judgement_section(output_text):
+    """Return the agent-judgement block text, from header to next bold section."""
+    return _section_text(output_text, AGENT_JUDGEMENT_HEADER_RE)
+
+
+def _agent_judgement_flagged_count(output_text):
+    """Count flagged items in the agent-judgement block.
+
+    Items render as `- <Label> — Flagged[: ...]` or `- <Label> — Flagged:`
+    (clear items render as `- <Label> — Clear[: ...]`). The flagged-count
+    feeds the suggestion-flag parity check (each flag, programmatic or
+    agent-judgement, expects one suggestion).
+    """
+    section = _agent_judgement_section(output_text)
+    if not section:
+        return 0
+    return len(re.findall(r"^- [^—\n]+ — Flagged", section, re.MULTILINE))
 
 
 def _suggestion_blocks(suggestions_text):
@@ -2723,39 +2763,59 @@ def check_audit_shape_block_precedes_rewrite_block(output_text, input_text=None)
 
 
 def check_every_flag_block_contains_input_substring(output_text, input_text=None):
-    """Each flag block must quote a phrase that appears in the input."""
+    """Each Layer 1 flag block carrying a quoted phrase must quote a substring
+    of the input. Structural patterns render with no quoted phrase and
+    are excluded — they have no quotable instance to anchor."""
     name = "every-flag-block-contains-input-substring"
     if input_text is None:
         return {"text": name, "passed": False, "evidence": "input_text required for this check"}
-    blocks = _flag_blocks(_audit_section(output_text))
+    audit = _audit_section(output_text)
+    if not audit:
+        return {"text": name, "passed": True, "evidence": "no audit section (vacuously true)"}
+    blocks = _flag_blocks(audit)
     if not blocks:
         return {"text": name, "passed": True, "evidence": "no flag blocks (vacuously true)"}
     misses = []
     for block in blocks:
-        if re.search(r"^\s*Where\s*:", block, re.MULTILINE):
-            continue  # structural patterns describe location, not quotable phrase
         phrases = QUOTED_PHRASE_RE.findall(block)
-        if not phrases or not any(phrase in input_text for phrase in phrases):
-            misses.append(block.split("\n", 1)[0])
+        if not phrases:
+            continue  # structural patterns carry no quoted phrase
+        if not any(phrase in input_text for phrase in phrases):
+            misses.append(block[:80])
     if misses:
         return {"text": name, "passed": False, "evidence": f"{len(misses)} block(s) lack input-matching quotes: {misses[:3]}"}
     return {"text": name, "passed": True, "evidence": f"all {len(blocks)} flag block(s) anchor to input"}
 
 
+_FLAG_BLOCK_CANDIDATE_RE = re.compile(
+    r"^[x!?]\s+\*\*[^*]+\*\*\s+—.*$",
+    re.MULTILINE,
+)
+
+
 def check_every_flag_block_has_explanation(output_text, input_text=None):
-    """Each flag block must include a 'Why:' line."""
+    """Each Layer 1 flag block must end with `Action: <verb>`. Phase-3 (R5)
+    moved the per-pattern explanation prose out of the audit (it lives in
+    `humanise/references/patterns.md` for drill-in); the Action verb is
+    the only per-block prose that survives, and it carries the
+    "what to do about this" signal that the Phase-1 `Why:` line carried.
+
+    Uses a broader candidate-collection regex than `_flag_blocks`: any line
+    opening with a severity glyph + bold name is a candidate, and each
+    candidate must end with `Action: <verb>`. The split lets `_flag_blocks`
+    stay strict (only well-formed blocks contribute to parity counts) while
+    this check actually gates the Action-verb requirement."""
     name = "every-flag-block-has-explanation"
     audit = _audit_section(output_text)
     if not audit:
         return {"text": name, "passed": False, "evidence": "no audit section found"}
-    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit) if p.strip()]
-    candidates = [p for p in paragraphs if re.search(r'(^\s*-\s*["“])|(^\s*Where\s*:)|(^\s*Why\s*:)', p, re.MULTILINE)]
+    candidates = _FLAG_BLOCK_CANDIDATE_RE.findall(audit)
     if not candidates:
-        return {"text": name, "passed": True, "evidence": "no flag blocks (vacuously true)"}
-    missing = [p.split("\n", 1)[0] for p in candidates if not re.search(r"^\s*Why\s*:", p, re.MULTILINE)]
+        return {"text": name, "passed": True, "evidence": "no flag-block candidates (vacuously true)"}
+    missing = [b[:80] for b in candidates if not re.search(r"Action:\s+\S", b)]
     if missing:
-        return {"text": name, "passed": False, "evidence": f"{len(missing)} flag block(s) missing 'Why:': {missing[:3]}"}
-    return {"text": name, "passed": True, "evidence": f"all {len(candidates)} flag block(s) include 'Why:'"}
+        return {"text": name, "passed": False, "evidence": f"{len(missing)} flag block(s) missing 'Action:': {missing[:3]}"}
+    return {"text": name, "passed": True, "evidence": f"all {len(candidates)} flag block(s) include 'Action:'"}
 
 
 def check_final_non_empty_line_ends_with_question(output_text, input_text=None):
@@ -2783,13 +2843,21 @@ def check_no_large_prose_block_not_in_input(output_text, input_text=None):
 
 
 def check_suggestion_block_count_equals_flag_count(output_text, input_text=None):
-    """Number of suggestion blocks must equal number of flag blocks."""
+    """Number of suggestion blocks must equal total flagged items —
+    Layer 1 programmatic flag blocks plus agent-judgement flagged items.
+    Suggestions are produced one per flagged tell across both layers."""
     name = "suggestion-block-count-equals-flag-count"
-    flag_count = len(_flag_blocks(_audit_section(output_text)))
+    layer_1_count = len(_flag_blocks(_audit_section(output_text)))
+    agent_count = _agent_judgement_flagged_count(output_text)
+    flag_count = layer_1_count + agent_count
     suggestion_count = len(_suggestion_blocks(_suggestions_section(output_text)))
     if flag_count == suggestion_count:
-        return {"text": name, "passed": True, "evidence": f"{flag_count} flag(s) and {suggestion_count} suggestion(s) match"}
-    return {"text": name, "passed": False, "evidence": f"{flag_count} flag(s) vs {suggestion_count} suggestion(s)"}
+        return {"text": name, "passed": True,
+                "evidence": f"{flag_count} flag(s) ({layer_1_count} programmatic + {agent_count} agent-judgement) "
+                            f"and {suggestion_count} suggestion(s) match"}
+    return {"text": name, "passed": False,
+            "evidence": f"{flag_count} flag(s) ({layer_1_count} programmatic + {agent_count} agent-judgement) "
+                        f"vs {suggestion_count} suggestion(s)"}
 
 
 def check_every_suggestion_block_has_replacement(output_text, input_text=None):
@@ -2810,29 +2878,32 @@ def check_every_suggestion_block_has_replacement(output_text, input_text=None):
 
 
 def check_audit_shape_has_programmatic_block(output_text, input_text=None):
-    """An Audit response must carry the programmatic block (`**Audit, ...**`)
-    or be in the all-clear single-line shape. The two shapes are mutually
-    exclusive — a response containing both fails as ambiguous."""
+    """An Audit response must carry the programmatic block (the `Audit` /
+    `Severity:` line pair that opens Layer 1), the agent-judgement block
+    alone (the programmatic-clean / agent-flagged shape documented in
+    humanise/SKILL.md), or the all-clear single-line shape. The all-clear
+    phrase is mutually exclusive with any block header — a response carrying
+    both fails as ambiguous."""
     name = "audit-shape-has-programmatic-block"
     has_block = bool(AUDIT_HEADER_RE.search(output_text))
+    has_agent_judgement = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
     has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
-    if has_block and has_all_clear:
-        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both **Audit** header and the all-clear single-line phrase"}
+    if has_all_clear and (has_block or has_agent_judgement):
+        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both a block header and the all-clear single-line phrase"}
     if has_block:
-        return {"text": name, "passed": True, "evidence": "**Audit** header present"}
+        return {"text": name, "passed": True, "evidence": "Audit/Severity header pair present"}
+    if has_agent_judgement:
+        return {"text": name, "passed": True, "evidence": "**Agent-judgement reading** header present (programmatic-clean / agent-flagged shape)"}
     if has_all_clear:
         return {"text": name, "passed": True, "evidence": "all-clear single-line shape (programmatic block implicit)"}
-    return {"text": name, "passed": False, "evidence": "no **Audit** header and no all-clear line"}
+    return {"text": name, "passed": False, "evidence": "no Audit/Severity header pair, no **Agent-judgement reading** header, and no all-clear line"}
 
 
 def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
     """An Audit response must carry the agent-judgement block
     (`**Agent-judgement reading...**`) or be in the all-clear single-line
     shape. The two shapes are mutually exclusive — a response containing
-    both fails as ambiguous.
-
-    Phase 1 (U4) introduced the block; Phase 3 (U12) will redesign it but
-    keep the header recognisable. This check holds across both phases."""
+    both fails as ambiguous."""
     name = "audit-shape-has-agent-judgement-block"
     has_block = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
     has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
@@ -2846,11 +2917,12 @@ def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
 
 
 def check_audit_shape_all_clear_line_format(output_text, input_text=None):
-    """When neither block is present in the output, the response is expected
-    to be the all-clear single-line shape: `Audit clean: no AI tells detected,
-    agent reading clean.` followed by the next-step question. The canonical
-    phrase must START a line (the regex is anchored with re.MULTILINE) so it
-    cannot be embedded inside a longer malformed response.
+    """When neither block is present, the response is expected to be the
+    canonical all-clear single-line shape: `<N> of <N> clear · agent
+    reading clean · pressure: clear.` followed by the next-step prompt.
+    The canonical phrase must START a line (the regex is anchored with
+    re.MULTILINE) so it cannot be embedded inside a longer malformed
+    response.
 
     On non-all-clear outputs (where the bold headers are present and there
     is no all-clear phrase), the check vacuously passes — the all-clear
@@ -2866,14 +2938,14 @@ def check_audit_shape_all_clear_line_format(output_text, input_text=None):
     if has_all_clear and (has_programmatic or has_agent_judgement):
         which = []
         if has_programmatic:
-            which.append("**Audit**")
+            which.append("Audit/Severity")
         if has_agent_judgement:
             which.append("**Agent-judgement reading**")
         return {"text": name, "passed": False, "evidence": f"ambiguous shape: all-clear phrase appears alongside {' and '.join(which)} block header(s)"}
     if has_programmatic or has_agent_judgement:
         return {"text": name, "passed": True, "evidence": "non-all-clear output (vacuously passes)"}
     if has_all_clear:
-        return {"text": name, "passed": True, "evidence": "all-clear single-line shape matches Phase-1 canonical form"}
+        return {"text": name, "passed": True, "evidence": "all-clear single-line shape matches canonical form"}
     return {"text": name, "passed": False, "evidence": "all-clear shape expected but neither block headers nor canonical line found"}
 
 

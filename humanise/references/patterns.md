@@ -2,18 +2,18 @@
 
 <!-- This file is generated from `humanise/patterns.yaml`. Edit the YAML and regenerate via `python3 dev/tools/render_patterns_md.py --write`. -->
 
-48 patterns plus three sub-letter variants (23a, 31a, 35a) to detect and fix, plus one unnumbered meta-check (`overall-ai-signal-pressure`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
+53 patterns plus five sub-letter variants (10a, 23a, 31a, 35a, 35b) to detect and fix, plus one unnumbered aggregate meta-check (`overall-ai-signal-pressure`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
 
 ## Contents
 
 - [Content patterns (1-6)](#content-patterns)
-- [Language and grammar (7-12)](#language-and-grammar)
-- [Style (13-18)](#style)
+- [Language and grammar (7-12, 53)](#language-and-grammar)
+- [Style (13-18, 49)](#style)
 - [Communication (19-21)](#communication)
-- [Filler and hedging (22-25, 47-48)](#filler-and-hedging)
+- [Filler and hedging (22-25, 47-48, 50)](#filler-and-hedging)
 - [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
-- [Structural tells (29-32, 38, 42, 44)](#structural-tells)
-- [Voice and register (33-37, 39-41, 43, 45-46)](#voice-and-register)
+- [Structural tells (29-32, 38, 42, 44, 52)](#structural-tells)
+- [Voice and register (33-37, 39-41, 43, 45-46, 51)](#voice-and-register)
 - [Aggregate AI-signal pressure (meta-check)](#aggregate-ai-signal-pressure-meta-check)
 
 ---
