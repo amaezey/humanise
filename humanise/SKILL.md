@@ -79,19 +79,19 @@ Render four fields from the grader: the level (low / medium / high / very high),
 **Agent-judgement reading (8 items)**
 
 structural_monotony — <flagged | clear>
-  <Per-item evidence: state value (varied / partly_uniform / fully_locked) plus a one-sentence rationale.>
+  <Per-item evidence: trichotomy value (sections vary / some sections share a shape / every section follows the same arc) plus a one-sentence rationale.>
 
 tonal_uniformity — <flagged | clear>
-  <state value (locked / has_breaks / mixed_intentional) plus rationale.>
+  <state value (register holds without breaks / register breaks at least once / register shifts deliberately) plus rationale.>
 
 faux_specificity — <flagged | clear>
   <List of phrases that perform specificity without grounding, each with a why_unspecific note. Empty list when clear.>
 
 neutrality_collapse — <flagged | clear>
-  <state value (committed / hedged / fully_neutralised) plus rationale.>
+  <trichotomy value (takes a position / hedges its position / flattens to balanced framing) plus rationale.>
 
 even_jargon_distribution — <flagged | clear>
-  <state value (clumped / spread_naturally / suspiciously_uniform) plus rationale.>
+  <trichotomy value (jargon clumps where the writer knows things / jargon spreads naturally / jargon spreads uniformly across the text) plus rationale.>
 
 forced_synesthesia — <flagged | clear>
   <List of cross-modal phrases that don't earn grounding, each with a why_forced note. Empty list when clear.>

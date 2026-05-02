@@ -27,8 +27,8 @@ records:
       every section.
     answer_schema:
       type: trichotomy
-      values: [varied, partly_uniform, fully_locked]
-    flagged_when: [partly_uniform, fully_locked]
+      values: ["sections vary", "some sections share a shape", "every section follows the same arc"]
+    flagged_when: ["some sections share a shape", "every section follows the same arc"]
 
   - id: tonal_uniformity
     pattern_ref: 35
@@ -39,8 +39,8 @@ records:
       uniformity is the consistency itself, not any particular register.
     answer_schema:
       type: state
-      values: [locked, has_breaks, mixed_intentional]
-    flagged_when: [locked]
+      values: ["register holds without breaks", "register breaks at least once", "register shifts deliberately"]
+    flagged_when: ["register holds without breaks"]
 
   - id: faux_specificity
     pattern_ref: 36
@@ -67,8 +67,8 @@ records:
       stance erasure.
     answer_schema:
       type: trichotomy
-      values: [committed, hedged, fully_neutralised]
-    flagged_when: [hedged, fully_neutralised]
+      values: ["takes a position", "hedges its position", "flattens to balanced framing"]
+    flagged_when: ["hedges its position", "flattens to balanced framing"]
 
   - id: even_jargon_distribution
     pattern_ref: null
@@ -79,8 +79,8 @@ records:
       distribute jargon uniformly)?
     answer_schema:
       type: trichotomy
-      values: [clumped, spread_naturally, suspiciously_uniform]
-    flagged_when: [suspiciously_uniform]
+      values: ["jargon clumps where the writer knows things", "jargon spreads naturally", "jargon spreads uniformly across the text"]
+    flagged_when: ["jargon spreads uniformly across the text"]
 
   - id: forced_synesthesia
     pattern_ref: 28
