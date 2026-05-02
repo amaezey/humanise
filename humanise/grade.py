@@ -2122,10 +2122,10 @@ def format_two_layer(results, depth="balanced", heading="Audit"):
     flagged_visible = [c for c in visible if c["status"] == "flagged"]
     judgement_flagged = [j for j in judgement if j["status"] == "flagged"]
 
-    if not flagged_visible and not judgement_flagged:
+    if not flagged_visible and not judgement_flagged and not pressure["triggered"]:
         return _format_all_clear(len(visible))
 
-    layer_1 = _format_layer_1(heading, aggregates, pressure, flagged_visible, depth_key)
+    layer_1 = _format_layer_1(heading, pressure, flagged_visible, depth_key)
     layer_2 = _format_layer_2(visible, depth_key)
     separator = registries.string_for("section_headings.layer_separator")
     return f"{layer_1}\n\n{separator}\n\n{layer_2}"
@@ -2137,8 +2137,17 @@ def _format_all_clear(total):
     return f"{line}\n{next_step}"
 
 
-def _format_layer_1(heading, aggregates, pressure, flagged_visible, depth_key):
-    by_sev = aggregates["by_severity"]
+def _visible_severity_counts(checks):
+    counts = {"hard_fail": 0, "strong_warning": 0, "context_warning": 0}
+    for check in checks:
+        severity = check.get("severity", "context_warning")
+        if severity in counts:
+            counts[severity] += 1
+    return counts
+
+
+def _format_layer_1(heading, pressure, flagged_visible, depth_key):
+    by_sev = _visible_severity_counts(flagged_visible)
     severity_line = registries.string_for(
         "templates.severity_line",
         hard_fail=by_sev["hard_fail"],

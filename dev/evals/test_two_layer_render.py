@@ -313,6 +313,37 @@ if "Overall AI-signal pressure" in pressure_render:
 else:
     ok("Layer 1 / Layer 2 does not include the meta-check block")
 
+# If pressure is the only flagged programmatic check, the audit is not
+# all-clear: the meta-check stays suppressed as a row/block, but survives in
+# the verdict token.
+pressure_only_results = [
+    annotate_result({
+        "text": "overall-ai-signal-pressure",
+        "passed": False,
+        "evidence": "Overall AI-signal pressure 5/4",
+        "score": 5,
+        "threshold": 4,
+        "components": ["paragraph length uniformity"],
+        "vocabulary_pressure": {"points": 0, "reasons": [], "worst_generic": 0,
+                                "gptzero_matches": [], "kobak_style_distinct": 0,
+                                "kobak_style_density": 0.0, "kobak_style_sample": []},
+    }),
+] + [
+    annotate_result({"text": cid, "passed": True, "evidence": "clean"})
+    for cid in ALL_CHECKS
+    if cid != "overall-ai-signal-pressure"
+]
+pressure_only_render = format_two_layer(pressure_only_results, depth="balanced")
+
+if "agent reading clean" in pressure_only_render:
+    fail(f"pressure-only failure must not render all-clear; got:\n{pressure_only_render}")
+elif "pressure: triggered" not in pressure_only_render:
+    fail(f"pressure-only failure should survive in verdict token; got:\n{pressure_only_render}")
+elif "1 context_warning" in pressure_only_render:
+    fail(f"suppressed pressure meta-check should not inflate visible severity counts; got:\n{pressure_only_render}")
+else:
+    ok("pressure-only failure renders as pressure triggered without an all-clear line or visible severity count")
+
 
 # --- Phrase cap (3 + overflow) ---
 
