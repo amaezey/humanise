@@ -96,7 +96,7 @@ If every programmatic check is clear AND every agent-judgement item is clear AND
 
 ```
 <N> of <N> clear · agent reading clean · pressure: clear.
-Next: re-run with --depth all to inspect lower-tier signals.
+Want me to re-run with --depth all to inspect lower-tier signals?
 ```
 
 If only one half has anything to surface, the renderer omits the empty side. Programmatic flagged + agent fully clear renders the programmatic block plus a clean-form agent block (`**Agent-judgement reading**` header followed by `agent reading clean`). Programmatic fully clear but agent flagged renders the agent block alone, with no Layer 1 / Layer 2 above it. The `---` separator only appears between blocks that actually render.

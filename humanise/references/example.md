@@ -117,7 +117,7 @@ x **Generic conclusion** — "the future looks bright", "exciting times", "conti
 
 ---
 
-**Agent-judgement reading — 4 flagged of 8**
+**Agent-judgement reading — 3 flagged of 8**
 
 - Structural monotony — Flagged: every section follows the same arc
 - Tonal uniformity — Flagged: register holds without breaks
@@ -126,7 +126,7 @@ x **Generic conclusion** — "the future looks bright", "exciting times", "conti
 - Even jargon distribution — Clear: jargon clumps where the writer knows things
 - Forced synesthesia — Clear
 - Generic metaphors — Clear
-- Genre specific — Flagged: Genre detected: default.
+- Genre specific — Clear: Genre detected: default. Watchlist coverage pending.
 
 **Next step**
 
