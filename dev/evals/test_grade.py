@@ -1509,70 +1509,76 @@ expect_depth_status(_hard_only, "all", "fail", "hard failure")
 print("\n=== audit-shape U5 (dual-block assertions) ===")
 check_audit_shape = _grade.check_audit_shape
 
-_BOTH_BLOCKS = """**Audit, 2 AI tells found**
+_BOTH_BLOCKS = """Audit
+Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
+Pressure clear: no weaker AI-writing signals stacked.
 
-no-em-dashes (1 instance)
-  - "still—keen"
-  Why: Em dashes are a strong 2026 AI-style signal.
-
-**Confidence**
-
-Level: medium.
+! **Em dashes** — "still—keen" — Action: Fix
 
 ---
 
-**Agent-judgement reading (8 items)**
+**Style** — 1 flagged of 6
 
-structural_monotony — clear
-  sections vary — sections shift arc.
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Em dashes | Flagged | Fix |
+| Curly quotes | Clear |  |
 
-tonal_uniformity — clear
-  register breaks at least once — register breaks at paragraph 3.
+---
 
-faux_specificity — clear
-  No phrases.
+**Agent-judgement reading — 1 flagged of 8**
 
-neutrality_collapse — clear
-  takes a position — author defends a specific position.
-
-even_jargon_distribution — clear
-  jargon clumps where the writer knows things — jargon concentrated in section 2.
-
-forced_synesthesia — clear
-  No phrases.
-
-generic_metaphors — clear
-  No metaphors.
-
-genre_specific — clear
-  Genre detected: default. No genre-specific findings.
+- Structural monotony — Flagged: every section follows the same arc
+- Tonal uniformity — Clear: register breaks at least once
+- Faux specificity — Clear
+- Neutrality collapse — Clear: takes a position
+- Even jargon distribution — Clear: jargon clumps where the writer knows things
+- Forced synesthesia — Clear
+- Generic metaphors — Clear
+- Genre specific — Clear: Genre detected: default
 
 **Next step**
 
 Want suggestions, a rewrite, or to save?"""
 
-_PROGRAMMATIC_ONLY = """**Audit, 1 AI tell found**
+_PROGRAMMATIC_ONLY = """Audit
+Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
+Pressure clear: no weaker AI-writing signals stacked.
 
-no-em-dashes (1 instance)
-  - "still—keen"
-  Why: Em dashes are a strong 2026 AI-style signal.
+! **Em dashes** — "still—keen" — Action: Fix
 
-**Next step**
+---
 
-Want suggestions?"""
+**Style** — 1 flagged of 6
 
-_AGENT_JUDGEMENT_ONLY = """---
-
-**Agent-judgement reading (8 items)**
-
-structural_monotony — flagged
-  every section follows the same arc.
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Em dashes | Flagged | Fix |
+| Curly quotes | Clear |  |
 
 **Next step**
 
 Want suggestions?"""
 
-_ALL_CLEAR_PHASE_1 = """Audit clean: no AI tells detected, agent reading clean. Want me to look at a specific aspect of the draft more closely?"""
+_AGENT_JUDGEMENT_ONLY = """**Agent-judgement reading — 1 flagged of 8**
+
+- Structural monotony — Flagged: every section follows the same arc
+- Tonal uniformity — Clear: register breaks at least once
+- Faux specificity — Clear
+- Neutrality collapse — Clear: takes a position
+- Even jargon distribution — Clear: jargon clumps where the writer knows things
+- Forced synesthesia — Clear
+- Generic metaphors — Clear
+- Genre specific — Clear: Genre detected: default
+
+**Next step**
+
+Want suggestions?"""
+
+# Variable name retained for diff stability; the value is now the Phase-3
+# canonical all-clear single-line response.
+_ALL_CLEAR_PHASE_1 = """48 of 48 clear · agent reading clean · pressure: clear.
+Want me to re-run with --depth all to inspect lower-tier signals?"""
 
 _NEITHER_BLOCK_NOR_CLEAR = """**Some other report**
 
@@ -1582,29 +1588,28 @@ Want help?"""
 
 # Regression fixture for Finding #2 of pr-6-code-review-handoff:
 # the canonical all-clear phrase buried mid-line in a longer malformed
-# response must NOT pass the audit-shape checks. The anchored regex
-# (^\s*(?:>\s*)?audit clean ...) only matches phrases that start a line.
-_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "Audit clean: no AI tells detected, agent reading clean" but the model returned a hallucinated paragraph instead.
+# response must NOT pass the audit-shape checks. The anchored regex only
+# matches phrases that start a line.
+_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "48 of 48 clear · agent reading clean · pressure: clear" but the model returned a hallucinated paragraph instead.
 
-We tried to render no-em-dashes (1 instance) but the structured block did not materialise.
+We tried to render no-em-dashes but the structured block did not materialise.
 
 Want help?"""
 
 # Regression fixture for Finding #2: a response containing BOTH the
 # canonical all-clear phrase AND block headers is ambiguous — agents must
 # pick one shape, not both. All three audit-shape checks must fail.
-_ALL_CLEAR_PLUS_BLOCKS = """Audit clean: no AI tells detected, agent reading clean. Want suggestions?
+_ALL_CLEAR_PLUS_BLOCKS = """48 of 48 clear · agent reading clean · pressure: clear.
+Want me to re-run with --depth all?
 
-**Audit, 1 AI tell found**
+Audit
+Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
 
-no-em-dashes (1 instance)
-  - "still—keen"
-  Why: Em dashes are a strong 2026 AI-style signal.
+! **Em dashes** — "still—keen" — Action: Fix
 
-**Agent-judgement reading (8 items)**
+**Agent-judgement reading — 1 flagged of 8**
 
-structural_monotony — clear
-  sections vary — sections shift arc."""
+- Structural monotony — Flagged: every section follows the same arc"""
 
 # has-programmatic-block
 _r = check_audit_shape("audit-shape-has-programmatic-block", _BOTH_BLOCKS)
