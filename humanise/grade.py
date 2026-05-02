@@ -2646,7 +2646,7 @@ def grade_file(filepath, assertion_names=None):
 # "Audit" line followed by a "Severity:" verdict line. The lookahead pins
 # the match to that pair so a stray "Audit" word in a longer malformed
 # response cannot trigger a false positive.
-AUDIT_HEADER_RE = re.compile(r"^Audit$(?=\nSeverity:)", re.MULTILINE)
+AUDIT_HEADER_RE = re.compile(r"^Audit[ \t]*$(?=\r?\nSeverity:)", re.MULTILINE)
 REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
 DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
@@ -2679,7 +2679,7 @@ ALL_CLEAR_LINE_RE = re.compile(
 # The quoted-phrase clause is optional — structural patterns carry no
 # quotable instance and render as `<glyph> **<name>** — Action: ...`.
 LAYER_1_BLOCK_RE = re.compile(
-    r"^[x!?]\s+\*\*[^*]+\*\*\s+—\s+.+?Action:\s+\S.*$",
+    r"^[x!?]\s+\*\*[^*]+\*\*\s+—\s+(?:.+?\s+—\s+)?Action:\s+\S.*$",
     re.MULTILINE,
 )
 
@@ -2787,23 +2787,35 @@ def check_every_flag_block_contains_input_substring(output_text, input_text=None
     return {"text": name, "passed": True, "evidence": f"all {len(blocks)} flag block(s) anchor to input"}
 
 
+_FLAG_BLOCK_CANDIDATE_RE = re.compile(
+    r"^[x!?]\s+\*\*[^*]+\*\*\s+—.*$",
+    re.MULTILINE,
+)
+
+
 def check_every_flag_block_has_explanation(output_text, input_text=None):
     """Each Layer 1 flag block must end with `Action: <verb>`. Phase-3 (R5)
     moved the per-pattern explanation prose out of the audit (it lives in
     `humanise/references/patterns.md` for drill-in); the Action verb is
     the only per-block prose that survives, and it carries the
-    "what to do about this" signal that the Phase-1 `Why:` line carried."""
+    "what to do about this" signal that the Phase-1 `Why:` line carried.
+
+    Uses a broader candidate-collection regex than `_flag_blocks`: any line
+    opening with a severity glyph + bold name is a candidate, and each
+    candidate must end with `Action: <verb>`. The split lets `_flag_blocks`
+    stay strict (only well-formed blocks contribute to parity counts) while
+    this check actually gates the Action-verb requirement."""
     name = "every-flag-block-has-explanation"
     audit = _audit_section(output_text)
     if not audit:
         return {"text": name, "passed": False, "evidence": "no audit section found"}
-    blocks = _flag_blocks(audit)
-    if not blocks:
-        return {"text": name, "passed": True, "evidence": "no flag blocks (vacuously true)"}
-    missing = [b[:80] for b in blocks if not re.search(r"Action:\s+\S", b)]
+    candidates = _FLAG_BLOCK_CANDIDATE_RE.findall(audit)
+    if not candidates:
+        return {"text": name, "passed": True, "evidence": "no flag-block candidates (vacuously true)"}
+    missing = [b[:80] for b in candidates if not re.search(r"Action:\s+\S", b)]
     if missing:
         return {"text": name, "passed": False, "evidence": f"{len(missing)} flag block(s) missing 'Action:': {missing[:3]}"}
-    return {"text": name, "passed": True, "evidence": f"all {len(blocks)} flag block(s) include 'Action:'"}
+    return {"text": name, "passed": True, "evidence": f"all {len(candidates)} flag block(s) include 'Action:'"}
 
 
 def check_final_non_empty_line_ends_with_question(output_text, input_text=None):
@@ -2867,19 +2879,24 @@ def check_every_suggestion_block_has_replacement(output_text, input_text=None):
 
 def check_audit_shape_has_programmatic_block(output_text, input_text=None):
     """An Audit response must carry the programmatic block (the `Audit` /
-    `Severity:` line pair that opens Layer 1) or be in the all-clear
-    single-line shape. The two shapes are mutually exclusive — a response
-    containing both fails as ambiguous."""
+    `Severity:` line pair that opens Layer 1), the agent-judgement block
+    alone (the programmatic-clean / agent-flagged shape documented in
+    humanise/SKILL.md), or the all-clear single-line shape. The all-clear
+    phrase is mutually exclusive with any block header — a response carrying
+    both fails as ambiguous."""
     name = "audit-shape-has-programmatic-block"
     has_block = bool(AUDIT_HEADER_RE.search(output_text))
+    has_agent_judgement = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
     has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
-    if has_block and has_all_clear:
-        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both Audit/Severity header pair and the all-clear single-line phrase"}
+    if has_all_clear and (has_block or has_agent_judgement):
+        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both a block header and the all-clear single-line phrase"}
     if has_block:
         return {"text": name, "passed": True, "evidence": "Audit/Severity header pair present"}
+    if has_agent_judgement:
+        return {"text": name, "passed": True, "evidence": "**Agent-judgement reading** header present (programmatic-clean / agent-flagged shape)"}
     if has_all_clear:
         return {"text": name, "passed": True, "evidence": "all-clear single-line shape (programmatic block implicit)"}
-    return {"text": name, "passed": False, "evidence": "no Audit/Severity header pair and no all-clear line"}
+    return {"text": name, "passed": False, "evidence": "no Audit/Severity header pair, no **Agent-judgement reading** header, and no all-clear line"}
 
 
 def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
