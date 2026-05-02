@@ -23,6 +23,13 @@ severity_labels:
   strong_warning: "Strong AI-writing signal"
   context_warning: "Context-sensitive signal"
 
+# Per-tier glyphs used by the Layer 1 per-flagged-pattern blocks. Text-only
+# (terminal-safe), three distinct shapes. Phase 3 (U11).
+severity_glyphs:
+  hard_fail: "x"
+  strong_warning: "!"
+  context_warning: "?"
+
 action_labels:
   fix: "Fix"
   preserve_with_disclosure_or_user_decision: "Disclose or ask before preserving"
@@ -74,39 +81,42 @@ depth_summary:
   all_clean: "All checks pass."
   all_failures: "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
 
-# format_human_report() section headings.
+# Layer-2 sub-table headings and the all-clear single-line response.
 section_headings:
-  main_issues: "Main issues found"
-  full_check_table: "Full check table"
+  layer_separator: "---"
 
 # Inline labels for the human-readable markdown report.
 inline_labels:
-  summary_prefix: "Summary:"
   severity_prefix: "Severity:"
-  pressure_explanation_prefix: "AI-pressure explanation:"
-  what_it_looks_for: "What it looks for:"
-  what_happened_here: "What happened here:"
-  why_this_matters: "Why this matters:"
+  next_step_prompt: "Next: re-run with --depth all to inspect lower-tier signals."
 
-# Templates for format_human_report(). Phase 2 keeps the existing markdown
-# byte-equivalent; Phase 3 (U11) replaces this renderer with the dual-layer
-# design and these templates are superseded.
+# Templates for the dual-layer renderer. Phase 3 (U11) — replaces the legacy
+# format_human_report() templates. Strings flow through registries.string_for().
 templates:
-  summary_flagged: "{flagged} of {total} checks were flagged for AI-style writing patterns."
-  summary_all_clear: "All {total} checks were clear."
+  # Layer 1 — verdict line (severity counts + pressure status).
   severity_line: "{hard_fail} hard_fail · {strong_warning} strong_warning · {context_warning} context_warning · pressure: {pressure}"
-  flagged_row: "- {label}: Flagged. What it looks for: {description} What happened here: {why_here} Why this matters: {why_matters} {depth} action: {action}."
-  none_bullet: "- None."
-  no_issue_found: "No issue found in this text."
-  table_header: "| Check | Status | What it looks for | What happened here | Why this matters | {depth} action |"
-  table_separator: "|---|---|---|---|---|---|"
 
-# AI-pressure explanation chunks (assembled by _compose_pressure_explanation).
-pressure_explanation:
-  lead: "AI-pressure looks for accumulation: weaker patterns that may be harmless alone but become more meaningful when they appear together. "
-  components_with_vocab: "Here the stacked signals were {components}, plus {vocab_points} point(s) from clustered AI vocabulary. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. "
-  components_only: "Here the stacked signals were {components}. That means the draft looked machine-packaged, with too much visible structure and too little natural variation. "
-  vocab_only: "The only contribution here was {vocab_points} point(s) from clustered AI vocabulary. "
-  no_components: "This text did not stack enough weak signals to suggest machine-packaged structure. "
-  tail_triggered: "Score: {score}/{threshold}, so this check was flagged."
-  tail_clear: "Score: {score}/{threshold}, so this check stayed clear."
+  # Layer 1 — per-flagged-pattern block. Glyph, name, quoted phrase(s), action.
+  # No "why this matters" prose (R5).
+  flagged_pattern_block: "{glyph} **{name}** — {quoted} — Action: {action}"
+  flagged_pattern_block_no_quote: "{glyph} **{name}** — Action: {action}"
+
+  # Layer 2 — per-category sub-table. Heading line, then header + separator,
+  # then per-pattern rows; collapsed one-liner when every check in the
+  # category is clear.
+  category_subtable_heading: "**{category}** — {flagged} flagged of {total}"
+  category_subtable_header: "| Pattern | Result | Action |"
+  category_subtable_separator: "| --- | --- | --- |"
+  category_collapse: "**{category}** — {clear}/{total} clear"
+
+  # All-clear single-line response (R8). Both halves clear, no tables.
+  all_clear_single_line: "{total} of {total} clear · agent reading clean · pressure: clear."
+
+# Layer 1 short pressure explanation (R3 follow-up). One sentence, four
+# variants by component / vocabulary / triggered combinations.
+short_pressure_explanation:
+  triggered_with_components: "Pressure triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}, plus {vocab_points} clustered AI-vocabulary point(s))."
+  triggered_components_only: "Pressure triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components})."
+  triggered_vocab_only: "Pressure triggered: {vocab_points} clustered AI-vocabulary point(s) pushed the score to {score} of the {threshold}-point threshold."
+  clear_with_components: "Pressure clear: weaker AI-writing signals scored {score}, below the {threshold}-point threshold."
+  clear_no_components: "Pressure clear: no weaker AI-writing signals stacked."

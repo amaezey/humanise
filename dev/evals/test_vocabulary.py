@@ -74,6 +74,7 @@ print("\n=== top-level sections ===")
 
 REQUIRED_SECTIONS = {
     "severity_labels",
+    "severity_glyphs",
     "action_labels",
     "status_labels",
     "pressure_status",
@@ -83,7 +84,7 @@ REQUIRED_SECTIONS = {
     "section_headings",
     "inline_labels",
     "templates",
-    "pressure_explanation",
+    "short_pressure_explanation",
 }
 
 missing_sections = sorted(REQUIRED_SECTIONS - set(vocab))
@@ -207,22 +208,6 @@ for key in (
 
 print("\n=== templates: placeholder substitution ===")
 
-summary_flagged = registries.string_for(
-    "templates.summary_flagged", flagged=3, total=49
-)
-expected_flagged = "3 of 49 checks were flagged for AI-style writing patterns."
-if summary_flagged != expected_flagged:
-    fail(f"summary_flagged: expected {expected_flagged!r}, got {summary_flagged!r}")
-else:
-    ok("templates.summary_flagged renders byte-equivalent to legacy text")
-
-summary_all_clear = registries.string_for("templates.summary_all_clear", total=49)
-expected_all_clear = "All 49 checks were clear."
-if summary_all_clear != expected_all_clear:
-    fail(f"summary_all_clear: expected {expected_all_clear!r}, got {summary_all_clear!r}")
-else:
-    ok("templates.summary_all_clear renders byte-equivalent to legacy text")
-
 severity_line = registries.string_for(
     "templates.severity_line",
     hard_fail=0,
@@ -234,21 +219,74 @@ expected_severity = "0 hard_fail · 2 strong_warning · 1 context_warning · pre
 if severity_line != expected_severity:
     fail(f"severity_line: expected {expected_severity!r}, got {severity_line!r}")
 else:
-    ok("templates.severity_line renders byte-equivalent to legacy text")
+    ok("templates.severity_line renders byte-equivalent to expected text")
 
-table_header = registries.string_for("templates.table_header", depth="All")
-expected_header = "| Check | Status | What it looks for | What happened here | Why this matters | All action |"
-if table_header != expected_header:
-    fail(f"table_header: expected {expected_header!r}, got {table_header!r}")
+# Phase 3 dual-layer templates.
+flagged_block = registries.string_for(
+    "templates.flagged_pattern_block",
+    glyph="x", name="Em dashes", quoted='"scene lands"', action="Fix",
+)
+expected_block = 'x **Em dashes** — "scene lands" — Action: Fix'
+if flagged_block != expected_block:
+    fail(f"flagged_pattern_block: expected {expected_block!r}, got {flagged_block!r}")
 else:
-    ok("templates.table_header renders byte-equivalent to legacy text")
+    ok("templates.flagged_pattern_block renders byte-equivalent to expected text")
 
-# Table separator must remain six pipes — depended on by a downstream renderer test in U11.
-sep = registries.string_for("templates.table_separator")
-if sep != "|---|---|---|---|---|---|":
-    fail(f"table_separator drift: got {sep!r}")
+flagged_block_no_quote = registries.string_for(
+    "templates.flagged_pattern_block_no_quote",
+    glyph="!", name="Triad density", action="Fix",
+)
+expected_block_no_quote = "! **Triad density** — Action: Fix"
+if flagged_block_no_quote != expected_block_no_quote:
+    fail(f"flagged_pattern_block_no_quote: expected {expected_block_no_quote!r}, got {flagged_block_no_quote!r}")
 else:
-    ok("templates.table_separator preserved")
+    ok("templates.flagged_pattern_block_no_quote renders byte-equivalent to expected text")
+
+category_collapse = registries.string_for(
+    "templates.category_collapse", category="Style", clear=6, total=6,
+)
+expected_collapse = "**Style** — 6/6 clear"
+if category_collapse != expected_collapse:
+    fail(f"category_collapse: expected {expected_collapse!r}, got {category_collapse!r}")
+else:
+    ok("templates.category_collapse renders byte-equivalent to expected text")
+
+category_heading = registries.string_for(
+    "templates.category_subtable_heading", category="Style", flagged=2, total=6,
+)
+expected_heading = "**Style** — 2 flagged of 6"
+if category_heading != expected_heading:
+    fail(f"category_subtable_heading: expected {expected_heading!r}, got {category_heading!r}")
+else:
+    ok("templates.category_subtable_heading renders byte-equivalent to expected text")
+
+# Sub-table separator and header must remain three pipes — Layer 2 contract.
+header = registries.string_for("templates.category_subtable_header")
+if header != "| Pattern | Result | Action |":
+    fail(f"category_subtable_header drift: got {header!r}")
+else:
+    ok("templates.category_subtable_header preserved")
+
+sep = registries.string_for("templates.category_subtable_separator")
+if sep != "| --- | --- | --- |":
+    fail(f"category_subtable_separator drift: got {sep!r}")
+else:
+    ok("templates.category_subtable_separator preserved")
+
+all_clear = registries.string_for("templates.all_clear_single_line", total=48)
+expected_all_clear = "48 of 48 clear · agent reading clean · pressure: clear."
+if all_clear != expected_all_clear:
+    fail(f"all_clear_single_line: expected {expected_all_clear!r}, got {all_clear!r}")
+else:
+    ok("templates.all_clear_single_line renders byte-equivalent to expected text")
+
+# Severity glyphs — Layer 1 per-flagged-pattern blocks.
+for sev, expected_glyph in (("hard_fail", "x"), ("strong_warning", "!"), ("context_warning", "?")):
+    glyph = registries.string_for(f"severity_glyphs.{sev}")
+    if glyph != expected_glyph:
+        fail(f"severity_glyphs.{sev}: expected {expected_glyph!r}, got {glyph!r}")
+    else:
+        ok(f"severity_glyphs.{sev} = {glyph!r}")
 
 
 # --- string_for() fail-fast modes ---
@@ -266,9 +304,9 @@ else:
     fail("string_for did not raise on unknown key")
 
 try:
-    registries.string_for("templates.summary_all_clear")  # missing required {total}
+    registries.string_for("templates.all_clear_single_line")  # missing required {total}
 except KeyError as e:
-    if "total" in str(e) and "summary_all_clear" in str(e):
+    if "total" in str(e) and "all_clear_single_line" in str(e):
         ok("string_for raises KeyError naming the missing placeholder + template key")
     else:
         fail(f"string_for placeholder error message unhelpful: {e}")

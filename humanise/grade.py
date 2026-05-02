@@ -2070,30 +2070,75 @@ def table_cell(value):
     return str(value).replace("\n", " ").replace("|", "\\|")
 
 
-def format_human_report(results, depth="all", heading="Initial assessment"):
-    """Render the audit contract as user-facing Markdown.
+# Eight categories from humanise/references/patterns.md (R2). Layer 2
+# sub-table render order matches this list. Any check whose category falls
+# outside this set is appended at the end so unexpected categories surface
+# instead of disappearing — the only intentional exclusion is the
+# `overall-ai-signal-pressure` meta-check (category "Aggregate AI-signal
+# pressure"), suppressed at the per-check level because the verdict line
+# already carries its signal.
+CATEGORY_ORDER = [
+    "Content patterns",
+    "Language and grammar",
+    "Style",
+    "Communication",
+    "Filler and hedging",
+    "Sensory and atmospheric",
+    "Structural tells",
+    "Voice and register",
+]
 
-    Reads from human_report()'s contract output. U8 strips confidence/level
-    framing per R14; verdict signal comes from severity counts + AI-pressure
-    boolean. Phase 3 (U11) replaces this renderer with the dual-layer design.
+PRESSURE_META_CHECK = "overall-ai-signal-pressure"
+
+
+def format_two_layer(results, depth="balanced", heading="Audit"):
+    """Render the audit contract as user-facing Markdown — dual-layer output.
+
+    Layer 1 (orientation): heading, severity-counts verdict line, one-sentence
+    pressure explanation, per-flagged-pattern blocks (glyph + name + quoted
+    phrase + action). Layer 2 (coverage receipt): eight per-category sub-tables
+    keyed to humanise/references/patterns.md headings, with collapsed
+    one-liners for categories where every check is clear.
+
+    All-clear case (R8): zero programmatic flagged AND zero agent-judgement
+    flagged renders as a single line plus a next-step prompt; no tables, no
+    glyphs, no level label.
+
+    The `overall-ai-signal-pressure` meta-check is suppressed from both
+    layers — its signal lives in the verdict line's `pressure: …` token.
+
+    Phase 3 (U11). Replaces the legacy format_human_report. Reads
+    structured data from human_report()'s contract; all user-facing strings
+    flow through humanise/vocabulary.yml.
     """
-    depth_key = depth.lower()
+    depth_key = depth.lower() if isinstance(depth, str) else "balanced"
     contract = human_report(results)
     aggregates = contract["aggregates"]
-    by_sev = aggregates["by_severity"]
     pressure = aggregates["ai_pressure"]
-    flagged = [c for c in contract["programmatic_checks"] if c["status"] == "flagged"]
-    total = len(contract["programmatic_checks"])
+    programmatic = contract["programmatic_checks"]
+    judgement = contract["agent_judgement"]
 
-    if flagged:
-        summary = registries.string_for(
-            "templates.summary_flagged", flagged=len(flagged), total=total,
-        )
-    else:
-        summary = registries.string_for(
-            "templates.summary_all_clear", total=total,
-        )
+    visible = [c for c in programmatic if c["id"] != PRESSURE_META_CHECK]
+    flagged_visible = [c for c in visible if c["status"] == "flagged"]
+    judgement_flagged = [j for j in judgement if j["status"] == "flagged"]
 
+    if not flagged_visible and not judgement_flagged:
+        return _format_all_clear(len(visible))
+
+    layer_1 = _format_layer_1(heading, aggregates, pressure, flagged_visible, depth_key)
+    layer_2 = _format_layer_2(visible, depth_key)
+    separator = registries.string_for("section_headings.layer_separator")
+    return f"{layer_1}\n\n{separator}\n\n{layer_2}"
+
+
+def _format_all_clear(total):
+    line = registries.string_for("templates.all_clear_single_line", total=total)
+    next_step = registries.string_for("inline_labels.next_step_prompt")
+    return f"{line}\n{next_step}"
+
+
+def _format_layer_1(heading, aggregates, pressure, flagged_visible, depth_key):
+    by_sev = aggregates["by_severity"]
     severity_line = registries.string_for(
         "templates.severity_line",
         hard_fail=by_sev["hard_fail"],
@@ -2101,98 +2146,151 @@ def format_human_report(results, depth="all", heading="Initial assessment"):
         context_warning=by_sev["context_warning"],
         pressure=registries.pressure_status(pressure["triggered"]),
     )
-
-    pressure_explanation = _compose_pressure_explanation(pressure)
-
+    severity_prefix = registries.string_for("inline_labels.severity_prefix")
     lines = [
         heading,
-        f"{registries.string_for('inline_labels.summary_prefix')} {summary}",
-        f"{registries.string_for('inline_labels.severity_prefix')} {severity_line}",
+        f"{severity_prefix} {severity_line}",
+        _short_pressure_explanation(pressure),
         "",
-        f"{registries.string_for('inline_labels.pressure_explanation_prefix')} {pressure_explanation}",
-        "",
-        registries.string_for("section_headings.main_issues"),
     ]
-
-    if flagged:
-        for check in flagged:
-            try:
-                rec = registries.pattern_for(check["id"])
-                label = rec["short_name"]
-                description = rec["description"]
-                why_matters = rec["why_it_matters"]
-            except KeyError:
-                label, description, why_matters = check["id"], "", ""
-            evidence_str = check["evidence"]["raw"].get("evidence", "")
-            why_here = sentence_text(_friendly_evidence_str(evidence_str))
-            action = registries.action_label(_action_for_check(check, depth_key))
-            lines.append(
-                registries.string_for(
-                    "templates.flagged_row",
-                    label=label,
-                    description=description,
-                    why_here=why_here,
-                    why_matters=why_matters,
-                    depth=depth_key.title(),
-                    action=action,
-                )
-            )
-    else:
-        lines.append(registries.string_for("templates.none_bullet"))
-
-    lines.extend([
-        "",
-        registries.string_for("section_headings.full_check_table"),
-        "",
-        _markdown_table_from_contract(contract, depth_key),
-    ])
+    for check in flagged_visible:
+        lines.append(_layer_1_pattern_block(check, depth_key))
     return "\n".join(lines)
 
 
-def _compose_pressure_explanation(pressure):
-    """Build the AI-pressure explanation paragraph from contract aggregates.
+def _layer_1_pattern_block(check, depth_key):
+    glyph = registries.string_for(f"severity_glyphs.{check['severity']}")
+    try:
+        name = registries.pattern_for(check["id"])["short_name"]
+    except KeyError:
+        name = check["id"]
+    action = registries.action_label(_action_for_check(check, depth_key))
+    quoted = _format_quoted_phrases(check)
+    if quoted:
+        return registries.string_for(
+            "templates.flagged_pattern_block",
+            glyph=glyph, name=name, quoted=quoted, action=action,
+        )
+    return registries.string_for(
+        "templates.flagged_pattern_block_no_quote",
+        glyph=glyph, name=name, action=action,
+    )
 
-    Strings live in humanise/vocabulary.yml under `pressure_explanation`.
+
+LAYER_1_PHRASE_CAP = 3
+
+
+def _format_quoted_phrases(check):
+    """Quote the per-check evidence phrases for a Layer 1 block.
+
+    Caps the visible list at LAYER_1_PHRASE_CAP and appends a `(+N more)`
+    suffix when more phrases are present, so the orientation block stays
+    compact for noisy checks (e.g. triad density). Falls back to the empty
+    string when no quoted_phrases are present — Layer 1 then renders the
+    no-quote variant rather than an empty pair.
     """
-    lead = registries.string_for("pressure_explanation.lead")
-    components = pressure["components"]
-    vocab_points = pressure["vocabulary_points"]
-    if components and vocab_points:
-        middle = registries.string_for(
-            "pressure_explanation.components_with_vocab",
-            components=", ".join(components),
-            vocab_points=vocab_points,
+    phrases = [p for p in (check.get("evidence", {}).get("quoted_phrases") or []) if p]
+    if not phrases:
+        return ""
+    visible = phrases[:LAYER_1_PHRASE_CAP]
+    quoted = ", ".join(f'"{p}"' for p in visible)
+    overflow = len(phrases) - len(visible)
+    if overflow > 0:
+        return f"{quoted} (+{overflow} more)"
+    return quoted
+
+
+def _format_layer_2(visible, depth_key):
+    """Group visible programmatic checks by category and render sub-tables.
+
+    Categories with every check clear collapse to a one-liner (R3); otherwise
+    a Pattern/Result/Action sub-table is rendered. Render order matches
+    CATEGORY_ORDER (the eight patterns.md headings); any unexpected category
+    surfaces after those rather than being silently dropped.
+    """
+    grouped = {category: [] for category in CATEGORY_ORDER}
+    for check in visible:
+        category = check.get("category") or "Unknown"
+        grouped.setdefault(category, []).append(check)
+
+    sections = []
+    for category in CATEGORY_ORDER:
+        checks = grouped.get(category, [])
+        if checks:
+            sections.append(_layer_2_section(category, checks, depth_key))
+    for category, checks in grouped.items():
+        if category in CATEGORY_ORDER or not checks:
+            continue
+        sections.append(_layer_2_section(category, checks, depth_key))
+    return "\n\n".join(sections)
+
+
+def _layer_2_section(category, checks, depth_key):
+    total = len(checks)
+    flagged = [c for c in checks if c["status"] == "flagged"]
+    if not flagged:
+        return registries.string_for(
+            "templates.category_collapse",
+            category=category, clear=total, total=total,
         )
-    elif components:
-        middle = registries.string_for(
-            "pressure_explanation.components_only",
-            components=", ".join(components),
-        )
-    elif vocab_points:
-        middle = registries.string_for(
-            "pressure_explanation.vocab_only",
-            vocab_points=vocab_points,
-        )
+    heading = registries.string_for(
+        "templates.category_subtable_heading",
+        category=category, flagged=len(flagged), total=total,
+    )
+    header = registries.string_for("templates.category_subtable_header")
+    separator = registries.string_for("templates.category_subtable_separator")
+    rows = [_layer_2_row(check, depth_key) for check in checks]
+    return "\n".join([heading, "", header, separator, *rows])
+
+
+def _layer_2_row(check, depth_key):
+    try:
+        name = registries.pattern_for(check["id"])["short_name"]
+    except KeyError:
+        name = check["id"]
+    if check["status"] == "flagged":
+        result = registries.status_label("flagged")
+        action = registries.action_label(_action_for_check(check, depth_key))
     else:
-        middle = registries.string_for("pressure_explanation.no_components")
-    tail_key = (
-        "pressure_explanation.tail_triggered"
-        if pressure["triggered"]
-        else "pressure_explanation.tail_clear"
-    )
-    tail = registries.string_for(
-        tail_key,
-        score=pressure["score"],
-        threshold=pressure["threshold"],
-    )
-    return lead + middle + tail
+        result = registries.status_label("clear")
+        action = ""
+    return f"| {table_cell(name)} | {table_cell(result)} | {table_cell(action)} |"
 
 
-def _friendly_evidence_str(evidence_str):
-    """Old friendly_evidence took a result dict. New version takes the prose string."""
-    if not evidence_str:
-        return registries.string_for("templates.no_issue_found")
-    return evidence_str
+def _short_pressure_explanation(pressure):
+    """One-sentence AI-pressure explanation for Layer 1.
+
+    Four variants (triggered x components/vocabulary contribution). Strings
+    live in humanise/vocabulary.yml under `short_pressure_explanation`.
+    """
+    components = pressure.get("components") or []
+    vocab_points = pressure.get("vocabulary_points", 0)
+    score = pressure.get("score", 0)
+    threshold = pressure.get("threshold", 0)
+    triggered = pressure.get("triggered", False)
+    components_str = ", ".join(components)
+    if triggered:
+        if components and vocab_points:
+            return registries.string_for(
+                "short_pressure_explanation.triggered_with_components",
+                score=score, threshold=threshold,
+                components=components_str, vocab_points=vocab_points,
+            )
+        if components:
+            return registries.string_for(
+                "short_pressure_explanation.triggered_components_only",
+                score=score, threshold=threshold, components=components_str,
+            )
+        return registries.string_for(
+            "short_pressure_explanation.triggered_vocab_only",
+            score=score, threshold=threshold, vocab_points=vocab_points,
+        )
+    if components or vocab_points:
+        return registries.string_for(
+            "short_pressure_explanation.clear_with_components",
+            score=score, threshold=threshold,
+        )
+    return registries.string_for("short_pressure_explanation.clear_no_components")
 
 
 def _action_for_check(check, depth):
@@ -2203,48 +2301,6 @@ def _action_for_check(check, depth):
     if severity in {"hard_fail", "strong_warning"}:
         return "fix"
     return "preserve_with_disclosure_or_user_decision"
-
-
-def _markdown_table_from_contract(contract, depth_key):
-    """Render the full check table by joining contract entries with registry metadata."""
-    header = registries.string_for(
-        "templates.table_header", depth=depth_key.title()
-    )
-    lines = [header, registries.string_for("templates.table_separator")]
-    no_issue_text = registries.string_for("templates.no_issue_found")
-    none_label = registries.status_label("none")
-    clear_label = registries.status_label("clear")
-    flagged_label = registries.status_label("flagged")
-    for check in contract["programmatic_checks"]:
-        try:
-            rec = registries.pattern_for(check["id"])
-            label = rec["short_name"]
-            description = rec["description"]
-            why_matters = rec["why_it_matters"]
-        except KeyError:
-            label, description, why_matters = check["id"], "", ""
-        if check["status"] == "clear":
-            why_here = no_issue_text
-            action_label = none_label
-            status_label = clear_label
-        else:
-            evidence_str = check["evidence"]["raw"].get("evidence", "")
-            why_here = sentence_text(_friendly_evidence_str(evidence_str))
-            action_label = registries.action_label(_action_for_check(check, depth_key))
-            status_label = flagged_label
-        lines.append(
-            "| "
-            + " | ".join([
-                table_cell(label),
-                table_cell(status_label),
-                table_cell(description),
-                table_cell(why_here),
-                table_cell(why_matters),
-                table_cell(action_label),
-            ])
-            + " |"
-        )
-    return "\n".join(lines)
 
 
 def triggered_checks(results):
@@ -2741,7 +2797,7 @@ def main():
     summary = score_summary(results)
 
     if output_format == "markdown":
-        print(format_human_report(results, depth=depth))
+        print(format_two_layer(results, depth=depth))
         return
 
     output = {
