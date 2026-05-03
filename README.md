@@ -58,7 +58,13 @@ python3 humanise/scripts/grade.py --format markdown --depth all <file>
 
 ## Patterns
 
-55 numbered patterns, five sub-letter variants, and one aggregate meta-check across 8 categories. Full before/after examples in `humanise/references/patterns.md`. The **Source** column names the primary external attribution; "Wikipedia (editor consensus)" indicates the pattern is in the WikiProject AI Cleanup catalogue without an external upstream citation. The **Check** column says how the pattern is detected: `regex` runs against the text deterministically (49 programmatic checks), `agent` runs as a small LLM reading on the whole draft (8 items in `humanise/scripts/judgement.json`), `pending` is catalogued but not yet implemented. The **Severity** column reports the enforcement tier (`hard_fail`, `strong_warning`, `context_warning`).
+52 numbered patterns, five sub-letter variants, and one aggregate meta-check across 8 categories. Full before/after examples in `humanise/references/patterns.md`. Catalogued patterns that aren't yet implemented are tracked separately in `docs/todos/grader-integrity-gaps.md`, not listed here.
+
+- **Source**: primary external attribution. "Wikipedia (editor consensus)" means the pattern is in the WikiProject AI Cleanup catalogue without an external upstream citation.
+- **Check**: how the pattern is detected.
+    - `regex` — runs against the text deterministically (49 programmatic checks).
+    - `agent` — runs as a small LLM reading on the whole draft (8 items in `humanise/scripts/judgement.json`).
+- **Severity**: enforcement tier — `hard_fail`, `strong_warning`, or `context_warning`.
 
 | # | Pattern | Source | Check | Severity | Example |
 |---|---|---|---|---|---|
@@ -68,15 +74,12 @@ python3 humanise/scripts/grade.py --format markdown --depth all <file>
 | 3 | Superficial -ing analyses | Reinhart et al. (PNAS 2025); Belcher | regex | strong_warning | "highlighting...", "underscoring...", "reflecting..." |
 | 4 | Promotional language | Wikipedia (editor consensus); Grammarly; Caroll | regex | context_warning | "nestled in the heart of...", "vibrant", "stunning" |
 | 5 | Vague attributions | Wikipedia (editor consensus); Shankar | regex | strong_warning | "Experts argue...", "Industry reports suggest..." |
-| 6 | Formulaic challenges sections | Wikipedia (editor consensus) | pending |  | "Despite these challenges... continues to thrive" |
 | | **Language and grammar** | | | | |
 | 7 | AI vocabulary words and phrases | Kobak et al. (Science Advances 2025); Juzek & Ward; Reinhart; Merrill (WaPo) | regex | strong_warning | "delve", "landscape", "provide a valuable insight" |
 | 8 | Copula avoidance | Geng & Trotta (arxiv 2024) | regex | strong_warning | "serves as", "stands as" instead of "is" |
 | 9 | Contrived contrast / negative parallelism | Russell, Karpinska, Iyyer (ACL 2025); Stockton; Kriss/NYT | regex | strong_warning | "It's not X; it's Y" / "It's Y, not X" |
 | 10 | Rule of three | Russell; Kriss/NYT; Guo | regex | context_warning | Forcing ideas into triads |
 | 10a | Triad density |  | regex | context_warning | The density variant of #10 rule of three: three or more triads in a paragraph or short passage. |
-| 11 | Synonym cycling | Belcher (Chronicle); stylometry research | pending |  | "the protagonist... the main character... the central figure" |
-| 12 | False ranges | Wikipedia (editor consensus) | pending |  | "from X to Y, from A to B" |
 | 53 | Vocabulary diversity |  | regex | context_warning | A coarse type-token ratio metric for prose of 150+ words: low ratios suggest narrow vocabulary. |
 | | **Style** | | | | |
 | 13 | Boldface overuse | Wikipedia (editor consensus); Guo | regex | context_warning | Mechanical bolding of terms that don't need emphasis |
