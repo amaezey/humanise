@@ -44,78 +44,96 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 ### Audit steps
 
 1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
-2. Render the programmatic audit (Layer 1 + Layer 2) deterministically: `python3 grade.py --format markdown --depth <balanced|all> "$INPUT_PATH"`. **Print this output verbatim.** Do not paraphrase, summarise, normalise quotes, lower-case anything, or re-render any block. The script's quoted phrases are guaranteed to substring-match the input; rephrasing them breaks the audit's contract with the grader.
-3. **Run the agent-judgement reading.** Read `judgement.yaml` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
-4. Append the agent-judgement block to the script output. The renderer the script uses (`humanise/scripts/grade.py format_two_layer`) emits Layer 1 + Layer 2 separated by `---` and stops; the agent-judgement block follows another `---` and is the only part the agent writes by hand. If every programmatic check came back clear and every agent-judgement item is clear and aggregate signal stacking has not triggered, the script's all-clear single line replaces the whole audit — print that line as-is and skip the agent-judgement block.
-5. End with the next-step question and stop without proceeding to a rewrite.
+2. **Run the agent-judgement reading.** Read `humanise/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
+3. Render the audit deterministically: `python3 grade.py --format markdown --depth <balanced|all> "$INPUT_PATH"`. **Print the script's output verbatim.** Do not paraphrase, summarise, normalise quotes, lower-case anything, or re-render any block. The script's quoted phrases are guaranteed to substring-match the input; rephrasing them breaks the audit's contract with the grader.
+4. Insert your agent-judgement findings into the audit body, immediately above the `**Next step**` heading the script emits, using the inline shape documented under *Audit output* below. Each agent-flagged item carries the same `<glyph> **<name>**` opener as the auto-detected flagged items; clear agent items don't appear in the default audit body — they show up only when the writer asks for the full coverage report.
+5. End with the script's `**Next step**` heading and the R8 prompt verbatim. Stop without proceeding to a rewrite or coverage report unless asked.
+
+The default audit emits the summary block + flagged items + next-step. When the writer asks for the full coverage report (per the next-step prompt), re-run with `--full-report`: the script appends `**Auto-detected patterns**` and `**Agent-assessed patterns**` per-block sections (with brief notes and coverage tables) before the next-step prompt. Both modes share the same audit body — full-report mode only adds the per-block sections.
 
 If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
 
 ### Audit output
 
-The renderer (`humanise/scripts/grade.py format_two_layer`) emits one of three shapes depending on what fired. The all-clear case collapses to a single line; everything else composes a programmatic block, an agent-judgement block, or both — separated by `---`.
+The default audit shape (`grade.py --format markdown`):
 
 ```
 Audit
-Severity: <hard_fail count> hard fail · <strong_warning count> strong warning · <context_warning count> context warning · signal stacking: <triggered | clear>
-<one-sentence signal-stacking explanation: triggered or clear, score vs threshold, components and vocabulary points>
+Auto-detected: <auto_flagged> of <auto_total> flagged · Agent-assessed: <agent_flagged> of <agent_total> flagged
+Severity: <hard_fail count> hard fail · <strong_warning count> strong warning · <context_warning count> context warning
+Signal stacking: <clear (...) | triggered — <score> of <threshold> threshold (<components>)>
 
-<severity glyph> **<pattern short_name>** — "<quoted phrase>" — Action: <Fix | Disclose or ask before preserving>
-<severity glyph> **<pattern short_name>** — Action: <action>
-...
+<severity glyph> **<pattern short_name>** — "<quoted phrase>"
+<severity glyph> **<pattern short_name>**
+<severity glyph> **<agent item label>** — <state value>
+<severity glyph> **<agent item label>**
+  - "<phrase>" — <why>
+  - "<phrase>" — <why>
+<severity glyph> **<genre slot label>** — Genre detected: <genre>
+  - "<phrase>" — <why>
 
----
+**Next step**
 
-**Detected patterns**
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
+```
+
+Auto-detected flagged items render first, then agent-assessed flagged items. Both use the same `<glyph> **<short_name>**` opener; the suffix shape varies per item type:
+
+- Auto-detected lexical pattern: `<glyph> **<name>** — "<phrase>"` (caps at three phrases with `(+N more)` overflow).
+- Auto-detected structural pattern: `<glyph> **<name>**` (no quoted phrase).
+- Agent-assessed `state` / `trichotomy` flagged item: `<glyph> **<label>** — <state value>` (single line).
+- Agent-assessed `list` flagged item: `<glyph> **<label>**` header followed by nested `  - "<phrase>" — <why>` sub-bullets per finding.
+- Agent-assessed `composite` (genre slot) flagged item: `<glyph> **<label>** — Genre detected: <genre>` header, then nested watchlist sub-bullets if any.
+
+The `**Next step**` heading and R8 prompt are emitted by the script — print them verbatim.
+
+The full-report shape (`grade.py --format markdown --full-report`) inserts two per-block sections between the audit body and the next-step prompt:
+
+```
+[default audit body, exactly as above, including flagged items]
+
+**Auto-detected patterns** — <flagged> of <total>
+
+Checks the script runs against the text directly.
 
 **<Category>** — <clear>/<total> clear
 
 **<Category>** — <flagged> flagged of <total>
 
-| Pattern | Result | Action |
-| --- | --- | --- |
-| <pattern short_name> | <Flagged | Clear> | <action when flagged, empty when clear> |
-| ... | ... | ... |
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| <pattern short_name> | <severity> | <Flagged | Clear> | <guidance text when flagged, empty when clear> |
+| ... | ... | ... | ... |
 
 (eight category sub-tables in `humanise/references/patterns.md` heading order: Content patterns, Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, Voice and register. Categories where every check is clear collapse to a one-liner; categories with at least one flag render the full sub-table including the clear rows for coverage.)
 
----
+**Agent-assessed patterns** — <flagged> of 8
 
-**Agent-judgement reading — <flagged> flagged of <total>**
+Checks that are judged by an LLM based on reading the whole draft.
 
-| Pattern | Result | Action |
-| --- | --- | --- |
-| <Item label> | <Flagged | Clear> | <Fix when flagged, empty when clear> |
-| ... | ... | ... |
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| <Item label> | <severity> | <Flagged | Clear> | <(see above) when flagged, answer/value text when clear> |
+| ... | ... | ... | ... |
 
-(when every item is clear, the agent-judgement block collapses to `**Agent-judgement reading** — <total>/<total> clear` — same shape as Layer 2's all-clear category collapse. Per-item value/why detail is intentionally omitted from the audit; flagged items can be drilled into via Suggestions.)
+(one flat eight-row table in `humanise/scripts/judgement.json` registry order. Flagged rows point back at the inline bullet block via `(see above)` in Detail; clear rows carry the answer enum or genre detection in Detail.)
 
 **Next step**
 
-Let me know if you'd like suggestions for edits, a full rewrite, or to save this audit as a file.
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
 ```
 
-If every programmatic check is clear AND every agent-judgement item is clear AND aggregate signal stacking has not triggered, the renderer collapses everything to a single line:
-
-```
-<N> of <N> clear · agent reading clean · signal stacking: clear.
-Want me to re-run with --depth all to inspect lower-tier signals?
-```
-
-If only one half has anything to surface, the renderer omits the empty side. Programmatic flagged + agent fully clear renders the programmatic block plus a one-line agent collapse (`**Agent-judgement reading** — <total>/<total> clear`). Programmatic fully clear but agent flagged renders the agent block alone, with no Layer 1 / Layer 2 above it. The `---` separator only appears between blocks that actually render.
+A zero-flag draft renders the same shape — the summary block carries all-zero counts, the audit body has no flagged items, and the per-block sections (in full-report mode) show every category collapsed to clear / every agent row clear. There's no all-clear single-line shortcut.
 
 ### Rendering rules
 
-- **Severity glyphs** in Layer 1's per-flagged-pattern blocks: `x` for hard_fail, `!` for strong_warning, `?` for context_warning. No glyphs in Layer 2 sub-tables or in the agent-judgement block.
+- **Severity glyphs** in flagged-item blocks (both auto-detected and agent-assessed): `x` for hard_fail, `!` for strong_warning, `?` for context_warning. No glyphs in coverage tables.
 - **Pattern names** are the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density", "Assistant residue") — never the internal check ID (`no-em-dashes`, `no-triad-density`). Check IDs are assertion names, not user-facing labels. Agent-judgement labels are computed mechanically from the registry id (`structural_monotony` → "Structural monotony").
-- **Lexical patterns** (specific words or phrases) carry a quoted phrase in their Layer 1 block: `<glyph> **<name>** — "<phrase>" — Action: ...`. The Layer 1 phrase list caps at three with a `(+N more)` overflow suffix when more phrases are present.
-- **Structural patterns** (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) carry no quoted phrase — they render as `<glyph> **<name>** — Action: ...` in Layer 1. The pattern's "where" lives in the grader's evidence object, not in the rendered prose.
-- **Category collapse**: a Layer 2 category with every check clear renders as one line — `**<Category>** — <N>/<N> clear`. A category with at least one flagged check renders the full Pattern/Result/Action sub-table including the clear rows so coverage stays visible.
-- **Agent-judgement per-type rendering**:
-    - `state` / `trichotomy` items render as `- <label> — <Status>: <value>` (clear or flagged carries the same shape; the value is one human-readable phrase from the schema).
-    - `list` flagged items render as `- <label> — Flagged:` followed by nested `  - "<phrase>" — <why>` bullets. List items with no entries render as `- <label> — Clear`.
-    - `composite` (the genre slot only) always shows the detected genre. When the registered watchlist for that genre is empty, the rendering ends with `Watchlist coverage pending.` regardless of status.
-- **Signal stacking** is suppressed from Layer 1 and Layer 2 — its signal lives in the verdict line's `signal stacking: <triggered | clear>` token. The verdict-line severity counts read from visible programmatic checks only; agent-judgement findings cannot inflate them.
+- **Lexical patterns** carry a quoted phrase in their flagged-item block: `<glyph> **<name>** — "<phrase>"`. The phrase list caps at three with a `(+N more)` overflow suffix when more phrases are present.
+- **Structural patterns** (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) carry no quoted phrase — they render as `<glyph> **<name>**`. The pattern's "where" lives in the grader's evidence object, not in the rendered prose.
+- **Category collapse** in full-report-mode coverage tables: a category with every check clear renders as one line — `**<Category>** — <N>/<N> clear`. A category with at least one flagged check renders the full sub-table including the clear rows so coverage stays visible.
+- **Agent-assessed coverage** is one flat eight-row table in full-report mode (no per-category grouping). Detail column carries `(see above)` for flagged rows (points at the inline bullet block) and the answer/value text for clear rows.
+- **Signal stacking** is suppressed from flagged-item blocks and coverage tables — its signal lives in the third summary line. The summary-line severity counts aggregate auto-detected + agent-assessed flagged severities; the signal-stacking meta-check itself never inflates them.
 - **No "Why this matters" or "What it looks for" prose** in the audit output. Per-pattern explanations live in `humanise/references/patterns.md` and are read on drill-in for Suggestions or Rewrite — not in the audit itself.
 - Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
 

@@ -2095,40 +2095,52 @@ CATEGORY_ORDER = [
 SIGNAL_STACKING_META_CHECK = "overall-signal-stacking"
 
 
-def format_two_layer(results, depth="balanced", heading="Audit"):
-    """Render the audit contract as user-facing Markdown — dual-layer output.
+def format_two_layer(results, depth="balanced", heading="Audit", mode="default"):
+    """Render the audit contract as user-facing Markdown.
 
-    Layer 1 (orientation): heading + the U4 three-line summary block (counts /
-    severity / signal-stacking) + per-flagged-pattern blocks. Layer 2
-    (coverage receipt): eight per-category sub-tables, 4-column shape
-    (Pattern | Severity | Result | Detail) keyed to patterns.md headings,
-    with collapsed one-liners for categories where every check is clear.
+    The default audit shape (R5):
+      - heading + counts/severity/signal-stacking (R1–R3)
+      - flagged items from both blocks inline (R6/R7 — auto-detected first,
+        then agent-assessed; clear items don't appear in the default body)
+      - next-step prompt (R8) offering the full coverage report, suggestions,
+        rewrite, or save-to-file
 
-    Phase 4 / U4: the all-clear collapse is gone — a clean draft now renders
-    the full three-line summary with all-zero counts (R9). The
-    `overall-signal-stacking` meta-check is suppressed from both layers; its
-    signal lives in the third summary line.
+    The full-report shape (R11–R14, mode='full_report'): same default content
+    PLUS two per-block sections inserted before the next-step prompt:
+      - **Auto-detected patterns** — N flagged of M
+        Brief note + 8 sub-category coverage tables in patterns.md heading
+        order (R12, R13)
+      - **Agent-assessed patterns** — N flagged of 8
+        Brief note + 1 flat 8-row coverage table (R14)
 
-    All user-facing strings flow through humanise/scripts/vocabulary.json.
+    Both modes carry the same summary block, the same flagged items in the
+    audit body, and the same trailing next-step prompt — full-report mode
+    only adds the two per-block sections.
+
+    The `overall-signal-stacking` meta-check is suppressed from the audit
+    body; its signal lives in the third summary line. All user-facing
+    strings flow through humanise/scripts/vocabulary.json.
     """
+    if mode not in {"default", "full_report"}:
+        raise ValueError(f"mode must be 'default' or 'full_report', got {mode!r}")
+
     depth_key = depth.lower() if isinstance(depth, str) else "balanced"
     contract = human_report(results)
     aggregates = contract["aggregates"]
     signal_stacking = aggregates["signal_stacking"]
     programmatic = contract["programmatic_checks"]
     judgement = contract["agent_judgement"]
-
     visible = [c for c in programmatic if c["id"] != SIGNAL_STACKING_META_CHECK]
 
-    separator = registries.string_for("section_headings.layer_separator")
-    layer_1 = _format_layer_1(heading, signal_stacking, visible, judgement, depth_key)
-    layer_2 = _format_layer_2(visible, depth_key)
-    parts = [f"{layer_1}\n\n{separator}\n\n{layer_2}"]
+    parts = [_format_audit_body(heading, signal_stacking, visible, judgement, depth_key)]
 
-    if judgement:
-        parts.append(format_agent_judgement(judgement))
+    if mode == "full_report":
+        parts.append(_format_auto_detected_section(visible, depth_key))
+        parts.append(_format_agent_assessed_section(judgement))
 
-    return f"\n\n{separator}\n\n".join(parts)
+    parts.append(_format_next_step())
+
+    return "\n\n".join(parts)
 
 
 def _visible_severity_counts(checks):
@@ -2140,17 +2152,21 @@ def _visible_severity_counts(checks):
     return counts
 
 
-def _format_layer_1(heading, signal_stacking, visible, judgement, depth_key):
-    """Render the U4 three-line summary block + Layer-1 flagged items.
+def _format_audit_body(heading, signal_stacking, visible, judgement, depth_key):
+    """Render the audit body (default + full-report share this opener).
 
-    Lines (R1–R3):
-      1. Counts line: `Auto-detected: X of Y flagged · Agent-assessed: A of B flagged`
-      2. Severity line: `Severity: N hard fail · M strong warning · P context warning`
+    R5 layout:
+      1. Heading (default 'Audit')
+      2. Counts line: `Auto-detected: X of Y flagged · Agent-assessed: A of B flagged`
+      3. Severity line: `Severity: N hard fail · M strong warning · P context warning`
          (severity counts aggregate auto-detected + agent-assessed flagged items)
-      3. Signal stacking line: clear (...) or triggered — N of M threshold (...)
+      4. Signal stacking line: clear (...) or triggered — N of M threshold (...)
+      5. Auto-detected flagged items (R6 — glyph + bold + optional quoted phrase)
+      6. Agent-assessed flagged items (R7 — glyph + bold + sub-bullets per finding)
 
-    Per-flagged-pattern blocks render below, unchanged from U2 (R6 / no-Action
-    treatment lands in U5).
+    Clear items do not appear in the default body; they live in the
+    full-report mode coverage tables. The body has no trailing blank line —
+    the orchestrator joins parts with `\n\n` so spacing is consistent.
     """
     flagged_visible = [c for c in visible if c["status"] == "flagged"]
     judgement_flagged = [j for j in judgement if j.get("status") == "flagged"]
@@ -2177,11 +2193,153 @@ def _format_layer_1(heading, signal_stacking, visible, judgement, depth_key):
         counts_line,
         f"{severity_prefix} {severity_line}",
         stacking_line,
-        "",
     ]
+    if flagged_visible or judgement_flagged:
+        lines.append("")
     for check in flagged_visible:
         lines.append(_layer_1_pattern_block(check, depth_key))
+    for item in _sort_judgement(judgement_flagged):
+        lines.extend(_render_judgement_item(item))
     return "\n".join(lines)
+
+
+# Backwards-compatible alias — some tests imported the U4 function name. The
+# audit body is no longer a separate "layer" since U6 retired the parallel
+# block; the alias preserves test access without forcing a rename pass.
+_format_layer_1 = _format_audit_body
+
+
+def _sort_judgement(judgement):
+    """Sort agent-judgement items by judgement.json registry order."""
+    records = registries.load_judgement().get("records", [])
+    order = {r["id"]: i for i, r in enumerate(records)}
+    return sorted(judgement, key=lambda it: order.get(it.get("id"), len(records)))
+
+
+def _format_auto_detected_section(visible, depth_key):
+    """Full-report mode: **Auto-detected patterns** section (R12, R13).
+
+    Heading carries flagged-of-total count. Brief note explains what the
+    block contains. Coverage tables: eight sub-category tables in
+    patterns.md heading order (`_format_layer_2`); categories where every
+    check is clear collapse to a one-liner.
+    """
+    flagged = [c for c in visible if c["status"] == "flagged"]
+    heading = registries.string_for(
+        "templates.auto_detected_patterns_heading",
+        flagged=len(flagged), total=len(visible),
+    )
+    brief = registries.string_for("templates.brief_note_auto_detected")
+    coverage = _format_layer_2(visible, depth_key)
+    return f"{heading}\n\n{brief}\n\n{coverage}"
+
+
+def _format_agent_assessed_section(judgement):
+    """Full-report mode: **Agent-assessed patterns** section (R12, R14).
+
+    Heading carries flagged-of-total count. Brief note explains the block.
+    Coverage table is one flat 8-row table (R14) rather than a per-category
+    set — the agent-assessed items are not grouped by category.
+    """
+    flagged = [j for j in judgement if j.get("status") == "flagged"]
+    heading = registries.string_for(
+        "templates.agent_assessed_heading",
+        flagged=len(flagged), total=len(judgement),
+    )
+    brief = registries.string_for("templates.brief_note_agent_assessed")
+    coverage = _format_agent_assessed_coverage_table(judgement)
+    return f"{heading}\n\n{brief}\n\n{coverage}"
+
+
+def _format_agent_assessed_coverage_table(judgement):
+    """R14 / R15: one flat 8-row coverage table for agent-assessed patterns.
+
+    Columns: `Pattern | Severity | Result | Detail`. Rows render in
+    judgement.json registry order. Detail per R15:
+      - clear → answer/value text (state: enum value; list: empty;
+        composite: `Genre detected: <genre>` plus a watchlist-pending
+        note when the genre's watchlist is empty)
+      - flagged → `(see above)` pointing back to the inline bullet block
+        in the audit body
+
+    Falls back to a single `(none — agent reading not provided)` row when
+    the contract carries no agent-judgement items so the table never
+    renders empty in full-report mode.
+    """
+    header = registries.string_for("templates.category_subtable_header")
+    separator = registries.string_for("templates.category_subtable_separator")
+    if not judgement:
+        empty_row = (
+            f"| {table_cell('—')} "
+            f"| {table_cell('—')} "
+            f"| {table_cell('—')} "
+            f"| {table_cell('agent reading not provided')} |"
+        )
+        return "\n".join([header, separator, empty_row])
+    rows = [_agent_assessed_coverage_row(item) for item in _sort_judgement(judgement)]
+    return "\n".join([header, separator, *rows])
+
+
+def _agent_assessed_coverage_row(item):
+    """One row of the R14 agent-assessed coverage table."""
+    item_id = item.get("id", "")
+    label = _judgement_label(item_id)
+    severity_key = item.get("severity", "context_warning")
+    severity = registries.severity_label(severity_key)
+    if item.get("status") == "flagged":
+        result = registries.status_label("flagged")
+        detail = "(see above)"
+    else:
+        result = registries.status_label("clear")
+        detail = _agent_assessed_clear_detail(item)
+    return (
+        f"| {table_cell(label)} "
+        f"| {table_cell(severity)} "
+        f"| {table_cell(result)} "
+        f"| {table_cell(detail)} |"
+    )
+
+
+def _agent_assessed_clear_detail(item):
+    """Detail text for a clear agent-assessed coverage row.
+
+    Mirrors the answer the agent would have surfaced inline:
+      - state / trichotomy → enum value text
+      - list → empty (clear list = no findings)
+      - composite → `Genre detected: <genre>`, plus
+        `; watchlist coverage pending` when the genre's watchlist is empty
+    """
+    item_id = item.get("id", "")
+    answer = item.get("answer")
+    try:
+        record = registries.judgement_for(item_id)
+    except KeyError:
+        return ""
+    schema_type = record.get("answer_schema", {}).get("type")
+    if schema_type in {"state", "trichotomy"}:
+        return str(answer) if answer is not None else ""
+    if schema_type == "list":
+        return ""
+    if schema_type == "composite" and isinstance(answer, dict):
+        genre = answer.get("genre_detected", "default")
+        sub_records = record.get("sub_records", {}) or {}
+        sub = sub_records.get(genre, {}) or {}
+        watchlist = sub.get("watchlist") or []
+        if not watchlist:
+            return f"Genre detected: {genre}; watchlist coverage pending"
+        return f"Genre detected: {genre}"
+    return ""
+
+
+def _format_next_step():
+    """Trailing R8 next-step prompt under a `**Next step**` heading.
+
+    Always emitted in both modes; `**Next step**` is recognised by
+    TOP_LEVEL_SECTION_HEADER_RE as a top-level boundary so audit-shape
+    checks can scope cleanly past it.
+    """
+    prompt = registries.string_for("templates.next_step_prompt_with_full_report")
+    return f"**Next step**\n\n{prompt}"
 
 
 def _signal_stacking_line(signal_stacking):
@@ -2331,43 +2489,6 @@ def _layer_2_row(check, depth_key):
 def _judgement_label(item_id):
     """Compute human-readable label from a judgement-record id (snake_case → Title)."""
     return item_id.replace("_", " ").capitalize()
-
-
-def format_agent_judgement(judgement):
-    """Render the agent-judgement parallel block (Phase 3, U12).
-
-    Reads each item's status from the contract and dispatches on the
-    record's `answer_schema.type` (looked up via registries.judgement_for)
-    to render the answer. Items render in judgement.yaml registry order.
-
-    When every item is clear, the block reduces to a 'agent reading clean'
-    line under a plain header — the R8 single-line response in
-    format_two_layer takes precedence when the programmatic side is also
-    clear; this clean form only appears alongside a programmatic block.
-    """
-    if not judgement:
-        return ""
-
-    flagged_count = sum(1 for it in judgement if it.get("status") == "flagged")
-    total = len(judgement)
-
-    if flagged_count == 0:
-        header = registries.string_for("templates.agent_judgement_clean_header")
-        body = registries.string_for("templates.agent_judgement_clean_body")
-        return f"{header}\n{body}"
-
-    records = registries.load_judgement().get("records", [])
-    order = {r["id"]: i for i, r in enumerate(records)}
-    sorted_items = sorted(judgement, key=lambda it: order.get(it.get("id"), len(records)))
-
-    header = registries.string_for(
-        "templates.agent_judgement_header",
-        flagged=flagged_count, total=total,
-    )
-    lines = [header, ""]
-    for item in sorted_items:
-        lines.extend(_render_judgement_item(item))
-    return "\n".join(lines)
 
 
 def _agent_glyph(item):
@@ -2701,14 +2822,23 @@ AUDIT_HEADER_RE = re.compile(
 REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
 DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
-AGENT_JUDGEMENT_HEADER_RE = re.compile(r"^\*\*Agent[- ]judgement reading[^*]*\*\*\s*$", re.MULTILINE)
+AUTO_DETECTED_PATTERNS_HEADER_RE = re.compile(
+    r"^\*\*Auto-detected patterns[^*]*\*\*\s*$", re.MULTILINE,
+)
+AGENT_ASSESSED_PATTERNS_HEADER_RE = re.compile(
+    r"^\*\*Agent-assessed patterns[^*]*\*\*\s*$", re.MULTILINE,
+)
+NEXT_STEP_HEADER_RE = re.compile(r"^\*\*Next step\*\*\s*$", re.MULTILINE)
 SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
 # Top-level section boundaries only — used for sections whose bodies legitimately
 # contain nested bold-only headers (e.g. Suggestions has `**Pattern Name**` per flag,
 # which would otherwise be mistaken for a section terminator by SECTION_HEADER_RE).
+# U6 retired the `**Agent-judgement reading**` parallel block in favour of
+# `**Auto-detected patterns**` and `**Agent-assessed patterns**` per-block
+# sections that appear in full-report mode.
 TOP_LEVEL_SECTION_HEADER_RE = re.compile(
     r"^(?:Audit[ \t]*$(?=\r?\n(?:Severity:|Auto-detected:))|"
-    r"\*\*(?:Agent[- ]judgement reading|Suggestions|Rewrite|Draft|Next step)[^*]*\*\*\s*$)",
+    r"\*\*(?:Auto-detected patterns|Agent-assessed patterns|Suggestions|Rewrite|Draft|Next step)[^*]*\*\*\s*$)",
     re.MULTILINE,
 )
 QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
@@ -2782,25 +2912,19 @@ def _flag_blocks(audit_text):
     return LAYER_1_BLOCK_RE.findall(audit_text)
 
 
-def _agent_judgement_section(output_text):
-    """Return the agent-judgement block text, from header to next top-level section."""
-    return _section_text(output_text, AGENT_JUDGEMENT_HEADER_RE, TOP_LEVEL_SECTION_HEADER_RE)
+def _audit_body_flagged_count(output_text):
+    """Count flagged items in the audit body (R5 — both blocks inline).
 
-
-def _agent_judgement_flagged_count(output_text):
-    """Count flagged items in the agent-judgement block.
-
-    Post-U5 (R7), flagged items open with a severity glyph + bold name —
-    `! **<Label>** — ...`, `x **<Label>**`, etc. — using the same opener
-    shape as Layer-1 auto-detected blocks. Clear items continue to render
-    as the U2 `- <Label> — Clear[: ...]` shape so the regex below counts
-    only flagged items. The flagged-count feeds the suggestion-flag parity
-    check (each flag, programmatic or agent-judgement, expects one suggestion).
+    U6 retired the `**Agent-judgement reading**` parallel block; flagged
+    items from both auto-detected and agent-assessed blocks now render
+    inline in the audit body, all with the same `<glyph> **<name>**`
+    opener (R6/R7). The combined count feeds the suggestion-flag parity
+    check — one suggestion per flag regardless of source.
     """
-    section = _agent_judgement_section(output_text)
-    if not section:
+    audit = _audit_section(output_text)
+    if not audit:
         return 0
-    return len(re.findall(r"^[x!?]\s+\*\*[^*]+\*\*", section, re.MULTILINE))
+    return len(re.findall(r"^[x!?]\s+\*\*[^*]+\*\*", audit, re.MULTILINE))
 
 
 def _suggestion_blocks(suggestions_text):
@@ -2904,21 +3028,19 @@ def check_no_large_prose_block_not_in_input(output_text, input_text=None):
 
 
 def check_suggestion_block_count_equals_flag_count(output_text, input_text=None):
-    """Number of suggestion blocks must equal total flagged items —
-    Layer 1 programmatic flag blocks plus agent-judgement flagged items.
-    Suggestions are produced one per flagged tell across both layers."""
+    """Number of suggestion blocks must equal total flagged items in the
+    audit body (auto-detected + agent-assessed combined). U6 inlined
+    agent-flagged items into the audit body (R5), so a single audit-body
+    count covers both — there's no longer a separate parallel block to
+    count."""
     name = "suggestion-block-count-equals-flag-count"
-    layer_1_count = len(_flag_blocks(_audit_section(output_text)))
-    agent_count = _agent_judgement_flagged_count(output_text)
-    flag_count = layer_1_count + agent_count
+    flag_count = _audit_body_flagged_count(output_text)
     suggestion_count = len(_suggestion_blocks(_suggestions_section(output_text)))
     if flag_count == suggestion_count:
         return {"text": name, "passed": True,
-                "evidence": f"{flag_count} flag(s) ({layer_1_count} programmatic + {agent_count} agent-judgement) "
-                            f"and {suggestion_count} suggestion(s) match"}
+                "evidence": f"{flag_count} audit-body flag(s) and {suggestion_count} suggestion(s) match"}
     return {"text": name, "passed": False,
-            "evidence": f"{flag_count} flag(s) ({layer_1_count} programmatic + {agent_count} agent-judgement) "
-                        f"vs {suggestion_count} suggestion(s)"}
+            "evidence": f"{flag_count} audit-body flag(s) vs {suggestion_count} suggestion(s)"}
 
 
 def check_every_suggestion_block_has_replacement(output_text, input_text=None):
@@ -2939,75 +3061,25 @@ def check_every_suggestion_block_has_replacement(output_text, input_text=None):
 
 
 def check_audit_shape_has_programmatic_block(output_text, input_text=None):
-    """An Audit response must carry the programmatic block (the `Audit` /
-    `Severity:` line pair that opens Layer 1), the agent-judgement block
-    alone (the programmatic-clean / agent-flagged shape documented in
-    humanise/SKILL.md), or the all-clear single-line shape. The all-clear
-    phrase is mutually exclusive with any block header — a response carrying
-    both fails as ambiguous."""
+    """An Audit response must open with the `Audit` / `Auto-detected:` (or
+    `Severity:`, pre-U4) header pair. U6 retired the parallel
+    `**Agent-judgement reading**` block — agent-assessed flagged items now
+    render inline in the audit body — so this check no longer accepts an
+    agent-judgement-only shape. R9 retired the all-clear collapse, so the
+    single-line all-clear phrase is a legacy shape and not a valid
+    alternative either; a response containing it fails as ambiguous."""
     name = "audit-shape-has-programmatic-block"
     has_block = bool(AUDIT_HEADER_RE.search(output_text))
-    has_agent_judgement = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
     has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
-    if has_all_clear and (has_block or has_agent_judgement):
-        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both a block header and the all-clear single-line phrase"}
+    if has_all_clear and has_block:
+        return {"text": name, "passed": False,
+                "evidence": "ambiguous shape: response contains both an Audit header and the legacy all-clear single-line phrase"}
     if has_block:
-        return {"text": name, "passed": True, "evidence": "Audit/Severity header pair present"}
-    if has_agent_judgement:
-        return {"text": name, "passed": True, "evidence": "**Agent-judgement reading** header present (programmatic-clean / agent-flagged shape)"}
+        return {"text": name, "passed": True, "evidence": "Audit header present"}
     if has_all_clear:
-        return {"text": name, "passed": True, "evidence": "all-clear single-line shape (programmatic block implicit)"}
-    return {"text": name, "passed": False, "evidence": "no Audit/Severity header pair, no **Agent-judgement reading** header, and no all-clear line"}
-
-
-def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
-    """An Audit response must carry the agent-judgement block
-    (`**Agent-judgement reading...**`) or be in the all-clear single-line
-    shape. The two shapes are mutually exclusive — a response containing
-    both fails as ambiguous."""
-    name = "audit-shape-has-agent-judgement-block"
-    has_block = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
-    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
-    if has_block and has_all_clear:
-        return {"text": name, "passed": False, "evidence": "ambiguous shape: response contains both **Agent-judgement reading** header and the all-clear single-line phrase"}
-    if has_block:
-        return {"text": name, "passed": True, "evidence": "**Agent-judgement reading** header present"}
-    if has_all_clear:
-        return {"text": name, "passed": True, "evidence": "all-clear single-line shape (agent-judgement block implicit)"}
-    return {"text": name, "passed": False, "evidence": "no **Agent-judgement reading** header and no all-clear line"}
-
-
-def check_audit_shape_all_clear_line_format(output_text, input_text=None):
-    """When neither block is present, the response is expected to be the
-    canonical all-clear single-line shape: `<N> of <N> clear · agent
-    reading clean · signal stacking: clear.` followed by the next-step prompt.
-    The canonical phrase must START a line (the regex is anchored with
-    re.MULTILINE) so it cannot be embedded inside a longer malformed
-    response.
-
-    On non-all-clear outputs (where the bold headers are present and there
-    is no all-clear phrase), the check vacuously passes — the all-clear
-    shape only applies to all-clear runs. A response containing BOTH the
-    canonical all-clear phrase AND any block header fails as ambiguous —
-    the two shapes are mutually exclusive.
-    """
-    name = "audit-shape-all-clear-line-format"
-    has_programmatic = bool(AUDIT_HEADER_RE.search(output_text))
-    has_agent_judgement = bool(AGENT_JUDGEMENT_HEADER_RE.search(output_text))
-    has_all_clear = bool(ALL_CLEAR_LINE_RE.search(output_text))
-
-    if has_all_clear and (has_programmatic or has_agent_judgement):
-        which = []
-        if has_programmatic:
-            which.append("Audit/Severity")
-        if has_agent_judgement:
-            which.append("**Agent-judgement reading**")
-        return {"text": name, "passed": False, "evidence": f"ambiguous shape: all-clear phrase appears alongside {' and '.join(which)} block header(s)"}
-    if has_programmatic or has_agent_judgement:
-        return {"text": name, "passed": True, "evidence": "non-all-clear output (vacuously passes)"}
-    if has_all_clear:
-        return {"text": name, "passed": True, "evidence": "all-clear single-line shape matches canonical form"}
-    return {"text": name, "passed": False, "evidence": "all-clear shape expected but neither block headers nor canonical line found"}
+        return {"text": name, "passed": False,
+                "evidence": "legacy all-clear single-line shape; R9 retired the collapse — expected full Audit header even on zero-flag drafts"}
+    return {"text": name, "passed": False, "evidence": "no Audit header found"}
 
 
 # U3 (audit-output redesign) — measurement lock for the new audit shape.
@@ -3134,8 +3206,6 @@ AUDIT_SHAPE_CHECKS = {
     "suggestion-block-count-equals-flag-count": check_suggestion_block_count_equals_flag_count,
     "every-suggestion-block-has-replacement": check_every_suggestion_block_has_replacement,
     "audit-shape-has-programmatic-block": check_audit_shape_has_programmatic_block,
-    "audit-shape-has-agent-judgement-block": check_audit_shape_has_agent_judgement_block,
-    "audit-shape-all-clear-line-format": check_audit_shape_all_clear_line_format,
     "audit-shape-counts-line": check_audit_shape_counts_line,
     "audit-shape-severity-line": check_audit_shape_severity_line,
     "audit-shape-signal-stacking-line": check_audit_shape_signal_stacking_line,
@@ -3186,13 +3256,17 @@ def regrade(text, depth="balanced"):
     }
 
 
-USAGE = "Usage: grade.py [--format json|markdown] [--depth balanced|all] <file> [assertion1,assertion2,...]"
+USAGE = (
+    "Usage: grade.py [--format json|markdown] [--depth balanced|all] "
+    "[--full-report] <file> [assertion1,assertion2,...]"
+)
 
 
 def main():
     args = sys.argv[1:]
     output_format = "json"
     depth = "all"
+    mode = "default"
 
     if "--format" in args:
         index = args.index("--format")
@@ -3212,6 +3286,10 @@ def main():
             sys.exit(1)
         del args[index:index + 2]
 
+    if "--full-report" in args:
+        mode = "full_report"
+        args.remove("--full-report")
+
     if output_format not in {"json", "markdown"} or depth not in DEPTHS or not args:
         print(USAGE)
         sys.exit(1)
@@ -3224,7 +3302,7 @@ def main():
     summary = score_summary(results)
 
     if output_format == "markdown":
-        print(format_two_layer(results, depth=depth))
+        print(format_two_layer(results, depth=depth, mode=mode))
         return
 
     output = {

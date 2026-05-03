@@ -302,6 +302,39 @@ if sep != "| --- | --- | --- | --- |":
 else:
     ok("templates.category_subtable_separator is the U4 4-column shape")
 
+# U6: per-block headings + brief notes (R12).
+auto_heading = registries.string_for(
+    "templates.auto_detected_patterns_heading", flagged=2, total=48,
+)
+expected_auto_heading = "**Auto-detected patterns** — 2 flagged of 48"
+if auto_heading != expected_auto_heading:
+    fail(f"auto_detected_patterns_heading: expected {expected_auto_heading!r}, got {auto_heading!r}")
+else:
+    ok("templates.auto_detected_patterns_heading renders byte-equivalent to expected text")
+
+agent_heading = registries.string_for(
+    "templates.agent_assessed_heading", flagged=1, total=8,
+)
+expected_agent_heading = "**Agent-assessed patterns** — 1 flagged of 8"
+if agent_heading != expected_agent_heading:
+    fail(f"agent_assessed_heading: expected {expected_agent_heading!r}, got {agent_heading!r}")
+else:
+    ok("templates.agent_assessed_heading renders byte-equivalent to expected text")
+
+brief_auto = registries.string_for("templates.brief_note_auto_detected")
+expected_brief_auto = "Checks the script runs against the text directly."
+if brief_auto != expected_brief_auto:
+    fail(f"brief_note_auto_detected: expected {expected_brief_auto!r}, got {brief_auto!r}")
+else:
+    ok("templates.brief_note_auto_detected renders byte-equivalent to expected text")
+
+brief_agent = registries.string_for("templates.brief_note_agent_assessed")
+expected_brief_agent = "Checks that are judged by an LLM based on reading the whole draft."
+if brief_agent != expected_brief_agent:
+    fail(f"brief_note_agent_assessed: expected {expected_brief_agent!r}, got {brief_agent!r}")
+else:
+    ok("templates.brief_note_agent_assessed renders byte-equivalent to expected text")
+
 # U5: agent-assessed flagged-item templates (R7 — glyph + bold + sub-bullets).
 # `agent_assessed_flagged_block` is the bare list-flagged header; the
 # state and composite-genre variants carry the inline value/genre clause.

@@ -1,6 +1,6 @@
 # Worked example: AI-sounding draft → audit → rewrite
 
-End-to-end demonstration on a single AI-generated essay: the dual-layer audit it produces, then a rewrite at All depth with structural self-check and revised rewrite. Use as a reference for what a real Audit and Rewrite action's outputs look like.
+End-to-end demonstration on a single AI-generated essay: the audit it produces in default and full-report modes, then a rewrite at All depth with structural self-check and revised rewrite. Use as a reference for what a real Audit and Rewrite action's outputs look like.
 
 ## Before (AI-sounding)
 
@@ -16,124 +16,82 @@ End-to-end demonstration on a single AI-generated essay: the dual-layer audit it
 >
 > In conclusion, the future looks bright. Exciting times lie ahead as we continue this journey toward excellence. Let me know if you'd like me to expand on any section!
 
-## Audit
+## Audit (default mode)
 
-Real `python3 humanise/scripts/grade.py --format markdown --depth balanced` output on the input above, with a representative agent-judgement block underneath. Severity glyphs in Layer 1: `x` hard_fail, `!` strong_warning, `?` context_warning. Layer 2 collapses categories where every check is clear; expanded sub-tables include the clear rows so coverage stays visible. The agent-judgement block uses the eight-item registry in `humanise/scripts/judgement.json` and renders status binary (Flagged / Clear) with no severity column.
+`python3 humanise/scripts/grade.py --format markdown --depth balanced` produces the summary block + flagged items from both blocks + the next-step prompt. Severity glyphs: `x` hard_fail, `!` strong_warning, `?` context_warning. Auto-detected flagged items render first; agent-assessed flagged items follow. Clear items don't appear in the default body — they show up in the full-report-mode coverage tables.
 
 ```
 Audit
-Severity: 2 hard fail · 8 strong warning · 3 context warning · signal stacking: triggered
-Signal stacking triggered: weaker AI-writing signals stacked to 9 of the 4-point threshold (formulaic openings, assistant residue, generic conclusion endings, plus 4 clustered AI-vocabulary point(s)).
+Auto-detected: 13 of 48 flagged · Agent-assessed: 3 of 8 flagged
+Severity: 2 hard fail · 11 strong warning · 3 context warning
+Signal stacking: triggered — 9 of 4 threshold (formulaic openings, assistant residue, generic conclusion endings)
 
-! **Clustered AI vocabulary** — "enduring", "landscape", "pivotal" (+4 more) — Action: Fix
-x **Assistant residue** — "i hope this helps", "great question", "let me know if" — Action: Fix
-? **Generic promotional language** — "nestled", "groundbreaking" — Action: Disclose or ask before preserving
-? **Inflated significance** — "pivotal", "vital role", "testament" — Action: Disclose or ask before preserving
-! **Avoiding plain 'is'** — "serves as", "serves as", "stands as" (+1 more) — Action: Fix
-! **Filler phrases** — "in order to" — Action: Fix
-x **Generic conclusion** — "the future looks bright", "exciting times", "continue this journey" — Action: Fix
-! **Tacked-on -ing analysis** — Action: Fix
-! **Formulaic openers** — "At its core, the value proposition is clear: streamlining pr" — Action: Fix
-? **Signposted conclusion** — "In conclusion, the future looks bright. Exciting times lie a" — Action: Disclose or ask before preserving
-! **Corporate AI-speak** — "cross-functional" — Action: Fix
-! **Vague attributions** — "observers have noted" — Action: Fix
-! **Knowledge-cutoff disclaimers** — "based on available information", "while specific details are limited" — Action: Fix
-
----
-
-**Content patterns** — 4 flagged of 5
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Generic promotional language | Flagged | Disclose or ask before preserving |
-| Inflated significance | Flagged | Disclose or ask before preserving |
-| Tacked-on -ing analysis | Flagged | Fix |
-| Notability claims | Clear |  |
-| Vague attributions | Flagged | Fix |
-
-**Language and grammar** — 2 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Clustered AI vocabulary | Flagged | Fix |
-| Contrived contrast | Clear |  |
-| Avoiding plain 'is' | Flagged | Fix |
-| Decorative three-part lists | Clear |  |
-| Vocabulary diversity | Clear |  |
-| Triad density | Clear |  |
-
-**Style** — 6/6 clear
-
-**Communication** — 2 flagged of 2
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Assistant residue | Flagged | Fix |
-| Knowledge-cutoff disclaimers | Flagged | Fix |
-
-**Filler and hedging** — 3 flagged of 8
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Generic staccato emphasis | Clear |  |
-| Filler phrases | Flagged | Fix |
-| Generic conclusion | Flagged | Fix |
-| False balance or concession | Clear |  |
-| Soft explainer scaffolding | Clear |  |
-| Formulaic openers | Flagged | Fix |
-| Excessive hedging | Clear |  |
-| Dense negation | Clear |  |
-
-**Sensory and atmospheric** — 2/2 clear
-
-**Structural tells** — 1 flagged of 9
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Manufactured insight framing | Clear |  |
-| Sentence rhythm variance | Clear |  |
-| Template rhetorical questions | Clear |  |
-| Excessive list formatting | Clear |  |
-| Decorative Unicode | Clear |  |
-| Unearned dramatic transitions | Clear |  |
-| Signposted conclusion | Flagged | Disclose or ask before preserving |
-| Paragraph length uniformity | Clear |  |
-| Repeated section scaffolding | Clear |  |
-
-**Voice and register** — 1 flagged of 10
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Nonliteral land/surface phrasing | Clear |  |
-| Mechanical repeated sentence starts | Clear |  |
-| Placeholder residue | Clear |  |
-| Vague 'this/that' starts | Clear |  |
-| Corporate AI-speak | Flagged | Fix |
-| Repeated 'This...' chains | Clear |  |
-| Countdown negation | Clear |  |
-| Tidy paragraph endings | Clear |  |
-| Bland critical template | Clear |  |
-| Rubric echoing | Clear |  |
-
----
-
-**Agent-judgement reading — 3 flagged of 8**
-
-- Structural monotony — Flagged: every section follows the same arc
-- Tonal uniformity — Flagged: register holds without breaks
-- Faux specificity — Clear
-- Neutrality collapse — Flagged: hedges its position
-- Even jargon distribution — Clear: jargon clumps where the writer knows things
-- Forced synesthesia — Clear
-- Generic metaphors — Clear
-- Genre specific — Clear: Genre detected: default. Watchlist coverage pending.
+! **Clustered AI vocabulary** — "enduring", "landscape", "pivotal" (+4 more)
+x **Assistant residue** — "i hope this helps", "great question", "let me know if"
+? **Generic promotional language** — "nestled", "groundbreaking"
+? **Inflated significance** — "pivotal", "vital role", "testament"
+! **Avoiding plain 'is'** — "serves as", "serves as", "stands as" (+1 more)
+! **Filler phrases** — "in order to"
+x **Generic conclusion** — "the future looks bright", "exciting times", "continue this journey"
+! **Tacked-on -ing analysis**
+! **Formulaic openers** — "At its core, the value proposition is clear: streamlining pr"
+? **Signposted conclusion** — "In conclusion, the future looks bright. Exciting times lie a"
+! **Corporate AI-speak** — "cross-functional"
+! **Vague attributions** — "observers have noted"
+! **Knowledge-cutoff disclaimers** — "based on available information", "while specific details are limited"
+! **Structural monotony** — every section follows the same arc
+! **Tonal uniformity** — register holds without breaks
+! **Neutrality collapse** — hedges its position
 
 **Next step**
 
-Want suggestions for per-flag replacements, a rewrite at a chosen depth, or to save this audit as a Markdown file?
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
 ```
 
-The all-clear case collapses to a single line — `<N> of <N> clear · agent reading clean · signal stacking: clear.` followed by the next-step prompt. No tables, no glyphs, no level label.
+A zero-flag draft renders the same shape — the summary block carries all-zero counts and there are no flagged items between the summary and the next-step prompt. There's no all-clear single-line shortcut.
+
+## Audit (full-report mode)
+
+When the writer asks for the full coverage report, re-run with `--full-report`. The script appends two per-block sections — `**Auto-detected patterns**` (with the eight category sub-tables in `humanise/references/patterns.md` heading order) and `**Agent-assessed patterns**` (a flat eight-row table in `humanise/scripts/judgement.json` registry order) — between the audit body and the next-step prompt. Each per-block section opens with a brief note explaining what's in the block. Coverage tables are 4-column: `Pattern | Severity | Result | Detail`. Detail carries the per-pattern guidance text on flagged auto-detected rows (empty when clear), and `(see above)` for flagged agent-assessed rows (pointing back at the inline bullet block) with the answer/value text on clear rows.
+
+```
+[default audit body, exactly as above, including all flagged items]
+
+**Auto-detected patterns** — 13 flagged of 48
+
+Checks the script runs against the text directly.
+
+**Content patterns** — 4 flagged of 5
+
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| Generic promotional language | context warning | Flagged | Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm. |
+| Inflated significance | context warning | Flagged | Fix inflated importance unless the source genuinely argues significance. |
+| Tacked-on -ing analysis | strong warning | Flagged | Fix tacked-on analysis clauses unless they carry precise causal meaning. |
+| Notability claims | strong warning | Clear |  |
+| Vague attributions | strong warning | Flagged | Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote. |
+
+[... seven more category sub-tables in patterns.md heading order; categories where every check is clear collapse to a single `**<Category>** — N/N clear` line. The full output includes Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, and Voice and register.]
+
+**Agent-assessed patterns** — 3 flagged of 8
+
+Checks that are judged by an LLM based on reading the whole draft.
+
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| Structural monotony | strong warning | Flagged | (see above) |
+| Tonal uniformity | strong warning | Flagged | (see above) |
+| Faux specificity | strong warning | Clear |  |
+| Neutrality collapse | strong warning | Flagged | (see above) |
+| Even jargon distribution | context warning | Clear | jargon clumps where the writer knows things |
+| Forced synesthesia | context warning | Clear |  |
+| Generic metaphors | context warning | Clear |  |
+| Genre specific | context warning | Clear | Genre detected: default; watchlist coverage pending |
+
+**Next step**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
+```
 
 ## Rewrite
 

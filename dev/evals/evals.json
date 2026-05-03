@@ -46,18 +46,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -140,18 +128,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -232,18 +208,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",
@@ -340,18 +304,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -443,18 +395,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",
@@ -551,18 +491,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -655,18 +583,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",
@@ -800,18 +716,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -892,18 +796,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",
@@ -988,18 +880,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -1080,18 +960,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",
@@ -1176,18 +1044,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -1268,18 +1124,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",
@@ -1364,18 +1208,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -1456,18 +1288,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",
@@ -1552,18 +1372,6 @@
           "check": "audit-shape header present, or all-clear line present"
         },
         {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
-        },
-        {
           "name": "audit-counts-line-present",
           "type": "programmatic",
           "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
@@ -1644,18 +1452,6 @@
           "type": "programmatic",
           "description": "Audit response carries the **Audit, ...** programmatic block (or the all-clear single-line shape).",
           "check": "audit-shape header present, or all-clear line present"
-        },
-        {
-          "name": "has-agent-judgement-block",
-          "type": "programmatic",
-          "description": "Audit response carries the **Agent-judgement reading** block (or the all-clear single-line shape) per U4.",
-          "check": "agent-judgement header present, or all-clear line present"
-        },
-        {
-          "name": "all-clear-line-format",
-          "type": "programmatic",
-          "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
-          "check": "all-clear line shape matches Phase-1 canonical form when applicable"
         },
         {
           "name": "audit-counts-line-present",

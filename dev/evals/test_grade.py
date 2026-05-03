@@ -1413,20 +1413,23 @@ if len(_full_table_report["programmatic_checks"]) != _total_checks:
 else:
     print(f"  ok: full contract includes all {_total_checks} programmatic checks")
 
-# U11: format_two_layer is the renderer. Deep coverage lives in
+# format_two_layer is the renderer. Deep coverage lives in
 # dev/evals/test_two_layer_render.py; this is a smoke test only.
 _two_layer_smoke = format_two_layer([
     annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
 ], depth="balanced")
-if not isinstance(_two_layer_smoke, str) or "---" not in _two_layer_smoke:
+if not isinstance(_two_layer_smoke, str) or "Audit\n" not in _two_layer_smoke:
     FAILURES += 1
-    print(f"FAIL: format_two_layer should return a string with a Layer 1/Layer 2 separator; got:\n{_two_layer_smoke[:400]}")
+    print(f"FAIL: format_two_layer should return a string opening with the Audit header; got:\n{_two_layer_smoke[:400]}")
+elif "**Next step**" not in _two_layer_smoke:
+    FAILURES += 1
+    print(f"FAIL: format_two_layer default-mode output should end with **Next step** + R8 prompt; got:\n{_two_layer_smoke[:400]}")
 elif "pressure" in _two_layer_smoke.lower():
     FAILURES += 1
     print("FAIL: format_two_layer should not contain 'pressure' (renamed to 'signal stacking' in U2)")
 else:
-    print("  ok: format_two_layer smoke test renders both layers")
+    print("  ok: format_two_layer smoke test renders the U6 default-mode shape")
 
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1
@@ -1509,37 +1512,19 @@ expect_depth_status(_hard_only, "all", "fail", "hard failure")
 print("\n=== audit-shape U5 (dual-block assertions) ===")
 check_audit_shape = _grade.check_audit_shape
 
+# U6 default-mode shape: agent-flagged item rendered inline in the audit body,
+# no parallel **Agent-judgement reading** section, R8 next-step prompt.
 _BOTH_BLOCKS = """Audit
-Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
-Signal stacking clear: no weaker AI-writing signals stacked.
+Auto-detected: 1 of 48 flagged · Agent-assessed: 1 of 8 flagged
+Severity: 0 hard fail · 2 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
 
-! **Em dashes** — "still—keen" — Action: Fix
-
----
-
-**Style** — 1 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
-
----
-
-**Agent-judgement reading — 1 flagged of 8**
-
+! **Em dashes** — "still—keen"
 ! **Structural monotony** — every section follows the same arc
-- Tonal uniformity — Clear: register breaks at least once
-- Faux specificity — Clear
-- Neutrality collapse — Clear: takes a position
-- Even jargon distribution — Clear: jargon clumps where the writer knows things
-- Forced synesthesia — Clear
-- Generic metaphors — Clear
-- Genre specific — Clear: Genre detected: default
 
 **Next step**
 
-Want suggestions, a rewrite, or to save?"""
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
 _PROGRAMMATIC_ONLY = """Audit
 Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
@@ -1560,112 +1545,29 @@ Signal stacking clear: no weaker AI-writing signals stacked.
 
 Want suggestions?"""
 
-_AGENT_JUDGEMENT_ONLY = """**Agent-judgement reading — 1 flagged of 8**
-
-! **Structural monotony** — every section follows the same arc
-- Tonal uniformity — Clear: register breaks at least once
-- Faux specificity — Clear
-- Neutrality collapse — Clear: takes a position
-- Even jargon distribution — Clear: jargon clumps where the writer knows things
-- Forced synesthesia — Clear
-- Generic metaphors — Clear
-- Genre specific — Clear: Genre detected: default
-
-**Next step**
-
-Want suggestions?"""
-
-# Variable name retained for diff stability; the value is now the Phase-3
-# canonical all-clear single-line response.
-_ALL_CLEAR_PHASE_1 = """48 of 48 clear · agent reading clean · signal stacking: clear.
-Want me to re-run with --depth all to inspect lower-tier signals?"""
-
 _NEITHER_BLOCK_NOR_CLEAR = """**Some other report**
 
 Nothing recognisable here.
 
 Want help?"""
 
-# Regression fixture for Finding #2 of pr-6-code-review-handoff:
-# the canonical all-clear phrase buried mid-line in a longer malformed
-# response must NOT pass the audit-shape checks. The anchored regex only
-# matches phrases that start a line.
-_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "48 of 48 clear · agent reading clean · signal stacking: clear" but the model returned a hallucinated paragraph instead.
-
-We tried to render no-em-dashes but the structured block did not materialise.
-
-Want help?"""
-
-# Regression fixture for Finding #2: a response containing BOTH the
-# canonical all-clear phrase AND block headers is ambiguous — agents must
-# pick one shape, not both. All three audit-shape checks must fail.
-_ALL_CLEAR_PLUS_BLOCKS = """48 of 48 clear · agent reading clean · signal stacking: clear.
-Want me to re-run with --depth all?
-
-Audit
-Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
-
-! **Em dashes** — "still—keen" — Action: Fix
-
-**Agent-judgement reading — 1 flagged of 8**
-
-! **Structural monotony** — every section follows the same arc"""
-
 # Regression fixture for Finding #1 from PR #14 review (LAYER_1_BLOCK_RE
 # previously required a middle clause and silently dropped no-quote
 # structural-pattern blocks). The fixture mixes one quoted block with two
-# no-quote structural blocks; _flag_blocks must return all three.
+# no-quote structural blocks (now in U6 shape — no Action clause); the
+# combined audit-body counter must enumerate all three.
 _LAYER_1_NO_QUOTE_BLOCKS = """Audit
-Severity: 1 hard fail · 2 strong warning · 0 context warning · signal stacking: clear
-Signal stacking clear: no weaker AI-writing signals stacked.
+Auto-detected: 3 of 48 flagged · Agent-assessed: 0 of 0 flagged
+Severity: 1 hard fail · 2 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
 
-x **Em dashes** — "still—keen" — Action: Fix
-! **Paragraph length uniformity** — Action: Disclose or ask before preserving
-! **Section scaffolding** — Action: Fix
-
----
-
-**Style** — 1 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
+x **Em dashes** — "still—keen"
+! **Paragraph length uniformity**
+! **Section scaffolding**
 
 **Next step**
 
-Want suggestions?"""
-
-# Realistic shape from PR #14 review Finding #4: programmatic flagged + agent
-# fully clear renders the programmatic block PLUS a clean-form agent block
-# (humanise/SKILL.md line 102). This is the renderer's actual emission shape
-# for that case. _PROGRAMMATIC_ONLY above is kept as a malformed-output
-# regression — agents that emit a programmatic block alone without the
-# clean-form agent block are still caught by has-agent-judgement-block.
-_PROGRAMMATIC_WITH_CLEAN_AGENT = """Audit
-Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
-Signal stacking clear: no weaker AI-writing signals stacked.
-
-! **Em dashes** — "still—keen" — Action: Fix
-
----
-
-**Style** — 1 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
-
----
-
-**Agent-judgement reading**
-
-agent reading clean
-
-**Next step**
-
-Want suggestions?"""
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
 # Suggestion-parity fixtures for PR #14 review Finding #8: the rewritten
 # check now sums programmatic + agent-judgement flagged counts. Both fixtures
@@ -1694,12 +1596,15 @@ _PARITY_MISMATCH = _BOTH_BLOCKS + """
   Why: Em-dash-set-off subordinate clauses are a high-signal AI tell.
   Try: keen and still"""
 
-# has-programmatic-block
+# has-programmatic-block: U6 simplified the check to a single positive
+# (Audit header present). The retired `has-agent-judgement-block` and
+# `all-clear-line-format` checks are gone — the parallel agent-judgement
+# block was retired by U6, and R9 retired the all-clear collapse.
 _r = check_audit_shape("audit-shape-has-programmatic-block", _BOTH_BLOCKS)
 if _r["passed"]:
-    print("  ok: has-programmatic-block passes on dual-block output")
+    print("  ok: has-programmatic-block passes on the U6 default-mode shape")
 else:
-    FAILURES += 1; print(f"FAIL: has-programmatic-block on dual-block: {_r['evidence']}")
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on U6 default shape: {_r['evidence']}")
 
 _r = check_audit_shape("audit-shape-has-programmatic-block", _PROGRAMMATIC_ONLY)
 if _r["passed"]:
@@ -1707,99 +1612,21 @@ if _r["passed"]:
 else:
     FAILURES += 1; print(f"FAIL: has-programmatic-block on programmatic-only: {_r['evidence']}")
 
-_r = check_audit_shape("audit-shape-has-programmatic-block", _AGENT_JUDGEMENT_ONLY)
-if _r["passed"]:
-    print("  ok: has-programmatic-block passes on agent-judgement-only output (programmatic-clean / agent-flagged shape per SKILL.md)")
-else:
-    FAILURES += 1; print(f"FAIL: has-programmatic-block on agent-judgement-only: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-programmatic-block", _ALL_CLEAR_PHASE_1)
-if _r["passed"]:
-    print("  ok: has-programmatic-block passes on all-clear single-line shape")
-else:
-    FAILURES += 1; print(f"FAIL: has-programmatic-block on all-clear: {_r['evidence']}")
-
 _r = check_audit_shape("audit-shape-has-programmatic-block", _NEITHER_BLOCK_NOR_CLEAR)
 if not _r["passed"]:
-    print("  ok: has-programmatic-block fails when no block and no all-clear line")
+    print("  ok: has-programmatic-block fails when no Audit header present")
 else:
-    FAILURES += 1; print("FAIL: has-programmatic-block should fail when no block and no all-clear line")
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail when no Audit header present")
 
-# has-agent-judgement-block
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _BOTH_BLOCKS)
-if _r["passed"]:
-    print("  ok: has-agent-judgement-block passes on dual-block output")
-else:
-    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on dual-block: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _PROGRAMMATIC_ONLY)
+# Legacy all-clear collapse must now fail has-programmatic-block (R9 retired
+# the collapse — a real audit always carries the Audit header even on
+# zero-flag drafts).
+_LEGACY_ALL_CLEAR = "48 of 48 clear · agent reading clean · signal stacking: clear.\nWant suggestions?"
+_r = check_audit_shape("audit-shape-has-programmatic-block", _LEGACY_ALL_CLEAR)
 if not _r["passed"]:
-    print("  ok: has-agent-judgement-block fails on programmatic-only output")
+    print("  ok: has-programmatic-block fails on legacy all-clear single-line shape (R9 retired)")
 else:
-    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail on programmatic-only output")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _AGENT_JUDGEMENT_ONLY)
-if _r["passed"]:
-    print("  ok: has-agent-judgement-block passes on agent-judgement-only output")
-else:
-    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on agent-judgement-only: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _ALL_CLEAR_PHASE_1)
-if _r["passed"]:
-    print("  ok: has-agent-judgement-block passes on all-clear single-line shape")
-else:
-    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on all-clear: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _NEITHER_BLOCK_NOR_CLEAR)
-if not _r["passed"]:
-    print("  ok: has-agent-judgement-block fails when no block and no all-clear line")
-else:
-    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail when no block and no all-clear line")
-
-# all-clear-line-format
-_r = check_audit_shape("audit-shape-all-clear-line-format", _BOTH_BLOCKS)
-if _r["passed"]:
-    print("  ok: all-clear-line-format vacuously passes on dual-block output")
-else:
-    FAILURES += 1; print(f"FAIL: all-clear-line-format on dual-block: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-all-clear-line-format", _ALL_CLEAR_PHASE_1)
-if _r["passed"]:
-    print("  ok: all-clear-line-format passes on canonical Phase-1 all-clear shape")
-else:
-    FAILURES += 1; print(f"FAIL: all-clear-line-format on canonical all-clear: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-all-clear-line-format", _NEITHER_BLOCK_NOR_CLEAR)
-if not _r["passed"]:
-    print("  ok: all-clear-line-format fails when neither blocks nor canonical line")
-else:
-    FAILURES += 1; print("FAIL: all-clear-line-format should fail when neither blocks nor canonical line")
-
-# Finding #2 regressions: buried phrase and all-clear-plus-blocks must fail
-# all three audit-shape checks. The anchored regex catches the buried case;
-# the mutex logic catches the both-shapes-present case.
-
-print("\n--- Finding #2 regressions: buried all-clear and all-clear+blocks ---")
-
-for _check_name in ("audit-shape-has-programmatic-block",
-                    "audit-shape-has-agent-judgement-block",
-                    "audit-shape-all-clear-line-format"):
-    _r = check_audit_shape(_check_name, _BURIED_ALL_CLEAR)
-    if not _r["passed"]:
-        print(f"  ok: {_check_name} fails when all-clear phrase is buried mid-line")
-    else:
-        FAILURES += 1
-        print(f"FAIL: {_check_name} should fail when all-clear phrase is buried mid-line (got: {_r['evidence']})")
-
-for _check_name in ("audit-shape-has-programmatic-block",
-                    "audit-shape-has-agent-judgement-block",
-                    "audit-shape-all-clear-line-format"):
-    _r = check_audit_shape(_check_name, _ALL_CLEAR_PLUS_BLOCKS)
-    if not _r["passed"]:
-        print(f"  ok: {_check_name} fails when all-clear phrase appears alongside block headers")
-    else:
-        FAILURES += 1
-        print(f"FAIL: {_check_name} should fail when all-clear phrase appears alongside block headers (got: {_r['evidence']})")
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail on legacy all-clear shape")
 
 
 # --- PR #14 review regressions: no-quote Layer 1, clean-form agent block,
@@ -1822,27 +1649,16 @@ else:
 # absent so the count is 0 — the assertion checks that _flag_blocks
 # correctly enumerates 3, exposing any silent drop.
 _r = check_audit_shape("suggestion-block-count-equals-flag-count", _LAYER_1_NO_QUOTE_BLOCKS)
-if not _r["passed"] and "3 flag(s)" in _r["evidence"]:
-    print(f"  ok: Finding #1 — suggestion-block-count counts 3 no-quote-aware programmatic flags")
+if not _r["passed"] and "3 audit-body flag(s)" in _r["evidence"]:
+    print(f"  ok: Finding #1 — suggestion-block-count counts 3 no-quote-aware audit-body flags")
 else:
     FAILURES += 1
     print(f"FAIL: Finding #1 — suggestion-block-count should count 3 flags from no-quote fixture (got: {_r['evidence']})")
 
-# Finding #4: realistic shape (programmatic flagged + clean-form agent block).
-# Both has-programmatic-block and has-agent-judgement-block must pass.
-_r = check_audit_shape("audit-shape-has-programmatic-block", _PROGRAMMATIC_WITH_CLEAN_AGENT)
-if _r["passed"]:
-    print(f"  ok: Finding #4 — has-programmatic-block passes on programmatic + clean-form-agent shape")
-else:
-    FAILURES += 1
-    print(f"FAIL: Finding #4 — has-programmatic-block on programmatic + clean-form-agent: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _PROGRAMMATIC_WITH_CLEAN_AGENT)
-if _r["passed"]:
-    print(f"  ok: Finding #4 — has-agent-judgement-block passes on programmatic + clean-form-agent shape")
-else:
-    FAILURES += 1
-    print(f"FAIL: Finding #4 — has-agent-judgement-block on programmatic + clean-form-agent: {_r['evidence']}")
+# Finding #4 (PR #14): programmatic + clean-form-agent shape. Retired by U6 —
+# the parallel **Agent-judgement reading** block doesn't exist any more, so
+# the dual-block fixture is gone too. The U6 _BOTH_BLOCKS fixture above
+# (audit-body with inline agent-flagged item) covers the modern shape.
 
 # Finding #9 (PR #14): the every-flag-block-has-explanation check enforced
 # the Phase-3 trailing `Action: <verb>` clause on every Layer 1 candidate.
@@ -1861,7 +1677,7 @@ else:
     print(f"FAIL: Finding #8 — suggestion-parity should pass on balanced dual-block fixture (got: {_r['evidence']})")
 
 _r = check_audit_shape("suggestion-block-count-equals-flag-count", _PARITY_MISMATCH)
-if not _r["passed"] and "2 flag(s)" in _r["evidence"] and "1 suggestion" in _r["evidence"]:
+if not _r["passed"] and "2 audit-body flag(s)" in _r["evidence"] and "1 suggestion" in _r["evidence"]:
     print(f"  ok: Finding #8 — suggestion-parity fails when agent-judgement flag has no matching suggestion")
 else:
     FAILURES += 1

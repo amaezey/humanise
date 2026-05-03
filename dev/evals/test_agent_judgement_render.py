@@ -1,21 +1,33 @@
 #!/usr/bin/env python3
-"""Tests for format_agent_judgement() — Phase 3 agent-judgement parallel block (U12).
+"""Tests for U6 agent-judgement rendering.
 
-Covers all nine plan-spec scenarios:
-- 8 items render in judgement.json registry order
-- polymorphic genre slot renders genre + findings
-- status binary (no severity column, no `mixed` state, no severity glyphs)
-- all 8 clear → single 'agent reading clean' line within block
-- only genre slot fires → single block with genre finding (no programmatic block)
-- list-shape item with zero entries → Clear, not empty list
-- detected genre with empty watchlist → 'Watchlist coverage pending.'
-- agent-judgement findings do NOT inflate verdict-line severity counts
-- R8 single-line response takes precedence when both blocks clear
+U6 retired the parallel `**Agent-judgement reading**` block. Agent-assessed
+items now live in two surfaces:
+
+- Default mode: agent-flagged items render inline in the audit body, in the
+  same `<glyph> **<label>**` shape as auto-detected flagged items (R5/R7).
+  Clear agent items do not appear at all.
+- Full-report mode: a `**Agent-assessed patterns**` section sits below the
+  audit body with the brief note + a flat 8-row coverage table (R12/R14).
+  Clear items render as table rows with answer/value text in Detail; flagged
+  items render as `(see above)` pointing back at the inline bullet block.
+
+Covers:
+- _judgement_label mechanical transform (unchanged)
+- agent-flagged state / list / composite shapes inline in default mode (R7)
+- severity glyph mirroring auto-detected (x / ! / ?) on agent-flagged items
+- 8 items in registry order in the full-report agent-assessed coverage table
+- composite-clear with empty watchlist renders "watchlist coverage pending"
+  in the coverage Detail column
+- default mode emits no `**Agent-judgement reading**` parallel block
+- severity line aggregates agent + auto-detected severities (R2 / R17)
+- both halves clear → full three-line summary, no agent block in default body
 
 Run: python3 dev/evals/test_agent_judgement_render.py
 """
 
 import importlib.util
+import re
 import sys
 from pathlib import Path
 
@@ -26,7 +38,6 @@ if _spec.loader is None:
     raise RuntimeError("Could not load humanise/scripts/grade.py")
 _spec.loader.exec_module(_grade)
 
-format_agent_judgement = _grade.format_agent_judgement
 format_two_layer = _grade.format_two_layer
 _judgement_label = _grade._judgement_label
 ALL_CHECKS = _grade.ALL_CHECKS
@@ -103,167 +114,54 @@ for item_id, expected in [
         ok(f"{item_id} → {expected!r}")
 
 
-# --- 8 items render in registry order ---
+# --- Default mode: agent-flagged items inline in audit body (R5 / R7) ---
 
-print("\n=== 8 items in registry order ===")
+print("\n=== default mode: agent-flagged items render inline in audit body ===")
 
-# Build in REVERSE order so the sort is what gets verified.
-mixed = [
-    {"id": "genre_specific", "status": "clear",
-     "answer": {"genre_detected": "default", "watchlist_findings": []}, "evidence": {}},
-    {"id": "generic_metaphors", "status": "clear", "answer": [], "evidence": {}},
-    {"id": "forced_synesthesia", "status": "clear", "answer": [], "evidence": {}},
-    {"id": "even_jargon_distribution", "status": "flagged",
-     "answer": "jargon spreads uniformly across the text", "evidence": {}},
-    {"id": "neutrality_collapse", "status": "clear", "answer": "takes a position", "evidence": {}},
-    {"id": "faux_specificity", "status": "clear", "answer": [], "evidence": {}},
-    {"id": "tonal_uniformity", "status": "flagged",
-     "answer": "register holds without breaks", "evidence": {}},
-    {"id": "structural_monotony", "status": "flagged",
-     "answer": "every section follows the same arc", "evidence": {}},
-]
-
-mixed_render = format_agent_judgement(mixed)
-
-EXPECTED_ORDER = [
-    "Structural monotony",
-    "Tonal uniformity",
-    "Faux specificity",
-    "Neutrality collapse",
-    "Even jargon distribution",
-    "Forced synesthesia",
-    "Generic metaphors",
-    "Genre specific",
-]
-positions = [mixed_render.find(label) for label in EXPECTED_ORDER]
-if any(p < 0 for p in positions):
-    missing = [label for p, label in zip(positions, EXPECTED_ORDER) if p < 0]
-    fail(f"missing labels in render: {missing}\n--- render ---\n{mixed_render}")
-elif positions != sorted(positions):
-    fail(f"items not in registry order; positions={positions}\n--- render ---\n{mixed_render}")
-else:
-    ok("8 items render in judgement.json registry order")
-
-
-# --- header carries flagged-of-total count ---
-
-print("\n=== header shape ===")
-
-if "**Agent-judgement reading — 3 flagged of 8**" not in mixed_render:
-    fail(f"expected '**Agent-judgement reading — 3 flagged of 8**'; got first line: "
-         f"{mixed_render.splitlines()[0]!r}")
-else:
-    ok("header carries flagged-of-total count")
-
-
-# --- U5 (R7): flagged items use glyph + bold-name shape; clear items don't ---
-
-print("\n=== flagged items use glyph + bold-name shape (R7) ===")
-
-# `mixed` is a substring of "mixed_intentional" (old token, removed in U12 schema rewrite)
-# and shouldn't appear standalone. The mechanical transform of any judgement id
-# also doesn't produce 'mixed', so any occurrence is a regression.
-if " mixed " in f" {mixed_render.lower()} " or "mixed_intentional" in mixed_render:
-    fail("agent block should not include `mixed` state vocabulary")
-else:
-    ok("no 'mixed' state vocabulary in render")
-
-# Pre-U5 invariant ("no severity glyphs anywhere") is retired by U5. Flagged
-# items now lead with `! `, `x `, or `? `; clear items keep the dash-prefixed
-# `- <Label> — <Status>[: ...]` shape so the two are visually distinguishable.
-flagged_lines = [line for line in mixed_render.splitlines() if line[:2] in {"x ", "! ", "? "}]
-clear_lines = [
-    line for line in mixed_render.splitlines()
-    if line.startswith("- ") and " — Clear" in line
-]
-if not flagged_lines:
-    fail(f"flagged items should lead with severity glyph; got:\n{mixed_render}")
-elif not clear_lines:
-    fail(f"clear items should still use the dash-prefixed shape; got:\n{mixed_render}")
-else:
-    ok(f"flagged items use glyph leader ({len(flagged_lines)} lines) and clear items keep dash shape ({len(clear_lines)} lines)")
-
-# The pre-U5 `- <Label> — Flagged[: ...]` shape on flagged items must be gone.
-import re as _re_check
-old_shape = _re_check.findall(r"^- [^—\n]+ — Flagged", mixed_render, _re_check.MULTILINE)
-if old_shape:
-    fail(f"pre-U5 '- <Label> — Flagged' shape leaked: {old_shape}")
-else:
-    ok("pre-U5 '- <Label> — Flagged' shape no longer appears on flagged items")
-
-
-# --- U5 R7 happy paths: state, list, composite flagged shapes ---
-
-print("\n=== U5 R7: state-flagged renders `! **Label** — <value>` ===")
-
-state_flagged = all_clear_judgement()
-state_flagged[1] = {
+mixed = all_clear_judgement()
+mixed[0] = {
+    "id": "structural_monotony", "status": "flagged", "severity": "strong_warning",
+    "answer": "every section follows the same arc", "evidence": {},
+}
+mixed[1] = {
     "id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
     "answer": "register holds without breaks", "evidence": {},
 }
-state_render = format_agent_judgement(state_flagged)
-state_lines = [line for line in state_render.splitlines() if "Tonal uniformity" in line]
-if state_lines and state_lines[0] == "! **Tonal uniformity** — register holds without breaks":
-    ok("state-flagged renders `! **Tonal uniformity** — register holds without breaks`")
-else:
-    fail(f"state-flagged shape mismatch; got: {state_lines[:1]!r}")
-
-
-print("\n=== U5 R7: list-flagged renders header + sub-bullets per finding ===")
-
-list_flagged = all_clear_judgement()
-list_flagged[2] = {
+mixed[2] = {
     "id": "faux_specificity", "status": "flagged", "severity": "strong_warning",
     "answer": [
-        # judgement.json's faux_specificity schema uses `why_unspecific`; the
-        # renderer looks up the schema's `why_*` field name dynamically.
         {"phrase": "approximately 30%", "why_unspecific": "fake-precise quantifier"},
-        {"phrase": "research suggests", "why_unspecific": "phantom citation pattern"},
     ],
     "evidence": {},
 }
-list_render = format_agent_judgement(list_flagged)
-expected_list_block = (
-    "! **Faux specificity**\n"
-    '  - "approximately 30%" — fake-precise quantifier\n'
-    '  - "research suggests" — phantom citation pattern'
+
+default_render = with_patched_judgement(
+    mixed,
+    lambda: format_two_layer(clean_results(), depth="balanced"),
 )
-if expected_list_block in list_render:
-    ok("list-flagged with 2 findings → header + 2 sub-bullets in the R7 shape (covers AE3)")
+
+if "**Agent-judgement reading" in default_render:
+    fail(f"U6 retired the parallel **Agent-judgement reading** block; should not appear in default mode. Got:\n{default_render}")
 else:
-    fail(f"list-flagged shape mismatch; expected:\n{expected_list_block}\ngot:\n{list_render}")
+    ok("default mode does not emit the retired parallel block")
 
-
-print("\n=== U5 R7: composite-flagged renders `! **Label** — Genre detected: <genre>` + sub-bullets ===")
-
-composite_flagged = all_clear_judgement()
-composite_flagged[-1] = {
-    "id": "genre_specific", "status": "flagged", "severity": "context_warning",
-    "answer": {
-        "genre_detected": "academic",
-        "watchlist_findings": [
-            {"phrase": "as we have seen", "why_flagged": "rubric echo"},
-        ],
-    },
-    "evidence": {},
-}
-composite_render = format_agent_judgement(composite_flagged)
-expected_composite_block = (
-    "? **Genre specific** — Genre detected: academic\n"
-    '  - "as we have seen" — rubric echo'
-)
-if expected_composite_block in composite_render:
-    ok("composite-flagged renders `? **Genre specific** — Genre detected: academic` + sub-bullet")
+if "! **Structural monotony** — every section follows the same arc" not in default_render:
+    fail(f"agent-flagged state item should render inline in audit body; got:\n{default_render}")
 else:
-    fail(f"composite-flagged shape mismatch; expected:\n{expected_composite_block}\ngot:\n{composite_render}")
+    ok("state-flagged item renders inline in audit body (R5/R7)")
+
+if "! **Faux specificity**\n" not in default_render:
+    fail(f"agent-flagged list-item header should render inline; got:\n{default_render}")
+elif '  - "approximately 30%" — fake-precise quantifier' not in default_render:
+    fail(f"agent-flagged list-item sub-bullet should render inline; got:\n{default_render}")
+else:
+    ok("list-flagged item header + sub-bullet render inline (R5/R7)")
 
 
-# --- U5 (R7): composite-flagged with severity-tier glyph mapping ---
+# --- Default mode: severity glyphs mirror auto-detected (x / ! / ?) ---
 
-print("\n=== U5 R7: severity glyphs mirror auto-detected (x / ! / ?) ===")
+print("\n=== default mode: severity glyphs mirror auto-detected ===")
 
-# All three severities exercised in one render — confirms the agent-judgement
-# block uses the same severity → glyph mapping as Layer-1 auto-detected.
 tri_severity = all_clear_judgement()
 tri_severity[0] = {
     "id": "structural_monotony", "status": "flagged", "severity": "hard_fail",
@@ -277,7 +175,10 @@ tri_severity[3] = {
     "id": "neutrality_collapse", "status": "flagged", "severity": "context_warning",
     "answer": "hedges its position", "evidence": {},
 }
-tri_render = format_agent_judgement(tri_severity)
+tri_render = with_patched_judgement(
+    tri_severity,
+    lambda: format_two_layer(clean_results(), depth="balanced"),
+)
 expected_glyph_lines = {
     "Structural monotony": "x",
     "Tonal uniformity": "!",
@@ -289,216 +190,220 @@ for label, glyph in expected_glyph_lines.items():
     if line is None or not line.startswith(f"{glyph} **{label}**"):
         glyph_mismatch.append((label, glyph, line))
 if glyph_mismatch:
-    fail(f"severity-glyph mismatches: {glyph_mismatch}")
+    fail(f"severity-glyph mismatches in default-mode render: {glyph_mismatch}")
 else:
-    ok("hard_fail / strong_warning / context_warning render with x / ! / ? on agent flagged items")
+    ok("hard_fail / strong_warning / context_warning render with x / ! / ? on agent flagged items inline")
 
 
-# --- all clear → single 'agent reading clean' line ---
+# --- Composite-flagged in default mode: AE3 + watchlist sub-bullets ---
 
-print("\n=== all clear → clean line ===")
+print("\n=== default mode: composite-flagged renders inline with sub-bullets (AE3) ===")
 
-clear_render = format_agent_judgement(all_clear_judgement())
-clear_lines = clear_render.splitlines()
-if len(clear_lines) != 2:
-    fail(f"all-clear-within-block should be 2 lines (header + clean line); "
-         f"got {len(clear_lines)}: {clear_render!r}")
-elif clear_lines[1] != "agent reading clean":
-    fail(f"clean body should read 'agent reading clean'; got {clear_lines[1]!r}")
-elif "Flagged" in clear_render:
-    fail(f"all-clear render should not say 'Flagged'; got: {clear_render!r}")
-else:
-    ok("all-clear → '**Agent-judgement reading**' + 'agent reading clean'")
-
-
-# --- only genre slot fires → both blocks (R9, no collapse, U4) ---
-
-print("\n=== only genre slot fires → both blocks (no collapse) ===")
-
-only_genre_judgement = all_clear_judgement()
-only_genre_judgement[-1] = {
-    "id": "genre_specific",
-    "status": "flagged",
-    "severity": "context_warning",
+composite_flagged = all_clear_judgement()
+composite_flagged[-1] = {
+    "id": "genre_specific", "status": "flagged", "severity": "context_warning",
     "answer": {
         "genre_detected": "academic",
-        "watchlist_findings": [{"phrase": "as we have seen", "why_flagged": "rubric echo"}],
+        "watchlist_findings": [
+            {"phrase": "as we have seen", "why_flagged": "rubric echo"},
+        ],
     },
     "evidence": {},
 }
-
-genre_only_render = with_patched_judgement(
-    only_genre_judgement,
+composite_render = with_patched_judgement(
+    composite_flagged,
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
-
-# Post-U4 (R9): the programmatic block is always present, but its counts
-# show zero auto-detected flagged. The agent block still renders the genre.
-if not genre_only_render.startswith("Audit\n"):
-    fail(f"only-genre case should still emit the programmatic Audit header (R9, no collapse); got:\n{genre_only_render}")
-elif "Auto-detected: 0 of " not in genre_only_render:
-    fail(f"only-genre case counts line should show 'Auto-detected: 0 of N flagged'; got:\n{genre_only_render}")
-elif "**Agent-judgement reading" not in genre_only_render:
-    fail(f"only-genre case should render agent block; got:\n{genre_only_render}")
-elif "Genre detected: academic" not in genre_only_render:
-    fail(f"genre slot should render detected genre; got:\n{genre_only_render}")
-elif "as we have seen" not in genre_only_render:
-    fail(f"genre slot should render watchlist findings; got:\n{genre_only_render}")
+expected_composite_block = (
+    "? **Genre specific** — Genre detected: academic\n"
+    '  - "as we have seen" — rubric echo'
+)
+if expected_composite_block in composite_render:
+    ok("composite-flagged renders inline: `? **Genre specific** — Genre detected: academic` + sub-bullet")
 else:
-    ok("only-genre-flagged → programmatic three-line summary + agent block (no collapse)")
+    fail(f"composite-flagged shape mismatch; expected:\n{expected_composite_block}\ngot:\n{composite_render}")
 
 
-# --- list-shape item with zero entries → Clear, not empty list ---
+# --- Severity line aggregates agent + auto-detected (R2 / R17) ---
 
-print("\n=== list with zero entries → Clear ===")
+print("\n=== severity line aggregates agent severities (R2 / R17) ===")
 
-# faux_specificity has list-shape; with empty answer + status=clear, render Clear.
-# Force at least one item flagged so we don't hit the all-clear single-line path.
-items_with_flagged_anchor = all_clear_judgement()
-items_with_flagged_anchor[0] = {
-    "id": "structural_monotony",
-    "status": "flagged",
-    "answer": "every section follows the same arc",
-    "evidence": {},
-}
-empty_list_render = format_agent_judgement(items_with_flagged_anchor)
-
-faux_lines = [line for line in empty_list_render.splitlines() if "Faux specificity" in line]
-if not faux_lines:
-    fail(f"missing 'Faux specificity' line; got:\n{empty_list_render}")
-elif faux_lines[0] != "- Faux specificity — Clear":
-    fail(f"empty list-shape should render '- Faux specificity — Clear'; got: {faux_lines[0]!r}")
-else:
-    ok("list-shape item with zero entries renders '- Faux specificity — Clear'")
-
-
-# --- detected genre with empty watchlist → 'Watchlist coverage pending.' ---
-
-print("\n=== empty watchlist → coverage pending ===")
-
-# poetry's sub_records.watchlist is empty in judgement.json. Set genre_detected=poetry,
-# findings=[]. Force at least one other item flagged to bypass all-clear path.
-pending_items = all_clear_judgement()
-pending_items[0] = {
-    "id": "structural_monotony",
-    "status": "flagged",
-    "answer": "every section follows the same arc",
-    "evidence": {},
-}
-pending_items[-1] = {
-    "id": "genre_specific",
-    "status": "clear",
-    "answer": {"genre_detected": "poetry", "watchlist_findings": []},
-    "evidence": {},
-}
-pending_render = format_agent_judgement(pending_items)
-
-if "Watchlist coverage pending" not in pending_render:
-    fail(f"empty-watchlist genre should render 'Watchlist coverage pending'; got:\n{pending_render}")
-elif "Genre detected: poetry" not in pending_render:
-    fail(f"genre line should name detected genre; got:\n{pending_render}")
-else:
-    ok("empty-watchlist genre → 'Genre detected: poetry. Watchlist coverage pending.'")
-
-
-# --- severity line aggregates agent severities (R2 / R17, U4) ---
-
-print("\n=== severity line aggregates agent severities ===")
-
-# R17 maps agent severities through the same severity x depth → action mapping
-# as auto-detected. R2's severity counts therefore aggregate auto + agent
-# flagged counts. With 3 agent items flagged at strong_warning, the severity
-# line must include those 3 even though zero auto-detected items are flagged.
-agent_only_flagged = all_clear_judgement()
-agent_only_flagged[0] = {
+three_agent_strong = all_clear_judgement()
+three_agent_strong[0] = {
     "id": "structural_monotony", "status": "flagged", "severity": "strong_warning",
     "answer": "every section follows the same arc", "evidence": {},
 }
-agent_only_flagged[1] = {
+three_agent_strong[1] = {
     "id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
     "answer": "register holds without breaks", "evidence": {},
 }
-agent_only_flagged[3] = {
+three_agent_strong[3] = {
     "id": "neutrality_collapse", "status": "flagged", "severity": "strong_warning",
     "answer": "hedges its position", "evidence": {},
 }
-
-integration_render = with_patched_judgement(
-    agent_only_flagged,
+agg_render = with_patched_judgement(
+    three_agent_strong,
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
-
-# Post-U4: programmatic block always renders, counts line reports 0 auto + 3 agent flagged,
-# severity line aggregates the 3 strong_warning agent severities.
-if "Auto-detected: 0 of " not in integration_render:
-    fail(f"counts line should show 'Auto-detected: 0 of N flagged'; got:\n{integration_render}")
-elif "Agent-assessed: 3 of 8 flagged" not in integration_render:
-    fail(f"counts line should show 'Agent-assessed: 3 of 8 flagged'; got:\n{integration_render}")
-elif "Severity: 0 hard fail · 3 strong warning · 0 context warning" not in integration_render:
-    fail(f"severity line should aggregate the 3 agent strong_warning items; got:\n{integration_render}")
-elif "**Agent-judgement reading — 3 flagged of 8**" not in integration_render:
-    fail(f"agent block should report 3 flagged of 8; got:\n{integration_render}")
+if "Auto-detected: 0 of " not in agg_render:
+    fail(f"counts line should show 'Auto-detected: 0 of N flagged'; got:\n{agg_render}")
+elif "Agent-assessed: 3 of 8 flagged" not in agg_render:
+    fail(f"counts line should show 'Agent-assessed: 3 of 8 flagged'; got:\n{agg_render}")
+elif "Severity: 0 hard fail · 3 strong warning · 0 context warning" not in agg_render:
+    fail(f"severity line should aggregate the 3 agent strong_warning items; got:\n{agg_render}")
 else:
-    ok("agent-only-flagged: severity line aggregates agent severities (R2 + R17)")
+    ok("agent-only-flagged: counts and severity lines aggregate agent severities (R2 / R17)")
 
 
-# --- both halves clear → full three-line summary (R9, no collapse) ---
+# --- Both halves clear → full three-line summary, no agent body content ---
 
-print("\n=== both halves clear → full three-line summary ===")
+print("\n=== both halves clear → full three-line summary in default mode ===")
 
 both_clear_render = with_patched_judgement(
     all_clear_judgement(),
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
-
-# Post-U4: zero-flag draft emits the three-line summary plus the agent
-# block's clean form. No collapse to a single line (R9 retired R8).
 if not both_clear_render.startswith("Audit\n"):
-    fail(f"both-clear render should still emit the Audit header (R9, no collapse); got:\n{both_clear_render}")
+    fail(f"both-clear default render should still emit the Audit header (R9, no collapse); got:\n{both_clear_render}")
 elif "Auto-detected: 0 of " not in both_clear_render:
     fail(f"both-clear counts line should show 'Auto-detected: 0 of N flagged'; got:\n{both_clear_render}")
 elif "Agent-assessed: 0 of 8 flagged" not in both_clear_render:
     fail(f"both-clear counts line should show 'Agent-assessed: 0 of 8 flagged'; got:\n{both_clear_render}")
 elif "Severity: 0 hard fail · 0 strong warning · 0 context warning" not in both_clear_render:
     fail(f"both-clear severity line should be all-zero; got:\n{both_clear_render}")
-elif "**Agent-judgement reading**" not in both_clear_render:
-    fail(f"both-clear render should still surface the agent block (clean form); got:\n{both_clear_render}")
-elif "agent reading clean" not in both_clear_render:
-    fail(f"both-clear render should carry the 'agent reading clean' body; got:\n{both_clear_render}")
+elif "**Agent-judgement reading" in both_clear_render:
+    fail(f"both-clear default render should not emit the retired parallel block; got:\n{both_clear_render}")
+elif "agent reading clean" in both_clear_render:
+    fail(f"both-clear default render should not carry the retired 'agent reading clean' line; got:\n{both_clear_render}")
 else:
-    ok("both halves clear → full three-line programmatic summary + clean-form agent block (no collapse)")
+    ok("both halves clear → full three-line summary, no parallel block (R9 + U6)")
 
 
-# --- programmatic flagged + agent clear → both blocks render ---
+# --- Default mode: agent-flagged items NOT in their pre-U6 dash shape ---
 
-print("\n=== programmatic flagged + agent clear → both blocks ===")
+print("\n=== default mode: pre-U6 '- Label — Flagged:' shape leaks nowhere ===")
 
-prog_flagged_results = [
-    annotate_result({"text": "no-em-dashes", "passed": False, "evidence": "—",
-                     "matches": ["—"]}),
-] + [
-    annotate_result({"text": cid, "passed": True, "evidence": "clean"})
-    for cid in ALL_CHECKS if cid != "no-em-dashes"
-]
+old_shape = re.findall(r"^-\s+[^—\n]+—\s+Flagged", default_render, re.MULTILINE)
+if old_shape:
+    fail(f"pre-U6 dash-prefixed '- <Label> — Flagged' shape leaked: {old_shape}")
+else:
+    ok("pre-U6 '- <Label> — Flagged' shape no longer appears anywhere")
 
-dual_render = with_patched_judgement(
-    all_clear_judgement(),
-    lambda: format_two_layer(prog_flagged_results, depth="balanced"),
+
+# --- Full-report mode: agent-assessed coverage table renders 8 rows in registry order ---
+
+print("\n=== full-report mode: agent-assessed coverage table (R14) ===")
+
+mixed_full = all_clear_judgement()
+mixed_full[0] = {
+    "id": "structural_monotony", "status": "flagged", "severity": "strong_warning",
+    "answer": "every section follows the same arc", "evidence": {},
+}
+full_report_render = with_patched_judgement(
+    mixed_full,
+    lambda: format_two_layer(clean_results(), depth="balanced", mode="full_report"),
 )
-
-# Programmatic block present (verdict line + Em dashes block)
-if "Severity:" not in dual_render:
-    fail(f"programmatic block should be present; got:\n{dual_render}")
-# Agent block in clean form
-elif "**Agent-judgement reading**" not in dual_render:
-    fail(f"agent block in clean form expected; got:\n{dual_render}")
-elif "agent reading clean" not in dual_render:
-    fail(f"agent clean body expected; got:\n{dual_render}")
-# Two separators expected (Layer 1/2 split + programmatic/agent split)
-elif dual_render.count("\n---\n") != 2:
-    fail(f"expected two '\\n---\\n' separators; got {dual_render.count(chr(10) + '---' + chr(10))}:\n{dual_render}")
+if "**Agent-assessed patterns** — 1 flagged of 8" not in full_report_render:
+    fail(f"full-report should carry **Agent-assessed patterns** heading with count; got:\n{full_report_render}")
+elif "Checks that are judged by an LLM based on reading the whole draft." not in full_report_render:
+    fail(f"full-report should carry agent-assessed brief note; got:\n{full_report_render}")
 else:
-    ok("programmatic flagged + agent clear → both blocks with two separators")
+    ok("full-report renders **Agent-assessed patterns** heading + brief note")
+
+# 8 items in judgement.json registry order
+EXPECTED_ROW_ORDER = [
+    "Structural monotony",
+    "Tonal uniformity",
+    "Faux specificity",
+    "Neutrality collapse",
+    "Even jargon distribution",
+    "Forced synesthesia",
+    "Generic metaphors",
+    "Genre specific",
+]
+agent_section_start = full_report_render.find("**Agent-assessed patterns**")
+agent_section = full_report_render[agent_section_start:]
+positions = [agent_section.find(label) for label in EXPECTED_ROW_ORDER]
+if any(p < 0 for p in positions):
+    missing = [label for p, label in zip(positions, EXPECTED_ROW_ORDER) if p < 0]
+    fail(f"full-report agent table missing rows: {missing}")
+elif positions != sorted(positions):
+    fail(f"full-report agent table rows out of registry order: positions={positions}")
+else:
+    ok("full-report agent-assessed table has 8 rows in judgement.json registry order")
+
+# Flagged-row Detail column points back to inline bullets
+flagged_row = next(
+    (line for line in agent_section.splitlines()
+     if "Structural monotony" in line and "|" in line),
+    None,
+)
+if flagged_row is None:
+    fail(f"missing Structural monotony row in agent table; got:\n{agent_section}")
+elif "(see above)" not in flagged_row:
+    fail(f"flagged row Detail column should be '(see above)'; got {flagged_row!r}")
+elif "| Flagged |" not in flagged_row:
+    fail(f"flagged row should carry result 'Flagged'; got {flagged_row!r}")
+else:
+    ok("flagged row Detail = '(see above)' (R15)")
+
+# Clear-row Detail column carries the answer/value
+clear_state_row = next(
+    (line for line in agent_section.splitlines()
+     if "Tonal uniformity" in line and "|" in line),
+    None,
+)
+if clear_state_row is None or "register breaks at least once" not in clear_state_row:
+    fail(f"clear state-row Detail should carry the answer text; got {clear_state_row!r}")
+else:
+    ok("clear state-row Detail carries the answer/value text (R15)")
+
+
+# --- Full-report: composite-clear with empty watchlist → coverage pending in Detail ---
+
+print("\n=== full-report mode: composite-clear with empty watchlist → 'coverage pending' ===")
+
+pending_full = all_clear_judgement()
+pending_full[-1] = {
+    "id": "genre_specific", "status": "clear",
+    "answer": {"genre_detected": "poetry", "watchlist_findings": []},
+    "evidence": {},
+}
+# Force a programmatic flag to keep counts non-zero (avoids the "0 flagged of 8" branch)
+pending_full[0] = {
+    "id": "structural_monotony", "status": "flagged", "severity": "strong_warning",
+    "answer": "every section follows the same arc", "evidence": {},
+}
+pending_render = with_patched_judgement(
+    pending_full,
+    lambda: format_two_layer(clean_results(), depth="balanced", mode="full_report"),
+)
+genre_row = next(
+    (line for line in pending_render.splitlines()
+     if "Genre specific" in line and "|" in line),
+    None,
+)
+if genre_row is None:
+    fail(f"missing Genre specific row in agent table; got:\n{pending_render}")
+elif "watchlist coverage pending" not in genre_row.lower():
+    fail(f"composite-clear genre row should mention watchlist coverage pending; got {genre_row!r}")
+elif "Genre detected: poetry" not in genre_row:
+    fail(f"composite-clear genre row should name the detected genre; got {genre_row!r}")
+else:
+    ok("composite-clear w/ empty watchlist → 'Genre detected: poetry; watchlist coverage pending' in Detail (R15)")
+
+
+# --- Full-report: empty judgement renders a placeholder row ---
+
+print("\n=== full-report mode: empty judgement → placeholder row ===")
+
+empty_full = format_two_layer(clean_results(), depth="balanced", mode="full_report")
+if "agent reading not provided" not in empty_full:
+    fail(f"empty-judgement full-report should render placeholder Detail; got:\n{empty_full}")
+elif "**Agent-assessed patterns** — 0 flagged of 0" not in empty_full:
+    fail(f"empty-judgement heading should report 'flagged of 0'; got:\n{empty_full}")
+else:
+    ok("empty-judgement full-report renders the agent-assessed table with placeholder Detail")
 
 
 # --- Summary ---
