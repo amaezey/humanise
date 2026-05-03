@@ -148,8 +148,10 @@ Checks that are judged by an LLM based on reading the whole draft.
 
 **Next step**
 
-Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
+Want suggestions for edits, a full rewrite, or to save this audit as a file?
 ```
+
+In full-report mode the next-step prompt drops the "full coverage report" option, since the writer has just read it.
 
 A zero-flag draft renders the same shape — the summary block carries all-zero counts, the audit body has no flagged items, and the per-block sections (in full-report mode) show every category collapsed to clear / every agent row clear. There's no all-clear single-line shortcut.
 

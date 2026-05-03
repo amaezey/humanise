@@ -335,6 +335,27 @@ if brief_agent != expected_brief_agent:
 else:
     ok("templates.brief_note_agent_assessed renders byte-equivalent to expected text")
 
+# U6 / R8: next-step prompts diverge by mode. Default mode offers the
+# full coverage report; full-report mode drops it (writer just read it).
+next_step_default = registries.string_for("templates.next_step_prompt_with_full_report")
+expected_next_step_default = "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"
+if next_step_default != expected_next_step_default:
+    fail(f"next_step_prompt_with_full_report: expected {expected_next_step_default!r}, got {next_step_default!r}")
+else:
+    ok("templates.next_step_prompt_with_full_report renders byte-equivalent to expected text")
+
+next_step_full_report = registries.string_for("templates.next_step_prompt_full_report_mode")
+expected_next_step_full_report = "Want suggestions for edits, a full rewrite, or to save this audit as a file?"
+if next_step_full_report != expected_next_step_full_report:
+    fail(f"next_step_prompt_full_report_mode: expected {expected_next_step_full_report!r}, got {next_step_full_report!r}")
+else:
+    ok("templates.next_step_prompt_full_report_mode renders byte-equivalent to expected text")
+
+if next_step_default == next_step_full_report:
+    fail("default-mode and full-report-mode next-step prompts must differ — full-report mode must drop the 'full coverage report' option")
+else:
+    ok("default-mode and full-report-mode next-step prompts differ as required")
+
 # U5: agent-assessed flagged-item templates (R7 — glyph + bold + sub-bullets).
 # `agent_assessed_flagged_block` is the bare list-flagged header; the
 # state and composite-genre variants carry the inline value/genre clause.

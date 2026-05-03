@@ -305,6 +305,25 @@ else:
     ok("Signal stacking category suppressed from output")
 
 
+# --- Full-report mode: trailing **Next step** + mode-specific prompt ---
+
+print("\n=== full-report mode: trailing **Next step** + prompt drops 'full coverage report' ===")
+
+full_report_prompt = "Want suggestions for edits, a full rewrite, or to save this audit as a file?"
+default_prompt = "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"
+
+if "**Next step**" not in full_render:
+    fail(f"full-report mode should emit a `**Next step**` heading; got tail:\n{full_render[-400:]}")
+elif full_report_prompt not in full_render:
+    fail(f"full-report mode should carry the mode-specific next-step prompt verbatim; got tail:\n{full_render[-400:]}")
+elif default_prompt in full_render:
+    fail("full-report mode must NOT carry the default-mode prompt offering 'the full coverage report' (writer just read it)")
+elif not full_render.rstrip().endswith("?"):
+    fail(f"full-report mode should end with the next-step question; got tail:\n{full_render[-400:]}")
+else:
+    ok("full-report mode emits **Next step** + mode-specific prompt without the 'full coverage report' option")
+
+
 # --- Full-report mode: clear-category collapse to one-liner ---
 
 print("\n=== full-report mode: clear-category collapse ===")

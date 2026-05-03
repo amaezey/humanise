@@ -111,7 +111,7 @@ Checks that are judged by an LLM based on reading the whole draft.
 
 **Next step**
 
-Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
+Want suggestions for edits, a full rewrite, or to save this audit as a file?
 ```
 
 ## Rewrite

@@ -2251,7 +2251,7 @@ def format_two_layer(results, depth="balanced", heading="Audit", mode="default",
         parts.append(_format_auto_detected_section(visible, depth_key))
         parts.append(_format_agent_assessed_section(judgement))
 
-    parts.append(_format_next_step())
+    parts.append(_format_next_step(mode))
 
     return "\n\n".join(parts)
 
@@ -2444,14 +2444,19 @@ def _agent_assessed_clear_detail(item):
     return ""
 
 
-def _format_next_step():
+def _format_next_step(mode="default"):
     """Trailing R8 next-step prompt under a `**Next step**` heading.
 
-    Always emitted in both modes; `**Next step**` is recognised by
-    TOP_LEVEL_SECTION_HEADER_RE as a top-level boundary so audit-shape
-    checks can scope cleanly past it.
+    Default mode offers the full coverage report among the next steps.
+    Full-report mode drops that option (the writer just read it) and
+    keeps the remaining three: suggestions, full rewrite, save to file.
+    `**Next step**` is recognised by TOP_LEVEL_SECTION_HEADER_RE as a
+    top-level boundary so audit-shape checks can scope past it.
     """
-    prompt = registries.string_for("templates.next_step_prompt_with_full_report")
+    if mode == "full_report":
+        prompt = registries.string_for("templates.next_step_prompt_full_report_mode")
+    else:
+        prompt = registries.string_for("templates.next_step_prompt_with_full_report")
     return f"**Next step**\n\n{prompt}"
 
 

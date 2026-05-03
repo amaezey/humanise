@@ -94,6 +94,7 @@
     "brief_note_agent_assessed": "Checks that are judged by an LLM based on reading the whole draft.",
     "signal_stacking_clear": "Signal stacking: clear (weaker AI signals are not accumulating)",
     "signal_stacking_triggered": "Signal stacking: triggered — {score} of {threshold} threshold ({components})",
-    "next_step_prompt_with_full_report": "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"
+    "next_step_prompt_with_full_report": "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?",
+    "next_step_prompt_full_report_mode": "Want suggestions for edits, a full rewrite, or to save this audit as a file?"
   }
 }
