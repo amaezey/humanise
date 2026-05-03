@@ -139,7 +139,7 @@ if all_ok:
 
 print("\n=== common evidence envelope ===")
 
-required_envelope = {"quoted_phrases", "locations", "counts", "raw"}
+required_envelope = {"quoted_phrases", "metric", "locations", "counts", "raw"}
 all_envelope_ok = True
 for entry in pc:
     env = entry["evidence"]

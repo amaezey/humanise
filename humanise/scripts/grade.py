@@ -504,9 +504,19 @@ def prose_paragraphs(text):
 
 def check_em_dashes(text):
     count = text.count('\u2014')
+    matches = []
+    if count > 0:
+        seen = set()
+        for m in re.finditer(r"[^\s\u2014]{0,20}\u2014[^\s\u2014]{0,20}", text):
+            span = m.group(0).strip()
+            key = span.lower()
+            if key not in seen:
+                seen.add(key)
+                matches.append(span)
     return {
         "text": "no-em-dashes",
         "passed": count == 0,
+        "matches": matches,
         "evidence": f"Found {count} em dash(es)" if count > 0 else "No em dashes found",
     }
 
@@ -911,9 +921,15 @@ def check_significance_inflation(text):
 
 
 def check_negative_parallelisms(text):
-    normalized = normalize_for_regex(text)
+    # Patterns are written against the original text directly. Smart-quote
+    # apostrophes and em/en dashes are accepted explicitly so the regex
+    # detects the same cases the old normalize-then-match path caught, and
+    # `m.group(0)` returns a verbatim slice of the original input — the
+    # audit-shape verbatim-quote check requires it (PR #15 lesson).
+    apo = r"['’]"
+    dash = r"[\-–—]"  # hyphen, en dash, em dash
     subject = r"(?:it|this|that|the (?:point|question|problem|goal|story|work|piece|tool|song|film|book|app|product|value))"
-    neg = r"(?:not|isn't|is not|wasn't|was not|aren't|are not|isnt|wasnt|arent)"
+    neg = rf"(?:not|isn{apo}t|is not|wasn{apo}t|was not|aren{apo}t|are not|isnt|wasnt|arent)"
     soft = r"(?:just|only|merely|simply|really|actually|about|a matter of|a question of|a story of)"
     abstract = (
         r"(?:meaning|identity|dignity|human|humanity|connection|creativity|"
@@ -922,53 +938,40 @@ def check_negative_parallelisms(text):
         r"what matters|what it means|reclaiming|unlocking|reminder|lesson|"
         r"journey|conversation|negotiation|reflection|statement|capability)"
     )
+    pron = rf"(?:it{apo}s|that{apo}s|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)"
+    sep = rf"[;:,{dash[1:-1]}]"  # punctuation break that can split clauses
 
     hard_patterns = [
-        # Canonical forms and their obvious lexical variants.
-        r"\bnot\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{0,120}\bbut(?: also)?\b",
-        r"\b(?:isn't|is not|wasn't|was not|aren't|are not|isnt|wasnt|arent)\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{0,120}\bbut(?: also)?\b",
+        rf"\bnot\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{{0,120}}\bbut(?: also)?\b",
+        rf"\b(?:isn{apo}t|is not|wasn{apo}t|was not|aren{apo}t|are not|isnt|wasnt|arent)\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\b.{{0,120}}\bbut(?: also)?\b",
         rf"\bnot\s+so\s+much\b.{{0,120}}\bas\b",
-        rf"\b{subject}\s+{neg}\s+{soft}\s+.{{0,120}}[;:,\-]\s+(?:it's|that's|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\b",
-        rf"\b{subject}\s+{neg}\s+.{{0,120}}[;:,\-]\s+(?:it's|that's|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\b[^.!?\n]{{0,120}}\b{abstract}\b",
-        # Cross-sentence "not X. It is Y" reframing.
+        rf"\b{subject}\s+{neg}\s+{soft}\s+.{{0,120}}{sep}\s+{pron}\b",
+        rf"\b{subject}\s+{neg}\s+.{{0,120}}{sep}\s+{pron}\b[^.!?\n]{{0,120}}\b{abstract}\b",
         rf"\b{neg}\s+(?:(?:just|only|merely|simply)\s+)?about\b.{{0,120}}[.!?]\s+(?:it|this|that)\s+(?:is|was|becomes?)\s+about\b[^.!?\n]{{0,120}}\b{abstract}\b",
-        # Comparative reframes.
         r"\b(?:is|are|was|were|becomes?)\s+less\s+about\b.{0,120}\bthan\s+(?:about\s+)?",
         r"\b(?:is|are|was|were|becomes?)\s+more\s+about\b.{0,120}\bthan\s+(?:about\s+)?",
         r"\b(?:is|are|was|were|becomes?)\s+(?:less|more)\s+a\b.{0,120}\bthan\s+a\b",
-        # Explicit countdown negation in miniature.
         r"\bno\s+[^.!?\n]{1,50}[.!?]\s+no\s+[^.!?\n]{1,50}[.!?]\s+just\s+",
         r"\bnot\s+[^.!?\n]{1,50}[.!?]\s+not\s+[^.!?\n]{1,50}[.!?]\s+just\s+",
-        # "You thought X; actually Y" keeps the same fake revelation.
         r"\b(?:you might think|at first glance|on the surface|it may seem)\b.{0,120}\b(?:but|yet|actually|in reality)\b",
     ]
 
     abstract_reframe_patterns = [
-        # Reversed order: "Y, not X" where Y is inflated abstraction.
         rf"\b(?:is|are|was|were|becomes?|means?)\b[^.!?\n]{{0,90}}\b{abstract}\b[^.!?\n]{{0,80}},?\s+(?:rather than|instead of|not)\b",
         rf"\b(?:a|an|the)\s+(?:question|matter|story|lesson|reminder|act|gesture|exercise|conversation|negotiation|reflection)\s+of\s+{abstract}\b[^.!?\n]{{0,80}},?\s+(?:rather than|instead of|not)\b",
-        # "Beyond X, it is Y" / "More than X, it is Y".
         rf"\b(?:beyond|more than|larger than|deeper than)\b[^.!?\n]{{1,80}},?\s+(?:{subject}\s+)?(?:is|was|becomes?|means?)\b[^.!?\n]{{0,90}}\b{abstract}\b",
-        # Correction moves that reveal an inflated abstract payload.
         rf"\b(?:actually|in reality|the real (?:point|story|question|issue|challenge) is)\b[^.!?\n]{{0,120}}\b{abstract}\b",
     ]
 
-    matches = []
+    verbatim = []
     for pat in hard_patterns + abstract_reframe_patterns:
-        matches.extend(re.findall(pat, normalized, flags=re.IGNORECASE | re.DOTALL))
-    count = len(matches)
-    # Phrase capture intentionally omitted: hard_patterns relies on
-    # normalize_for_regex (lowercased text, em→` - ` replacement, smart→
-    # straight quotes). Captured spans come from normalized text and don't
-    # substring-match the original input, which breaks the audit-shape
-    # 'every flagged item shows a phrase from the input' check. Re-running
-    # the regex against the original misses too many true matches because
-    # the patterns were tuned around the normalized form. The check still
-    # flags by count; the flagged item renders as the bare `<glyph> <name>`
-    # shape rather than `<glyph> <name>: "<phrase>"`.
+        for m in re.finditer(pat, text, flags=re.IGNORECASE | re.DOTALL):
+            verbatim.append(re.sub(r"\s+", " ", m.group(0)).strip())
+    count = len(verbatim)
     return {
         "text": "no-negative-parallelisms",
         "passed": count == 0,
+        "matches": verbatim,
         "evidence": (
             f"Found {count} contrived contrast/reframe pattern(s)"
             if count > 0
@@ -1089,11 +1092,19 @@ def check_rule_of_three(text):
 def check_superficial_ing(text):
     """Detect sentences ending with tacked-on -ing phrases (pattern 3)."""
     pattern = r',\s+(?:highlighting|underscoring|emphasizing|reflecting|symbolizing|contributing to|cultivating|fostering|encompassing|showcasing|ensuring|demonstrating|illustrating|reinforcing|signaling|representing)\b[^.]*\.'
-    matches = re.findall(pattern, text.lower())
-    count = len(matches)
+    verbatim = []
+    seen = set()
+    for m in re.finditer(pattern, text, flags=re.IGNORECASE):
+        span = re.sub(r"\s+", " ", m.group(0)).strip()
+        key = span.lower()
+        if key not in seen:
+            seen.add(key)
+            verbatim.append(span)
+    count = len(verbatim)
     return {
         "text": "no-superficial-ing",
         "passed": count == 0,
+        "matches": verbatim,
         "evidence": (
             f"Found {count} tacked-on -ing phrase(s)"
             if count > 0
@@ -1127,15 +1138,26 @@ def check_quietness(text):
              "murmur", "gentle", "tender", "settled"]
     text_lower = text.lower()
     count = sum(text_lower.count(w) for w in words)
-    # Allow some usage. Flag at 4+ in a piece, which suggests obsession.
     word_count = len(text_lower.split())
-    density = count / max(word_count, 1) * 1000  # per 1000 words
+    density = count / max(word_count, 1) * 1000
+    flagged = count >= 4
+    matches = []
+    if flagged:
+        word_re = re.compile(r"\b(?:" + "|".join(words) + r")\b", re.IGNORECASE)
+        seen = set()
+        for m in word_re.finditer(text):
+            verbatim = m.group(0)
+            key = verbatim.lower()
+            if key not in seen:
+                seen.add(key)
+                matches.append(verbatim)
     return {
         "text": "no-quietness-obsession",
-        "passed": count < 4,
+        "passed": not flagged,
+        "matches": matches,
         "evidence": (
             f"Found {count} quietness words ({density:.1f} per 1000 words)"
-            if count >= 4
+            if flagged
             else f"Quietness words: {count}"
         ),
     }
@@ -1499,12 +1521,18 @@ def check_paragraph_uniformity(text):
         }
     avg = sum(lengths) / len(lengths)
     cv = stdev(lengths) / avg if avg else 0
+    flagged = cv < 0.18
+    metric = (
+        f"paragraph length variation {cv:.2f} across {len(lengths)} paragraphs (target above 0.18)"
+        if flagged else None
+    )
     return {
         "text": "paragraph-length-uniformity",
-        "passed": cv >= 0.18,
+        "passed": not flagged,
+        "metric": metric,
         "evidence": (
             f"Paragraph length CV: {cv:.2f} across {len(lengths)} paragraphs (target: >=0.18)"
-            if cv < 0.18
+            if flagged
             else f"Paragraph length CV: {cv:.2f} across {len(lengths)} paragraphs"
         ),
     }
@@ -1592,7 +1620,6 @@ def check_triad_density(text):
 
 def check_type_token_ratio(text):
     """Detect low vocabulary diversity via type-token ratio."""
-    # Strip markdown and punctuation, extract words
     clean = re.sub(r'[^a-zA-Z\s]', '', text.lower())
     words = clean.split()
     if len(words) < 150:
@@ -1603,9 +1630,12 @@ def check_type_token_ratio(text):
         }
     unique = len(set(words))
     ratio = unique / len(words)
+    flagged = ratio <= 0.40
+    metric = f"type-token ratio {ratio:.2f} ({unique} unique of {len(words)} words, target above 0.40)"
     return {
         "text": "vocabulary-diversity",
-        "passed": ratio > 0.40,
+        "passed": not flagged,
+        "metric": metric if flagged else None,
         "evidence": f"Type-token ratio: {ratio:.3f} ({unique} unique / {len(words)} total, target: >0.40)",
     }
 
@@ -1644,9 +1674,20 @@ def check_section_scaffolding(text):
     repeated = {label: n for label, n in counts.items() if n >= 3}
     if repeated:
         worst = max(repeated, key=repeated.get)
+        # Re-find the verbatim label in the original text (case preserved).
+        verbatim = []
+        seen = set()
+        for label_lc in sorted(repeated, key=lambda k: -repeated[k]):
+            for line in lines:
+                stripped = re.sub(r'^#+\s*', '', line.strip()).strip()
+                if stripped.lower() == label_lc and stripped not in seen:
+                    seen.add(stripped)
+                    verbatim.append(stripped)
+                    break
         return {
             "text": "no-section-scaffolding",
             "passed": False,
+            "matches": verbatim,
             "evidence": f"'{worst}' repeated {repeated[worst]} times",
         }
     return {
@@ -2043,8 +2084,10 @@ _ENVELOPE_OMIT_KEYS = {"text", "passed"}
 def _evidence_envelope(result):
     """Build the common evidence envelope for one programmatic check."""
     raw = {k: v for k, v in result.items() if k not in _ENVELOPE_OMIT_KEYS}
+    metric = result.get("metric")
     return {
         "quoted_phrases": _extract_quoted_phrases(result),
+        "metric": metric if isinstance(metric, str) and metric else None,
         "locations": [],  # location tracking not yet wired through the checks
         "counts": _extract_counts(result),
         "raw": raw,
@@ -2376,7 +2419,8 @@ def _format_auto_detected_block(visible, depth_key, mode):
     In default mode: mini-header + severity-descending flagged items.
     In full-report mode: same, plus brief note + per-category coverage tables.
     Mini-header always renders even when there are no flagged items (R9 —
-    no all-clear collapse).
+    no all-clear collapse). When the block has no flags, render an
+    explicit all-clear sentence so the section reads intentional.
     """
     minihead = registries.string_for("templates.auto_detected_minihead")
     flagged = [c for c in visible if c["status"] == "flagged"]
@@ -2386,6 +2430,10 @@ def _format_auto_detected_block(visible, depth_key, mode):
     if sorted_flagged:
         item_lines = "\n".join(_layer_1_pattern_block(c, depth_key, mode) for c in sorted_flagged)
         parts.append(item_lines)
+    else:
+        parts.append(registries.string_for(
+            "templates.auto_detected_all_clear", total=len(visible),
+        ))
     if mode == "full_report":
         parts.append(registries.string_for("templates.brief_note_auto_detected"))
         parts.append(_format_layer_2(visible, depth_key))
@@ -2398,6 +2446,9 @@ def _format_agent_assessed_block(judgement, mode):
     In default mode: mini-header + severity-descending flagged items.
     In full-report mode: same, plus brief note + flat 8-row coverage table.
     Mini-header always renders even when there are no flagged items.
+    Empty-judgement (no `--judgement-file` supplied) renders a different
+    sentence than all-clear (judgement supplied, every item clear) — the
+    user should know whether the agent reading ran or was skipped.
     """
     minihead = registries.string_for("templates.agent_assessed_minihead")
     judgement_flagged = [j for j in judgement if j.get("status") == "flagged"]
@@ -2409,6 +2460,12 @@ def _format_agent_assessed_block(judgement, mode):
         for item in sorted_flagged:
             item_lines.extend(_render_judgement_item(item))
         parts.append("\n".join(item_lines))
+    elif not judgement:
+        parts.append(registries.string_for("templates.agent_assessed_not_supplied"))
+    else:
+        parts.append(registries.string_for(
+            "templates.agent_assessed_all_clear", total=len(judgement),
+        ))
     if mode == "full_report":
         parts.append(registries.string_for("templates.brief_note_agent_assessed"))
         parts.append(_format_agent_assessed_coverage_table(judgement))
@@ -2547,12 +2604,16 @@ def _signal_stacking_line(signal_stacking):
 def _layer_1_pattern_block(check, depth_key, mode="default"):
     """Per-flagged-pattern block (auto-detected, no Action).
 
-    Renders `<glyph> <name>: "<phrase>"` when the check carries quotable
-    phrases; falls back to `<glyph> <name>` for structural patterns. Mode
-    controls the phrase cap: default mode caps at 3 with `(+N more)`
-    overflow, full-report mode renders all phrases.
+    Render priority:
+      1. quoted phrase(s): `<glyph> <name>: "<phrase>"` (caps at 3 in
+         default mode with `(+N more)`; full-report mode renders all)
+      2. metric string: `<glyph> <name>: <metric>` for checks whose
+         signal is a draft-wide measurement (e.g. type-token ratio)
+         rather than a quotable span
+      3. bare opener: `<glyph> <name>` for structural patterns with
+         neither a quotable instance nor a stand-alone metric
     """
-    del depth_key  # action is no longer surfaced in flagged-item blocks
+    del depth_key
     glyph = registries.string_for(f"severity_glyphs.{check['severity']}")
     try:
         name = registries.pattern_for(check["id"])["short_name"]
@@ -2563,6 +2624,12 @@ def _layer_1_pattern_block(check, depth_key, mode="default"):
         return registries.string_for(
             "templates.flagged_pattern_block_no_action",
             glyph=glyph, name=name, quoted=quoted,
+        )
+    metric = (check.get("evidence") or {}).get("metric")
+    if metric:
+        return registries.string_for(
+            "templates.flagged_pattern_block_no_action",
+            glyph=glyph, name=name, quoted=metric,
         )
     return registries.string_for(
         "templates.flagged_pattern_block_no_quote_no_action",
