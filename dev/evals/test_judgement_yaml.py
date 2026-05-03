@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
-"""Self-tests for humanise/judgement.yaml.
+"""Self-tests for humanise/scripts/judgement.json.
 
-Independent of the U7 registry loader (which lands later) — uses PyYAML
-directly so the file's shape can be validated as soon as U14 ships.
+Independent of the U7 registry loader. Loads the JSON directly so the
+file's shape can be validated without going through the loader.
 
 Run: python3 dev/evals/test_judgement_yaml.py
 """
 
+import json
 import sys
 from pathlib import Path
 
-import yaml
-
 ROOT = Path(__file__).resolve().parents[2]
-JUDGEMENT_PATH = ROOT / "humanise" / "judgement.yaml"
+JUDGEMENT_PATH = ROOT / "humanise" / "scripts" / "judgement.json"
 
 FAILURES = 0
 
@@ -30,23 +29,23 @@ def ok(msg):
 
 # --- file exists and parses cleanly ---
 
-print("\n=== judgement.yaml load ===")
+print("\n=== judgement.json load ===")
 if not JUDGEMENT_PATH.exists():
-    fail(f"judgement.yaml missing at {JUDGEMENT_PATH}")
+    fail(f"judgement.json missing at {JUDGEMENT_PATH}")
     sys.exit(1)
 
 with JUDGEMENT_PATH.open() as f:
-    data = yaml.safe_load(f)
+    data = json.load(f)
 
 if not isinstance(data, dict):
-    fail(f"top-level YAML should be a mapping, got {type(data).__name__}")
+    fail(f"top-level JSON should be a mapping, got {type(data).__name__}")
     sys.exit(1)
-ok("judgement.yaml parses as a mapping")
+ok("judgement.json parses as a mapping")
 
 
 # --- top-level shape ---
 
-print("\n=== judgement.yaml top-level keys ===")
+print("\n=== judgement.json top-level keys ===")
 for key in ("schema_version", "records"):
     if key not in data:
         fail(f"top-level key '{key}' missing")
@@ -61,7 +60,7 @@ else:
 
 # --- records list ---
 
-print("\n=== judgement.yaml records ===")
+print("\n=== judgement.json records ===")
 records = data.get("records", [])
 if not isinstance(records, list):
     fail(f"'records' should be a list, got {type(records).__name__}")
@@ -103,7 +102,7 @@ for record in records:
 
 # --- pattern_ref values ---
 
-print("\n=== judgement.yaml pattern_ref values ===")
+print("\n=== judgement.json pattern_ref values ===")
 EXPECTED_PATTERN_REFS = {
     "structural_monotony": None,
     "tonal_uniformity": 35,
@@ -126,7 +125,7 @@ for record in records:
 
 # --- polymorphic genre slot ---
 
-print("\n=== judgement.yaml genre_specific sub_records ===")
+print("\n=== judgement.json genre_specific sub_records ===")
 genre_record = next((r for r in records if r.get("id") == "genre_specific"), None)
 if genre_record is None:
     fail("genre_specific record missing")
@@ -148,14 +147,14 @@ else:
             ok(f"genre_specific.sub_records.{genre}.watchlist is a list (size={len(sub_record['watchlist'])})")
 
 
-# --- PyYAML round-trip stability (relevant for U10 diff harness later) ---
+# --- JSON round-trip stability ---
 
-print("\n=== judgement.yaml round-trip ===")
-roundtripped = yaml.safe_load(yaml.safe_dump(data, sort_keys=False))
+print("\n=== judgement.json round-trip ===")
+roundtripped = json.loads(json.dumps(data))
 if roundtripped != data:
-    fail("yaml.safe_load(yaml.safe_dump(data)) does not equal original data")
+    fail("json.loads(json.dumps(data)) does not equal original data")
 else:
-    ok("data round-trips through PyYAML cleanly")
+    ok("data round-trips through JSON cleanly")
 
 
 # --- Summary ---

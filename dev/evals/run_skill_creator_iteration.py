@@ -34,9 +34,9 @@ OLD_SKILL = WORKSPACE / "skill-snapshot"
 
 
 def load_grade_module():
-    spec = importlib.util.spec_from_file_location("humanise_grade", ROOT / "humanise" / "grade.py")
+    spec = importlib.util.spec_from_file_location("humanise_grade", ROOT / "humanise" / "scripts" / "grade.py")
     if spec is None or spec.loader is None:
-        raise RuntimeError("Could not load humanise/grade.py")
+        raise RuntimeError("Could not load humanise/scripts/grade.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -44,13 +44,13 @@ def load_grade_module():
 
 GRADE = load_grade_module()
 
-# patterns.yaml replaces CHECK_REPORT_TEXT (U7 of the audit-report redesign).
+# patterns.json replaces CHECK_REPORT_TEXT (U7 of the audit-report redesign).
 # Loaded once at module scope; consumers iterate _PATTERN_LABELS for (id, label) pairs.
 # Skips _meta / _extra_entries (page-level content for U15 generator).
-import yaml as _yaml
+import json as _json
 _PATTERN_LABELS = {
     cid: rec["short_name"]
-    for cid, rec in _yaml.safe_load((ROOT / "humanise" / "patterns.yaml").read_text()).items()
+    for cid, rec in _json.loads((ROOT / "humanise" / "scripts" / "patterns.json").read_text()).items()
     if not cid.startswith("_")
 }
 
@@ -295,7 +295,7 @@ def paragraph_lengths(text: str) -> list[int]:
     return [len(re.findall(r"\b\w+\b", p)) for p in paragraphs]
 
 
-# Names the skill emits in Layer 1 flag blocks that don't match the patterns.yaml
+# Names the skill emits in Layer 1 flag blocks that don't match the patterns.json
 # short_name verbatim. Lower-cased keys; values are catalogue check_ids.
 _LAYER_1_NAME_ALIASES = {
     "copula avoidance": "no-copula-avoidance",

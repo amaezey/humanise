@@ -1,0 +1,98 @@
+{
+  "schema_version": "1",
+  "severity_labels": {
+    "hard_fail": "Must fix",
+    "strong_warning": "Strong AI-writing signal",
+    "context_warning": "Context-sensitive signal"
+  },
+  "severity_glyphs": {
+    "hard_fail": "x",
+    "strong_warning": "!",
+    "context_warning": "?"
+  },
+  "action_labels": {
+    "fix": "Fix",
+    "preserve_with_disclosure_or_user_decision": "Disclose or ask before preserving"
+  },
+  "status_labels": {
+    "clear": "Clear",
+    "flagged": "Flagged",
+    "none": "None"
+  },
+  "pressure_status": {
+    "triggered": "triggered",
+    "clear": "clear"
+  },
+  "failure_modes": {
+    "provenance_residue": {
+      "label": "Provenance residue",
+      "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue."
+    },
+    "synthetic_significance": {
+      "label": "Synthetic significance",
+      "summary": "Text performs importance, revelation, or depth without enough concrete support."
+    },
+    "frictionless_structure": {
+      "label": "Frictionless structure",
+      "summary": "Text is packaged too evenly through headings, lists, repeated shapes, or tidy closures."
+    },
+    "generic_abstraction": {
+      "label": "Generic abstraction",
+      "summary": "Text relies on portable abstractions, stock vocabulary, or low-specificity claims."
+    },
+    "voice_erasure": {
+      "label": "Voice erasure",
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+    },
+    "genre_misfit": {
+      "label": "Genre misfit",
+      "summary": "Text uses a device that may be valid in one genre but suspicious in another."
+    }
+  },
+  "depth_consequence": {
+    "hard_fail": "Fix at Balanced and All.",
+    "strong_warning": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+    "context_warning": "Review at Balanced; All requires removal unless the user explicitly accepts the risk."
+  },
+  "depth_summary": {
+    "balanced_strong_or_hard": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output.",
+    "balanced_context_only": "No hard failures or strong warnings; context warnings need user decision.",
+    "balanced_clean": "No hard failures, strong warnings, or context warnings.",
+    "all_clean": "All checks pass.",
+    "all_failures": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk."
+  },
+  "section_headings": {
+    "layer_separator": "---"
+  },
+  "inline_labels": {
+    "severity_prefix": "Severity:",
+    "next_step_prompt": "Want me to re-run with --depth all to inspect lower-tier signals?"
+  },
+  "templates": {
+    "severity_line": "{hard_fail} hard_fail · {strong_warning} strong_warning · {context_warning} context_warning · pressure: {pressure}",
+    "flagged_pattern_block": "{glyph} **{name}** — {quoted} — Action: {action}",
+    "flagged_pattern_block_no_quote": "{glyph} **{name}** — Action: {action}",
+    "category_subtable_heading": "**{category}** — {flagged} flagged of {total}",
+    "category_subtable_header": "| Pattern | Result | Action |",
+    "category_subtable_separator": "| --- | --- | --- |",
+    "category_collapse": "**{category}** — {clear}/{total} clear",
+    "all_clear_single_line": "{total} of {total} clear · agent reading clean · pressure: clear.",
+    "agent_judgement_header": "**Agent-judgement reading — {flagged} flagged of {total}**",
+    "agent_judgement_clean_header": "**Agent-judgement reading**",
+    "agent_judgement_clean_body": "agent reading clean",
+    "agent_judgement_item_with_value": "- {label} — {status}: {value}",
+    "agent_judgement_item_status_only": "- {label} — {status}",
+    "agent_judgement_item_status_then_findings": "- {label} — {status}:",
+    "agent_judgement_finding_with_why": "  - \"{phrase}\" — {why}",
+    "agent_judgement_finding_phrase_only": "  - \"{phrase}\"",
+    "agent_judgement_genre_with_findings": "- {label} — {status}: Genre detected: {genre}.",
+    "agent_judgement_genre_pending": "- {label} — {status}: Genre detected: {genre}. Watchlist coverage pending."
+  },
+  "short_pressure_explanation": {
+    "triggered_with_components": "Pressure triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}, plus {vocab_points} clustered AI-vocabulary point(s)).",
+    "triggered_components_only": "Pressure triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}).",
+    "triggered_vocab_only": "Pressure triggered: {vocab_points} clustered AI-vocabulary point(s) pushed the score to {score} of the {threshold}-point threshold.",
+    "clear_with_components": "Pressure clear: weaker AI-writing signals scored {score}, below the {threshold}-point threshold.",
+    "clear_no_components": "Pressure clear: no weaker AI-writing signals stacked."
+  }
+}

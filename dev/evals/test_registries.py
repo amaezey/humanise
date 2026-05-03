@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for humanise/registries.py — pattern + judgement registry loaders.
+"""Tests for humanise/scripts/registries.py — pattern + judgement registry loaders.
 
 Run: python3 dev/evals/test_registries.py
 """
@@ -23,8 +23,8 @@ def _load_module(name, path):
     return module
 
 
-registries = _load_module("registries", HUMANISE / "registries.py")
-grade = _load_module("humanise_grade", HUMANISE / "grade.py")
+registries = _load_module("registries", HUMANISE / "scripts" / "registries.py")
+grade = _load_module("humanise_grade", HUMANISE / "scripts" / "grade.py")
 
 ALL_CHECKS = grade.ALL_CHECKS
 
@@ -56,16 +56,16 @@ else:
 # Every ALL_CHECKS check_id must have a registry record.
 missing = sorted(set(ALL_CHECKS) - set(patterns))
 if missing:
-    fail(f"{len(missing)} check_id(s) in ALL_CHECKS missing from patterns.yaml: {missing}")
+    fail(f"{len(missing)} check_id(s) in ALL_CHECKS missing from patterns.json: {missing}")
 else:
-    ok(f"every ALL_CHECKS check_id ({len(ALL_CHECKS)}) has a patterns.yaml record")
+    ok(f"every ALL_CHECKS check_id ({len(ALL_CHECKS)}) has a patterns.json record")
 
-# patterns.yaml should not contain unknown check_ids.
+# patterns.json should not contain unknown check_ids.
 extra = sorted(set(patterns) - set(ALL_CHECKS))
 if extra:
-    fail(f"patterns.yaml contains check_id(s) not in ALL_CHECKS: {extra}")
+    fail(f"patterns.json contains check_id(s) not in ALL_CHECKS: {extra}")
 else:
-    ok("no unexpected check_ids in patterns.yaml")
+    ok("no unexpected check_ids in patterns.json")
 
 
 # --- pattern_for() lookup ---

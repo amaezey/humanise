@@ -2,7 +2,7 @@
 """Tests for format_agent_judgement() — Phase 3 agent-judgement parallel block (U12).
 
 Covers all nine plan-spec scenarios:
-- 8 items render in judgement.yaml registry order
+- 8 items render in judgement.json registry order
 - polymorphic genre slot renders genre + findings
 - status binary (no severity column, no `mixed` state, no severity glyphs)
 - all 8 clear → single 'agent reading clean' line within block
@@ -20,10 +20,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "grade.py")
+_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "scripts" / "grade.py")
 _grade = importlib.util.module_from_spec(_spec)
 if _spec.loader is None:
-    raise RuntimeError("Could not load humanise/grade.py")
+    raise RuntimeError("Could not load humanise/scripts/grade.py")
 _spec.loader.exec_module(_grade)
 
 format_agent_judgement = _grade.format_agent_judgement
@@ -142,7 +142,7 @@ if any(p < 0 for p in positions):
 elif positions != sorted(positions):
     fail(f"items not in registry order; positions={positions}\n--- render ---\n{mixed_render}")
 else:
-    ok("8 items render in judgement.yaml registry order")
+    ok("8 items render in judgement.json registry order")
 
 
 # --- header carries flagged-of-total count ---
@@ -212,14 +212,11 @@ genre_render = format_agent_judgement([
      "evidence": {}},
 ])
 
-if "Genre specific — Flagged: Genre detected: academic." not in genre_render:
-    fail(f"genre slot should render 'Genre detected: academic.'; got:\n{genre_render}")
-elif '"as we have seen" — rubric echo' not in genre_render:
-    fail(f"genre slot should render watchlist findings as nested bullets; got:\n{genre_render}")
-elif '"delve into" — AI vocabulary tell' not in genre_render:
-    fail(f"genre slot should render second finding; got:\n{genre_render}")
+if "| Genre specific | Flagged | Fix |" not in genre_render:
+    fail(f"genre slot should render as a flagged table row; got:\n{genre_render}")
 else:
-    ok("genre slot renders genre + nested watchlist findings")
+    ok("genre slot renders as a flagged Pattern/Result/Action row "
+       "(per-finding detail intentionally dropped from the audit; surfaces via Suggestions)")
 
 
 # --- all clear → single 'agent reading clean' line ---
@@ -301,7 +298,7 @@ else:
 
 print("\n=== empty watchlist → coverage pending ===")
 
-# poetry's sub_records.watchlist is empty in judgement.yaml. Set genre_detected=poetry,
+# poetry's sub_records.watchlist is empty in judgement.json. Set genre_detected=poetry,
 # findings=[]. Force at least one other item flagged to bypass all-clear path.
 pending_items = all_clear_judgement()
 pending_items[0] = {

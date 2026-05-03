@@ -46,14 +46,14 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
 2. Render the programmatic audit (Layer 1 + Layer 2) deterministically: `python3 grade.py --format markdown --depth <balanced|all> "$INPUT_PATH"`. **Print this output verbatim.** Do not paraphrase, summarise, normalise quotes, lower-case anything, or re-render any block. The script's quoted phrases are guaranteed to substring-match the input; rephrasing them breaks the audit's contract with the grader.
 3. **Run the agent-judgement reading.** Read `judgement.yaml` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
-4. Append the agent-judgement block to the script output. The renderer the script uses (`humanise/grade.py format_two_layer`) emits Layer 1 + Layer 2 separated by `---` and stops; the agent-judgement block follows another `---` and is the only part the agent writes by hand. If every programmatic check came back clear and every agent-judgement item is clear and aggregate AI-pressure has not triggered, the script's all-clear single line replaces the whole audit — print that line as-is and skip the agent-judgement block.
+4. Append the agent-judgement block to the script output. The renderer the script uses (`humanise/scripts/grade.py format_two_layer`) emits Layer 1 + Layer 2 separated by `---` and stops; the agent-judgement block follows another `---` and is the only part the agent writes by hand. If every programmatic check came back clear and every agent-judgement item is clear and aggregate AI-pressure has not triggered, the script's all-clear single line replaces the whole audit — print that line as-is and skip the agent-judgement block.
 5. End with the next-step question and stop without proceeding to a rewrite.
 
-If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `humanise/patterns.yaml` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
+If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
 
 ### Audit output
 
-The renderer (`humanise/grade.py format_two_layer`) emits one of three shapes depending on what fired. The all-clear case collapses to a single line; everything else composes a programmatic block, an agent-judgement block, or both — separated by `---`.
+The renderer (`humanise/scripts/grade.py format_two_layer`) emits one of three shapes depending on what fired. The all-clear case collapses to a single line; everything else composes a programmatic block, an agent-judgement block, or both — separated by `---`.
 
 ```
 Audit
@@ -65,6 +65,8 @@ Severity: <hard_fail count> hard_fail · <strong_warning count> strong_warning �
 ...
 
 ---
+
+**Detected patterns**
 
 **<Category>** — <clear>/<total> clear
 
@@ -81,16 +83,16 @@ Severity: <hard_fail count> hard_fail · <strong_warning count> strong_warning �
 
 **Agent-judgement reading — <flagged> flagged of <total>**
 
-- <Item label> — <Status>: <state or trichotomy value>
-- <Item label> — Flagged:
-  - "<phrase>" — <why>
-- <Item label> — Clear
-- Genre specific — <Status>: Genre detected: <genre>.
-  - "<phrase>" — <why>
+| Pattern | Result | Action |
+| --- | --- | --- |
+| <Item label> | <Flagged | Clear> | <Fix when flagged, empty when clear> |
+| ... | ... | ... |
+
+(when every item is clear, the agent-judgement block collapses to `**Agent-judgement reading** — <total>/<total> clear` — same shape as Layer 2's all-clear category collapse. Per-item value/why detail is intentionally omitted from the audit; flagged items can be drilled into via Suggestions.)
 
 **Next step**
 
-Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
+Let me know if you'd like suggestions for edits, a full rewrite, or to save this audit as a file.
 ```
 
 If every programmatic check is clear AND every agent-judgement item is clear AND aggregate AI-pressure has not triggered, the renderer collapses everything to a single line:
@@ -100,12 +102,12 @@ If every programmatic check is clear AND every agent-judgement item is clear AND
 Want me to re-run with --depth all to inspect lower-tier signals?
 ```
 
-If only one half has anything to surface, the renderer omits the empty side. Programmatic flagged + agent fully clear renders the programmatic block plus a clean-form agent block (`**Agent-judgement reading**` header followed by `agent reading clean`). Programmatic fully clear but agent flagged renders the agent block alone, with no Layer 1 / Layer 2 above it. The `---` separator only appears between blocks that actually render.
+If only one half has anything to surface, the renderer omits the empty side. Programmatic flagged + agent fully clear renders the programmatic block plus a one-line agent collapse (`**Agent-judgement reading** — <total>/<total> clear`). Programmatic fully clear but agent flagged renders the agent block alone, with no Layer 1 / Layer 2 above it. The `---` separator only appears between blocks that actually render.
 
 ### Rendering rules
 
 - **Severity glyphs** in Layer 1's per-flagged-pattern blocks: `x` for hard_fail, `!` for strong_warning, `?` for context_warning. No glyphs in Layer 2 sub-tables or in the agent-judgement block.
-- **Pattern names** are the human-readable `short_name` from `humanise/patterns.yaml` (e.g., "Em dashes", "Triad density", "Assistant residue") — never the internal check ID (`no-em-dashes`, `no-triad-density`). Check IDs are assertion names, not user-facing labels. Agent-judgement labels are computed mechanically from the registry id (`structural_monotony` → "Structural monotony").
+- **Pattern names** are the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density", "Assistant residue") — never the internal check ID (`no-em-dashes`, `no-triad-density`). Check IDs are assertion names, not user-facing labels. Agent-judgement labels are computed mechanically from the registry id (`structural_monotony` → "Structural monotony").
 - **Lexical patterns** (specific words or phrases) carry a quoted phrase in their Layer 1 block: `<glyph> **<name>** — "<phrase>" — Action: ...`. The Layer 1 phrase list caps at three with a `(+N more)` overflow suffix when more phrases are present.
 - **Structural patterns** (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) carry no quoted phrase — they render as `<glyph> **<name>** — Action: ...` in Layer 1. The pattern's "where" lives in the grader's evidence object, not in the rendered prose.
 - **Category collapse**: a Layer 2 category with every check clear renders as one line — `**<Category>** — <N>/<N> clear`. A category with at least one flagged check renders the full Pattern/Result/Action sub-table including the clear rows so coverage stays visible.
@@ -117,7 +119,7 @@ If only one half has anything to surface, the renderer omits the empty side. Pro
 - **No "Why this matters" or "What it looks for" prose** in the audit output. Per-pattern explanations live in `humanise/references/patterns.md` and are read on drill-in for Suggestions or Rewrite — not in the audit itself.
 - Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
 
-If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `humanise/references/patterns.md` and run the agent-judgement reading directly from `humanise/judgement.yaml`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `humanise/references/patterns.md` and run the agent-judgement reading directly from `humanise/scripts/judgement.json`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
 
 ---
 
@@ -168,7 +170,11 @@ Two settings:
 - **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
 - **All**: address every flagged pattern, even the implicit and structural ones a reader wouldn't consciously notice. Voice can take a hit at this depth. The goal is unambiguous human-shape; preserving every flourish comes second.
 
-When the user has not chosen a depth, ask which depth they want. Balanced is the lighter pass; All is the deeper one. Default to Balanced if the writer declines to choose.
+When the user has not chosen a depth, ask which depth they want. Phrase the question to match how the writer usually decides — they want to know what each depth does to the prose, not which label means what:
+
+> Would you like a balanced rewrite that reduces the most distinctive AI patterns while preserving voice, or a full rewrite that removes every flagged pattern? Note: even human text can fail some checks and still read naturally, so Balanced is usually the right call unless you specifically want maximum pattern removal.
+
+Default to Balanced if the writer declines to choose.
 
 The dial only governs Rewrite and Write. It does not apply to Audit or Suggestions. Both of those return the full list of flagged tells regardless.
 
