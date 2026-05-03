@@ -2,27 +2,18 @@
 
 A [Claude Code skill](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills) that flags patterns in text that make it sound like AI, and (if asked) suggests fixes or rewrites.
 
-Forked from [blader/humanizer](https://github.com/blader/humanizer), restructured around a programmatic grader, an iteration harness, and a corpus of matched human and AI essays for testing what the grader actually catches.
-
-## Why this exists
-
-People can usually tell when something was written by AI, even if they can't articulate why. The patterns behind that intuition are real, documented across peer-reviewed research and craft-level analysis (see Sources). Commercial detectors like GPTZero, Pangram, Copyleaks, Originality.AI, and Turnitin cover this territory with variable accuracy.
-
-This skill turns those patterns into a regex/density grader (49 programmatic checks across 58 catalogued patterns and one aggregate meta-check) plus an eight-item agent-judgement registry, then runs them against a matched corpus of human and AI writing to see which checks separate the two.
-
-## What it does
-
-The skill runs an **Audit** first: a summary block (counts, severity, signal stacking) plus every flagged pattern with the quoted phrase from the input. Auto-detected patterns first, then agent-assessed.
-
-The audit ends with a prompt: full coverage report, suggestions, rewrite, or save. Each runs only when asked.
-
-- **Full coverage report**: the same audit plus coverage tables for every check, regex and agent-assessed.
-- **Suggestions**: alternative phrasing for each flag.
-- **Rewrite**: rewrites the input in two modes: Balanced (fix surface and strong patterns) or All (also rework structural ones).
-- **Write**: a fresh draft to a brief, with the patterns in mind.
-- **Save report**: writes the audit or before/after comparison to Markdown.
+Forked from [blader/humanizer](https://github.com/blader/humanizer), restructured around a deterministic grader, an iteration harness, and a corpus of matched human and AI essays for testing what the grader actually catches.
 
 ## Install
+
+### Clone and symlink (preferred)
+
+Get updates with `git pull`. Run from your local checkout.
+
+```bash
+git clone https://github.com/amaezey/humanise.git ~/.local/share/humanise
+ln -s ~/.local/share/humanise/humanise ~/.claude/skills/humanise
+```
 
 ### Claude Code CLI
 
@@ -30,41 +21,62 @@ The audit ends with a prompt: full coverage report, suggestions, rewrite, or sav
 npx skills@latest add amaezey/humanise/humanise
 ```
 
-### Clone and symlink
-
-Pick this if you want updates on `git pull`.
-
-```bash
-git clone https://github.com/amaezey/humanise.git ~/.local/share/humanise
-ln -s ~/.local/share/humanise/humanise ~/.claude/skills/humanise
-```
-
-### Claude Code desktop
+### Codex and Claude Code desktop
 
 Download the latest release zip from <https://github.com/amaezey/humanise/releases/latest>.
 
+## Why this exists
+
+People are increasingly expected to use AI for workplace writing, then left with prose that feels wrong but is hard to diagnose or repair. The damage is usually cumulative: small tells stack across voice, rhythm, structure, and phrasing until the writing reads as synthetic, even when no single sentence is obviously broken.
+
+humanise audits a draft against a catalogue of AI-writing patterns drawn from peer-reviewed research, journalism, and craft analysis. The grader is deterministic, so the same input always produces the same audit. The output names each flagged pattern, quotes the phrase from your draft, and points to the source it comes from, so you can read the evidence and decide what to change yourself.
+
+## What it does
+
+The skill runs an **Audit** first: a summary block (counts, severity, signal stacking) plus every flagged pattern with the quoted phrase from your draft. Auto-detected patterns first, then agent-assessed.
+
+The audit ends with a prompt: full coverage report, suggestions, rewrite, or save. Each runs only when asked.
+
+- **Full coverage report**: the same audit plus coverage tables for every check, both auto-detected and agent-assessed.
+- **Suggestions**: alternative phrasing for each flag.
+- **Rewrite**: rewrites the draft in two modes. Balanced fixes surface and strong patterns. All also reworks structural ones.
+- **Write**: a fresh draft to a brief, with the patterns in mind.
+- **Save report**: writes the audit or before/after comparison to Markdown.
+
 ## Usage
 
-Invoke with `/humanise` or ask Claude to "audit this", "humanise this", "unsloppify", "strip the AI tells", or "rewrite to sound human". The Audit action runs first; Suggestions, Rewrite, and Write only run when asked.
+Invoke with `/humanise` or ask Claude to "audit this", "humanise this", "unsloppify", "strip the AI tells", or "rewrite to sound human". The Audit action runs first. Suggestions, Rewrite, and Write only run when asked.
 
-Run the grader directly with:
+### Run the grader directly (no LLM)
+
+The grader is a deterministic script. Running it without the skill is useful when you want a reproducible audit with no LLM in the loop and no API cost. The agent-judgement layer is skipped in this mode.
 
 ```bash
 python3 humanise/scripts/grade.py --format markdown --depth balanced <file>
 python3 humanise/scripts/grade.py --format markdown --depth all <file>
 ```
 
-`--depth balanced` requires fixing hard-fail and strong-warning patterns; `--depth all` adds context-sensitive ones. Add `--judgement-file <path>` to merge a pre-computed agent-judgement reading into the audit; add `--full-report` for the deeper coverage view (per-category sub-tables and full phrase lists).
+`--depth balanced` requires fixing hard-fail and strong-warning patterns. `--depth all` adds context-sensitive ones. Add `--judgement-file <path>` to merge a precomputed agent-judgement reading into the audit. Add `--full-report` for per-category coverage tables and the full phrase list.
+
+## How it works
+
+humanise has three layers:
+
+- **Pattern catalogue.** A registry of named AI-writing patterns with severity, sources, and before/after examples. Source of truth is `humanise/scripts/patterns.json`; the human-readable view is `humanise/references/patterns.md`.
+- **Grader.** A deterministic Python script (`humanise/scripts/grade.py`) that runs regex and density checks against the draft. No LLM in this layer, so the same input always produces the same audit.
+- **Agent-judgement registry.** Structural readings the grader can't do (tonal uniformity, faux specificity, neutrality collapse, structural monotony, generic metaphors, forced synesthesia, even jargon distribution, plus a polymorphic genre slot). Lives in `humanise/scripts/judgement.json`. The agent reads each prompt, returns a structured answer, and the grader merges those answers into the final audit before rendering.
+
+When you invoke the skill, it makes the agent-judgement reading, calls the grader with `--judgement-file`, prints the audit verbatim, then asks what you want next.
 
 ## Patterns
 
-52 numbered patterns, five sub-letter variants, and one aggregate meta-check across 8 categories. Full before/after examples in `humanise/references/patterns.md`.
+Patterns are organised by category. Full before/after examples in `humanise/references/patterns.md`.
 
 - **Source**: primary external attribution. "Wikipedia (editor consensus)" means the pattern is in the WikiProject AI Cleanup catalogue without an external upstream citation.
 - **Check**: how the pattern is detected.
-    - `regex` — runs against the text deterministically (49 programmatic checks).
-    - `agent` — runs as a small LLM reading on the whole draft (8 items in `humanise/scripts/judgement.json`).
-- **Severity**: enforcement tier — `hard_fail`, `strong_warning`, or `context_warning`.
+    - `regex` runs against the text deterministically.
+    - `agent` runs as a small LLM reading on the whole draft (items defined in `humanise/scripts/judgement.json`).
+- **Severity**: enforcement tier. One of `hard_fail`, `strong_warning`, or `context_warning`.
 
 | # | Pattern | Source | Check | Severity | Example |
 |---|---|---|---|---|---|
@@ -116,7 +128,7 @@ python3 humanise/scripts/grade.py --format markdown --depth all <file>
 | 42 | Manufactured insight framing | Guo (performed knowingness); Kriss/NYT; Wikipedia (editor consensus) | regex | strong_warning | "what's really", "the real answer", "here's what's really" |
 | 44 | Signposted conclusion | Vollmer (closing rituals); Wikipedia (editor consensus) | regex | context_warning | "In summary,", "In conclusion,", "To summarise,", "To sum up,..." |
 | 52 | Sentence rhythm variance | Caroll; Guo; Grammarly; Przystalski/Zaitsu/Bisztray (stylometry); Ju, Blix, Williams (domain syntax); matched-genre corpus measurement | regex | context_warning | A coarse rhythm metric for prose of 100+ words: low variance suggests mechanical pacing. |
-| 54 | Structural monotony | Shankar; Guo; practitioner guides | agent | context_warning | Every section follows the same arc — opener, supporting argument, micro-conclusion, repeat. |
+| 54 | Structural monotony | Shankar; Guo; practitioner guides | agent | context_warning | Every section follows the same arc: opener, supporting argument, micro-conclusion, repeat. |
 | | **Voice and register** | | | | |
 | 33 | Countdown negation | Practitioner guides (aidetectors.io, seoengine.ai, SAGE) | regex | context_warning | "It wasn't X. It wasn't Y. It was Z." |
 | 34 | Per-paragraph miniature conclusions | Shankar; practitioner guides | regex | context_warning | Every paragraph wraps up neatly |
@@ -232,49 +244,44 @@ Humans cluster around longer sentences with much higher variance. AI clusters ti
 
 Asking AI to rewrite a human essay produces output with **more** strong-pattern density than the human original (about 44% more in matched comparison). The rewrite trades context-sensitive richness for stronger pattern-matching. This is why the skill's own rewrite step stays conservative even on patterns humans use legitimately: AI does them badly.
 
-### How the skill applies the findings
-
-The findings above shape how the skill talks:
-
-- **To a human writer:** flagged patterns mark review priorities. Keep them where they have been earned.
-- **To itself, when rewriting:** strip them by default. AI does these patterns badly even when humans do not have to.
-
 ## Where to be careful
 
 - **Genre matters.** Persuasive how-to, business memo, literary essay, and journalistic reportage all use patterns this skill flags. Audit output is calibrated to spot AI overuse; legitimate technique is not the target. Treat each flag as something to review.
-- **Patterns drift.** AI vocabulary lists go stale ("delve" peaked in 2023–24). The catalogue needs periodic refresh.
+- **Patterns drift.** AI vocabulary lists go stale ("delve" peaked in 2023 to 2024). The catalogue needs periodic refresh.
 - **The skill itself is an LLM.** It can introduce the patterns it is trying to catch (neutrality collapse, pronoun depletion, generic substitution). The semantic-preservation step in the rewrite flow mitigates this but cannot eliminate it.
 - **Detection is asymmetric.** The skill catches AI doing patterns badly. It can also wrongly flag humans doing the same patterns well. The audit voice tries to make this distinction visible; the user has to apply judgement.
-- **Sample sizes are small.** Findings here are based on a 15-sample matched corpus (5 human + 5 AI fresh + 5 AI rewrite). Treat them as directional at this sample size.
+- **Sample sizes are small.** Findings here are based on a matched corpus of human, AI fresh-write, and AI rewrite samples (n=5 per group). Treat them as directional at this sample size.
 
 ## What's next
 
-The grader reads from a registry, the audit pairs eight agent-judgement readings with the regex pass, and the report renders in two layers. Active work, with open questions tracked in `dev/hypotheses.md`:
+Active work, with open questions tracked in `dev/hypotheses.md`:
 
-- Reframing the audit voice so flagged patterns read as *review priorities* rather than verdicts.
 - Calibrating thresholds by register (literary essay vs corporate doc vs news copy).
-- Adding new candidate signals (sentence-length mean, ghost-spectral density, negation density, unicode flair) where evidence supports them.
-- Demoting pattern checks that do not separate humans from AI in matched genres (em dashes, manufactured insight, and triad density may belong in softer categories).
-- Growing the matched corpus past N=5 per group.
-- Closing two grader-integrity gaps: 17 catalogued patterns without programmatic checks (Group A) and 8 grader checks without catalogued patterns (Group B).
+- Adding sentence-length mean as a grader signal (variance is in; mean is the cleaner separator in matched-genre comparisons).
+- Demoting pattern checks that do not separate humans from AI in matched genres (em dashes and manufactured insight may belong in softer categories).
+- Growing the matched corpus past n=5 per group, with bootstrap confidence intervals so weak-signal patterns demote automatically.
+- Calibrating severities on the agent-judgement items against the corpus rather than curated guesses.
+- Verifying the rewrite step doesn't itself flatten the writer's stance (Abdulhai-style semantic preservation).
+- Catching performative-direct fragments ("Direct. Punchy. Inevitable.") as a candidate pattern.
+- Closing grader-integrity gaps: catalogued patterns without programmatic checks, and grader checks without catalogued patterns.
 
 ## File structure
 
 ```
 humanise/                          Skill (this is what gets installed)
 ├── SKILL.md                       Main skill instructions
-├── scripts/                       Grader + registry loaders
-│   ├── grade.py                   Grading script (49 checks)
+├── scripts/                       Grader and registry loaders
+│   ├── grade.py                   Grading script
 │   ├── registries.py              Loaders for the three JSON registries
 │   ├── patterns.json              Pattern catalogue (severity, category, report text)
-│   ├── judgement.json             Eight-item agent-judgement registry
-│   ├── vocabulary.json            Severity / action labels and depth consequences
+│   ├── judgement.json             Agent-judgement registry
+│   ├── vocabulary.json            Severity and action labels, depth consequences
 │   └── contracts/                 Audit JSON contract schema
 └── references/                    Patterns, alternatives, severity, voice, process
 
 dev/                               Development only (not installed)
 ├── evals/                         Eval suite, samples, harness
-│   ├── evals.json                 18 eval cases (audit / suggest / rewrite / write)
+│   ├── evals.json                 Eval cases (audit / suggest / rewrite / write)
 │   ├── corpus.json                Genre-paired comparative-baseline corpus
 │   ├── run_skill_creator_iteration.py
 │   └── samples/{human-sourced,generated-ai}/
