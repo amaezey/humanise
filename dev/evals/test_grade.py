@@ -1931,6 +1931,340 @@ for check_name in ALL_CHECKS:
     expect_pass(check_name, instructional_text, f"human instructional piece ({check_name})")
 
 
+# --- U7: --judgement-file CLI flag + agent_judgement overlay validation ---
+
+print("\n=== U7 --judgement-file overlay loader ===")
+
+import json as _u7_json
+import subprocess as _u7_subprocess
+import tempfile as _u7_tempfile
+
+JudgementOverlayError = _grade.JudgementOverlayError
+load_agent_judgement_overlay = _grade.load_agent_judgement_overlay
+
+
+def _u7_write_overlay(payload):
+    """Write a JSON payload to a temp file and return its path."""
+    handle = _u7_tempfile.NamedTemporaryFile(
+        "w", suffix=".json", delete=False, encoding="utf-8",
+    )
+    _u7_json.dump(payload, handle)
+    handle.close()
+    return handle.name
+
+
+def _u7_expect_overlay_error(payload_or_text, fragment, reason, raw_text=False):
+    """Write payload to a temp file, expect JudgementOverlayError containing fragment."""
+    global FAILURES
+    if raw_text:
+        handle = _u7_tempfile.NamedTemporaryFile(
+            "w", suffix=".json", delete=False, encoding="utf-8",
+        )
+        handle.write(payload_or_text)
+        handle.close()
+        path = handle.name
+    else:
+        path = _u7_write_overlay(payload_or_text)
+    try:
+        load_agent_judgement_overlay(path)
+    except JudgementOverlayError as exc:
+        if fragment in str(exc):
+            print(f"  ok: {reason} → {exc}")
+        else:
+            FAILURES += 1
+            print(f"FAIL: {reason}: error did not mention {fragment!r}; got: {exc}")
+    else:
+        FAILURES += 1
+        print(f"FAIL: {reason}: expected JudgementOverlayError, none raised")
+
+
+# Happy path: valid wrapped overlay loads cleanly.
+_u7_valid = {
+    "agent_judgement": [
+        {
+            "id": "tonal_uniformity",
+            "status": "flagged",
+            "severity": "strong_warning",
+            "answer": "register holds without breaks",
+            "evidence": {},
+        },
+    ],
+}
+_u7_loaded = load_agent_judgement_overlay(_u7_write_overlay(_u7_valid))
+if _u7_loaded == _u7_valid["agent_judgement"]:
+    print("  ok: happy path — wrapped overlay loads to a single cleaned record")
+else:
+    FAILURES += 1
+    print(f"FAIL: happy path: expected {_u7_valid['agent_judgement']}, got {_u7_loaded}")
+
+
+# Severity defaulting: agent omits severity → registry value is filled in.
+_u7_no_severity = {
+    "agent_judgement": [
+        {
+            "id": "tonal_uniformity",  # registry severity = strong_warning
+            "status": "flagged",
+            "answer": "register holds without breaks",
+            "evidence": {},
+        },
+    ],
+}
+_u7_defaulted = load_agent_judgement_overlay(_u7_write_overlay(_u7_no_severity))
+if _u7_defaulted[0]["severity"] == "strong_warning":
+    print("  ok: omitted severity defaults from judgement.json registry")
+else:
+    FAILURES += 1
+    print(f"FAIL: severity default: expected 'strong_warning', got {_u7_defaulted[0]['severity']!r}")
+
+
+# Permissive on extras: extra item fields are accepted but stripped from the cleaned record.
+_u7_with_extras = {
+    "agent_judgement": [
+        {
+            "id": "tonal_uniformity",
+            "status": "flagged",
+            "severity": "strong_warning",
+            "answer": "register holds without breaks",
+            "evidence": {},
+            "agent_notes": "internal scratch the agent wanted to keep",
+            "confidence": 0.85,
+        },
+    ],
+}
+_u7_cleaned = load_agent_judgement_overlay(_u7_write_overlay(_u7_with_extras))
+if set(_u7_cleaned[0]) == {"id", "status", "severity", "answer", "evidence"}:
+    print("  ok: extra item fields are accepted and stripped from the cleaned record")
+else:
+    FAILURES += 1
+    print(f"FAIL: extras: cleaned record keys {sorted(_u7_cleaned[0])} should be the contract set")
+
+
+# All-clear file → all items injected with status=clear; renderer shows no flagged items.
+_u7_all_clear = {
+    "agent_judgement": [
+        {"id": "tonal_uniformity", "status": "clear", "severity": "strong_warning",
+         "answer": "register breaks at least once", "evidence": {}},
+        {"id": "structural_monotony", "status": "clear", "severity": "context_warning",
+         "answer": "sections vary", "evidence": {}},
+    ],
+}
+_u7_all_clear_items = load_agent_judgement_overlay(_u7_write_overlay(_u7_all_clear))
+_u7_clean_render = format_two_layer(
+    [], depth="balanced", mode="default",
+    agent_judgement_items=_u7_all_clear_items,
+)
+if "Agent-assessed: 0 of 2 flagged" in _u7_clean_render:
+    print("  ok: all-clear overlay renders 'Agent-assessed: 0 of 2 flagged' (no collapse)")
+else:
+    FAILURES += 1
+    print(f"FAIL: all-clear overlay counts line wrong; got:\n{_u7_clean_render[:400]}")
+
+
+# --- Error paths: every failure mode names the offending input clearly. ---
+
+# Missing path → clear error citing the path.
+try:
+    load_agent_judgement_overlay("/nonexistent/path-9999.json")
+except JudgementOverlayError as exc:
+    if "/nonexistent/path-9999.json" in str(exc):
+        print(f"  ok: missing-path error names the path → {exc}")
+    else:
+        FAILURES += 1
+        print(f"FAIL: missing-path error did not include the path; got: {exc}")
+else:
+    FAILURES += 1
+    print("FAIL: missing-path: expected JudgementOverlayError, none raised")
+
+# Malformed JSON → parse error.
+_u7_expect_overlay_error(
+    "{not json at all", "invalid JSON", "malformed JSON",
+    raw_text=True,
+)
+
+# Bare-array form rejected (must be wrapped).
+_u7_expect_overlay_error(
+    [], "must be an object", "bare-array top level",
+)
+
+# Missing 'agent_judgement' key.
+_u7_expect_overlay_error(
+    {"items": []}, "agent_judgement", "missing top-level 'agent_judgement' key",
+)
+
+# 'agent_judgement' is not a list.
+_u7_expect_overlay_error(
+    {"agent_judgement": {"id": "x"}}, "must be a list",
+    "'agent_judgement' is an object instead of a list",
+)
+
+# Item missing required field — message names the item id and the missing field.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+         "answer": "x"},  # missing 'evidence'
+    ]},
+    "tonal_uniformity",
+    "missing required field error names the item id",
+)
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+         "answer": "x"},  # missing 'evidence'
+    ]},
+    "evidence",
+    "missing required field error names the missing field",
+)
+
+# Invalid status value.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "maybe", "severity": "strong_warning",
+         "answer": "x", "evidence": {}},
+    ]},
+    "invalid status",
+    "invalid status names the bad value",
+)
+
+# Invalid severity value.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "medium",
+         "answer": "x", "evidence": {}},
+    ]},
+    "invalid severity",
+    "invalid severity names the bad value",
+)
+
+# Severity omitted on an unknown id (cannot default from registry).
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "made_up_item_id", "status": "flagged",
+         "answer": "x", "evidence": {}},
+    ]},
+    "cannot default",
+    "missing severity on unknown id surfaces a clear error",
+)
+
+# Evidence must be an object.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+         "answer": "x", "evidence": "not an object"},
+    ]},
+    "evidence",
+    "evidence-not-an-object names the evidence field",
+)
+
+
+# --- Integration: human_report and format_two_layer accept the overlay. ---
+
+print("\n=== U7 contract + renderer integration with overlay ===")
+
+_u7_overlay_items = load_agent_judgement_overlay(_u7_write_overlay(_u7_valid))
+_u7_contract = human_report([], agent_judgement_items=_u7_overlay_items)
+if _u7_contract["agent_judgement"] == _u7_overlay_items:
+    print("  ok: human_report(overlay) injects items into contract.agent_judgement[]")
+else:
+    FAILURES += 1
+    print(f"FAIL: contract.agent_judgement should match overlay; got {_u7_contract['agent_judgement']}")
+
+# Backward-compat: human_report() with no overlay still returns []. Diff baselines depend on this.
+_u7_default_contract = human_report([])
+if _u7_default_contract["agent_judgement"] == []:
+    print("  ok: human_report() with no overlay still returns agent_judgement=[] (diff-baseline stable)")
+else:
+    FAILURES += 1
+    print(f"FAIL: default contract.agent_judgement should be []; got {_u7_default_contract['agent_judgement']}")
+
+# Renderer: overlay items appear in default-mode markdown.
+_u7_markdown = format_two_layer(
+    [], depth="balanced", mode="default",
+    agent_judgement_items=_u7_overlay_items,
+)
+if "Tonal uniformity" in _u7_markdown and "register holds without breaks" in _u7_markdown:
+    print("  ok: format_two_layer(overlay) renders the agent-judgement item inline")
+else:
+    FAILURES += 1
+    print(f"FAIL: overlay item not rendered in markdown; got:\n{_u7_markdown[:400]}")
+
+
+# --- CLI subprocess smoke tests: --judgement-file is wired into main(). ---
+
+print("\n=== U7 --judgement-file CLI subprocess smoke tests ===")
+
+_u7_grade_path = ROOT / "humanise" / "scripts" / "grade.py"
+_u7_sample_path = ROOT / "dev" / "evals" / "samples" / "synthetic" / "synthetic-hard-fail-only.md"
+
+# Markdown mode with valid overlay: the agent-judgement item appears in stdout.
+_u7_overlay_path = _u7_write_overlay(_u7_valid)
+_u7_md = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "markdown", "--depth", "balanced",
+     "--judgement-file", _u7_overlay_path, str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_md.returncode == 0 and "Tonal uniformity" in _u7_md.stdout:
+    print("  ok: CLI --judgement-file in markdown mode renders the overlay item")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI markdown mode: rc={_u7_md.returncode}; stderr={_u7_md.stderr[:300]}")
+
+# JSON mode with valid overlay: contract.agent_judgement[] carries the overlay.
+_u7_js = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "json",
+     "--judgement-file", _u7_overlay_path, str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_js.returncode == 0:
+    try:
+        _u7_js_payload = _u7_json.loads(_u7_js.stdout)
+    except _u7_json.JSONDecodeError as exc:
+        FAILURES += 1
+        print(f"FAIL: CLI json mode: stdout not valid JSON: {exc}")
+    else:
+        _u7_aj = _u7_js_payload.get("human_report", {}).get("agent_judgement", [])
+        if len(_u7_aj) == 1 and _u7_aj[0]["id"] == "tonal_uniformity":
+            print("  ok: CLI --judgement-file in json mode injects overlay into contract.agent_judgement[]")
+        else:
+            FAILURES += 1
+            print(f"FAIL: CLI json mode: agent_judgement does not carry overlay; got {_u7_aj}")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI json mode: rc={_u7_js.returncode}; stderr={_u7_js.stderr[:300]}")
+
+# Missing file path exits non-zero with a clear stderr message.
+_u7_missing = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "markdown",
+     "--judgement-file", "/nonexistent/u7-test.json", str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_missing.returncode != 0 and "/nonexistent/u7-test.json" in _u7_missing.stderr:
+    print("  ok: CLI missing --judgement-file path exits non-zero with the path in stderr")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI missing path: rc={_u7_missing.returncode}; stderr={_u7_missing.stderr[:300]}")
+
+# Backward compat: omitting --judgement-file behaves exactly as before (empty agent_judgement).
+_u7_no_overlay = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "json", str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_no_overlay.returncode == 0:
+    try:
+        _u7_no_overlay_payload = _u7_json.loads(_u7_no_overlay.stdout)
+        _u7_aj_default = _u7_no_overlay_payload.get("human_report", {}).get("agent_judgement", "missing")
+        if _u7_aj_default == []:
+            print("  ok: CLI without --judgement-file still emits empty agent_judgement (backward compat)")
+        else:
+            FAILURES += 1
+            print(f"FAIL: CLI no overlay: agent_judgement should be []; got {_u7_aj_default}")
+    except _u7_json.JSONDecodeError as exc:
+        FAILURES += 1
+        print(f"FAIL: CLI no overlay: stdout not valid JSON: {exc}")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI no overlay: rc={_u7_no_overlay.returncode}; stderr={_u7_no_overlay.stderr[:300]}")
+
+
 # --- Summary ---
 
 print(f"\n{'='*40}")

@@ -2034,12 +2034,125 @@ def _aggregates(results):
     }
 
 
-def human_report(results):
+class JudgementOverlayError(ValueError):
+    """Validation error for an agent-supplied --judgement-file overlay.
+
+    Raised by load_agent_judgement_overlay when the file is missing,
+    malformed JSON, or fails contract validation. main() catches this and
+    prints the message + exit(1); tests catch it to assert error messages.
+    """
+
+
+_JUDGEMENT_OVERLAY_REQUIRED_ITEM_FIELDS = {"id", "status", "answer", "evidence"}
+_JUDGEMENT_OVERLAY_VALID_STATUSES = {"clear", "flagged"}
+
+
+def load_agent_judgement_overlay(path):
+    """Read and validate an agent-supplied agent_judgement overlay file.
+
+    File shape mirrors the contract slot:
+
+        {"agent_judgement": [{"id": ..., "status": ..., "severity": ...,
+                              "answer": ..., "evidence": {...}}, ...]}
+
+    Required item fields: id, status, answer, evidence. Severity is
+    optional in the file — if omitted, defaults to the registry value
+    from judgement.json (the one the planner curated in U1). Extra item
+    fields are accepted (per U7's permissive-validation decision); they
+    are dropped when the cleaned record is built so the contract's
+    additionalProperties:false on agent_judgement[] items still holds.
+
+    Returns a list of cleaned items ready to inject into the contract.
+    Raises JudgementOverlayError with a message naming the item id and
+    the offending field on validation failure.
+    """
+    file_path = Path(path)
+    if not file_path.exists():
+        raise JudgementOverlayError(f"path does not exist: {path}")
+    try:
+        data = json.loads(file_path.read_text())
+    except json.JSONDecodeError as exc:
+        raise JudgementOverlayError(f"invalid JSON in {path}: {exc}") from exc
+
+    if not isinstance(data, dict):
+        raise JudgementOverlayError(
+            f"top-level must be an object with an 'agent_judgement' array, "
+            f"got {type(data).__name__}"
+        )
+    if "agent_judgement" not in data:
+        raise JudgementOverlayError(
+            "missing required 'agent_judgement' key at top level"
+        )
+    items = data["agent_judgement"]
+    if not isinstance(items, list):
+        raise JudgementOverlayError(
+            f"'agent_judgement' must be a list, got {type(items).__name__}"
+        )
+
+    validated = []
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            raise JudgementOverlayError(
+                f"agent_judgement[{index}] must be an object, "
+                f"got {type(item).__name__}"
+            )
+        item_id = item.get("id", f"<index {index}>")
+        missing = _JUDGEMENT_OVERLAY_REQUIRED_ITEM_FIELDS - set(item)
+        if missing:
+            raise JudgementOverlayError(
+                f"agent_judgement item {item_id!r} missing required field(s) "
+                f"{sorted(missing)}"
+            )
+        if item["status"] not in _JUDGEMENT_OVERLAY_VALID_STATUSES:
+            raise JudgementOverlayError(
+                f"agent_judgement item {item_id!r} has invalid status "
+                f"{item['status']!r}; expected one of "
+                f"{sorted(_JUDGEMENT_OVERLAY_VALID_STATUSES)}"
+            )
+        if not isinstance(item["evidence"], dict):
+            raise JudgementOverlayError(
+                f"agent_judgement item {item_id!r} 'evidence' must be an object, "
+                f"got {type(item['evidence']).__name__}"
+            )
+
+        severity = item.get("severity")
+        if severity is None:
+            try:
+                severity = registries.judgement_for(item["id"])["severity"]
+            except KeyError as exc:
+                raise JudgementOverlayError(
+                    f"agent_judgement item {item_id!r} omits 'severity' and "
+                    f"id is not in judgement.json registry — cannot default"
+                ) from exc
+        if severity not in registries.VALID_SEVERITIES:
+            raise JudgementOverlayError(
+                f"agent_judgement item {item_id!r} has invalid severity "
+                f"{severity!r}; expected one of "
+                f"{sorted(registries.VALID_SEVERITIES)}"
+            )
+
+        validated.append({
+            "id": item["id"],
+            "status": item["status"],
+            "severity": severity,
+            "answer": item["answer"],
+            "evidence": item["evidence"],
+        })
+    return validated
+
+
+def human_report(results, agent_judgement_items=None):
     """Return the audit-format-v1 contract payload — structured data only.
 
     Schema: humanise/scripts/contracts/audit-format-v1.json. The renderer composes
     user-facing prose by combining contract data with templates (vocabulary.yml
     in U9; hardcoded inline in U8).
+
+    `agent_judgement_items`: optional pre-validated overlay produced by
+    load_agent_judgement_overlay. When provided, it populates the
+    contract's agent_judgement[] slot; otherwise the slot is empty (the
+    pre-U7 default — preserved so the iteration harness, eval baselines,
+    and any non-CLI caller stay byte-stable).
     """
     programmatic = []
     for result in results:
@@ -2058,7 +2171,7 @@ def human_report(results):
     return {
         "schema_version": CONTRACT_SCHEMA_VERSION,
         "programmatic_checks": programmatic,
-        "agent_judgement": [],
+        "agent_judgement": list(agent_judgement_items) if agent_judgement_items else [],
         "aggregates": _aggregates(results),
         "metadata": {
             "schema_version": CONTRACT_SCHEMA_VERSION,
@@ -2095,7 +2208,7 @@ CATEGORY_ORDER = [
 SIGNAL_STACKING_META_CHECK = "overall-signal-stacking"
 
 
-def format_two_layer(results, depth="balanced", heading="Audit", mode="default"):
+def format_two_layer(results, depth="balanced", heading="Audit", mode="default", agent_judgement_items=None):
     """Render the audit contract as user-facing Markdown.
 
     The default audit shape (R5):
@@ -2125,7 +2238,7 @@ def format_two_layer(results, depth="balanced", heading="Audit", mode="default")
         raise ValueError(f"mode must be 'default' or 'full_report', got {mode!r}")
 
     depth_key = depth.lower() if isinstance(depth, str) else "balanced"
-    contract = human_report(results)
+    contract = human_report(results, agent_judgement_items=agent_judgement_items)
     aggregates = contract["aggregates"]
     signal_stacking = aggregates["signal_stacking"]
     programmatic = contract["programmatic_checks"]
@@ -3258,7 +3371,7 @@ def regrade(text, depth="balanced"):
 
 USAGE = (
     "Usage: grade.py [--format json|markdown] [--depth balanced|all] "
-    "[--full-report] <file> [assertion1,assertion2,...]"
+    "[--full-report] [--judgement-file <path>] <file> [assertion1,assertion2,...]"
 )
 
 
@@ -3267,6 +3380,7 @@ def main():
     output_format = "json"
     depth = "all"
     mode = "default"
+    judgement_file = None
 
     if "--format" in args:
         index = args.index("--format")
@@ -3290,9 +3404,26 @@ def main():
         mode = "full_report"
         args.remove("--full-report")
 
+    if "--judgement-file" in args:
+        index = args.index("--judgement-file")
+        try:
+            judgement_file = args[index + 1]
+        except IndexError:
+            print(USAGE)
+            sys.exit(1)
+        del args[index:index + 2]
+
     if output_format not in {"json", "markdown"} or depth not in DEPTHS or not args:
         print(USAGE)
         sys.exit(1)
+
+    agent_judgement_items = None
+    if judgement_file is not None:
+        try:
+            agent_judgement_items = load_agent_judgement_overlay(judgement_file)
+        except JudgementOverlayError as exc:
+            print(f"--judgement-file: {exc}", file=sys.stderr)
+            sys.exit(1)
 
     filepath = args[0]
     assertions = args[1].split(",") if len(args) > 1 else None
@@ -3302,7 +3433,10 @@ def main():
     summary = score_summary(results)
 
     if output_format == "markdown":
-        print(format_two_layer(results, depth=depth, mode=mode))
+        print(format_two_layer(
+            results, depth=depth, mode=mode,
+            agent_judgement_items=agent_judgement_items,
+        ))
         return
 
     output = {
@@ -3310,7 +3444,7 @@ def main():
         "pass_rate": summary["pass_rate"],
         "failures_by_severity": summary["failures_by_severity"],
         "score_summary": summary,
-        "human_report": human_report(results),
+        "human_report": human_report(results, agent_judgement_items=agent_judgement_items),
         "triggered_checks": triggered_checks(results),
         "failure_mode_results": failure_mode_results(results),
         "depth_results": depth_results(results),

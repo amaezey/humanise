@@ -79,10 +79,15 @@ def with_patched_judgement(judgement, fn):
     """Run fn() with humanise.grade.human_report monkey-patched to inject a
     judgement list into the contract. The grader's empty default would
     otherwise prevent format_two_layer from exercising the new code paths.
+
+    Accepts the U7 `agent_judgement_items` kwarg from format_two_layer and
+    discards it — the patch injects its own hard-coded judgement so the
+    overlay parameter is moot here.
     """
     original = _grade.human_report
 
-    def patched(results):
+    def patched(results, agent_judgement_items=None):
+        del agent_judgement_items  # patch ignores the overlay; uses its own injection.
         contract = original(results)
         contract["agent_judgement"] = judgement
         return contract

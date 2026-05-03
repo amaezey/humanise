@@ -44,14 +44,42 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 ### Audit steps
 
 1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
-2. **Run the agent-judgement reading.** Read `humanise/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its status (`flagged` or `clear`) and capture per-item evidence following the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case record `Watchlist coverage pending.` These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
-3. Render the audit deterministically: `python3 grade.py --format markdown --depth <balanced|all> "$INPUT_PATH"`. **Print the script's output verbatim.** Do not paraphrase, summarise, normalise quotes, lower-case anything, or re-render any block. The script's quoted phrases are guaranteed to substring-match the input; rephrasing them breaks the audit's contract with the grader.
-4. Insert your agent-judgement findings into the audit body, immediately above the `**Next step**` heading the script emits, using the inline shape documented under *Audit output* below. Each agent-flagged item carries the same `<glyph> **<name>**` opener as the auto-detected flagged items; clear agent items don't appear in the default audit body — they show up only when the writer asks for the full coverage report.
-5. End with the script's `**Next step**` heading and the R8 prompt verbatim. Stop without proceeding to a rewrite or coverage report unless asked.
+2. **Run the agent-judgement reading and write it to a JSON file.** Read `humanise/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its `status` (`flagged` or `clear`) and the `answer` shape required by the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case `watchlist_findings` stays empty. These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
 
-The default audit emits the summary block + flagged items + next-step. When the writer asks for the full coverage report (per the next-step prompt), re-run with `--full-report`: the script appends `**Auto-detected patterns**` and `**Agent-assessed patterns**` per-block sections (with brief notes and coverage tables) before the next-step prompt. Both modes share the same audit body — full-report mode only adds the per-block sections.
+   Write the eight items to a JSON file matching the contract's `agent_judgement` slot:
 
-If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
+   ```bash
+   JUDGEMENT_PATH=$(mktemp /tmp/humanise-judgement-XXXXXX.json)
+   ```
+
+   ```json
+   {
+     "agent_judgement": [
+       {"id": "tonal_uniformity", "status": "flagged", "answer": "register holds without breaks", "evidence": {}},
+       {"id": "faux_specificity", "status": "clear", "answer": [], "evidence": {}}
+     ]
+   }
+   ```
+
+   Per-item fields:
+   - `id` — the registry id from `judgement.json` (e.g. `tonal_uniformity`, `genre_specific`).
+   - `status` — `clear` or `flagged`, decided by the item's `flagged_when` rule.
+   - `answer` — the value matching the item's `answer_schema.type`: a single string for `state` / `trichotomy`, a list of `{phrase, why_*}` objects for `list`, an object with `genre_detected` + `watchlist_findings` for `composite`.
+   - `evidence` — an object; `{}` is fine when no extra evidence is captured.
+   - `severity` — optional. Omit it and `grade.py` defaults to the registry's curated value. Override only when the writer's draft genuinely shifts the severity for that item.
+
+3. Render the audit in a single deterministic call:
+
+   ```bash
+   python3 humanise/scripts/grade.py --format markdown --depth <balanced|all> --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"
+   ```
+
+   The script merges the agent-judgement file into the contract before rendering, so this one call produces the full audit — summary lines, both flagged-items blocks, and the next-step prompt. **Print the script's output verbatim.** Do not paraphrase, summarise, normalise quotes, lower-case anything, or re-render any block. The script's quoted phrases are guaranteed to substring-match the input; rephrasing them breaks the audit's contract with the grader.
+4. Stop without proceeding to a rewrite or coverage report unless asked.
+
+The default audit emits the summary block + flagged items + next-step. When the writer asks for the full coverage report (per the next-step prompt), re-run with `--full-report` (keep the `--judgement-file` flag): the script appends `**Auto-detected patterns**` and `**Agent-assessed patterns**` per-block sections (with brief notes and coverage tables) before the next-step prompt. Both modes share the same audit body — full-report mode only adds the per-block sections.
+
+If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
 
 ### Audit output
 

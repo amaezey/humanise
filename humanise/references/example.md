@@ -16,9 +16,30 @@ End-to-end demonstration on a single AI-generated essay: the audit it produces i
 >
 > In conclusion, the future looks bright. Exciting times lie ahead as we continue this journey toward excellence. Let me know if you'd like me to expand on any section!
 
+## Agent-judgement file
+
+The agent reads `humanise/scripts/judgement.json` for the eight-item registry, decides each item's status and answer against the draft, and writes a JSON file matching the contract's `agent_judgement` slot. Severity is omitted so `grade.py` defaults each item to its registry value. The file:
+
+```json
+{
+  "agent_judgement": [
+    {"id": "structural_monotony", "status": "flagged", "answer": "every section follows the same arc", "evidence": {}},
+    {"id": "tonal_uniformity", "status": "flagged", "answer": "register holds without breaks", "evidence": {}},
+    {"id": "faux_specificity", "status": "clear", "answer": [], "evidence": {}},
+    {"id": "neutrality_collapse", "status": "flagged", "answer": "hedges its position", "evidence": {}},
+    {"id": "even_jargon_distribution", "status": "clear", "answer": "jargon clumps where the writer knows things", "evidence": {}},
+    {"id": "forced_synesthesia", "status": "clear", "answer": [], "evidence": {}},
+    {"id": "generic_metaphors", "status": "clear", "answer": [], "evidence": {}},
+    {"id": "genre_specific", "status": "clear", "answer": {"genre_detected": "default", "watchlist_findings": []}, "evidence": {}}
+  ]
+}
+```
+
+`grade.py --judgement-file <path>` merges this file into the contract before rendering, so a single call produces the full audit shown below. The agent does not re-render the agent-assessed block by hand.
+
 ## Audit (default mode)
 
-`python3 humanise/scripts/grade.py --format markdown --depth balanced` produces the summary block + flagged items from both blocks + the next-step prompt. Severity glyphs: `x` hard_fail, `!` strong_warning, `?` context_warning. Auto-detected flagged items render first; agent-assessed flagged items follow. Clear items don't appear in the default body — they show up in the full-report-mode coverage tables.
+`python3 humanise/scripts/grade.py --format markdown --depth balanced --judgement-file <agent-judgement.json>` produces the summary block + flagged items from both blocks + the next-step prompt. Severity glyphs: `x` hard_fail, `!` strong_warning, `?` context_warning. Auto-detected flagged items render first; agent-assessed flagged items follow. Clear items don't appear in the default body — they show up in the full-report-mode coverage tables.
 
 ```
 Audit
@@ -52,7 +73,7 @@ A zero-flag draft renders the same shape — the summary block carries all-zero 
 
 ## Audit (full-report mode)
 
-When the writer asks for the full coverage report, re-run with `--full-report`. The script appends two per-block sections — `**Auto-detected patterns**` (with the eight category sub-tables in `humanise/references/patterns.md` heading order) and `**Agent-assessed patterns**` (a flat eight-row table in `humanise/scripts/judgement.json` registry order) — between the audit body and the next-step prompt. Each per-block section opens with a brief note explaining what's in the block. Coverage tables are 4-column: `Pattern | Severity | Result | Detail`. Detail carries the per-pattern guidance text on flagged auto-detected rows (empty when clear), and `(see above)` for flagged agent-assessed rows (pointing back at the inline bullet block) with the answer/value text on clear rows.
+When the writer asks for the full coverage report, re-run with `--full-report` (keep the `--judgement-file` flag). The script appends two per-block sections — `**Auto-detected patterns**` (with the eight category sub-tables in `humanise/references/patterns.md` heading order) and `**Agent-assessed patterns**` (a flat eight-row table in `humanise/scripts/judgement.json` registry order) — between the audit body and the next-step prompt. Each per-block section opens with a brief note explaining what's in the block. Coverage tables are 4-column: `Pattern | Severity | Result | Detail`. Detail carries the per-pattern guidance text on flagged auto-detected rows (empty when clear), and `(see above)` for flagged agent-assessed rows (pointing back at the inline bullet block) with the answer/value text on clear rows.
 
 ```
 [default audit body, exactly as above, including all flagged items]
