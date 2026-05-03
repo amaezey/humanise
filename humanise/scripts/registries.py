@@ -1,7 +1,7 @@
 """
 humanise.registries — Loaders for the pattern and judgement YAML registries.
 
-Schema for patterns.yaml (one record per check_id):
+Schema for patterns.json (one record per check_id):
 
     Required:
         category: str — one of the eight category headings in patterns.md
@@ -22,20 +22,13 @@ Schema for patterns.yaml (one record per check_id):
 Loader fails fast on schema violations with field name and offending check_id.
 """
 
+import json
 from pathlib import Path
 
-try:
-    import yaml
-except ModuleNotFoundError as exc:
-    raise ModuleNotFoundError(
-        "humanise's registry-backed grader requires PyYAML. "
-        "Install it with `python3 -m pip install PyYAML`, then rerun the grader."
-    ) from exc
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-PATTERNS_PATH = REPO_ROOT / "humanise" / "patterns.yaml"
-JUDGEMENT_PATH = REPO_ROOT / "humanise" / "judgement.yaml"
-VOCABULARY_PATH = REPO_ROOT / "humanise" / "vocabulary.yml"
+SCRIPT_DIR = Path(__file__).resolve().parent
+PATTERNS_PATH = SCRIPT_DIR / "patterns.json"
+JUDGEMENT_PATH = SCRIPT_DIR / "judgement.json"
+VOCABULARY_PATH = SCRIPT_DIR / "vocabulary.json"
 
 REQUIRED_PATTERN_FIELDS = {
     "category",
@@ -73,29 +66,29 @@ _VOCABULARY_CACHE = None
 def _validate_pattern(check_id, record):
     if not isinstance(record, dict):
         raise ValueError(
-            f"patterns.yaml[{check_id!r}]: record must be a dict, got {type(record).__name__}"
+            f"patterns.json[{check_id!r}]: record must be a dict, got {type(record).__name__}"
         )
     missing = REQUIRED_PATTERN_FIELDS - set(record)
     if missing:
         raise ValueError(
-            f"patterns.yaml[{check_id!r}]: missing required field(s) {sorted(missing)}"
+            f"patterns.json[{check_id!r}]: missing required field(s) {sorted(missing)}"
         )
     if record["severity"] not in VALID_SEVERITIES:
         raise ValueError(
-            f"patterns.yaml[{check_id!r}].severity: {record['severity']!r} not in {sorted(VALID_SEVERITIES)}"
+            f"patterns.json[{check_id!r}].severity: {record['severity']!r} not in {sorted(VALID_SEVERITIES)}"
         )
     if record["category"] not in VALID_CATEGORIES:
         raise ValueError(
-            f"patterns.yaml[{check_id!r}].category: {record['category']!r} not in {sorted(VALID_CATEGORIES)}"
+            f"patterns.json[{check_id!r}].category: {record['category']!r} not in {sorted(VALID_CATEGORIES)}"
         )
     if not isinstance(record["failure_modes"], list) or not record["failure_modes"]:
         raise ValueError(
-            f"patterns.yaml[{check_id!r}].failure_modes: must be non-empty list"
+            f"patterns.json[{check_id!r}].failure_modes: must be non-empty list"
         )
 
 
 def load_patterns():
-    """Load and validate patterns.yaml, returning only per-check records.
+    """Load and validate patterns.json, returning only per-check records.
 
     Underscore-prefixed top-level keys (`_meta`, `_extra_entries`) carry
     page-level patterns.md content used by the U15 generator and are filtered
@@ -103,10 +96,10 @@ def load_patterns():
     """
     global _PATTERNS_CACHE
     if _PATTERNS_CACHE is None:
-        data = yaml.safe_load(PATTERNS_PATH.read_text())
+        data = json.loads(PATTERNS_PATH.read_text())
         if not isinstance(data, dict):
             raise ValueError(
-                "patterns.yaml: top-level must be a mapping of check_id → record"
+                "patterns.json: top-level must be a mapping of check_id → record"
             )
         per_check = {k: v for k, v in data.items() if not k.startswith("_")}
         for check_id, record in per_check.items():
@@ -116,10 +109,10 @@ def load_patterns():
 
 
 def load_judgement():
-    """Load and validate judgement.yaml. Cached after first call."""
+    """Load and validate judgement.json. Cached after first call."""
     global _JUDGEMENT_CACHE
     if _JUDGEMENT_CACHE is None:
-        data = yaml.safe_load(JUDGEMENT_PATH.read_text())
+        data = json.loads(JUDGEMENT_PATH.read_text())
         _validate_judgement(data)
         _JUDGEMENT_CACHE = data
     return _JUDGEMENT_CACHE
@@ -128,39 +121,39 @@ def load_judgement():
 def _validate_judgement(data):
     if not isinstance(data, dict):
         raise ValueError(
-            f"judgement.yaml: top-level must be a mapping, got {type(data).__name__}"
+            f"judgement.json: top-level must be a mapping, got {type(data).__name__}"
         )
     if data.get("schema_version") != "1":
         raise ValueError(
-            f"judgement.yaml.schema_version: expected '1', got {data.get('schema_version')!r}"
+            f"judgement.json.schema_version: expected '1', got {data.get('schema_version')!r}"
         )
     records = data.get("records")
     if not isinstance(records, list) or not records:
-        raise ValueError("judgement.yaml.records: must be a non-empty list")
+        raise ValueError("judgement.json.records: must be a non-empty list")
     seen = set()
     for index, record in enumerate(records):
         if not isinstance(record, dict):
             raise ValueError(
-                f"judgement.yaml.records[{index}]: record must be a dict, got {type(record).__name__}"
+                f"judgement.json.records[{index}]: record must be a dict, got {type(record).__name__}"
             )
         item_id = record.get("id", f"<record {index}>")
         missing = REQUIRED_JUDGEMENT_FIELDS - set(record)
         if missing:
             raise ValueError(
-                f"judgement.yaml[{item_id!r}]: missing required field(s) {sorted(missing)}"
+                f"judgement.json[{item_id!r}]: missing required field(s) {sorted(missing)}"
             )
         if item_id in seen:
-            raise ValueError(f"judgement.yaml[{item_id!r}]: duplicate id")
+            raise ValueError(f"judgement.json[{item_id!r}]: duplicate id")
         seen.add(item_id)
         answer_schema = record["answer_schema"]
         if not isinstance(answer_schema, dict):
             raise ValueError(
-                f"judgement.yaml[{item_id!r}].answer_schema: must be a dict"
+                f"judgement.json[{item_id!r}].answer_schema: must be a dict"
             )
         schema_type = answer_schema.get("type")
         if schema_type not in VALID_JUDGEMENT_SCHEMA_TYPES:
             raise ValueError(
-                f"judgement.yaml[{item_id!r}].answer_schema.type: "
+                f"judgement.json[{item_id!r}].answer_schema.type: "
                 f"{schema_type!r} not in {sorted(VALID_JUDGEMENT_SCHEMA_TYPES)}"
             )
 
@@ -234,23 +227,23 @@ def why_it_matters_for(check_id):
 
 
 # ---------------------------------------------------------------------------
-# vocabulary.yml — user-facing strings + prose templates.
+# vocabulary.json — user-facing strings + prose templates.
 # ---------------------------------------------------------------------------
 
 
 def load_vocabulary():
-    """Load and validate vocabulary.yml. Cached after first call."""
+    """Load and validate vocabulary.json. Cached after first call."""
     global _VOCABULARY_CACHE
     if _VOCABULARY_CACHE is None:
-        data = yaml.safe_load(VOCABULARY_PATH.read_text())
+        data = json.loads(VOCABULARY_PATH.read_text())
         if not isinstance(data, dict):
             raise ValueError(
-                "vocabulary.yml: top-level must be a mapping, got "
+                "vocabulary.json: top-level must be a mapping, got "
                 f"{type(data).__name__}"
             )
         if data.get("schema_version") != "1":
             raise ValueError(
-                f"vocabulary.yml.schema_version: expected '1', got "
+                f"vocabulary.json.schema_version: expected '1', got "
                 f"{data.get('schema_version')!r}"
             )
         _VOCABULARY_CACHE = data
@@ -271,7 +264,7 @@ def _resolve_vocab_path(key):
             covered = ".".join(parts[:index]) or "<root>"
             available = sorted(node.keys()) if isinstance(node, dict) else []
             raise KeyError(
-                f"vocabulary.yml[{key!r}]: missing at {covered}; "
+                f"vocabulary.json[{key!r}]: missing at {covered}; "
                 f"available keys at that level: {available}"
             )
         node = node[part]
@@ -288,7 +281,7 @@ def string_for(key, **placeholders):
     template = _resolve_vocab_path(key)
     if not isinstance(template, str):
         raise TypeError(
-            f"vocabulary.yml[{key!r}]: expected string template, got "
+            f"vocabulary.json[{key!r}]: expected string template, got "
             f"{type(template).__name__}"
         )
     try:
@@ -296,7 +289,7 @@ def string_for(key, **placeholders):
     except KeyError as exc:
         missing = exc.args[0] if exc.args else "<unknown>"
         raise KeyError(
-            f"vocabulary.yml[{key!r}]: template references {{{missing}}} "
+            f"vocabulary.json[{key!r}]: template references {{{missing}}} "
             f"but no value was supplied. Provided: {sorted(placeholders)}"
         ) from None
 

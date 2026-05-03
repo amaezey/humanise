@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "humanise/contracts/audit-format-v1.json",
+  "$id": "humanise/scripts/contracts/audit-format-v1.json",
   "title": "Humanise audit report contract (v1)",
   "description": "The shape of human_report() output. Structured data only — no pre-formatted prose. The renderer composes prose by filling vocabulary.yml templates with structured contract fields.",
   "type": "object",
