@@ -181,10 +181,10 @@ expect_pass("no-nonliteral-land-surface",
     "literal paper landed on desk")
 
 
-# --- overall-ai-signal-pressure ---
+# --- overall-signal-stacking ---
 
-print("\n=== overall-ai-signal-pressure ===")
-expect_pass("overall-ai-signal-pressure",
+print("\n=== overall-signal-stacking ===")
+expect_pass("overall-signal-stacking",
     (
         "This clinical covid antiviral study additionally aims to address "
         "challenges and enhance outcomes. The analysis underscores advancements, "
@@ -192,20 +192,20 @@ expect_pass("overall-ai-signal-pressure",
         "patients receiving therapeutic intervention."
     ),
     "Kobak-heavy academic vocabulary alone is supporting evidence, not a failure")
-expect_pass("overall-ai-signal-pressure",
+expect_pass("overall-signal-stacking",
     (
         "The clinic tested an antiviral drug in patients with covid. Fever fell "
         "after two days, and three patients left the ward by Friday."
     ),
-    "biomedical content without style pressure")
-expect_pass("overall-ai-signal-pressure",
+    "biomedical content without style signal stacking")
+expect_pass("overall-signal-stacking",
     (
         "The essay additionally aims to address challenges and enhance outcomes. "
         "The analysis underscores advancements and offers a comprehensive approach "
         "for readers."
     ),
     "style words without other AI-ish structure")
-expect_fail("overall-ai-signal-pressure",
+expect_fail("overall-signal-stacking",
     (
         "## Overview\n\n"
         "At its core, this clinical covid antiviral study is not just about "
@@ -217,7 +217,7 @@ expect_fail("overall-ai-signal-pressure",
         "At its core, the work is less about data than about transformation. "
         "That is why the findings continue to inspire a deeper understanding."
     ),
-    "Kobak pressure plus vocabulary, headings, formulaic openers, tidy endings, and reframes")
+    "Kobak signals plus vocabulary, headings, formulaic openers, tidy endings, and reframes")
 
 
 # --- no-manufactured-insight ---
@@ -1078,7 +1078,7 @@ _GROUP_B_CHECKS = [
     "no-bland-critical-template",
     "no-soft-scaffolding",
     "no-negation-density",
-    "overall-ai-signal-pressure",
+    "overall-signal-stacking",
 ]
 for _check in _GROUP_B_CHECKS:
     if f"`{_check}`" not in _patterns_md:
@@ -1152,7 +1152,7 @@ expected_checks = {
     "no-em-dashes",
     "no-ai-vocabulary-clustering",
     "no-nonliteral-land-surface",
-    "overall-ai-signal-pressure",
+    "overall-signal-stacking",
     "no-manufactured-insight",
     "no-staccato-sequences",
     "no-anaphora",
@@ -1250,13 +1250,13 @@ _triggered_report = triggered_checks([
 ])
 _score_report = score_summary([
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
+        "evidence": "Overall signal stacking 5/4",
         "score": 5,
         "threshold": 4,
         "components": ["paragraph length uniformity", "headings in prose"],
-        "vocabulary_pressure": {
+        "vocabulary_signal_stacking": {
             "points": 1,
             "reasons": ["generic cluster"],
             "worst_generic": 2,
@@ -1271,13 +1271,13 @@ _score_report = score_summary([
 ])
 _human_report = human_report([
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
+        "evidence": "Overall signal stacking 5/4",
         "score": 5,
         "threshold": 4,
         "components": ["paragraph length uniformity", "headings in prose"],
-        "vocabulary_pressure": {
+        "vocabulary_signal_stacking": {
             "points": 1,
             "reasons": ["generic cluster"],
             "worst_generic": 2,
@@ -1310,15 +1310,15 @@ if _score_report["check_status"] != "fail" or _score_report["pass_rate"] != "1/3
 else:
     print("  ok: score summary exposes check totals")
 
-_ai_pressure = _score_report["ai_signal_pressure"]
-if not _ai_pressure or _ai_pressure["score"] != 5 or _ai_pressure["threshold"] != 4 or not _ai_pressure["triggered"]:
+_signal_stacking = _score_report["signal_stacking"]
+if not _signal_stacking or _signal_stacking["score"] != 5 or _signal_stacking["threshold"] != 4 or not _signal_stacking["triggered"]:
     FAILURES += 1
-    print(f"FAIL: score_summary should expose AI-signal pressure; got {_ai_pressure}")
+    print(f"FAIL: score_summary should expose signal stacking; got {_signal_stacking}")
 else:
-    print("  ok: score summary exposes AI-signal pressure")
+    print("  ok: score summary exposes signal stacking")
 
 # U8: human_report now returns the audit-format-v1 contract (structured-only).
-# The OLD assertions on overview/all_checks/ai_pressure_explanation/confidence
+# The OLD assertions on overview/all_checks/signal_stacking_explanation/confidence
 # moved to the contract's aggregates + programmatic_checks shape.
 
 _failed_count = sum(1 for c in _human_report["programmatic_checks"] if c["status"] == "flagged")
@@ -1329,22 +1329,22 @@ if _failed_count != 2 or _total != 3:
 else:
     print("  ok: contract programmatic_checks reports failed/total counts")
 
-_pressure_check = next(
-    (c for c in _human_report["programmatic_checks"] if c["id"] == "overall-ai-signal-pressure"),
+_signal_stacking_check = next(
+    (c for c in _human_report["programmatic_checks"] if c["id"] == "overall-signal-stacking"),
     None,
 )
-if not _pressure_check or _pressure_check["status"] != "flagged":
+if not _signal_stacking_check or _signal_stacking_check["status"] != "flagged":
     FAILURES += 1
-    print(f"FAIL: contract should include flagged aggregate-pressure check; got {_pressure_check}")
+    print(f"FAIL: contract should include flagged signal-stacking check; got {_signal_stacking_check}")
 else:
-    print("  ok: aggregate pressure is reported as one programmatic check")
+    print("  ok: signal stacking is reported as one programmatic check")
 
-_pressure_aggr = _human_report["aggregates"]["ai_pressure"]
-if "paragraph length uniformity" not in _pressure_aggr["components"]:
+_signal_stacking_aggr = _human_report["aggregates"]["signal_stacking"]
+if "paragraph length uniformity" not in _signal_stacking_aggr["components"]:
     FAILURES += 1
-    print(f"FAIL: aggregates.ai_pressure should list components; got {_pressure_aggr['components']}")
+    print(f"FAIL: aggregates.signal_stacking should list components; got {_signal_stacking_aggr['components']}")
 else:
-    print("  ok: aggregates.ai_pressure lists components")
+    print("  ok: aggregates.signal_stacking lists components")
 
 if "confidence" in _human_report:
     FAILURES += 1
@@ -1352,17 +1352,17 @@ if "confidence" in _human_report:
 else:
     print("  ok: contract has no confidence block (R14 removal)")
 
-# Vocab-only AI-pressure branch: aggregates.ai_pressure.vocabulary_points carries
-# the signal that the OLD ai_pressure_explanation prose used to mention.
+# Vocab-only signal-stacking branch: aggregates.signal_stacking.vocabulary_points carries
+# the signal that the OLD signal_stacking_explanation prose used to mention.
 _human_report_vocab_only = human_report([
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 4/4",
+        "evidence": "Overall signal stacking 4/4",
         "score": 4,
         "threshold": 4,
         "components": [],
-        "vocabulary_pressure": {
+        "vocabulary_signal_stacking": {
             "points": 4,
             "reasons": ["generic cluster x4"],
             "worst_generic": 4,
@@ -1373,20 +1373,20 @@ _human_report_vocab_only = human_report([
         },
     }),
 ])
-_vocab_pressure = _human_report_vocab_only["aggregates"]["ai_pressure"]
-if _vocab_pressure["vocabulary_points"] != 4 or _vocab_pressure["components"]:
+_vocab_signal_stacking = _human_report_vocab_only["aggregates"]["signal_stacking"]
+if _vocab_signal_stacking["vocabulary_points"] != 4 or _vocab_signal_stacking["components"]:
     FAILURES += 1
-    print(f"FAIL: vocab-only branch should expose vocabulary_points without components; got {_vocab_pressure}")
+    print(f"FAIL: vocab-only branch should expose vocabulary_points without components; got {_vocab_signal_stacking}")
 else:
-    print("  ok: contract aggregates handle vocab-only AI pressure")
+    print("  ok: contract aggregates handle vocab-only signal stacking")
 
 _friendly_vocab_only = friendly_evidence({
-    "text": "overall-ai-signal-pressure",
+    "text": "overall-signal-stacking",
     "passed": False,
     "score": 4,
     "threshold": 4,
     "components": [],
-    "vocabulary_pressure": {
+    "vocabulary_signal_stacking": {
         "points": 4,
         "reasons": ["generic cluster x4"],
         "worst_generic": 4,
@@ -1400,7 +1400,7 @@ if "no stacked weak signals" in _friendly_vocab_only or "Clustered AI vocabulary
     FAILURES += 1
     print(f"FAIL: friendly_evidence vocab-only branch should not contradict itself; got {_friendly_vocab_only}")
 else:
-    print("  ok: friendly_evidence handles vocab-only AI pressure cleanly")
+    print("  ok: friendly_evidence handles vocab-only signal stacking cleanly")
 
 _total_checks = len(ALL_CHECKS)
 _full_table_report = human_report([
@@ -1413,20 +1413,26 @@ if len(_full_table_report["programmatic_checks"]) != _total_checks:
 else:
     print(f"  ok: full contract includes all {_total_checks} programmatic checks")
 
-# U11: format_two_layer is the renderer. Deep coverage lives in
+# format_two_layer is the renderer. Deep coverage lives in
 # dev/evals/test_two_layer_render.py; this is a smoke test only.
 _two_layer_smoke = format_two_layer([
     annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
 ], depth="balanced")
-if not isinstance(_two_layer_smoke, str) or "---" not in _two_layer_smoke:
+if not isinstance(_two_layer_smoke, str) or "**Audit summary**\n" not in _two_layer_smoke:
     FAILURES += 1
-    print(f"FAIL: format_two_layer should return a string with a Layer 1/Layer 2 separator; got:\n{_two_layer_smoke[:400]}")
-elif "internal pressure score" in _two_layer_smoke:
+    print(f"FAIL: format_two_layer should return a string opening with the **Audit summary** heading; got:\n{_two_layer_smoke[:400]}")
+elif "**Next steps**" not in _two_layer_smoke:
     FAILURES += 1
-    print("FAIL: format_two_layer should not expose implementation-first pressure language")
+    print(f"FAIL: format_two_layer default-mode output should end with **Next steps** + prompt; got:\n{_two_layer_smoke[:400]}")
+elif "pressure" in _two_layer_smoke.lower():
+    FAILURES += 1
+    print("FAIL: format_two_layer should not contain 'pressure' (renamed to 'signal stacking')")
+elif "—" in _two_layer_smoke.split("**Next steps**", 1)[0]:
+    FAILURES += 1
+    print("FAIL: audit format must be em-dash-free (em dashes are flagged as AI tells)")
 else:
-    print("  ok: format_two_layer smoke test renders both layers")
+    print("  ok: format_two_layer smoke test renders the new audit shape (Audit summary + mini-headers + Next steps, em-dash-free)")
 
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1
@@ -1509,76 +1515,39 @@ expect_depth_status(_hard_only, "all", "fail", "hard failure")
 print("\n=== audit-shape U5 (dual-block assertions) ===")
 check_audit_shape = _grade.check_audit_shape
 
-_BOTH_BLOCKS = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+# U6 default-mode shape: agent-flagged item rendered inline in the audit body,
+# no parallel **Agent-judgement reading** section, R8 next-step prompt.
+_BOTH_BLOCKS = """**Audit summary**
+Auto-detected: 1 of 48 flagged · Agent-assessed: 1 of 8 flagged
+Severity: 0 hard fail · 2 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
 
-! **Em dashes** — "still—keen" — Action: Fix
+**Auto-detected**
 
----
+! Em dashes: "still—keen"
 
-**Style** — 1 flagged of 6
+**Agent-assessed**
 
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
+! Structural monotony: every section follows the same arc
 
----
+**Next steps**
 
-**Agent-judgement reading — 1 flagged of 8**
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
-- Structural monotony — Flagged: every section follows the same arc
-- Tonal uniformity — Clear: register breaks at least once
-- Faux specificity — Clear
-- Neutrality collapse — Clear: takes a position
-- Even jargon distribution — Clear: jargon clumps where the writer knows things
-- Forced synesthesia — Clear
-- Generic metaphors — Clear
-- Genre specific — Clear: Genre detected: default
+_PROGRAMMATIC_ONLY = """**Audit summary**
+Auto-detected: 1 of 48 flagged · Agent-assessed: 0 of 0 flagged
+Severity: 0 hard fail · 1 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
 
-**Next step**
+**Auto-detected**
 
-Want suggestions, a rewrite, or to save?"""
+! Em dashes: "still—keen"
 
-_PROGRAMMATIC_ONLY = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+**Agent-assessed**
 
-! **Em dashes** — "still—keen" — Action: Fix
-
----
-
-**Style** — 1 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
-
-**Next step**
+**Next steps**
 
 Want suggestions?"""
-
-_AGENT_JUDGEMENT_ONLY = """**Agent-judgement reading — 1 flagged of 8**
-
-- Structural monotony — Flagged: every section follows the same arc
-- Tonal uniformity — Clear: register breaks at least once
-- Faux specificity — Clear
-- Neutrality collapse — Clear: takes a position
-- Even jargon distribution — Clear: jargon clumps where the writer knows things
-- Forced synesthesia — Clear
-- Generic metaphors — Clear
-- Genre specific — Clear: Genre detected: default
-
-**Next step**
-
-Want suggestions?"""
-
-# Variable name retained for diff stability; the value is now the Phase-3
-# canonical all-clear single-line response.
-_ALL_CLEAR_PHASE_1 = """48 of 48 clear · agent reading clean · pressure: clear.
-Want me to re-run with --depth all to inspect lower-tier signals?"""
 
 _NEITHER_BLOCK_NOR_CLEAR = """**Some other report**
 
@@ -1586,108 +1555,27 @@ Nothing recognisable here.
 
 Want help?"""
 
-# Regression fixture for Finding #2 of pr-6-code-review-handoff:
-# the canonical all-clear phrase buried mid-line in a longer malformed
-# response must NOT pass the audit-shape checks. The anchored regex only
-# matches phrases that start a line.
-_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "48 of 48 clear · agent reading clean · pressure: clear" but the model returned a hallucinated paragraph instead.
-
-We tried to render no-em-dashes but the structured block did not materialise.
-
-Want help?"""
-
-# Regression fixture for Finding #2: a response containing BOTH the
-# canonical all-clear phrase AND block headers is ambiguous — agents must
-# pick one shape, not both. All three audit-shape checks must fail.
-_ALL_CLEAR_PLUS_BLOCKS = """48 of 48 clear · agent reading clean · pressure: clear.
-Want me to re-run with --depth all?
-
-Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-
-! **Em dashes** — "still—keen" — Action: Fix
-
-**Agent-judgement reading — 1 flagged of 8**
-
-- Structural monotony — Flagged: every section follows the same arc"""
-
 # Regression fixture for Finding #1 from PR #14 review (LAYER_1_BLOCK_RE
 # previously required a middle clause and silently dropped no-quote
 # structural-pattern blocks). The fixture mixes one quoted block with two
-# no-quote structural blocks; _flag_blocks must return all three.
-_LAYER_1_NO_QUOTE_BLOCKS = """Audit
-Severity: 1 hard_fail · 2 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+# no-quote structural blocks (now in U6 shape — no Action clause); the
+# combined audit-body counter must enumerate all three.
+_LAYER_1_NO_QUOTE_BLOCKS = """**Audit summary**
+Auto-detected: 3 of 48 flagged · Agent-assessed: 0 of 0 flagged
+Severity: 1 hard fail · 2 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
 
-x **Em dashes** — "still—keen" — Action: Fix
-! **Paragraph length uniformity** — Action: Disclose or ask before preserving
-! **Section scaffolding** — Action: Fix
+**Auto-detected**
 
----
+x Em dashes: "still—keen"
+! Paragraph length uniformity
+! Section scaffolding
 
-**Style** — 1 flagged of 6
+**Agent-assessed**
 
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
+**Next steps**
 
-**Next step**
-
-Want suggestions?"""
-
-# Realistic shape from PR #14 review Finding #4: programmatic flagged + agent
-# fully clear renders the programmatic block PLUS a clean-form agent block
-# (humanise/SKILL.md line 102). This is the renderer's actual emission shape
-# for that case. _PROGRAMMATIC_ONLY above is kept as a malformed-output
-# regression — agents that emit a programmatic block alone without the
-# clean-form agent block are still caught by has-agent-judgement-block.
-_PROGRAMMATIC_WITH_CLEAN_AGENT = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
-
-! **Em dashes** — "still—keen" — Action: Fix
-
----
-
-**Style** — 1 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
-
----
-
-**Agent-judgement reading**
-
-agent reading clean
-
-**Next step**
-
-Want suggestions?"""
-
-# Regression fixture for PR #14 review Finding #9: a Layer 1 candidate line
-# opens with `<glyph> **<name>**` but is missing the trailing `Action:` verb.
-# The broader candidate-collection regex inside check_every_flag_block_has_explanation
-# catches the line; the predicate catches the missing verb.
-_FLAG_BLOCK_MISSING_ACTION = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
-
-! **Em dashes** — "still—keen"
-
----
-
-**Style** — 1 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-
-**Next step**
-
-Want suggestions?"""
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
 # Suggestion-parity fixtures for PR #14 review Finding #8: the rewritten
 # check now sums programmatic + agent-judgement flagged counts. Both fixtures
@@ -1716,12 +1604,15 @@ _PARITY_MISMATCH = _BOTH_BLOCKS + """
   Why: Em-dash-set-off subordinate clauses are a high-signal AI tell.
   Try: keen and still"""
 
-# has-programmatic-block
+# has-programmatic-block: U6 simplified the check to a single positive
+# (Audit header present). The retired `has-agent-judgement-block` and
+# `all-clear-line-format` checks are gone — the parallel agent-judgement
+# block was retired by U6, and R9 retired the all-clear collapse.
 _r = check_audit_shape("audit-shape-has-programmatic-block", _BOTH_BLOCKS)
 if _r["passed"]:
-    print("  ok: has-programmatic-block passes on dual-block output")
+    print("  ok: has-programmatic-block passes on the U6 default-mode shape")
 else:
-    FAILURES += 1; print(f"FAIL: has-programmatic-block on dual-block: {_r['evidence']}")
+    FAILURES += 1; print(f"FAIL: has-programmatic-block on U6 default shape: {_r['evidence']}")
 
 _r = check_audit_shape("audit-shape-has-programmatic-block", _PROGRAMMATIC_ONLY)
 if _r["passed"]:
@@ -1729,99 +1620,21 @@ if _r["passed"]:
 else:
     FAILURES += 1; print(f"FAIL: has-programmatic-block on programmatic-only: {_r['evidence']}")
 
-_r = check_audit_shape("audit-shape-has-programmatic-block", _AGENT_JUDGEMENT_ONLY)
-if _r["passed"]:
-    print("  ok: has-programmatic-block passes on agent-judgement-only output (programmatic-clean / agent-flagged shape per SKILL.md)")
-else:
-    FAILURES += 1; print(f"FAIL: has-programmatic-block on agent-judgement-only: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-programmatic-block", _ALL_CLEAR_PHASE_1)
-if _r["passed"]:
-    print("  ok: has-programmatic-block passes on all-clear single-line shape")
-else:
-    FAILURES += 1; print(f"FAIL: has-programmatic-block on all-clear: {_r['evidence']}")
-
 _r = check_audit_shape("audit-shape-has-programmatic-block", _NEITHER_BLOCK_NOR_CLEAR)
 if not _r["passed"]:
-    print("  ok: has-programmatic-block fails when no block and no all-clear line")
+    print("  ok: has-programmatic-block fails when no Audit header present")
 else:
-    FAILURES += 1; print("FAIL: has-programmatic-block should fail when no block and no all-clear line")
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail when no Audit header present")
 
-# has-agent-judgement-block
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _BOTH_BLOCKS)
-if _r["passed"]:
-    print("  ok: has-agent-judgement-block passes on dual-block output")
-else:
-    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on dual-block: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _PROGRAMMATIC_ONLY)
+# Legacy all-clear collapse must now fail has-programmatic-block (R9 retired
+# the collapse — a real audit always carries the Audit header even on
+# zero-flag drafts).
+_LEGACY_ALL_CLEAR = "48 of 48 clear · agent reading clean · signal stacking: clear.\nWant suggestions?"
+_r = check_audit_shape("audit-shape-has-programmatic-block", _LEGACY_ALL_CLEAR)
 if not _r["passed"]:
-    print("  ok: has-agent-judgement-block fails on programmatic-only output")
+    print("  ok: has-programmatic-block fails on legacy all-clear single-line shape (R9 retired)")
 else:
-    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail on programmatic-only output")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _AGENT_JUDGEMENT_ONLY)
-if _r["passed"]:
-    print("  ok: has-agent-judgement-block passes on agent-judgement-only output")
-else:
-    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on agent-judgement-only: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _ALL_CLEAR_PHASE_1)
-if _r["passed"]:
-    print("  ok: has-agent-judgement-block passes on all-clear single-line shape")
-else:
-    FAILURES += 1; print(f"FAIL: has-agent-judgement-block on all-clear: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _NEITHER_BLOCK_NOR_CLEAR)
-if not _r["passed"]:
-    print("  ok: has-agent-judgement-block fails when no block and no all-clear line")
-else:
-    FAILURES += 1; print("FAIL: has-agent-judgement-block should fail when no block and no all-clear line")
-
-# all-clear-line-format
-_r = check_audit_shape("audit-shape-all-clear-line-format", _BOTH_BLOCKS)
-if _r["passed"]:
-    print("  ok: all-clear-line-format vacuously passes on dual-block output")
-else:
-    FAILURES += 1; print(f"FAIL: all-clear-line-format on dual-block: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-all-clear-line-format", _ALL_CLEAR_PHASE_1)
-if _r["passed"]:
-    print("  ok: all-clear-line-format passes on canonical Phase-1 all-clear shape")
-else:
-    FAILURES += 1; print(f"FAIL: all-clear-line-format on canonical all-clear: {_r['evidence']}")
-
-_r = check_audit_shape("audit-shape-all-clear-line-format", _NEITHER_BLOCK_NOR_CLEAR)
-if not _r["passed"]:
-    print("  ok: all-clear-line-format fails when neither blocks nor canonical line")
-else:
-    FAILURES += 1; print("FAIL: all-clear-line-format should fail when neither blocks nor canonical line")
-
-# Finding #2 regressions: buried phrase and all-clear-plus-blocks must fail
-# all three audit-shape checks. The anchored regex catches the buried case;
-# the mutex logic catches the both-shapes-present case.
-
-print("\n--- Finding #2 regressions: buried all-clear and all-clear+blocks ---")
-
-for _check_name in ("audit-shape-has-programmatic-block",
-                    "audit-shape-has-agent-judgement-block",
-                    "audit-shape-all-clear-line-format"):
-    _r = check_audit_shape(_check_name, _BURIED_ALL_CLEAR)
-    if not _r["passed"]:
-        print(f"  ok: {_check_name} fails when all-clear phrase is buried mid-line")
-    else:
-        FAILURES += 1
-        print(f"FAIL: {_check_name} should fail when all-clear phrase is buried mid-line (got: {_r['evidence']})")
-
-for _check_name in ("audit-shape-has-programmatic-block",
-                    "audit-shape-has-agent-judgement-block",
-                    "audit-shape-all-clear-line-format"):
-    _r = check_audit_shape(_check_name, _ALL_CLEAR_PLUS_BLOCKS)
-    if not _r["passed"]:
-        print(f"  ok: {_check_name} fails when all-clear phrase appears alongside block headers")
-    else:
-        FAILURES += 1
-        print(f"FAIL: {_check_name} should fail when all-clear phrase appears alongside block headers (got: {_r['evidence']})")
+    FAILURES += 1; print("FAIL: has-programmatic-block should fail on legacy all-clear shape")
 
 
 # --- PR #14 review regressions: no-quote Layer 1, clean-form agent block,
@@ -1844,36 +1657,22 @@ else:
 # absent so the count is 0 — the assertion checks that _flag_blocks
 # correctly enumerates 3, exposing any silent drop.
 _r = check_audit_shape("suggestion-block-count-equals-flag-count", _LAYER_1_NO_QUOTE_BLOCKS)
-if not _r["passed"] and "3 flag(s)" in _r["evidence"]:
-    print(f"  ok: Finding #1 — suggestion-block-count counts 3 no-quote-aware programmatic flags")
+if not _r["passed"] and "3 audit-body flag(s)" in _r["evidence"]:
+    print(f"  ok: Finding #1 — suggestion-block-count counts 3 no-quote-aware audit-body flags")
 else:
     FAILURES += 1
     print(f"FAIL: Finding #1 — suggestion-block-count should count 3 flags from no-quote fixture (got: {_r['evidence']})")
 
-# Finding #4: realistic shape (programmatic flagged + clean-form agent block).
-# Both has-programmatic-block and has-agent-judgement-block must pass.
-_r = check_audit_shape("audit-shape-has-programmatic-block", _PROGRAMMATIC_WITH_CLEAN_AGENT)
-if _r["passed"]:
-    print(f"  ok: Finding #4 — has-programmatic-block passes on programmatic + clean-form-agent shape")
-else:
-    FAILURES += 1
-    print(f"FAIL: Finding #4 — has-programmatic-block on programmatic + clean-form-agent: {_r['evidence']}")
+# Finding #4 (PR #14): programmatic + clean-form-agent shape. Retired by U6 —
+# the parallel **Agent-judgement reading** block doesn't exist any more, so
+# the dual-block fixture is gone too. The U6 _BOTH_BLOCKS fixture above
+# (audit-body with inline agent-flagged item) covers the modern shape.
 
-_r = check_audit_shape("audit-shape-has-agent-judgement-block", _PROGRAMMATIC_WITH_CLEAN_AGENT)
-if _r["passed"]:
-    print(f"  ok: Finding #4 — has-agent-judgement-block passes on programmatic + clean-form-agent shape")
-else:
-    FAILURES += 1
-    print(f"FAIL: Finding #4 — has-agent-judgement-block on programmatic + clean-form-agent: {_r['evidence']}")
-
-# Finding #9 (paired with Finding #5 in PR #14 review): every-flag-block-has-
-# explanation must catch a Layer 1 candidate line missing the trailing Action: verb.
-_r = check_audit_shape("every-flag-block-has-explanation", _FLAG_BLOCK_MISSING_ACTION)
-if not _r["passed"] and "missing 'Action:'" in _r["evidence"]:
-    print(f"  ok: Finding #9 — every-flag-block-has-explanation catches missing Action: on Layer 1 candidate")
-else:
-    FAILURES += 1
-    print(f"FAIL: Finding #9 — every-flag-block-has-explanation should fail when Action: missing (got: {_r['evidence']})")
+# Finding #9 (PR #14): the every-flag-block-has-explanation check enforced
+# the Phase-3 trailing `Action: <verb>` clause on every Layer 1 candidate.
+# U5 (R6) retired the Action clause — the check (and this fixture) were
+# removed in lockstep. R6/R7 enforcement now lives in
+# audit-shape-flagged-items-glyph-shape (covered above).
 
 # Finding #8: suggestion-block-count-equals-flag-count must sum programmatic
 # + agent-judgement flagged counts. Balanced fixture passes (2 flags = 2 Try);
@@ -1886,11 +1685,263 @@ else:
     print(f"FAIL: Finding #8 — suggestion-parity should pass on balanced dual-block fixture (got: {_r['evidence']})")
 
 _r = check_audit_shape("suggestion-block-count-equals-flag-count", _PARITY_MISMATCH)
-if not _r["passed"] and "2 flag(s)" in _r["evidence"] and "1 suggestion" in _r["evidence"]:
+if not _r["passed"] and "2 audit-body flag(s)" in _r["evidence"] and "1 suggestion" in _r["evidence"]:
     print(f"  ok: Finding #8 — suggestion-parity fails when agent-judgement flag has no matching suggestion")
 else:
     FAILURES += 1
     print(f"FAIL: Finding #8 — suggestion-parity should fail when 2 flags vs 1 Try (got: {_r['evidence']})")
+
+
+# --- Audit-shape: U3 measurement-lock checks (audit-output redesign) ---
+#
+# These six checks land before the U4–U7 renderer changes ship. Synthetic
+# new-shape fixtures pass; pre-U4 old-shape fixtures fail (the integration
+# baseline is intentionally red on iteration-6 outputs and flips green as
+# each renderer unit lands).
+
+print("\n=== audit-shape U3 (measurement lock for new audit shape) ===")
+
+_NEW_SHAPE_BOTH_BLOCKS = """**Audit summary**
+Auto-detected: 2 of 12 flagged · Agent-assessed: 1 of 8 flagged
+Severity: 0 hard fail · 2 strong warning · 1 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
+
+**Auto-detected**
+
+! Em dashes: "EMDASH"
+
+**Agent-assessed**
+
+! Tonal uniformity
+  - "register holds without breaks": single tonal arc
+
+**Next steps**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# Same shape but with a triggered signal-stacking line (for the R3 triggered branch).
+_NEW_SHAPE_STACKING_TRIGGERED = """**Audit summary**
+Auto-detected: 1 of 12 flagged · Agent-assessed: 0 of 8 flagged
+Severity: 0 hard fail · 1 strong warning · 0 context warning
+Signal stacking triggered: 5 of 4 threshold (em dashes, rule of three, tonal uniformity)
+
+**Auto-detected**
+
+! Em dashes: "EMDASH"
+
+**Agent-assessed**
+
+**Next steps**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# Full-report shape with the new 4-column coverage table (for R15 / R18 checks).
+_NEW_SHAPE_WITH_COVERAGE_TABLE = _NEW_SHAPE_BOTH_BLOCKS + """
+
+**Auto-detected patterns** — 2 flagged of 12
+
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| Em dashes | strong warning | Flagged | em dash detected |
+| Curly quotes | context warning | Clear |  |
+"""
+
+# Pre-rework shape: audit header + old-shape body content (severity line carries
+# inline signal-stacking suffix; coverage table is 3-column with Action). Used
+# to verify the new-shape audit-shape checks reject pre-rework body content.
+# Header is the new bold heading so the checks treat it as an audit (rather
+# than vacuously passing on a missing header).
+_OLD_SHAPE_FULL = """**Audit summary**
+Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
+Signal stacking clear: no weaker AI-writing signals stacked.
+
+! **Em dashes** — "still—keen" — Action: Fix
+
+---
+
+**Style** — 1 flagged of 6
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Em dashes | Flagged | Fix |
+| Curly quotes | Clear |  |
+
+**Next steps**
+
+Want suggestions?"""
+
+# Audit body that has merged the pre-U5 agent-judgement shape into the audit
+# section — the regression case that flagged-items-glyph-shape catches.
+_NEW_SHAPE_WITH_OLD_AGENT_LEAKAGE = """**Audit summary**
+Auto-detected: 1 of 12 flagged · Agent-assessed: 1 of 8 flagged
+Severity: 0 hard fail · 2 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
+
+**Auto-detected**
+
+! Em dashes: "EMDASH"
+
+**Agent-assessed**
+
+- Tonal uniformity — Flagged: register holds without breaks
+
+**Next steps**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# No audit section at all — vacuous-true baseline for every U3 check.
+_NO_AUDIT_AT_ALL = """**Some other report**
+
+Nothing recognisable here.
+
+Want help?"""
+
+# Audit header present but no flagged items in body — vacuous-true for the
+# glyph-shape predicate (it has nothing to assert against).
+_NEW_SHAPE_NO_FLAG_BLOCKS = """**Audit summary**
+Auto-detected: 0 of 12 flagged · Agent-assessed: 0 of 8 flagged
+Severity: 0 hard fail · 0 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
+
+**Auto-detected**
+
+**Agent-assessed**
+
+**Next steps**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# --- audit-shape-counts-line (R1) ---
+print("\n--- audit-shape-counts-line ---")
+_r = check_audit_shape("audit-shape-counts-line", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: counts-line passes on synthetic new-shape audit body")
+else:
+    FAILURES += 1; print(f"FAIL: counts-line on new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-counts-line", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: counts-line fails on pre-U4 old-shape audit body (intentionally red)")
+else:
+    FAILURES += 1; print("FAIL: counts-line should fail on pre-U4 old shape")
+
+_r = check_audit_shape("audit-shape-counts-line", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: counts-line vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: counts-line should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-severity-line (R2) ---
+print("\n--- audit-shape-severity-line ---")
+_r = check_audit_shape("audit-shape-severity-line", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: severity-line passes on synthetic new-shape (no inline signal-stacking suffix)")
+else:
+    FAILURES += 1; print(f"FAIL: severity-line on new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-severity-line", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: severity-line fails on pre-U4 shape (line carries inline signal-stacking suffix)")
+else:
+    FAILURES += 1; print("FAIL: severity-line should fail when line carries the inline signal-stacking suffix")
+
+_r = check_audit_shape("audit-shape-severity-line", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: severity-line vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: severity-line should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-signal-stacking-line (R3) ---
+print("\n--- audit-shape-signal-stacking-line ---")
+_r = check_audit_shape("audit-shape-signal-stacking-line", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: signal-stacking-line passes on the clear shape")
+else:
+    FAILURES += 1; print(f"FAIL: signal-stacking-line on clear new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-signal-stacking-line", _NEW_SHAPE_STACKING_TRIGGERED)
+if _r["passed"]:
+    print("  ok: signal-stacking-line passes on the triggered + threshold shape")
+else:
+    FAILURES += 1; print(f"FAIL: signal-stacking-line on triggered shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-signal-stacking-line", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: signal-stacking-line fails on pre-U4 shape (no stand-alone R3 line)")
+else:
+    FAILURES += 1; print("FAIL: signal-stacking-line should fail when no stand-alone R3 line is present")
+
+_r = check_audit_shape("audit-shape-signal-stacking-line", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: signal-stacking-line vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: signal-stacking-line should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-flagged-items-glyph-shape (R6, R7) ---
+print("\n--- audit-shape-flagged-items-glyph-shape ---")
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: glyph-shape passes when both blocks use glyph + bold-name openers")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape on new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NEW_SHAPE_WITH_OLD_AGENT_LEAKAGE)
+if not _r["passed"] and "Label — Flagged" in _r["evidence"]:
+    print("  ok: glyph-shape fails when pre-U5 '- Label — Flagged:' shape leaks into the audit section")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape should fail on old-agent-leakage fixture (got: {_r['evidence']})")
+
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NEW_SHAPE_NO_FLAG_BLOCKS)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: glyph-shape vacuously passes when audit body has no flagged items")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape should vacuously pass with no flag blocks (got: {_r['evidence']})")
+
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: glyph-shape vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-severity-in-coverage-table (R15) ---
+print("\n--- audit-shape-severity-in-coverage-table ---")
+_r = check_audit_shape("audit-shape-severity-in-coverage-table", _NEW_SHAPE_WITH_COVERAGE_TABLE)
+if _r["passed"]:
+    print("  ok: severity-in-coverage-table passes on the new 4-column header")
+else:
+    FAILURES += 1; print(f"FAIL: severity-in-coverage-table on new 4-column header: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-severity-in-coverage-table", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: severity-in-coverage-table fails on pre-U4 3-column header")
+else:
+    FAILURES += 1; print("FAIL: severity-in-coverage-table should fail on pre-U4 3-column header")
+
+_r = check_audit_shape("audit-shape-severity-in-coverage-table", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: severity-in-coverage-table vacuously passes when no coverage tables are rendered (default-mode audit)")
+else:
+    FAILURES += 1; print(f"FAIL: severity-in-coverage-table should vacuously pass without coverage tables (got: {_r['evidence']})")
+
+# --- audit-shape-no-action-column (R18) ---
+print("\n--- audit-shape-no-action-column ---")
+_r = check_audit_shape("audit-shape-no-action-column", _NEW_SHAPE_WITH_COVERAGE_TABLE)
+if _r["passed"]:
+    print("  ok: no-action-column passes on the new 4-column header (Action removed)")
+else:
+    FAILURES += 1; print(f"FAIL: no-action-column on new 4-column header: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-no-action-column", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: no-action-column fails on pre-U4 3-column header (Action present)")
+else:
+    FAILURES += 1; print("FAIL: no-action-column should fail when Action column is present")
+
+_r = check_audit_shape("audit-shape-no-action-column", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: no-action-column vacuously passes when no coverage tables are rendered")
+else:
+    FAILURES += 1; print(f"FAIL: no-action-column should vacuously pass without coverage tables (got: {_r['evidence']})")
 
 
 # --- Human passthrough: opinion piece ---
@@ -1908,6 +1959,340 @@ for check_name in ALL_CHECKS:
     if check_name == "no-staccato-sequences":
         continue
     expect_pass(check_name, instructional_text, f"human instructional piece ({check_name})")
+
+
+# --- U7: --judgement-file CLI flag + agent_judgement overlay validation ---
+
+print("\n=== U7 --judgement-file overlay loader ===")
+
+import json as _u7_json
+import subprocess as _u7_subprocess
+import tempfile as _u7_tempfile
+
+JudgementOverlayError = _grade.JudgementOverlayError
+load_agent_judgement_overlay = _grade.load_agent_judgement_overlay
+
+
+def _u7_write_overlay(payload):
+    """Write a JSON payload to a temp file and return its path."""
+    handle = _u7_tempfile.NamedTemporaryFile(
+        "w", suffix=".json", delete=False, encoding="utf-8",
+    )
+    _u7_json.dump(payload, handle)
+    handle.close()
+    return handle.name
+
+
+def _u7_expect_overlay_error(payload_or_text, fragment, reason, raw_text=False):
+    """Write payload to a temp file, expect JudgementOverlayError containing fragment."""
+    global FAILURES
+    if raw_text:
+        handle = _u7_tempfile.NamedTemporaryFile(
+            "w", suffix=".json", delete=False, encoding="utf-8",
+        )
+        handle.write(payload_or_text)
+        handle.close()
+        path = handle.name
+    else:
+        path = _u7_write_overlay(payload_or_text)
+    try:
+        load_agent_judgement_overlay(path)
+    except JudgementOverlayError as exc:
+        if fragment in str(exc):
+            print(f"  ok: {reason} → {exc}")
+        else:
+            FAILURES += 1
+            print(f"FAIL: {reason}: error did not mention {fragment!r}; got: {exc}")
+    else:
+        FAILURES += 1
+        print(f"FAIL: {reason}: expected JudgementOverlayError, none raised")
+
+
+# Happy path: valid wrapped overlay loads cleanly.
+_u7_valid = {
+    "agent_judgement": [
+        {
+            "id": "tonal_uniformity",
+            "status": "flagged",
+            "severity": "strong_warning",
+            "answer": "register holds without breaks",
+            "evidence": {},
+        },
+    ],
+}
+_u7_loaded = load_agent_judgement_overlay(_u7_write_overlay(_u7_valid))
+if _u7_loaded == _u7_valid["agent_judgement"]:
+    print("  ok: happy path — wrapped overlay loads to a single cleaned record")
+else:
+    FAILURES += 1
+    print(f"FAIL: happy path: expected {_u7_valid['agent_judgement']}, got {_u7_loaded}")
+
+
+# Severity defaulting: agent omits severity → registry value is filled in.
+_u7_no_severity = {
+    "agent_judgement": [
+        {
+            "id": "tonal_uniformity",  # registry severity = strong_warning
+            "status": "flagged",
+            "answer": "register holds without breaks",
+            "evidence": {},
+        },
+    ],
+}
+_u7_defaulted = load_agent_judgement_overlay(_u7_write_overlay(_u7_no_severity))
+if _u7_defaulted[0]["severity"] == "strong_warning":
+    print("  ok: omitted severity defaults from judgement.json registry")
+else:
+    FAILURES += 1
+    print(f"FAIL: severity default: expected 'strong_warning', got {_u7_defaulted[0]['severity']!r}")
+
+
+# Permissive on extras: extra item fields are accepted but stripped from the cleaned record.
+_u7_with_extras = {
+    "agent_judgement": [
+        {
+            "id": "tonal_uniformity",
+            "status": "flagged",
+            "severity": "strong_warning",
+            "answer": "register holds without breaks",
+            "evidence": {},
+            "agent_notes": "internal scratch the agent wanted to keep",
+            "confidence": 0.85,
+        },
+    ],
+}
+_u7_cleaned = load_agent_judgement_overlay(_u7_write_overlay(_u7_with_extras))
+if set(_u7_cleaned[0]) == {"id", "status", "severity", "answer", "evidence"}:
+    print("  ok: extra item fields are accepted and stripped from the cleaned record")
+else:
+    FAILURES += 1
+    print(f"FAIL: extras: cleaned record keys {sorted(_u7_cleaned[0])} should be the contract set")
+
+
+# All-clear file → all items injected with status=clear; renderer shows no flagged items.
+_u7_all_clear = {
+    "agent_judgement": [
+        {"id": "tonal_uniformity", "status": "clear", "severity": "strong_warning",
+         "answer": "register breaks at least once", "evidence": {}},
+        {"id": "structural_monotony", "status": "clear", "severity": "context_warning",
+         "answer": "sections vary", "evidence": {}},
+    ],
+}
+_u7_all_clear_items = load_agent_judgement_overlay(_u7_write_overlay(_u7_all_clear))
+_u7_clean_render = format_two_layer(
+    [], depth="balanced", mode="default",
+    agent_judgement_items=_u7_all_clear_items,
+)
+if "Agent-assessed: 0 of 2 flagged" in _u7_clean_render:
+    print("  ok: all-clear overlay renders 'Agent-assessed: 0 of 2 flagged' (no collapse)")
+else:
+    FAILURES += 1
+    print(f"FAIL: all-clear overlay counts line wrong; got:\n{_u7_clean_render[:400]}")
+
+
+# --- Error paths: every failure mode names the offending input clearly. ---
+
+# Missing path → clear error citing the path.
+try:
+    load_agent_judgement_overlay("/nonexistent/path-9999.json")
+except JudgementOverlayError as exc:
+    if "/nonexistent/path-9999.json" in str(exc):
+        print(f"  ok: missing-path error names the path → {exc}")
+    else:
+        FAILURES += 1
+        print(f"FAIL: missing-path error did not include the path; got: {exc}")
+else:
+    FAILURES += 1
+    print("FAIL: missing-path: expected JudgementOverlayError, none raised")
+
+# Malformed JSON → parse error.
+_u7_expect_overlay_error(
+    "{not json at all", "invalid JSON", "malformed JSON",
+    raw_text=True,
+)
+
+# Bare-array form rejected (must be wrapped).
+_u7_expect_overlay_error(
+    [], "must be an object", "bare-array top level",
+)
+
+# Missing 'agent_judgement' key.
+_u7_expect_overlay_error(
+    {"items": []}, "agent_judgement", "missing top-level 'agent_judgement' key",
+)
+
+# 'agent_judgement' is not a list.
+_u7_expect_overlay_error(
+    {"agent_judgement": {"id": "x"}}, "must be a list",
+    "'agent_judgement' is an object instead of a list",
+)
+
+# Item missing required field — message names the item id and the missing field.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+         "answer": "x"},  # missing 'evidence'
+    ]},
+    "tonal_uniformity",
+    "missing required field error names the item id",
+)
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+         "answer": "x"},  # missing 'evidence'
+    ]},
+    "evidence",
+    "missing required field error names the missing field",
+)
+
+# Invalid status value.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "maybe", "severity": "strong_warning",
+         "answer": "x", "evidence": {}},
+    ]},
+    "invalid status",
+    "invalid status names the bad value",
+)
+
+# Invalid severity value.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "medium",
+         "answer": "x", "evidence": {}},
+    ]},
+    "invalid severity",
+    "invalid severity names the bad value",
+)
+
+# Severity omitted on an unknown id (cannot default from registry).
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "made_up_item_id", "status": "flagged",
+         "answer": "x", "evidence": {}},
+    ]},
+    "cannot default",
+    "missing severity on unknown id surfaces a clear error",
+)
+
+# Evidence must be an object.
+_u7_expect_overlay_error(
+    {"agent_judgement": [
+        {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+         "answer": "x", "evidence": "not an object"},
+    ]},
+    "evidence",
+    "evidence-not-an-object names the evidence field",
+)
+
+
+# --- Integration: human_report and format_two_layer accept the overlay. ---
+
+print("\n=== U7 contract + renderer integration with overlay ===")
+
+_u7_overlay_items = load_agent_judgement_overlay(_u7_write_overlay(_u7_valid))
+_u7_contract = human_report([], agent_judgement_items=_u7_overlay_items)
+if _u7_contract["agent_judgement"] == _u7_overlay_items:
+    print("  ok: human_report(overlay) injects items into contract.agent_judgement[]")
+else:
+    FAILURES += 1
+    print(f"FAIL: contract.agent_judgement should match overlay; got {_u7_contract['agent_judgement']}")
+
+# Backward-compat: human_report() with no overlay still returns []. Diff baselines depend on this.
+_u7_default_contract = human_report([])
+if _u7_default_contract["agent_judgement"] == []:
+    print("  ok: human_report() with no overlay still returns agent_judgement=[] (diff-baseline stable)")
+else:
+    FAILURES += 1
+    print(f"FAIL: default contract.agent_judgement should be []; got {_u7_default_contract['agent_judgement']}")
+
+# Renderer: overlay items appear in default-mode markdown.
+_u7_markdown = format_two_layer(
+    [], depth="balanced", mode="default",
+    agent_judgement_items=_u7_overlay_items,
+)
+if "Tonal uniformity" in _u7_markdown and "register holds without breaks" in _u7_markdown:
+    print("  ok: format_two_layer(overlay) renders the agent-judgement item inline")
+else:
+    FAILURES += 1
+    print(f"FAIL: overlay item not rendered in markdown; got:\n{_u7_markdown[:400]}")
+
+
+# --- CLI subprocess smoke tests: --judgement-file is wired into main(). ---
+
+print("\n=== U7 --judgement-file CLI subprocess smoke tests ===")
+
+_u7_grade_path = ROOT / "humanise" / "scripts" / "grade.py"
+_u7_sample_path = ROOT / "dev" / "evals" / "samples" / "synthetic" / "synthetic-hard-fail-only.md"
+
+# Markdown mode with valid overlay: the agent-judgement item appears in stdout.
+_u7_overlay_path = _u7_write_overlay(_u7_valid)
+_u7_md = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "markdown", "--depth", "balanced",
+     "--judgement-file", _u7_overlay_path, str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_md.returncode == 0 and "Tonal uniformity" in _u7_md.stdout:
+    print("  ok: CLI --judgement-file in markdown mode renders the overlay item")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI markdown mode: rc={_u7_md.returncode}; stderr={_u7_md.stderr[:300]}")
+
+# JSON mode with valid overlay: contract.agent_judgement[] carries the overlay.
+_u7_js = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "json",
+     "--judgement-file", _u7_overlay_path, str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_js.returncode == 0:
+    try:
+        _u7_js_payload = _u7_json.loads(_u7_js.stdout)
+    except _u7_json.JSONDecodeError as exc:
+        FAILURES += 1
+        print(f"FAIL: CLI json mode: stdout not valid JSON: {exc}")
+    else:
+        _u7_aj = _u7_js_payload.get("human_report", {}).get("agent_judgement", [])
+        if len(_u7_aj) == 1 and _u7_aj[0]["id"] == "tonal_uniformity":
+            print("  ok: CLI --judgement-file in json mode injects overlay into contract.agent_judgement[]")
+        else:
+            FAILURES += 1
+            print(f"FAIL: CLI json mode: agent_judgement does not carry overlay; got {_u7_aj}")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI json mode: rc={_u7_js.returncode}; stderr={_u7_js.stderr[:300]}")
+
+# Missing file path exits non-zero with a clear stderr message.
+_u7_missing = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "markdown",
+     "--judgement-file", "/nonexistent/u7-test.json", str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_missing.returncode != 0 and "/nonexistent/u7-test.json" in _u7_missing.stderr:
+    print("  ok: CLI missing --judgement-file path exits non-zero with the path in stderr")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI missing path: rc={_u7_missing.returncode}; stderr={_u7_missing.stderr[:300]}")
+
+# Backward compat: omitting --judgement-file behaves exactly as before (empty agent_judgement).
+_u7_no_overlay = _u7_subprocess.run(
+    ["python3", str(_u7_grade_path), "--format", "json", str(_u7_sample_path)],
+    capture_output=True, text=True,
+)
+if _u7_no_overlay.returncode == 0:
+    try:
+        _u7_no_overlay_payload = _u7_json.loads(_u7_no_overlay.stdout)
+        _u7_aj_default = _u7_no_overlay_payload.get("human_report", {}).get("agent_judgement", "missing")
+        if _u7_aj_default == []:
+            print("  ok: CLI without --judgement-file still emits empty agent_judgement (backward compat)")
+        else:
+            FAILURES += 1
+            print(f"FAIL: CLI no overlay: agent_judgement should be []; got {_u7_aj_default}")
+    except _u7_json.JSONDecodeError as exc:
+        FAILURES += 1
+        print(f"FAIL: CLI no overlay: stdout not valid JSON: {exc}")
+else:
+    FAILURES += 1
+    print(f"FAIL: CLI no overlay: rc={_u7_no_overlay.returncode}; stderr={_u7_no_overlay.stderr[:300]}")
 
 
 # --- Summary ---

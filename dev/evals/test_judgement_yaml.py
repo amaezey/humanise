@@ -85,19 +85,22 @@ else:
 
 # --- each record has required fields ---
 
-REQUIRED_FIELDS = ("id", "pattern_ref", "prompt", "answer_schema", "flagged_when")
+REQUIRED_FIELDS = ("id", "pattern_ref", "severity", "prompt", "answer_schema", "flagged_when")
+VALID_SEVERITIES = {"hard_fail", "strong_warning", "context_warning"}
 for record in records:
     rid = record.get("id", "<unknown>")
     for field in REQUIRED_FIELDS:
         if field not in record:
             fail(f"record `{rid}` missing required field `{field}`")
+    if record.get("severity") not in VALID_SEVERITIES:
+        fail(f"record `{rid}` severity {record.get('severity')!r} not in {sorted(VALID_SEVERITIES)}")
     schema = record.get("answer_schema") or {}
     if "type" not in schema:
         fail(f"record `{rid}` answer_schema missing `type`")
     elif schema["type"] not in ("trichotomy", "state", "list", "presence", "composite"):
         fail(f"record `{rid}` answer_schema.type unrecognised: {schema['type']!r}")
     else:
-        ok(f"record `{rid}` has type={schema['type']}")
+        ok(f"record `{rid}` has type={schema['type']}, severity={record.get('severity')}")
 
 
 # --- pattern_ref values ---

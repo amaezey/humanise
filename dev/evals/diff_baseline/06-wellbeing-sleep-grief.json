@@ -64,6 +64,7 @@
         "genre_misfit"
       ],
       "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-em-dashes"
@@ -95,19 +96,19 @@
       "components": [
         "headings in prose"
       ],
-      "evidence": "Overall AI-signal pressure 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=9 distinct/9.6/1000",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=9 distinct/9.6/1000",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": true,
       "score": 2,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 9.598603839441536,
         "kobak_style_distinct": 9,
@@ -146,6 +147,11 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "Everything becomes harder to metabolise.",
+        "Small decisions feel punitive.",
+        "Social contact becomes more effortful."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -158,6 +164,12 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "Sometimes it is a clean, brutal wakefulness at 3 am.",
+        "Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said.",
+        "Sometimes sleep comes easily but breaks apart before dawn.",
+        "Sometimes the body sleeps for ten hours and still wakes exhausted."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -180,6 +192,12 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "It is an active biological process that affects memory, emotional regulation, attention, immune function and the body\u2019s capacity to recover.",
+        "This is why advice about \u201cgood sleep habits\u201d can land badly with grieving people.",
+        "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+        "It is to reduce the secondary panic that says, \u201cNow I am grieving and failing at sleep.\u201d There is also a difference between remembering and ruminating, though they can feel identical at night."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -226,6 +244,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -329,6 +348,7 @@
         "generic_abstraction"
       ],
       "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-superficial-ing"
@@ -353,6 +373,7 @@
         "genre_misfit"
       ],
       "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-quietness-obsession"
@@ -495,6 +516,24 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep.",
+        "That matters because sleep is not just a pause from consciousness.",
+        "When grief disrupts sleep, it does not simply make us tired.",
+        "After a death, insomnia is not always dramatic.",
+        "But grief is not poor time management.",
+        "It is not caused by bad lighting or an overused screen.",
+        "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+        "If sleep does not come, rest still counts.",
+        "The goal is not to win against grief.",
+        "Some dreams are not healing.",
+        "But exhaustion is not devotion.",
+        "Staying awake does not keep the person closer.",
+        "This is not weakness.",
+        "The aim is not perfect sleep.",
+        "The first thought on waking is not always the loss.",
+        "Sleep does not cure grief."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -506,6 +545,7 @@
         "frictionless_structure"
       ],
       "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "paragraph-length-uniformity"
@@ -554,12 +594,13 @@
         "genre_misfit"
       ],
       "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -717,7 +758,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -813,7 +854,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -844,7 +885,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -854,15 +895,6 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
-        "components": [
-          "headings in prose"
-        ],
-        "score": 2,
-        "threshold": 4,
-        "triggered": false,
-        "vocabulary_points": 0
-      },
       "by_category": {
         "Filler and hedging": 2,
         "Language and grammar": 1,
@@ -873,6 +905,15 @@
         "context_warning": 6,
         "hard_fail": 0,
         "strong_warning": 0
+      },
+      "signal_stacking": {
+        "components": [
+          "headings in prose"
+        ],
+        "score": 2,
+        "threshold": 4,
+        "triggered": false,
+        "vocabulary_points": 0
       }
     },
     "metadata": {
@@ -885,6 +926,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No em dashes found",
@@ -893,6 +935,7 @@
               "genre_misfit"
             ],
             "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -908,6 +951,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max AI words per paragraph: 0 (0 total in text)",
@@ -931,6 +975,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No nonliteral land/surface constructions found",
@@ -952,29 +997,30 @@
         "status": "clear"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 2,
             "threshold": 4
           },
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "components": [
               "headings in prose"
             ],
-            "evidence": "Overall AI-signal pressure 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=9 distinct/9.6/1000",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=9 distinct/9.6/1000",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 2,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 9.598603839441536,
               "kobak_style_distinct": 9,
@@ -999,7 +1045,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "clear"
       },
@@ -1008,6 +1054,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No manufactured insight phrases",
@@ -1031,7 +1078,12 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "Everything becomes harder to metabolise.",
+            "Small decisions feel punitive.",
+            "Social contact becomes more effortful."
+          ],
           "raw": {
             "evidence": "Found sequence of 3 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1040,6 +1092,11 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "Everything becomes harder to metabolise.",
+              "Small decisions feel punitive.",
+              "Social contact becomes more effortful."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1056,7 +1113,13 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "Sometimes it is a clean, brutal wakefulness at 3 am.",
+            "Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said.",
+            "Sometimes sleep comes easily but breaks apart before dawn.",
+            "Sometimes the body sleeps for ten hours and still wakes exhausted."
+          ],
           "raw": {
             "evidence": "Found 4 consecutive sentences starting with 'sometimes'",
             "evidence_role": "rhythm_signal",
@@ -1065,6 +1128,12 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "Sometimes it is a clean, brutal wakefulness at 3 am.",
+              "Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said.",
+              "Sometimes sleep comes easily but breaks apart before dawn.",
+              "Sometimes the body sleeps for ten hours and still wakes exhausted."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1081,6 +1150,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No collaborative artifacts",
@@ -1104,7 +1174,13 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "It is an active biological process that affects memory, emotional regulation, attention, immune function and the body\u2019s capacity to recover.",
+            "This is why advice about \u201cgood sleep habits\u201d can land badly with grieving people.",
+            "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+            "It is to reduce the secondary panic that says, \u201cNow I am grieving and failing at sleep.\u201d There is also a difference between remembering and ruminating, though they can feel identical at night."
+          ],
           "raw": {
             "evidence": "Found 9 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1112,6 +1188,12 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "It is an active biological process that affects memory, emotional regulation, attention, immune function and the body\u2019s capacity to recover.",
+              "This is why advice about \u201cgood sleep habits\u201d can land badly with grieving people.",
+              "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+              "It is to reduce the secondary panic that says, \u201cNow I am grieving and failing at sleep.\u201d There is also a difference between remembering and ruminating, though they can feel identical at night."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1127,6 +1209,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Sentence length stdev: 7.5 (target: >4)",
@@ -1152,6 +1235,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No promotional language",
@@ -1177,6 +1261,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No significance inflation",
@@ -1200,6 +1285,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No negative parallelisms or contrived reframes",
@@ -1208,6 +1294,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1223,6 +1310,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No copula avoidance",
@@ -1248,6 +1336,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No filler phrases",
@@ -1271,6 +1360,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No generic conclusions",
@@ -1296,6 +1386,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No false concession hedges",
@@ -1319,6 +1410,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No placeholder residue",
@@ -1342,6 +1434,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Soft scaffold phrases: 0",
@@ -1365,6 +1458,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Vague demonstrative subjects: 0",
@@ -1390,6 +1484,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No forced triads",
@@ -1415,6 +1510,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No superficial -ing phrases",
@@ -1423,6 +1519,7 @@
               "generic_abstraction"
             ],
             "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1438,6 +1535,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Ghost/spectral words: 0",
@@ -1463,6 +1561,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Quietness words: 2",
@@ -1472,6 +1571,7 @@
               "genre_misfit"
             ],
             "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1488,6 +1588,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rhetorical questions: 0",
@@ -1513,6 +1614,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List ratio: 0%",
@@ -1538,6 +1640,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Decorative symbols/shortcodes: 0",
@@ -1563,6 +1666,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dramatic transitions",
@@ -1588,6 +1692,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No formulaic openers",
@@ -1613,6 +1718,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No signposted conclusions",
@@ -1638,6 +1744,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "# The hour grief comes looking"
           ],
@@ -1665,6 +1772,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No corporate AI speak",
@@ -1688,6 +1796,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max 'This [verb]' run: 0",
@@ -1713,6 +1822,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Hedging constructions: 0",
@@ -1736,6 +1846,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No countdown negation",
@@ -1761,7 +1872,25 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep.",
+            "That matters because sleep is not just a pause from consciousness.",
+            "When grief disrupts sleep, it does not simply make us tired.",
+            "After a death, insomnia is not always dramatic.",
+            "But grief is not poor time management.",
+            "It is not caused by bad lighting or an overused screen.",
+            "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+            "If sleep does not come, rest still counts.",
+            "The goal is not to win against grief.",
+            "Some dreams are not healing.",
+            "But exhaustion is not devotion.",
+            "Staying awake does not keep the person closer.",
+            "This is not weakness.",
+            "The aim is not perfect sleep.",
+            "The first thought on waking is not always the loss.",
+            "Sleep does not cure grief."
+          ],
           "raw": {
             "evidence": "Found 18 negation markers (15.6 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1770,6 +1899,24 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep.",
+              "That matters because sleep is not just a pause from consciousness.",
+              "When grief disrupts sleep, it does not simply make us tired.",
+              "After a death, insomnia is not always dramatic.",
+              "But grief is not poor time management.",
+              "It is not caused by bad lighting or an overused screen.",
+              "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+              "If sleep does not come, rest still counts.",
+              "The goal is not to win against grief.",
+              "Some dreams are not healing.",
+              "But exhaustion is not devotion.",
+              "Staying awake does not keep the person closer.",
+              "This is not weakness.",
+              "The aim is not perfect sleep.",
+              "The first thought on waking is not always the loss.",
+              "Sleep does not cure grief."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1786,6 +1933,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Paragraph length CV: 0.25 across 16 paragraphs",
@@ -1794,6 +1942,7 @@
               "frictionless_structure"
             ],
             "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1809,6 +1958,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Tidy paragraph endings: 0",
@@ -1834,6 +1984,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bland critical template phrases: 0",
@@ -1859,6 +2010,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rubric echo phrases: 0",
@@ -1884,6 +2036,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Type-token ratio: 0.444 (508 unique / 1145 total, target: >0.40)",
@@ -1893,6 +2046,7 @@
               "genre_misfit"
             ],
             "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1909,17 +2063,18 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
-            "the dead feel closer, the mind gets louder, the body refuses the",
-            "attention, immune function, the body",
-            "less caffeine, a dark room, no phone in bed",
-            "for others, sleep problems persist, become their own condition",
-            "grief can include sadness, tearfulness and insomnia, it may not require",
-            "anxiety, intrusive thoughts, inability to function",
-            "some mornings, there is a second, two before memory returns"
+            "the dead feel closer, the mind gets louder, and the body refuses the",
+            "attention, immune function and the body",
+            "less caffeine, a dark room and no phone in bed",
+            "For others, sleep problems persist and become their own condition",
+            "grief can include sadness, tearfulness and insomnia, and it may not require",
+            "anxiety, intrusive thoughts or inability to function",
+            "Some mornings, there is a second or two before memory returns"
           ],
           "raw": {
-            "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+            "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -1942,6 +2097,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No repeated section labels",
@@ -1965,6 +2121,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No notability claims",
@@ -1990,6 +2147,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No vague attributions",
@@ -2015,6 +2173,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bold spans in prose: 0",
@@ -2038,6 +2197,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List items with bolded headers: 0",
@@ -2063,6 +2223,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dense compound-modifier sentences",
@@ -2088,6 +2249,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No knowledge-cutoff disclaimers",
@@ -2111,14 +2273,21 @@
   },
   "pass_rate": "43/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 6,
+    "failures_by_severity": {
+      "context_warning": 6
+    },
+    "pass_rate": "43/49",
+    "passed_checks": 43,
+    "signal_stacking": {
       "components": [
         "headings in prose"
       ],
       "score": 2,
       "threshold": 4,
       "triggered": false,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 9.598603839441536,
         "kobak_style_distinct": 9,
@@ -2138,13 +2307,6 @@
         "worst_generic": 0
       }
     },
-    "check_status": "fail",
-    "failed_checks": 6,
-    "failures_by_severity": {
-      "context_warning": 6
-    },
-    "pass_rate": "43/49",
-    "passed_checks": 43,
     "total_checks": 49
   },
   "triggered_checks": [
@@ -2234,7 +2396,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

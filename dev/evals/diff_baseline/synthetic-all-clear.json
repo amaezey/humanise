@@ -29,6 +29,7 @@
         "genre_misfit"
       ],
       "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-em-dashes"
@@ -58,19 +59,19 @@
     },
     {
       "components": [],
-      "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=5 distinct/4.2/1000",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=5 distinct/4.2/1000",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": true,
       "score": 0,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 4.233700254022015,
         "kobak_style_distinct": 5,
@@ -105,6 +106,7 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -117,6 +119,7 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -139,6 +142,7 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -185,6 +189,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -288,6 +293,7 @@
         "generic_abstraction"
       ],
       "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-superficial-ing"
@@ -312,6 +318,7 @@
         "genre_misfit"
       ],
       "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-quietness-obsession"
@@ -454,6 +461,7 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -465,6 +473,7 @@
         "frictionless_structure"
       ],
       "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "paragraph-length-uniformity"
@@ -513,6 +522,7 @@
         "genre_misfit"
       ],
       "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "vocabulary-diversity"
@@ -652,7 +662,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {},
@@ -660,18 +670,18 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
-        "components": [],
-        "score": 0,
-        "threshold": 4,
-        "triggered": false,
-        "vocabulary_points": 0
-      },
       "by_category": {},
       "by_severity": {
         "context_warning": 0,
         "hard_fail": 0,
         "strong_warning": 0
+      },
+      "signal_stacking": {
+        "components": [],
+        "score": 0,
+        "threshold": 4,
+        "triggered": false,
+        "vocabulary_points": 0
       }
     },
     "metadata": {
@@ -684,6 +694,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No em dashes found",
@@ -692,6 +703,7 @@
               "genre_misfit"
             ],
             "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -707,6 +719,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max AI words per paragraph: 0 (0 total in text)",
@@ -730,6 +743,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No nonliteral land/surface constructions found",
@@ -751,27 +765,28 @@
         "status": "clear"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 0,
             "threshold": 4
           },
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "components": [],
-            "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=5 distinct/4.2/1000",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=5 distinct/4.2/1000",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 0,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 4.233700254022015,
               "kobak_style_distinct": 5,
@@ -792,7 +807,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "clear"
       },
@@ -801,6 +816,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No manufactured insight phrases",
@@ -824,6 +840,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max consecutive short sentences: 2",
@@ -833,6 +850,7 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -849,6 +867,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max anaphora run: 1",
@@ -858,6 +877,7 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -874,6 +894,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No collaborative artifacts",
@@ -897,6 +918,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No curly quotes",
@@ -905,6 +927,7 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -920,6 +943,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Sentence length stdev: 8.8 (target: >4)",
@@ -945,6 +969,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No promotional language",
@@ -970,6 +995,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No significance inflation",
@@ -993,6 +1019,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No negative parallelisms or contrived reframes",
@@ -1001,6 +1028,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1016,6 +1044,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No copula avoidance",
@@ -1041,6 +1070,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No filler phrases",
@@ -1064,6 +1094,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No generic conclusions",
@@ -1089,6 +1120,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No false concession hedges",
@@ -1112,6 +1144,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No placeholder residue",
@@ -1135,6 +1168,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Soft scaffold phrases: 0",
@@ -1158,6 +1192,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Vague demonstrative subjects: 0",
@@ -1183,6 +1218,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No forced triads",
@@ -1208,6 +1244,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No superficial -ing phrases",
@@ -1216,6 +1253,7 @@
               "generic_abstraction"
             ],
             "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1231,6 +1269,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Ghost/spectral words: 0",
@@ -1256,6 +1295,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Quietness words: 0",
@@ -1265,6 +1305,7 @@
               "genre_misfit"
             ],
             "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1281,6 +1322,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rhetorical questions: 0",
@@ -1306,6 +1348,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List ratio: 0%",
@@ -1331,6 +1374,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Decorative symbols/shortcodes: 0",
@@ -1356,6 +1400,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dramatic transitions",
@@ -1381,6 +1426,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No formulaic openers",
@@ -1406,6 +1452,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No signposted conclusions",
@@ -1431,6 +1478,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No headings",
@@ -1456,6 +1504,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No corporate AI speak",
@@ -1479,6 +1528,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max 'This [verb]' run: 0",
@@ -1504,6 +1554,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Hedging constructions: 0",
@@ -1527,6 +1578,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No countdown negation",
@@ -1552,6 +1604,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Negation markers: 5 (4.2 per 1000 words)",
@@ -1561,6 +1614,7 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1577,6 +1631,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Paragraph length CV: 0.45 across 20 paragraphs",
@@ -1585,6 +1640,7 @@
               "frictionless_structure"
             ],
             "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1600,6 +1656,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Tidy paragraph endings: 0",
@@ -1625,6 +1682,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bland critical template phrases: 0",
@@ -1650,6 +1708,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rubric echo phrases: 0",
@@ -1675,6 +1734,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Type-token ratio: 0.402 (473 unique / 1176 total, target: >0.40)",
@@ -1684,6 +1744,7 @@
               "genre_misfit"
             ],
             "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1700,6 +1761,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Triads: 2",
@@ -1725,6 +1787,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No repeated section labels",
@@ -1748,6 +1811,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No notability claims",
@@ -1773,6 +1837,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No vague attributions",
@@ -1798,6 +1863,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bold spans in prose: 0",
@@ -1821,6 +1887,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List items with bolded headers: 0",
@@ -1846,6 +1913,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dense compound-modifier sentences",
@@ -1871,6 +1939,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No knowledge-cutoff disclaimers",
@@ -1894,12 +1963,17 @@
   },
   "pass_rate": "49/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "pass",
+    "failed_checks": 0,
+    "failures_by_severity": {},
+    "pass_rate": "49/49",
+    "passed_checks": 49,
+    "signal_stacking": {
       "components": [],
       "score": 0,
       "threshold": 4,
       "triggered": false,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 4.233700254022015,
         "kobak_style_distinct": 5,
@@ -1915,11 +1989,6 @@
         "worst_generic": 0
       }
     },
-    "check_status": "pass",
-    "failed_checks": 0,
-    "failures_by_severity": {},
-    "pass_rate": "49/49",
-    "passed_checks": 49,
     "total_checks": 49
   },
   "triggered_checks": []

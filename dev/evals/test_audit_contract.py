@@ -139,7 +139,7 @@ if all_ok:
 
 print("\n=== common evidence envelope ===")
 
-required_envelope = {"quoted_phrases", "locations", "counts", "raw"}
+required_envelope = {"quoted_phrases", "metric", "locations", "counts", "raw"}
 all_envelope_ok = True
 for entry in pc:
     env = entry["evidence"]
@@ -180,10 +180,10 @@ if collab and collab["status"] == "flagged":
 print("\n=== aggregates ===")
 
 aggr = contract["aggregates"]
-if set(aggr) != {"by_severity", "by_category", "ai_pressure"}:
-    fail(f"aggregates keys {set(aggr)} should be {{'by_severity', 'by_category', 'ai_pressure'}}")
+if set(aggr) != {"by_severity", "by_category", "signal_stacking"}:
+    fail(f"aggregates keys {set(aggr)} should be {{'by_severity', 'by_category', 'signal_stacking'}}")
 else:
-    ok("aggregates has by_severity / by_category / ai_pressure")
+    ok("aggregates has by_severity / by_category / signal_stacking")
 
 if set(aggr["by_severity"]) != {"hard_fail", "strong_warning", "context_warning"}:
     fail(f"by_severity keys {set(aggr['by_severity'])} should be the three tiers")
@@ -198,16 +198,16 @@ if sev_sum != flagged_count:
 else:
     ok(f"by_severity sum ({sev_sum}) equals flagged count")
 
-ap = aggr["ai_pressure"]
+ap = aggr["signal_stacking"]
 required_ap = {"score", "threshold", "triggered", "components", "vocabulary_points"}
 if set(ap) != required_ap:
-    fail(f"ai_pressure keys {set(ap)} should be {required_ap}")
+    fail(f"signal_stacking keys {set(ap)} should be {required_ap}")
 else:
-    ok("ai_pressure has all required fields")
+    ok("signal_stacking has all required fields")
 if not isinstance(ap["triggered"], bool):
-    fail(f"ai_pressure.triggered must be bool, got {type(ap['triggered']).__name__}")
+    fail(f"signal_stacking.triggered must be bool, got {type(ap['triggered']).__name__}")
 else:
-    ok("ai_pressure.triggered is boolean")
+    ok("signal_stacking.triggered is boolean")
 
 
 # --- metadata ---
@@ -233,16 +233,36 @@ else:
     ok("metadata.run_id present")
 
 
+# --- agent_judgement schema requires severity ---
+
+print("\n=== agent_judgement schema ===")
+
+aj_schema = schema["properties"]["agent_judgement"]["items"]
+required_aj = set(aj_schema["required"])
+expected_aj_required = {"id", "status", "severity", "answer", "evidence"}
+if required_aj != expected_aj_required:
+    fail(f"agent_judgement item required {required_aj} should be {expected_aj_required}")
+else:
+    ok(f"agent_judgement items require: {sorted(required_aj)}")
+
+aj_severity = aj_schema["properties"].get("severity", {})
+expected_severity_enum = {"hard_fail", "strong_warning", "context_warning"}
+if set(aj_severity.get("enum", [])) != expected_severity_enum:
+    fail(f"agent_judgement severity enum {aj_severity.get('enum')} should be {sorted(expected_severity_enum)}")
+else:
+    ok("agent_judgement severity declares the three-tier enum")
+
+
 # --- no prose strings at the top level ---
 
 print("\n=== no-prose smoke test ===")
 
-forbidden = {"overview", "confidence", "ai_pressure_explanation", "score", "failed_checks", "all_checks"}
+forbidden = {"overview", "confidence", "signal_stacking_explanation", "score", "failed_checks", "all_checks"}
 present = forbidden & set(contract)
 if present:
     fail(f"contract should not carry pre-formatted prose; found legacy keys: {present}")
 else:
-    ok(f"no legacy prose keys present (R14: confidence, overview, ai_pressure_explanation removed)")
+    ok(f"no legacy prose keys present (R14: confidence, overview, signal_stacking_explanation removed)")
 
 
 # --- all-clear case ---
@@ -257,8 +277,8 @@ if any(clear_aggr["by_severity"].values()):
     fail(f"all-clear: by_severity should be all-zero, got {clear_aggr['by_severity']}")
 elif clear_aggr["by_category"]:
     fail(f"all-clear: by_category should be empty, got {clear_aggr['by_category']}")
-elif clear_aggr["ai_pressure"]["triggered"]:
-    fail("all-clear: ai_pressure.triggered should be False")
+elif clear_aggr["signal_stacking"]["triggered"]:
+    fail("all-clear: signal_stacking.triggered should be False")
 else:
     ok("all-clear case: all aggregates report zero / not-triggered")
 

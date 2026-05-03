@@ -52,10 +52,10 @@ VALID_CATEGORIES = {
     "Sensory and atmospheric",
     "Structural tells",
     "Voice and register",
-    "Aggregate AI-signal pressure",
+    "Signal stacking",
 }
 
-REQUIRED_JUDGEMENT_FIELDS = {"id", "prompt", "answer_schema", "flagged_when"}
+REQUIRED_JUDGEMENT_FIELDS = {"id", "severity", "prompt", "answer_schema", "flagged_when"}
 VALID_JUDGEMENT_SCHEMA_TYPES = {"trichotomy", "state", "list", "composite"}
 
 _PATTERNS_CACHE = None
@@ -145,6 +145,10 @@ def _validate_judgement(data):
         if item_id in seen:
             raise ValueError(f"judgement.json[{item_id!r}]: duplicate id")
         seen.add(item_id)
+        if record["severity"] not in VALID_SEVERITIES:
+            raise ValueError(
+                f"judgement.json[{item_id!r}].severity: {record['severity']!r} not in {sorted(VALID_SEVERITIES)}"
+            )
         answer_schema = record["answer_schema"]
         if not isinstance(answer_schema, dict):
             raise ValueError(
@@ -251,7 +255,7 @@ def load_vocabulary():
 
 
 def _resolve_vocab_path(key):
-    """Resolve a dotted key (e.g. 'pressure_explanation.lead') to a value.
+    """Resolve a dotted key (e.g. 'signal_stacking_status.triggered') to a value.
 
     Raises KeyError with the full key path on miss so callers can localise
     the typo.
@@ -309,10 +313,10 @@ def status_label(status):
     return _resolve_vocab_path(f"status_labels.{status}")
 
 
-def pressure_status(triggered):
-    """Word for AI-pressure status — 'triggered' or 'clear'."""
+def signal_stacking_status(triggered):
+    """Word for signal-stacking status — 'triggered' or 'clear'."""
     return _resolve_vocab_path(
-        "pressure_status." + ("triggered" if triggered else "clear")
+        "signal_stacking_status." + ("triggered" if triggered else "clear")
     )
 
 

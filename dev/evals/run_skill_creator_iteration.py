@@ -305,10 +305,13 @@ _LAYER_1_NAME_ALIASES = {
     "staccato rhythm in extended contexts": "no-staccato-sequences",
     "ghost/spectral language": "no-ghost-spectral-density",
     "unicode flair": "no-unicode-flair",
-    "aggregate ai-signal pressure": "overall-ai-signal-pressure",
+    "signal stacking": "overall-signal-stacking",
 }
 
-_LAYER_1_NAME_RE = re.compile(r"^[x!?]\s+\*\*([^*]+)\*\*")
+# Layer-1 flagged-item opener: `<glyph> <Name>` or `<glyph> <Name>: "<phrase>"`.
+# Pattern names render unbold (post-rework). Captures the name up to the colon,
+# end-of-line, or the `(+N more)` overflow tail.
+_LAYER_1_NAME_RE = re.compile(r"^[x!?]\s+([A-Z][A-Za-z0-9 '\-]+?)(?:\s*[:.]|\s*$)")
 
 
 def catalogue_hits(output: str) -> set[str]:
@@ -349,9 +352,6 @@ def grade_one_assertion(name: str, output: str, input_text: str, generated: str)
     if name == "each-flag-has-quoted-phrase":
         result = GRADE.check_audit_shape("every-flag-block-contains-input-substring", output, input_text)
         return result["passed"], result["evidence"]
-    if name == "each-flag-has-explanation":
-        result = GRADE.check_audit_shape("every-flag-block-has-explanation", output, input_text)
-        return result["passed"], result["evidence"]
     if name == "ends-with-next-step-question":
         result = GRADE.check_audit_shape("final-non-empty-line-ends-with-question", output, input_text)
         return result["passed"], result["evidence"]
@@ -370,11 +370,23 @@ def grade_one_assertion(name: str, output: str, input_text: str, generated: str)
     if name == "has-programmatic-block":
         result = GRADE.check_audit_shape("audit-shape-has-programmatic-block", output, input_text)
         return result["passed"], result["evidence"]
-    if name == "has-agent-judgement-block":
-        result = GRADE.check_audit_shape("audit-shape-has-agent-judgement-block", output, input_text)
+    if name == "audit-counts-line-present":
+        result = GRADE.check_audit_shape("audit-shape-counts-line", output, input_text)
         return result["passed"], result["evidence"]
-    if name == "all-clear-line-format":
-        result = GRADE.check_audit_shape("audit-shape-all-clear-line-format", output, input_text)
+    if name == "audit-severity-line-present":
+        result = GRADE.check_audit_shape("audit-shape-severity-line", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "audit-signal-stacking-line-present":
+        result = GRADE.check_audit_shape("audit-shape-signal-stacking-line", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "audit-flagged-items-glyph-shape":
+        result = GRADE.check_audit_shape("audit-shape-flagged-items-glyph-shape", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "coverage-tables-include-severity":
+        result = GRADE.check_audit_shape("audit-shape-severity-in-coverage-table", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "coverage-tables-omit-action":
+        result = GRADE.check_audit_shape("audit-shape-no-action-column", output, input_text)
         return result["passed"], result["evidence"]
     if name == "rewrite-produced":
         input_words = len(re.findall(r"\b\w+\b", input_text))
@@ -583,16 +595,16 @@ def grade_sample_file(filepath: Path) -> dict:
     for r in failures:
         sev = r.get("severity") or "unknown"
         severity_counts[sev] = severity_counts.get(sev, 0) + 1
-    pressure_check = next(
-        (r for r in results if r.get("text") == "overall-ai-signal-pressure"),
+    signal_stacking_check = next(
+        (r for r in results if r.get("text") == "overall-signal-stacking"),
         None,
     )
-    pressure_triggered = pressure_check is not None and not pressure_check.get("passed", True)
+    signal_stacking_triggered = signal_stacking_check is not None and not signal_stacking_check.get("passed", True)
     return {
         "input_file": str(filepath.relative_to(ROOT)),
         "total_flags": len(failures),
         "severity_counts": severity_counts,
-        "ai_pressure_triggered": pressure_triggered,
+        "signal_stacking_triggered": signal_stacking_triggered,
         "body_stats": analyze_sample_body(filepath),
     }
 
@@ -609,7 +621,7 @@ def grade_input_file(item: dict) -> dict | None:
         "input_file": graded["input_file"],
         "total_flags": graded["total_flags"],
         "severity_counts": graded["severity_counts"],
-        "ai_pressure_triggered": graded["ai_pressure_triggered"],
+        "signal_stacking_triggered": graded["signal_stacking_triggered"],
     }
 
 
@@ -836,15 +848,15 @@ def build_performance_report(evals: list[dict], iteration_dir: Path) -> tuple[st
             "independent of how the skill renders its audit."
         )
     lines.append("")
-    lines.append("| Sample | Group | Total | Strong | Context | AI-pressure |")
+    lines.append("| Sample | Group | Total | Strong | Context | Signal stacking |")
     lines.append("|---|---|---|---|---|---|")
     for row in corpus_rows:
         sample_name = Path(row["input_file"]).stem
         sev = row["severity_counts"]
-        pressure = "triggered" if row["ai_pressure_triggered"] else "—"
+        signal_stacking = "triggered" if row["signal_stacking_triggered"] else "—"
         lines.append(
             f"| {sample_name} | {row['type']} | {row['total_flags']} "
-            f"| {sev.get('strong_warning', 0)} | {sev.get('context_warning', 0)} | {pressure} |"
+            f"| {sev.get('strong_warning', 0)} | {sev.get('context_warning', 0)} | {signal_stacking} |"
         )
     if group_summary:
         lines.append("")
@@ -1096,6 +1108,13 @@ def run_iteration(
                 str(ITERATION / "benchmark.json"),
             ], cwd=skill_creator_path, stdout=log, stderr=subprocess.STDOUT)
         print(f"viewer launched; log={log_path}", flush=True)
+
+    audit_fidelity_generator = ROOT / "dev" / "tools" / "render_audit_html.py"
+    subprocess.run(
+        [sys.executable, str(audit_fidelity_generator), str(ITERATION)],
+        cwd=ROOT,
+        check=True,
+    )
 
 
 def main() -> int:

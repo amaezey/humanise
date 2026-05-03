@@ -69,6 +69,7 @@
         "genre_misfit"
       ],
       "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-em-dashes"
@@ -100,19 +101,19 @@
       "components": [
         "headings in prose"
       ],
-      "evidence": "Overall AI-signal pressure 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=12 distinct/9.0/1000",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=12 distinct/9.0/1000",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": true,
       "score": 2,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 8.98876404494382,
         "kobak_style_distinct": 12,
@@ -152,6 +153,23 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "So I tried apps.",
+        "Task managers.",
+        "Notes apps.",
+        "Whiteboards.",
+        "Kanban boards.",
+        "Habit trackers.",
+        "Calendar overlays.",
+        "Focus timers.",
+        "Personal knowledge management tools.",
+        "Read-it-later apps.",
+        "Browser extensions.",
+        "Automations.",
+        "Dashboards.",
+        "Apps that promised simplicity.",
+        "Apps that promised depth."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -164,6 +182,15 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "Capture the task.",
+        "Capture the idea.",
+        "Capture the meeting note.",
+        "Capture the article.",
+        "Capture the insight.",
+        "Capture the thing someone mentioned in passing that might matter later.",
+        "Capture everything, because storage is cheap and forgetting feels irresponsible."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -186,6 +213,10 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "My app was always asking me to reconcile yesterday\u2019s assumptions with today\u2019s conditions.",
+        "\u201cLater\u201d is not a magic category anymore."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -232,6 +263,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -335,6 +367,7 @@
         "generic_abstraction"
       ],
       "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-superficial-ing"
@@ -359,6 +392,7 @@
         "genre_misfit"
       ],
       "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-quietness-obsession"
@@ -501,6 +535,31 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "The subtler problem: that I did not have a clean enough system for holding it all.",
+        "You are not yet maintaining the system.",
+        "I did not stop using productivity apps because they are useless.",
+        "But capture is not the same as commitment.",
+        "The app does not remove that claim.",
+        "That was the first practical observation: I was not overwhelmed because I lacked a reliable capture system.",
+        "If it does not return, perhaps it did not matter enough.",
+        "I do not mean this as a universal rule.",
+        "This is not a moral failing.",
+        "I was not procrastinating in the usual sense.",
+        "But often the problem is not that the plan needs maintenance.",
+        "The list was never empty because the list was not a measure of effort.",
+        "Capacity is not.",
+        "That is not a reason to reject tools altogether.",
+        "I do not try to capture every idea.",
+        "I do not build dashboards for my life.",
+        "I do not track habits unless there is a specific reason.",
+        "\u201cLater\u201d is not a magic category anymore.",
+        "I notice sooner when the issue is not organisation but overcommitment.",
+        "The cost is that the system is not elegant.",
+        "It does not scale infinitely.",
+        "It does not produce satisfying analytics.",
+        "Fewer lists and a clearer sense of what did not belong on them."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -512,6 +571,7 @@
         "frictionless_structure"
       ],
       "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "paragraph-length-uniformity"
@@ -560,12 +620,13 @@
         "genre_misfit"
       ],
       "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": "type-token ratio 0.39 (689 unique of 1778 words, target above 0.40)",
       "passed": false,
       "severity": "context_warning",
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+      "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -723,7 +784,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+          "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -849,7 +910,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+          "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -880,7 +941,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -890,15 +951,6 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
-        "components": [
-          "headings in prose"
-        ],
-        "score": 2,
-        "threshold": 4,
-        "triggered": false,
-        "vocabulary_points": 0
-      },
       "by_category": {
         "Filler and hedging": 2,
         "Language and grammar": 2,
@@ -909,6 +961,15 @@
         "context_warning": 7,
         "hard_fail": 0,
         "strong_warning": 0
+      },
+      "signal_stacking": {
+        "components": [
+          "headings in prose"
+        ],
+        "score": 2,
+        "threshold": 4,
+        "triggered": false,
+        "vocabulary_points": 0
       }
     },
     "metadata": {
@@ -921,6 +982,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No em dashes found",
@@ -929,6 +991,7 @@
               "genre_misfit"
             ],
             "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -944,6 +1007,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max AI words per paragraph: 1 (1 total in text)",
@@ -967,6 +1031,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No nonliteral land/surface constructions found",
@@ -988,29 +1053,30 @@
         "status": "clear"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 2,
             "threshold": 4
           },
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "components": [
               "headings in prose"
             ],
-            "evidence": "Overall AI-signal pressure 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=12 distinct/9.0/1000",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=12 distinct/9.0/1000",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 2,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 8.98876404494382,
               "kobak_style_distinct": 12,
@@ -1036,7 +1102,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "clear"
       },
@@ -1045,6 +1111,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No manufactured insight phrases",
@@ -1068,7 +1135,24 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "So I tried apps.",
+            "Task managers.",
+            "Notes apps.",
+            "Whiteboards.",
+            "Kanban boards.",
+            "Habit trackers.",
+            "Calendar overlays.",
+            "Focus timers.",
+            "Personal knowledge management tools.",
+            "Read-it-later apps.",
+            "Browser extensions.",
+            "Automations.",
+            "Dashboards.",
+            "Apps that promised simplicity.",
+            "Apps that promised depth."
+          ],
           "raw": {
             "evidence": "Found sequence of 15 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1077,6 +1161,23 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "So I tried apps.",
+              "Task managers.",
+              "Notes apps.",
+              "Whiteboards.",
+              "Kanban boards.",
+              "Habit trackers.",
+              "Calendar overlays.",
+              "Focus timers.",
+              "Personal knowledge management tools.",
+              "Read-it-later apps.",
+              "Browser extensions.",
+              "Automations.",
+              "Dashboards.",
+              "Apps that promised simplicity.",
+              "Apps that promised depth."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1093,7 +1194,16 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "Capture the task.",
+            "Capture the idea.",
+            "Capture the meeting note.",
+            "Capture the article.",
+            "Capture the insight.",
+            "Capture the thing someone mentioned in passing that might matter later.",
+            "Capture everything, because storage is cheap and forgetting feels irresponsible."
+          ],
           "raw": {
             "evidence": "Found 7 consecutive sentences starting with 'capture'",
             "evidence_role": "rhythm_signal",
@@ -1102,6 +1212,15 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "Capture the task.",
+              "Capture the idea.",
+              "Capture the meeting note.",
+              "Capture the article.",
+              "Capture the insight.",
+              "Capture the thing someone mentioned in passing that might matter later.",
+              "Capture everything, because storage is cheap and forgetting feels irresponsible."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1118,6 +1237,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No collaborative artifacts",
@@ -1141,7 +1261,11 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "My app was always asking me to reconcile yesterday\u2019s assumptions with today\u2019s conditions.",
+            "\u201cLater\u201d is not a magic category anymore."
+          ],
           "raw": {
             "evidence": "Found 4 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1149,6 +1273,10 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "My app was always asking me to reconcile yesterday\u2019s assumptions with today\u2019s conditions.",
+              "\u201cLater\u201d is not a magic category anymore."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1164,6 +1292,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Sentence length stdev: 5.8 (target: >4)",
@@ -1189,6 +1318,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No promotional language",
@@ -1214,6 +1344,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No significance inflation",
@@ -1237,6 +1368,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No negative parallelisms or contrived reframes",
@@ -1245,6 +1377,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1260,6 +1393,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No copula avoidance",
@@ -1285,6 +1419,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No filler phrases",
@@ -1308,6 +1443,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No generic conclusions",
@@ -1333,6 +1469,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No false concession hedges",
@@ -1356,6 +1493,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No placeholder residue",
@@ -1379,6 +1517,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Soft scaffold phrases: 0",
@@ -1402,6 +1541,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Vague demonstrative subjects: 0",
@@ -1427,6 +1567,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No forced triads",
@@ -1452,6 +1593,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No superficial -ing phrases",
@@ -1460,6 +1602,7 @@
               "generic_abstraction"
             ],
             "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1475,6 +1618,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Ghost/spectral words: 0",
@@ -1500,6 +1644,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Quietness words: 2",
@@ -1509,6 +1654,7 @@
               "genre_misfit"
             ],
             "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1525,6 +1671,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rhetorical questions: 0",
@@ -1550,6 +1697,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List ratio: 0%",
@@ -1575,6 +1723,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Decorative symbols/shortcodes: 0",
@@ -1600,6 +1749,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dramatic transitions",
@@ -1625,6 +1775,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No formulaic openers",
@@ -1650,6 +1801,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No signposted conclusions",
@@ -1675,6 +1827,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "# Why I stopped using productivity apps"
           ],
@@ -1702,6 +1855,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No corporate AI speak",
@@ -1725,6 +1879,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max 'This [verb]' run: 1",
@@ -1750,6 +1905,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Hedging constructions: 0",
@@ -1773,6 +1929,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No countdown negation",
@@ -1798,7 +1955,32 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "The subtler problem: that I did not have a clean enough system for holding it all.",
+            "You are not yet maintaining the system.",
+            "I did not stop using productivity apps because they are useless.",
+            "But capture is not the same as commitment.",
+            "The app does not remove that claim.",
+            "That was the first practical observation: I was not overwhelmed because I lacked a reliable capture system.",
+            "If it does not return, perhaps it did not matter enough.",
+            "I do not mean this as a universal rule.",
+            "This is not a moral failing.",
+            "I was not procrastinating in the usual sense.",
+            "But often the problem is not that the plan needs maintenance.",
+            "The list was never empty because the list was not a measure of effort.",
+            "Capacity is not.",
+            "That is not a reason to reject tools altogether.",
+            "I do not try to capture every idea.",
+            "I do not build dashboards for my life.",
+            "I do not track habits unless there is a specific reason.",
+            "\u201cLater\u201d is not a magic category anymore.",
+            "I notice sooner when the issue is not organisation but overcommitment.",
+            "The cost is that the system is not elegant.",
+            "It does not scale infinitely.",
+            "It does not produce satisfying analytics.",
+            "Fewer lists and a clearer sense of what did not belong on them."
+          ],
           "raw": {
             "evidence": "Found 24 negation markers (13.4 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1807,6 +1989,31 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "The subtler problem: that I did not have a clean enough system for holding it all.",
+              "You are not yet maintaining the system.",
+              "I did not stop using productivity apps because they are useless.",
+              "But capture is not the same as commitment.",
+              "The app does not remove that claim.",
+              "That was the first practical observation: I was not overwhelmed because I lacked a reliable capture system.",
+              "If it does not return, perhaps it did not matter enough.",
+              "I do not mean this as a universal rule.",
+              "This is not a moral failing.",
+              "I was not procrastinating in the usual sense.",
+              "But often the problem is not that the plan needs maintenance.",
+              "The list was never empty because the list was not a measure of effort.",
+              "Capacity is not.",
+              "That is not a reason to reject tools altogether.",
+              "I do not try to capture every idea.",
+              "I do not build dashboards for my life.",
+              "I do not track habits unless there is a specific reason.",
+              "\u201cLater\u201d is not a magic category anymore.",
+              "I notice sooner when the issue is not organisation but overcommitment.",
+              "The cost is that the system is not elegant.",
+              "It does not scale infinitely.",
+              "It does not produce satisfying analytics.",
+              "Fewer lists and a clearer sense of what did not belong on them."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1823,6 +2030,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Paragraph length CV: 0.32 across 31 paragraphs",
@@ -1831,6 +2039,7 @@
               "frictionless_structure"
             ],
             "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1846,6 +2055,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Tidy paragraph endings: 0",
@@ -1871,6 +2081,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bland critical template phrases: 0",
@@ -1896,6 +2107,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rubric echo phrases: 0",
@@ -1921,6 +2133,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": "type-token ratio 0.39 (689 unique of 1778 words, target above 0.40)",
           "quoted_phrases": [],
           "raw": {
             "evidence": "Type-token ratio: 0.388 (689 unique / 1778 total, target: >0.40)",
@@ -1930,6 +2143,7 @@
               "genre_misfit"
             ],
             "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": "type-token ratio 0.39 (689 unique of 1778 words, target above 0.40)",
             "severity": "context_warning"
           }
         },
@@ -1946,20 +2160,21 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
-            "tabs, notifications, vague dread",
-            "capture everything, because storage is cheap, forgetting feels irresponsible",
-            "archive, review, reframe",
-            "requested, deferred, worried about",
-            "what are often workload, priority, boundary problems",
-            "conversation, discomfort, need",
-            "whether they belong today, later, nowhere",
-            "it depends on judgement, which is inconvenient, cannot be fully automated",
-            "tagged, dated, deferred",
-            "what to abandon, what to renegotiate, what kind of day"
+            "tabs, notifications and vague dread",
+            "Capture everything, because storage is cheap and forgetting feels irresponsible",
+            "archive, review and reframe",
+            "requested, deferred or worried about",
+            "what are often workload, priority and boundary problems",
+            "conversation, discomfort or need",
+            "whether they belong today, later or nowhere",
+            "It depends on judgement, which is inconvenient and cannot be fully automated",
+            "tagged, dated and deferred",
+            "what to abandon, what to renegotiate, or what kind of day"
           ],
           "raw": {
-            "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+            "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -1982,6 +2197,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No repeated section labels",
@@ -2005,6 +2221,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No notability claims",
@@ -2030,6 +2247,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No vague attributions",
@@ -2055,6 +2273,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bold spans in prose: 0",
@@ -2078,6 +2297,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List items with bolded headers: 0",
@@ -2103,6 +2323,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dense compound-modifier sentences",
@@ -2128,6 +2349,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No knowledge-cutoff disclaimers",
@@ -2151,14 +2373,21 @@
   },
   "pass_rate": "42/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 7,
+    "failures_by_severity": {
+      "context_warning": 7
+    },
+    "pass_rate": "42/49",
+    "passed_checks": 42,
+    "signal_stacking": {
       "components": [
         "headings in prose"
       ],
       "score": 2,
       "threshold": 4,
       "triggered": false,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 8.98876404494382,
         "kobak_style_distinct": 12,
@@ -2179,13 +2408,6 @@
         "worst_generic": 1
       }
     },
-    "check_status": "fail",
-    "failed_checks": 7,
-    "failures_by_severity": {
-      "context_warning": 7
-    },
-    "pass_rate": "42/49",
-    "passed_checks": 42,
     "total_checks": 49
   },
   "triggered_checks": [
@@ -2291,7 +2513,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+      "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

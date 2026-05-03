@@ -65,6 +65,7 @@
         "genre_misfit"
       ],
       "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-em-dashes"
@@ -94,19 +95,19 @@
     },
     {
       "components": [],
-      "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=14 distinct/12.7/1000",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=14 distinct/12.7/1000",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": true,
       "score": 0,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 12.694748990190421,
         "kobak_style_distinct": 14,
@@ -146,6 +147,7 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -158,6 +160,12 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "In the next chapter I shall discuss the complex and little known laws of variation and of correlation of growth.",
+        "In the four succeeding chapters, the most apparent and gravest difficulties on the theory will be given: namely, first, the difficulties of transitions, or in understanding how a simple being or a simple organ can be changed and perfected into a highly developed being or elaborately constructed organ; secondly the subject of Instinct, or the mental powers of animals, thirdly, Hybridism, or the infertility of species and the fertility of varieties when intercrossed; and fourthly, the imperfection of the Geological Record.",
+        "In the next chapter I shall consider the geological succession of organic beings throughout time; in the eleventh and twelfth, their geographical distribution throughout space; in the thirteenth, their classification or mutual affinities, both when mature and in an embryonic condition.",
+        "In the last chapter I shall give a brief recapitulation of the whole work, and a few concluding remarks."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -180,6 +188,12 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "\u2018Beagle,\u2019 as naturalist, I was much struck with certain facts in the distribution of the inhabitants of South America, and in the geological relations of the present to the past inhabitants of that continent.",
+        "After five years\u2019 work I allowed myself to speculate on the subject, and drew up some short notes; these I enlarged in 1844 into a sketch of the conclusions, which then seemed to me probable: from that period to the present day I have steadily pursued the same object.",
+        "Wallace\u2019s excellent memoir, some brief extracts from my manuscripts.",
+        "The author of the \u2018Vestiges of Creation\u2019 would, I presume, say that, after a certain unknown number of generations, some bird had given birth to a woodpecker, and some plant to the misseltoe, and that these had been produced perfect as we now see them; but this assumption seems to me to be no explanation, for it leaves the case of the coadaptations of organic beings to each other and to their physical conditions of life, untouched and unexplained."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -226,6 +240,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -329,6 +344,9 @@
         "generic_abstraction"
       ],
       "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [
+        ", reflecting on the mutual affinities of organic beings, on their embryological relations, their geographical distribution, geological succession, and other such facts, might come to the conclusion that each species had not been independently created, but had descended, like varieties, from other species."
+      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-superficial-ing"
@@ -353,6 +371,7 @@
         "genre_misfit"
       ],
       "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-quietness-obsession"
@@ -495,6 +514,7 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -506,6 +526,7 @@
         "frictionless_structure"
       ],
       "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "paragraph-length-uniformity"
@@ -554,12 +575,13 @@
         "genre_misfit"
       ],
       "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": "type-token ratio 0.37 (647 unique of 1733 words, target above 0.40)",
       "passed": false,
       "severity": "context_warning",
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+      "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -678,7 +700,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+          "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -792,7 +814,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+          "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -840,7 +862,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -851,13 +873,6 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
-        "components": [],
-        "score": 0,
-        "threshold": 4,
-        "triggered": false,
-        "vocabulary_points": 0
-      },
       "by_category": {
         "Content patterns": 2,
         "Language and grammar": 2,
@@ -868,6 +883,13 @@
         "context_warning": 5,
         "hard_fail": 0,
         "strong_warning": 1
+      },
+      "signal_stacking": {
+        "components": [],
+        "score": 0,
+        "threshold": 4,
+        "triggered": false,
+        "vocabulary_points": 0
       }
     },
     "metadata": {
@@ -880,6 +902,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No em dashes found",
@@ -888,6 +911,7 @@
               "genre_misfit"
             ],
             "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -903,6 +927,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max AI words per paragraph: 0 (0 total in text)",
@@ -926,6 +951,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No nonliteral land/surface constructions found",
@@ -947,27 +973,28 @@
         "status": "clear"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 0,
             "threshold": 4
           },
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "components": [],
-            "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=14 distinct/12.7/1000",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=14 distinct/12.7/1000",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 0,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 12.694748990190421,
               "kobak_style_distinct": 14,
@@ -993,7 +1020,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "clear"
       },
@@ -1002,6 +1029,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No manufactured insight phrases",
@@ -1025,6 +1053,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max consecutive short sentences: 2",
@@ -1034,6 +1063,7 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1050,7 +1080,13 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "In the next chapter I shall discuss the complex and little known laws of variation and of correlation of growth.",
+            "In the four succeeding chapters, the most apparent and gravest difficulties on the theory will be given: namely, first, the difficulties of transitions, or in understanding how a simple being or a simple organ can be changed and perfected into a highly developed being or elaborately constructed organ; secondly the subject of Instinct, or the mental powers of animals, thirdly, Hybridism, or the infertility of species and the fertility of varieties when intercrossed; and fourthly, the imperfection of the Geological Record.",
+            "In the next chapter I shall consider the geological succession of organic beings throughout time; in the eleventh and twelfth, their geographical distribution throughout space; in the thirteenth, their classification or mutual affinities, both when mature and in an embryonic condition.",
+            "In the last chapter I shall give a brief recapitulation of the whole work, and a few concluding remarks."
+          ],
           "raw": {
             "evidence": "Found 4 consecutive sentences starting with 'in'",
             "evidence_role": "rhythm_signal",
@@ -1059,6 +1095,12 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "In the next chapter I shall discuss the complex and little known laws of variation and of correlation of growth.",
+              "In the four succeeding chapters, the most apparent and gravest difficulties on the theory will be given: namely, first, the difficulties of transitions, or in understanding how a simple being or a simple organ can be changed and perfected into a highly developed being or elaborately constructed organ; secondly the subject of Instinct, or the mental powers of animals, thirdly, Hybridism, or the infertility of species and the fertility of varieties when intercrossed; and fourthly, the imperfection of the Geological Record.",
+              "In the next chapter I shall consider the geological succession of organic beings throughout time; in the eleventh and twelfth, their geographical distribution throughout space; in the thirteenth, their classification or mutual affinities, both when mature and in an embryonic condition.",
+              "In the last chapter I shall give a brief recapitulation of the whole work, and a few concluding remarks."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1075,6 +1117,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No collaborative artifacts",
@@ -1098,7 +1141,13 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "\u2018Beagle,\u2019 as naturalist, I was much struck with certain facts in the distribution of the inhabitants of South America, and in the geological relations of the present to the past inhabitants of that continent.",
+            "After five years\u2019 work I allowed myself to speculate on the subject, and drew up some short notes; these I enlarged in 1844 into a sketch of the conclusions, which then seemed to me probable: from that period to the present day I have steadily pursued the same object.",
+            "Wallace\u2019s excellent memoir, some brief extracts from my manuscripts.",
+            "The author of the \u2018Vestiges of Creation\u2019 would, I presume, say that, after a certain unknown number of generations, some bird had given birth to a woodpecker, and some plant to the misseltoe, and that these had been produced perfect as we now see them; but this assumption seems to me to be no explanation, for it leaves the case of the coadaptations of organic beings to each other and to their physical conditions of life, untouched and unexplained."
+          ],
           "raw": {
             "evidence": "Found 6 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1106,6 +1155,12 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "\u2018Beagle,\u2019 as naturalist, I was much struck with certain facts in the distribution of the inhabitants of South America, and in the geological relations of the present to the past inhabitants of that continent.",
+              "After five years\u2019 work I allowed myself to speculate on the subject, and drew up some short notes; these I enlarged in 1844 into a sketch of the conclusions, which then seemed to me probable: from that period to the present day I have steadily pursued the same object.",
+              "Wallace\u2019s excellent memoir, some brief extracts from my manuscripts.",
+              "The author of the \u2018Vestiges of Creation\u2019 would, I presume, say that, after a certain unknown number of generations, some bird had given birth to a woodpecker, and some plant to the misseltoe, and that these had been produced perfect as we now see them; but this assumption seems to me to be no explanation, for it leaves the case of the coadaptations of organic beings to each other and to their physical conditions of life, untouched and unexplained."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1121,6 +1176,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Sentence length stdev: 17.8 (target: >4)",
@@ -1146,6 +1202,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "profound"
           ],
@@ -1173,6 +1230,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No significance inflation",
@@ -1196,6 +1254,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No negative parallelisms or contrived reframes",
@@ -1204,6 +1263,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1219,6 +1279,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No copula avoidance",
@@ -1244,6 +1305,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No filler phrases",
@@ -1267,6 +1329,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No generic conclusions",
@@ -1292,6 +1355,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No false concession hedges",
@@ -1315,6 +1379,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No placeholder residue",
@@ -1338,6 +1403,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Soft scaffold phrases: 0",
@@ -1361,6 +1427,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Vague demonstrative subjects: 0",
@@ -1386,6 +1453,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No forced triads",
@@ -1411,7 +1479,10 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            ", reflecting on the mutual affinities of organic beings, on their embryological relations, their geographical distribution, geological succession, and other such facts, might come to the conclusion that each species had not been independently created, but had descended, like varieties, from other species."
+          ],
           "raw": {
             "evidence": "Found 1 tacked-on -ing phrase(s)",
             "evidence_role": "analysis_substitution",
@@ -1419,6 +1490,9 @@
               "generic_abstraction"
             ],
             "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [
+              ", reflecting on the mutual affinities of organic beings, on their embryological relations, their geographical distribution, geological succession, and other such facts, might come to the conclusion that each species had not been independently created, but had descended, like varieties, from other species."
+            ],
             "severity": "strong_warning"
           }
         },
@@ -1434,6 +1508,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Ghost/spectral words: 0",
@@ -1459,6 +1534,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Quietness words: 0",
@@ -1468,6 +1544,7 @@
               "genre_misfit"
             ],
             "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1484,6 +1561,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rhetorical questions: 0",
@@ -1509,6 +1587,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List ratio: 0%",
@@ -1534,6 +1613,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Decorative symbols/shortcodes: 0",
@@ -1559,6 +1639,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dramatic transitions",
@@ -1584,6 +1665,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No formulaic openers",
@@ -1609,6 +1691,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No signposted conclusions",
@@ -1634,6 +1717,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No headings",
@@ -1659,6 +1743,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No corporate AI speak",
@@ -1682,6 +1767,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max 'This [verb]' run: 1",
@@ -1707,6 +1793,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Hedging constructions: 0",
@@ -1730,6 +1817,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No countdown negation",
@@ -1755,6 +1843,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Negation markers: 1 (0.6 per 1000 words)",
@@ -1764,6 +1853,7 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1780,6 +1870,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Paragraph length CV: 0.38 across 10 paragraphs",
@@ -1788,6 +1879,7 @@
               "frictionless_structure"
             ],
             "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1803,6 +1895,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Tidy paragraph endings: 0",
@@ -1828,6 +1921,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bland critical template phrases: 0",
@@ -1853,6 +1947,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rubric echo phrases: 0",
@@ -1878,6 +1973,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": "type-token ratio 0.37 (647 unique of 1733 words, target above 0.40)",
           "quoted_phrases": [],
           "raw": {
             "evidence": "Type-token ratio: 0.373 (647 unique / 1733 total, target: >0.40)",
@@ -1887,6 +1983,7 @@
               "genre_misfit"
             ],
             "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": "type-token ratio 0.37 (647 unique of 1733 words, target above 0.40)",
             "severity": "context_warning"
           }
         },
@@ -1903,21 +2000,22 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
-            "their geographical distribution, geological succession, other such facts",
-            "tail, beak, tongue",
-            "external conditions, or of habit, of the volition of",
-            "physical conditions of life, untouched, unexplained",
-            "variation under domestication, afforded the best, safest clue",
-            "itself, under the complex, sometimes varying conditions of",
-            "chapters, the most apparent, gravest difficulties on the",
-            "first, the difficulties of transitions, in",
-            "thirdly, hybridism, the infertility of species",
-            "in the thirteenth, their classification, mutual affinities",
-            "as i believe, the future success, modification of every inhabitant"
+            "their geographical distribution,\ngeological succession, and other such facts",
+            "tail, beak, and tongue",
+            "external conditions, or of habit, or of the volition of",
+            "physical conditions of life, untouched and unexplained",
+            "variation under domestication, afforded the best and safest clue",
+            "itself, under the complex and sometimes varying conditions of",
+            "chapters, the most apparent and gravest difficulties on the",
+            "first, the difficulties of transitions, or in",
+            "thirdly, Hybridism, or the infertility of species",
+            "in the thirteenth, their classification or mutual affinities",
+            "as I believe,\nthe future success and modification of every inhabitant"
           ],
           "raw": {
-            "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+            "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -1940,6 +2038,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No repeated section labels",
@@ -1963,6 +2062,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No notability claims",
@@ -1988,6 +2088,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No vague attributions",
@@ -2013,6 +2114,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bold spans in prose: 0",
@@ -2036,6 +2138,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List items with bolded headers: 0",
@@ -2061,6 +2164,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dense compound-modifier sentences",
@@ -2086,6 +2190,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No knowledge-cutoff disclaimers",
@@ -2109,12 +2214,20 @@
   },
   "pass_rate": "43/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 6,
+    "failures_by_severity": {
+      "context_warning": 5,
+      "strong_warning": 1
+    },
+    "pass_rate": "43/49",
+    "passed_checks": 43,
+    "signal_stacking": {
       "components": [],
       "score": 0,
       "threshold": 4,
       "triggered": false,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 12.694748990190421,
         "kobak_style_distinct": 14,
@@ -2135,14 +2248,6 @@
         "worst_generic": 0
       }
     },
-    "check_status": "fail",
-    "failed_checks": 6,
-    "failures_by_severity": {
-      "context_warning": 5,
-      "strong_warning": 1
-    },
-    "pass_rate": "43/49",
-    "passed_checks": 43,
     "total_checks": 49
   },
   "triggered_checks": [
@@ -2231,7 +2336,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+      "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

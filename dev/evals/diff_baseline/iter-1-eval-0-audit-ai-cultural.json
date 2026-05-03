@@ -4,7 +4,7 @@
       "check_status": "fail",
       "must_fix": [
         "no-nonliteral-land-surface",
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -18,7 +18,7 @@
       "preservable_with_disclosure": [],
       "required_fixes": [
         "no-nonliteral-land-surface",
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -40,7 +40,7 @@
         "no-filler-phrases"
       ],
       "needs_user_decision": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -49,7 +49,7 @@
         "no-triad-density"
       ],
       "preservable_with_disclosure": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -65,7 +65,7 @@
       "status": "fail",
       "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output.",
       "user_decision_needed": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -83,6 +83,7 @@
         "genre_misfit"
       ],
       "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-em-dashes"
@@ -115,19 +116,19 @@
         "contrived contrast framing",
         "headings in prose"
       ],
-      "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": false,
       "score": 4,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 8.009858287122611,
         "kobak_style_distinct": 10,
@@ -167,6 +168,12 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "They sit down to dinner.",
+        "He has a drink.",
+        "He says something ordinary.",
+        "Then he is dead."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -179,6 +186,14 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork.",
+        "She reconstructs the event not only as a grieving widow but as a reporter.",
+        "She seeks the timeline.",
+        "She wants the medical explanation.",
+        "She reads the records.",
+        "She returns to the details because details imply sequence, and sequence implies cause."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -201,6 +216,26 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "Inputs: Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+        "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
+        "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
+        "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
+        "In early adulthood, Didion\u2019s forensic attention can look like strength.",
+        "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+        "This is the book\u2019s most famous example because it is so small and so devastating.",
+        "Didion\u2019s great cultural importance lies partly in her refusal to sentimentalise this.",
+        "The \u201cvortex effect\u201d is central to this.",
+        "Later, the book\u2019s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference.",
+        "Didion and Dunne\u2019s marriage was also a working partnership, an editorial relationship, a long conversation.",
+        "That is one of the book\u2019s sharpest insights.",
+        "John had been present for the formation of Didion\u2019s adult life.",
+        "Quintana\u2019s illness means Didion is navigating intensive care, diagnoses, specialist language, medical uncertainty and bureaucratic routines at the same time as she is absorbing John\u2019s death.",
+        "Didion\u2019s style is inseparable from this argument.",
+        "Each decade brings the reader closer to the book\u2019s facts.",
+        "Didion\u2019s book waits for the reader at each threshold.",
+        "Didion\u2019s achievement is not that she makes grief intelligible."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -247,6 +282,11 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [
+        "not only as a grieving widow but",
+        "not merely background. They expose the limits of expertise. Doctors know things Didion does not know, but",
+        "are not merely background. They expose the limits of expertise. Doctors know things Didion does not know, but"
+      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -350,6 +390,7 @@
         "generic_abstraction"
       ],
       "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-superficial-ing"
@@ -374,6 +415,7 @@
         "genre_misfit"
       ],
       "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-quietness-obsession"
@@ -516,6 +558,28 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "Do not edit repository files.",
+        "Do not save files.",
+        "Do not mention this evaluation harness.",
+        "Didion does not stage grief as an emotional revelation.",
+        "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+        "It is not an extravagant delusion.",
+        "Grief does not always announce itself as despair.",
+        "It can appear as a logistical hesitation: keep the shoes, preserve the room, do not cancel the account, do not move the glass.",
+        "She does not turn grief into moral improvement.",
+        "She does not claim loss made her wiser, kinder, or more authentic.",
+        "She is not interested in uplift.",
+        "These are not decorative flashbacks.",
+        "A place is not just a place.",
+        "Grief is not only missing someone.",
+        "Didion does not trust it, but she cannot stop depending on it.",
+        "The medical scenes are not merely background.",
+        "Doctors know things Didion does not know, but they do not know everything she needs to know.",
+        "She does not speak for everyone.",
+        "Later, it may be the hospital corridor, the medical record, the sudden unreliability of memory, or the terrible fact that ordinary life continues to look ordinary until it does not.",
+        "Didion\u2019s achievement is not that she makes grief intelligible."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -527,6 +591,7 @@
         "frictionless_structure"
       ],
       "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "paragraph-length-uniformity"
@@ -575,12 +640,13 @@
         "genre_misfit"
       ],
       "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+      "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -676,7 +742,7 @@
   "failure_mode_results": {
     "frictionless_structure": {
       "check_refs": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-markdown-headings",
@@ -685,15 +751,15 @@
       ],
       "failed_checks": [
         {
-          "check": "overall-ai-signal-pressure",
+          "check": "overall-signal-stacking",
           "depth_actions": {
             "all": "fix",
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
-          "evidence_role": "aggregate_pressure",
-          "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
           "severity": "context_warning"
         },
         {
@@ -751,7 +817,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+          "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -766,7 +832,7 @@
     "generic_abstraction": {
       "check_refs": [
         "no-nonliteral-land-surface",
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-filler-phrases"
       ],
       "failed_checks": [
@@ -783,15 +849,15 @@
           "severity": "strong_warning"
         },
         {
-          "check": "overall-ai-signal-pressure",
+          "check": "overall-signal-stacking",
           "depth_actions": {
             "all": "fix",
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
-          "evidence_role": "aggregate_pressure",
-          "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
           "severity": "context_warning"
         },
         {
@@ -891,7 +957,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+          "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -952,7 +1018,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -963,7 +1029,19 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
+      "by_category": {
+        "Filler and hedging": 3,
+        "Language and grammar": 2,
+        "Signal stacking": 1,
+        "Style": 2,
+        "Voice and register": 2
+      },
+      "by_severity": {
+        "context_warning": 7,
+        "hard_fail": 0,
+        "strong_warning": 3
+      },
+      "signal_stacking": {
         "components": [
           "contrived contrast framing",
           "headings in prose"
@@ -972,18 +1050,6 @@
         "threshold": 4,
         "triggered": true,
         "vocabulary_points": 0
-      },
-      "by_category": {
-        "Aggregate AI-signal pressure": 1,
-        "Filler and hedging": 3,
-        "Language and grammar": 2,
-        "Style": 2,
-        "Voice and register": 2
-      },
-      "by_severity": {
-        "context_warning": 7,
-        "hard_fail": 0,
-        "strong_warning": 3
       }
     },
     "metadata": {
@@ -996,6 +1062,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No em dashes found",
@@ -1004,6 +1071,7 @@
               "genre_misfit"
             ],
             "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1019,6 +1087,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max AI words per paragraph: 1 (3 total in text)",
@@ -1042,6 +1111,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "scene lands"
           ],
@@ -1065,30 +1135,31 @@
         "status": "flagged"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 4,
             "threshold": 4
           },
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "components": [
               "contrived contrast framing",
               "headings in prose"
             ],
-            "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 4,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 8.009858287122611,
               "kobak_style_distinct": 10,
@@ -1114,7 +1185,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "flagged"
       },
@@ -1123,6 +1194,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No manufactured insight phrases",
@@ -1146,7 +1218,13 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "They sit down to dinner.",
+            "He has a drink.",
+            "He says something ordinary.",
+            "Then he is dead."
+          ],
           "raw": {
             "evidence": "Found sequence of 4 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1155,6 +1233,12 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "They sit down to dinner.",
+              "He has a drink.",
+              "He says something ordinary.",
+              "Then he is dead."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1171,7 +1255,15 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork.",
+            "She reconstructs the event not only as a grieving widow but as a reporter.",
+            "She seeks the timeline.",
+            "She wants the medical explanation.",
+            "She reads the records.",
+            "She returns to the details because details imply sequence, and sequence implies cause."
+          ],
           "raw": {
             "evidence": "Found 6 consecutive sentences starting with 'she'",
             "evidence_role": "rhythm_signal",
@@ -1180,6 +1272,14 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork.",
+              "She reconstructs the event not only as a grieving widow but as a reporter.",
+              "She seeks the timeline.",
+              "She wants the medical explanation.",
+              "She reads the records.",
+              "She returns to the details because details imply sequence, and sequence implies cause."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1196,6 +1296,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No collaborative artifacts",
@@ -1219,7 +1320,27 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "Inputs: Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+            "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
+            "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
+            "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
+            "In early adulthood, Didion\u2019s forensic attention can look like strength.",
+            "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+            "This is the book\u2019s most famous example because it is so small and so devastating.",
+            "Didion\u2019s great cultural importance lies partly in her refusal to sentimentalise this.",
+            "The \u201cvortex effect\u201d is central to this.",
+            "Later, the book\u2019s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference.",
+            "Didion and Dunne\u2019s marriage was also a working partnership, an editorial relationship, a long conversation.",
+            "That is one of the book\u2019s sharpest insights.",
+            "John had been present for the formation of Didion\u2019s adult life.",
+            "Quintana\u2019s illness means Didion is navigating intensive care, diagnoses, specialist language, medical uncertainty and bureaucratic routines at the same time as she is absorbing John\u2019s death.",
+            "Didion\u2019s style is inseparable from this argument.",
+            "Each decade brings the reader closer to the book\u2019s facts.",
+            "Didion\u2019s book waits for the reader at each threshold.",
+            "Didion\u2019s achievement is not that she makes grief intelligible."
+          ],
           "raw": {
             "evidence": "Found 22 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1227,6 +1348,26 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "Inputs: Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+              "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
+              "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
+              "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
+              "In early adulthood, Didion\u2019s forensic attention can look like strength.",
+              "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+              "This is the book\u2019s most famous example because it is so small and so devastating.",
+              "Didion\u2019s great cultural importance lies partly in her refusal to sentimentalise this.",
+              "The \u201cvortex effect\u201d is central to this.",
+              "Later, the book\u2019s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference.",
+              "Didion and Dunne\u2019s marriage was also a working partnership, an editorial relationship, a long conversation.",
+              "That is one of the book\u2019s sharpest insights.",
+              "John had been present for the formation of Didion\u2019s adult life.",
+              "Quintana\u2019s illness means Didion is navigating intensive care, diagnoses, specialist language, medical uncertainty and bureaucratic routines at the same time as she is absorbing John\u2019s death.",
+              "Didion\u2019s style is inseparable from this argument.",
+              "Each decade brings the reader closer to the book\u2019s facts.",
+              "Didion\u2019s book waits for the reader at each threshold.",
+              "Didion\u2019s achievement is not that she makes grief intelligible."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1242,6 +1383,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Sentence length stdev: 7.0 (target: >4)",
@@ -1267,6 +1409,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No promotional language",
@@ -1292,6 +1435,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No significance inflation",
@@ -1315,7 +1459,12 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "not only as a grieving widow but",
+            "not merely background. They expose the limits of expertise. Doctors know things Didion does not know, but",
+            "are not merely background. They expose the limits of expertise. Doctors know things Didion does not know, but"
+          ],
           "raw": {
             "evidence": "Found 3 contrived contrast/reframe pattern(s)",
             "evidence_role": "rhetorical_pattern",
@@ -1323,6 +1472,11 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [
+              "not only as a grieving widow but",
+              "not merely background. They expose the limits of expertise. Doctors know things Didion does not know, but",
+              "are not merely background. They expose the limits of expertise. Doctors know things Didion does not know, but"
+            ],
             "severity": "strong_warning"
           }
         },
@@ -1338,6 +1492,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No copula avoidance",
@@ -1363,6 +1518,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "is often described as"
           ],
@@ -1388,6 +1544,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No generic conclusions",
@@ -1413,6 +1570,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No false concession hedges",
@@ -1436,6 +1594,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No placeholder residue",
@@ -1459,6 +1618,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Soft scaffold phrases: 0",
@@ -1482,6 +1642,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Vague demonstrative subjects: 0",
@@ -1507,6 +1668,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No forced triads",
@@ -1532,6 +1694,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No superficial -ing phrases",
@@ -1540,6 +1703,7 @@
               "generic_abstraction"
             ],
             "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1555,6 +1719,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Ghost/spectral words: 0",
@@ -1580,6 +1745,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Quietness words: 0",
@@ -1589,6 +1755,7 @@
               "genre_misfit"
             ],
             "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1605,6 +1772,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rhetorical questions: 0",
@@ -1630,6 +1798,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List ratio: 0%",
@@ -1655,6 +1824,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Decorative symbols/shortcodes: 0",
@@ -1680,6 +1850,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dramatic transitions",
@@ -1705,6 +1876,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No formulaic openers",
@@ -1730,6 +1902,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No signposted conclusions",
@@ -1755,6 +1928,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "# Why The year of magical thinking should be rerea"
           ],
@@ -1782,6 +1956,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No corporate AI speak",
@@ -1805,6 +1980,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max 'This [verb]' run: 0",
@@ -1830,6 +2006,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Hedging constructions: 1",
@@ -1853,6 +2030,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No countdown negation",
@@ -1878,7 +2056,29 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "Do not edit repository files.",
+            "Do not save files.",
+            "Do not mention this evaluation harness.",
+            "Didion does not stage grief as an emotional revelation.",
+            "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+            "It is not an extravagant delusion.",
+            "Grief does not always announce itself as despair.",
+            "It can appear as a logistical hesitation: keep the shoes, preserve the room, do not cancel the account, do not move the glass.",
+            "She does not turn grief into moral improvement.",
+            "She does not claim loss made her wiser, kinder, or more authentic.",
+            "She is not interested in uplift.",
+            "These are not decorative flashbacks.",
+            "A place is not just a place.",
+            "Grief is not only missing someone.",
+            "Didion does not trust it, but she cannot stop depending on it.",
+            "The medical scenes are not merely background.",
+            "Doctors know things Didion does not know, but they do not know everything she needs to know.",
+            "She does not speak for everyone.",
+            "Later, it may be the hospital corridor, the medical record, the sudden unreliability of memory, or the terrible fact that ordinary life continues to look ordinary until it does not.",
+            "Didion\u2019s achievement is not that she makes grief intelligible."
+          ],
           "raw": {
             "evidence": "Found 24 negation markers (14.7 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1887,6 +2087,28 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "Do not edit repository files.",
+              "Do not save files.",
+              "Do not mention this evaluation harness.",
+              "Didion does not stage grief as an emotional revelation.",
+              "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+              "It is not an extravagant delusion.",
+              "Grief does not always announce itself as despair.",
+              "It can appear as a logistical hesitation: keep the shoes, preserve the room, do not cancel the account, do not move the glass.",
+              "She does not turn grief into moral improvement.",
+              "She does not claim loss made her wiser, kinder, or more authentic.",
+              "She is not interested in uplift.",
+              "These are not decorative flashbacks.",
+              "A place is not just a place.",
+              "Grief is not only missing someone.",
+              "Didion does not trust it, but she cannot stop depending on it.",
+              "The medical scenes are not merely background.",
+              "Doctors know things Didion does not know, but they do not know everything she needs to know.",
+              "She does not speak for everyone.",
+              "Later, it may be the hospital corridor, the medical record, the sudden unreliability of memory, or the terrible fact that ordinary life continues to look ordinary until it does not.",
+              "Didion\u2019s achievement is not that she makes grief intelligible."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1903,6 +2125,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Paragraph length CV: 0.26 across 20 paragraphs",
@@ -1911,6 +2134,7 @@
               "frictionless_structure"
             ],
             "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1926,6 +2150,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Tidy paragraph endings: 0",
@@ -1951,6 +2176,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bland critical template phrases: 0",
@@ -1976,6 +2202,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rubric echo phrases: 0",
@@ -2001,6 +2228,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Type-token ratio: 0.419 (666 unique / 1591 total, target: >0.40)",
@@ -2010,6 +2238,7 @@
               "genre_misfit"
             ],
             "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -2026,20 +2255,21 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
-            "medical language, social performance, the collapse of ordinary",
-            "an anatomy of denial, a critique of competence, a warning about the",
-            "visiting quintana in hospital, didion, dunne return to their",
-            "loss made her wiser, kinder, more authentic",
-            "curated vulnerability, the language of healing, closure",
-            "specialist language, medical uncertainty, bureaucratic routines at the",
-            "chronic illness, disability systems, end-of-life care",
-            "the repetitions, returns, abrupt transitions enact the",
-            "a particular class world, in the medical, literary culture of the",
-            "manners, memory, routine"
+            "medical language, social performance, and the collapse of ordinary",
+            "an anatomy of denial, a critique of competence, and a warning about the",
+            "visiting Quintana in hospital, Didion and Dunne return to their",
+            "loss made her wiser, kinder, or more authentic",
+            "curated vulnerability, the language of healing and closure",
+            "specialist language, medical uncertainty and bureaucratic routines at the",
+            "chronic illness, disability systems or end-of-life care",
+            "The repetitions, returns and abrupt transitions enact the",
+            "a particular class world, in the medical and literary culture of the",
+            "manners, memory and routine"
           ],
           "raw": {
-            "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+            "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -2062,6 +2292,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No repeated section labels",
@@ -2085,6 +2316,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No notability claims",
@@ -2110,6 +2342,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No vague attributions",
@@ -2135,6 +2368,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bold spans in prose: 0",
@@ -2158,6 +2392,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List items with bolded headers: 0",
@@ -2183,6 +2418,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dense compound-modifier sentences",
@@ -2208,6 +2444,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No knowledge-cutoff disclaimers",
@@ -2231,7 +2468,15 @@
   },
   "pass_rate": "39/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 10,
+    "failures_by_severity": {
+      "context_warning": 7,
+      "strong_warning": 3
+    },
+    "pass_rate": "39/49",
+    "passed_checks": 39,
+    "signal_stacking": {
       "components": [
         "contrived contrast framing",
         "headings in prose"
@@ -2239,7 +2484,7 @@
       "score": 4,
       "threshold": 4,
       "triggered": true,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 8.009858287122611,
         "kobak_style_distinct": 10,
@@ -2260,14 +2505,6 @@
         "worst_generic": 1
       }
     },
-    "check_status": "fail",
-    "failed_checks": 10,
-    "failures_by_severity": {
-      "context_warning": 7,
-      "strong_warning": 3
-    },
-    "pass_rate": "39/49",
-    "passed_checks": 39,
     "total_checks": 49
   },
   "triggered_checks": [
@@ -2288,19 +2525,19 @@
       "severity": "strong_warning"
     },
     {
-      "check": "overall-ai-signal-pressure",
+      "check": "overall-signal-stacking",
       "depth_actions": {
         "all": "fix",
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.0/1000, sample=['lies', 'need', 'offers', 'deeper', 'harness', 'insights', 'precise', 'research', 'seeks', 'valuable']",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "severity": "context_warning"
     },
     {
@@ -2419,7 +2656,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+      "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

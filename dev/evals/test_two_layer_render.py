@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Tests for format_two_layer() — Phase 3 dual-layer audit renderer (U11).
+"""Tests for format_two_layer() — dual-mode audit renderer.
 
-Covers:
-- All-clear single-line response (R8)
-- Layer 1 + Layer 2 separator on flagged input (R1)
-- Layer 1 per-flagged-pattern block shape (R5): glyph + name + quoted phrase
-  + action; no description, no "why this matters"
-- Severity glyphs (x / ! / ?)
-- Layer 2 sub-table shape (R4): three columns Pattern | Result | Action
-- Layer 2 category collapse to one-liner when every check clear (R3)
-- Layer 2 ordering matches the eight patterns.md headings (R2)
-- overall-ai-signal-pressure suppressed from Layer 1 + Layer 2
-- Phrase cap at 3 with overflow indicator
-- Action column reflects depth (balanced vs all) (R22)
+Shape (post-rework):
+- `**Audit summary**` heading
+- Three summary lines (counts / severity / signal stacking)
+- `**Auto-detected**` mini-header
+- Auto-detected flagged items, severity-descending (x ! ?), unbold names
+- `**Agent-assessed**` mini-header
+- Agent-assessed flagged items, severity-descending, unbold names
+- (full-report only) brief notes + coverage tables under each mini-header
+- `**Next steps**` heading + prompt
+
+Em dashes are forbidden in the audit format itself (the skill flags em
+dash overuse; using them in the audit format would be hypocritical).
 
 Run: python3 dev/evals/test_two_layer_render.py
 """
@@ -49,7 +49,6 @@ def ok(msg):
 
 
 def all_clear_results():
-    """Build a results list where every check is clear."""
     return [
         annotate_result({"text": cid, "passed": True, "evidence": "clean"})
         for cid in ALL_CHECKS
@@ -57,11 +56,6 @@ def all_clear_results():
 
 
 def flag(cid, evidence_phrases=None, evidence_text="flagged here"):
-    """Build a single failed-check result with optional quoted phrases.
-
-    Phrases flow into the contract's `evidence.quoted_phrases` via the
-    `matches` field that `_extract_quoted_phrases` reads first.
-    """
     payload = {
         "text": cid,
         "passed": False,
@@ -72,50 +66,75 @@ def flag(cid, evidence_phrases=None, evidence_text="flagged here"):
     return annotate_result(payload)
 
 
-# --- All-clear case (R8) ---
+# --- Default mode: zero-flag draft renders the full shape (R9) ---
 
-print("=== all-clear single-line ===")
+print("=== default mode: zero-flag draft renders full shape ===")
 
 clear_render = format_two_layer(all_clear_results(), depth="balanced")
-clear_lines = clear_render.splitlines()
+visible_total = len([cid for cid in ALL_CHECKS if cid != "overall-signal-stacking"])
 
-if "---" in clear_render:
-    fail(f"all-clear render should not include a Layer 1/Layer 2 separator; got:\n{clear_render}")
+if not clear_render.startswith("**Audit summary**"):
+    fail(f"audit body should open with bold '**Audit summary**'; got:\n{clear_render[:200]}")
 else:
-    ok("all-clear render carries no Layer 1/Layer 2 separator")
+    ok("audit body opens with bold '**Audit summary**'")
 
-if len(clear_lines) != 2:
-    fail(f"all-clear render should be two lines (one-liner + next-step prompt); got {len(clear_lines)} lines: {clear_render!r}")
+expected_counts = f"Auto-detected: 0 of {visible_total} flagged · Agent-assessed: 0 of 0 flagged"
+if expected_counts not in clear_render:
+    fail(f"clean-draft render missing counts line {expected_counts!r}; got:\n{clear_render}")
 else:
-    ok("all-clear render is one-line summary plus next-step prompt")
+    ok("clean-draft render carries the counts line with all-zero auto/agent counts")
 
-if "agent reading clean" not in clear_lines[0] or "pressure: clear" not in clear_lines[0]:
-    fail(f"all-clear summary missing canonical phrasing; got {clear_lines[0]!r}")
+if "Severity: 0 hard fail · 0 strong warning · 0 context warning" not in clear_render:
+    fail(f"clean-draft render missing all-zero severity line; got:\n{clear_render}")
 else:
-    ok("all-clear summary names agent + pressure status")
+    ok("clean-draft render carries the all-zero severity line")
 
-# Confidence label removed (R14) — must not appear.
-for forbidden in ("Confidence:", "Low.", "Medium.", "High."):
-    if forbidden in clear_render:
-        fail(f"all-clear render should not include confidence label {forbidden!r}; got:\n{clear_render}")
-        break
+if "Signal stacking: clear (weaker AI signals are not accumulating)" not in clear_render:
+    fail(f"clean-draft render missing the stand-alone signal-stacking clear line; got:\n{clear_render}")
 else:
-    ok("all-clear render carries no confidence label (R14)")
+    ok("clean-draft render carries the stand-alone signal-stacking clear line")
+
+# Mini-headers always render even with zero flags (R9 — no all-clear collapse).
+if "**Auto-detected**" not in clear_render:
+    fail(f"default mode should always render the **Auto-detected** mini-header; got:\n{clear_render}")
+else:
+    ok("default mode renders the **Auto-detected** mini-header even with zero flags")
+
+if "**Agent-assessed**" not in clear_render:
+    fail(f"default mode should always render the **Agent-assessed** mini-header; got:\n{clear_render}")
+else:
+    ok("default mode renders the **Agent-assessed** mini-header even with zero flags")
+
+# Em-dash purge — the audit format itself cannot contain em dashes.
+audit_only = clear_render.split("**Next steps**", 1)[0]
+if "—" in audit_only:
+    fail(f"audit format must be em-dash-free (em dashes are flagged as AI tells); got:\n{audit_only}")
+else:
+    ok("audit format is em-dash-free")
 
 
-# --- Flagged case: Layer 1 + Layer 2 separator (R1) ---
+# --- Default mode: trailing **Next steps** + prompt ---
 
-print("\n=== flagged: Layer 1 + Layer 2 separator ===")
+print("\n=== default mode: trailing **Next steps** + prompt ===")
 
-# Use one hard_fail (no-collaborative-artifacts) + one strong_warning
-# (no-em-dashes) so we can exercise both the `x` and `!` glyphs from a
-# single fixture. no-collaborative-artifacts is in 'Communication'; em-dashes
-# is in 'Style'. Pick a third check that leaves at least one category clear
-# for the collapse test.
+if "**Next steps**" not in clear_render:
+    fail(f"default mode should emit a `**Next steps**` heading; got:\n{clear_render}")
+elif "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?" not in clear_render:
+    fail(f"default mode should carry the next-step prompt verbatim; got:\n{clear_render}")
+elif not clear_render.rstrip().endswith("?"):
+    fail(f"default mode should end with the next-step question; got:\n{clear_render}")
+else:
+    ok("default mode emits **Next steps** + prompt and ends with a question")
+
+
+# --- Default mode: flagged item shape (unbold name, colon separator) ---
+
+print("\n=== default mode: flagged block shape ===")
+
 exercised_ids = {"no-collaborative-artifacts", "no-em-dashes"}
 mixed_results = [
     flag("no-collaborative-artifacts", evidence_phrases=["I'll generate the report for you"]),
-    flag("no-em-dashes", evidence_phrases=["—"]),
+    flag("no-em-dashes", evidence_phrases=["EMDASHTOKEN"]),
 ] + [
     annotate_result({"text": cid, "passed": True, "evidence": "clean"})
     for cid in ALL_CHECKS
@@ -123,233 +142,267 @@ mixed_results = [
 ]
 mixed_render = format_two_layer(mixed_results, depth="balanced")
 
-if "\n---\n" not in mixed_render:
-    fail(f"flagged render should contain Layer 1/Layer 2 separator; got:\n{mixed_render[:600]}")
-else:
-    ok("flagged render contains Layer 1/Layer 2 separator")
-
-layer_1, layer_2 = mixed_render.split("\n---\n", 1)
-
-
-# --- Layer 1 per-flagged block shape (R5) ---
-
-print("\n=== Layer 1 block shape ===")
-
 for forbidden in ("What it looks for:", "What happened here:", "Why this matters:"):
-    if forbidden in layer_1:
-        fail(f"Layer 1 should not include {forbidden!r} (R5); found in:\n{layer_1}")
+    if forbidden in mixed_render:
+        fail(f"default render should not include {forbidden!r}; found in:\n{mixed_render}")
         break
 else:
-    ok("Layer 1 carries no description / why-this-matters labels (R5)")
+    ok("default render carries no description / why-this-matters labels")
 
-# Glyph + name + quoted phrase + action — verify on the no-em-dashes block
-# (em-dashes is strong_warning per patterns.yaml → glyph '!').
 em_dash_block = next(
-    (line for line in layer_1.splitlines() if "Em dashes" in line),
+    (line for line in mixed_render.splitlines() if "Em dashes" in line and not line.startswith("**")),
     None,
 )
 if em_dash_block is None:
-    fail(f"Layer 1 missing Em dashes block; got:\n{layer_1}")
-elif not em_dash_block.startswith("! **Em dashes**"):
-    fail(f"Em dashes block should start with strong_warning glyph '!'; got {em_dash_block!r}")
-elif '"—"' not in em_dash_block:
-    fail(f"Em dashes block should quote the phrase; got {em_dash_block!r}")
-elif "Action: Fix" not in em_dash_block:
-    fail(f"Em dashes block should carry Action: Fix; got {em_dash_block!r}")
+    fail(f"default render missing Em dashes block; got:\n{mixed_render}")
+elif em_dash_block != '! Em dashes: "EMDASHTOKEN"':
+    fail(f"Em dashes block should render exactly '! Em dashes: \"EMDASHTOKEN\"' (unbold name, colon, no Action); got {em_dash_block!r}")
 else:
-    ok("Em dashes block: glyph + name + quoted phrase + action")
+    ok('Em dashes block renders as `! Em dashes: "EMDASHTOKEN"` (unbold name, colon, no Action)')
+
+audit_body = mixed_render.split("**Next steps**", 1)[0]
+if "Action:" in audit_body:
+    fail(f"audit body should not carry any 'Action:' clause; got:\n{audit_body}")
+else:
+    ok("audit body carries no 'Action:' clause")
 
 
 # --- Severity glyphs across tiers ---
 
 print("\n=== severity glyphs ===")
 
-# Both fixtures cover hard_fail (no-collaborative-artifacts → "Assistant
-# residue") and strong_warning (no-em-dashes → "Em dashes"). The third
-# tier (context_warning → '?') is exercised in the depth-aware Action
-# section below using no-curly-quotes.
 expected_glyphs = {
     "Em dashes": "!",
     "Assistant residue": "x",
 }
 for label, glyph in expected_glyphs.items():
-    block = next((line for line in layer_1.splitlines() if label in line), None)
+    block = next(
+        (line for line in mixed_render.splitlines() if label in line and not line.startswith("**")),
+        None,
+    )
     if block is None:
-        fail(f"Layer 1 missing block for {label!r}; got:\n{layer_1}")
-    elif not block.startswith(f"{glyph} **{label}**"):
-        fail(f"{label!r} block should use glyph {glyph!r}; got {block!r}")
+        fail(f"default render missing block for {label!r}; got:\n{mixed_render}")
+    elif not block.startswith(f"{glyph} {label}"):
+        fail(f"{label!r} block should use glyph {glyph!r} and unbold name; got {block!r}")
     else:
-        ok(f"{label!r} renders with glyph {glyph!r}")
+        ok(f"{label!r} renders with glyph {glyph!r} and unbold name")
 
 
-# --- Pressure explanation: single sentence ---
+# --- Severity-descending sort within each block (x > ! > ?) ---
 
-print("\n=== one-sentence pressure explanation ===")
+print("\n=== severity-descending sort within each block ===")
 
-# Layer 1 has: heading, severity_line, pressure_sentence, blank, [blocks...]
-layer_1_lines = [line for line in layer_1.splitlines() if line]
-pressure_line = layer_1_lines[2] if len(layer_1_lines) >= 3 else ""
-if not pressure_line.startswith("Pressure"):
-    fail(f"Layer 1 third non-blank line should be pressure explanation; got {pressure_line!r}")
-elif pressure_line.count(".") > 1:
-    fail(f"Pressure explanation should be a single sentence (one period); got {pressure_line!r}")
+# Build a multi-severity case: 1 hard_fail, 2 strong_warning, 2 context_warning,
+# all auto-detected. Confirm they render in x ! ! ? ? order.
+multi_severity_ids = ["no-collaborative-artifacts", "no-em-dashes", "no-filler-phrases", "no-curly-quotes", "no-staccato-sequences"]
+multi_severity_results = [
+    flag(cid, evidence_phrases=["fragment"])
+    for cid in multi_severity_ids
+] + [
+    annotate_result({"text": cid, "passed": True, "evidence": "clean"})
+    for cid in ALL_CHECKS
+    if cid not in multi_severity_ids
+]
+multi_render = format_two_layer(multi_severity_results, depth="balanced")
+auto_section_lines = []
+in_auto = False
+for line in multi_render.splitlines():
+    if line == "**Auto-detected**":
+        in_auto = True
+        continue
+    if line.startswith("**") and in_auto:
+        break
+    if in_auto and line and (line[0] in "x!?"):
+        auto_section_lines.append(line[0])
+
+# Expected glyph order: x first (hard_fail), then ! (strong_warning), then ? (context_warning)
+expected_order = sorted(auto_section_lines, key=lambda g: {"x": 0, "!": 1, "?": 2}[g])
+if auto_section_lines != expected_order:
+    fail(f"flagged items should render severity-descending; got order {auto_section_lines!r}, expected {expected_order!r}")
 else:
-    ok("pressure explanation is a single sentence")
+    ok(f"flagged items render severity-descending: {' '.join(auto_section_lines)}")
 
-# Confirm legacy multi-sentence prose did not survive.
-if "AI-pressure looks for accumulation" in mixed_render:
-    fail("Legacy multi-sentence pressure explanation should be gone")
+
+# --- Three-line summary block (R1, R2, R3) ---
+
+print("\n=== three-line summary block ===")
+
+audit_body_lines = [line for line in audit_body.splitlines() if line]
+if len(audit_body_lines) < 4 or audit_body_lines[0] != "**Audit summary**":
+    fail(f"audit body should open with '**Audit summary**' heading; got {audit_body_lines[:4]!r}")
+elif not audit_body_lines[1].startswith("Auto-detected:"):
+    fail(f"audit body second line should be the R1 counts line; got {audit_body_lines[1]!r}")
+elif not audit_body_lines[2].startswith("Severity:"):
+    fail(f"audit body third line should be the R2 severity line; got {audit_body_lines[2]!r}")
+elif not audit_body_lines[3].startswith("Signal stacking"):
+    fail(f"audit body fourth line should be the R3 signal-stacking line; got {audit_body_lines[3]!r}")
 else:
-    ok("Legacy multi-sentence pressure explanation removed")
+    ok("audit body opens with bold heading + counts/severity/signal-stacking summary")
 
-
-# --- Layer 2 sub-table shape (R4) ---
-
-print("\n=== Layer 2 sub-table shape ===")
-
-if "| Pattern | Result | Action |" not in layer_2:
-    fail(f"Layer 2 sub-table header should be three-column 'Pattern | Result | Action'; got:\n{layer_2[:600]}")
+if "Signal stacking: clear (weaker AI signals are not accumulating)" not in mixed_render:
+    fail(f"R3 signal-stacking clear line missing; got:\n{mixed_render}")
 else:
-    ok("Layer 2 sub-table header is three-column")
+    ok("R3 signal-stacking clear line renders canonical phrasing")
 
-if "| --- | --- | --- |" not in layer_2:
-    fail(f"Layer 2 sub-table separator should be three-column; got:\n{layer_2[:600]}")
+
+# --- Full-report mode: mini-headers + brief notes + 4-column coverage tables ---
+
+print("\n=== full-report mode: mini-headers + coverage tables ===")
+
+full_render = format_two_layer(mixed_results, depth="balanced", mode="full_report")
+
+if "**Auto-detected**" not in full_render:
+    fail(f"full-report should carry the **Auto-detected** mini-header; got:\n{full_render[:600]}")
 else:
-    ok("Layer 2 sub-table separator is three-column")
+    ok("full-report carries **Auto-detected** mini-header")
 
-# No legacy six-column shape.
-if "| What it looks for | What happened here | Why this matters |" in layer_2:
-    fail("Layer 2 should not include legacy six-column header columns")
+if "Checks the script runs against the text directly." not in full_render:
+    fail(f"full-report should carry auto-detected brief note; got:\n{full_render[:600]}")
 else:
-    ok("Layer 2 does not carry legacy six-column header")
+    ok("full-report carries auto-detected brief note")
+
+if "**Agent-assessed**" not in full_render:
+    fail(f"full-report should carry the **Agent-assessed** mini-header; got:\n{full_render[:1200]}")
+else:
+    ok("full-report carries **Agent-assessed** mini-header")
+
+if "Checks that are judged by an LLM based on reading the whole draft." not in full_render:
+    fail(f"full-report should carry agent-assessed brief note; got:\n{full_render[:1200]}")
+else:
+    ok("full-report carries agent-assessed brief note")
+
+if "| Pattern | Severity | Result | Detail |" not in full_render:
+    fail(f"full-report sub-table header should be 'Pattern | Severity | Result | Detail'; got:\n{full_render[:1200]}")
+else:
+    ok("full-report carries the 4-column sub-table header")
+
+if "| --- | --- | --- | --- |" not in full_render:
+    fail(f"full-report sub-table separator should be 4-column; got:\n{full_render[:1200]}")
+else:
+    ok("full-report sub-table separator is 4-column")
+
+# Action column dropped.
+auto_section = full_render.split("**Auto-detected**", 1)[1].split("**Agent-assessed**", 1)[0]
+if "| Pattern | Result | Action |" in auto_section or "| Action |" in auto_section:
+    fail(f"full-report auto-detected section should not include the Action column; got:\n{auto_section[:600]}")
+else:
+    ok("full-report auto-detected section does not carry the Action column")
+
+em_dash_row = next(
+    (line for line in auto_section.splitlines() if "Em dashes" in line and "|" in line),
+    None,
+)
+if em_dash_row is None:
+    fail(f"full-report missing Em dashes row; got:\n{auto_section[:600]}")
+elif "| strong warning |" not in em_dash_row:
+    fail(f"Em dashes row should carry severity 'strong warning'; got {em_dash_row!r}")
+elif "| Flagged |" not in em_dash_row:
+    fail(f"Em dashes row should carry result 'Flagged'; got {em_dash_row!r}")
+else:
+    ok("full-report Em dashes row: severity + Flagged + Detail (guidance) present")
 
 
-# --- Layer 2 category ordering (R2) ---
+# --- Full-report mode: category ordering ---
 
-print("\n=== Layer 2 category ordering ===")
+print("\n=== full-report mode: category ordering ===")
 
-# Each category appears at least once in Layer 2 (collapsed or expanded), in
-# CATEGORY_ORDER. Aggregate AI-signal pressure is suppressed (overall meta).
 seen_at = []
 for category in CATEGORY_ORDER:
     needle = f"**{category}**"
-    if needle not in layer_2:
-        fail(f"Layer 2 missing category {category!r}")
+    if needle not in auto_section:
+        fail(f"full-report missing category {category!r}")
         continue
-    seen_at.append((category, layer_2.index(needle)))
+    seen_at.append((category, auto_section.index(needle)))
 
 if seen_at == sorted(seen_at, key=lambda pair: pair[1]):
-    ok("Layer 2 categories render in CATEGORY_ORDER")
+    ok("full-report categories render in CATEGORY_ORDER")
 else:
-    fail(f"Layer 2 categories out of order: {[c for c, _ in seen_at]}")
+    fail(f"full-report categories out of order: {[c for c, _ in seen_at]}")
 
-if "Aggregate AI-signal pressure" in mixed_render:
-    fail("Aggregate AI-signal pressure category should be suppressed (R8/R22)")
+if "**Signal stacking**" in full_render:
+    fail("Signal stacking category heading should be suppressed (overall meta)")
 else:
-    ok("Aggregate AI-signal pressure category suppressed from output")
+    ok("Signal stacking category suppressed from output")
 
 
-# --- Layer 2 collapse to one-liner when every check clear (R3) ---
+# --- Full-report mode: trailing **Next steps** + mode-specific prompt ---
 
-print("\n=== Layer 2 collapse on clear category ===")
+print("\n=== full-report mode: prompt drops 'full coverage report' ===")
 
-# 'Sensory and atmospheric' has no flagged check in `mixed_results`, so it
-# should collapse. Find the line and assert shape.
+full_report_prompt = "Want suggestions for edits, a full rewrite, or to save this audit as a file?"
+default_prompt = "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"
+
+if "**Next steps**" not in full_render:
+    fail(f"full-report mode should emit a `**Next steps**` heading; got tail:\n{full_render[-400:]}")
+elif full_report_prompt not in full_render:
+    fail(f"full-report mode should carry the mode-specific next-step prompt verbatim; got tail:\n{full_render[-400:]}")
+elif default_prompt in full_render:
+    fail("full-report mode must NOT carry the default-mode prompt offering 'the full coverage report' (writer just read it)")
+elif not full_render.rstrip().endswith("?"):
+    fail(f"full-report mode should end with the next-step question; got tail:\n{full_render[-400:]}")
+else:
+    ok("full-report mode emits **Next steps** + mode-specific prompt without the 'full coverage report' option")
+
+
+# --- Full-report mode: clear-category collapse to one-liner ---
+
+print("\n=== full-report mode: clear-category collapse ===")
+
 COLLAPSE_CATEGORY = "Sensory and atmospheric"
 collapse_line = next(
-    (line for line in layer_2.splitlines() if line.startswith(f"**{COLLAPSE_CATEGORY}**")),
+    (line for line in auto_section.splitlines() if line.startswith(f"**{COLLAPSE_CATEGORY}**")),
     None,
 )
 if collapse_line is None:
-    fail(f"Layer 2 missing {COLLAPSE_CATEGORY!r} line; got:\n{layer_2}")
+    fail(f"full-report missing {COLLAPSE_CATEGORY!r} line; got:\n{auto_section}")
 elif "clear" not in collapse_line or "/" not in collapse_line:
     fail(f"{COLLAPSE_CATEGORY!r} line should collapse to N/N clear; got {collapse_line!r}")
-elif "| Pattern | Result | Action |" in layer_2.split(collapse_line, 1)[1].split("**", 1)[0]:
-    fail(f"{COLLAPSE_CATEGORY!r} category should collapse — found a sub-table after its heading: {collapse_line!r}")
+elif "—" in collapse_line:
+    fail(f"category-collapse line must be em-dash-free; got {collapse_line!r}")
 else:
-    ok(f"{COLLAPSE_CATEGORY!r} category collapses to one-liner: {collapse_line!r}")
+    ok(f"{COLLAPSE_CATEGORY!r} category collapses to em-dash-free one-liner: {collapse_line!r}")
 
 
-# --- overall-ai-signal-pressure suppression (R8/R22) ---
+# --- overall-signal-stacking suppression ---
 
-print("\n=== overall-ai-signal-pressure suppression ===")
+print("\n=== overall-signal-stacking suppression ===")
 
-# Build a contract where the meta-check is flagged.
-pressure_flagged_results = [
+signal_stacking_flagged_results = [
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
+        "evidence": "Overall signal stacking 5/4",
         "score": 5,
         "threshold": 4,
         "components": ["paragraph length uniformity"],
-        "vocabulary_pressure": {"points": 0, "reasons": [], "worst_generic": 0,
+        "vocabulary_signal_stacking": {"points": 0, "reasons": [], "worst_generic": 0,
                                 "gptzero_matches": [], "kobak_style_distinct": 0,
                                 "kobak_style_density": 0.0, "kobak_style_sample": []},
     }),
-    flag("no-em-dashes", evidence_phrases=["—"]),
+    flag("no-em-dashes", evidence_phrases=["EMDASHTOKEN"]),
 ] + [
     annotate_result({"text": cid, "passed": True, "evidence": "clean"})
     for cid in ALL_CHECKS
-    if cid not in {"overall-ai-signal-pressure", "no-em-dashes"}
+    if cid not in {"overall-signal-stacking", "no-em-dashes"}
 ]
-pressure_render = format_two_layer(pressure_flagged_results, depth="balanced")
+signal_stacking_render = format_two_layer(signal_stacking_flagged_results, depth="balanced")
 
-# Verdict line should still report pressure: triggered.
-if "pressure: triggered" not in pressure_render:
-    fail("Verdict line should report 'pressure: triggered' when meta-check is flagged")
+if "Signal stacking triggered: 5 of 4 threshold" not in signal_stacking_render:
+    fail(f"R3 line should report 'Signal stacking triggered: N of M threshold (...)' when meta-check is flagged; got:\n{signal_stacking_render[:600]}")
 else:
-    ok("Verdict line carries pressure: triggered")
+    ok("R3 stand-alone line carries 'Signal stacking triggered: 5 of 4 threshold (...)'")
 
-# But the meta-check itself should not appear as a Layer 1 block or Layer 2 row.
-if "Aggregate AI-signal pressure" in pressure_render:
-    fail("Layer 2 should not surface the suppressed Aggregate AI-signal pressure category")
+if "**Signal stacking**" in signal_stacking_render:
+    fail("default render should not surface the suppressed Signal stacking category heading")
 else:
-    ok("Layer 2 does not include the suppressed category")
-
-# The check's short_name should not appear.
-if "Overall AI-signal pressure" in pressure_render:
-    fail("Layer 1 / Layer 2 should not include the overall-ai-signal-pressure block")
-else:
-    ok("Layer 1 / Layer 2 does not include the meta-check block")
-
-# If pressure is the only flagged programmatic check, the audit is not
-# all-clear: the meta-check stays suppressed as a row/block, but survives in
-# the verdict token.
-pressure_only_results = [
-    annotate_result({
-        "text": "overall-ai-signal-pressure",
-        "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
-        "score": 5,
-        "threshold": 4,
-        "components": ["paragraph length uniformity"],
-        "vocabulary_pressure": {"points": 0, "reasons": [], "worst_generic": 0,
-                                "gptzero_matches": [], "kobak_style_distinct": 0,
-                                "kobak_style_density": 0.0, "kobak_style_sample": []},
-    }),
-] + [
-    annotate_result({"text": cid, "passed": True, "evidence": "clean"})
-    for cid in ALL_CHECKS
-    if cid != "overall-ai-signal-pressure"
-]
-pressure_only_render = format_two_layer(pressure_only_results, depth="balanced")
-
-if "agent reading clean" in pressure_only_render:
-    fail(f"pressure-only failure must not render all-clear; got:\n{pressure_only_render}")
-elif "pressure: triggered" not in pressure_only_render:
-    fail(f"pressure-only failure should survive in verdict token; got:\n{pressure_only_render}")
-elif "1 context_warning" in pressure_only_render:
-    fail(f"suppressed pressure meta-check should not inflate visible severity counts; got:\n{pressure_only_render}")
-else:
-    ok("pressure-only failure renders as pressure triggered without an all-clear line or visible severity count")
+    ok("default render does not include the suppressed category")
 
 
-# --- Phrase cap (3 + overflow) ---
+# --- Phrase cap (3 + overflow in default; all in full-report) ---
 
-print("\n=== Layer 1 phrase cap ===")
+print("\n=== phrase cap: default 3+overflow, full-report all ===")
 
-phrases = [f"phrase{i}" for i in range(LAYER_1_PHRASE_CAP + 4)]  # 7 phrases when cap=3
+phrases = [f"phrase{i}" for i in range(LAYER_1_PHRASE_CAP + 4)]
 many_phrase_results = [
     flag("no-triad-density", evidence_phrases=phrases),
 ] + [
@@ -357,64 +410,77 @@ many_phrase_results = [
     for cid in ALL_CHECKS
     if cid != "no-triad-density"
 ]
-many_render = format_two_layer(many_phrase_results, depth="balanced")
-many_layer_1 = many_render.split("\n---\n", 1)[0]
+many_render_default = format_two_layer(many_phrase_results, depth="balanced")
+many_audit_body = many_render_default.split("**Next steps**", 1)[0]
 
 triad_block = next(
-    (line for line in many_layer_1.splitlines() if "Triad density" in line),
+    (line for line in many_audit_body.splitlines() if "Triad density" in line and not line.startswith("**")),
     None,
 )
 if triad_block is None:
-    fail(f"Layer 1 missing Triad density block; got:\n{many_layer_1}")
+    fail(f"default render missing Triad density block; got:\n{many_audit_body}")
 else:
     quote_count = triad_block.count('"phrase')
     if quote_count != LAYER_1_PHRASE_CAP:
-        fail(f"Layer 1 should cap at {LAYER_1_PHRASE_CAP} phrases; counted {quote_count} in {triad_block!r}")
+        fail(f"default mode should cap at {LAYER_1_PHRASE_CAP} phrases; counted {quote_count} in {triad_block!r}")
     elif f"(+{len(phrases) - LAYER_1_PHRASE_CAP} more)" not in triad_block:
-        fail(f"Layer 1 should append (+N more) suffix; got {triad_block!r}")
+        fail(f"default mode should append (+N more) suffix; got {triad_block!r}")
     else:
-        ok(f"Layer 1 caps phrases at {LAYER_1_PHRASE_CAP} and appends overflow indicator")
+        ok(f"default mode caps phrases at {LAYER_1_PHRASE_CAP} and appends overflow indicator")
 
-
-# --- Action column depth-awareness (R22) ---
-
-print("\n=== Action column reflects depth ===")
-
-# At Balanced, context_warning → "Disclose or ask before preserving"; at All
-# every flagged → "Fix".
-ctx_results = [
-    flag("no-curly-quotes", evidence_phrases=['""']),  # context_warning per patterns.yaml
-] + [
-    annotate_result({"text": cid, "passed": True, "evidence": "clean"})
-    for cid in ALL_CHECKS
-    if cid != "no-curly-quotes"
-]
-balanced_render = format_two_layer(ctx_results, depth="balanced")
-all_render = format_two_layer(ctx_results, depth="all")
-
-if "Disclose or ask before preserving" not in balanced_render:
-    fail("Balanced depth should map context_warning to 'Disclose or ask before preserving'")
+# Full-report mode renders all phrases, no overflow.
+many_render_full = format_two_layer(many_phrase_results, depth="balanced", mode="full_report")
+many_full_body = many_render_full.split("**Auto-detected**", 1)[1]
+triad_block_full = next(
+    (line for line in many_full_body.splitlines() if "Triad density" in line and not line.startswith("**") and "|" not in line),
+    None,
+)
+if triad_block_full is None:
+    fail(f"full-report missing Triad density block; got:\n{many_full_body[:1000]}")
 else:
-    ok("Balanced depth maps context_warning to Disclose or ask before preserving")
+    quote_count = triad_block_full.count('"phrase')
+    if quote_count != len(phrases):
+        fail(f"full-report should render all {len(phrases)} phrases; counted {quote_count}")
+    elif "more)" in triad_block_full:
+        fail(f"full-report should not append (+N more); got {triad_block_full!r}")
+    else:
+        ok(f"full-report renders all {len(phrases)} phrases with no overflow indicator")
 
-if "Disclose or ask before preserving" in all_render:
-    fail("All depth should never use 'Disclose or ask before preserving'")
-elif "Action: Fix" not in all_render:
-    fail("All depth should map every flagged severity to Fix")
+
+# --- _action_for_check on agent-judgement contract items (R17) ---
+
+print("\n=== _action_for_check resolves on agent-judgement items (R17) ===")
+
+_action_for_check = _grade._action_for_check
+
+strong_agent_item = {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning"}
+if _action_for_check(strong_agent_item, "balanced") != "fix":
+    fail(f"strong_warning agent item at Balanced should map to 'fix'; got {_action_for_check(strong_agent_item, 'balanced')!r}")
 else:
-    ok("All depth maps every flagged severity to Fix")
+    ok("strong_warning agent item at Balanced → 'fix'")
 
-
-# --- All-clear vs flagged: verify visible total excludes meta-check ---
-
-print("\n=== visible total excludes meta-check ===")
-
-clear_count = len([cid for cid in ALL_CHECKS if cid != "overall-ai-signal-pressure"])
-expected_summary = f"{clear_count} of {clear_count} clear"
-if expected_summary not in clear_render:
-    fail(f"all-clear summary should exclude meta-check from visible total; expected {expected_summary!r}, got:\n{clear_render}")
+context_agent_item = {"id": "structural_monotony", "status": "flagged", "severity": "context_warning"}
+balanced_action = _action_for_check(context_agent_item, "balanced")
+if balanced_action != "preserve_with_disclosure_or_user_decision":
+    fail(f"context_warning agent item at Balanced should map to "
+         f"'preserve_with_disclosure_or_user_decision'; got {balanced_action!r}")
 else:
-    ok(f"all-clear visible total = {clear_count} (excludes overall-ai-signal-pressure)")
+    ok("context_warning agent item at Balanced → 'preserve_with_disclosure_or_user_decision'")
+
+
+# --- Mode validation ---
+
+print("\n=== mode parameter validation ===")
+
+try:
+    format_two_layer(all_clear_results(), mode="bogus")
+except ValueError as e:
+    if "mode" in str(e):
+        ok("invalid mode raises ValueError naming the parameter")
+    else:
+        fail(f"ValueError raised but message unhelpful: {e}")
+else:
+    fail("format_two_layer should raise ValueError on invalid mode")
 
 
 # --- Summary ---

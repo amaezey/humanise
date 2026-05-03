@@ -28,7 +28,7 @@ The audit returns three sections. The first two come from a deterministic grader
 - **Detected patterns**: a per-category coverage list, so what passed and what was flagged are both visible.
 - **Agent judgement**: eight readings of voice, register, and grounding.
 
-When every check is clear and pressure has not triggered, the audit collapses to a single line.
+When every check is clear and signal stacking has not triggered, the audit collapses to a single line.
 
 ## Install
 
@@ -93,14 +93,14 @@ The findings above shape how the skill talks:
 Each iteration runs the skill against an eval suite. The block below is auto-generated.
 
 <!-- performance:start -->
-**iteration-6** (2026-05-02T15:19:52Z)
+**iteration-7** (2026-05-03T12:27:19Z)
 
-- Mean pass rate: 98.3% across 18 evals
+- Mean pass rate: 99.1% across 18 evals
 - Human-vs-ai_fresh flag gap: total -5% / strong +11%
 - Human-vs-ai_rewrite flag gap: total -20% / strong +44%
 - Regressions vs prev iteration: 0
 
-[Full report](dev/skill-workspace/iteration-6/performance-report.md)
+[Full report](dev/skill-workspace/iteration-7/performance-report.md)
 <!-- performance:end -->
 
 The "human-vs-ai gap" lines are the load-bearing claim. Humans should trigger fewer flags than AI in matched-genre comparisons. In long-form essay register, the gap is small on totals and inverted on strong signals. The numbers come from the most recent eval suite; the iteration harness rewrites the block on each run.
@@ -111,8 +111,8 @@ Excerpt from `python3 humanise/scripts/grade.py --format markdown --depth all de
 
 ```text
 Audit
-Severity: 1 hard_fail · 1 strong_warning · 4 context_warning · pressure: triggered
-Pressure triggered: weaker AI-writing signals stacked to 8 of the 4-point threshold (contrived contrast framing, paragraph length uniformity, headings in prose, assistant residue).
+Severity: 1 hard fail · 1 strong warning · 4 context warning · signal stacking: triggered
+Signal stacking triggered: weaker AI-writing signals stacked to 8 of the 4-point threshold (contrived contrast framing, paragraph length uniformity, headings in prose, assistant residue).
 
 ? **Mechanical repeated sentence starts** — Action: Fix
 x **Assistant residue** — "let me know if" — Action: Fix
@@ -213,10 +213,10 @@ Rewrite workflows include the rewritten draft, a structural self-check, and the 
 | 45 | Nonliteral land/surface phrasing |  | strong_warning | "the argument lands", "the idea lands", "your point lands" |
 | 46 | Bland critical template |  | strong_warning | "the kind of contemporary novel/film/book/album/show that..." |
 | 51 | Mechanical repeated sentence starts |  | context_warning | Three or more consecutive sentences whose first word matches: "The X… The Y… The Z…" |
-| | **Aggregate AI-signal pressure** | | | |
-| | AI pressure from stacked signals | | context_warning | Stacked weak signals reaching the threshold (e.g., "headings in prose, assistant residue, generic conclusion") |
+| | **Signal stacking** | | | |
+| | Signal stacking from stacked AI tells | | context_warning | Stacked weak signals reaching the threshold (e.g., "headings in prose, assistant residue, generic conclusion") |
 
-Density and stacking matter more than any single occurrence. The grader's `overall-ai-signal-pressure` check fires when several weaker patterns appear together; that is usually a stronger signal than any individual flag.
+Density and stacking matter more than any single occurrence. The grader's `overall-signal-stacking` check fires when several weaker patterns appear together; that is usually a stronger signal than any individual flag.
 
 ## Agent-judgement readings
 
@@ -273,8 +273,8 @@ dev/                               Development only (not installed)
 │   ├── run_skill_creator_iteration.py
 │   └── samples/{human-sourced,generated-ai}/
 ├── research/                      Findings and source-pattern analysis
-├── tools/                         Generators (e.g., render_patterns_md.py)
-└── skill-workspace/iteration-N/   Iteration outputs and review viewers
+├── tools/                         Generators (render_patterns_md.py, render_audit_html.py)
+└── skill-workspace/iteration-N/   Iteration outputs (benchmark.json, review.html, audit-fidelity.html)
 ```
 
 ## Sources

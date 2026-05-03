@@ -60,6 +60,7 @@
         "genre_misfit"
       ],
       "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-em-dashes"
@@ -91,19 +92,19 @@
       "components": [
         "headings in prose"
       ],
-      "evidence": "Overall AI-signal pressure 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.9/1000",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.9/1000",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": true,
       "score": 2,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 8.922880815806247,
         "kobak_style_distinct": 10,
@@ -143,6 +144,7 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -155,6 +157,7 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -177,6 +180,16 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "But much of the forest\u2019s metabolism is below the path.",
+        "The relationship is called mycorrhiza, from the Greek for \u201cfungus-root\u201d.",
+        "In a mycorrhizal association, a fungus colonises a plant\u2019s root system and extends outward into the soil as microscopic filaments called hyphae.",
+        "This is where the popular phrase \u201cwood-wide web\u201d enters the story, and where accuracy matters.",
+        "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+        "The \u201ccommunication\u201d claim needs the same discipline.",
+        "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+        "That makes them less tidy than the \u201cwood-wide web\u201d metaphor, but more impressive."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -223,6 +236,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -326,6 +340,7 @@
         "generic_abstraction"
       ],
       "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-superficial-ing"
@@ -350,6 +365,7 @@
         "genre_misfit"
       ],
       "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-quietness-obsession"
@@ -492,6 +508,24 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "These fungi are not decoration on tree roots.",
+        "For a tree, this is not a minor upgrade.",
+        "Trees do not simply hand over sugar to any fungus in the neighbourhood.",
+        "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+        "A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.",
+        "That does not make the networks imaginary.",
+        "The experiment became famous because it suggested that forest plants were not merely competing as isolated individuals.",
+        "But a detected transfer is not the same as proof that a mature tree is deliberately feeding a seedling, or that the transfer meaningfully changes survival in all forests.",
+        "Forest life is not a morality play about generosity.",
+        "But this is not conversation in the human sense.",
+        "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+        "Seedlings do not enter a neutral underground world.",
+        "This is one reason forest recovery is not just a matter of planting stems in the ground.",
+        "That does not mean protecting fungi is a simple climate solution.",
+        "They are not magical forest internet cables through which wise old trees send care packages to their children.",
+        "A forest is not just a collection of trees."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -503,6 +537,7 @@
         "frictionless_structure"
       ],
       "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "paragraph-length-uniformity"
@@ -551,12 +586,13 @@
         "genre_misfit"
       ],
       "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 21 triad(s): ['recover, compete, store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace', 'slip into smaller pores, cross tiny gaps, spread through patches of', 'the tree a larger, finer, more chemically versatile absorbing', 'oaks, beeches, eucalypts', 'large range of plants, enter root cells, form tiny branched structures', 'what they can provide, where they forage, how much carbon they', 'depending on fungal identity, soil conditions, the form in which', 'nutrients, water, chemical signals between plants', 'leaking compounds into soil, microbes consuming, re-releasing them', 'common mycorrhizal networks improves, harms, has no effect on', 'no evidence of intention, language, conscious warning', 'the fungus is alive, metabolically active, under selection to acquire', 'hyphae into the soil, and use enzymes, organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, when a clear-fell', 'roots, bacteria, decaying organic matter', 'involved in plant productivity, nutrient cycling, soil carbon dynamics at', 'mycorrhizal fungi are real, ancient, ecologically consequential', 'influence seedling establishment, build, break down soil carbon', 'marketplace, digestive system, battleground at once', 'its networks are patchy, changing, difficult to measure']",
+      "evidence": "Found 21 triad(s): ['recover, compete and store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, and often water and trace', 'slip into smaller pores, cross tiny gaps, and spread through patches of', 'the tree a larger, finer and more chemically versatile absorbing', 'oaks, beeches and eucalypts', 'large range of plants, enter root cells and form tiny branched structures', 'what they can provide, where they forage, and how much carbon they', 'depending on fungal identity, soil conditions and the form in which', 'nutrients, water or chemical signals between plants', 'leaking compounds into soil, microbes consuming and re-releasing them', 'common mycorrhizal networks improves, harms or has no effect on', 'no evidence of intention, language or conscious warning', 'The fungus is alive, metabolically active and under selection to acquire', 'hyphae into the soil, and use enzymes and organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, or when a clear-fell', 'roots, bacteria and decaying organic matter', 'involved in plant productivity, nutrient cycling and soil carbon dynamics at', 'Mycorrhizal fungi are real, ancient and ecologically consequential', 'influence seedling establishment, build and break down soil carbon', 'marketplace, digestive system and battleground at once', 'its networks are patchy, changing and difficult to measure']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -688,7 +724,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 21 triad(s): ['recover, compete, store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace', 'slip into smaller pores, cross tiny gaps, spread through patches of', 'the tree a larger, finer, more chemically versatile absorbing', 'oaks, beeches, eucalypts', 'large range of plants, enter root cells, form tiny branched structures', 'what they can provide, where they forage, how much carbon they', 'depending on fungal identity, soil conditions, the form in which', 'nutrients, water, chemical signals between plants', 'leaking compounds into soil, microbes consuming, re-releasing them', 'common mycorrhizal networks improves, harms, has no effect on', 'no evidence of intention, language, conscious warning', 'the fungus is alive, metabolically active, under selection to acquire', 'hyphae into the soil, and use enzymes, organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, when a clear-fell', 'roots, bacteria, decaying organic matter', 'involved in plant productivity, nutrient cycling, soil carbon dynamics at', 'mycorrhizal fungi are real, ancient, ecologically consequential', 'influence seedling establishment, build, break down soil carbon', 'marketplace, digestive system, battleground at once', 'its networks are patchy, changing, difficult to measure']",
+          "evidence": "Found 21 triad(s): ['recover, compete and store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, and often water and trace', 'slip into smaller pores, cross tiny gaps, and spread through patches of', 'the tree a larger, finer and more chemically versatile absorbing', 'oaks, beeches and eucalypts', 'large range of plants, enter root cells and form tiny branched structures', 'what they can provide, where they forage, and how much carbon they', 'depending on fungal identity, soil conditions and the form in which', 'nutrients, water or chemical signals between plants', 'leaking compounds into soil, microbes consuming and re-releasing them', 'common mycorrhizal networks improves, harms or has no effect on', 'no evidence of intention, language or conscious warning', 'The fungus is alive, metabolically active and under selection to acquire', 'hyphae into the soil, and use enzymes and organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, or when a clear-fell', 'roots, bacteria and decaying organic matter', 'involved in plant productivity, nutrient cycling and soil carbon dynamics at', 'Mycorrhizal fungi are real, ancient and ecologically consequential', 'influence seedling establishment, build and break down soil carbon', 'marketplace, digestive system and battleground at once', 'its networks are patchy, changing and difficult to measure']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -775,7 +811,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 21 triad(s): ['recover, compete, store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace', 'slip into smaller pores, cross tiny gaps, spread through patches of', 'the tree a larger, finer, more chemically versatile absorbing', 'oaks, beeches, eucalypts', 'large range of plants, enter root cells, form tiny branched structures', 'what they can provide, where they forage, how much carbon they', 'depending on fungal identity, soil conditions, the form in which', 'nutrients, water, chemical signals between plants', 'leaking compounds into soil, microbes consuming, re-releasing them', 'common mycorrhizal networks improves, harms, has no effect on', 'no evidence of intention, language, conscious warning', 'the fungus is alive, metabolically active, under selection to acquire', 'hyphae into the soil, and use enzymes, organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, when a clear-fell', 'roots, bacteria, decaying organic matter', 'involved in plant productivity, nutrient cycling, soil carbon dynamics at', 'mycorrhizal fungi are real, ancient, ecologically consequential', 'influence seedling establishment, build, break down soil carbon', 'marketplace, digestive system, battleground at once', 'its networks are patchy, changing, difficult to measure']",
+          "evidence": "Found 21 triad(s): ['recover, compete and store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, and often water and trace', 'slip into smaller pores, cross tiny gaps, and spread through patches of', 'the tree a larger, finer and more chemically versatile absorbing', 'oaks, beeches and eucalypts', 'large range of plants, enter root cells and form tiny branched structures', 'what they can provide, where they forage, and how much carbon they', 'depending on fungal identity, soil conditions and the form in which', 'nutrients, water or chemical signals between plants', 'leaking compounds into soil, microbes consuming and re-releasing them', 'common mycorrhizal networks improves, harms or has no effect on', 'no evidence of intention, language or conscious warning', 'The fungus is alive, metabolically active and under selection to acquire', 'hyphae into the soil, and use enzymes and organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, or when a clear-fell', 'roots, bacteria and decaying organic matter', 'involved in plant productivity, nutrient cycling and soil carbon dynamics at', 'Mycorrhizal fungi are real, ancient and ecologically consequential', 'influence seedling establishment, build and break down soil carbon', 'marketplace, digestive system and battleground at once', 'its networks are patchy, changing and difficult to measure']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -823,7 +859,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -834,15 +870,6 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
-        "components": [
-          "headings in prose"
-        ],
-        "score": 2,
-        "threshold": 4,
-        "triggered": false,
-        "vocabulary_points": 0
-      },
       "by_category": {
         "Filler and hedging": 1,
         "Language and grammar": 2,
@@ -852,6 +879,15 @@
         "context_warning": 4,
         "hard_fail": 0,
         "strong_warning": 1
+      },
+      "signal_stacking": {
+        "components": [
+          "headings in prose"
+        ],
+        "score": 2,
+        "threshold": 4,
+        "triggered": false,
+        "vocabulary_points": 0
       }
     },
     "metadata": {
@@ -864,6 +900,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No em dashes found",
@@ -872,6 +909,7 @@
               "genre_misfit"
             ],
             "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -887,6 +925,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max AI words per paragraph: 1 (3 total in text)",
@@ -910,6 +949,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No nonliteral land/surface constructions found",
@@ -931,29 +971,30 @@
         "status": "clear"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 2,
             "threshold": 4
           },
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "components": [
               "headings in prose"
             ],
-            "evidence": "Overall AI-signal pressure 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.9/1000",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 2/4 from [headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=10 distinct/8.9/1000",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 2,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 8.922880815806247,
               "kobak_style_distinct": 10,
@@ -979,7 +1020,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "clear"
       },
@@ -988,6 +1029,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No manufactured insight phrases",
@@ -1011,6 +1053,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max consecutive short sentences: 1",
@@ -1020,6 +1063,7 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1036,6 +1080,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max anaphora run: 2",
@@ -1045,6 +1090,7 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1061,6 +1107,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No collaborative artifacts",
@@ -1084,7 +1131,17 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "But much of the forest\u2019s metabolism is below the path.",
+            "The relationship is called mycorrhiza, from the Greek for \u201cfungus-root\u201d.",
+            "In a mycorrhizal association, a fungus colonises a plant\u2019s root system and extends outward into the soil as microscopic filaments called hyphae.",
+            "This is where the popular phrase \u201cwood-wide web\u201d enters the story, and where accuracy matters.",
+            "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+            "The \u201ccommunication\u201d claim needs the same discipline.",
+            "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+            "That makes them less tidy than the \u201cwood-wide web\u201d metaphor, but more impressive."
+          ],
           "raw": {
             "evidence": "Found 14 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1092,6 +1149,16 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "But much of the forest\u2019s metabolism is below the path.",
+              "The relationship is called mycorrhiza, from the Greek for \u201cfungus-root\u201d.",
+              "In a mycorrhizal association, a fungus colonises a plant\u2019s root system and extends outward into the soil as microscopic filaments called hyphae.",
+              "This is where the popular phrase \u201cwood-wide web\u201d enters the story, and where accuracy matters.",
+              "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+              "The \u201ccommunication\u201d claim needs the same discipline.",
+              "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+              "That makes them less tidy than the \u201cwood-wide web\u201d metaphor, but more impressive."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1107,6 +1174,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Sentence length stdev: 8.2 (target: >4)",
@@ -1132,6 +1200,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No promotional language",
@@ -1157,6 +1226,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No significance inflation",
@@ -1180,6 +1250,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No negative parallelisms or contrived reframes",
@@ -1188,6 +1259,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1203,6 +1275,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "represent a"
           ],
@@ -1230,6 +1303,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No filler phrases",
@@ -1253,6 +1327,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No generic conclusions",
@@ -1278,6 +1353,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No false concession hedges",
@@ -1301,6 +1377,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No placeholder residue",
@@ -1324,6 +1401,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Soft scaffold phrases: 0",
@@ -1347,6 +1425,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Vague demonstrative subjects: 0",
@@ -1372,6 +1451,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No forced triads",
@@ -1397,6 +1477,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No superficial -ing phrases",
@@ -1405,6 +1486,7 @@
               "generic_abstraction"
             ],
             "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1420,6 +1502,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Ghost/spectral words: 1",
@@ -1445,6 +1528,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Quietness words: 0",
@@ -1454,6 +1538,7 @@
               "genre_misfit"
             ],
             "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1470,6 +1555,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rhetorical questions: 0",
@@ -1495,6 +1581,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List ratio: 0%",
@@ -1520,6 +1607,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Decorative symbols/shortcodes: 0",
@@ -1545,6 +1633,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dramatic transitions",
@@ -1570,6 +1659,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No formulaic openers",
@@ -1595,6 +1685,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No signposted conclusions",
@@ -1620,6 +1711,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "# The forest beneath the forest"
           ],
@@ -1647,6 +1739,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No corporate AI speak",
@@ -1670,6 +1763,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max 'This [verb]' run: 0",
@@ -1695,6 +1789,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Hedging constructions: 0",
@@ -1718,6 +1813,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No countdown negation",
@@ -1743,7 +1839,25 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "These fungi are not decoration on tree roots.",
+            "For a tree, this is not a minor upgrade.",
+            "Trees do not simply hand over sugar to any fungus in the neighbourhood.",
+            "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+            "A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.",
+            "That does not make the networks imaginary.",
+            "The experiment became famous because it suggested that forest plants were not merely competing as isolated individuals.",
+            "But a detected transfer is not the same as proof that a mature tree is deliberately feeding a seedling, or that the transfer meaningfully changes survival in all forests.",
+            "Forest life is not a morality play about generosity.",
+            "But this is not conversation in the human sense.",
+            "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+            "Seedlings do not enter a neutral underground world.",
+            "This is one reason forest recovery is not just a matter of planting stems in the ground.",
+            "That does not mean protecting fungi is a simple climate solution.",
+            "They are not magical forest internet cables through which wise old trees send care packages to their children.",
+            "A forest is not just a collection of trees."
+          ],
           "raw": {
             "evidence": "Found 22 negation markers (13.8 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1752,6 +1866,24 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "These fungi are not decoration on tree roots.",
+              "For a tree, this is not a minor upgrade.",
+              "Trees do not simply hand over sugar to any fungus in the neighbourhood.",
+              "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+              "A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.",
+              "That does not make the networks imaginary.",
+              "The experiment became famous because it suggested that forest plants were not merely competing as isolated individuals.",
+              "But a detected transfer is not the same as proof that a mature tree is deliberately feeding a seedling, or that the transfer meaningfully changes survival in all forests.",
+              "Forest life is not a morality play about generosity.",
+              "But this is not conversation in the human sense.",
+              "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+              "Seedlings do not enter a neutral underground world.",
+              "This is one reason forest recovery is not just a matter of planting stems in the ground.",
+              "That does not mean protecting fungi is a simple climate solution.",
+              "They are not magical forest internet cables through which wise old trees send care packages to their children.",
+              "A forest is not just a collection of trees."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1768,6 +1900,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Paragraph length CV: 0.19 across 15 paragraphs",
@@ -1776,6 +1909,7 @@
               "frictionless_structure"
             ],
             "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1791,6 +1925,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Tidy paragraph endings: 0",
@@ -1816,6 +1951,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bland critical template phrases: 0",
@@ -1841,6 +1977,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rubric echo phrases: 0",
@@ -1866,6 +2003,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Type-token ratio: 0.410 (643 unique / 1567 total, target: >0.40)",
@@ -1875,6 +2013,7 @@
               "genre_misfit"
             ],
             "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1891,31 +2030,32 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
-            "recover, compete, store carbon",
-            "the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace",
-            "slip into smaller pores, cross tiny gaps, spread through patches of",
-            "the tree a larger, finer, more chemically versatile absorbing",
-            "oaks, beeches, eucalypts",
-            "large range of plants, enter root cells, form tiny branched structures",
-            "what they can provide, where they forage, how much carbon they",
-            "depending on fungal identity, soil conditions, the form in which",
-            "nutrients, water, chemical signals between plants",
-            "leaking compounds into soil, microbes consuming, re-releasing them",
-            "common mycorrhizal networks improves, harms, has no effect on",
-            "no evidence of intention, language, conscious warning",
-            "the fungus is alive, metabolically active, under selection to acquire",
-            "hyphae into the soil, and use enzymes, organic acids to access",
-            "forestry machinery compacts soil, when topsoil is removed, when a clear-fell",
-            "roots, bacteria, decaying organic matter",
-            "involved in plant productivity, nutrient cycling, soil carbon dynamics at",
-            "mycorrhizal fungi are real, ancient, ecologically consequential",
-            "influence seedling establishment, build, break down soil carbon",
-            "marketplace, digestive system, battleground at once",
-            "its networks are patchy, changing, difficult to measure"
+            "recover, compete and store carbon",
+            "the plant acquire nutrients, especially phosphorus and nitrogen, and often water and trace",
+            "slip into smaller pores, cross tiny gaps, and spread through patches of",
+            "the tree a larger, finer and more chemically versatile absorbing",
+            "oaks, beeches and eucalypts",
+            "large range of plants, enter root cells and form tiny branched structures",
+            "what they can provide, where they forage, and how much carbon they",
+            "depending on fungal identity, soil conditions and the form in which",
+            "nutrients, water or chemical signals between plants",
+            "leaking compounds into soil, microbes consuming and re-releasing them",
+            "common mycorrhizal networks improves, harms or has no effect on",
+            "no evidence of intention, language or conscious warning",
+            "The fungus is alive, metabolically active and under selection to acquire",
+            "hyphae into the soil, and use enzymes and organic acids to access",
+            "forestry machinery compacts soil, when topsoil is removed, or when a clear-fell",
+            "roots, bacteria and decaying organic matter",
+            "involved in plant productivity, nutrient cycling and soil carbon dynamics at",
+            "Mycorrhizal fungi are real, ancient and ecologically consequential",
+            "influence seedling establishment, build and break down soil carbon",
+            "marketplace, digestive system and battleground at once",
+            "its networks are patchy, changing and difficult to measure"
           ],
           "raw": {
-            "evidence": "Found 21 triad(s): ['recover, compete, store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace', 'slip into smaller pores, cross tiny gaps, spread through patches of', 'the tree a larger, finer, more chemically versatile absorbing', 'oaks, beeches, eucalypts', 'large range of plants, enter root cells, form tiny branched structures', 'what they can provide, where they forage, how much carbon they', 'depending on fungal identity, soil conditions, the form in which', 'nutrients, water, chemical signals between plants', 'leaking compounds into soil, microbes consuming, re-releasing them', 'common mycorrhizal networks improves, harms, has no effect on', 'no evidence of intention, language, conscious warning', 'the fungus is alive, metabolically active, under selection to acquire', 'hyphae into the soil, and use enzymes, organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, when a clear-fell', 'roots, bacteria, decaying organic matter', 'involved in plant productivity, nutrient cycling, soil carbon dynamics at', 'mycorrhizal fungi are real, ancient, ecologically consequential', 'influence seedling establishment, build, break down soil carbon', 'marketplace, digestive system, battleground at once', 'its networks are patchy, changing, difficult to measure']",
+            "evidence": "Found 21 triad(s): ['recover, compete and store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, and often water and trace', 'slip into smaller pores, cross tiny gaps, and spread through patches of', 'the tree a larger, finer and more chemically versatile absorbing', 'oaks, beeches and eucalypts', 'large range of plants, enter root cells and form tiny branched structures', 'what they can provide, where they forage, and how much carbon they', 'depending on fungal identity, soil conditions and the form in which', 'nutrients, water or chemical signals between plants', 'leaking compounds into soil, microbes consuming and re-releasing them', 'common mycorrhizal networks improves, harms or has no effect on', 'no evidence of intention, language or conscious warning', 'The fungus is alive, metabolically active and under selection to acquire', 'hyphae into the soil, and use enzymes and organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, or when a clear-fell', 'roots, bacteria and decaying organic matter', 'involved in plant productivity, nutrient cycling and soil carbon dynamics at', 'Mycorrhizal fungi are real, ancient and ecologically consequential', 'influence seedling establishment, build and break down soil carbon', 'marketplace, digestive system and battleground at once', 'its networks are patchy, changing and difficult to measure']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -1938,6 +2078,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No repeated section labels",
@@ -1961,6 +2102,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No notability claims",
@@ -1986,6 +2128,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No vague attributions",
@@ -2011,6 +2154,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bold spans in prose: 0",
@@ -2034,6 +2178,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List items with bolded headers: 0",
@@ -2059,6 +2204,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dense compound-modifier sentences",
@@ -2084,6 +2230,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No knowledge-cutoff disclaimers",
@@ -2107,14 +2254,22 @@
   },
   "pass_rate": "44/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 5,
+    "failures_by_severity": {
+      "context_warning": 4,
+      "strong_warning": 1
+    },
+    "pass_rate": "44/49",
+    "passed_checks": 44,
+    "signal_stacking": {
       "components": [
         "headings in prose"
       ],
       "score": 2,
       "threshold": 4,
       "triggered": false,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 8.922880815806247,
         "kobak_style_distinct": 10,
@@ -2135,14 +2290,6 @@
         "worst_generic": 1
       }
     },
-    "check_status": "fail",
-    "failed_checks": 5,
-    "failures_by_severity": {
-      "context_warning": 4,
-      "strong_warning": 1
-    },
-    "pass_rate": "44/49",
-    "passed_checks": 44,
     "total_checks": 49
   },
   "triggered_checks": [
@@ -2216,7 +2363,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 21 triad(s): ['recover, compete, store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, often water and trace', 'slip into smaller pores, cross tiny gaps, spread through patches of', 'the tree a larger, finer, more chemically versatile absorbing', 'oaks, beeches, eucalypts', 'large range of plants, enter root cells, form tiny branched structures', 'what they can provide, where they forage, how much carbon they', 'depending on fungal identity, soil conditions, the form in which', 'nutrients, water, chemical signals between plants', 'leaking compounds into soil, microbes consuming, re-releasing them', 'common mycorrhizal networks improves, harms, has no effect on', 'no evidence of intention, language, conscious warning', 'the fungus is alive, metabolically active, under selection to acquire', 'hyphae into the soil, and use enzymes, organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, when a clear-fell', 'roots, bacteria, decaying organic matter', 'involved in plant productivity, nutrient cycling, soil carbon dynamics at', 'mycorrhizal fungi are real, ancient, ecologically consequential', 'influence seedling establishment, build, break down soil carbon', 'marketplace, digestive system, battleground at once', 'its networks are patchy, changing, difficult to measure']",
+      "evidence": "Found 21 triad(s): ['recover, compete and store carbon', 'the plant acquire nutrients, especially phosphorus and nitrogen, and often water and trace', 'slip into smaller pores, cross tiny gaps, and spread through patches of', 'the tree a larger, finer and more chemically versatile absorbing', 'oaks, beeches and eucalypts', 'large range of plants, enter root cells and form tiny branched structures', 'what they can provide, where they forage, and how much carbon they', 'depending on fungal identity, soil conditions and the form in which', 'nutrients, water or chemical signals between plants', 'leaking compounds into soil, microbes consuming and re-releasing them', 'common mycorrhizal networks improves, harms or has no effect on', 'no evidence of intention, language or conscious warning', 'The fungus is alive, metabolically active and under selection to acquire', 'hyphae into the soil, and use enzymes and organic acids to access', 'forestry machinery compacts soil, when topsoil is removed, or when a clear-fell', 'roots, bacteria and decaying organic matter', 'involved in plant productivity, nutrient cycling and soil carbon dynamics at', 'Mycorrhizal fungi are real, ancient and ecologically consequential', 'influence seedling establishment, build and break down soil carbon', 'marketplace, digestive system and battleground at once', 'its networks are patchy, changing and difficult to measure']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

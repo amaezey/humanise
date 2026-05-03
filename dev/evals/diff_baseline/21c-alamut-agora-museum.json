@@ -3,7 +3,7 @@
     "all": {
       "check_status": "fail",
       "must_fix": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-negative-parallelisms",
@@ -17,7 +17,7 @@
       "needs_user_decision": [],
       "preservable_with_disclosure": [],
       "required_fixes": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-negative-parallelisms",
@@ -39,7 +39,7 @@
         "no-filler-phrases"
       ],
       "needs_user_decision": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-rhetorical-questions",
@@ -49,7 +49,7 @@
         "no-boldface-overuse"
       ],
       "preservable_with_disclosure": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-rhetorical-questions",
@@ -65,7 +65,7 @@
       "status": "fail",
       "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output.",
       "user_decision_needed": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-rhetorical-questions",
@@ -84,6 +84,7 @@
         "genre_misfit"
       ],
       "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-em-dashes"
@@ -116,19 +117,19 @@
         "contrived contrast framing",
         "headings in prose"
       ],
-      "evidence": "Overall AI-signal pressure 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": false,
       "score": 5,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 6.380912747953946,
         "kobak_style_distinct": 34,
@@ -170,6 +171,14 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "You argued.",
+        "You heard arguments.",
+        "You drew up legislation.",
+        "You presented legislation.",
+        "You reached your verdict.",
+        "You cast your vote."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -182,6 +191,15 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "You argued.",
+        "You heard arguments.",
+        "You drew up legislation.",
+        "You presented legislation.",
+        "You reached your verdict.",
+        "You cast your vote.",
+        "You were the source, along with all your fellow citizens, of a flood of words and rulings and decisions."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -204,6 +222,7 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -250,6 +269,10 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [
+        "not only an archaic invention but",
+        "not just of the writer but"
+      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -353,6 +376,7 @@
         "generic_abstraction"
       ],
       "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-superficial-ing"
@@ -377,6 +401,7 @@
         "genre_misfit"
       ],
       "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-quietness-obsession"
@@ -519,6 +544,7 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -530,6 +556,7 @@
         "frictionless_structure"
       ],
       "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": null,
       "passed": true,
       "severity": "context_warning",
       "text": "paragraph-length-uniformity"
@@ -578,12 +605,13 @@
         "genre_misfit"
       ],
       "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": "type-token ratio 0.28 (1959 unique of 7115 words, target above 0.40)",
       "passed": false,
       "severity": "context_warning",
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 28 triad(s): ['the excavated ancient agora, the original athenian marketplace, civic center', 'of-western-civilization-wise, in the 5th, 4th centuries b', 'system had enough checks, balances, redundancy built into it', 'those bodies flowing smoothly, then, that was largely a', 'into their temporary places, delivered of their votes, opinions', 'then, there was no beginning, no end to this', 'in rows and columns, usually 50 rows down, typically 5 or in', 'yes, it is both oversimplifying, somewhat perverse to characterize', 'say, wind or fire, metals and harnessing the', 'state that managed it, chiefly through their structure, conventions', 'in trials, the plaintiff, defendant were granted equal', 'commerce, warfare, even science were still', 'from end to end, tubelike, the other with a', 'not quite as much, maybe, in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set, at that time a', 'he saves it, dusts it off now, then over the years', 'in ancient times, however, particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, notices of lawsuits', 'life, death, litigation in the athenian', 'and charming, as the talking cups, pitchers of the athenians', 'products like wine bottles, say, bedding', 'definition of a tile, something strange, deeply human has happened', 'a head of cattle, or a pretty shell, a lump of metal', 'in principle, of any, all citizens', 'the juror ballot, the axones, all the other physical', 'along with the traditions, the conventions, the citizens of athens', 'life, death, litigation in the athenian', '23, 14, 17 by the american']",
+      "evidence": "Found 28 triad(s): ['the excavated ancient Agora, the original Athenian marketplace and civic center', 'of-Western-Civilization-wise, in the 5th and 4th centuries B', 'system had enough checks, balances, and redundancy built into it', 'those bodies flowing smoothly, then, and that was largely a', 'into their temporary places, delivered of their votes and opinions', 'then, there was no beginning and no end to this', 'in rows and columns, usually 50 rows down and typically 5 or in', 'Yes, it is both oversimplifying and somewhat perverse to characterize', 'say, wind or fire or metals and harnessing the', 'state that managed it, chiefly through their structure and conventions', 'In trials, the plaintiff and defendant were granted equal', 'commerce, warfare, and even science were still', 'from end to end, tubelike, and the other with a', 'Not quite as much, maybe, or in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set and at that time a', 'he saves it, dusts it off now and then over the years', 'In ancient times, however, and particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, and notices of lawsuits', 'Life, Death, and Litigation in the Athenian', 'and charming, as the talking cups and pitchers of the Athenians', 'products like wine bottles, say, or bedding', 'definition of a tile, something strange and deeply human has happened', 'a head of cattle, or a pretty shell, or a lump of metal', 'in principle, of any and all citizens', 'the juror ballot, the axones, and all the other physical', 'along with the traditions, the conventions, and the citizens of Athens', 'Life, Death and Litigation in the Athenian', '23, 14, and 17 by the American']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -679,7 +707,7 @@
   "failure_mode_results": {
     "frictionless_structure": {
       "check_refs": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-rhetorical-questions",
@@ -689,15 +717,15 @@
       ],
       "failed_checks": [
         {
-          "check": "overall-ai-signal-pressure",
+          "check": "overall-signal-stacking",
           "depth_actions": {
             "all": "fix",
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Overall AI-signal pressure 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
-          "evidence_role": "aggregate_pressure",
-          "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "evidence": "Overall signal stacking 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
           "severity": "context_warning"
         },
         {
@@ -755,7 +783,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 28 triad(s): ['the excavated ancient agora, the original athenian marketplace, civic center', 'of-western-civilization-wise, in the 5th, 4th centuries b', 'system had enough checks, balances, redundancy built into it', 'those bodies flowing smoothly, then, that was largely a', 'into their temporary places, delivered of their votes, opinions', 'then, there was no beginning, no end to this', 'in rows and columns, usually 50 rows down, typically 5 or in', 'yes, it is both oversimplifying, somewhat perverse to characterize', 'say, wind or fire, metals and harnessing the', 'state that managed it, chiefly through their structure, conventions', 'in trials, the plaintiff, defendant were granted equal', 'commerce, warfare, even science were still', 'from end to end, tubelike, the other with a', 'not quite as much, maybe, in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set, at that time a', 'he saves it, dusts it off now, then over the years', 'in ancient times, however, particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, notices of lawsuits', 'life, death, litigation in the athenian', 'and charming, as the talking cups, pitchers of the athenians', 'products like wine bottles, say, bedding', 'definition of a tile, something strange, deeply human has happened', 'a head of cattle, or a pretty shell, a lump of metal', 'in principle, of any, all citizens', 'the juror ballot, the axones, all the other physical', 'along with the traditions, the conventions, the citizens of athens', 'life, death, litigation in the athenian', '23, 14, 17 by the american']",
+          "evidence": "Found 28 triad(s): ['the excavated ancient Agora, the original Athenian marketplace and civic center', 'of-Western-Civilization-wise, in the 5th and 4th centuries B', 'system had enough checks, balances, and redundancy built into it', 'those bodies flowing smoothly, then, and that was largely a', 'into their temporary places, delivered of their votes and opinions', 'then, there was no beginning and no end to this', 'in rows and columns, usually 50 rows down and typically 5 or in', 'Yes, it is both oversimplifying and somewhat perverse to characterize', 'say, wind or fire or metals and harnessing the', 'state that managed it, chiefly through their structure and conventions', 'In trials, the plaintiff and defendant were granted equal', 'commerce, warfare, and even science were still', 'from end to end, tubelike, and the other with a', 'Not quite as much, maybe, or in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set and at that time a', 'he saves it, dusts it off now and then over the years', 'In ancient times, however, and particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, and notices of lawsuits', 'Life, Death, and Litigation in the Athenian', 'and charming, as the talking cups and pitchers of the Athenians', 'products like wine bottles, say, or bedding', 'definition of a tile, something strange and deeply human has happened', 'a head of cattle, or a pretty shell, or a lump of metal', 'in principle, of any and all citizens', 'the juror ballot, the axones, and all the other physical', 'along with the traditions, the conventions, and the citizens of Athens', 'Life, Death and Litigation in the Athenian', '23, 14, and 17 by the American']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -781,21 +809,21 @@
     },
     "generic_abstraction": {
       "check_refs": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-filler-phrases",
         "vocabulary-diversity"
       ],
       "failed_checks": [
         {
-          "check": "overall-ai-signal-pressure",
+          "check": "overall-signal-stacking",
           "depth_actions": {
             "all": "fix",
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Overall AI-signal pressure 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
-          "evidence_role": "aggregate_pressure",
-          "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "evidence": "Overall signal stacking 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
           "severity": "context_warning"
         },
         {
@@ -907,7 +935,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 28 triad(s): ['the excavated ancient agora, the original athenian marketplace, civic center', 'of-western-civilization-wise, in the 5th, 4th centuries b', 'system had enough checks, balances, redundancy built into it', 'those bodies flowing smoothly, then, that was largely a', 'into their temporary places, delivered of their votes, opinions', 'then, there was no beginning, no end to this', 'in rows and columns, usually 50 rows down, typically 5 or in', 'yes, it is both oversimplifying, somewhat perverse to characterize', 'say, wind or fire, metals and harnessing the', 'state that managed it, chiefly through their structure, conventions', 'in trials, the plaintiff, defendant were granted equal', 'commerce, warfare, even science were still', 'from end to end, tubelike, the other with a', 'not quite as much, maybe, in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set, at that time a', 'he saves it, dusts it off now, then over the years', 'in ancient times, however, particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, notices of lawsuits', 'life, death, litigation in the athenian', 'and charming, as the talking cups, pitchers of the athenians', 'products like wine bottles, say, bedding', 'definition of a tile, something strange, deeply human has happened', 'a head of cattle, or a pretty shell, a lump of metal', 'in principle, of any, all citizens', 'the juror ballot, the axones, all the other physical', 'along with the traditions, the conventions, the citizens of athens', 'life, death, litigation in the athenian', '23, 14, 17 by the american']",
+          "evidence": "Found 28 triad(s): ['the excavated ancient Agora, the original Athenian marketplace and civic center', 'of-Western-Civilization-wise, in the 5th and 4th centuries B', 'system had enough checks, balances, and redundancy built into it', 'those bodies flowing smoothly, then, and that was largely a', 'into their temporary places, delivered of their votes and opinions', 'then, there was no beginning and no end to this', 'in rows and columns, usually 50 rows down and typically 5 or in', 'Yes, it is both oversimplifying and somewhat perverse to characterize', 'say, wind or fire or metals and harnessing the', 'state that managed it, chiefly through their structure and conventions', 'In trials, the plaintiff and defendant were granted equal', 'commerce, warfare, and even science were still', 'from end to end, tubelike, and the other with a', 'Not quite as much, maybe, or in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set and at that time a', 'he saves it, dusts it off now and then over the years', 'In ancient times, however, and particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, and notices of lawsuits', 'Life, Death, and Litigation in the Athenian', 'and charming, as the talking cups and pitchers of the Athenians', 'products like wine bottles, say, or bedding', 'definition of a tile, something strange and deeply human has happened', 'a head of cattle, or a pretty shell, or a lump of metal', 'in principle, of any and all citizens', 'the juror ballot, the axones, and all the other physical', 'along with the traditions, the conventions, and the citizens of Athens', 'Life, Death and Litigation in the Athenian', '23, 14, and 17 by the American']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -955,7 +983,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -966,20 +994,10 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
-        "components": [
-          "contrived contrast framing",
-          "headings in prose"
-        ],
-        "score": 5,
-        "threshold": 4,
-        "triggered": true,
-        "vocabulary_points": 1
-      },
       "by_category": {
-        "Aggregate AI-signal pressure": 1,
         "Filler and hedging": 2,
         "Language and grammar": 3,
+        "Signal stacking": 1,
         "Structural tells": 1,
         "Style": 2,
         "Voice and register": 1
@@ -988,6 +1006,16 @@
         "context_warning": 8,
         "hard_fail": 0,
         "strong_warning": 2
+      },
+      "signal_stacking": {
+        "components": [
+          "contrived contrast framing",
+          "headings in prose"
+        ],
+        "score": 5,
+        "threshold": 4,
+        "triggered": true,
+        "vocabulary_points": 1
       }
     },
     "metadata": {
@@ -1000,6 +1028,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No em dashes found",
@@ -1008,6 +1037,7 @@
               "genre_misfit"
             ],
             "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1023,6 +1053,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max AI words per paragraph: 2 (7 total in text)",
@@ -1046,6 +1077,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No nonliteral land/surface constructions found",
@@ -1067,30 +1099,31 @@
         "status": "clear"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 5,
             "threshold": 4
           },
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "components": [
               "contrived contrast framing",
               "headings in prose"
             ],
-            "evidence": "Overall AI-signal pressure 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 5,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 6.380912747953946,
               "kobak_style_distinct": 34,
@@ -1118,7 +1151,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "flagged"
       },
@@ -1127,6 +1160,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No manufactured insight phrases",
@@ -1150,7 +1184,15 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "You argued.",
+            "You heard arguments.",
+            "You drew up legislation.",
+            "You presented legislation.",
+            "You reached your verdict.",
+            "You cast your vote."
+          ],
           "raw": {
             "evidence": "Found sequence of 6 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1159,6 +1201,14 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "You argued.",
+              "You heard arguments.",
+              "You drew up legislation.",
+              "You presented legislation.",
+              "You reached your verdict.",
+              "You cast your vote."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1175,7 +1225,16 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "You argued.",
+            "You heard arguments.",
+            "You drew up legislation.",
+            "You presented legislation.",
+            "You reached your verdict.",
+            "You cast your vote.",
+            "You were the source, along with all your fellow citizens, of a flood of words and rulings and decisions."
+          ],
           "raw": {
             "evidence": "Found 7 consecutive sentences starting with 'you'",
             "evidence_role": "rhythm_signal",
@@ -1184,6 +1243,15 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "You argued.",
+              "You heard arguments.",
+              "You drew up legislation.",
+              "You presented legislation.",
+              "You reached your verdict.",
+              "You cast your vote.",
+              "You were the source, along with all your fellow citizens, of a flood of words and rulings and decisions."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1200,6 +1268,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No collaborative artifacts",
@@ -1223,6 +1292,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No curly quotes",
@@ -1231,6 +1301,7 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1246,6 +1317,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Sentence length stdev: 18.3 (target: >4)",
@@ -1271,6 +1343,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No promotional language",
@@ -1296,6 +1369,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No significance inflation",
@@ -1319,7 +1393,11 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "metric": null,
+          "quoted_phrases": [
+            "not only an archaic invention but",
+            "not just of the writer but"
+          ],
           "raw": {
             "evidence": "Found 2 contrived contrast/reframe pattern(s)",
             "evidence_role": "rhetorical_pattern",
@@ -1327,6 +1405,10 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [
+              "not only an archaic invention but",
+              "not just of the writer but"
+            ],
             "severity": "strong_warning"
           }
         },
@@ -1342,6 +1424,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No copula avoidance",
@@ -1367,6 +1450,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "in order to"
           ],
@@ -1392,6 +1476,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No generic conclusions",
@@ -1417,6 +1502,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No false concession hedges",
@@ -1440,6 +1526,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No placeholder residue",
@@ -1463,6 +1550,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Soft scaffold phrases: 0",
@@ -1486,6 +1574,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Vague demonstrative subjects: 0",
@@ -1511,6 +1600,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No forced triads",
@@ -1536,6 +1626,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No superficial -ing phrases",
@@ -1544,6 +1635,7 @@
               "generic_abstraction"
             ],
             "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1559,6 +1651,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Ghost/spectral words: 2",
@@ -1584,6 +1677,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Quietness words: 1",
@@ -1593,6 +1687,7 @@
               "genre_misfit"
             ],
             "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1609,6 +1704,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "But what would be the profit in reading it thus?",
             "What was the point of this high-concept design?"
@@ -1637,6 +1733,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List ratio: 0%",
@@ -1662,6 +1759,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Decorative symbols/shortcodes: 0",
@@ -1687,6 +1785,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dramatic transitions",
@@ -1712,6 +1811,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No formulaic openers",
@@ -1737,6 +1837,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No signposted conclusions",
@@ -1762,6 +1863,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "# Info Tech of Ancient Democracy",
             "### INFO TECH OF ANCIENT DEMOCRACY",
@@ -1791,6 +1893,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No corporate AI speak",
@@ -1814,6 +1917,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Max 'This [verb]' run: 1",
@@ -1839,6 +1943,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Hedging constructions: 0",
@@ -1862,6 +1967,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No countdown negation",
@@ -1887,6 +1993,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Negation markers: 31 (4.2 per 1000 words)",
@@ -1896,6 +2003,7 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1912,6 +2020,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Paragraph length CV: 0.37 across 104 paragraphs",
@@ -1920,6 +2029,7 @@
               "frictionless_structure"
             ],
             "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": null,
             "severity": "context_warning"
           }
         },
@@ -1935,6 +2045,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Tidy paragraph endings: 0",
@@ -1960,6 +2071,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Bland critical template phrases: 0",
@@ -1985,6 +2097,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "Rubric echo phrases: 0",
@@ -2010,6 +2123,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": "type-token ratio 0.28 (1959 unique of 7115 words, target above 0.40)",
           "quoted_phrases": [],
           "raw": {
             "evidence": "Type-token ratio: 0.275 (1959 unique / 7115 total, target: >0.40)",
@@ -2019,6 +2133,7 @@
               "genre_misfit"
             ],
             "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": "type-token ratio 0.28 (1959 unique of 7115 words, target above 0.40)",
             "severity": "context_warning"
           }
         },
@@ -2035,38 +2150,39 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
-            "the excavated ancient agora, the original athenian marketplace, civic center",
-            "of-western-civilization-wise, in the 5th, 4th centuries b",
-            "system had enough checks, balances, redundancy built into it",
-            "those bodies flowing smoothly, then, that was largely a",
-            "into their temporary places, delivered of their votes, opinions",
-            "then, there was no beginning, no end to this",
-            "in rows and columns, usually 50 rows down, typically 5 or in",
-            "yes, it is both oversimplifying, somewhat perverse to characterize",
-            "say, wind or fire, metals and harnessing the",
-            "state that managed it, chiefly through their structure, conventions",
-            "in trials, the plaintiff, defendant were granted equal",
-            "commerce, warfare, even science were still",
-            "from end to end, tubelike, the other with a",
-            "not quite as much, maybe, in nearly so sophisticated",
-            "6000 citizens voted affirmatively, the day was set, at that time a",
-            "he saves it, dusts it off now, then over the years",
-            "in ancient times, however, particularly it seems in",
-            "whiteboards displaying mobilization orders, drafts of new laws, notices of lawsuits",
-            "life, death, litigation in the athenian",
-            "and charming, as the talking cups, pitchers of the athenians",
-            "products like wine bottles, say, bedding",
-            "definition of a tile, something strange, deeply human has happened",
-            "a head of cattle, or a pretty shell, a lump of metal",
-            "in principle, of any, all citizens",
-            "the juror ballot, the axones, all the other physical",
-            "along with the traditions, the conventions, the citizens of athens",
-            "life, death, litigation in the athenian",
-            "23, 14, 17 by the american"
+            "the excavated ancient Agora, the original Athenian marketplace and civic center",
+            "of-Western-Civilization-wise, in the 5th and 4th centuries B",
+            "system had enough checks, balances, and redundancy built into it",
+            "those bodies flowing smoothly, then, and that was largely a",
+            "into their temporary places, delivered of their votes and opinions",
+            "then, there was no beginning and no end to this",
+            "in rows and columns, usually 50 rows down and typically 5 or in",
+            "Yes, it is both oversimplifying and somewhat perverse to characterize",
+            "say, wind or fire or metals and harnessing the",
+            "state that managed it, chiefly through their structure and conventions",
+            "In trials, the plaintiff and defendant were granted equal",
+            "commerce, warfare, and even science were still",
+            "from end to end, tubelike, and the other with a",
+            "Not quite as much, maybe, or in nearly so sophisticated",
+            "6000 citizens voted affirmatively, the day was set and at that time a",
+            "he saves it, dusts it off now and then over the years",
+            "In ancient times, however, and particularly it seems in",
+            "whiteboards displaying mobilization orders, drafts of new laws, and notices of lawsuits",
+            "Life, Death, and Litigation in the Athenian",
+            "and charming, as the talking cups and pitchers of the Athenians",
+            "products like wine bottles, say, or bedding",
+            "definition of a tile, something strange and deeply human has happened",
+            "a head of cattle, or a pretty shell, or a lump of metal",
+            "in principle, of any and all citizens",
+            "the juror ballot, the axones, and all the other physical",
+            "along with the traditions, the conventions, and the citizens of Athens",
+            "Life, Death and Litigation in the Athenian",
+            "23, 14, and 17 by the American"
           ],
           "raw": {
-            "evidence": "Found 28 triad(s): ['the excavated ancient agora, the original athenian marketplace, civic center', 'of-western-civilization-wise, in the 5th, 4th centuries b', 'system had enough checks, balances, redundancy built into it', 'those bodies flowing smoothly, then, that was largely a', 'into their temporary places, delivered of their votes, opinions', 'then, there was no beginning, no end to this', 'in rows and columns, usually 50 rows down, typically 5 or in', 'yes, it is both oversimplifying, somewhat perverse to characterize', 'say, wind or fire, metals and harnessing the', 'state that managed it, chiefly through their structure, conventions', 'in trials, the plaintiff, defendant were granted equal', 'commerce, warfare, even science were still', 'from end to end, tubelike, the other with a', 'not quite as much, maybe, in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set, at that time a', 'he saves it, dusts it off now, then over the years', 'in ancient times, however, particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, notices of lawsuits', 'life, death, litigation in the athenian', 'and charming, as the talking cups, pitchers of the athenians', 'products like wine bottles, say, bedding', 'definition of a tile, something strange, deeply human has happened', 'a head of cattle, or a pretty shell, a lump of metal', 'in principle, of any, all citizens', 'the juror ballot, the axones, all the other physical', 'along with the traditions, the conventions, the citizens of athens', 'life, death, litigation in the athenian', '23, 14, 17 by the american']",
+            "evidence": "Found 28 triad(s): ['the excavated ancient Agora, the original Athenian marketplace and civic center', 'of-Western-Civilization-wise, in the 5th and 4th centuries B', 'system had enough checks, balances, and redundancy built into it', 'those bodies flowing smoothly, then, and that was largely a', 'into their temporary places, delivered of their votes and opinions', 'then, there was no beginning and no end to this', 'in rows and columns, usually 50 rows down and typically 5 or in', 'Yes, it is both oversimplifying and somewhat perverse to characterize', 'say, wind or fire or metals and harnessing the', 'state that managed it, chiefly through their structure and conventions', 'In trials, the plaintiff and defendant were granted equal', 'commerce, warfare, and even science were still', 'from end to end, tubelike, and the other with a', 'Not quite as much, maybe, or in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set and at that time a', 'he saves it, dusts it off now and then over the years', 'In ancient times, however, and particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, and notices of lawsuits', 'Life, Death, and Litigation in the Athenian', 'and charming, as the talking cups and pitchers of the Athenians', 'products like wine bottles, say, or bedding', 'definition of a tile, something strange and deeply human has happened', 'a head of cattle, or a pretty shell, or a lump of metal', 'in principle, of any and all citizens', 'the juror ballot, the axones, and all the other physical', 'along with the traditions, the conventions, and the citizens of Athens', 'Life, Death and Litigation in the Athenian', '23, 14, and 17 by the American']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -2089,6 +2205,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No repeated section labels",
@@ -2112,6 +2229,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No notability claims",
@@ -2137,6 +2255,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No vague attributions",
@@ -2162,6 +2281,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [
             "**Part One: Introduction**",
             "**Part Two: The Technology of Allotment**",
@@ -2191,6 +2311,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "List items with bolded headers: 0",
@@ -2216,6 +2337,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No dense compound-modifier sentences",
@@ -2241,6 +2363,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
+          "metric": null,
           "quoted_phrases": [],
           "raw": {
             "evidence": "No knowledge-cutoff disclaimers",
@@ -2264,7 +2387,15 @@
   },
   "pass_rate": "39/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 10,
+    "failures_by_severity": {
+      "context_warning": 8,
+      "strong_warning": 2
+    },
+    "pass_rate": "39/49",
+    "passed_checks": 39,
+    "signal_stacking": {
       "components": [
         "contrived contrast framing",
         "headings in prose"
@@ -2272,7 +2403,7 @@
       "score": 5,
       "threshold": 4,
       "triggered": true,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 6.380912747953946,
         "kobak_style_distinct": 34,
@@ -2295,31 +2426,23 @@
         "worst_generic": 2
       }
     },
-    "check_status": "fail",
-    "failed_checks": 10,
-    "failures_by_severity": {
-      "context_warning": 8,
-      "strong_warning": 2
-    },
-    "pass_rate": "39/49",
-    "passed_checks": 39,
     "total_checks": 49
   },
   "triggered_checks": [
     {
-      "check": "overall-ai-signal-pressure",
+      "check": "overall-signal-stacking",
       "depth_actions": {
         "all": "fix",
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Overall AI-signal pressure 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 5/4 from [contrived contrast framing, headings in prose]; vocab=1 point(s), worst_generic=2, gptzero=[], kobak=34 distinct/6.4/1000, sample=['however', 'precise', 'harnessing', 'hold', 'identified', 'involving', 'leading', 'remarkable', 'role', 'additionally']",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "severity": "context_warning"
     },
     {
@@ -2439,7 +2562,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 28 triad(s): ['the excavated ancient agora, the original athenian marketplace, civic center', 'of-western-civilization-wise, in the 5th, 4th centuries b', 'system had enough checks, balances, redundancy built into it', 'those bodies flowing smoothly, then, that was largely a', 'into their temporary places, delivered of their votes, opinions', 'then, there was no beginning, no end to this', 'in rows and columns, usually 50 rows down, typically 5 or in', 'yes, it is both oversimplifying, somewhat perverse to characterize', 'say, wind or fire, metals and harnessing the', 'state that managed it, chiefly through their structure, conventions', 'in trials, the plaintiff, defendant were granted equal', 'commerce, warfare, even science were still', 'from end to end, tubelike, the other with a', 'not quite as much, maybe, in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set, at that time a', 'he saves it, dusts it off now, then over the years', 'in ancient times, however, particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, notices of lawsuits', 'life, death, litigation in the athenian', 'and charming, as the talking cups, pitchers of the athenians', 'products like wine bottles, say, bedding', 'definition of a tile, something strange, deeply human has happened', 'a head of cattle, or a pretty shell, a lump of metal', 'in principle, of any, all citizens', 'the juror ballot, the axones, all the other physical', 'along with the traditions, the conventions, the citizens of athens', 'life, death, litigation in the athenian', '23, 14, 17 by the american']",
+      "evidence": "Found 28 triad(s): ['the excavated ancient Agora, the original Athenian marketplace and civic center', 'of-Western-Civilization-wise, in the 5th and 4th centuries B', 'system had enough checks, balances, and redundancy built into it', 'those bodies flowing smoothly, then, and that was largely a', 'into their temporary places, delivered of their votes and opinions', 'then, there was no beginning and no end to this', 'in rows and columns, usually 50 rows down and typically 5 or in', 'Yes, it is both oversimplifying and somewhat perverse to characterize', 'say, wind or fire or metals and harnessing the', 'state that managed it, chiefly through their structure and conventions', 'In trials, the plaintiff and defendant were granted equal', 'commerce, warfare, and even science were still', 'from end to end, tubelike, and the other with a', 'Not quite as much, maybe, or in nearly so sophisticated', '6000 citizens voted affirmatively, the day was set and at that time a', 'he saves it, dusts it off now and then over the years', 'In ancient times, however, and particularly it seems in', 'whiteboards displaying mobilization orders, drafts of new laws, and notices of lawsuits', 'Life, Death, and Litigation in the Athenian', 'and charming, as the talking cups and pitchers of the Athenians', 'products like wine bottles, say, or bedding', 'definition of a tile, something strange and deeply human has happened', 'a head of cattle, or a pretty shell, or a lump of metal', 'in principle, of any and all citizens', 'the juror ballot, the axones, and all the other physical', 'along with the traditions, the conventions, and the citizens of Athens', 'Life, Death and Litigation in the Athenian', '23, 14, and 17 by the American']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

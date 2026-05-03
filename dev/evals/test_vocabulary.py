@@ -78,14 +78,13 @@ REQUIRED_SECTIONS = {
     "severity_glyphs",
     "action_labels",
     "status_labels",
-    "pressure_status",
+    "signal_stacking_status",
     "failure_modes",
     "depth_consequence",
     "depth_summary",
     "section_headings",
     "inline_labels",
     "templates",
-    "short_pressure_explanation",
 }
 
 missing_sections = sorted(REQUIRED_SECTIONS - set(vocab))
@@ -133,15 +132,15 @@ for status in ("clear", "flagged", "none"):
     else:
         ok(f"status_label({status!r}) = {label!r}")
 
-print("\n=== pressure_status ===")
-if registries.pressure_status(True) != "triggered":
-    fail(f"pressure_status(True) should be 'triggered', got {registries.pressure_status(True)!r}")
+print("\n=== signal_stacking_status ===")
+if registries.signal_stacking_status(True) != "triggered":
+    fail(f"signal_stacking_status(True) should be 'triggered', got {registries.signal_stacking_status(True)!r}")
 else:
-    ok("pressure_status(True) = 'triggered'")
-if registries.pressure_status(False) != "clear":
-    fail(f"pressure_status(False) should be 'clear', got {registries.pressure_status(False)!r}")
+    ok("signal_stacking_status(True) = 'triggered'")
+if registries.signal_stacking_status(False) != "clear":
+    fail(f"signal_stacking_status(False) should be 'clear', got {registries.signal_stacking_status(False)!r}")
 else:
-    ok("pressure_status(False) = 'clear'")
+    ok("signal_stacking_status(False) = 'clear'")
 
 
 # --- failure_modes catalogue ---
@@ -214,20 +213,49 @@ severity_line = registries.string_for(
     hard_fail=0,
     strong_warning=2,
     context_warning=1,
-    pressure="clear",
 )
-expected_severity = "0 hard_fail · 2 strong_warning · 1 context_warning · pressure: clear"
+expected_severity = "0 hard fail · 2 strong warning · 1 context warning"
 if severity_line != expected_severity:
     fail(f"severity_line: expected {expected_severity!r}, got {severity_line!r}")
 else:
-    ok("templates.severity_line renders byte-equivalent to expected text")
+    ok("templates.severity_line renders byte-equivalent to expected text (U4 reshape — no inline signal-stacking suffix)")
+
+# U4: counts line is the new R1 first summary line.
+counts_line = registries.string_for(
+    "templates.counts_line",
+    auto_flagged=2, auto_total=48,
+    agent_flagged=1, agent_total=8,
+)
+expected_counts = "Auto-detected: 2 of 48 flagged · Agent-assessed: 1 of 8 flagged"
+if counts_line != expected_counts:
+    fail(f"counts_line: expected {expected_counts!r}, got {counts_line!r}")
+else:
+    ok("templates.counts_line renders byte-equivalent to expected text")
+
+# U4: signal-stacking line — clear (static) and triggered (templated) variants.
+stacking_clear = registries.string_for("templates.signal_stacking_clear")
+expected_clear = "Signal stacking: clear (weaker AI signals are not accumulating)"
+if stacking_clear != expected_clear:
+    fail(f"signal_stacking_clear: expected {expected_clear!r}, got {stacking_clear!r}")
+else:
+    ok("templates.signal_stacking_clear renders byte-equivalent to expected text")
+
+stacking_triggered = registries.string_for(
+    "templates.signal_stacking_triggered",
+    score=5, threshold=4, components="em dashes, tonal uniformity",
+)
+expected_triggered = "Signal stacking triggered: 5 of 4 threshold (em dashes, tonal uniformity)"
+if stacking_triggered != expected_triggered:
+    fail(f"signal_stacking_triggered: expected {expected_triggered!r}, got {stacking_triggered!r}")
+else:
+    ok("templates.signal_stacking_triggered renders byte-equivalent to expected text")
 
 # Phase 3 dual-layer templates.
 flagged_block = registries.string_for(
     "templates.flagged_pattern_block",
     glyph="x", name="Em dashes", quoted='"scene lands"', action="Fix",
 )
-expected_block = 'x **Em dashes** — "scene lands" — Action: Fix'
+expected_block = 'x Em dashes: "scene lands". Action: Fix'
 if flagged_block != expected_block:
     fail(f"flagged_pattern_block: expected {expected_block!r}, got {flagged_block!r}")
 else:
@@ -237,7 +265,7 @@ flagged_block_no_quote = registries.string_for(
     "templates.flagged_pattern_block_no_quote",
     glyph="!", name="Triad density", action="Fix",
 )
-expected_block_no_quote = "! **Triad density** — Action: Fix"
+expected_block_no_quote = "! Triad density. Action: Fix"
 if flagged_block_no_quote != expected_block_no_quote:
     fail(f"flagged_pattern_block_no_quote: expected {expected_block_no_quote!r}, got {flagged_block_no_quote!r}")
 else:
@@ -246,7 +274,7 @@ else:
 category_collapse = registries.string_for(
     "templates.category_collapse", category="Style", clear=6, total=6,
 )
-expected_collapse = "**Style** — 6/6 clear"
+expected_collapse = "**Style**: 6/6 clear"
 if category_collapse != expected_collapse:
     fail(f"category_collapse: expected {expected_collapse!r}, got {category_collapse!r}")
 else:
@@ -255,31 +283,116 @@ else:
 category_heading = registries.string_for(
     "templates.category_subtable_heading", category="Style", flagged=2, total=6,
 )
-expected_heading = "**Style** — 2 flagged of 6"
+expected_heading = "**Style**: 2 flagged of 6"
 if category_heading != expected_heading:
     fail(f"category_subtable_heading: expected {expected_heading!r}, got {category_heading!r}")
 else:
     ok("templates.category_subtable_heading renders byte-equivalent to expected text")
 
-# Sub-table separator and header must remain three pipes — Layer 2 contract.
+# U4: 4-column coverage table header + separator (R15 / R18).
 header = registries.string_for("templates.category_subtable_header")
-if header != "| Pattern | Result | Action |":
+if header != "| Pattern | Severity | Result | Detail |":
     fail(f"category_subtable_header drift: got {header!r}")
 else:
-    ok("templates.category_subtable_header preserved")
+    ok("templates.category_subtable_header is the U4 4-column shape")
 
 sep = registries.string_for("templates.category_subtable_separator")
-if sep != "| --- | --- | --- |":
+if sep != "| --- | --- | --- | --- |":
     fail(f"category_subtable_separator drift: got {sep!r}")
 else:
-    ok("templates.category_subtable_separator preserved")
+    ok("templates.category_subtable_separator is the U4 4-column shape")
 
-all_clear = registries.string_for("templates.all_clear_single_line", total=48)
-expected_all_clear = "48 of 48 clear · agent reading clean · pressure: clear."
-if all_clear != expected_all_clear:
-    fail(f"all_clear_single_line: expected {expected_all_clear!r}, got {all_clear!r}")
+# Bug-fix rework: per-block mini-headers + audit summary + next-steps headings.
+audit_heading = registries.string_for("templates.audit_summary_heading")
+if audit_heading != "**Audit summary**":
+    fail(f"audit_summary_heading: expected '**Audit summary**', got {audit_heading!r}")
 else:
-    ok("templates.all_clear_single_line renders byte-equivalent to expected text")
+    ok("templates.audit_summary_heading renders as bold '**Audit summary**'")
+
+auto_minihead = registries.string_for("templates.auto_detected_minihead")
+if auto_minihead != "**Auto-detected**":
+    fail(f"auto_detected_minihead: expected '**Auto-detected**', got {auto_minihead!r}")
+else:
+    ok("templates.auto_detected_minihead renders as bold '**Auto-detected**'")
+
+agent_minihead = registries.string_for("templates.agent_assessed_minihead")
+if agent_minihead != "**Agent-assessed**":
+    fail(f"agent_assessed_minihead: expected '**Agent-assessed**', got {agent_minihead!r}")
+else:
+    ok("templates.agent_assessed_minihead renders as bold '**Agent-assessed**'")
+
+next_steps_heading = registries.string_for("templates.next_steps_heading")
+if next_steps_heading != "**Next steps**":
+    fail(f"next_steps_heading: expected '**Next steps**', got {next_steps_heading!r}")
+else:
+    ok("templates.next_steps_heading renders as bold '**Next steps**'")
+
+brief_auto = registries.string_for("templates.brief_note_auto_detected")
+expected_brief_auto = "Checks the script runs against the text directly."
+if brief_auto != expected_brief_auto:
+    fail(f"brief_note_auto_detected: expected {expected_brief_auto!r}, got {brief_auto!r}")
+else:
+    ok("templates.brief_note_auto_detected renders byte-equivalent to expected text")
+
+brief_agent = registries.string_for("templates.brief_note_agent_assessed")
+expected_brief_agent = "Checks that are judged by an LLM based on reading the whole draft."
+if brief_agent != expected_brief_agent:
+    fail(f"brief_note_agent_assessed: expected {expected_brief_agent!r}, got {brief_agent!r}")
+else:
+    ok("templates.brief_note_agent_assessed renders byte-equivalent to expected text")
+
+# U6 / R8: next-step prompts diverge by mode. Default mode offers the
+# full coverage report; full-report mode drops it (writer just read it).
+next_step_default = registries.string_for("templates.next_step_prompt_with_full_report")
+expected_next_step_default = "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"
+if next_step_default != expected_next_step_default:
+    fail(f"next_step_prompt_with_full_report: expected {expected_next_step_default!r}, got {next_step_default!r}")
+else:
+    ok("templates.next_step_prompt_with_full_report renders byte-equivalent to expected text")
+
+next_step_full_report = registries.string_for("templates.next_step_prompt_full_report_mode")
+expected_next_step_full_report = "Want suggestions for edits, a full rewrite, or to save this audit as a file?"
+if next_step_full_report != expected_next_step_full_report:
+    fail(f"next_step_prompt_full_report_mode: expected {expected_next_step_full_report!r}, got {next_step_full_report!r}")
+else:
+    ok("templates.next_step_prompt_full_report_mode renders byte-equivalent to expected text")
+
+if next_step_default == next_step_full_report:
+    fail("default-mode and full-report-mode next-step prompts must differ — full-report mode must drop the 'full coverage report' option")
+else:
+    ok("default-mode and full-report-mode next-step prompts differ as required")
+
+# U5: agent-assessed flagged-item templates (R7 — glyph + bold + sub-bullets).
+# `agent_assessed_flagged_block` is the bare list-flagged header; the
+# state and composite-genre variants carry the inline value/genre clause.
+agent_flagged_block = registries.string_for(
+    "templates.agent_assessed_flagged_block", glyph="!", name="Faux specificity",
+)
+expected_agent_flagged_block = "! Faux specificity"
+if agent_flagged_block != expected_agent_flagged_block:
+    fail(f"agent_assessed_flagged_block: expected {expected_agent_flagged_block!r}, got {agent_flagged_block!r}")
+else:
+    ok("templates.agent_assessed_flagged_block renders byte-equivalent to expected text")
+
+agent_flagged_state = registries.string_for(
+    "templates.agent_assessed_flagged_state",
+    glyph="!", name="Tonal uniformity", value="register holds without breaks",
+)
+expected_agent_flagged_state = "! Tonal uniformity: register holds without breaks"
+if agent_flagged_state != expected_agent_flagged_state:
+    fail(f"agent_assessed_flagged_state: expected {expected_agent_flagged_state!r}, got {agent_flagged_state!r}")
+else:
+    ok("templates.agent_assessed_flagged_state renders byte-equivalent to expected text")
+
+agent_flagged_composite = registries.string_for(
+    "templates.agent_assessed_flagged_composite_genre",
+    glyph="!", name="Genre specific", genre="academic",
+)
+expected_agent_flagged_composite = "! Genre specific: academic genre detected"
+if agent_flagged_composite != expected_agent_flagged_composite:
+    fail(f"agent_assessed_flagged_composite_genre: expected {expected_agent_flagged_composite!r}, got {agent_flagged_composite!r}")
+else:
+    ok("templates.agent_assessed_flagged_composite_genre renders byte-equivalent to expected text")
 
 # Severity glyphs — Layer 1 per-flagged-pattern blocks.
 for sev, expected_glyph in (("hard_fail", "x"), ("strong_warning", "!"), ("context_warning", "?")):
@@ -305,9 +418,9 @@ else:
     fail("string_for did not raise on unknown key")
 
 try:
-    registries.string_for("templates.all_clear_single_line")  # missing required {total}
+    registries.string_for("templates.counts_line")  # missing required {auto_flagged} etc.
 except KeyError as e:
-    if "total" in str(e) and "all_clear_single_line" in str(e):
+    if "auto_flagged" in str(e) and "counts_line" in str(e):
         ok("string_for raises KeyError naming the missing placeholder + template key")
     else:
         fail(f"string_for placeholder error message unhelpful: {e}")

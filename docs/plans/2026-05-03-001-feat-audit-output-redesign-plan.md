@@ -1,7 +1,7 @@
 ---
 title: "feat: Audit output redesign"
 type: feat
-status: active
+status: completed
 date: 2026-05-03
 origin: dev/brainstorms/2026-05-03-audit-output-redesign-requirements.md
 ---
@@ -10,7 +10,7 @@ origin: dev/brainstorms/2026-05-03-audit-output-redesign-requirements.md
 
 ## Summary
 
-Implement the audit-output redesign in nine reviewable units: schema (severity on agent-judgement items), vocabulary (signal-stacking rename + new templates), measurement lock (audit-shape checks + harness fixtures), three renderer steps (summary lines → flagged-items shape → full-report disclosure), CLI architecture (`--judgement-file` flag plus SKILL.md flow), audit-fidelity HTML viewer, and a close-out iteration. Each unit lands on its own feature branch with the iteration harness running green before merge.
+Implement the audit-output redesign in nine reviewable units: schema (severity on agent-judgement items), vocabulary (signal-stacking rename + new templates), measurement lock (audit-shape checks + harness fixtures), three renderer steps (summary lines → flagged-items shape → full-report disclosure), CLI architecture (`--judgement-file` flag plus SKILL.md flow), audit-fidelity HTML viewer, and a close-out iteration. All nine units land on a single feature branch (`audit-output/redesign`) with one commit per unit; one PR opens at the end of U9.
 
 ---
 
@@ -453,13 +453,15 @@ None for this plan. Local patterns and the existing renderer pipeline are suffic
 - Generated: `dev/skill-workspace/iteration-N/` (full iteration outputs).
 - Generated (or unchanged): `dev/evals/diff_baseline/*.json` (regen only if drift detected; expected to be unchanged from U1's regen).
 - Modify: `README.md` (auto-updated `<!-- performance:start -->` block by `build_performance_report` → `update_readme_performance_block`).
-- Modify: `docs/plans/2026-05-03-001-feat-audit-output-redesign-plan.md` — frontmatter `status: completed`.
+- Modify: `humanise/references/example.md` — fix the rendered worked-example glyph + severity for Structural monotony (rendered as `!` / "strong warning" in the audit body and full-report coverage table; registry value is `context_warning`, so the correct glyph is `?` and the table cell is "context warning"). Pre-U7 inconsistency surfaced during U7 implementation; bundled into close-out so the worked example matches the registry the script actually reads.
+- Modify: `docs/plans/2026-05-03-001-feat-audit-output-redesign-plan.md` — frontmatter `status: completed`. Also rewrite the **Documentation / Operational Notes** entry "Each unit lands on its own feature branch + PR" to describe the actual convention used: single feature branch (`audit-output/redesign`) with one commit per unit and one PR at the end of U9. This is what the U1–U8 commits actually followed; the original wording is stale post-decision.
 
 **Approach:**
 - Run the iteration harness end-to-end with the canonical settings (codex executor, 4 workers, static viewer per the Phase-3 settled pattern).
 - `audit-fidelity.html` from U8 is part of the iteration output. Confirm it renders correctly on a real iteration.
 - Check `dev/evals/diff_baseline/` against fresh contract output via `dev/evals/diff_renders.py` — expected: zero diff (U1 already aligned).
 - README block auto-updates via the existing `update_readme_performance_block` machinery.
+- The two example.md / plan-doc fixes above land as small commits before the close-out commit so the PR diff stays clean and reviewable.
 
 **Patterns to follow:**
 - Iteration close-out matches PR #15 pattern — full iteration green, README auto-block updated, plan marked completed.
@@ -511,8 +513,8 @@ None for this plan. Local patterns and the existing renderer pipeline are suffic
 
 ## Documentation / Operational Notes
 
-- **Each unit lands on its own feature branch + PR** following the project's recent convention: branch named `audit-output/U<N>-<short-topic>` (e.g. `audit-output/U1-severity-on-judgement`); PR title `audit-output: U<N> — <descriptive name>`.
-- **The iteration harness must run green per unit** (mean pass-rate not below iteration-6's; no regressions in the regression-vs-previous block) before the unit's PR is merged. Mae and the implementer each have the eval-suite outputs to review.
+- **All nine units land on a single feature branch (`audit-output/redesign`) with one commit per unit; one PR opens at the end of U9.** Per-unit commit messages follow `audit-output: U<N> — <descriptive name>`. This replaces the per-unit-PR convention the plan was originally drafted against — keeping the redesign reviewable as a coherent whole avoided cross-unit churn (each renderer step depends on the previous; per-unit PRs would have fragmented review).
+- **The iteration harness must run green per commit** (mean pass-rate not below iteration-6's; no regressions in the regression-vs-previous block). Mae and the implementer review the eval-suite outputs at the close of U9 before the single PR opens.
 - **diff_baseline regen is documented explicitly in the commit message** for U1 (the contract-change unit). U2–U9 must show zero diff.
 - **U2's "pressure" rename sweep is one commit, not many.** Partial sweeps are the failure mode (PR #5 P1-DOC-12).
 - **U6's brief-note copy and U1's severity assignments are review checkpoints.** Each draft is presented to Mae before the unit's commit lands. The brainstorm explicitly defers both to implementation.
