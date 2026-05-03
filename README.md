@@ -273,8 +273,8 @@ dev/                               Development only (not installed)
 │   ├── run_skill_creator_iteration.py
 │   └── samples/{human-sourced,generated-ai}/
 ├── research/                      Findings and source-pattern analysis
-├── tools/                         Generators (e.g., render_patterns_md.py)
-└── skill-workspace/iteration-N/   Iteration outputs and review viewers
+├── tools/                         Generators (render_patterns_md.py, render_audit_html.py)
+└── skill-workspace/iteration-N/   Iteration outputs (benchmark.json, review.html, audit-fidelity.html)
 ```
 
 ## Sources

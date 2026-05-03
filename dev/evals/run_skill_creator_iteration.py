@@ -1106,6 +1106,13 @@ def run_iteration(
             ], cwd=skill_creator_path, stdout=log, stderr=subprocess.STDOUT)
         print(f"viewer launched; log={log_path}", flush=True)
 
+    audit_fidelity_generator = ROOT / "dev" / "tools" / "render_audit_html.py"
+    subprocess.run(
+        [sys.executable, str(audit_fidelity_generator), str(ITERATION)],
+        cwd=ROOT,
+        check=True,
+    )
+
 
 def main() -> int:
     global ITERATION
