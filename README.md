@@ -93,9 +93,9 @@ The findings above shape how the skill talks:
 Each iteration runs the skill against an eval suite. The block below is auto-generated.
 
 <!-- performance:start -->
-**iteration-7** (2026-05-03T10:59:01Z)
+**iteration-7** (2026-05-03T12:27:19Z)
 
-- Mean pass rate: 98.7% across 18 evals
+- Mean pass rate: 99.1% across 18 evals
 - Human-vs-ai_fresh flag gap: total -5% / strong +11%
 - Human-vs-ai_rewrite flag gap: total -20% / strong +44%
 - Regressions vs prev iteration: 0
