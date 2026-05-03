@@ -55,7 +55,7 @@ VALID_CATEGORIES = {
     "Aggregate AI-signal pressure",
 }
 
-REQUIRED_JUDGEMENT_FIELDS = {"id", "prompt", "answer_schema", "flagged_when"}
+REQUIRED_JUDGEMENT_FIELDS = {"id", "severity", "prompt", "answer_schema", "flagged_when"}
 VALID_JUDGEMENT_SCHEMA_TYPES = {"trichotomy", "state", "list", "composite"}
 
 _PATTERNS_CACHE = None
@@ -145,6 +145,10 @@ def _validate_judgement(data):
         if item_id in seen:
             raise ValueError(f"judgement.json[{item_id!r}]: duplicate id")
         seen.add(item_id)
+        if record["severity"] not in VALID_SEVERITIES:
+            raise ValueError(
+                f"judgement.json[{item_id!r}].severity: {record['severity']!r} not in {sorted(VALID_SEVERITIES)}"
+            )
         answer_schema = record["answer_schema"]
         if not isinstance(answer_schema, dict):
             raise ValueError(

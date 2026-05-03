@@ -588,7 +588,7 @@
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 10 triad(s): ['heat, patience, the willingness to let', 'audiences, metrics, clients', 'templated, scheduled, distributed at a pace', 'an argument against deadlines, discipline, publication', 'when it carries force, clarity, purpose', 'return tomorrow, and the next day, the next', 'own experience with discipline, suspicion, grace', 'noticing irritation, changing one word, then changing it back', 'it develops through exposure, attention, revision', 'matter most to me, as both writer, reader']",
+      "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -772,7 +772,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['heat, patience, the willingness to let', 'audiences, metrics, clients', 'templated, scheduled, distributed at a pace', 'an argument against deadlines, discipline, publication', 'when it carries force, clarity, purpose', 'return tomorrow, and the next day, the next', 'own experience with discipline, suspicion, grace', 'noticing irritation, changing one word, then changing it back', 'it develops through exposure, attention, revision', 'matter most to me, as both writer, reader']",
+          "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -911,7 +911,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['heat, patience, the willingness to let', 'audiences, metrics, clients', 'templated, scheduled, distributed at a pace', 'an argument against deadlines, discipline, publication', 'when it carries force, clarity, purpose', 'return tomorrow, and the next day, the next', 'own experience with discipline, suspicion, grace', 'noticing irritation, changing one word, then changing it back', 'it develops through exposure, attention, revision', 'matter most to me, as both writer, reader']",
+          "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -2050,19 +2050,19 @@
           "counts": {},
           "locations": [],
           "quoted_phrases": [
-            "heat, patience, the willingness to let",
-            "audiences, metrics, clients",
-            "templated, scheduled, distributed at a pace",
-            "an argument against deadlines, discipline, publication",
-            "when it carries force, clarity, purpose",
-            "return tomorrow, and the next day, the next",
-            "own experience with discipline, suspicion, grace",
-            "noticing irritation, changing one word, then changing it back",
-            "it develops through exposure, attention, revision",
-            "matter most to me, as both writer, reader"
+            "heat, patience and the willingness to let",
+            "audiences, metrics and clients",
+            "templated, scheduled and distributed at a pace",
+            "an argument against deadlines, discipline or publication",
+            "when it carries force, clarity and purpose",
+            "return tomorrow, and the next day, and the next",
+            "own experience with discipline, suspicion and grace",
+            "noticing irritation, changing one word and then changing it back",
+            "It develops through exposure, attention and revision",
+            "matter most to me, as both writer and reader"
           ],
           "raw": {
-            "evidence": "Found 10 triad(s): ['heat, patience, the willingness to let', 'audiences, metrics, clients', 'templated, scheduled, distributed at a pace', 'an argument against deadlines, discipline, publication', 'when it carries force, clarity, purpose', 'return tomorrow, and the next day, the next', 'own experience with discipline, suspicion, grace', 'noticing irritation, changing one word, then changing it back', 'it develops through exposure, attention, revision', 'matter most to me, as both writer, reader']",
+            "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -2459,7 +2459,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 10 triad(s): ['heat, patience, the willingness to let', 'audiences, metrics, clients', 'templated, scheduled, distributed at a pace', 'an argument against deadlines, discipline, publication', 'when it carries force, clarity, purpose', 'return tomorrow, and the next day, the next', 'own experience with discipline, suspicion, grace', 'noticing irritation, changing one word, then changing it back', 'it develops through exposure, attention, revision', 'matter most to me, as both writer, reader']",
+      "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

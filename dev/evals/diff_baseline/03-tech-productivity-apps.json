@@ -565,7 +565,7 @@
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+      "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -723,7 +723,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+          "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -849,7 +849,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+          "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -1947,19 +1947,19 @@
           "counts": {},
           "locations": [],
           "quoted_phrases": [
-            "tabs, notifications, vague dread",
-            "capture everything, because storage is cheap, forgetting feels irresponsible",
-            "archive, review, reframe",
-            "requested, deferred, worried about",
-            "what are often workload, priority, boundary problems",
-            "conversation, discomfort, need",
-            "whether they belong today, later, nowhere",
-            "it depends on judgement, which is inconvenient, cannot be fully automated",
-            "tagged, dated, deferred",
-            "what to abandon, what to renegotiate, what kind of day"
+            "tabs, notifications and vague dread",
+            "Capture everything, because storage is cheap and forgetting feels irresponsible",
+            "archive, review and reframe",
+            "requested, deferred or worried about",
+            "what are often workload, priority and boundary problems",
+            "conversation, discomfort or need",
+            "whether they belong today, later or nowhere",
+            "It depends on judgement, which is inconvenient and cannot be fully automated",
+            "tagged, dated and deferred",
+            "what to abandon, what to renegotiate, or what kind of day"
           ],
           "raw": {
-            "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+            "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -2291,7 +2291,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 10 triad(s): ['tabs, notifications, vague dread', 'capture everything, because storage is cheap, forgetting feels irresponsible', 'archive, review, reframe', 'requested, deferred, worried about', 'what are often workload, priority, boundary problems', 'conversation, discomfort, need', 'whether they belong today, later, nowhere', 'it depends on judgement, which is inconvenient, cannot be fully automated', 'tagged, dated, deferred', 'what to abandon, what to renegotiate, what kind of day']",
+      "evidence": "Found 10 triad(s): ['tabs, notifications and vague dread', 'Capture everything, because storage is cheap and forgetting feels irresponsible', 'archive, review and reframe', 'requested, deferred or worried about', 'what are often workload, priority and boundary problems', 'conversation, discomfort or need', 'whether they belong today, later or nowhere', 'It depends on judgement, which is inconvenient and cannot be fully automated', 'tagged, dated and deferred', 'what to abandon, what to renegotiate, or what kind of day']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

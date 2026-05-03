@@ -301,3 +301,26 @@ Each hypothesis includes status, source, statement, test, and impact.
 - Decide which point estimates are robust enough to keep, which need a CI footnote, and which should be removed entirely.
 
 **Impact:** README and research docs gain epistemic honesty per claim. Wide CIs flag claims that should not be load-bearing. Some current headline claims may not survive contact with their own CI.
+
+## 20. Severity calibration of the 8 agent-judgement items
+
+**Status:** open
+
+**Source:** Internal: U1 of `docs/plans/2026-05-03-001-feat-audit-output-redesign-plan.md` assigned severity per item by reasoning about each item's prompt and `flagged_when` rule against patterns.json severity precedent. Assignments were a Mae-review checkpoint, not a corpus-validated calibration.
+
+**Statement:** The U1 severity assignments — `strong_warning` for tonal_uniformity, faux_specificity, neutrality_collapse, generic_metaphors; `context_warning` for structural_monotony, even_jargon_distribution, forced_synesthesia, genre_specific — should reflect the human vs AI separation each item actually achieves on the corpus. Items at `strong_warning` should fire more on AI prose than on register-matched human prose; items at `context_warning` should show legitimate human flags often enough that the lower severity is justified.
+
+The two assignments most plausibly wrong:
+- **forced_synesthesia** at `context_warning` — could be `strong_warning` since the agent already pre-filters to "unjustified" findings.
+- **structural_monotony** at `context_warning` — could be `strong_warning` when the answer is specifically "every section follows the same arc" (currently the severity is per-item, not per-flagged-state).
+
+**Test:**
+- Run an iteration with all 8 items rendered as flagged on every applicable case.
+- For each item, compute fire rate on the human-corpus vs the AI-corpus subsets (matched register where possible).
+- Compare the per-item separation to the severity tier:
+  - `strong_warning` items with low separation (<2x AI/human ratio) → candidate for demotion to `context_warning`.
+  - `context_warning` items with high separation (>5x AI/human ratio) → candidate for promotion to `strong_warning`.
+- Spot-check `forced_synesthesia` and `structural_monotony` specifically.
+- If per-flagged-state severity becomes warranted (e.g. structural_monotony's "every section" answer earns `strong_warning` while "some sections share" stays `context_warning`), spec the schema change.
+
+**Impact:** Severity tier assignments move from reasoned-but-untested to corpus-grounded. The severity × depth → action mapping (already shared between auto-detected and agent-assessed via `_action_for_check`) becomes calibrated rather than defaulted. May surface a need for per-flagged-state severity rather than per-item, depending on how cleanly each answer-value separates.

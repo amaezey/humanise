@@ -59,10 +59,11 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "status", "answer", "evidence"],
+        "required": ["id", "status", "severity", "answer", "evidence"],
         "properties": {
           "id": {"type": "string"},
           "status": {"type": "string", "enum": ["clear", "flagged"]},
+          "severity": {"type": "string", "enum": ["hard_fail", "strong_warning", "context_warning"]},
           "answer": {},
           "evidence": {"type": "object"}
         }

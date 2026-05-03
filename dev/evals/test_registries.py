@@ -189,12 +189,61 @@ try:
         "records": [{"id": "broken", "prompt": "Prompt", "answer_schema": {"type": "state"}}],
     })
 except ValueError as e:
-    if "flagged_when" in str(e):
-        ok("load_judgement validation names missing fields")
+    msg = str(e)
+    if "flagged_when" in msg and "severity" in msg:
+        ok("load_judgement validation names missing fields (flagged_when + severity)")
     else:
-        fail(f"judgement validation error should name missing field, got: {e}")
+        fail(f"judgement validation error should name missing fields, got: {e}")
 else:
-    fail("judgement validation should reject records missing flagged_when")
+    fail("judgement validation should reject records missing required fields")
+
+# Missing severity specifically.
+try:
+    registries._validate_judgement({
+        "schema_version": "1",
+        "records": [{
+            "id": "no_severity_record",
+            "prompt": "Prompt",
+            "answer_schema": {"type": "state"},
+            "flagged_when": ["x"],
+        }],
+    })
+except ValueError as e:
+    msg = str(e)
+    if "severity" in msg and "no_severity_record" in msg:
+        ok("load_judgement validation names missing severity and record id")
+    else:
+        fail(f"judgement validation should name missing severity + record id, got: {e}")
+else:
+    fail("judgement validation should reject records missing severity")
+
+# Invalid severity value.
+try:
+    registries._validate_judgement({
+        "schema_version": "1",
+        "records": [{
+            "id": "bad_severity_record",
+            "severity": "medium",
+            "prompt": "Prompt",
+            "answer_schema": {"type": "state"},
+            "flagged_when": ["x"],
+        }],
+    })
+except ValueError as e:
+    msg = str(e)
+    if "medium" in msg and "bad_severity_record" in msg and "hard_fail" in msg:
+        ok("load_judgement validation names invalid severity value, record id, and allowed set")
+    else:
+        fail(f"judgement validation should name invalid severity, record id, allowed set, got: {e}")
+else:
+    fail("judgement validation should reject invalid severity value")
+
+# Every loaded record carries a valid severity.
+for record in records:
+    rid = record.get("id", "<unknown>")
+    if record.get("severity") not in {"hard_fail", "strong_warning", "context_warning"}:
+        fail(f"judgement record `{rid}` severity {record.get('severity')!r} invalid")
+ok(f"all {len(records)} judgement records carry a valid severity")
 
 
 # --- summary ---

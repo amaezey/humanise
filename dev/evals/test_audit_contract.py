@@ -233,6 +233,26 @@ else:
     ok("metadata.run_id present")
 
 
+# --- agent_judgement schema requires severity ---
+
+print("\n=== agent_judgement schema ===")
+
+aj_schema = schema["properties"]["agent_judgement"]["items"]
+required_aj = set(aj_schema["required"])
+expected_aj_required = {"id", "status", "severity", "answer", "evidence"}
+if required_aj != expected_aj_required:
+    fail(f"agent_judgement item required {required_aj} should be {expected_aj_required}")
+else:
+    ok(f"agent_judgement items require: {sorted(required_aj)}")
+
+aj_severity = aj_schema["properties"].get("severity", {})
+expected_severity_enum = {"hard_fail", "strong_warning", "context_warning"}
+if set(aj_severity.get("enum", [])) != expected_severity_enum:
+    fail(f"agent_judgement severity enum {aj_severity.get('enum')} should be {sorted(expected_severity_enum)}")
+else:
+    ok("agent_judgement severity declares the three-tier enum")
+
+
 # --- no prose strings at the top level ---
 
 print("\n=== no-prose smoke test ===")

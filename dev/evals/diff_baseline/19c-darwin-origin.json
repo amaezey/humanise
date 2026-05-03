@@ -559,7 +559,7 @@
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+      "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -678,7 +678,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+          "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -792,7 +792,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+          "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -1904,20 +1904,20 @@
           "counts": {},
           "locations": [],
           "quoted_phrases": [
-            "their geographical distribution, geological succession, other such facts",
-            "tail, beak, tongue",
-            "external conditions, or of habit, of the volition of",
-            "physical conditions of life, untouched, unexplained",
-            "variation under domestication, afforded the best, safest clue",
-            "itself, under the complex, sometimes varying conditions of",
-            "chapters, the most apparent, gravest difficulties on the",
-            "first, the difficulties of transitions, in",
-            "thirdly, hybridism, the infertility of species",
-            "in the thirteenth, their classification, mutual affinities",
-            "as i believe, the future success, modification of every inhabitant"
+            "their geographical distribution,\ngeological succession, and other such facts",
+            "tail, beak, and tongue",
+            "external conditions, or of habit, or of the volition of",
+            "physical conditions of life, untouched and unexplained",
+            "variation under domestication, afforded the best and safest clue",
+            "itself, under the complex and sometimes varying conditions of",
+            "chapters, the most apparent and gravest difficulties on the",
+            "first, the difficulties of transitions, or in",
+            "thirdly, Hybridism, or the infertility of species",
+            "in the thirteenth, their classification or mutual affinities",
+            "as I believe,\nthe future success and modification of every inhabitant"
           ],
           "raw": {
-            "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+            "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -2231,7 +2231,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 11 triad(s): ['their geographical distribution, geological succession, other such facts', 'tail, beak, tongue', 'external conditions, or of habit, of the volition of', 'physical conditions of life, untouched, unexplained', 'variation under domestication, afforded the best, safest clue', 'itself, under the complex, sometimes varying conditions of', 'chapters, the most apparent, gravest difficulties on the', 'first, the difficulties of transitions, in', 'thirdly, hybridism, the infertility of species', 'in the thirteenth, their classification, mutual affinities', 'as i believe, the future success, modification of every inhabitant']",
+      "evidence": "Found 11 triad(s): ['their geographical distribution,\\ngeological succession, and other such facts', 'tail, beak, and tongue', 'external conditions, or of habit, or of the volition of', 'physical conditions of life, untouched and unexplained', 'variation under domestication, afforded the best and safest clue', 'itself, under the complex and sometimes varying conditions of', 'chapters, the most apparent and gravest difficulties on the', 'first, the difficulties of transitions, or in', 'thirdly, Hybridism, or the infertility of species', 'in the thirteenth, their classification or mutual affinities', 'as I believe,\\nthe future success and modification of every inhabitant']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

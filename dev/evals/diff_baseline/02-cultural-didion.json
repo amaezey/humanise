@@ -579,7 +579,7 @@
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+      "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -750,7 +750,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+          "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -890,7 +890,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+          "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -2025,19 +2025,19 @@
           "counts": {},
           "locations": [],
           "quoted_phrases": [
-            "medical language, social performance, the collapse of ordinary",
-            "an anatomy of denial, a critique of competence, a warning about the",
-            "visiting quintana in hospital, didion, dunne return to their",
-            "loss made her wiser, kinder, more authentic",
-            "curated vulnerability, the language of healing, closure",
-            "specialist language, medical uncertainty, bureaucratic routines at the",
-            "chronic illness, disability systems, end-of-life care",
-            "the repetitions, returns, abrupt transitions enact the",
-            "a particular class world, in the medical, literary culture of the",
-            "manners, memory, routine"
+            "medical language, social performance, and the collapse of ordinary",
+            "an anatomy of denial, a critique of competence, and a warning about the",
+            "visiting Quintana in hospital, Didion and Dunne return to their",
+            "loss made her wiser, kinder, or more authentic",
+            "curated vulnerability, the language of healing and closure",
+            "specialist language, medical uncertainty and bureaucratic routines at the",
+            "chronic illness, disability systems or end-of-life care",
+            "The repetitions, returns and abrupt transitions enact the",
+            "a particular class world, in the medical and literary culture of the",
+            "manners, memory and routine"
           ],
           "raw": {
-            "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+            "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -2416,7 +2416,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 10 triad(s): ['medical language, social performance, the collapse of ordinary', 'an anatomy of denial, a critique of competence, a warning about the', 'visiting quintana in hospital, didion, dunne return to their', 'loss made her wiser, kinder, more authentic', 'curated vulnerability, the language of healing, closure', 'specialist language, medical uncertainty, bureaucratic routines at the', 'chronic illness, disability systems, end-of-life care', 'the repetitions, returns, abrupt transitions enact the', 'a particular class world, in the medical, literary culture of the', 'manners, memory, routine']",
+      "evidence": "Found 10 triad(s): ['medical language, social performance, and the collapse of ordinary', 'an anatomy of denial, a critique of competence, and a warning about the', 'visiting Quintana in hospital, Didion and Dunne return to their', 'loss made her wiser, kinder, or more authentic', 'curated vulnerability, the language of healing and closure', 'specialist language, medical uncertainty and bureaucratic routines at the', 'chronic illness, disability systems or end-of-life care', 'The repetitions, returns and abrupt transitions enact the', 'a particular class world, in the medical and literary culture of the', 'manners, memory and routine']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",

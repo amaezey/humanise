@@ -559,7 +559,7 @@
       "text": "vocabulary-diversity"
     },
     {
-      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
@@ -717,7 +717,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -813,7 +813,7 @@
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+          "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
           "evidence_role": "list_rhythm",
           "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
           "severity": "context_warning"
@@ -1910,16 +1910,16 @@
           "counts": {},
           "locations": [],
           "quoted_phrases": [
-            "the dead feel closer, the mind gets louder, the body refuses the",
-            "attention, immune function, the body",
-            "less caffeine, a dark room, no phone in bed",
-            "for others, sleep problems persist, become their own condition",
-            "grief can include sadness, tearfulness and insomnia, it may not require",
-            "anxiety, intrusive thoughts, inability to function",
-            "some mornings, there is a second, two before memory returns"
+            "the dead feel closer, the mind gets louder, and the body refuses the",
+            "attention, immune function and the body",
+            "less caffeine, a dark room and no phone in bed",
+            "For others, sleep problems persist and become their own condition",
+            "grief can include sadness, tearfulness and insomnia, and it may not require",
+            "anxiety, intrusive thoughts or inability to function",
+            "Some mornings, there is a second or two before memory returns"
           ],
           "raw": {
-            "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+            "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
             "evidence_role": "list_rhythm",
             "failure_modes": [
               "frictionless_structure",
@@ -2234,7 +2234,7 @@
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, the body refuses the', 'attention, immune function, the body', 'less caffeine, a dark room, no phone in bed', 'for others, sleep problems persist, become their own condition', 'grief can include sadness, tearfulness and insomnia, it may not require', 'anxiety, intrusive thoughts, inability to function', 'some mornings, there is a second, two before memory returns']",
+      "evidence": "Found 7 triad(s): ['the dead feel closer, the mind gets louder, and the body refuses the', 'attention, immune function and the body', 'less caffeine, a dark room and no phone in bed', 'For others, sleep problems persist and become their own condition', 'grief can include sadness, tearfulness and insomnia, and it may not require', 'anxiety, intrusive thoughts or inability to function', 'Some mornings, there is a second or two before memory returns']",
       "evidence_role": "list_rhythm",
       "failure_modes": [
         "frictionless_structure",
