@@ -166,6 +166,12 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "They sit down to dinner.",
+        "He has a drink.",
+        "He says something ordinary.",
+        "Then he is dead."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -178,6 +184,14 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork.",
+        "She reconstructs the event not only as a grieving widow but as a reporter.",
+        "She seeks the timeline.",
+        "She wants the medical explanation.",
+        "She reads the records.",
+        "She returns to the details because details imply sequence, and sequence implies cause."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -200,6 +214,26 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "# Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+        "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
+        "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
+        "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
+        "In early adulthood, Didion\u2019s forensic attention can look like strength.",
+        "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+        "This is the book\u2019s most famous example because it is so small and so devastating.",
+        "Didion\u2019s great cultural importance lies partly in her refusal to sentimentalise this.",
+        "The \u201cvortex effect\u201d is central to this.",
+        "Later, the book\u2019s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference.",
+        "Didion and Dunne\u2019s marriage was also a working partnership, an editorial relationship, a long conversation.",
+        "That is one of the book\u2019s sharpest insights.",
+        "John had been present for the formation of Didion\u2019s adult life.",
+        "Quintana\u2019s illness means Didion is navigating intensive care, diagnoses, specialist language, medical uncertainty and bureaucratic routines at the same time as she is absorbing John\u2019s death.",
+        "Didion\u2019s style is inseparable from this argument.",
+        "Each decade brings the reader closer to the book\u2019s facts.",
+        "Didion\u2019s book waits for the reader at each threshold.",
+        "Didion\u2019s achievement is not that she makes grief intelligible."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -246,6 +280,11 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [
+        "not only as a grieving widow but",
+        "not merely background. they expose the limits of expertise. doctors know things didion does not know, but",
+        "are not merely background. they expose the limits of expertise. doctors know things didion does not know, but"
+      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -515,6 +554,25 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "Didion does not stage grief as an emotional revelation.",
+        "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+        "It is not an extravagant delusion.",
+        "Grief does not always announce itself as despair.",
+        "It can appear as a logistical hesitation: keep the shoes, preserve the room, do not cancel the account, do not move the glass.",
+        "She does not turn grief into moral improvement.",
+        "She does not claim loss made her wiser, kinder, or more authentic.",
+        "She is not interested in uplift.",
+        "These are not decorative flashbacks.",
+        "A place is not just a place.",
+        "Grief is not only missing someone.",
+        "Didion does not trust it, but she cannot stop depending on it.",
+        "The medical scenes are not merely background.",
+        "Doctors know things Didion does not know, but they do not know everything she needs to know.",
+        "She does not speak for everyone.",
+        "Later, it may be the hospital corridor, the medical record, the sudden unreliability of memory, or the terrible fact that ordinary life continues to look ordinary until it does not.",
+        "Didion\u2019s achievement is not that she makes grief intelligible."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -1144,7 +1202,12 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "They sit down to dinner.",
+            "He has a drink.",
+            "He says something ordinary.",
+            "Then he is dead."
+          ],
           "raw": {
             "evidence": "Found sequence of 4 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1153,6 +1216,12 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "They sit down to dinner.",
+              "He has a drink.",
+              "He says something ordinary.",
+              "Then he is dead."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1169,7 +1238,14 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork.",
+            "She reconstructs the event not only as a grieving widow but as a reporter.",
+            "She seeks the timeline.",
+            "She wants the medical explanation.",
+            "She reads the records.",
+            "She returns to the details because details imply sequence, and sequence implies cause."
+          ],
           "raw": {
             "evidence": "Found 6 consecutive sentences starting with 'she'",
             "evidence_role": "rhythm_signal",
@@ -1178,6 +1254,14 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork.",
+              "She reconstructs the event not only as a grieving widow but as a reporter.",
+              "She seeks the timeline.",
+              "She wants the medical explanation.",
+              "She reads the records.",
+              "She returns to the details because details imply sequence, and sequence implies cause."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1217,7 +1301,26 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "# Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+            "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
+            "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
+            "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
+            "In early adulthood, Didion\u2019s forensic attention can look like strength.",
+            "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+            "This is the book\u2019s most famous example because it is so small and so devastating.",
+            "Didion\u2019s great cultural importance lies partly in her refusal to sentimentalise this.",
+            "The \u201cvortex effect\u201d is central to this.",
+            "Later, the book\u2019s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference.",
+            "Didion and Dunne\u2019s marriage was also a working partnership, an editorial relationship, a long conversation.",
+            "That is one of the book\u2019s sharpest insights.",
+            "John had been present for the formation of Didion\u2019s adult life.",
+            "Quintana\u2019s illness means Didion is navigating intensive care, diagnoses, specialist language, medical uncertainty and bureaucratic routines at the same time as she is absorbing John\u2019s death.",
+            "Didion\u2019s style is inseparable from this argument.",
+            "Each decade brings the reader closer to the book\u2019s facts.",
+            "Didion\u2019s book waits for the reader at each threshold.",
+            "Didion\u2019s achievement is not that she makes grief intelligible."
+          ],
           "raw": {
             "evidence": "Found 22 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1225,6 +1328,26 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "# Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+              "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
+              "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
+              "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
+              "In early adulthood, Didion\u2019s forensic attention can look like strength.",
+              "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+              "This is the book\u2019s most famous example because it is so small and so devastating.",
+              "Didion\u2019s great cultural importance lies partly in her refusal to sentimentalise this.",
+              "The \u201cvortex effect\u201d is central to this.",
+              "Later, the book\u2019s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference.",
+              "Didion and Dunne\u2019s marriage was also a working partnership, an editorial relationship, a long conversation.",
+              "That is one of the book\u2019s sharpest insights.",
+              "John had been present for the formation of Didion\u2019s adult life.",
+              "Quintana\u2019s illness means Didion is navigating intensive care, diagnoses, specialist language, medical uncertainty and bureaucratic routines at the same time as she is absorbing John\u2019s death.",
+              "Didion\u2019s style is inseparable from this argument.",
+              "Each decade brings the reader closer to the book\u2019s facts.",
+              "Didion\u2019s book waits for the reader at each threshold.",
+              "Didion\u2019s achievement is not that she makes grief intelligible."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1313,7 +1436,11 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "not only as a grieving widow but",
+            "not merely background. they expose the limits of expertise. doctors know things didion does not know, but",
+            "are not merely background. they expose the limits of expertise. doctors know things didion does not know, but"
+          ],
           "raw": {
             "evidence": "Found 3 contrived contrast/reframe pattern(s)",
             "evidence_role": "rhetorical_pattern",
@@ -1321,6 +1448,11 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [
+              "not only as a grieving widow but",
+              "not merely background. they expose the limits of expertise. doctors know things didion does not know, but",
+              "are not merely background. they expose the limits of expertise. doctors know things didion does not know, but"
+            ],
             "severity": "strong_warning"
           }
         },
@@ -1876,7 +2008,25 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "Didion does not stage grief as an emotional revelation.",
+            "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+            "It is not an extravagant delusion.",
+            "Grief does not always announce itself as despair.",
+            "It can appear as a logistical hesitation: keep the shoes, preserve the room, do not cancel the account, do not move the glass.",
+            "She does not turn grief into moral improvement.",
+            "She does not claim loss made her wiser, kinder, or more authentic.",
+            "She is not interested in uplift.",
+            "These are not decorative flashbacks.",
+            "A place is not just a place.",
+            "Grief is not only missing someone.",
+            "Didion does not trust it, but she cannot stop depending on it.",
+            "The medical scenes are not merely background.",
+            "Doctors know things Didion does not know, but they do not know everything she needs to know.",
+            "She does not speak for everyone.",
+            "Later, it may be the hospital corridor, the medical record, the sudden unreliability of memory, or the terrible fact that ordinary life continues to look ordinary until it does not.",
+            "Didion\u2019s achievement is not that she makes grief intelligible."
+          ],
           "raw": {
             "evidence": "Found 21 negation markers (13.5 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1885,6 +2035,25 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "Didion does not stage grief as an emotional revelation.",
+              "The title\u2019s \u201cmagical thinking\u201d is not ornamental.",
+              "It is not an extravagant delusion.",
+              "Grief does not always announce itself as despair.",
+              "It can appear as a logistical hesitation: keep the shoes, preserve the room, do not cancel the account, do not move the glass.",
+              "She does not turn grief into moral improvement.",
+              "She does not claim loss made her wiser, kinder, or more authentic.",
+              "She is not interested in uplift.",
+              "These are not decorative flashbacks.",
+              "A place is not just a place.",
+              "Grief is not only missing someone.",
+              "Didion does not trust it, but she cannot stop depending on it.",
+              "The medical scenes are not merely background.",
+              "Doctors know things Didion does not know, but they do not know everything she needs to know.",
+              "She does not speak for everyone.",
+              "Later, it may be the hospital corridor, the medical record, the sudden unreliability of memory, or the terrible fact that ordinary life continues to look ordinary until it does not.",
+              "Didion\u2019s achievement is not that she makes grief intelligible."
+            ],
             "severity": "context_warning"
           }
         },

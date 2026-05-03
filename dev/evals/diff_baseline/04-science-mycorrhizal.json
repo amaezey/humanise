@@ -143,6 +143,7 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -155,6 +156,7 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -177,6 +179,16 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "But much of the forest\u2019s metabolism is below the path.",
+        "The relationship is called mycorrhiza, from the Greek for \u201cfungus-root\u201d.",
+        "In a mycorrhizal association, a fungus colonises a plant\u2019s root system and extends outward into the soil as microscopic filaments called hyphae.",
+        "This is where the popular phrase \u201cwood-wide web\u201d enters the story, and where accuracy matters.",
+        "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+        "The \u201ccommunication\u201d claim needs the same discipline.",
+        "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+        "That makes them less tidy than the \u201cwood-wide web\u201d metaphor, but more impressive."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -223,6 +235,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -492,6 +505,24 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "These fungi are not decoration on tree roots.",
+        "For a tree, this is not a minor upgrade.",
+        "Trees do not simply hand over sugar to any fungus in the neighbourhood.",
+        "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+        "A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.",
+        "That does not make the networks imaginary.",
+        "The experiment became famous because it suggested that forest plants were not merely competing as isolated individuals.",
+        "But a detected transfer is not the same as proof that a mature tree is deliberately feeding a seedling, or that the transfer meaningfully changes survival in all forests.",
+        "Forest life is not a morality play about generosity.",
+        "But this is not conversation in the human sense.",
+        "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+        "Seedlings do not enter a neutral underground world.",
+        "This is one reason forest recovery is not just a matter of planting stems in the ground.",
+        "That does not mean protecting fungi is a simple climate solution.",
+        "They are not magical forest internet cables through which wise old trees send care packages to their children.",
+        "A forest is not just a collection of trees."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -1020,6 +1051,7 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1045,6 +1077,7 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1084,7 +1117,16 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "But much of the forest\u2019s metabolism is below the path.",
+            "The relationship is called mycorrhiza, from the Greek for \u201cfungus-root\u201d.",
+            "In a mycorrhizal association, a fungus colonises a plant\u2019s root system and extends outward into the soil as microscopic filaments called hyphae.",
+            "This is where the popular phrase \u201cwood-wide web\u201d enters the story, and where accuracy matters.",
+            "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+            "The \u201ccommunication\u201d claim needs the same discipline.",
+            "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+            "That makes them less tidy than the \u201cwood-wide web\u201d metaphor, but more impressive."
+          ],
           "raw": {
             "evidence": "Found 14 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1092,6 +1134,16 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "But much of the forest\u2019s metabolism is below the path.",
+              "The relationship is called mycorrhiza, from the Greek for \u201cfungus-root\u201d.",
+              "In a mycorrhizal association, a fungus colonises a plant\u2019s root system and extends outward into the soil as microscopic filaments called hyphae.",
+              "This is where the popular phrase \u201cwood-wide web\u201d enters the story, and where accuracy matters.",
+              "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+              "The \u201ccommunication\u201d claim needs the same discipline.",
+              "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+              "That makes them less tidy than the \u201cwood-wide web\u201d metaphor, but more impressive."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1188,6 +1240,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1743,7 +1796,24 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "These fungi are not decoration on tree roots.",
+            "For a tree, this is not a minor upgrade.",
+            "Trees do not simply hand over sugar to any fungus in the neighbourhood.",
+            "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+            "A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.",
+            "That does not make the networks imaginary.",
+            "The experiment became famous because it suggested that forest plants were not merely competing as isolated individuals.",
+            "But a detected transfer is not the same as proof that a mature tree is deliberately feeding a seedling, or that the transfer meaningfully changes survival in all forests.",
+            "Forest life is not a morality play about generosity.",
+            "But this is not conversation in the human sense.",
+            "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+            "Seedlings do not enter a neutral underground world.",
+            "This is one reason forest recovery is not just a matter of planting stems in the ground.",
+            "That does not mean protecting fungi is a simple climate solution.",
+            "They are not magical forest internet cables through which wise old trees send care packages to their children.",
+            "A forest is not just a collection of trees."
+          ],
           "raw": {
             "evidence": "Found 22 negation markers (13.8 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1752,6 +1822,24 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "These fungi are not decoration on tree roots.",
+              "For a tree, this is not a minor upgrade.",
+              "Trees do not simply hand over sugar to any fungus in the neighbourhood.",
+              "A common mycorrhizal network is not just \u201cfungi in the soil\u201d.",
+              "A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.",
+              "That does not make the networks imaginary.",
+              "The experiment became famous because it suggested that forest plants were not merely competing as isolated individuals.",
+              "But a detected transfer is not the same as proof that a mature tree is deliberately feeding a seedling, or that the transfer meaningfully changes survival in all forests.",
+              "Forest life is not a morality play about generosity.",
+              "But this is not conversation in the human sense.",
+              "But mycorrhizal fungi do not simply \u201cstore carbon\u201d in a straightforward way.",
+              "Seedlings do not enter a neutral underground world.",
+              "This is one reason forest recovery is not just a matter of planting stems in the ground.",
+              "That does not mean protecting fungi is a simple climate solution.",
+              "They are not magical forest internet cables through which wise old trees send care packages to their children.",
+              "A forest is not just a collection of trees."
+            ],
             "severity": "context_warning"
           }
         },

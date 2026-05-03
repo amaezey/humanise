@@ -146,6 +146,11 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "Everything becomes harder to metabolise.",
+        "Small decisions feel punitive.",
+        "Social contact becomes more effortful."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -158,6 +163,12 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "Sometimes it is a clean, brutal wakefulness at 3 am.",
+        "Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said.",
+        "Sometimes sleep comes easily but breaks apart before dawn.",
+        "Sometimes the body sleeps for ten hours and still wakes exhausted."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -180,6 +191,12 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "It is an active biological process that affects memory, emotional regulation, attention, immune function and the body\u2019s capacity to recover.",
+        "This is why advice about \u201cgood sleep habits\u201d can land badly with grieving people.",
+        "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+        "It is to reduce the secondary panic that says, \u201cNow I am grieving and failing at sleep.\u201d There is also a difference between remembering and ruminating, though they can feel identical at night."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -226,6 +243,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -495,6 +513,24 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep.",
+        "That matters because sleep is not just a pause from consciousness.",
+        "When grief disrupts sleep, it does not simply make us tired.",
+        "After a death, insomnia is not always dramatic.",
+        "But grief is not poor time management.",
+        "It is not caused by bad lighting or an overused screen.",
+        "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+        "If sleep does not come, rest still counts.",
+        "The goal is not to win against grief.",
+        "Some dreams are not healing.",
+        "But exhaustion is not devotion.",
+        "Staying awake does not keep the person closer.",
+        "This is not weakness.",
+        "The aim is not perfect sleep.",
+        "The first thought on waking is not always the loss.",
+        "Sleep does not cure grief."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -1031,7 +1067,11 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "Everything becomes harder to metabolise.",
+            "Small decisions feel punitive.",
+            "Social contact becomes more effortful."
+          ],
           "raw": {
             "evidence": "Found sequence of 3 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1040,6 +1080,11 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "Everything becomes harder to metabolise.",
+              "Small decisions feel punitive.",
+              "Social contact becomes more effortful."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1056,7 +1101,12 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "Sometimes it is a clean, brutal wakefulness at 3 am.",
+            "Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said.",
+            "Sometimes sleep comes easily but breaks apart before dawn.",
+            "Sometimes the body sleeps for ten hours and still wakes exhausted."
+          ],
           "raw": {
             "evidence": "Found 4 consecutive sentences starting with 'sometimes'",
             "evidence_role": "rhythm_signal",
@@ -1065,6 +1115,12 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "Sometimes it is a clean, brutal wakefulness at 3 am.",
+              "Sometimes it is the inability to fall asleep because the mind keeps replaying the last conversation, the hospital room, the phone call, the thing said badly, the thing never said.",
+              "Sometimes sleep comes easily but breaks apart before dawn.",
+              "Sometimes the body sleeps for ten hours and still wakes exhausted."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1104,7 +1160,12 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "It is an active biological process that affects memory, emotional regulation, attention, immune function and the body\u2019s capacity to recover.",
+            "This is why advice about \u201cgood sleep habits\u201d can land badly with grieving people.",
+            "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+            "It is to reduce the secondary panic that says, \u201cNow I am grieving and failing at sleep.\u201d There is also a difference between remembering and ruminating, though they can feel identical at night."
+          ],
           "raw": {
             "evidence": "Found 9 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1112,6 +1173,12 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "It is an active biological process that affects memory, emotional regulation, attention, immune function and the body\u2019s capacity to recover.",
+              "This is why advice about \u201cgood sleep habits\u201d can land badly with grieving people.",
+              "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+              "It is to reduce the secondary panic that says, \u201cNow I am grieving and failing at sleep.\u201d There is also a difference between remembering and ruminating, though they can feel identical at night."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1208,6 +1275,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1761,7 +1829,24 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep.",
+            "That matters because sleep is not just a pause from consciousness.",
+            "When grief disrupts sleep, it does not simply make us tired.",
+            "After a death, insomnia is not always dramatic.",
+            "But grief is not poor time management.",
+            "It is not caused by bad lighting or an overused screen.",
+            "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+            "If sleep does not come, rest still counts.",
+            "The goal is not to win against grief.",
+            "Some dreams are not healing.",
+            "But exhaustion is not devotion.",
+            "Staying awake does not keep the person closer.",
+            "This is not weakness.",
+            "The aim is not perfect sleep.",
+            "The first thought on waking is not always the loss.",
+            "Sleep does not cure grief."
+          ],
           "raw": {
             "evidence": "Found 18 negation markers (15.6 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1770,6 +1855,24 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep.",
+              "That matters because sleep is not just a pause from consciousness.",
+              "When grief disrupts sleep, it does not simply make us tired.",
+              "After a death, insomnia is not always dramatic.",
+              "But grief is not poor time management.",
+              "It is not caused by bad lighting or an overused screen.",
+              "The better question is not \u201cHow do I force myself to sleep?\u201d but \u201cHow do I make the night less hostile?\u201d That might mean lowering the stakes.",
+              "If sleep does not come, rest still counts.",
+              "The goal is not to win against grief.",
+              "Some dreams are not healing.",
+              "But exhaustion is not devotion.",
+              "Staying awake does not keep the person closer.",
+              "This is not weakness.",
+              "The aim is not perfect sleep.",
+              "The first thought on waking is not always the loss.",
+              "Sleep does not cure grief."
+            ],
             "severity": "context_warning"
           }
         },

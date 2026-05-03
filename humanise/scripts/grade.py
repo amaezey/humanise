@@ -765,16 +765,27 @@ def check_staccato(text):
     sentences = split_sentences(text)
     max_run = 0
     current_run = 0
-    for s in sentences:
+    longest_run_end = -1
+    current_run_start = 0
+    for i, s in enumerate(sentences):
         words = len(s.split())
         if words < 6:
+            if current_run == 0:
+                current_run_start = i
             current_run += 1
-            max_run = max(max_run, current_run)
+            if current_run > max_run:
+                max_run = current_run
+                longest_run_end = i
         else:
             current_run = 0
+    matches = []
+    if max_run >= 3 and longest_run_end >= 0:
+        run_start = longest_run_end - max_run + 1
+        matches = [s.strip() for s in sentences[run_start:longest_run_end + 1] if s.strip()]
     return {
         "text": "no-staccato-sequences",
         "passed": max_run < 3,
+        "matches": matches,
         "evidence": (
             f"Found sequence of {max_run} consecutive short sentences"
             if max_run >= 3
@@ -790,11 +801,13 @@ def check_anaphora(text):
         return {
             "text": "no-anaphora",
             "passed": True,
+            "matches": [],
             "evidence": "Too few sentences to check",
         }
     max_run = 1
     current_run = 1
     worst_word = ""
+    longest_run_end = 0
     for i in range(1, len(sentences)):
         prev_start = sentences[i - 1].split()[0].lower() if sentences[i - 1].split() else ""
         curr_start = sentences[i].split()[0].lower() if sentences[i].split() else ""
@@ -803,11 +816,17 @@ def check_anaphora(text):
             if current_run > max_run:
                 max_run = current_run
                 worst_word = curr_start
+                longest_run_end = i
         else:
             current_run = 1
+    matches = []
+    if max_run >= 3:
+        run_start = longest_run_end - max_run + 1
+        matches = [s.strip() for s in sentences[run_start:longest_run_end + 1] if s.strip()]
     return {
         "text": "no-anaphora",
         "passed": max_run < 3,
+        "matches": matches,
         "evidence": (
             f"Found {max_run} consecutive sentences starting with '{worst_word}'"
             if max_run >= 3
@@ -828,9 +847,20 @@ def check_collaborative_artifacts(text):
 def check_curly_quotes(text):
     curly = ['\u201c', '\u201d', '\u2018', '\u2019']
     count = sum(text.count(c) for c in curly)
+    matches = []
+    if count > 0:
+        sentences = split_sentences(text)
+        seen = set()
+        for sentence in sentences:
+            if any(c in sentence for c in curly):
+                stripped = sentence.strip()
+                if stripped and stripped not in seen:
+                    seen.add(stripped)
+                    matches.append(stripped)
     return {
         "text": "no-curly-quotes",
         "passed": count == 0,
+        "matches": matches,
         "evidence": f"Found {count} curly quote(s)" if count > 0 else "No curly quotes",
     }
 
@@ -927,9 +957,11 @@ def check_negative_parallelisms(text):
     for pat in hard_patterns + abstract_reframe_patterns:
         matches.extend(re.findall(pat, normalized, flags=re.IGNORECASE | re.DOTALL))
     count = len(matches)
+    cleaned_matches = [re.sub(r"\s+", " ", m).strip() for m in matches]
     return {
         "text": "no-negative-parallelisms",
         "passed": count == 0,
+        "matches": cleaned_matches if count > 0 else [],
         "evidence": (
             f"Found {count} contrived contrast/reframe pattern(s)"
             if count > 0
@@ -1421,12 +1453,25 @@ def check_negation_density(text):
     for pat in patterns:
         matches.extend(re.findall(pat, normalized))
     per_1000 = len(matches) / len(words) * 1000
+    flagged = len(matches) >= 10 and per_1000 >= 12
+    sample_sentences = []
+    if flagged:
+        compiled = [re.compile(pat, flags=re.IGNORECASE) for pat in patterns]
+        seen = set()
+        for sentence in split_sentences(text):
+            stripped = sentence.strip()
+            if not stripped or stripped in seen:
+                continue
+            if any(p.search(stripped) for p in compiled):
+                seen.add(stripped)
+                sample_sentences.append(stripped)
     return {
         "text": "no-negation-density",
-        "passed": not (len(matches) >= 10 and per_1000 >= 12),
+        "passed": not flagged,
+        "matches": sample_sentences,
         "evidence": (
             f"Found {len(matches)} negation markers ({per_1000:.1f} per 1000 words)"
-            if len(matches) >= 10 and per_1000 >= 12
+            if flagged
             else f"Negation markers: {len(matches)} ({per_1000:.1f} per 1000 words)"
         ),
     }

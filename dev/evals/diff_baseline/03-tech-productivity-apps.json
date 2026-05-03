@@ -152,6 +152,23 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "So I tried apps.",
+        "Task managers.",
+        "Notes apps.",
+        "Whiteboards.",
+        "Kanban boards.",
+        "Habit trackers.",
+        "Calendar overlays.",
+        "Focus timers.",
+        "Personal knowledge management tools.",
+        "Read-it-later apps.",
+        "Browser extensions.",
+        "Automations.",
+        "Dashboards.",
+        "Apps that promised simplicity.",
+        "Apps that promised depth."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -164,6 +181,15 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "Capture the task.",
+        "Capture the idea.",
+        "Capture the meeting note.",
+        "Capture the article.",
+        "Capture the insight.",
+        "Capture the thing someone mentioned in passing that might matter later.",
+        "Capture everything, because storage is cheap and forgetting feels irresponsible."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -186,6 +212,10 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "My app was always asking me to reconcile yesterday\u2019s assumptions with today\u2019s conditions.",
+        "\u201cLater\u201d is not a magic category anymore."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -232,6 +262,7 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -501,6 +532,31 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "The subtler problem: that I did not have a clean enough system for holding it all.",
+        "You are not yet maintaining the system.",
+        "I did not stop using productivity apps because they are useless.",
+        "But capture is not the same as commitment.",
+        "The app does not remove that claim.",
+        "That was the first practical observation: I was not overwhelmed because I lacked a reliable capture system.",
+        "If it does not return, perhaps it did not matter enough.",
+        "I do not mean this as a universal rule.",
+        "This is not a moral failing.",
+        "I was not procrastinating in the usual sense.",
+        "But often the problem is not that the plan needs maintenance.",
+        "The list was never empty because the list was not a measure of effort.",
+        "Capacity is not.",
+        "That is not a reason to reject tools altogether.",
+        "I do not try to capture every idea.",
+        "I do not build dashboards for my life.",
+        "I do not track habits unless there is a specific reason.",
+        "\u201cLater\u201d is not a magic category anymore.",
+        "I notice sooner when the issue is not organisation but overcommitment.",
+        "The cost is that the system is not elegant.",
+        "It does not scale infinitely.",
+        "It does not produce satisfying analytics.",
+        "Fewer lists and a clearer sense of what did not belong on them."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -1068,7 +1124,23 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "So I tried apps.",
+            "Task managers.",
+            "Notes apps.",
+            "Whiteboards.",
+            "Kanban boards.",
+            "Habit trackers.",
+            "Calendar overlays.",
+            "Focus timers.",
+            "Personal knowledge management tools.",
+            "Read-it-later apps.",
+            "Browser extensions.",
+            "Automations.",
+            "Dashboards.",
+            "Apps that promised simplicity.",
+            "Apps that promised depth."
+          ],
           "raw": {
             "evidence": "Found sequence of 15 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1077,6 +1149,23 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "So I tried apps.",
+              "Task managers.",
+              "Notes apps.",
+              "Whiteboards.",
+              "Kanban boards.",
+              "Habit trackers.",
+              "Calendar overlays.",
+              "Focus timers.",
+              "Personal knowledge management tools.",
+              "Read-it-later apps.",
+              "Browser extensions.",
+              "Automations.",
+              "Dashboards.",
+              "Apps that promised simplicity.",
+              "Apps that promised depth."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1093,7 +1182,15 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "Capture the task.",
+            "Capture the idea.",
+            "Capture the meeting note.",
+            "Capture the article.",
+            "Capture the insight.",
+            "Capture the thing someone mentioned in passing that might matter later.",
+            "Capture everything, because storage is cheap and forgetting feels irresponsible."
+          ],
           "raw": {
             "evidence": "Found 7 consecutive sentences starting with 'capture'",
             "evidence_role": "rhythm_signal",
@@ -1102,6 +1199,15 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "Capture the task.",
+              "Capture the idea.",
+              "Capture the meeting note.",
+              "Capture the article.",
+              "Capture the insight.",
+              "Capture the thing someone mentioned in passing that might matter later.",
+              "Capture everything, because storage is cheap and forgetting feels irresponsible."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1141,7 +1247,10 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "My app was always asking me to reconcile yesterday\u2019s assumptions with today\u2019s conditions.",
+            "\u201cLater\u201d is not a magic category anymore."
+          ],
           "raw": {
             "evidence": "Found 4 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1149,6 +1258,10 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "My app was always asking me to reconcile yesterday\u2019s assumptions with today\u2019s conditions.",
+              "\u201cLater\u201d is not a magic category anymore."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1245,6 +1358,7 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [],
             "severity": "strong_warning"
           }
         },
@@ -1798,7 +1912,31 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "The subtler problem: that I did not have a clean enough system for holding it all.",
+            "You are not yet maintaining the system.",
+            "I did not stop using productivity apps because they are useless.",
+            "But capture is not the same as commitment.",
+            "The app does not remove that claim.",
+            "That was the first practical observation: I was not overwhelmed because I lacked a reliable capture system.",
+            "If it does not return, perhaps it did not matter enough.",
+            "I do not mean this as a universal rule.",
+            "This is not a moral failing.",
+            "I was not procrastinating in the usual sense.",
+            "But often the problem is not that the plan needs maintenance.",
+            "The list was never empty because the list was not a measure of effort.",
+            "Capacity is not.",
+            "That is not a reason to reject tools altogether.",
+            "I do not try to capture every idea.",
+            "I do not build dashboards for my life.",
+            "I do not track habits unless there is a specific reason.",
+            "\u201cLater\u201d is not a magic category anymore.",
+            "I notice sooner when the issue is not organisation but overcommitment.",
+            "The cost is that the system is not elegant.",
+            "It does not scale infinitely.",
+            "It does not produce satisfying analytics.",
+            "Fewer lists and a clearer sense of what did not belong on them."
+          ],
           "raw": {
             "evidence": "Found 24 negation markers (13.4 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1807,6 +1945,31 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "The subtler problem: that I did not have a clean enough system for holding it all.",
+              "You are not yet maintaining the system.",
+              "I did not stop using productivity apps because they are useless.",
+              "But capture is not the same as commitment.",
+              "The app does not remove that claim.",
+              "That was the first practical observation: I was not overwhelmed because I lacked a reliable capture system.",
+              "If it does not return, perhaps it did not matter enough.",
+              "I do not mean this as a universal rule.",
+              "This is not a moral failing.",
+              "I was not procrastinating in the usual sense.",
+              "But often the problem is not that the plan needs maintenance.",
+              "The list was never empty because the list was not a measure of effort.",
+              "Capacity is not.",
+              "That is not a reason to reject tools altogether.",
+              "I do not try to capture every idea.",
+              "I do not build dashboards for my life.",
+              "I do not track habits unless there is a specific reason.",
+              "\u201cLater\u201d is not a magic category anymore.",
+              "I notice sooner when the issue is not organisation but overcommitment.",
+              "The cost is that the system is not elegant.",
+              "It does not scale infinitely.",
+              "It does not produce satisfying analytics.",
+              "Fewer lists and a clearer sense of what did not belong on them."
+            ],
             "severity": "context_warning"
           }
         },

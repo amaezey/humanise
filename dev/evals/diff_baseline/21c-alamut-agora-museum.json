@@ -170,6 +170,14 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "You argued.",
+        "You heard arguments.",
+        "You drew up legislation.",
+        "You presented legislation.",
+        "You reached your verdict.",
+        "You cast your vote."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -182,6 +190,15 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "You argued.",
+        "You heard arguments.",
+        "You drew up legislation.",
+        "You presented legislation.",
+        "You reached your verdict.",
+        "You cast your vote.",
+        "You were the source, along with all your fellow citizens, of a flood of words and rulings and decisions."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -204,6 +221,7 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -250,6 +268,10 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [
+        "not only an archaic invention but",
+        "not just of the writer but"
+      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -519,6 +541,7 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [],
       "passed": true,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -1150,7 +1173,14 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "You argued.",
+            "You heard arguments.",
+            "You drew up legislation.",
+            "You presented legislation.",
+            "You reached your verdict.",
+            "You cast your vote."
+          ],
           "raw": {
             "evidence": "Found sequence of 6 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1159,6 +1189,14 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "You argued.",
+              "You heard arguments.",
+              "You drew up legislation.",
+              "You presented legislation.",
+              "You reached your verdict.",
+              "You cast your vote."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1175,7 +1213,15 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "You argued.",
+            "You heard arguments.",
+            "You drew up legislation.",
+            "You presented legislation.",
+            "You reached your verdict.",
+            "You cast your vote.",
+            "You were the source, along with all your fellow citizens, of a flood of words and rulings and decisions."
+          ],
           "raw": {
             "evidence": "Found 7 consecutive sentences starting with 'you'",
             "evidence_role": "rhythm_signal",
@@ -1184,6 +1230,15 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "You argued.",
+              "You heard arguments.",
+              "You drew up legislation.",
+              "You presented legislation.",
+              "You reached your verdict.",
+              "You cast your vote.",
+              "You were the source, along with all your fellow citizens, of a flood of words and rulings and decisions."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1231,6 +1286,7 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [],
             "severity": "context_warning"
           }
         },
@@ -1319,7 +1375,10 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "not only an archaic invention but",
+            "not just of the writer but"
+          ],
           "raw": {
             "evidence": "Found 2 contrived contrast/reframe pattern(s)",
             "evidence_role": "rhetorical_pattern",
@@ -1327,6 +1386,10 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [
+              "not only an archaic invention but",
+              "not just of the writer but"
+            ],
             "severity": "strong_warning"
           }
         },
@@ -1896,6 +1959,7 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [],
             "severity": "context_warning"
           }
         },

@@ -175,6 +175,11 @@
         "frictionless_structure"
       ],
       "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "Deadlines are real.",
+        "Money is real.",
+        "Attention is scarce."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-staccato-sequences"
@@ -187,6 +192,12 @@
         "frictionless_structure"
       ],
       "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "Content must be regular.",
+        "Content must be optimised.",
+        "Content must be legible to platforms, calendars, audiences, metrics and clients.",
+        "Content does not ripen; it is published."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-anaphora"
@@ -209,6 +220,10 @@
         "genre_misfit"
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "It asks not \u201cWhat is this worth saying?\u201d but \u201cCan this be shipped by Thursday?\u201d The uncomfortable truth is that creative work can now be made very quickly.",
+        "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-curly-quotes"
@@ -255,6 +270,9 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [
+        "not only through activity, but"
+      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -524,6 +542,28 @@
         "genre_misfit"
       ],
       "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "# In praise of slow work The first time I noticed how badly speed had colonised my attention, I was not at work.",
+        "Creative work is not soup, but it is also not unrelated to soup.",
+        "To work slowly is not to work lazily.",
+        "Content does not ripen; it is published.",
+        "This is why slowness is not merely an aesthetic preference.",
+        "The argument for slower creative work is not an argument against deadlines, discipline or publication.",
+        "Slowness matters here because experience is not insight.",
+        "To have lived something is not yet to know what it means.",
+        "These are not romantic luxuries.",
+        "A notebook full of fragments does not look productive.",
+        "It reveals that the central image is not central at all.",
+        "It exposes the fact that the argument is not about what we claimed it was about.",
+        "Taste is not simply preference; it is the capacity to perceive difference.",
+        "But ready and good are not the same thing.",
+        "Slower work is not guaranteed to be better.",
+        "Time alone does not confer depth.",
+        "The point is not to worship delay.",
+        "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy.",
+        "It may also become one of the few ways to make work that is not merely a reflection of the conditions that produced it.",
+        "The difference is not always visible at first."
+      ],
       "passed": false,
       "severity": "context_warning",
       "text": "no-negation-density"
@@ -1171,7 +1211,11 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "Deadlines are real.",
+            "Money is real.",
+            "Attention is scarce."
+          ],
           "raw": {
             "evidence": "Found sequence of 3 consecutive short sentences",
             "evidence_role": "rhythm_signal",
@@ -1180,6 +1224,11 @@
               "frictionless_structure"
             ],
             "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "Deadlines are real.",
+              "Money is real.",
+              "Attention is scarce."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1196,7 +1245,12 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "Content must be regular.",
+            "Content must be optimised.",
+            "Content must be legible to platforms, calendars, audiences, metrics and clients.",
+            "Content does not ripen; it is published."
+          ],
           "raw": {
             "evidence": "Found 4 consecutive sentences starting with 'content'",
             "evidence_role": "rhythm_signal",
@@ -1205,6 +1259,12 @@
               "frictionless_structure"
             ],
             "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "Content must be regular.",
+              "Content must be optimised.",
+              "Content must be legible to platforms, calendars, audiences, metrics and clients.",
+              "Content does not ripen; it is published."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1244,7 +1304,10 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "It asks not \u201cWhat is this worth saying?\u201d but \u201cCan this be shipped by Thursday?\u201d The uncomfortable truth is that creative work can now be made very quickly.",
+            "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy."
+          ],
           "raw": {
             "evidence": "Found 8 curly quote(s)",
             "evidence_role": "typographic_signal",
@@ -1252,6 +1315,10 @@
               "genre_misfit"
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "It asks not \u201cWhat is this worth saying?\u201d but \u201cCan this be shipped by Thursday?\u201d The uncomfortable truth is that creative work can now be made very quickly.",
+              "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy."
+            ],
             "severity": "context_warning"
           }
         },
@@ -1340,7 +1407,9 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "not only through activity, but"
+          ],
           "raw": {
             "evidence": "Found 1 contrived contrast/reframe pattern(s)",
             "evidence_role": "rhetorical_pattern",
@@ -1348,6 +1417,9 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [
+              "not only through activity, but"
+            ],
             "severity": "strong_warning"
           }
         },
@@ -1901,7 +1973,28 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [],
+          "quoted_phrases": [
+            "# In praise of slow work The first time I noticed how badly speed had colonised my attention, I was not at work.",
+            "Creative work is not soup, but it is also not unrelated to soup.",
+            "To work slowly is not to work lazily.",
+            "Content does not ripen; it is published.",
+            "This is why slowness is not merely an aesthetic preference.",
+            "The argument for slower creative work is not an argument against deadlines, discipline or publication.",
+            "Slowness matters here because experience is not insight.",
+            "To have lived something is not yet to know what it means.",
+            "These are not romantic luxuries.",
+            "A notebook full of fragments does not look productive.",
+            "It reveals that the central image is not central at all.",
+            "It exposes the fact that the argument is not about what we claimed it was about.",
+            "Taste is not simply preference; it is the capacity to perceive difference.",
+            "But ready and good are not the same thing.",
+            "Slower work is not guaranteed to be better.",
+            "Time alone does not confer depth.",
+            "The point is not to worship delay.",
+            "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy.",
+            "It may also become one of the few ways to make work that is not merely a reflection of the conditions that produced it.",
+            "The difference is not always visible at first."
+          ],
           "raw": {
             "evidence": "Found 23 negation markers (14.5 per 1000 words)",
             "evidence_role": "rhetorical_density",
@@ -1910,6 +2003,28 @@
               "genre_misfit"
             ],
             "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "# In praise of slow work The first time I noticed how badly speed had colonised my attention, I was not at work.",
+              "Creative work is not soup, but it is also not unrelated to soup.",
+              "To work slowly is not to work lazily.",
+              "Content does not ripen; it is published.",
+              "This is why slowness is not merely an aesthetic preference.",
+              "The argument for slower creative work is not an argument against deadlines, discipline or publication.",
+              "Slowness matters here because experience is not insight.",
+              "To have lived something is not yet to know what it means.",
+              "These are not romantic luxuries.",
+              "A notebook full of fragments does not look productive.",
+              "It reveals that the central image is not central at all.",
+              "It exposes the fact that the argument is not about what we claimed it was about.",
+              "Taste is not simply preference; it is the capacity to perceive difference.",
+              "But ready and good are not the same thing.",
+              "Slower work is not guaranteed to be better.",
+              "Time alone does not confer depth.",
+              "The point is not to worship delay.",
+              "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy.",
+              "It may also become one of the few ways to make work that is not merely a reflection of the conditions that produced it.",
+              "The difference is not always visible at first."
+            ],
             "severity": "context_warning"
           }
         },
