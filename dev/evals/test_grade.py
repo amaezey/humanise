@@ -1893,6 +1893,236 @@ else:
     print(f"FAIL: Finding #8 — suggestion-parity should fail when 2 flags vs 1 Try (got: {_r['evidence']})")
 
 
+# --- Audit-shape: U3 measurement-lock checks (audit-output redesign) ---
+#
+# These six checks land before the U4–U7 renderer changes ship. Synthetic
+# new-shape fixtures pass; pre-U4 old-shape fixtures fail (the integration
+# baseline is intentionally red on iteration-6 outputs and flips green as
+# each renderer unit lands).
+
+print("\n=== audit-shape U3 (measurement lock for new audit shape) ===")
+
+_NEW_SHAPE_BOTH_BLOCKS = """Audit
+Auto-detected: 2 of 12 flagged · Agent-assessed: 1 of 8 flagged
+Severity: 0 hard fail · 2 strong warning · 1 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
+
+! **Em dashes** — "—"
+! **Tonal uniformity**
+  - "register holds without breaks" — single tonal arc
+
+**Next step**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# Same shape but with a triggered signal-stacking line (for the R3 triggered branch).
+_NEW_SHAPE_STACKING_TRIGGERED = """Audit
+Auto-detected: 1 of 12 flagged · Agent-assessed: 0 of 8 flagged
+Severity: 0 hard fail · 1 strong warning · 0 context warning
+Signal stacking: triggered — 5 of 4 threshold (em dashes, rule of three, tonal uniformity)
+
+! **Em dashes** — "—"
+
+**Next step**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# Full-report shape with the new 4-column coverage table (for R15 / R18 checks).
+_NEW_SHAPE_WITH_COVERAGE_TABLE = _NEW_SHAPE_BOTH_BLOCKS + """
+
+**Auto-detected patterns** — 2 flagged of 12
+
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| Em dashes | strong warning | Flagged | em dash detected |
+| Curly quotes | context warning | Clear |  |
+"""
+
+# Pre-U4 shape (severity line carries inline signal-stacking suffix; coverage table is 3-column with Action).
+_OLD_SHAPE_FULL = """Audit
+Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
+Signal stacking clear: no weaker AI-writing signals stacked.
+
+! **Em dashes** — "still—keen" — Action: Fix
+
+---
+
+**Style** — 1 flagged of 6
+
+| Pattern | Result | Action |
+| --- | --- | --- |
+| Em dashes | Flagged | Fix |
+| Curly quotes | Clear |  |
+
+**Next step**
+
+Want suggestions?"""
+
+# Audit body that has merged the pre-U5 agent-judgement shape into the audit
+# section — the regression case that flagged-items-glyph-shape catches.
+_NEW_SHAPE_WITH_OLD_AGENT_LEAKAGE = """Audit
+Auto-detected: 1 of 12 flagged · Agent-assessed: 1 of 8 flagged
+Severity: 0 hard fail · 2 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
+
+! **Em dashes** — "—"
+- Tonal uniformity — Flagged: register holds without breaks
+
+**Next step**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# No audit section at all — vacuous-true baseline for every U3 check.
+_NO_AUDIT_AT_ALL = """**Some other report**
+
+Nothing recognisable here.
+
+Want help?"""
+
+# Audit header present but no flagged items in body — vacuous-true for the
+# glyph-shape predicate (it has nothing to assert against).
+_NEW_SHAPE_NO_FLAG_BLOCKS = """Audit
+Auto-detected: 0 of 12 flagged · Agent-assessed: 0 of 8 flagged
+Severity: 0 hard fail · 0 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
+
+**Next step**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
+
+# --- audit-shape-counts-line (R1) ---
+print("\n--- audit-shape-counts-line ---")
+_r = check_audit_shape("audit-shape-counts-line", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: counts-line passes on synthetic new-shape audit body")
+else:
+    FAILURES += 1; print(f"FAIL: counts-line on new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-counts-line", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: counts-line fails on pre-U4 old-shape audit body (intentionally red)")
+else:
+    FAILURES += 1; print("FAIL: counts-line should fail on pre-U4 old shape")
+
+_r = check_audit_shape("audit-shape-counts-line", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: counts-line vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: counts-line should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-severity-line (R2) ---
+print("\n--- audit-shape-severity-line ---")
+_r = check_audit_shape("audit-shape-severity-line", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: severity-line passes on synthetic new-shape (no inline signal-stacking suffix)")
+else:
+    FAILURES += 1; print(f"FAIL: severity-line on new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-severity-line", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: severity-line fails on pre-U4 shape (line carries inline signal-stacking suffix)")
+else:
+    FAILURES += 1; print("FAIL: severity-line should fail when line carries the inline signal-stacking suffix")
+
+_r = check_audit_shape("audit-shape-severity-line", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: severity-line vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: severity-line should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-signal-stacking-line (R3) ---
+print("\n--- audit-shape-signal-stacking-line ---")
+_r = check_audit_shape("audit-shape-signal-stacking-line", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: signal-stacking-line passes on the clear shape")
+else:
+    FAILURES += 1; print(f"FAIL: signal-stacking-line on clear new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-signal-stacking-line", _NEW_SHAPE_STACKING_TRIGGERED)
+if _r["passed"]:
+    print("  ok: signal-stacking-line passes on the triggered + threshold shape")
+else:
+    FAILURES += 1; print(f"FAIL: signal-stacking-line on triggered shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-signal-stacking-line", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: signal-stacking-line fails on pre-U4 shape (no stand-alone R3 line)")
+else:
+    FAILURES += 1; print("FAIL: signal-stacking-line should fail when no stand-alone R3 line is present")
+
+_r = check_audit_shape("audit-shape-signal-stacking-line", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: signal-stacking-line vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: signal-stacking-line should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-flagged-items-glyph-shape (R6, R7) ---
+print("\n--- audit-shape-flagged-items-glyph-shape ---")
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"]:
+    print("  ok: glyph-shape passes when both blocks use glyph + bold-name openers")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape on new shape: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NEW_SHAPE_WITH_OLD_AGENT_LEAKAGE)
+if not _r["passed"] and "Label — Flagged" in _r["evidence"]:
+    print("  ok: glyph-shape fails when pre-U5 '- Label — Flagged:' shape leaks into the audit section")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape should fail on old-agent-leakage fixture (got: {_r['evidence']})")
+
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NEW_SHAPE_NO_FLAG_BLOCKS)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: glyph-shape vacuously passes when audit body has no flagged items")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape should vacuously pass with no flag blocks (got: {_r['evidence']})")
+
+_r = check_audit_shape("audit-shape-flagged-items-glyph-shape", _NO_AUDIT_AT_ALL)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: glyph-shape vacuously passes when no audit section is present")
+else:
+    FAILURES += 1; print(f"FAIL: glyph-shape should vacuously pass with no audit section (got: {_r['evidence']})")
+
+# --- audit-shape-severity-in-coverage-table (R15) ---
+print("\n--- audit-shape-severity-in-coverage-table ---")
+_r = check_audit_shape("audit-shape-severity-in-coverage-table", _NEW_SHAPE_WITH_COVERAGE_TABLE)
+if _r["passed"]:
+    print("  ok: severity-in-coverage-table passes on the new 4-column header")
+else:
+    FAILURES += 1; print(f"FAIL: severity-in-coverage-table on new 4-column header: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-severity-in-coverage-table", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: severity-in-coverage-table fails on pre-U4 3-column header")
+else:
+    FAILURES += 1; print("FAIL: severity-in-coverage-table should fail on pre-U4 3-column header")
+
+_r = check_audit_shape("audit-shape-severity-in-coverage-table", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: severity-in-coverage-table vacuously passes when no coverage tables are rendered (default-mode audit)")
+else:
+    FAILURES += 1; print(f"FAIL: severity-in-coverage-table should vacuously pass without coverage tables (got: {_r['evidence']})")
+
+# --- audit-shape-no-action-column (R18) ---
+print("\n--- audit-shape-no-action-column ---")
+_r = check_audit_shape("audit-shape-no-action-column", _NEW_SHAPE_WITH_COVERAGE_TABLE)
+if _r["passed"]:
+    print("  ok: no-action-column passes on the new 4-column header (Action removed)")
+else:
+    FAILURES += 1; print(f"FAIL: no-action-column on new 4-column header: {_r['evidence']}")
+
+_r = check_audit_shape("audit-shape-no-action-column", _OLD_SHAPE_FULL)
+if not _r["passed"]:
+    print("  ok: no-action-column fails on pre-U4 3-column header (Action present)")
+else:
+    FAILURES += 1; print("FAIL: no-action-column should fail when Action column is present")
+
+_r = check_audit_shape("audit-shape-no-action-column", _NEW_SHAPE_BOTH_BLOCKS)
+if _r["passed"] and "vacuously" in _r["evidence"]:
+    print("  ok: no-action-column vacuously passes when no coverage tables are rendered")
+else:
+    FAILURES += 1; print(f"FAIL: no-action-column should vacuously pass without coverage tables (got: {_r['evidence']})")
+
+
 # --- Human passthrough: opinion piece ---
 print("\n=== human-opinion-passthrough ===")
 opinion_text = Path(__file__).parent.joinpath("samples/10-human-opinion.md").read_text()

@@ -2651,7 +2651,10 @@ def grade_file(filepath, assertion_names=None):
 # "Audit" line followed by a "Severity:" verdict line. The lookahead pins
 # the match to that pair so a stray "Audit" word in a longer malformed
 # response cannot trigger a false positive.
-AUDIT_HEADER_RE = re.compile(r"^Audit[ \t]*$(?=\r?\nSeverity:)", re.MULTILINE)
+AUDIT_HEADER_RE = re.compile(
+    r"^Audit[ \t]*$(?=\r?\n(?:Severity:|Auto-detected:))",
+    re.MULTILINE,
+)
 REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
 DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
@@ -2661,7 +2664,7 @@ SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
 # contain nested bold-only headers (e.g. Suggestions has `**Pattern Name**` per flag,
 # which would otherwise be mistaken for a section terminator by SECTION_HEADER_RE).
 TOP_LEVEL_SECTION_HEADER_RE = re.compile(
-    r"^(?:Audit[ \t]*$(?=\r?\nSeverity:)|"
+    r"^(?:Audit[ \t]*$(?=\r?\n(?:Severity:|Auto-detected:))|"
     r"\*\*(?:Agent[- ]judgement reading|Suggestions|Rewrite|Draft|Next step)[^*]*\*\*\s*$)",
     re.MULTILINE,
 )
@@ -2992,6 +2995,122 @@ def check_audit_shape_all_clear_line_format(output_text, input_text=None):
     return {"text": name, "passed": False, "evidence": "all-clear shape expected but neither block headers nor canonical line found"}
 
 
+# U3 (audit-output redesign) — measurement lock for the new audit shape.
+# These regexes match lines specific to the post-U4 renderer output. They
+# are intentionally strict on end-of-line so they fail on the old shape
+# (e.g. severity line carrying an inline `· signal stacking: ...` suffix)
+# even when the audit body is otherwise present. The locked-red baseline
+# flips green organically as U4–U7 each ship their renderer slice.
+NEW_COUNTS_LINE_RE = re.compile(
+    r"^Auto-detected:\s+\d+\s+of\s+\d+\s+flagged\s+·\s+Agent-assessed:\s+\d+\s+of\s+\d+\s+flagged\s*$",
+    re.MULTILINE,
+)
+NEW_SEVERITY_LINE_RE = re.compile(
+    r"^Severity:\s+\d+\s+hard\s+fail\s+·\s+\d+\s+strong\s+warning\s+·\s+\d+\s+context\s+warning\s*$",
+    re.MULTILINE,
+)
+NEW_SIGNAL_STACKING_LINE_RE = re.compile(
+    r"^Signal\s+stacking:\s+(?:clear\s*\(.+\)|triggered\s+—\s+\d+\s+of\s+\d+\s+threshold\s*\(.+\))\s*$",
+    re.MULTILINE,
+)
+# Glyph + bold-name opener — shared by R6 (auto-detected) and R7 (agent-assessed) flagged items.
+NEW_FLAGGED_ITEM_OPENER_RE = re.compile(r"^[x!?]\s+\*\*[^*]+\*\*", re.MULTILINE)
+# The pre-U5 agent-judgement item shape. Allowed in its own `**Agent-judgement reading**`
+# section; forbidden inside the audit section once U5 merges agent items into the audit body.
+OLD_AGENT_JUDGEMENT_FLAGGED_LINE_RE = re.compile(r"^-\s+[^—\n]+—\s+Flagged", re.MULTILINE)
+# New 4-column coverage table header (R15) and the pre-U4 3-column shape for diffing.
+NEW_COVERAGE_HEADER_RE = re.compile(
+    r"^\|\s*Pattern\s*\|\s*Severity\s*\|\s*Result\s*\|\s*Detail\s*\|\s*$",
+    re.MULTILINE,
+)
+OLD_COVERAGE_HEADER_RE = re.compile(
+    r"^\|\s*Pattern\s*\|\s*Result\s*\|\s*Action\s*\|\s*$",
+    re.MULTILINE,
+)
+
+
+def check_audit_shape_counts_line(output_text, input_text=None):
+    """R1: audit body must include `Auto-detected: X of Y flagged · Agent-assessed: A of B flagged`."""
+    name = "audit-shape-counts-line"
+    audit = _audit_section(output_text)
+    if not audit:
+        return {"text": name, "passed": True, "evidence": "no audit section (vacuously true)"}
+    if NEW_COUNTS_LINE_RE.search(audit):
+        return {"text": name, "passed": True, "evidence": "R1 counts line present"}
+    return {"text": name, "passed": False,
+            "evidence": "missing R1 counts line ('Auto-detected: X of Y flagged · Agent-assessed: A of B flagged')"}
+
+
+def check_audit_shape_severity_line(output_text, input_text=None):
+    """R2: severity line is `Severity: N hard fail · M strong warning · P context warning` —
+    space-separated lowercase, no inline signal-stacking suffix (signal stacking is its own R3 line)."""
+    name = "audit-shape-severity-line"
+    audit = _audit_section(output_text)
+    if not audit:
+        return {"text": name, "passed": True, "evidence": "no audit section (vacuously true)"}
+    if NEW_SEVERITY_LINE_RE.search(audit):
+        return {"text": name, "passed": True, "evidence": "R2 severity line present"}
+    return {"text": name, "passed": False,
+            "evidence": "missing R2 severity line ('Severity: N hard fail · M strong warning · P context warning'); "
+                        "or line still carries the pre-U4 inline signal-stacking suffix"}
+
+
+def check_audit_shape_signal_stacking_line(output_text, input_text=None):
+    """R3: a stand-alone `Signal stacking: clear (...)` or `Signal stacking: triggered — N of M threshold (...)` line."""
+    name = "audit-shape-signal-stacking-line"
+    audit = _audit_section(output_text)
+    if not audit:
+        return {"text": name, "passed": True, "evidence": "no audit section (vacuously true)"}
+    if NEW_SIGNAL_STACKING_LINE_RE.search(audit):
+        return {"text": name, "passed": True, "evidence": "R3 signal-stacking line present"}
+    return {"text": name, "passed": False,
+            "evidence": "missing R3 signal-stacking line ('Signal stacking: clear (...)' or 'Signal stacking: triggered — N of M threshold (...)')"}
+
+
+def check_audit_shape_flagged_items_glyph_shape(output_text, input_text=None):
+    """R6, R7: flagged items in the audit body use a glyph + bold-name opener.
+    The pre-U5 `- Label — Flagged: ...` agent-judgement shape must not leak
+    into the audit section once U5 merges agent items into the audit body."""
+    name = "audit-shape-flagged-items-glyph-shape"
+    audit = _audit_section(output_text)
+    if audit is None:
+        return {"text": name, "passed": True, "evidence": "no audit section (vacuously true)"}
+    if OLD_AGENT_JUDGEMENT_FLAGGED_LINE_RE.search(audit):
+        return {"text": name, "passed": False,
+                "evidence": "audit section contains pre-U5 '- Label — Flagged:' shape; expected glyph + bold-name openers"}
+    if not NEW_FLAGGED_ITEM_OPENER_RE.search(audit):
+        return {"text": name, "passed": True, "evidence": "no flagged items in audit (vacuously true)"}
+    return {"text": name, "passed": True,
+            "evidence": "all flagged items use glyph + bold-name opener"}
+
+
+def check_audit_shape_severity_in_coverage_table(output_text, input_text=None):
+    """R15: coverage tables include a Severity column (`| Pattern | Severity | Result | Detail |`)."""
+    name = "audit-shape-severity-in-coverage-table"
+    has_new = bool(NEW_COVERAGE_HEADER_RE.search(output_text))
+    has_old = bool(OLD_COVERAGE_HEADER_RE.search(output_text))
+    if not has_new and not has_old:
+        return {"text": name, "passed": True, "evidence": "no coverage tables (vacuously true)"}
+    if has_old:
+        return {"text": name, "passed": False,
+                "evidence": "found pre-U4 coverage header '| Pattern | Result | Action |'; "
+                            "expected '| Pattern | Severity | Result | Detail |'"}
+    return {"text": name, "passed": True, "evidence": "coverage table includes Severity column"}
+
+
+def check_audit_shape_no_action_column(output_text, input_text=None):
+    """R18: coverage tables drop the Action column."""
+    name = "audit-shape-no-action-column"
+    has_new = bool(NEW_COVERAGE_HEADER_RE.search(output_text))
+    has_old = bool(OLD_COVERAGE_HEADER_RE.search(output_text))
+    if not has_new and not has_old:
+        return {"text": name, "passed": True, "evidence": "no coverage tables (vacuously true)"}
+    if has_old:
+        return {"text": name, "passed": False,
+                "evidence": "coverage tables still include the Action column"}
+    return {"text": name, "passed": True, "evidence": "coverage tables drop the Action column"}
+
+
 AUDIT_SHAPE_CHECKS = {
     "audit-shape-block-precedes-rewrite-block": check_audit_shape_block_precedes_rewrite_block,
     "every-flag-block-contains-input-substring": check_every_flag_block_contains_input_substring,
@@ -3003,6 +3122,12 @@ AUDIT_SHAPE_CHECKS = {
     "audit-shape-has-programmatic-block": check_audit_shape_has_programmatic_block,
     "audit-shape-has-agent-judgement-block": check_audit_shape_has_agent_judgement_block,
     "audit-shape-all-clear-line-format": check_audit_shape_all_clear_line_format,
+    "audit-shape-counts-line": check_audit_shape_counts_line,
+    "audit-shape-severity-line": check_audit_shape_severity_line,
+    "audit-shape-signal-stacking-line": check_audit_shape_signal_stacking_line,
+    "audit-shape-flagged-items-glyph-shape": check_audit_shape_flagged_items_glyph_shape,
+    "audit-shape-severity-in-coverage-table": check_audit_shape_severity_in_coverage_table,
+    "audit-shape-no-action-column": check_audit_shape_no_action_column,
 }
 
 

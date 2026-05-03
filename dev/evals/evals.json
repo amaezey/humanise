@@ -62,6 +62,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -126,6 +162,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -190,6 +262,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -260,6 +368,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -329,6 +473,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -399,6 +579,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -469,6 +685,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -582,6 +834,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -646,6 +934,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -710,6 +1034,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -774,6 +1134,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -838,6 +1234,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -902,6 +1334,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -966,6 +1434,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -1030,6 +1534,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -1094,6 +1634,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     },
@@ -1158,6 +1734,42 @@
           "type": "programmatic",
           "description": "If the audit comes back fully clean, the response uses the canonical Phase-1 all-clear line; vacuously passes when either block is present.",
           "check": "all-clear line shape matches Phase-1 canonical form when applicable"
+        },
+        {
+          "name": "audit-counts-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R1 counts line: `Auto-detected: X of Y flagged \u00b7 Agent-assessed: A of B flagged`.",
+          "check": "audit body contains the new counts line in canonical form"
+        },
+        {
+          "name": "audit-severity-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R2 severity line: `Severity: N hard fail \u00b7 M strong warning \u00b7 P context warning` (no inline signal-stacking suffix).",
+          "check": "audit body contains the new severity line; old inline signal-stacking suffix absent"
+        },
+        {
+          "name": "audit-signal-stacking-line-present",
+          "type": "programmatic",
+          "description": "Audit body includes the R3 stand-alone signal-stacking line (clear, or triggered + threshold).",
+          "check": "audit body contains a `Signal stacking: clear (...)` or `Signal stacking: triggered \u2014 N of M threshold (...)` line"
+        },
+        {
+          "name": "audit-flagged-items-glyph-shape",
+          "type": "programmatic",
+          "description": "Flagged items in the audit body use a glyph + bold-name opener (R6 / R7); pre-U5 `- Label \u2014 Flagged:` shape does not leak in.",
+          "check": "no `- Label \u2014 Flagged:` items inside the audit section"
+        },
+        {
+          "name": "coverage-tables-include-severity",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) carry the R15 4-column header `| Pattern | Severity | Result | Detail |`.",
+          "check": "coverage table header is the new 4-column shape; pre-U4 3-column shape absent"
+        },
+        {
+          "name": "coverage-tables-omit-action",
+          "type": "programmatic",
+          "description": "Coverage tables (when rendered) drop the Action column (R18).",
+          "check": "no `Action` column header on coverage tables"
         }
       ]
     }

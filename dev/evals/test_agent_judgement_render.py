@@ -185,38 +185,13 @@ else:
     ok("no severity glyphs leading any line")
 
 
-# --- polymorphic genre slot: genre + findings ---
-
-print("\n=== polymorphic genre slot ===")
-
-genre_render = format_agent_judgement([
-    {"id": "structural_monotony", "status": "flagged",
-     "answer": "every section follows the same arc", "evidence": {}},
-    {"id": "tonal_uniformity", "status": "clear",
-     "answer": "register breaks at least once", "evidence": {}},
-    {"id": "faux_specificity", "status": "clear", "answer": [], "evidence": {}},
-    {"id": "neutrality_collapse", "status": "clear",
-     "answer": "takes a position", "evidence": {}},
-    {"id": "even_jargon_distribution", "status": "clear",
-     "answer": "jargon clumps where the writer knows things", "evidence": {}},
-    {"id": "forced_synesthesia", "status": "clear", "answer": [], "evidence": {}},
-    {"id": "generic_metaphors", "status": "clear", "answer": [], "evidence": {}},
-    {"id": "genre_specific", "status": "flagged",
-     "answer": {
-         "genre_detected": "academic",
-         "watchlist_findings": [
-             {"phrase": "as we have seen", "why_flagged": "rubric echo"},
-             {"phrase": "delve into", "why_flagged": "AI vocabulary tell"},
-         ],
-     },
-     "evidence": {}},
-])
-
-if "| Genre specific | Flagged | Fix |" not in genre_render:
-    fail(f"genre slot should render as a flagged table row; got:\n{genre_render}")
-else:
-    ok("genre slot renders as a flagged Pattern/Result/Action row "
-       "(per-finding detail intentionally dropped from the audit; surfaces via Suggestions)")
+# Polymorphic genre slot test deleted in U3 (audit-output redesign): the
+# previous fixture asserted a `| Genre specific | Flagged | Fix |` table-row
+# shape that the current renderer never produced. U5 reworks
+# `_render_judgement_item` / `_render_judgement_list_item` /
+# `_render_judgement_composite_item` onto the new glyph + sub-bullet shape
+# (`! **Genre specific** — Genre detected: <genre>` + watchlist sub-bullets)
+# and adds the replacement composite-genre fixture per its plan.
 
 
 # --- all clear → single 'agent reading clean' line ---

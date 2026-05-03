@@ -75,6 +75,37 @@ if iteration.catalogue_hits("No audit rendered here.") == set():
 else:
     fail("expected empty hit set without an Audit section")
 
+
+# U3 measurement-lock fixture — the audit-output-redesign new shape.
+# After U4 the audit header is followed by an `Auto-detected:` counts line
+# (not `Severity:`), so AUDIT_HEADER_RE was relaxed in U3 to match either.
+# After U5 the agent-judgement items move into the audit section as
+# `! **Item**` / `? **Item**` openers; their labels (e.g. "Tonal uniformity")
+# are NOT catalogue patterns and must NOT inflate the hit count.
+
+OUTPUT_NEW_AUDIT_SHAPE_BOTH_BLOCKS_IN_AUDIT = """
+Audit
+Auto-detected: 2 of 12 flagged · Agent-assessed: 1 of 8 flagged
+Severity: 0 hard fail · 2 strong warning · 1 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
+
+! **Em dashes** — "—"
+! **Rule of three** — "participation, resilience, and mobilisation"
+? **Tonal uniformity**
+  - "register holds without breaks" — single tonal arc
+
+**Next step**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
+"""
+
+hits = iteration.catalogue_hits(OUTPUT_NEW_AUDIT_SHAPE_BOTH_BLOCKS_IN_AUDIT)
+expected = {"no-em-dashes", "no-forced-triads"}
+if hits == expected:
+    ok("counts new-shape Layer 1 openers and ignores agent-judgement-label openers in the audit body")
+else:
+    fail(f"expected {sorted(expected)} on new-shape audit body, got {sorted(hits)}")
+
 if FAILURES:
     raise SystemExit(1)
 

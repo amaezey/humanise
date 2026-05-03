@@ -376,6 +376,24 @@ def grade_one_assertion(name: str, output: str, input_text: str, generated: str)
     if name == "all-clear-line-format":
         result = GRADE.check_audit_shape("audit-shape-all-clear-line-format", output, input_text)
         return result["passed"], result["evidence"]
+    if name == "audit-counts-line-present":
+        result = GRADE.check_audit_shape("audit-shape-counts-line", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "audit-severity-line-present":
+        result = GRADE.check_audit_shape("audit-shape-severity-line", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "audit-signal-stacking-line-present":
+        result = GRADE.check_audit_shape("audit-shape-signal-stacking-line", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "audit-flagged-items-glyph-shape":
+        result = GRADE.check_audit_shape("audit-shape-flagged-items-glyph-shape", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "coverage-tables-include-severity":
+        result = GRADE.check_audit_shape("audit-shape-severity-in-coverage-table", output, input_text)
+        return result["passed"], result["evidence"]
+    if name == "coverage-tables-omit-action":
+        result = GRADE.check_audit_shape("audit-shape-no-action-column", output, input_text)
+        return result["passed"], result["evidence"]
     if name == "rewrite-produced":
         input_words = len(re.findall(r"\b\w+\b", input_text))
         gen_words = len(re.findall(r"\b\w+\b", generated))
