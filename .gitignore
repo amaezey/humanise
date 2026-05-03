@@ -8,3 +8,6 @@ dev/skill-workspace/iteration-*/
 !dev/skill-workspace/iteration-2/
 !dev/skill-workspace/iteration-3/
 !dev/skill-workspace/iteration-4/
+
+# Local ce-work skill config
+.compound-engineering/
