@@ -18,7 +18,7 @@ End-to-end demonstration on a single AI-generated essay: the dual-layer audit it
 
 ## Audit
 
-Real `python3 humanise/grade.py --format markdown --depth balanced` output on the input above, with a representative agent-judgement block underneath. Severity glyphs in Layer 1: `x` hard_fail, `!` strong_warning, `?` context_warning. Layer 2 collapses categories where every check is clear; expanded sub-tables include the clear rows so coverage stays visible. The agent-judgement block uses the eight-item registry in `humanise/judgement.yaml` and renders status binary (Flagged / Clear) with no severity column.
+Real `python3 humanise/scripts/grade.py --format markdown --depth balanced` output on the input above, with a representative agent-judgement block underneath. Severity glyphs in Layer 1: `x` hard_fail, `!` strong_warning, `?` context_warning. Layer 2 collapses categories where every check is clear; expanded sub-tables include the clear rows so coverage stays visible. The agent-judgement block uses the eight-item registry in `humanise/scripts/judgement.json` and renders status binary (Flagged / Clear) with no severity column.
 
 ```
 Audit

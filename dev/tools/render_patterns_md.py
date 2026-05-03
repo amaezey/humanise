@@ -1,28 +1,27 @@
 #!/usr/bin/env python3
 """
 render_patterns_md.py — Generate humanise/references/patterns.md from
-humanise/patterns.yaml.
+humanise/scripts/patterns.json.
 
 Two modes:
-    --enrich   One-shot: parse current patterns.md, enrich patterns.yaml
+    --enrich   One-shot: parse current patterns.md, enrich patterns.json
                with per-section markdown bodies (heading number + heading
                text + body content). Run once during U7/U15 migration.
-    --render   Default: emit patterns.md from patterns.yaml. Used by the
+    --render   Default: emit patterns.md from patterns.json. Used by the
                CI check to verify the on-disk file equals regenerated output.
     --check    Render and diff against on-disk patterns.md. Exits non-zero
                on drift. Used by test_patterns_md_generator.py.
 
-After U15, patterns.yaml is the source of truth. patterns.md is generated.
+After U15, patterns.json is the source of truth. patterns.md is generated.
 """
 
+import json
 import re
 import sys
 from pathlib import Path
 
-import yaml
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
-PATTERNS_YAML = REPO_ROOT / "humanise" / "patterns.yaml"
+PATTERNS_JSON = REPO_ROOT / "humanise" / "scripts" / "patterns.json"
 PATTERNS_MD = REPO_ROOT / "humanise" / "references" / "patterns.md"
 
 # Order of H2 categories as they appear in patterns.md.
@@ -38,12 +37,12 @@ CATEGORY_ORDER = [
 ]
 
 # Page-level content that lives in the generator (rarely changes; kept here
-# rather than as YAML strings to keep patterns.yaml focused on per-pattern data).
+# rather than as YAML strings to keep patterns.json focused on per-pattern data).
 # Captured verbatim from current patterns.md during U15.
 
 # These strings are populated by --enrich on first run; the loader writes them
-# back to patterns.yaml under the _meta key. After enrichment, the values are
-# read from patterns.yaml.
+# back to patterns.json under the _meta key. After enrichment, the values are
+# read from patterns.json.
 
 
 def _clean_h2_body(body):
@@ -172,9 +171,9 @@ def find_check_id_in_body(body):
 
 
 def enrich():
-    """Parse patterns.md, enrich patterns.yaml with per-section content.
+    """Parse patterns.md, enrich patterns.json with per-section content.
 
-    Reads existing patterns.yaml records (keyed by check_id) and adds the
+    Reads existing patterns.json records (keyed by check_id) and adds the
     fields pattern_number, patterns_md_heading, patterns_md_body to each.
 
     Folded and manual entries (no own check_id) are added under
@@ -186,7 +185,7 @@ def enrich():
     md_text = PATTERNS_MD.read_text()
     parsed = parse_patterns_md(md_text)
 
-    yaml_data = yaml.safe_load(PATTERNS_YAML.read_text())
+    data = json.loads(PATTERNS_JSON.read_text())
 
     enriched = {}
     enriched["_meta"] = {
@@ -208,13 +207,13 @@ def enrich():
             body = entry["body"]
             leading_blanks = entry["leading_blanks"]
             check_id, kind = find_check_id_in_body(body)
-            if kind == "check" and check_id in yaml_data:
-                rec = dict(yaml_data[check_id])
+            if kind == "check" and check_id in data:
+                rec = dict(data[check_id])
                 rec["pattern_number"] = number
                 rec["patterns_md_heading"] = heading
                 rec["patterns_md_body"] = body
                 rec["patterns_md_leading_blanks"] = leading_blanks
-                yaml_data[check_id] = rec
+                data[check_id] = rec
             else:
                 extra_entries.append({
                     "pattern_number": number,
@@ -229,33 +228,29 @@ def enrich():
     enriched["_extra_entries"] = extra_entries
     enriched["_meta"]["category_preambles"] = category_preambles
 
-    # Re-emit yaml: _meta + _extra_entries first, then per-check records sorted.
+    # Re-emit JSON: _meta + _extra_entries first, then per-check records sorted.
     out = {}
     out["_meta"] = enriched["_meta"]
     out["_extra_entries"] = enriched["_extra_entries"]
     # Only include per-check records (skip _meta / _extra_entries from the
-    # previously-enriched yaml file, which would otherwise overwrite the
-    # fresh ones we just built).
-    for cid in sorted(k for k in yaml_data if not k.startswith("_")):
-        out[cid] = yaml_data[cid]
+    # previously-enriched file, which would otherwise overwrite the fresh
+    # ones we just built).
+    for cid in sorted(k for k in data if not k.startswith("_")):
+        out[cid] = data[cid]
 
-    PATTERNS_YAML.write_text(yaml.safe_dump(
-        out,
-        sort_keys=False,
-        default_flow_style=False,
-        width=10000,  # avoid YAML line-wrapping inside string values
-        allow_unicode=True,
-    ))
+    PATTERNS_JSON.write_text(
+        json.dumps(out, indent=2, ensure_ascii=False) + "\n"
+    )
     n_check = sum(1 for k in out if not k.startswith("_"))
-    print(f"enriched {PATTERNS_YAML.relative_to(REPO_ROOT)}:")
+    print(f"enriched {PATTERNS_JSON.relative_to(REPO_ROOT)}:")
     print(f"  {n_check} check records (added pattern_number, patterns_md_heading, patterns_md_body)")
     print(f"  {len(extra_entries)} extra entries (folded/manual)")
     print(f"  _meta: preamble + toc_body + evidence_body + meta_check_body")
 
 
 def render():
-    """Read patterns.yaml and emit patterns.md text."""
-    data = yaml.safe_load(PATTERNS_YAML.read_text())
+    """Read patterns.json and emit patterns.md text."""
+    data = json.loads(PATTERNS_JSON.read_text())
     meta = data.get("_meta", {})
     extras = data.get("_extra_entries", [])
 

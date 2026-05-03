@@ -22,10 +22,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "grade.py")
+_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "scripts" / "grade.py")
 _grade = importlib.util.module_from_spec(_spec)
 if _spec.loader is None:
-    raise RuntimeError("Could not load humanise/grade.py")
+    raise RuntimeError("Could not load humanise/scripts/grade.py")
 _spec.loader.exec_module(_grade)
 
 ALL_CHECKS = _grade.ALL_CHECKS

@@ -23,8 +23,8 @@ if result.stderr:
 
 if result.returncode != 0:
     print()
-    print("FAIL: humanise/references/patterns.md is out of sync with humanise/patterns.yaml.")
-    print("      Edit patterns.yaml, then regenerate:")
+    print("FAIL: humanise/references/patterns.md is out of sync with humanise/scripts/patterns.json.")
+    print("      Edit patterns.json, then regenerate:")
     print("      python3 dev/tools/render_patterns_md.py --write")
     sys.exit(1)
 

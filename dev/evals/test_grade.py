@@ -12,19 +12,19 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "grade.py")
+_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "scripts" / "grade.py")
 _grade = importlib.util.module_from_spec(_spec)
 if _spec.loader is None:
-    raise RuntimeError("Could not load humanise/grade.py")
+    raise RuntimeError("Could not load humanise/scripts/grade.py")
 _spec.loader.exec_module(_grade)
 
 ALL_CHECKS = _grade.ALL_CHECKS
 
 # CHECK_METADATA was removed from grade.py in U7 (audit-report redesign).
-# Reconstruct the four-field metadata view from humanise/patterns.yaml so the
+# Reconstruct the four-field metadata view from humanise/scripts/patterns.json so the
 # severity-propagation and failure-mode meta-tests below keep working.
-import yaml as _yaml
-_patterns_data = _yaml.safe_load((ROOT / "humanise" / "patterns.yaml").read_text())
+import json as _json
+_patterns_data = _json.loads((ROOT / "humanise" / "scripts" / "patterns.json").read_text())
 CHECK_METADATA = {
     _cid: {k: _rec[k] for k in ("severity", "failure_modes", "evidence_role", "guidance")}
     for _cid, _rec in _patterns_data.items()

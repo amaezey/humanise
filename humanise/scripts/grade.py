@@ -11,7 +11,7 @@ import uuid
 from pathlib import Path
 from statistics import stdev
 
-# grade.py runs both as a script (python3 humanise/grade.py) and as an imported
+# grade.py runs both as a script (python3 humanise/scripts/grade.py) and as an imported
 # module (test_grade.py and run_skill_creator_iteration.py load it via
 # importlib.util.spec_from_file_location). Ensure humanise/ is on sys.path so
 # `import registries` resolves in both invocation modes.
@@ -2037,7 +2037,7 @@ def _aggregates(results):
 def human_report(results):
     """Return the audit-format-v1 contract payload — structured data only.
 
-    Schema: humanise/contracts/audit-format-v1.json. The renderer composes
+    Schema: humanise/scripts/contracts/audit-format-v1.json. The renderer composes
     user-facing prose by combining contract data with templates (vocabulary.yml
     in U9; hardcoded inline in U8).
     """
@@ -2432,6 +2432,7 @@ def _render_judgement_composite_item(item, record, label, status_label):
         "templates.agent_judgement_genre_with_findings",
         label=label, status=status_label, genre=genre,
     )]
+
 
 
 def _short_pressure_explanation(pressure):

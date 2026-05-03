@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Tests for humanise/vocabulary.yml — user-facing strings + prose templates.
+"""Tests for humanise/scripts/vocabulary.json — user-facing strings + prose templates.
 
 Covers U9 of the audit-report redesign plan:
 - load_vocabulary() shape + schema_version pin
 - key-existence for every key the renderer reads
 - string_for() placeholder substitution + fail-fast cases
 - byte-equivalence: refactored renderer preserves the legacy text on a fixed
-  set of canonical strings (catches accidental edits to vocabulary.yml)
+  set of canonical strings (catches accidental edits to vocabulary.json)
 
 Run: python3 dev/evals/test_vocabulary.py
 """
@@ -17,6 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 HUMANISE = ROOT / "humanise"
+SCRIPTS = HUMANISE / "scripts"
 
 
 def _load_module(name, path):
@@ -24,13 +25,13 @@ def _load_module(name, path):
     if spec is None or spec.loader is None:
         raise RuntimeError(f"could not load {path}")
     module = importlib.util.module_from_spec(spec)
-    if str(HUMANISE) not in sys.path:
-        sys.path.insert(0, str(HUMANISE))
+    if str(SCRIPTS) not in sys.path:
+        sys.path.insert(0, str(SCRIPTS))
     spec.loader.exec_module(module)
     return module
 
 
-registries = _load_module("registries", HUMANISE / "registries.py")
+registries = _load_module("registries", SCRIPTS / "registries.py")
 
 FAILURES = 0
 
@@ -89,7 +90,7 @@ REQUIRED_SECTIONS = {
 
 missing_sections = sorted(REQUIRED_SECTIONS - set(vocab))
 if missing_sections:
-    fail(f"vocabulary.yml missing required sections: {missing_sections}")
+    fail(f"vocabulary.json missing required sections: {missing_sections}")
 else:
     ok(f"every required top-level section present ({len(REQUIRED_SECTIONS)})")
 
@@ -330,7 +331,7 @@ print("\n=== renderer integration ===")
 
 import re as _re  # noqa: E402
 
-renderer_source = (HUMANISE / "grade.py").read_text()
+renderer_source = (HUMANISE / "scripts" / "grade.py").read_text()
 
 # These literals would be the legacy hardcoded forms. If any reappear in
 # grade.py, U9's "no hardcoded user-facing strings" claim is broken.
@@ -353,7 +354,7 @@ residual = [lit for lit in LEGACY_LITERALS if lit in renderer_source]
 if residual:
     fail(
         f"grade.py still contains legacy hardcoded user-facing strings: {residual}. "
-        f"Move them to vocabulary.yml."
+        f"Move them to vocabulary.json."
     )
 else:
     ok(f"grade.py contains no legacy hardcoded user-facing strings ({len(LEGACY_LITERALS)} checked)")
