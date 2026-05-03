@@ -44,7 +44,7 @@ The agent reads `humanise/scripts/judgement.json` for the eight-item registry, d
 ```
 Audit
 Auto-detected: 13 of 48 flagged · Agent-assessed: 3 of 8 flagged
-Severity: 2 hard fail · 11 strong warning · 3 context warning
+Severity: 2 hard fail · 10 strong warning · 4 context warning
 Signal stacking: triggered — 9 of 4 threshold (formulaic openings, assistant residue, generic conclusion endings)
 
 ! **Clustered AI vocabulary** — "enduring", "landscape", "pivotal" (+4 more)
@@ -60,7 +60,7 @@ x **Generic conclusion** — "the future looks bright", "exciting times", "conti
 ! **Corporate AI-speak** — "cross-functional"
 ! **Vague attributions** — "observers have noted"
 ! **Knowledge-cutoff disclaimers** — "based on available information", "while specific details are limited"
-! **Structural monotony** — every section follows the same arc
+? **Structural monotony** — every section follows the same arc
 ! **Tonal uniformity** — register holds without breaks
 ! **Neutrality collapse** — hedges its position
 
@@ -100,7 +100,7 @@ Checks that are judged by an LLM based on reading the whole draft.
 
 | Pattern | Severity | Result | Detail |
 | --- | --- | --- | --- |
-| Structural monotony | strong warning | Flagged | (see above) |
+| Structural monotony | context warning | Flagged | (see above) |
 | Tonal uniformity | strong warning | Flagged | (see above) |
 | Faux specificity | strong warning | Clear |  |
 | Neutrality collapse | strong warning | Flagged | (see above) |
