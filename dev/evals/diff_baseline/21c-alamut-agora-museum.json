@@ -268,10 +268,6 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
-      "matches": [
-        "not only an archaic invention but",
-        "not just of the writer but"
-      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -1375,10 +1371,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [
-            "not only an archaic invention but",
-            "not just of the writer but"
-          ],
+          "quoted_phrases": [],
           "raw": {
             "evidence": "Found 2 contrived contrast/reframe pattern(s)",
             "evidence_role": "rhetorical_pattern",
@@ -1386,10 +1379,6 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
-            "matches": [
-              "not only an archaic invention but",
-              "not just of the writer but"
-            ],
             "severity": "strong_warning"
           }
         },

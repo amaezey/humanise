@@ -281,11 +281,6 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
-      "matches": [
-        "not only as a grieving widow but",
-        "not merely background. they expose the limits of expertise. doctors know things didion does not know, but",
-        "are not merely background. they expose the limits of expertise. doctors know things didion does not know, but"
-      ],
       "passed": false,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -1441,11 +1436,7 @@
         "evidence": {
           "counts": {},
           "locations": [],
-          "quoted_phrases": [
-            "not only as a grieving widow but",
-            "not merely background. they expose the limits of expertise. doctors know things didion does not know, but",
-            "are not merely background. they expose the limits of expertise. doctors know things didion does not know, but"
-          ],
+          "quoted_phrases": [],
           "raw": {
             "evidence": "Found 3 contrived contrast/reframe pattern(s)",
             "evidence_role": "rhetorical_pattern",
@@ -1453,11 +1444,6 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
-            "matches": [
-              "not only as a grieving widow but",
-              "not merely background. they expose the limits of expertise. doctors know things didion does not know, but",
-              "are not merely background. they expose the limits of expertise. doctors know things didion does not know, but"
-            ],
             "severity": "strong_warning"
           }
         },

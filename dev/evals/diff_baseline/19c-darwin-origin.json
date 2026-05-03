@@ -239,7 +239,6 @@
         "synthetic_significance"
       ],
       "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
-      "matches": [],
       "passed": true,
       "severity": "strong_warning",
       "text": "no-negative-parallelisms"
@@ -1242,7 +1241,6 @@
               "synthetic_significance"
             ],
             "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
-            "matches": [],
             "severity": "strong_warning"
           }
         },

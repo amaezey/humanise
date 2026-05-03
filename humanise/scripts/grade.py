@@ -957,11 +957,18 @@ def check_negative_parallelisms(text):
     for pat in hard_patterns + abstract_reframe_patterns:
         matches.extend(re.findall(pat, normalized, flags=re.IGNORECASE | re.DOTALL))
     count = len(matches)
-    cleaned_matches = [re.sub(r"\s+", " ", m).strip() for m in matches]
+    # Phrase capture intentionally omitted: hard_patterns relies on
+    # normalize_for_regex (lowercased text, em→` - ` replacement, smart→
+    # straight quotes). Captured spans come from normalized text and don't
+    # substring-match the original input, which breaks the audit-shape
+    # 'every flagged item shows a phrase from the input' check. Re-running
+    # the regex against the original misses too many true matches because
+    # the patterns were tuned around the normalized form. The check still
+    # flags by count; the flagged item renders as the bare `<glyph> <name>`
+    # shape rather than `<glyph> <name>: "<phrase>"`.
     return {
         "text": "no-negative-parallelisms",
         "passed": count == 0,
-        "matches": cleaned_matches if count > 0 else [],
         "evidence": (
             f"Found {count} contrived contrast/reframe pattern(s)"
             if count > 0
