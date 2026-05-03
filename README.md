@@ -12,23 +12,15 @@ This skill turns those patterns into a regex/density grader (49 programmatic che
 
 ## What it does
 
-Give it text and the skill can:
+The skill runs an **Audit** first: a summary block (counts, severity, signal stacking) plus every flagged pattern with the quoted phrase from the input. Auto-detected patterns first, then agent-assessed.
 
-1. **Audit**: list flagged patterns, quoting the input, with a one-line "why" for each.
-2. **Suggestions**: for each flag, propose a concrete alternative phrasing.
-3. **Rewrite**: Balanced (fix surface and strong patterns, leave structural ones) or All (also rework structural ones).
-4. **Write**: produce a fresh draft to a brief, with the patterns held in mind.
-5. **Save report**: write the audit or before/after comparison to Markdown.
+The audit ends with a prompt: full coverage report, suggestions, rewrite, or save. Each runs only when asked.
 
-The audit always comes first; suggestions and rewrites only happen when asked.
-
-The audit returns three sections. The first two come from a deterministic grader (regex and density checks); the third is the agent reading the text directly.
-
-- **Summary**: a verdict line counting flags by severity, then each flagged pattern with the quoted phrase from the input and the recommended action.
-- **Detected patterns**: a per-category coverage list, so what passed and what was flagged are both visible.
-- **Agent judgement**: eight readings of voice, register, and grounding.
-
-When every check is clear and signal stacking has not triggered, the audit collapses to a single line.
+- **Full coverage report**: the same audit plus coverage tables for every check, regex and agent-assessed.
+- **Suggestions**: alternative phrasing for each flag.
+- **Rewrite**: Balanced (fix surface and strong patterns) or All (also rework structural ones).
+- **Write**: a fresh draft to a brief, with the patterns in mind.
+- **Save report**: writes the audit or before/after comparison to Markdown.
 
 ## Install
 
@@ -53,14 +45,163 @@ Download the latest release zip from <https://github.com/amaezey/humanise/releas
 
 ## Usage
 
-Invoke with `/humanise` or ask Claude to audit, check, humanise, de-AI, clean up, strip AI patterns, or save a Markdown report. Run the grader directly with:
+Invoke with `/humanise` or ask Claude to "audit this", "humanise this", "unsloppify", "strip the AI tells", or "rewrite to sound human". The Audit action runs first; Suggestions, Rewrite, and Write only run when asked.
+
+Run the grader directly with:
 
 ```bash
 python3 humanise/scripts/grade.py --format markdown --depth balanced <file>
 python3 humanise/scripts/grade.py --format markdown --depth all <file>
 ```
 
-`--depth balanced` requires fixing hard-fail and strong-warning patterns; `--depth all` adds context-sensitive ones.
+`--depth balanced` requires fixing hard-fail and strong-warning patterns; `--depth all` adds context-sensitive ones. Add `--judgement-file <path>` to merge a pre-computed agent-judgement reading into the audit; add `--full-report` for the deeper coverage view (per-category sub-tables and full phrase lists).
+
+## Patterns
+
+55 numbered patterns, five sub-letter variants, and one aggregate meta-check across 8 categories. Full before/after examples in `humanise/references/patterns.md`. The **Source** column names the primary external attribution; "Wikipedia (editor consensus)" indicates the pattern is in the WikiProject AI Cleanup catalogue without an external upstream citation. The **Check** column says how the pattern is detected: `regex` runs against the text deterministically (49 programmatic checks), `agent` runs as a small LLM reading on the whole draft (8 items in `humanise/scripts/judgement.json`), `pending` is catalogued but not yet implemented. The **Severity** column reports the enforcement tier (`hard_fail`, `strong_warning`, `context_warning`).
+
+| # | Pattern | Source | Check | Severity | Example |
+|---|---|---|---|---|---|
+| | **Content** | | | | |
+| 1 | Significance inflation | Belcher; Juzek & Ward; Sun et al. (via Wikipedia) | regex | context_warning | "a pivotal moment in the evolution of..." |
+| 2 | Notability claims | Wikipedia (editor consensus); Futurism | regex | strong_warning | Listing media mentions as proof of importance |
+| 3 | Superficial -ing analyses | Reinhart et al. (PNAS 2025); Belcher | regex | strong_warning | "highlighting...", "underscoring...", "reflecting..." |
+| 4 | Promotional language | Wikipedia (editor consensus); Grammarly; Caroll | regex | context_warning | "nestled in the heart of...", "vibrant", "stunning" |
+| 5 | Vague attributions | Wikipedia (editor consensus); Shankar | regex | strong_warning | "Experts argue...", "Industry reports suggest..." |
+| 6 | Formulaic challenges sections | Wikipedia (editor consensus) | pending |  | "Despite these challenges... continues to thrive" |
+| | **Language and grammar** | | | | |
+| 7 | AI vocabulary words and phrases | Kobak et al. (Science Advances 2025); Juzek & Ward; Reinhart; Merrill (WaPo) | regex | strong_warning | "delve", "landscape", "provide a valuable insight" |
+| 8 | Copula avoidance | Geng & Trotta (arxiv 2024) | regex | strong_warning | "serves as", "stands as" instead of "is" |
+| 9 | Contrived contrast / negative parallelism | Russell, Karpinska, Iyyer (ACL 2025); Stockton; Kriss/NYT | regex | strong_warning | "It's not X; it's Y" / "It's Y, not X" |
+| 10 | Rule of three | Russell; Kriss/NYT; Guo | regex | context_warning | Forcing ideas into triads |
+| 10a | Triad density |  | regex | context_warning | The density variant of #10 rule of three: three or more triads in a paragraph or short passage. |
+| 11 | Synonym cycling | Belcher (Chronicle); stylometry research | pending |  | "the protagonist... the main character... the central figure" |
+| 12 | False ranges | Wikipedia (editor consensus) | pending |  | "from X to Y, from A to B" |
+| 53 | Vocabulary diversity |  | regex | context_warning | A coarse type-token ratio metric for prose of 150+ words: low ratios suggest narrow vocabulary. |
+| | **Style** | | | | |
+| 13 | Boldface overuse | Wikipedia (editor consensus); Guo | regex | context_warning | Mechanical bolding of terms that don't need emphasis |
+| 14 | Inline-header lists | Wikipedia (editor consensus); Guo; Shankar | regex | strong_warning | Bolded label + colon turning prose into slides |
+| 15 | Title case in headings | Russell, Karpinska, Iyyer (ACL 2025); Grammarly | regex | context_warning | "Strategic Negotiations And Global Partnerships" |
+| 16 | Emojis in professional content | Wikipedia (editor consensus); Guo | regex | context_warning | Emoji-led bullet points |
+| 17 | Curly quotation marks | Wikipedia (editor consensus) | regex | context_warning | "..." instead of "..." |
+| 18 | Hyphenated modifier clusters | Wikipedia (editor consensus) | regex | context_warning | 3+ hyphenated compounds in one sentence |
+| 49 | Em dashes |  | regex | strong_warning | ChatGPT and similar systems use the em dash (`—`) as default mid-sentence punctuation. |
+| | **Communication** | | | | |
+| 19 | Collaborative artifacts | Wikipedia (editor consensus); OpenAI sycophancy rollback; Guo | regex | hard_fail | "I hope this helps!", "Let me know if..." |
+| 20 | Knowledge-cutoff disclaimers | Wikipedia (editor consensus) | regex | strong_warning | "as of my last training update..." |
+| 21 | Sycophantic/servile tone | OpenAI sycophancy rollback (April 2025); Kriss/NYT | regex | hard_fail | "Great question!", "You're absolutely right!" |
+| | **Filler and hedging** | | | | |
+| 22 | Filler phrases | Wikipedia (editor consensus); Grammarly; Guo | regex | strong_warning | "In today's fast-paced world", "Generally speaking" |
+| 23 | Excessive hedging | Wikipedia (editor consensus); Grammarly; Stanford HAI / Liang et al. | regex | context_warning | "It could potentially possibly be argued..." |
+| 23a | False balance or concession | Chiang (via Vollmer); Wikipedia (editor consensus); Abdulhai (adjacent) | regex | strong_warning | "While critics argue..., supporters say...", "the truth lies somewhere in the middle" |
+| 24 | Generic positive conclusions | Wikipedia (editor consensus); Shankar; Caroll | regex | hard_fail | "The future looks bright", "Exciting times lie ahead" |
+| 25 | Staccato rhythm | Shankar; Guo; Caroll | regex | context_warning | Short sentences at predictable positions |
+| 47 | Soft explainer scaffolding |  | regex | strong_warning | "One useful area...", "Another useful area...", "The main strength..." |
+| 48 | Dense negation |  | regex | context_warning | Clusters of "is not", "are not", "does not", "isn't", "aren't"... |
+| 50 | Formulaic openers |  | regex | strong_warning | "At its core,", "At a foundational level,", "Beyond this..." |
+| | **Sensory and atmospheric** | | | | |
+| 26 | Ghost/spectral language | Kriss/NYT; corpus measurement | regex | context_warning | shadows, whispers, echoes, phantoms |
+| 27 | Quietness obsession | Kriss/NYT | regex | context_warning | "quiet" 10 times in 759 words about pebbles |
+| 28 | Forced synesthesia | Kriss/NYT | agent | context_warning | "grief tasting of metal", "hands humming with colour" |
+| | **Structural tells** | | | | |
+| 29 | Mid-sentence rhetorical questions | Guo; Kriss/NYT | regex | context_warning | "The solution? It's simpler than you think." |
+| 30 | Generic/ungrounded metaphors | Guo; Kriss/NYT; Caroll | agent | strong_warning | Plausible but specific to nobody |
+| 31 | Excessive list-making | Guo; Shankar | regex | context_warning | Converting prose to bullets unnecessarily |
+| 31a | Decorative Unicode | Guo; Wikipedia (editor consensus); corpus | regex | context_warning | Arrows, checkmarks, stars, ornamental bullets, emoji-style symbols in prose |
+| 32 | Dramatic narrative transitions | Guo | regex | context_warning | "Something shifted.", "Everything changed." |
+| 38 | Section scaffolding | Wikipedia (editor consensus) | regex | strong_warning | "Let's explore...", "Let's dive into..." |
+| 42 | Manufactured insight framing |  | regex | strong_warning | "what's really", "the real answer", "here's what's really" |
+| 44 | Signposted conclusion |  | regex | context_warning | "In summary,", "In conclusion,", "To summarise,", "To sum up,..." |
+| 52 | Sentence rhythm variance |  | regex | context_warning | A coarse rhythm metric for prose of 100+ words: low variance suggests mechanical pacing. |
+| 54 | Structural monotony |  | agent | context_warning | Every section follows the same arc — opener, supporting argument, micro-conclusion, repeat. |
+| | **Voice and register** | | | | |
+| 33 | Countdown negation | Practitioner guides (aidetectors.io, seoengine.ai, SAGE) | regex | context_warning | "It wasn't X. It wasn't Y. It was Z." |
+| 34 | Per-paragraph miniature conclusions | Shankar; practitioner guides | regex | context_warning | Every paragraph wraps up neatly |
+| 35 | Tonal uniformity / register lock | Practitioner guides; Caroll; Guo | agent | strong_warning | One register throughout, no human drift |
+| 35a | Vague 'this/that' starts | Shankar; Vollmer | regex | context_warning | "This highlights...", "This underscores...", "That speaks to..." |
+| 35b | Repeated 'This...' chains |  | regex | context_warning | Three or more consecutive sentences beginning with "This [verb]": "This shows... This suggests... This means..." |
+| 36 | Faux specificity | Practitioner guides; Caroll; Guo | agent | strong_warning | "The smell of coffee on a Sunday morning", specific to nobody |
+| 37 | Neutrality collapse | Abdulhai et al. (arxiv 2603.18161) | agent | strong_warning | Stripping the author's stance, defaulting to balanced |
+| 39 | Placeholder residue | Gmelius (via Vollmer) | regex | hard_fail | `{client_name}`, `[Company Name]`, `[insert date]`, "Hi {name}" |
+| 40 | Rubric echoing | Vollmer | regex | context_warning | "the author creates a tone", "I can tell because", "this quote shows that" |
+| 41 | Genre-specific manual checks | Walsh (arxiv 2024); Clarke/Clarkesworld; Vollmer; genre-survey synthesis | agent | context_warning | Genre-aware self-audit (academic / student essay / poetry / fiction). |
+| 43 | Corporate AI-speak |  | regex | strong_warning | "delivering impact", "measurable outcomes", "scalable, production-grade" |
+| 45 | Nonliteral land/surface phrasing |  | regex | strong_warning | "the argument lands", "the idea lands", "your point lands" |
+| 46 | Bland critical template |  | regex | strong_warning | "the kind of contemporary novel/film/book/album/show that..." |
+| 51 | Mechanical repeated sentence starts |  | regex | context_warning | Three or more consecutive sentences whose first word matches: "The X… The Y… The Z…" |
+| 55 | Even jargon distribution |  | agent | context_warning | Jargon spreads uniformly across the text instead of clumping where the writer knows things. |
+| | **Signal stacking** | | | | |
+| | Signal stacking from stacked AI tells | | regex | context_warning | Stacked weak signals reaching the threshold (e.g., "headings in prose, assistant residue, generic conclusion") |
+
+Density and stacking matter more than any single occurrence. The grader's `overall-signal-stacking` check fires when several weaker patterns appear together; that is usually a stronger signal than any individual flag.
+
+## Representative output
+
+Default audit on `dev/evals/samples/generated-ai/ai-12-better-emails.md`:
+
+```text
+**Audit summary**
+Auto-detected: 6 of 48 flagged · Agent-assessed: 0 of 0 flagged
+Severity: 1 hard fail · 1 strong warning · 4 context warning
+Signal stacking triggered: 8 of 4 threshold (contrived contrast framing, paragraph length uniformity, headings in prose, assistant residue)
+
+**Auto-detected**
+
+x Assistant residue: "let me know if"
+! Contrived contrast: "are not clear about the purpose, the reader probably will not"
+? Mechanical repeated sentence starts: "If you need a reply, say so.", "If you need approval, say what is being approved.", "If no action is needed, say that too."
+? Headings in prose: "# How to Write Better Emails", "# How to Write Better Emails"
+? Paragraph length uniformity: paragraph length variation 0.13 across 13 paragraphs (target above 0.18)
+? Triad density: "people communicate at work, school, and in everyday administration", "email can save time, reduce confusion, and make it more likely", "confirming details, sending a document, or following up on a" (+6 more)
+
+**Agent-assessed**
+
+No agent-assessed reading was supplied.
+
+**Next steps**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
+```
+
+Re-running with `--full-report` keeps the same audit body and inserts a brief note plus per-category coverage tables under each mini-header. The full phrase list also drops the `(+N more)` cap. Excerpt of what's added under `**Auto-detected**`:
+
+```text
+Checks the script runs against the text directly.
+
+**Content patterns**: 5/5 clear
+
+**Language and grammar**: 2 flagged of 6
+
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| Clustered AI vocabulary | strong warning | Clear |  |
+| Contrived contrast | strong warning | Flagged | Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced. |
+| Avoiding plain 'is' | strong warning | Clear |  |
+| Decorative three-part lists | context warning | Clear |  |
+| Vocabulary diversity | context warning | Clear |  |
+| Triad density | context warning | Flagged | Fix density-driven triads; recommend preserving if lists are structural or rhetorical. |
+
+[... seven more category sub-tables in patterns.md heading order ...]
+```
+
+Rewrite workflows include the rewritten draft, a structural self-check, and the post-check report.
+
+## Performance
+
+Each iteration runs the skill against an eval suite. The block below is auto-generated.
+
+<!-- performance:start -->
+**iteration-7** (2026-05-03T12:27:19Z)
+
+- Mean pass rate: 99.1% across 18 evals
+- Human-vs-ai_fresh flag gap: total -5% / strong +11%
+- Human-vs-ai_rewrite flag gap: total -20% / strong +44%
+- Regressions vs prev iteration: 0
+
+[Full report](dev/skill-workspace/iteration-7/performance-report.md)
+<!-- performance:end -->
+
+The "human-vs-ai gap" lines are the load-bearing claim. Humans should trigger fewer flags than AI in matched-genre comparisons. In long-form essay register, the gap is small on totals and inverted on strong signals. The numbers come from the most recent eval suite; the iteration harness rewrites the block on each run.
 
 ## What testing showed
 
@@ -94,151 +235,6 @@ The findings above shape how the skill talks:
 
 - **To a human writer:** flagged patterns mark review priorities. Keep them where they have been earned.
 - **To itself, when rewriting:** strip them by default. AI does these patterns badly even when humans do not have to.
-
-## Performance
-
-Each iteration runs the skill against an eval suite. The block below is auto-generated.
-
-<!-- performance:start -->
-**iteration-7** (2026-05-03T12:27:19Z)
-
-- Mean pass rate: 99.1% across 18 evals
-- Human-vs-ai_fresh flag gap: total -5% / strong +11%
-- Human-vs-ai_rewrite flag gap: total -20% / strong +44%
-- Regressions vs prev iteration: 0
-
-[Full report](dev/skill-workspace/iteration-7/performance-report.md)
-<!-- performance:end -->
-
-The "human-vs-ai gap" lines are the load-bearing claim. Humans should trigger fewer flags than AI in matched-genre comparisons. In long-form essay register, the gap is small on totals and inverted on strong signals. The numbers come from the most recent eval suite; the iteration harness rewrites the block on each run.
-
-## Representative output
-
-Excerpt from `python3 humanise/scripts/grade.py --format markdown --depth all dev/evals/samples/generated-ai/ai-12-better-emails.md`:
-
-```text
-Audit
-Severity: 1 hard fail · 1 strong warning · 4 context warning · signal stacking: triggered
-Signal stacking triggered: weaker AI-writing signals stacked to 8 of the 4-point threshold (contrived contrast framing, paragraph length uniformity, headings in prose, assistant residue).
-
-? **Mechanical repeated sentence starts** — Action: Fix
-x **Assistant residue** — "let me know if" — Action: Fix
-! **Contrived contrast** — Action: Fix
-? **Headings in prose** — "# How to Write Better Emails", "# How to Write Better Emails" — Action: Fix
-? **Paragraph length uniformity** — Action: Fix
-? **Triad density** — "people communicate at work, school, and in everyday administration", "email can save time, reduce confusion, and make it more likely", "confirming details, sending a document, or following up on a" (+6 more) — Action: Fix
-
----
-
-**Content patterns** — 5/5 clear
-
-**Language and grammar** — 2 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Clustered AI vocabulary | Clear |  |
-| Contrived contrast | Flagged | Fix |
-| Avoiding plain 'is' | Clear |  |
-| Decorative three-part lists | Clear |  |
-| Vocabulary diversity | Clear |  |
-| Triad density | Flagged | Fix |
-
-[...]
-```
-
-Rewrite workflows include the rewritten draft, a structural self-check, and the post-check report.
-
-## Patterns
-
-53 numbered patterns, five sub-letter variants, and one aggregate meta-check across 8 categories. Full before/after examples in `humanise/references/patterns.md`. The Source column names the primary external attribution; "Wikipedia (editor consensus)" indicates the pattern is in the WikiProject AI Cleanup catalogue without an external upstream citation. The Severity column reports the grader's enforcement tier (`hard_fail`, `strong_warning`, `context_warning`); blank cells are catalogued patterns without their own programmatic check (covered by the agent-judgement readings, folded into a parent check, or pending Source curation).
-
-| # | Pattern | Source | Severity | Example |
-|---|---|---|---|---|
-| | **Content** | | | |
-| 1 | Significance inflation | Belcher; Juzek & Ward; Sun et al. (via Wikipedia) | context_warning | "a pivotal moment in the evolution of..." |
-| 2 | Notability claims | Wikipedia (editor consensus); Futurism | strong_warning | Listing media mentions as proof of importance |
-| 3 | Superficial -ing analyses | Reinhart et al. (PNAS 2025); Belcher | strong_warning | "highlighting...", "underscoring...", "reflecting..." |
-| 4 | Promotional language | Wikipedia (editor consensus); Grammarly; Caroll | context_warning | "nestled in the heart of...", "vibrant", "stunning" |
-| 5 | Vague attributions | Wikipedia (editor consensus); Shankar | strong_warning | "Experts argue...", "Industry reports suggest..." |
-| 6 | Formulaic challenges sections | Wikipedia (editor consensus) |  | "Despite these challenges... continues to thrive" |
-| | **Language and grammar** | | | |
-| 7 | AI vocabulary words and phrases | Kobak et al. (Science Advances 2025); Juzek & Ward; Reinhart; Merrill (WaPo) | strong_warning | "delve", "landscape", "provide a valuable insight" |
-| 8 | Copula avoidance | Geng & Trotta (arxiv 2024) | strong_warning | "serves as", "stands as" instead of "is" |
-| 9 | Contrived contrast / negative parallelism | Russell, Karpinska, Iyyer (ACL 2025); Stockton; Kriss/NYT | strong_warning | "It's not X; it's Y" / "It's Y, not X" |
-| 10 | Rule of three | Russell; Kriss/NYT; Guo | context_warning | Forcing ideas into triads |
-| 10a | Triad density |  | context_warning | The density variant of #10 rule of three: three or more triads in a paragraph or short passage. |
-| 11 | Synonym cycling | Belcher (Chronicle); stylometry research |  | "the protagonist... the main character... the central figure" |
-| 12 | False ranges | Wikipedia (editor consensus) |  | "from X to Y, from A to B" |
-| 53 | Vocabulary diversity |  | context_warning | A coarse type-token ratio metric for prose of 150+ words: low ratios suggest narrow vocabulary. |
-| | **Style** | | | |
-| 13 | Boldface overuse | Wikipedia (editor consensus); Guo | context_warning | Mechanical bolding of terms that don't need emphasis |
-| 14 | Inline-header lists | Wikipedia (editor consensus); Guo; Shankar | strong_warning | Bolded label + colon turning prose into slides |
-| 15 | Title case in headings | Russell, Karpinska, Iyyer (ACL 2025); Grammarly | context_warning | "Strategic Negotiations And Global Partnerships" |
-| 16 | Emojis in professional content | Wikipedia (editor consensus); Guo | context_warning | Emoji-led bullet points |
-| 17 | Curly quotation marks | Wikipedia (editor consensus) | context_warning | "..." instead of "..." |
-| 18 | Hyphenated modifier clusters | Wikipedia (editor consensus) | context_warning | 3+ hyphenated compounds in one sentence |
-| 49 | Em dashes |  | strong_warning | ChatGPT and similar systems use the em dash (`—`) as default mid-sentence punctuation. |
-| | **Communication** | | | |
-| 19 | Collaborative artifacts | Wikipedia (editor consensus); OpenAI sycophancy rollback; Guo | hard_fail | "I hope this helps!", "Let me know if..." |
-| 20 | Knowledge-cutoff disclaimers | Wikipedia (editor consensus) | strong_warning | "as of my last training update..." |
-| 21 | Sycophantic/servile tone | OpenAI sycophancy rollback (April 2025); Kriss/NYT | hard_fail | "Great question!", "You're absolutely right!" |
-| | **Filler and hedging** | | | |
-| 22 | Filler phrases | Wikipedia (editor consensus); Grammarly; Guo | strong_warning | "In today's fast-paced world", "Generally speaking" |
-| 23 | Excessive hedging | Wikipedia (editor consensus); Grammarly; Stanford HAI / Liang et al. | context_warning | "It could potentially possibly be argued..." |
-| 23a | False balance or concession | Chiang (via Vollmer); Wikipedia (editor consensus); Abdulhai (adjacent) | strong_warning | "While critics argue..., supporters say...", "the truth lies somewhere in the middle" |
-| 24 | Generic positive conclusions | Wikipedia (editor consensus); Shankar; Caroll | hard_fail | "The future looks bright", "Exciting times lie ahead" |
-| 25 | Staccato rhythm | Shankar; Guo; Caroll | context_warning | Short sentences at predictable positions |
-| 47 | Soft explainer scaffolding |  | strong_warning | "One useful area...", "Another useful area...", "The main strength..." |
-| 48 | Dense negation |  | context_warning | Clusters of "is not", "are not", "does not", "isn't", "aren't"... |
-| 50 | Formulaic openers |  | strong_warning | "At its core,", "At a foundational level,", "Beyond this..." |
-| | **Sensory and atmospheric** | | | |
-| 26 | Ghost/spectral language | Kriss/NYT; corpus measurement | context_warning | shadows, whispers, echoes, phantoms |
-| 27 | Quietness obsession | Kriss/NYT | context_warning | "quiet" 10 times in 759 words about pebbles |
-| 28 | Forced synesthesia | Kriss/NYT |  | "grief tasting of metal", "hands humming with colour" |
-| | **Structural tells** | | | |
-| 29 | Mid-sentence rhetorical questions | Guo; Kriss/NYT | context_warning | "The solution? It's simpler than you think." |
-| 30 | Generic/ungrounded metaphors | Guo; Kriss/NYT; Caroll |  | Plausible but specific to nobody |
-| 31 | Excessive list-making | Guo; Shankar | context_warning | Converting prose to bullets unnecessarily |
-| 31a | Decorative Unicode | Guo; Wikipedia (editor consensus); corpus | context_warning | Arrows, checkmarks, stars, ornamental bullets, emoji-style symbols in prose |
-| 32 | Dramatic narrative transitions | Guo | context_warning | "Something shifted.", "Everything changed." |
-| 38 | Section scaffolding | Wikipedia (editor consensus) | strong_warning | "Let's explore...", "Let's dive into..." |
-| 42 | Manufactured insight framing |  | strong_warning | "what's really", "the real answer", "here's what's really" |
-| 44 | Signposted conclusion |  | context_warning | "In summary,", "In conclusion,", "To summarise,", "To sum up,..." |
-| 52 | Sentence rhythm variance |  | context_warning | A coarse rhythm metric for prose of 100+ words: low variance suggests mechanical pacing. |
-| | **Voice and register** | | | |
-| 33 | Countdown negation | Practitioner guides (aidetectors.io, seoengine.ai, SAGE) | context_warning | "It wasn't X. It wasn't Y. It was Z." |
-| 34 | Per-paragraph miniature conclusions | Shankar; practitioner guides | context_warning | Every paragraph wraps up neatly |
-| 35 | Tonal uniformity / register lock | Practitioner guides; Caroll; Guo |  | One register throughout, no human drift |
-| 35a | Vague 'this/that' starts | Shankar; Vollmer | context_warning | "This highlights...", "This underscores...", "That speaks to..." |
-| 35b | Repeated 'This...' chains |  | context_warning | Three or more consecutive sentences beginning with "This [verb]": "This shows... This suggests... This means..." |
-| 36 | Faux specificity | Practitioner guides; Caroll; Guo |  | "The smell of coffee on a Sunday morning", specific to nobody |
-| 37 | Neutrality collapse | Abdulhai et al. (arxiv 2603.18161) |  | Stripping the author's stance, defaulting to balanced |
-| 39 | Placeholder residue | Gmelius (via Vollmer) | hard_fail | `{client_name}`, `[Company Name]`, `[insert date]`, "Hi {name}" |
-| 40 | Rubric echoing | Vollmer | context_warning | "the author creates a tone", "I can tell because", "this quote shows that" |
-| 41 | Genre-specific manual checks | Walsh (arxiv 2024); Clarke/Clarkesworld; Vollmer; genre-survey synthesis |  | Genre-aware self-audit (academic / student essay / poetry / fiction). |
-| 43 | Corporate AI-speak |  | strong_warning | "delivering impact", "measurable outcomes", "scalable, production-grade" |
-| 45 | Nonliteral land/surface phrasing |  | strong_warning | "the argument lands", "the idea lands", "your point lands" |
-| 46 | Bland critical template |  | strong_warning | "the kind of contemporary novel/film/book/album/show that..." |
-| 51 | Mechanical repeated sentence starts |  | context_warning | Three or more consecutive sentences whose first word matches: "The X… The Y… The Z…" |
-| | **Signal stacking** | | | |
-| | Signal stacking from stacked AI tells | | context_warning | Stacked weak signals reaching the threshold (e.g., "headings in prose, assistant residue, generic conclusion") |
-
-Density and stacking matter more than any single occurrence. The grader's `overall-signal-stacking` check fires when several weaker patterns appear together; that is usually a stronger signal than any individual flag.
-
-## Agent-judgement readings
-
-Eight semantic items the regex grader cannot see. The Audit action runs each one as a small reading and returns a binary status. Source: `humanise/scripts/judgement.json`.
-
-| Item | Pattern ref | Schema |
-| --- | --- | --- |
-| Structural monotony |  | trichotomy |
-| Tonal uniformity | #35 | state |
-| Faux specificity | #36 | list |
-| Neutrality collapse | #37 | trichotomy |
-| Even jargon distribution |  | trichotomy |
-| Forced synesthesia | #28 | list |
-| Generic metaphors | #30 | list |
-| Genre-specific watchlist | #41 | composite |
 
 ## Where to be careful
 
