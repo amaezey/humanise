@@ -11,3 +11,7 @@ dev/skill-workspace/iteration-*/
 
 # Local ce-work skill config
 .compound-engineering/
+
+# Agent / Claude project memory — local only, not shared via the repo
+AGENTS.md
+CLAUDE.md
