@@ -69,17 +69,17 @@
     "next_step_prompt": "Want me to re-run with --depth all to inspect lower-tier signals?"
   },
   "templates": {
-    "severity_line": "{hard_fail} hard fail · {strong_warning} strong warning · {context_warning} context warning · signal stacking: {signal_stacking}",
+    "counts_line": "Auto-detected: {auto_flagged} of {auto_total} flagged · Agent-assessed: {agent_flagged} of {agent_total} flagged",
+    "severity_line": "{hard_fail} hard fail · {strong_warning} strong warning · {context_warning} context warning",
     "flagged_pattern_block": "{glyph} **{name}** — {quoted} — Action: {action}",
     "flagged_pattern_block_no_quote": "{glyph} **{name}** — Action: {action}",
     "flagged_pattern_block_no_action": "{glyph} **{name}** — {quoted}",
     "flagged_pattern_block_no_quote_no_action": "{glyph} **{name}**",
     "agent_assessed_flagged_block": "{glyph} **{name}**",
     "category_subtable_heading": "**{category}** — {flagged} flagged of {total}",
-    "category_subtable_header": "| Pattern | Result | Action |",
-    "category_subtable_separator": "| --- | --- | --- |",
+    "category_subtable_header": "| Pattern | Severity | Result | Detail |",
+    "category_subtable_separator": "| --- | --- | --- | --- |",
     "category_collapse": "**{category}** — {clear}/{total} clear",
-    "all_clear_single_line": "{total} of {total} clear · agent reading clean · signal stacking: clear.",
     "agent_judgement_header": "**Agent-judgement reading — {flagged} flagged of {total}**",
     "agent_judgement_clean_header": "**Agent-judgement reading**",
     "agent_judgement_clean_body": "agent reading clean",
@@ -97,12 +97,5 @@
     "signal_stacking_clear": "Signal stacking: clear (weaker AI signals are not accumulating)",
     "signal_stacking_triggered": "Signal stacking: triggered — {score} of {threshold} threshold ({components})",
     "next_step_prompt_with_full_report": "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"
-  },
-  "short_signal_stacking_explanation": {
-    "triggered_with_components": "Signal stacking triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}, plus {vocab_points} clustered AI-vocabulary point(s)).",
-    "triggered_components_only": "Signal stacking triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}).",
-    "triggered_vocab_only": "Signal stacking triggered: {vocab_points} clustered AI-vocabulary point(s) pushed the score to {score} of the {threshold}-point threshold.",
-    "clear_with_components": "Signal stacking clear: weaker AI-writing signals scored {score}, below the {threshold}-point threshold.",
-    "clear_no_components": "Signal stacking clear: no weaker AI-writing signals stacked."
   }
 }

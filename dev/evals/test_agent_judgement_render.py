@@ -211,14 +211,15 @@ else:
     ok("all-clear → '**Agent-judgement reading**' + 'agent reading clean'")
 
 
-# --- only genre slot fires → single block (integration via format_two_layer) ---
+# --- only genre slot fires → both blocks (R9, no collapse, U4) ---
 
-print("\n=== only genre slot fires → single block ===")
+print("\n=== only genre slot fires → both blocks (no collapse) ===")
 
 only_genre_judgement = all_clear_judgement()
 only_genre_judgement[-1] = {
     "id": "genre_specific",
     "status": "flagged",
+    "severity": "context_warning",
     "answer": {
         "genre_detected": "academic",
         "watchlist_findings": [{"phrase": "as we have seen", "why_flagged": "rubric echo"}],
@@ -231,10 +232,12 @@ genre_only_render = with_patched_judgement(
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
 
-if genre_only_render.startswith("Audit\n"):
-    fail(f"only-genre case should suppress programmatic block; got:\n{genre_only_render}")
-elif "Severity:" in genre_only_render:
-    fail(f"only-genre case should suppress programmatic verdict line; got:\n{genre_only_render}")
+# Post-U4 (R9): the programmatic block is always present, but its counts
+# show zero auto-detected flagged. The agent block still renders the genre.
+if not genre_only_render.startswith("Audit\n"):
+    fail(f"only-genre case should still emit the programmatic Audit header (R9, no collapse); got:\n{genre_only_render}")
+elif "Auto-detected: 0 of " not in genre_only_render:
+    fail(f"only-genre case counts line should show 'Auto-detected: 0 of N flagged'; got:\n{genre_only_render}")
 elif "**Agent-judgement reading" not in genre_only_render:
     fail(f"only-genre case should render agent block; got:\n{genre_only_render}")
 elif "Genre detected: academic" not in genre_only_render:
@@ -242,7 +245,7 @@ elif "Genre detected: academic" not in genre_only_render:
 elif "as we have seen" not in genre_only_render:
     fail(f"genre slot should render watchlist findings; got:\n{genre_only_render}")
 else:
-    ok("only-genre-flagged → single agent block (no programmatic block)")
+    ok("only-genre-flagged → programmatic three-line summary + agent block (no collapse)")
 
 
 # --- list-shape item with zero entries → Clear, not empty list ---
@@ -298,24 +301,25 @@ else:
     ok("empty-watchlist genre → 'Genre detected: poetry. Watchlist coverage pending.'")
 
 
-# --- agent findings don't inflate verdict-line severity counts ---
+# --- severity line aggregates agent severities (R2 / R17, U4) ---
 
-print("\n=== verdict line ignores agent findings ===")
+print("\n=== severity line aggregates agent severities ===")
 
-# Build agent-only-flagged scenario: programmatic clear, agent has 3 flagged.
-# Programmatic block must be suppressed entirely; verdict line never appears,
-# so by construction the severity counts from agent findings can't leak in.
+# R17 maps agent severities through the same severity x depth → action mapping
+# as auto-detected. R2's severity counts therefore aggregate auto + agent
+# flagged counts. With 3 agent items flagged at strong_warning, the severity
+# line must include those 3 even though zero auto-detected items are flagged.
 agent_only_flagged = all_clear_judgement()
 agent_only_flagged[0] = {
-    "id": "structural_monotony", "status": "flagged",
+    "id": "structural_monotony", "status": "flagged", "severity": "strong_warning",
     "answer": "every section follows the same arc", "evidence": {},
 }
 agent_only_flagged[1] = {
-    "id": "tonal_uniformity", "status": "flagged",
+    "id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
     "answer": "register holds without breaks", "evidence": {},
 }
 agent_only_flagged[3] = {
-    "id": "neutrality_collapse", "status": "flagged",
+    "id": "neutrality_collapse", "status": "flagged", "severity": "strong_warning",
     "answer": "hedges its position", "evidence": {},
 }
 
@@ -324,34 +328,45 @@ integration_render = with_patched_judgement(
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
 
-# Programmatic block should be absent → no verdict line possible.
-if integration_render.startswith("Audit\n") or "Severity:" in integration_render:
-    fail(f"agent-only-flagged should not surface programmatic verdict line; got:\n{integration_render}")
-# Sanity: the agent block must still report 3 flagged.
+# Post-U4: programmatic block always renders, counts line reports 0 auto + 3 agent flagged,
+# severity line aggregates the 3 strong_warning agent severities.
+if "Auto-detected: 0 of " not in integration_render:
+    fail(f"counts line should show 'Auto-detected: 0 of N flagged'; got:\n{integration_render}")
+elif "Agent-assessed: 3 of 8 flagged" not in integration_render:
+    fail(f"counts line should show 'Agent-assessed: 3 of 8 flagged'; got:\n{integration_render}")
+elif "Severity: 0 hard fail · 3 strong warning · 0 context warning" not in integration_render:
+    fail(f"severity line should aggregate the 3 agent strong_warning items; got:\n{integration_render}")
 elif "**Agent-judgement reading — 3 flagged of 8**" not in integration_render:
     fail(f"agent block should report 3 flagged of 8; got:\n{integration_render}")
 else:
-    ok("agent-only-flagged: programmatic verdict line never emitted (counts can't be inflated)")
+    ok("agent-only-flagged: severity line aggregates agent severities (R2 + R17)")
 
 
-# --- R8 single-line wins when both blocks clear ---
+# --- both halves clear → full three-line summary (R9, no collapse) ---
 
-print("\n=== R8 single-line wins when both halves clear ===")
+print("\n=== both halves clear → full three-line summary ===")
 
 both_clear_render = with_patched_judgement(
     all_clear_judgement(),
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
 
-if "**Agent-judgement reading" in both_clear_render:
-    fail(f"both-clear render should be R8 single-line, not show agent block; "
-         f"got:\n{both_clear_render}")
+# Post-U4: zero-flag draft emits the three-line summary plus the agent
+# block's clean form. No collapse to a single line (R9 retired R8).
+if not both_clear_render.startswith("Audit\n"):
+    fail(f"both-clear render should still emit the Audit header (R9, no collapse); got:\n{both_clear_render}")
+elif "Auto-detected: 0 of " not in both_clear_render:
+    fail(f"both-clear counts line should show 'Auto-detected: 0 of N flagged'; got:\n{both_clear_render}")
+elif "Agent-assessed: 0 of 8 flagged" not in both_clear_render:
+    fail(f"both-clear counts line should show 'Agent-assessed: 0 of 8 flagged'; got:\n{both_clear_render}")
+elif "Severity: 0 hard fail · 0 strong warning · 0 context warning" not in both_clear_render:
+    fail(f"both-clear severity line should be all-zero; got:\n{both_clear_render}")
+elif "**Agent-judgement reading**" not in both_clear_render:
+    fail(f"both-clear render should still surface the agent block (clean form); got:\n{both_clear_render}")
 elif "agent reading clean" not in both_clear_render:
-    fail(f"R8 single-line should mention 'agent reading clean'; got:\n{both_clear_render}")
-elif both_clear_render.count("\n") > 1:
-    fail(f"R8 single-line should be one summary line + next-step prompt; got:\n{both_clear_render}")
+    fail(f"both-clear render should carry the 'agent reading clean' body; got:\n{both_clear_render}")
 else:
-    ok("R8 single-line wins when programmatic + agent both clear")
+    ok("both halves clear → full three-line programmatic summary + clean-form agent block (no collapse)")
 
 
 # --- programmatic flagged + agent clear → both blocks render ---

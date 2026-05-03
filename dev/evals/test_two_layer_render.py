@@ -72,35 +72,53 @@ def flag(cid, evidence_phrases=None, evidence_text="flagged here"):
     return annotate_result(payload)
 
 
-# --- All-clear case (R8) ---
+# --- Zero-flag draft renders the full three-line shape (R9, U4) ---
+#
+# U4 removed the all-clear collapse. A clean draft now emits the full
+# three-line summary with all-zero counts plus a Layer-2 coverage block
+# showing every category collapsed; no single-line shortcut.
 
-print("=== all-clear single-line ===")
+print("=== zero-flag draft renders full three-line summary (no collapse) ===")
 
 clear_render = format_two_layer(all_clear_results(), depth="balanced")
 clear_lines = clear_render.splitlines()
+visible_total = len([cid for cid in ALL_CHECKS if cid != "overall-signal-stacking"])
 
-if "---" in clear_render:
-    fail(f"all-clear render should not include a Layer 1/Layer 2 separator; got:\n{clear_render}")
+if "\n---\n" not in clear_render:
+    fail(f"clean-draft render must include the Layer 1/Layer 2 separator (no collapse); got:\n{clear_render}")
 else:
-    ok("all-clear render carries no Layer 1/Layer 2 separator")
+    ok("clean-draft render keeps the Layer 1/Layer 2 separator")
 
-if len(clear_lines) != 2:
-    fail(f"all-clear render should be two lines (one-liner + next-step prompt); got {len(clear_lines)} lines: {clear_render!r}")
+expected_counts = f"Auto-detected: 0 of {visible_total} flagged · Agent-assessed: 0 of 0 flagged"
+if expected_counts not in clear_render:
+    fail(f"clean-draft render missing counts line {expected_counts!r}; got:\n{clear_render}")
 else:
-    ok("all-clear render is one-line summary plus next-step prompt")
+    ok("clean-draft render carries the counts line with all-zero auto/agent counts")
 
-if "agent reading clean" not in clear_lines[0] or "signal stacking: clear" not in clear_lines[0]:
-    fail(f"all-clear summary missing canonical phrasing; got {clear_lines[0]!r}")
+if "Severity: 0 hard fail · 0 strong warning · 0 context warning" not in clear_render:
+    fail(f"clean-draft render missing all-zero severity line; got:\n{clear_render}")
 else:
-    ok("all-clear summary names agent + signal-stacking status")
+    ok("clean-draft render carries the all-zero severity line")
+
+if "Signal stacking: clear (weaker AI signals are not accumulating)" not in clear_render:
+    fail(f"clean-draft render missing the stand-alone signal-stacking clear line; got:\n{clear_render}")
+else:
+    ok("clean-draft render carries the stand-alone signal-stacking clear line")
+
+# No legacy collapsed shape — the canonical Phase-3 single-line all-clear
+# shape and the inline `· signal stacking: ...` suffix are both retired.
+if "of 48 clear · agent reading clean · signal stacking: clear." in clear_render:
+    fail(f"legacy collapsed all-clear single-line shape should be retired; got:\n{clear_render}")
+else:
+    ok("legacy collapsed all-clear single-line shape is retired")
 
 # Confidence label removed (R14) — must not appear.
 for forbidden in ("Confidence:", "Low.", "Medium.", "High."):
     if forbidden in clear_render:
-        fail(f"all-clear render should not include confidence label {forbidden!r}; got:\n{clear_render}")
+        fail(f"clean-draft render should not include confidence label {forbidden!r}; got:\n{clear_render}")
         break
 else:
-    ok("all-clear render carries no confidence label (R14)")
+    ok("clean-draft render carries no confidence label (R14)")
 
 
 # --- Flagged case: Layer 1 + Layer 2 separator (R1) ---
@@ -182,40 +200,74 @@ for label, glyph in expected_glyphs.items():
         ok(f"{label!r} renders with glyph {glyph!r}")
 
 
-# --- Signal-stacking explanation: single sentence ---
+# --- Three-line summary block (R1, R2, R3 — U4) ---
 
-print("\n=== one-sentence signal-stacking explanation ===")
+print("\n=== three-line summary block ===")
 
-# Layer 1 has: heading, severity_line, signal_stacking_sentence, blank, [blocks...]
+# Layer 1 has: heading, counts_line, severity_line, signal_stacking_line, blank, [blocks...]
 layer_1_lines = [line for line in layer_1.splitlines() if line]
-signal_stacking_line = layer_1_lines[2] if len(layer_1_lines) >= 3 else ""
-if not signal_stacking_line.startswith("Signal stacking"):
-    fail(f"Layer 1 third non-blank line should be signal-stacking explanation; got {signal_stacking_line!r}")
-elif signal_stacking_line.count(".") > 1:
-    fail(f"Signal-stacking explanation should be a single sentence (one period); got {signal_stacking_line!r}")
+if len(layer_1_lines) < 4 or layer_1_lines[0] != "Audit":
+    fail(f"Layer 1 should open with 'Audit' heading; got {layer_1_lines[:4]!r}")
+elif not layer_1_lines[1].startswith("Auto-detected:"):
+    fail(f"Layer 1 second line should be the R1 counts line; got {layer_1_lines[1]!r}")
+elif not layer_1_lines[2].startswith("Severity:"):
+    fail(f"Layer 1 third line should be the R2 severity line; got {layer_1_lines[2]!r}")
+elif "signal stacking:" in layer_1_lines[2].lower():
+    fail(f"R2 severity line should not carry the inline signal-stacking suffix; got {layer_1_lines[2]!r}")
+elif not layer_1_lines[3].startswith("Signal stacking:"):
+    fail(f"Layer 1 fourth line should be the R3 signal-stacking line; got {layer_1_lines[3]!r}")
 else:
-    ok("signal-stacking explanation is a single sentence")
+    ok("Layer 1 opens with the three-line summary block (counts / severity / signal stacking)")
+
+# The R3 signal-stacking line on a non-triggered draft is the canonical
+# 'clear (weaker AI signals are not accumulating)' phrase.
+if "Signal stacking: clear (weaker AI signals are not accumulating)" not in layer_1:
+    fail(f"R3 signal-stacking clear line missing; got:\n{layer_1}")
+else:
+    ok("R3 signal-stacking clear line renders canonical phrasing")
 
 # Confirm legacy multi-sentence prose did not survive.
 if "AI-pressure looks for accumulation" in mixed_render:
     fail("Legacy multi-sentence pressure explanation should be gone")
+elif "weaker AI-writing signals stacked to" in mixed_render:
+    fail("Legacy short_signal_stacking_explanation prose should be gone (U4 dropped the helper)")
 else:
     ok("Legacy multi-sentence signal-stacking explanation removed")
 
 
-# --- Layer 2 sub-table shape (R4) ---
+# --- Layer 2 sub-table shape (R15, R18 — U4 four-column) ---
 
-print("\n=== Layer 2 sub-table shape ===")
+print("\n=== Layer 2 sub-table shape (4-column) ===")
 
-if "| Pattern | Result | Action |" not in layer_2:
-    fail(f"Layer 2 sub-table header should be three-column 'Pattern | Result | Action'; got:\n{layer_2[:600]}")
+if "| Pattern | Severity | Result | Detail |" not in layer_2:
+    fail(f"Layer 2 sub-table header should be the U4 4-column 'Pattern | Severity | Result | Detail'; got:\n{layer_2[:600]}")
 else:
-    ok("Layer 2 sub-table header is three-column")
+    ok("Layer 2 sub-table header is the U4 4-column shape")
 
-if "| --- | --- | --- |" not in layer_2:
-    fail(f"Layer 2 sub-table separator should be three-column; got:\n{layer_2[:600]}")
+if "| --- | --- | --- | --- |" not in layer_2:
+    fail(f"Layer 2 sub-table separator should be 4-column; got:\n{layer_2[:600]}")
 else:
-    ok("Layer 2 sub-table separator is three-column")
+    ok("Layer 2 sub-table separator is 4-column")
+
+# Action column dropped per R18.
+if "| Pattern | Result | Action |" in layer_2 or "Action |" in layer_2.split("**Next step**", 1)[0]:
+    fail(f"Layer 2 should not include the Action column (R18); got:\n{layer_2[:600]}")
+else:
+    ok("Layer 2 does not carry the Action column (R18)")
+
+# Severity column reads the renamed labels (lowercase, space-separated).
+em_dash_row = next(
+    (line for line in layer_2.splitlines() if "Em dashes" in line and "|" in line),
+    None,
+)
+if em_dash_row is None:
+    fail(f"Layer 2 missing Em dashes row; got:\n{layer_2[:600]}")
+elif "| strong warning |" not in em_dash_row:
+    fail(f"Em dashes row should carry severity 'strong warning' (lowercase, space-separated); got {em_dash_row!r}")
+elif "| Flagged |" not in em_dash_row:
+    fail(f"Em dashes row should carry result 'Flagged'; got {em_dash_row!r}")
+else:
+    ok("Layer 2 Em dashes row: severity + Flagged + Detail (guidance) present")
 
 # No legacy six-column shape.
 if "| What it looks for | What happened here | Why this matters |" in layer_2:
@@ -295,11 +347,11 @@ signal_stacking_flagged_results = [
 ]
 signal_stacking_render = format_two_layer(signal_stacking_flagged_results, depth="balanced")
 
-# Verdict line should still report signal stacking: triggered.
-if "signal stacking: triggered" not in signal_stacking_render:
-    fail("Verdict line should report 'signal stacking: triggered' when meta-check is flagged")
+# R3 stand-alone signal-stacking line should report triggered + threshold.
+if "Signal stacking: triggered — 5 of 4 threshold" not in signal_stacking_render:
+    fail(f"R3 line should report 'Signal stacking: triggered — N of M threshold (...)' when meta-check is flagged; got:\n{signal_stacking_render[:600]}")
 else:
-    ok("Verdict line carries signal stacking: triggered")
+    ok("R3 stand-alone line carries 'Signal stacking: triggered — 5 of 4 threshold (...)'")
 
 # But the meta-check itself should not appear as a Layer 1 block or Layer 2 row.
 if "**Signal stacking**" in signal_stacking_render:
@@ -335,14 +387,14 @@ signal_stacking_only_results = [
 ]
 signal_stacking_only_render = format_two_layer(signal_stacking_only_results, depth="balanced")
 
-if "agent reading clean" in signal_stacking_only_render:
-    fail(f"signal-stacking-only failure must not render all-clear; got:\n{signal_stacking_only_render}")
-elif "signal stacking: triggered" not in signal_stacking_only_render:
-    fail(f"signal-stacking-only failure should survive in verdict token; got:\n{signal_stacking_only_render}")
+if "of 48 clear · agent reading clean · signal stacking: clear." in signal_stacking_only_render:
+    fail(f"signal-stacking-only failure must not render the legacy collapsed all-clear line; got:\n{signal_stacking_only_render}")
+elif "Signal stacking: triggered — 5 of 4 threshold" not in signal_stacking_only_render:
+    fail(f"signal-stacking-only failure should surface as the R3 triggered line; got:\n{signal_stacking_only_render}")
 elif "1 context_warning" in signal_stacking_only_render:
     fail(f"suppressed signal-stacking meta-check should not inflate visible severity counts; got:\n{signal_stacking_only_render}")
 else:
-    ok("signal-stacking-only failure renders as signal-stacking triggered without an all-clear line or visible severity count")
+    ok("signal-stacking-only failure renders as 'Signal stacking: triggered — N of M threshold (...)' without inflating severity counts")
 
 
 # --- Phrase cap (3 + overflow) ---
@@ -405,16 +457,77 @@ else:
     ok("All depth maps every flagged severity to Fix")
 
 
-# --- All-clear vs flagged: verify visible total excludes meta-check ---
+# --- U4 unit tests on _format_layer_1 (severity aggregation, judgement counts) ---
+#
+# format_two_layer's `judgement` arg is always [] off the regex contract;
+# real judgement merges happen at U7's --judgement-file site. To exercise
+# severity aggregation and the agent-counts column we call _format_layer_1
+# directly with a synthetic visible+judgement pair.
 
-print("\n=== visible total excludes meta-check ===")
+print("\n=== _format_layer_1 — severity counts aggregate across both blocks ===")
+
+_format_layer_1 = _grade._format_layer_1
+
+# 1 strong-warning auto + 1 strong-warning agent → severity line "0 hard fail · 2 strong warning · 0 context warning".
+synthetic_visible = [
+    {"id": "no-em-dashes", "status": "flagged", "severity": "strong_warning", "category": "Style", "evidence": {"quoted_phrases": ["—"]}, "failure_modes": []},
+] + [
+    {"id": cid, "status": "clear", "severity": "context_warning", "category": "Style", "evidence": {}, "failure_modes": []}
+    for cid in ("no-curly-quotes", "no-boldface-overuse")
+]
+synthetic_judgement = [
+    {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning", "answer": "register holds without breaks", "evidence": {}},
+    {"id": "structural_monotony", "status": "clear", "severity": "context_warning", "answer": "varies", "evidence": {}},
+]
+clear_stacking = {"triggered": False, "score": 0, "threshold": 4, "components": [], "vocabulary_points": 0}
+agg_render = _format_layer_1("Audit", clear_stacking, synthetic_visible, synthetic_judgement, "balanced")
+
+if "Auto-detected: 1 of 3 flagged · Agent-assessed: 1 of 2 flagged" not in agg_render:
+    fail(f"counts line should aggregate auto + agent flagged + total counts; got:\n{agg_render}")
+else:
+    ok("counts line aggregates auto-detected and agent-assessed totals correctly")
+
+if "Severity: 0 hard fail · 2 strong warning · 0 context warning" not in agg_render:
+    fail(f"severity line should aggregate severities across both blocks (1 auto strong + 1 agent strong = 2 strong warning); got:\n{agg_render}")
+else:
+    ok("severity line aggregates severities across auto-detected and agent-assessed flagged items")
+
+
+print("\n=== _format_layer_1 — empty judgement (regex-only invocation) ===")
+
+empty_judgement_render = _format_layer_1("Audit", clear_stacking, synthetic_visible, [], "balanced")
+if "Auto-detected: 1 of 3 flagged · Agent-assessed: 0 of 0 flagged" not in empty_judgement_render:
+    fail(f"empty-judgement counts line should show 'Agent-assessed: 0 of 0 flagged'; got:\n{empty_judgement_render}")
+else:
+    ok("empty-judgement counts line shows 'Agent-assessed: 0 of 0 flagged'")
+
+if "Severity: 0 hard fail · 1 strong warning · 0 context warning" not in empty_judgement_render:
+    fail(f"empty-judgement severity line should aggregate only programmatic counts; got:\n{empty_judgement_render}")
+else:
+    ok("empty-judgement severity line aggregates only programmatic counts")
+
+
+print("\n=== _format_layer_1 — signal stacking triggered line ===")
+
+triggered_stacking = {"triggered": True, "score": 5, "threshold": 4,
+                       "components": ["em dashes", "tonal uniformity"], "vocabulary_points": 1}
+triggered_render = _format_layer_1("Audit", triggered_stacking, synthetic_visible, [], "balanced")
+if "Signal stacking: triggered — 5 of 4 threshold (em dashes, tonal uniformity)" not in triggered_render:
+    fail(f"R3 triggered line should render score / threshold / components; got:\n{triggered_render}")
+else:
+    ok("R3 triggered line renders 'Signal stacking: triggered — 5 of 4 threshold (em dashes, tonal uniformity)'")
+
+
+# --- Counts line uses the visible total (meta-check excluded) ---
+
+print("\n=== counts line auto_total excludes meta-check ===")
 
 clear_count = len([cid for cid in ALL_CHECKS if cid != "overall-signal-stacking"])
-expected_summary = f"{clear_count} of {clear_count} clear"
-if expected_summary not in clear_render:
-    fail(f"all-clear summary should exclude meta-check from visible total; expected {expected_summary!r}, got:\n{clear_render}")
+expected_counts_line = f"Auto-detected: 0 of {clear_count} flagged · Agent-assessed: 0 of 0 flagged"
+if expected_counts_line not in clear_render:
+    fail(f"counts line should report visible auto_total = {clear_count}; expected {expected_counts_line!r}, got:\n{clear_render}")
 else:
-    ok(f"all-clear visible total = {clear_count} (excludes overall-signal-stacking)")
+    ok(f"counts line auto_total = {clear_count} (overall-signal-stacking excluded)")
 
 
 # --- Summary ---

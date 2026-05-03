@@ -85,7 +85,6 @@ REQUIRED_SECTIONS = {
     "section_headings",
     "inline_labels",
     "templates",
-    "short_signal_stacking_explanation",
 }
 
 missing_sections = sorted(REQUIRED_SECTIONS - set(vocab))
@@ -214,13 +213,42 @@ severity_line = registries.string_for(
     hard_fail=0,
     strong_warning=2,
     context_warning=1,
-    signal_stacking="clear",
 )
-expected_severity = "0 hard fail · 2 strong warning · 1 context warning · signal stacking: clear"
+expected_severity = "0 hard fail · 2 strong warning · 1 context warning"
 if severity_line != expected_severity:
     fail(f"severity_line: expected {expected_severity!r}, got {severity_line!r}")
 else:
-    ok("templates.severity_line renders byte-equivalent to expected text")
+    ok("templates.severity_line renders byte-equivalent to expected text (U4 reshape — no inline signal-stacking suffix)")
+
+# U4: counts line is the new R1 first summary line.
+counts_line = registries.string_for(
+    "templates.counts_line",
+    auto_flagged=2, auto_total=48,
+    agent_flagged=1, agent_total=8,
+)
+expected_counts = "Auto-detected: 2 of 48 flagged · Agent-assessed: 1 of 8 flagged"
+if counts_line != expected_counts:
+    fail(f"counts_line: expected {expected_counts!r}, got {counts_line!r}")
+else:
+    ok("templates.counts_line renders byte-equivalent to expected text")
+
+# U4: signal-stacking line — clear (static) and triggered (templated) variants.
+stacking_clear = registries.string_for("templates.signal_stacking_clear")
+expected_clear = "Signal stacking: clear (weaker AI signals are not accumulating)"
+if stacking_clear != expected_clear:
+    fail(f"signal_stacking_clear: expected {expected_clear!r}, got {stacking_clear!r}")
+else:
+    ok("templates.signal_stacking_clear renders byte-equivalent to expected text")
+
+stacking_triggered = registries.string_for(
+    "templates.signal_stacking_triggered",
+    score=5, threshold=4, components="em dashes, tonal uniformity",
+)
+expected_triggered = "Signal stacking: triggered — 5 of 4 threshold (em dashes, tonal uniformity)"
+if stacking_triggered != expected_triggered:
+    fail(f"signal_stacking_triggered: expected {expected_triggered!r}, got {stacking_triggered!r}")
+else:
+    ok("templates.signal_stacking_triggered renders byte-equivalent to expected text")
 
 # Phase 3 dual-layer templates.
 flagged_block = registries.string_for(
@@ -261,25 +289,18 @@ if category_heading != expected_heading:
 else:
     ok("templates.category_subtable_heading renders byte-equivalent to expected text")
 
-# Sub-table separator and header must remain three pipes — Layer 2 contract.
+# U4: 4-column coverage table header + separator (R15 / R18).
 header = registries.string_for("templates.category_subtable_header")
-if header != "| Pattern | Result | Action |":
+if header != "| Pattern | Severity | Result | Detail |":
     fail(f"category_subtable_header drift: got {header!r}")
 else:
-    ok("templates.category_subtable_header preserved")
+    ok("templates.category_subtable_header is the U4 4-column shape")
 
 sep = registries.string_for("templates.category_subtable_separator")
-if sep != "| --- | --- | --- |":
+if sep != "| --- | --- | --- | --- |":
     fail(f"category_subtable_separator drift: got {sep!r}")
 else:
-    ok("templates.category_subtable_separator preserved")
-
-all_clear = registries.string_for("templates.all_clear_single_line", total=48)
-expected_all_clear = "48 of 48 clear · agent reading clean · signal stacking: clear."
-if all_clear != expected_all_clear:
-    fail(f"all_clear_single_line: expected {expected_all_clear!r}, got {all_clear!r}")
-else:
-    ok("templates.all_clear_single_line renders byte-equivalent to expected text")
+    ok("templates.category_subtable_separator is the U4 4-column shape")
 
 # Severity glyphs — Layer 1 per-flagged-pattern blocks.
 for sev, expected_glyph in (("hard_fail", "x"), ("strong_warning", "!"), ("context_warning", "?")):
@@ -305,9 +326,9 @@ else:
     fail("string_for did not raise on unknown key")
 
 try:
-    registries.string_for("templates.all_clear_single_line")  # missing required {total}
+    registries.string_for("templates.counts_line")  # missing required {auto_flagged} etc.
 except KeyError as e:
-    if "total" in str(e) and "all_clear_single_line" in str(e):
+    if "auto_flagged" in str(e) and "counts_line" in str(e):
         ok("string_for raises KeyError naming the missing placeholder + template key")
     else:
         fail(f"string_for placeholder error message unhelpful: {e}")

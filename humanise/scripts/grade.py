@@ -2098,22 +2098,18 @@ SIGNAL_STACKING_META_CHECK = "overall-signal-stacking"
 def format_two_layer(results, depth="balanced", heading="Audit"):
     """Render the audit contract as user-facing Markdown — dual-layer output.
 
-    Layer 1 (orientation): heading, severity-counts verdict line, one-sentence
-    signal-stacking explanation, per-flagged-pattern blocks (glyph + name +
-    quoted phrase + action). Layer 2 (coverage receipt): eight per-category
-    sub-tables keyed to humanise/references/patterns.md headings, with
-    collapsed one-liners for categories where every check is clear.
+    Layer 1 (orientation): heading + the U4 three-line summary block (counts /
+    severity / signal-stacking) + per-flagged-pattern blocks. Layer 2
+    (coverage receipt): eight per-category sub-tables, 4-column shape
+    (Pattern | Severity | Result | Detail) keyed to patterns.md headings,
+    with collapsed one-liners for categories where every check is clear.
 
-    All-clear case (R8): zero programmatic flagged AND zero agent-judgement
-    flagged renders as a single line plus a next-step prompt; no tables, no
-    glyphs, no level label.
+    Phase 4 / U4: the all-clear collapse is gone — a clean draft now renders
+    the full three-line summary with all-zero counts (R9). The
+    `overall-signal-stacking` meta-check is suppressed from both layers; its
+    signal lives in the third summary line.
 
-    The `overall-signal-stacking` meta-check is suppressed from both
-    layers — its signal lives in the verdict line's `signal stacking: …` token.
-
-    Phase 3 (U11). Replaces the legacy format_human_report. Reads
-    structured data from human_report()'s contract; all user-facing strings
-    flow through humanise/scripts/vocabulary.json.
+    All user-facing strings flow through humanise/scripts/vocabulary.json.
     """
     depth_key = depth.lower() if isinstance(depth, str) else "balanced"
     contract = human_report(results)
@@ -2123,30 +2119,16 @@ def format_two_layer(results, depth="balanced", heading="Audit"):
     judgement = contract["agent_judgement"]
 
     visible = [c for c in programmatic if c["id"] != SIGNAL_STACKING_META_CHECK]
-    flagged_visible = [c for c in visible if c["status"] == "flagged"]
-    judgement_flagged = [j for j in judgement if j["status"] == "flagged"]
-
-    if not flagged_visible and not judgement_flagged and not signal_stacking["triggered"]:
-        return _format_all_clear(len(visible))
 
     separator = registries.string_for("section_headings.layer_separator")
-    parts = []
-
-    if flagged_visible or signal_stacking["triggered"]:
-        layer_1 = _format_layer_1(heading, signal_stacking, flagged_visible, depth_key)
-        layer_2 = _format_layer_2(visible, depth_key)
-        parts.append(f"{layer_1}\n\n{separator}\n\n{layer_2}")
+    layer_1 = _format_layer_1(heading, signal_stacking, visible, judgement, depth_key)
+    layer_2 = _format_layer_2(visible, depth_key)
+    parts = [f"{layer_1}\n\n{separator}\n\n{layer_2}"]
 
     if judgement:
         parts.append(format_agent_judgement(judgement))
 
     return f"\n\n{separator}\n\n".join(parts)
-
-
-def _format_all_clear(total):
-    line = registries.string_for("templates.all_clear_single_line", total=total)
-    next_step = registries.string_for("inline_labels.next_step_prompt")
-    return f"{line}\n{next_step}"
 
 
 def _visible_severity_counts(checks):
@@ -2158,25 +2140,65 @@ def _visible_severity_counts(checks):
     return counts
 
 
-def _format_layer_1(heading, signal_stacking, flagged_visible, depth_key):
-    by_sev = _visible_severity_counts(flagged_visible)
+def _format_layer_1(heading, signal_stacking, visible, judgement, depth_key):
+    """Render the U4 three-line summary block + Layer-1 flagged items.
+
+    Lines (R1–R3):
+      1. Counts line: `Auto-detected: X of Y flagged · Agent-assessed: A of B flagged`
+      2. Severity line: `Severity: N hard fail · M strong warning · P context warning`
+         (severity counts aggregate auto-detected + agent-assessed flagged items)
+      3. Signal stacking line: clear (...) or triggered — N of M threshold (...)
+
+    Per-flagged-pattern blocks render below, unchanged from U2 (R6 / no-Action
+    treatment lands in U5).
+    """
+    flagged_visible = [c for c in visible if c["status"] == "flagged"]
+    judgement_flagged = [j for j in judgement if j.get("status") == "flagged"]
+    auto_sev = _visible_severity_counts(flagged_visible)
+    agent_sev = _visible_severity_counts(judgement_flagged)
+    by_sev = {k: auto_sev[k] + agent_sev[k] for k in auto_sev}
+
+    counts_line = registries.string_for(
+        "templates.counts_line",
+        auto_flagged=len(flagged_visible), auto_total=len(visible),
+        agent_flagged=len(judgement_flagged), agent_total=len(judgement),
+    )
     severity_line = registries.string_for(
         "templates.severity_line",
         hard_fail=by_sev["hard_fail"],
         strong_warning=by_sev["strong_warning"],
         context_warning=by_sev["context_warning"],
-        signal_stacking=registries.signal_stacking_status(signal_stacking["triggered"]),
     )
     severity_prefix = registries.string_for("inline_labels.severity_prefix")
+    stacking_line = _signal_stacking_line(signal_stacking)
+
     lines = [
         heading,
+        counts_line,
         f"{severity_prefix} {severity_line}",
-        _short_signal_stacking_explanation(signal_stacking),
+        stacking_line,
         "",
     ]
     for check in flagged_visible:
         lines.append(_layer_1_pattern_block(check, depth_key))
     return "\n".join(lines)
+
+
+def _signal_stacking_line(signal_stacking):
+    """R3 stand-alone signal-stacking line.
+
+    Clear: static reassurance line (no params).
+    Triggered: `Signal stacking: triggered — {score} of {threshold} threshold ({components})`.
+    """
+    if signal_stacking.get("triggered"):
+        components = signal_stacking.get("components") or []
+        return registries.string_for(
+            "templates.signal_stacking_triggered",
+            score=signal_stacking.get("score", 0),
+            threshold=signal_stacking.get("threshold", 0),
+            components=", ".join(components) if components else "—",
+        )
+    return registries.string_for("templates.signal_stacking_clear")
 
 
 def _layer_1_pattern_block(check, depth_key):
@@ -2265,17 +2287,37 @@ def _layer_2_section(category, checks, depth_key):
 
 
 def _layer_2_row(check, depth_key):
+    """4-column coverage row (R15, R18): Pattern | Severity | Result | Detail.
+
+    Severity reads from patterns.json via pattern_for(check_id)["severity"]
+    and renders via severity_label() (lowercase, space-separated). Detail is
+    the pattern's `guidance` field for flagged rows; empty for clear rows.
+    Action column removed (R18); per-row depth-aware action lives in the
+    Layer-1 flagged-items block instead.
+    """
     try:
-        name = registries.pattern_for(check["id"])["short_name"]
+        record = registries.pattern_for(check["id"])
+        name = record["short_name"]
+        severity_key = check.get("severity") or record.get("severity") or "context_warning"
+        guidance = record.get("guidance", "")
     except KeyError:
         name = check["id"]
+        severity_key = check.get("severity") or "context_warning"
+        guidance = ""
+    severity = registries.severity_label(severity_key)
     if check["status"] == "flagged":
         result = registries.status_label("flagged")
-        action = registries.action_label(_action_for_check(check, depth_key))
+        detail = guidance
     else:
         result = registries.status_label("clear")
-        action = ""
-    return f"| {table_cell(name)} | {table_cell(result)} | {table_cell(action)} |"
+        detail = ""
+    del depth_key  # action depth is no longer surfaced in coverage tables (R18)
+    return (
+        f"| {table_cell(name)} "
+        f"| {table_cell(severity)} "
+        f"| {table_cell(result)} "
+        f"| {table_cell(detail)} |"
+    )
 
 
 def _judgement_label(item_id):
@@ -2433,42 +2475,6 @@ def _render_judgement_composite_item(item, record, label, status_label):
         label=label, status=status_label, genre=genre,
     )]
 
-
-
-def _short_signal_stacking_explanation(signal_stacking):
-    """One-sentence signal-stacking explanation for Layer 1.
-
-    Four variants (triggered x components/vocabulary contribution). Strings
-    live in humanise/scripts/vocabulary.json under `short_signal_stacking_explanation`.
-    """
-    components = signal_stacking.get("components") or []
-    vocab_points = signal_stacking.get("vocabulary_points", 0)
-    score = signal_stacking.get("score", 0)
-    threshold = signal_stacking.get("threshold", 0)
-    triggered = signal_stacking.get("triggered", False)
-    components_str = ", ".join(components)
-    if triggered:
-        if components and vocab_points:
-            return registries.string_for(
-                "short_signal_stacking_explanation.triggered_with_components",
-                score=score, threshold=threshold,
-                components=components_str, vocab_points=vocab_points,
-            )
-        if components:
-            return registries.string_for(
-                "short_signal_stacking_explanation.triggered_components_only",
-                score=score, threshold=threshold, components=components_str,
-            )
-        return registries.string_for(
-            "short_signal_stacking_explanation.triggered_vocab_only",
-            score=score, threshold=threshold, vocab_points=vocab_points,
-        )
-    if components or vocab_points:
-        return registries.string_for(
-            "short_signal_stacking_explanation.clear_with_components",
-            score=score, threshold=threshold,
-        )
-    return registries.string_for("short_signal_stacking_explanation.clear_no_components")
 
 
 def _action_for_check(check, depth):
