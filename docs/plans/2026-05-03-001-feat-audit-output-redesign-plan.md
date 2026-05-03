@@ -1,7 +1,7 @@
 ---
 title: "feat: Audit output redesign"
 type: feat
-status: active
+status: completed
 date: 2026-05-03
 origin: dev/brainstorms/2026-05-03-audit-output-redesign-requirements.md
 ---
