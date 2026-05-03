@@ -18,7 +18,7 @@ The audit ends with a prompt: full coverage report, suggestions, rewrite, or sav
 
 - **Full coverage report**: the same audit plus coverage tables for every check, regex and agent-assessed.
 - **Suggestions**: alternative phrasing for each flag.
-- **Rewrite**: Balanced (fix surface and strong patterns) or All (also rework structural ones).
+- **Rewrite**: rewrites the input in two modes: Balanced (fix surface and strong patterns) or All (also rework structural ones).
 - **Write**: a fresh draft to a brief, with the patterns in mind.
 - **Save report**: writes the audit or before/after comparison to Markdown.
 
