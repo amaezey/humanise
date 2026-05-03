@@ -1,6 +1,6 @@
 # humanise
 
-A [Claude Code skill](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills) that flags patterns in prose that often look like AI did it, explains what each pattern is, and (if asked) suggests fixes or rewrites.
+A [Claude Code skill](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills) that flags patterns in text that make it sound like AI, and (if asked) suggests fixes or rewrites.
 
 Forked from [blader/humanizer](https://github.com/blader/humanizer), restructured around a programmatic grader, an iteration harness, and a corpus of matched human and AI essays for testing what the grader actually catches.
 
