@@ -15,3 +15,7 @@ dev/skill-workspace/iteration-*/
 # Agent / Claude project memory — local only, not shared via the repo
 AGENTS.md
 CLAUDE.md
+
+# Local-only artefacts at repo root
+strategy.md
+requirements.txt

@@ -32,17 +32,24 @@ When every check is clear and signal stacking has not triggered, the audit colla
 
 ## Install
 
-```bash
-# Claude Code CLI
-npx skills@latest add amaezey/humanise/humanise
+### Claude Code CLI
 
-# Or clone and symlink (updates on git pull)
+```bash
+npx skills@latest add amaezey/humanise/humanise
+```
+
+### Clone and symlink
+
+Pick this if you want updates on `git pull`.
+
+```bash
 git clone https://github.com/amaezey/humanise.git ~/.local/share/humanise
 ln -s ~/.local/share/humanise/humanise ~/.claude/skills/humanise
-
-# Claude Code desktop: download the latest release zip from
-# https://github.com/amaezey/humanise/releases/latest
 ```
+
+### Claude Code desktop
+
+Download the latest release zip from <https://github.com/amaezey/humanise/releases/latest>.
 
 ## Usage
 
