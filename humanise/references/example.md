@@ -39,50 +39,58 @@ The agent reads `humanise/scripts/judgement.json` for the eight-item registry, d
 
 ## Audit (default mode)
 
-`python3 humanise/scripts/grade.py --format markdown --depth balanced --judgement-file <agent-judgement.json>` produces the summary block + flagged items from both blocks + the next-step prompt. Severity glyphs: `x` hard_fail, `!` strong_warning, `?` context_warning. Auto-detected flagged items render first; agent-assessed flagged items follow. Clear items don't appear in the default body — they show up in the full-report-mode coverage tables.
+`python3 humanise/scripts/grade.py --format markdown --depth balanced --judgement-file <agent-judgement.json>` produces the summary block + flagged items from both blocks + the next-step prompt. Severity glyphs: `x` hard_fail, `!` strong_warning, `?` context_warning. Auto-detected flagged items appear under the `**Auto-detected**` mini-header; agent-assessed flagged items appear under `**Agent-assessed**`. Within each block items render in severity-descending order (x first, then !, then ?). Clear items don't appear in the default body — they show up in the full-report-mode coverage tables.
 
 ```
-Audit
+**Audit summary**
 Auto-detected: 13 of 48 flagged · Agent-assessed: 3 of 8 flagged
 Severity: 2 hard fail · 10 strong warning · 4 context warning
-Signal stacking: triggered — 9 of 4 threshold (formulaic openings, assistant residue, generic conclusion endings)
+Signal stacking triggered: 9 of 4 threshold (formulaic openings, assistant residue, generic conclusion endings)
 
-! **Clustered AI vocabulary** — "enduring", "landscape", "pivotal" (+4 more)
-x **Assistant residue** — "i hope this helps", "great question", "let me know if"
-? **Generic promotional language** — "nestled", "groundbreaking"
-? **Inflated significance** — "pivotal", "vital role", "testament"
-! **Avoiding plain 'is'** — "serves as", "serves as", "stands as" (+1 more)
-! **Filler phrases** — "in order to"
-x **Generic conclusion** — "the future looks bright", "exciting times", "continue this journey"
-! **Tacked-on -ing analysis**
-! **Formulaic openers** — "At its core, the value proposition is clear: streamlining pr"
-? **Signposted conclusion** — "In conclusion, the future looks bright. Exciting times lie a"
-! **Corporate AI-speak** — "cross-functional"
-! **Vague attributions** — "observers have noted"
-! **Knowledge-cutoff disclaimers** — "based on available information", "while specific details are limited"
-? **Structural monotony** — every section follows the same arc
-! **Tonal uniformity** — register holds without breaks
-! **Neutrality collapse** — hedges its position
+**Auto-detected**
 
-**Next step**
+x Assistant residue: "i hope this helps", "great question", "let me know if"
+x Generic conclusion: "the future looks bright", "exciting times", "continue this journey"
+! Clustered AI vocabulary: "enduring", "landscape", "pivotal" (+4 more)
+! Avoiding plain 'is': "serves as", "serves as", "stands as" (+1 more)
+! Filler phrases: "in order to"
+! Tacked-on -ing analysis
+! Formulaic openers: "At its core, the value proposition is clear: streamlining pr"
+! Corporate AI-speak: "cross-functional"
+! Vague attributions: "observers have noted"
+! Knowledge-cutoff disclaimers: "based on available information", "while specific details are limited"
+? Generic promotional language: "nestled", "groundbreaking"
+? Inflated significance: "pivotal", "vital role", "testament"
+? Signposted conclusion: "In conclusion, the future looks bright. Exciting times lie a"
+
+**Agent-assessed**
+
+! Tonal uniformity: register holds without breaks
+! Neutrality collapse: hedges its position
+? Structural monotony: every section follows the same arc
+
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
 ```
 
-A zero-flag draft renders the same shape — the summary block carries all-zero counts and there are no flagged items between the summary and the next-step prompt. There's no all-clear single-line shortcut.
+A zero-flag draft renders the same shape — the summary block carries all-zero counts and the mini-headers still appear (with no items beneath them) between the summary and the next-step prompt. There's no all-clear single-line shortcut.
 
 ## Audit (full-report mode)
 
-When the writer asks for the full coverage report, re-run with `--full-report` (keep the `--judgement-file` flag). The script appends two per-block sections — `**Auto-detected patterns**` (with the eight category sub-tables in `humanise/references/patterns.md` heading order) and `**Agent-assessed patterns**` (a flat eight-row table in `humanise/scripts/judgement.json` registry order) — between the audit body and the next-step prompt. Each per-block section opens with a brief note explaining what's in the block. Coverage tables are 4-column: `Pattern | Severity | Result | Detail`. Detail carries the per-pattern guidance text on flagged auto-detected rows (empty when clear), and `(see above)` for flagged agent-assessed rows (pointing back at the inline bullet block) with the answer/value text on clear rows.
+When the writer asks for the full coverage report, re-run with `--full-report` (keep the `--judgement-file` flag). Full-report mode keeps the same audit body shape (summary + mini-headers + flagged items) and inserts a brief note + coverage tables under each mini-header. Auto-detected coverage is broken into eight category sub-tables in `humanise/references/patterns.md` heading order; agent-assessed coverage is a flat eight-row table in `humanise/scripts/judgement.json` registry order. Coverage tables are 4-column: `Pattern | Severity | Result | Detail`. Detail carries the per-pattern guidance text on flagged auto-detected rows (empty when clear), and `(see above)` for flagged agent-assessed rows (pointing back at the inline list) with the answer/value text on clear rows. In full-report mode the per-item phrase list also drops the `(+N more)` cap and renders every captured phrase, since the reader has explicitly asked for the full coverage.
 
 ```
-[default audit body, exactly as above, including all flagged items]
+**Audit summary**
+[summary lines]
 
-**Auto-detected patterns** — 13 flagged of 48
+**Auto-detected**
+
+[every flagged auto-detected item, all phrases, no (+N more) cap]
 
 Checks the script runs against the text directly.
 
-**Content patterns** — 4 flagged of 5
+**Content patterns**: 4 flagged of 5
 
 | Pattern | Severity | Result | Detail |
 | --- | --- | --- | --- |
@@ -92,9 +100,11 @@ Checks the script runs against the text directly.
 | Notability claims | strong warning | Clear |  |
 | Vague attributions | strong warning | Flagged | Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote. |
 
-[... seven more category sub-tables in patterns.md heading order; categories where every check is clear collapse to a single `**<Category>** — N/N clear` line. The full output includes Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, and Voice and register.]
+[... seven more category sub-tables in patterns.md heading order; categories where every check is clear collapse to a single `**<Category>**: N/N clear` line. The full output includes Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, and Voice and register.]
 
-**Agent-assessed patterns** — 3 flagged of 8
+**Agent-assessed**
+
+[every flagged agent-assessed item, severity-descending]
 
 Checks that are judged by an LLM based on reading the whole draft.
 
@@ -107,9 +117,9 @@ Checks that are judged by an LLM based on reading the whole draft.
 | Even jargon distribution | context warning | Clear | jargon clumps where the writer knows things |
 | Forced synesthesia | context warning | Clear |  |
 | Generic metaphors | context warning | Clear |  |
-| Genre specific | context warning | Clear | Genre detected: default; watchlist coverage pending |
+| Genre specific | context warning | Clear | default genre detected; watchlist coverage pending |
 
-**Next step**
+**Next steps**
 
 Want suggestions for edits, a full rewrite, or to save this audit as a file?
 ```

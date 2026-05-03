@@ -308,7 +308,10 @@ _LAYER_1_NAME_ALIASES = {
     "signal stacking": "overall-signal-stacking",
 }
 
-_LAYER_1_NAME_RE = re.compile(r"^[x!?]\s+\*\*([^*]+)\*\*")
+# Layer-1 flagged-item opener: `<glyph> <Name>` or `<glyph> <Name>: "<phrase>"`.
+# Pattern names render unbold (post-rework). Captures the name up to the colon,
+# end-of-line, or the `(+N more)` overflow tail.
+_LAYER_1_NAME_RE = re.compile(r"^[x!?]\s+([A-Z][A-Za-z0-9 '\-]+?)(?:\s*[:.]|\s*$)")
 
 
 def catalogue_hits(output: str) -> set[str]:

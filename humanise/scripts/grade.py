@@ -2253,7 +2253,7 @@ CATEGORY_ORDER = [
 SIGNAL_STACKING_META_CHECK = "overall-signal-stacking"
 
 
-def format_two_layer(results, depth="balanced", heading="Audit", mode="default", agent_judgement_items=None):
+def format_two_layer(results, depth="balanced", heading=None, mode="default", agent_judgement_items=None):
     """Render the audit contract as user-facing Markdown.
 
     The default audit shape (R5):
@@ -2283,6 +2283,8 @@ def format_two_layer(results, depth="balanced", heading="Audit", mode="default",
         raise ValueError(f"mode must be 'default' or 'full_report', got {mode!r}")
 
     depth_key = depth.lower() if isinstance(depth, str) else "balanced"
+    if heading is None:
+        heading = registries.string_for("templates.audit_summary_heading")
     contract = human_report(results, agent_judgement_items=agent_judgement_items)
     aggregates = contract["aggregates"]
     signal_stacking = aggregates["signal_stacking"]
@@ -2290,15 +2292,12 @@ def format_two_layer(results, depth="balanced", heading="Audit", mode="default",
     judgement = contract["agent_judgement"]
     visible = [c for c in programmatic if c["id"] != SIGNAL_STACKING_META_CHECK]
 
-    parts = [_format_audit_body(heading, signal_stacking, visible, judgement, depth_key)]
+    summary_block = _format_summary_block(heading, signal_stacking, visible, judgement)
+    auto_block = _format_auto_detected_block(visible, depth_key, mode)
+    agent_block = _format_agent_assessed_block(judgement, mode)
+    next_step = _format_next_step(mode)
 
-    if mode == "full_report":
-        parts.append(_format_auto_detected_section(visible, depth_key))
-        parts.append(_format_agent_assessed_section(judgement))
-
-    parts.append(_format_next_step(mode))
-
-    return "\n\n".join(parts)
+    return "\n\n".join([summary_block, auto_block, agent_block, next_step])
 
 
 def _visible_severity_counts(checks):
@@ -2310,21 +2309,22 @@ def _visible_severity_counts(checks):
     return counts
 
 
-def _format_audit_body(heading, signal_stacking, visible, judgement, depth_key):
-    """Render the audit body (default + full-report share this opener).
+SEVERITY_DESCENDING = {"hard_fail": 0, "strong_warning": 1, "context_warning": 2}
 
-    R5 layout:
-      1. Heading (default 'Audit')
+
+def _format_summary_block(heading, signal_stacking, visible, judgement):
+    """Render the audit summary block (heading + 3 summary lines).
+
+    R5 opener:
+      1. Heading (default '**Audit summary**')
       2. Counts line: `Auto-detected: X of Y flagged · Agent-assessed: A of B flagged`
       3. Severity line: `Severity: N hard fail · M strong warning · P context warning`
          (severity counts aggregate auto-detected + agent-assessed flagged items)
-      4. Signal stacking line: clear (...) or triggered — N of M threshold (...)
-      5. Auto-detected flagged items (R6 — glyph + bold + optional quoted phrase)
-      6. Agent-assessed flagged items (R7 — glyph + bold + sub-bullets per finding)
+      4. Signal stacking line: clear (...) or triggered: N of M threshold (...)
 
-    Clear items do not appear in the default body; they live in the
-    full-report mode coverage tables. The body has no trailing blank line —
-    the orchestrator joins parts with `\n\n` so spacing is consistent.
+    Flagged items are rendered separately by _format_auto_detected_block
+    and _format_agent_assessed_block so each block can carry its own mini-
+    header and (in full-report mode) brief note + coverage tables.
     """
     flagged_visible = [c for c in visible if c["status"] == "flagged"]
     judgement_flagged = [j for j in judgement if j.get("status") == "flagged"]
@@ -2346,25 +2346,74 @@ def _format_audit_body(heading, signal_stacking, visible, judgement, depth_key):
     severity_prefix = registries.string_for("inline_labels.severity_prefix")
     stacking_line = _signal_stacking_line(signal_stacking)
 
-    lines = [
+    return "\n".join([
         heading,
         counts_line,
         f"{severity_prefix} {severity_line}",
         stacking_line,
-    ]
-    if flagged_visible or judgement_flagged:
-        lines.append("")
-    for check in flagged_visible:
-        lines.append(_layer_1_pattern_block(check, depth_key))
-    for item in _sort_judgement(judgement_flagged):
-        lines.extend(_render_judgement_item(item))
-    return "\n".join(lines)
+    ])
 
 
-# Backwards-compatible alias — some tests imported the U4 function name. The
-# audit body is no longer a separate "layer" since U6 retired the parallel
-# block; the alias preserves test access without forcing a rename pass.
-_format_layer_1 = _format_audit_body
+def _sort_by_severity_descending(checks):
+    """Sort flagged items by severity descending (x > ! > ?), preserving
+    incoming order for ties."""
+    return sorted(
+        enumerate(checks),
+        key=lambda pair: (SEVERITY_DESCENDING.get(pair[1].get("severity"), 99), pair[0]),
+    )
+
+
+def _format_auto_detected_block(visible, depth_key, mode):
+    """Render the **Auto-detected** section: mini-header + flagged items.
+
+    In default mode: mini-header + severity-descending flagged items.
+    In full-report mode: same, plus brief note + per-category coverage tables.
+    Mini-header always renders even when there are no flagged items (R9 —
+    no all-clear collapse).
+    """
+    minihead = registries.string_for("templates.auto_detected_minihead")
+    flagged = [c for c in visible if c["status"] == "flagged"]
+    sorted_flagged = [c for _, c in _sort_by_severity_descending(flagged)]
+
+    parts = [minihead]
+    if sorted_flagged:
+        item_lines = "\n".join(_layer_1_pattern_block(c, depth_key, mode) for c in sorted_flagged)
+        parts.append(item_lines)
+    if mode == "full_report":
+        parts.append(registries.string_for("templates.brief_note_auto_detected"))
+        parts.append(_format_layer_2(visible, depth_key))
+    return "\n\n".join(parts)
+
+
+def _format_agent_assessed_block(judgement, mode):
+    """Render the **Agent-assessed** section: mini-header + flagged items.
+
+    In default mode: mini-header + severity-descending flagged items.
+    In full-report mode: same, plus brief note + flat 8-row coverage table.
+    Mini-header always renders even when there are no flagged items.
+    """
+    minihead = registries.string_for("templates.agent_assessed_minihead")
+    judgement_flagged = [j for j in judgement if j.get("status") == "flagged"]
+    sorted_flagged = [j for _, j in _sort_by_severity_descending(judgement_flagged)]
+
+    parts = [minihead]
+    if sorted_flagged:
+        item_lines = []
+        for item in sorted_flagged:
+            item_lines.extend(_render_judgement_item(item))
+        parts.append("\n".join(item_lines))
+    if mode == "full_report":
+        parts.append(registries.string_for("templates.brief_note_agent_assessed"))
+        parts.append(_format_agent_assessed_coverage_table(judgement))
+    return "\n\n".join(parts)
+
+
+# Backwards-compatible alias — _format_layer_1 was the U4 name for the
+# combined audit body. It now points at the summary block only; tests that
+# imported it can keep working, though the inline-flagged-items behaviour
+# moved into the per-block formatters above.
+_format_layer_1 = _format_summary_block
+_format_audit_body = _format_summary_block
 
 
 def _sort_judgement(judgement):
@@ -2372,41 +2421,6 @@ def _sort_judgement(judgement):
     records = registries.load_judgement().get("records", [])
     order = {r["id"]: i for i, r in enumerate(records)}
     return sorted(judgement, key=lambda it: order.get(it.get("id"), len(records)))
-
-
-def _format_auto_detected_section(visible, depth_key):
-    """Full-report mode: **Auto-detected patterns** section (R12, R13).
-
-    Heading carries flagged-of-total count. Brief note explains what the
-    block contains. Coverage tables: eight sub-category tables in
-    patterns.md heading order (`_format_layer_2`); categories where every
-    check is clear collapse to a one-liner.
-    """
-    flagged = [c for c in visible if c["status"] == "flagged"]
-    heading = registries.string_for(
-        "templates.auto_detected_patterns_heading",
-        flagged=len(flagged), total=len(visible),
-    )
-    brief = registries.string_for("templates.brief_note_auto_detected")
-    coverage = _format_layer_2(visible, depth_key)
-    return f"{heading}\n\n{brief}\n\n{coverage}"
-
-
-def _format_agent_assessed_section(judgement):
-    """Full-report mode: **Agent-assessed patterns** section (R12, R14).
-
-    Heading carries flagged-of-total count. Brief note explains the block.
-    Coverage table is one flat 8-row table (R14) rather than a per-category
-    set — the agent-assessed items are not grouped by category.
-    """
-    flagged = [j for j in judgement if j.get("status") == "flagged"]
-    heading = registries.string_for(
-        "templates.agent_assessed_heading",
-        flagged=len(flagged), total=len(judgement),
-    )
-    brief = registries.string_for("templates.brief_note_agent_assessed")
-    coverage = _format_agent_assessed_coverage_table(judgement)
-    return f"{heading}\n\n{brief}\n\n{coverage}"
 
 
 def _format_agent_assessed_coverage_table(judgement):
@@ -2428,9 +2442,9 @@ def _format_agent_assessed_coverage_table(judgement):
     separator = registries.string_for("templates.category_subtable_separator")
     if not judgement:
         empty_row = (
-            f"| {table_cell('—')} "
-            f"| {table_cell('—')} "
-            f"| {table_cell('—')} "
+            f"| {table_cell('-')} "
+            f"| {table_cell('-')} "
+            f"| {table_cell('-')} "
             f"| {table_cell('agent reading not provided')} |"
         )
         return "\n".join([header, separator, empty_row])
@@ -2490,19 +2504,20 @@ def _agent_assessed_clear_detail(item):
 
 
 def _format_next_step(mode="default"):
-    """Trailing R8 next-step prompt under a `**Next step**` heading.
+    """Trailing next-step prompt under a `**Next steps**` heading.
 
     Default mode offers the full coverage report among the next steps.
     Full-report mode drops that option (the writer just read it) and
     keeps the remaining three: suggestions, full rewrite, save to file.
-    `**Next step**` is recognised by TOP_LEVEL_SECTION_HEADER_RE as a
+    The heading is recognised by TOP_LEVEL_SECTION_HEADER_RE as a
     top-level boundary so audit-shape checks can scope past it.
     """
     if mode == "full_report":
         prompt = registries.string_for("templates.next_step_prompt_full_report_mode")
     else:
         prompt = registries.string_for("templates.next_step_prompt_with_full_report")
-    return f"**Next step**\n\n{prompt}"
+    heading = registries.string_for("templates.next_steps_heading")
+    return f"{heading}\n\n{prompt}"
 
 
 def _signal_stacking_line(signal_stacking):
@@ -2517,27 +2532,26 @@ def _signal_stacking_line(signal_stacking):
             "templates.signal_stacking_triggered",
             score=signal_stacking.get("score", 0),
             threshold=signal_stacking.get("threshold", 0),
-            components=", ".join(components) if components else "—",
+            components=", ".join(components) if components else "none",
         )
     return registries.string_for("templates.signal_stacking_clear")
 
 
-def _layer_1_pattern_block(check, depth_key):
-    """Layer 1 per-flagged-pattern block (R6 — Action gone).
+def _layer_1_pattern_block(check, depth_key, mode="default"):
+    """Per-flagged-pattern block (auto-detected, no Action).
 
-    Renders `<glyph> **<name>** — "<phrase>"` when the check carries
-    quotable phrases; falls back to the no-phrase shape `<glyph> **<name>**`
-    for structural patterns (no quotable instance). The Action verb is
-    retired by R6 — depth-aware action mapping survives in
-    `_action_for_check` for downstream callers, just not rendered here.
+    Renders `<glyph> <name>: "<phrase>"` when the check carries quotable
+    phrases; falls back to `<glyph> <name>` for structural patterns. Mode
+    controls the phrase cap: default mode caps at 3 with `(+N more)`
+    overflow, full-report mode renders all phrases.
     """
-    del depth_key  # action is no longer surfaced in flagged-item blocks (R6)
+    del depth_key  # action is no longer surfaced in flagged-item blocks
     glyph = registries.string_for(f"severity_glyphs.{check['severity']}")
     try:
         name = registries.pattern_for(check["id"])["short_name"]
     except KeyError:
         name = check["id"]
-    quoted = _format_quoted_phrases(check)
+    quoted = _format_quoted_phrases(check, mode)
     if quoted:
         return registries.string_for(
             "templates.flagged_pattern_block_no_action",
@@ -2552,18 +2566,19 @@ def _layer_1_pattern_block(check, depth_key):
 LAYER_1_PHRASE_CAP = 3
 
 
-def _format_quoted_phrases(check):
-    """Quote the per-check evidence phrases for a Layer 1 block.
+def _format_quoted_phrases(check, mode="default"):
+    """Quote the per-check evidence phrases for a flagged-item block.
 
-    Caps the visible list at LAYER_1_PHRASE_CAP and appends a `(+N more)`
-    suffix when more phrases are present, so the orientation block stays
-    compact for noisy checks (e.g. triad density). Falls back to the empty
-    string when no quoted_phrases are present — Layer 1 then renders the
-    no-quote variant rather than an empty pair.
+    Default mode caps at LAYER_1_PHRASE_CAP and appends `(+N more)` overflow
+    so the inline block stays compact for noisy checks. Full-report mode
+    renders every phrase the contract carries — there's no overflow because
+    the reader explicitly asked for the full coverage report.
     """
     phrases = [p for p in (check.get("evidence", {}).get("quoted_phrases") or []) if p]
     if not phrases:
         return ""
+    if mode == "full_report":
+        return ", ".join(f'"{p}"' for p in phrases)
     visible = phrases[:LAYER_1_PHRASE_CAP]
     quoted = ", ".join(f'"{p}"' for p in visible)
     overflow = len(phrases) - len(visible)
@@ -2979,29 +2994,29 @@ def grade_file(filepath, assertion_names=None):
 # the match to that pair so a stray "Audit" word in a longer malformed
 # response cannot trigger a false positive.
 AUDIT_HEADER_RE = re.compile(
-    r"^Audit[ \t]*$(?=\r?\n(?:Severity:|Auto-detected:))",
+    r"^\*\*Audit summary\*\*[ \t]*$(?=\r?\n(?:Auto-detected:|Severity:))",
     re.MULTILINE,
 )
 REWRITE_HEADER_RE = re.compile(r"^\*\*Rewrite\*\*\s*$", re.MULTILINE)
 DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
-AUTO_DETECTED_PATTERNS_HEADER_RE = re.compile(
-    r"^\*\*Auto-detected patterns[^*]*\*\*\s*$", re.MULTILINE,
+AUTO_DETECTED_MINIHEAD_RE = re.compile(
+    r"^\*\*Auto-detected\*\*\s*$", re.MULTILINE,
 )
-AGENT_ASSESSED_PATTERNS_HEADER_RE = re.compile(
-    r"^\*\*Agent-assessed patterns[^*]*\*\*\s*$", re.MULTILINE,
+AGENT_ASSESSED_MINIHEAD_RE = re.compile(
+    r"^\*\*Agent-assessed\*\*\s*$", re.MULTILINE,
 )
-NEXT_STEP_HEADER_RE = re.compile(r"^\*\*Next step\*\*\s*$", re.MULTILINE)
+NEXT_STEP_HEADER_RE = re.compile(r"^\*\*Next steps\*\*\s*$", re.MULTILINE)
 SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
-# Top-level section boundaries only — used for sections whose bodies legitimately
-# contain nested bold-only headers (e.g. Suggestions has `**Pattern Name**` per flag,
-# which would otherwise be mistaken for a section terminator by SECTION_HEADER_RE).
-# U6 retired the `**Agent-judgement reading**` parallel block in favour of
-# `**Auto-detected patterns**` and `**Agent-assessed patterns**` per-block
-# sections that appear in full-report mode.
+# Top-level section boundaries — used for sections whose bodies legitimately
+# contain nested bold-only headers (e.g. Suggestions has `**Pattern Name**`
+# per flag, which would otherwise be mistaken for a section terminator by
+# SECTION_HEADER_RE). The audit body opens with `**Audit summary**` and
+# extends past its mini-headers (`**Auto-detected**`, `**Agent-assessed**`)
+# until `**Next steps**`. The mini-headers sit *inside* the audit body and
+# are not top-level boundaries.
 TOP_LEVEL_SECTION_HEADER_RE = re.compile(
-    r"^(?:Audit[ \t]*$(?=\r?\n(?:Severity:|Auto-detected:))|"
-    r"\*\*(?:Auto-detected patterns|Agent-assessed patterns|Suggestions|Rewrite|Draft|Next step)[^*]*\*\*\s*$)",
+    r"^\*\*(?:Audit summary|Suggestions|Rewrite|Draft|Next steps)[^*]*\*\*\s*$",
     re.MULTILINE,
 )
 QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
@@ -3027,12 +3042,12 @@ ALL_CLEAR_LINE_RE = re.compile(
 
 # Phase 3 (U11/U13) — the Layer 1 per-flagged-pattern block format.
 # U5 (R6) retired the trailing `— Action: <verb>` clause. Current shape:
-# `<glyph> **<short_name>**` with an optional `— "<phrase>"` (or
-# `— "<phrase>" (+N more)`) tail. Glyphs are x (hard_fail),
-# ! (strong_warning), ? (context_warning). Structural patterns carry no
-# quotable instance and render as the bare `<glyph> **<name>**` line.
+# Flagged-item line: `<glyph> <name>: "<phrase>"` (or `<glyph> <name>` for
+# structural patterns with no quotable instance). Glyphs are x (hard_fail),
+# ! (strong_warning), ? (context_warning). The colon-and-quoted-phrase tail
+# is optional. Pattern names are unbold (post-rework).
 LAYER_1_BLOCK_RE = re.compile(
-    r"^[x!?]\s+\*\*[^*]+\*\*(?:\s+—\s+\S.*)?$",
+    r"^[x!?]\s+[A-Z][^\n]*$",
     re.MULTILINE,
 )
 
@@ -3055,7 +3070,14 @@ def _section_text(output_text, header_re, terminator_re=SECTION_HEADER_RE):
 
 
 def _audit_section(output_text):
-    return _section_text(output_text, AUDIT_HEADER_RE)
+    """Audit body extends from `**Audit summary**` to `**Next steps**`.
+
+    Mini-headers `**Auto-detected**` and `**Agent-assessed**` sit inside the
+    audit body and are not boundaries. Use TOP_LEVEL_SECTION_HEADER_RE as
+    the terminator so it stops at Next steps / Suggestions / Rewrite / Draft
+    instead of the first nested bold header.
+    """
+    return _section_text(output_text, AUDIT_HEADER_RE, TOP_LEVEL_SECTION_HEADER_RE)
 
 
 def _suggestions_section(output_text):
@@ -3076,18 +3098,18 @@ def _flag_blocks(audit_text):
 
 
 def _audit_body_flagged_count(output_text):
-    """Count flagged items in the audit body (R5 — both blocks inline).
+    """Count flagged items in the audit body (both blocks inline).
 
-    U6 retired the `**Agent-judgement reading**` parallel block; flagged
-    items from both auto-detected and agent-assessed blocks now render
-    inline in the audit body, all with the same `<glyph> **<name>**`
-    opener (R6/R7). The combined count feeds the suggestion-flag parity
-    check — one suggestion per flag regardless of source.
+    Flagged items from both auto-detected and agent-assessed blocks render
+    in the audit body, all with the same `<glyph> <name>` opener (post-
+    rework: pattern names render unbold). The combined count feeds the
+    suggestion-flag parity check — one suggestion per flag regardless of
+    source.
     """
     audit = _audit_section(output_text)
     if not audit:
         return 0
-    return len(re.findall(r"^[x!?]\s+\*\*[^*]+\*\*", audit, re.MULTILINE))
+    return len(re.findall(r"^[x!?]\s+[A-Z]", audit, re.MULTILINE))
 
 
 def _suggestion_blocks(suggestions_text):
@@ -3260,11 +3282,12 @@ NEW_SEVERITY_LINE_RE = re.compile(
     re.MULTILINE,
 )
 NEW_SIGNAL_STACKING_LINE_RE = re.compile(
-    r"^Signal\s+stacking:\s+(?:clear\s*\(.+\)|triggered\s+—\s+\d+\s+of\s+\d+\s+threshold\s*\(.+\))\s*$",
+    r"^Signal\s+stacking(?::\s+clear\s*\(.+\)|\s+triggered:\s+\d+\s+of\s+\d+\s+threshold\s*\(.+\))\s*$",
     re.MULTILINE,
 )
-# Glyph + bold-name opener — shared by R6 (auto-detected) and R7 (agent-assessed) flagged items.
-NEW_FLAGGED_ITEM_OPENER_RE = re.compile(r"^[x!?]\s+\*\*[^*]+\*\*", re.MULTILINE)
+# Glyph + plain-name opener (post-rework: pattern names render unbold). Shared
+# by auto-detected and agent-assessed flagged items.
+NEW_FLAGGED_ITEM_OPENER_RE = re.compile(r"^[x!?]\s+[A-Za-z]", re.MULTILINE)
 # The pre-U5 agent-judgement item shape. Allowed in its own `**Agent-judgement reading**`
 # section; forbidden inside the audit section once U5 merges agent items into the audit body.
 OLD_AGENT_JUDGEMENT_FLAGGED_LINE_RE = re.compile(r"^-\s+[^—\n]+—\s+Flagged", re.MULTILINE)

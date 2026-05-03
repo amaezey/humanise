@@ -244,7 +244,7 @@ stacking_triggered = registries.string_for(
     "templates.signal_stacking_triggered",
     score=5, threshold=4, components="em dashes, tonal uniformity",
 )
-expected_triggered = "Signal stacking: triggered — 5 of 4 threshold (em dashes, tonal uniformity)"
+expected_triggered = "Signal stacking triggered: 5 of 4 threshold (em dashes, tonal uniformity)"
 if stacking_triggered != expected_triggered:
     fail(f"signal_stacking_triggered: expected {expected_triggered!r}, got {stacking_triggered!r}")
 else:
@@ -255,7 +255,7 @@ flagged_block = registries.string_for(
     "templates.flagged_pattern_block",
     glyph="x", name="Em dashes", quoted='"scene lands"', action="Fix",
 )
-expected_block = 'x **Em dashes** — "scene lands" — Action: Fix'
+expected_block = 'x Em dashes: "scene lands". Action: Fix'
 if flagged_block != expected_block:
     fail(f"flagged_pattern_block: expected {expected_block!r}, got {flagged_block!r}")
 else:
@@ -265,7 +265,7 @@ flagged_block_no_quote = registries.string_for(
     "templates.flagged_pattern_block_no_quote",
     glyph="!", name="Triad density", action="Fix",
 )
-expected_block_no_quote = "! **Triad density** — Action: Fix"
+expected_block_no_quote = "! Triad density. Action: Fix"
 if flagged_block_no_quote != expected_block_no_quote:
     fail(f"flagged_pattern_block_no_quote: expected {expected_block_no_quote!r}, got {flagged_block_no_quote!r}")
 else:
@@ -274,7 +274,7 @@ else:
 category_collapse = registries.string_for(
     "templates.category_collapse", category="Style", clear=6, total=6,
 )
-expected_collapse = "**Style** — 6/6 clear"
+expected_collapse = "**Style**: 6/6 clear"
 if category_collapse != expected_collapse:
     fail(f"category_collapse: expected {expected_collapse!r}, got {category_collapse!r}")
 else:
@@ -283,7 +283,7 @@ else:
 category_heading = registries.string_for(
     "templates.category_subtable_heading", category="Style", flagged=2, total=6,
 )
-expected_heading = "**Style** — 2 flagged of 6"
+expected_heading = "**Style**: 2 flagged of 6"
 if category_heading != expected_heading:
     fail(f"category_subtable_heading: expected {expected_heading!r}, got {category_heading!r}")
 else:
@@ -302,24 +302,30 @@ if sep != "| --- | --- | --- | --- |":
 else:
     ok("templates.category_subtable_separator is the U4 4-column shape")
 
-# U6: per-block headings + brief notes (R12).
-auto_heading = registries.string_for(
-    "templates.auto_detected_patterns_heading", flagged=2, total=48,
-)
-expected_auto_heading = "**Auto-detected patterns** — 2 flagged of 48"
-if auto_heading != expected_auto_heading:
-    fail(f"auto_detected_patterns_heading: expected {expected_auto_heading!r}, got {auto_heading!r}")
+# Bug-fix rework: per-block mini-headers + audit summary + next-steps headings.
+audit_heading = registries.string_for("templates.audit_summary_heading")
+if audit_heading != "**Audit summary**":
+    fail(f"audit_summary_heading: expected '**Audit summary**', got {audit_heading!r}")
 else:
-    ok("templates.auto_detected_patterns_heading renders byte-equivalent to expected text")
+    ok("templates.audit_summary_heading renders as bold '**Audit summary**'")
 
-agent_heading = registries.string_for(
-    "templates.agent_assessed_heading", flagged=1, total=8,
-)
-expected_agent_heading = "**Agent-assessed patterns** — 1 flagged of 8"
-if agent_heading != expected_agent_heading:
-    fail(f"agent_assessed_heading: expected {expected_agent_heading!r}, got {agent_heading!r}")
+auto_minihead = registries.string_for("templates.auto_detected_minihead")
+if auto_minihead != "**Auto-detected**":
+    fail(f"auto_detected_minihead: expected '**Auto-detected**', got {auto_minihead!r}")
 else:
-    ok("templates.agent_assessed_heading renders byte-equivalent to expected text")
+    ok("templates.auto_detected_minihead renders as bold '**Auto-detected**'")
+
+agent_minihead = registries.string_for("templates.agent_assessed_minihead")
+if agent_minihead != "**Agent-assessed**":
+    fail(f"agent_assessed_minihead: expected '**Agent-assessed**', got {agent_minihead!r}")
+else:
+    ok("templates.agent_assessed_minihead renders as bold '**Agent-assessed**'")
+
+next_steps_heading = registries.string_for("templates.next_steps_heading")
+if next_steps_heading != "**Next steps**":
+    fail(f"next_steps_heading: expected '**Next steps**', got {next_steps_heading!r}")
+else:
+    ok("templates.next_steps_heading renders as bold '**Next steps**'")
 
 brief_auto = registries.string_for("templates.brief_note_auto_detected")
 expected_brief_auto = "Checks the script runs against the text directly."
@@ -362,7 +368,7 @@ else:
 agent_flagged_block = registries.string_for(
     "templates.agent_assessed_flagged_block", glyph="!", name="Faux specificity",
 )
-expected_agent_flagged_block = "! **Faux specificity**"
+expected_agent_flagged_block = "! Faux specificity"
 if agent_flagged_block != expected_agent_flagged_block:
     fail(f"agent_assessed_flagged_block: expected {expected_agent_flagged_block!r}, got {agent_flagged_block!r}")
 else:
@@ -372,7 +378,7 @@ agent_flagged_state = registries.string_for(
     "templates.agent_assessed_flagged_state",
     glyph="!", name="Tonal uniformity", value="register holds without breaks",
 )
-expected_agent_flagged_state = "! **Tonal uniformity** — register holds without breaks"
+expected_agent_flagged_state = "! Tonal uniformity: register holds without breaks"
 if agent_flagged_state != expected_agent_flagged_state:
     fail(f"agent_assessed_flagged_state: expected {expected_agent_flagged_state!r}, got {agent_flagged_state!r}")
 else:
@@ -382,7 +388,7 @@ agent_flagged_composite = registries.string_for(
     "templates.agent_assessed_flagged_composite_genre",
     glyph="!", name="Genre specific", genre="academic",
 )
-expected_agent_flagged_composite = "! **Genre specific** — Genre detected: academic"
+expected_agent_flagged_composite = "! Genre specific: academic genre detected"
 if agent_flagged_composite != expected_agent_flagged_composite:
     fail(f"agent_assessed_flagged_composite_genre: expected {expected_agent_flagged_composite!r}, got {agent_flagged_composite!r}")
 else:

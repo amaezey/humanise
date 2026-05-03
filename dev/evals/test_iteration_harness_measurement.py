@@ -1,24 +1,25 @@
-#!/usr/bin/env python3
-"""Regression tests for iteration-harness measurement helpers.
+"""Test the iteration-harness measurement helpers (catalogue_hits).
 
-Run: python3 dev/evals/test_iteration_harness_measurement.py
+After the audit-shape rework, the audit body uses bold mini-headers to mark
+auto-detected vs agent-assessed flagged items. Pattern names render unbold:
+`<glyph> <Name>` or `<glyph> <Name>: "<phrase>"`. The agent-judgement items
+land under `**Agent-assessed**` rather than the retired parallel block;
+their labels (e.g. "Tonal uniformity") are NOT catalogue patterns and
+must not inflate the hit count.
 """
 
-from __future__ import annotations
-
 import importlib.util
+import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[2]
-MODULE_PATH = ROOT / "dev" / "evals" / "run_skill_creator_iteration.py"
-
-spec = importlib.util.spec_from_file_location("run_skill_creator_iteration", MODULE_PATH)
-if spec is None or spec.loader is None:
-    raise RuntimeError(f"Could not load {MODULE_PATH}")
-iteration = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(iteration)
-
+_spec = importlib.util.spec_from_file_location(
+    "run_skill_creator_iteration",
+    ROOT / "dev" / "evals" / "run_skill_creator_iteration.py",
+)
+iteration = importlib.util.module_from_spec(_spec)
+sys.modules["run_skill_creator_iteration"] = iteration
+_spec.loader.exec_module(iteration)
 
 FAILURES = 0
 
@@ -36,26 +37,22 @@ def fail(message: str) -> None:
 print("=== catalogue_hits ===")
 
 OUTPUT_WITH_LAYER_2_CATALOGUE_ROWS = """
-Audit
-Severity: 1 hard fail · 1 strong warning · 1 context warning · signal stacking: clear
-Signal stacking clear.
+**Audit summary**
+Auto-detected: 3 of 48 flagged · Agent-assessed: 0 of 0 flagged
+Severity: 1 hard fail · 1 strong warning · 1 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
 
-x **Assistant residue** \u2014 "I hope this helps" \u2014 Action: Fix
-! **Em dashes** \u2014 "\u2014" \u2014 Action: Fix
-? **Rule of three** \u2014 "participation, resilience, and mobilisation" \u2014 Action: Disclose or ask before preserving
+**Auto-detected**
 
----
+x Assistant residue: "I hope this helps"
+! Em dashes: "EMDASH"
+? Rule of three: "participation, resilience, and mobilisation"
 
-**Content patterns** \u2014 1 flagged of 12
+**Agent-assessed**
 
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Manufactured insight | Clear | |
-| Significance inflation | Clear | |
-| Rule of three | Flagged | Disclose or ask before preserving |
-| Signal stacking | Clear | |
+**Next steps**
 
-**Language and grammar** \u2014 11/11 clear
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
 """
 
 hits = iteration.catalogue_hits(OUTPUT_WITH_LAYER_2_CATALOGUE_ROWS)
@@ -76,25 +73,26 @@ else:
     fail("expected empty hit set without an Audit section")
 
 
-# U3 measurement-lock fixture — the audit-output-redesign new shape.
-# After U4 the audit header is followed by an `Auto-detected:` counts line
-# (not `Severity:`), so AUDIT_HEADER_RE was relaxed in U3 to match either.
-# After U5 the agent-judgement items move into the audit section as
-# `! **Item**` / `? **Item**` openers; their labels (e.g. "Tonal uniformity")
-# are NOT catalogue patterns and must NOT inflate the hit count.
+# Mixed auto-detected + agent-assessed audit body. Agent-assessed labels
+# must NOT inflate the hit count — they're not catalogue patterns.
 
 OUTPUT_NEW_AUDIT_SHAPE_BOTH_BLOCKS_IN_AUDIT = """
-Audit
+**Audit summary**
 Auto-detected: 2 of 12 flagged · Agent-assessed: 1 of 8 flagged
 Severity: 0 hard fail · 2 strong warning · 1 context warning
 Signal stacking: clear (weaker AI signals are not accumulating)
 
-! **Em dashes** — "—"
-! **Rule of three** — "participation, resilience, and mobilisation"
-? **Tonal uniformity**
-  - "register holds without breaks" — single tonal arc
+**Auto-detected**
 
-**Next step**
+! Em dashes: "EMDASH"
+! Rule of three: "participation, resilience, and mobilisation"
+
+**Agent-assessed**
+
+? Tonal uniformity
+  - "register holds without breaks": single tonal arc
+
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
 """

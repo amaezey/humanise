@@ -1419,17 +1419,20 @@ _two_layer_smoke = format_two_layer([
     annotate_result({"text": "no-formulaic-openers", "passed": False, "evidence": "formulaic opener"}),
     annotate_result({"text": "no-em-dashes", "passed": True, "evidence": "clean"}),
 ], depth="balanced")
-if not isinstance(_two_layer_smoke, str) or "Audit\n" not in _two_layer_smoke:
+if not isinstance(_two_layer_smoke, str) or "**Audit summary**\n" not in _two_layer_smoke:
     FAILURES += 1
-    print(f"FAIL: format_two_layer should return a string opening with the Audit header; got:\n{_two_layer_smoke[:400]}")
-elif "**Next step**" not in _two_layer_smoke:
+    print(f"FAIL: format_two_layer should return a string opening with the **Audit summary** heading; got:\n{_two_layer_smoke[:400]}")
+elif "**Next steps**" not in _two_layer_smoke:
     FAILURES += 1
-    print(f"FAIL: format_two_layer default-mode output should end with **Next step** + R8 prompt; got:\n{_two_layer_smoke[:400]}")
+    print(f"FAIL: format_two_layer default-mode output should end with **Next steps** + prompt; got:\n{_two_layer_smoke[:400]}")
 elif "pressure" in _two_layer_smoke.lower():
     FAILURES += 1
-    print("FAIL: format_two_layer should not contain 'pressure' (renamed to 'signal stacking' in U2)")
+    print("FAIL: format_two_layer should not contain 'pressure' (renamed to 'signal stacking')")
+elif "—" in _two_layer_smoke.split("**Next steps**", 1)[0]:
+    FAILURES += 1
+    print("FAIL: audit format must be em-dash-free (em dashes are flagged as AI tells)")
 else:
-    print("  ok: format_two_layer smoke test renders the U6 default-mode shape")
+    print("  ok: format_two_layer smoke test renders the new audit shape (Audit summary + mini-headers + Next steps, em-dash-free)")
 
 if set(_failure_mode_report) != allowed_failure_modes:
     FAILURES += 1
@@ -1514,34 +1517,35 @@ check_audit_shape = _grade.check_audit_shape
 
 # U6 default-mode shape: agent-flagged item rendered inline in the audit body,
 # no parallel **Agent-judgement reading** section, R8 next-step prompt.
-_BOTH_BLOCKS = """Audit
+_BOTH_BLOCKS = """**Audit summary**
 Auto-detected: 1 of 48 flagged · Agent-assessed: 1 of 8 flagged
 Severity: 0 hard fail · 2 strong warning · 0 context warning
 Signal stacking: clear (weaker AI signals are not accumulating)
 
-! **Em dashes** — "still—keen"
-! **Structural monotony** — every section follows the same arc
+**Auto-detected**
 
-**Next step**
+! Em dashes: "still—keen"
+
+**Agent-assessed**
+
+! Structural monotony: every section follows the same arc
+
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
-_PROGRAMMATIC_ONLY = """Audit
-Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
-Signal stacking clear: no weaker AI-writing signals stacked.
+_PROGRAMMATIC_ONLY = """**Audit summary**
+Auto-detected: 1 of 48 flagged · Agent-assessed: 0 of 0 flagged
+Severity: 0 hard fail · 1 strong warning · 0 context warning
+Signal stacking: clear (weaker AI signals are not accumulating)
 
-! **Em dashes** — "still—keen" — Action: Fix
+**Auto-detected**
 
----
+! Em dashes: "still—keen"
 
-**Style** — 1 flagged of 6
+**Agent-assessed**
 
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
-| Curly quotes | Clear |  |
-
-**Next step**
+**Next steps**
 
 Want suggestions?"""
 
@@ -1556,16 +1560,20 @@ Want help?"""
 # structural-pattern blocks). The fixture mixes one quoted block with two
 # no-quote structural blocks (now in U6 shape — no Action clause); the
 # combined audit-body counter must enumerate all three.
-_LAYER_1_NO_QUOTE_BLOCKS = """Audit
+_LAYER_1_NO_QUOTE_BLOCKS = """**Audit summary**
 Auto-detected: 3 of 48 flagged · Agent-assessed: 0 of 0 flagged
 Severity: 1 hard fail · 2 strong warning · 0 context warning
 Signal stacking: clear (weaker AI signals are not accumulating)
 
-x **Em dashes** — "still—keen"
-! **Paragraph length uniformity**
-! **Section scaffolding**
+**Auto-detected**
 
-**Next step**
+x Em dashes: "still—keen"
+! Paragraph length uniformity
+! Section scaffolding
+
+**Agent-assessed**
+
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
@@ -1693,28 +1701,37 @@ else:
 
 print("\n=== audit-shape U3 (measurement lock for new audit shape) ===")
 
-_NEW_SHAPE_BOTH_BLOCKS = """Audit
+_NEW_SHAPE_BOTH_BLOCKS = """**Audit summary**
 Auto-detected: 2 of 12 flagged · Agent-assessed: 1 of 8 flagged
 Severity: 0 hard fail · 2 strong warning · 1 context warning
 Signal stacking: clear (weaker AI signals are not accumulating)
 
-! **Em dashes** — "—"
-! **Tonal uniformity**
-  - "register holds without breaks" — single tonal arc
+**Auto-detected**
 
-**Next step**
+! Em dashes: "EMDASH"
+
+**Agent-assessed**
+
+! Tonal uniformity
+  - "register holds without breaks": single tonal arc
+
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
 # Same shape but with a triggered signal-stacking line (for the R3 triggered branch).
-_NEW_SHAPE_STACKING_TRIGGERED = """Audit
+_NEW_SHAPE_STACKING_TRIGGERED = """**Audit summary**
 Auto-detected: 1 of 12 flagged · Agent-assessed: 0 of 8 flagged
 Severity: 0 hard fail · 1 strong warning · 0 context warning
-Signal stacking: triggered — 5 of 4 threshold (em dashes, rule of three, tonal uniformity)
+Signal stacking triggered: 5 of 4 threshold (em dashes, rule of three, tonal uniformity)
 
-! **Em dashes** — "—"
+**Auto-detected**
 
-**Next step**
+! Em dashes: "EMDASH"
+
+**Agent-assessed**
+
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
@@ -1729,8 +1746,12 @@ _NEW_SHAPE_WITH_COVERAGE_TABLE = _NEW_SHAPE_BOTH_BLOCKS + """
 | Curly quotes | context warning | Clear |  |
 """
 
-# Pre-U4 shape (severity line carries inline signal-stacking suffix; coverage table is 3-column with Action).
-_OLD_SHAPE_FULL = """Audit
+# Pre-rework shape: audit header + old-shape body content (severity line carries
+# inline signal-stacking suffix; coverage table is 3-column with Action). Used
+# to verify the new-shape audit-shape checks reject pre-rework body content.
+# Header is the new bold heading so the checks treat it as an audit (rather
+# than vacuously passing on a missing header).
+_OLD_SHAPE_FULL = """**Audit summary**
 Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
 Signal stacking clear: no weaker AI-writing signals stacked.
 
@@ -1745,21 +1766,26 @@ Signal stacking clear: no weaker AI-writing signals stacked.
 | Em dashes | Flagged | Fix |
 | Curly quotes | Clear |  |
 
-**Next step**
+**Next steps**
 
 Want suggestions?"""
 
 # Audit body that has merged the pre-U5 agent-judgement shape into the audit
 # section — the regression case that flagged-items-glyph-shape catches.
-_NEW_SHAPE_WITH_OLD_AGENT_LEAKAGE = """Audit
+_NEW_SHAPE_WITH_OLD_AGENT_LEAKAGE = """**Audit summary**
 Auto-detected: 1 of 12 flagged · Agent-assessed: 1 of 8 flagged
 Severity: 0 hard fail · 2 strong warning · 0 context warning
 Signal stacking: clear (weaker AI signals are not accumulating)
 
-! **Em dashes** — "—"
+**Auto-detected**
+
+! Em dashes: "EMDASH"
+
+**Agent-assessed**
+
 - Tonal uniformity — Flagged: register holds without breaks
 
-**Next step**
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 
@@ -1772,12 +1798,16 @@ Want help?"""
 
 # Audit header present but no flagged items in body — vacuous-true for the
 # glyph-shape predicate (it has nothing to assert against).
-_NEW_SHAPE_NO_FLAG_BLOCKS = """Audit
+_NEW_SHAPE_NO_FLAG_BLOCKS = """**Audit summary**
 Auto-detected: 0 of 12 flagged · Agent-assessed: 0 of 8 flagged
 Severity: 0 hard fail · 0 strong warning · 0 context warning
 Signal stacking: clear (weaker AI signals are not accumulating)
 
-**Next step**
+**Auto-detected**
+
+**Agent-assessed**
+
+**Next steps**
 
 Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"""
 

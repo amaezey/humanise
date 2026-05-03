@@ -150,17 +150,17 @@ if "**Agent-judgement reading" in default_render:
 else:
     ok("default mode does not emit the retired parallel block")
 
-if "! **Structural monotony** — every section follows the same arc" not in default_render:
+if "! Structural monotony: every section follows the same arc" not in default_render:
     fail(f"agent-flagged state item should render inline in audit body; got:\n{default_render}")
 else:
-    ok("state-flagged item renders inline in audit body (R5/R7)")
+    ok("state-flagged item renders inline (unbold name, colon, no em dash)")
 
-if "! **Faux specificity**\n" not in default_render:
+if "! Faux specificity\n" not in default_render:
     fail(f"agent-flagged list-item header should render inline; got:\n{default_render}")
-elif '  - "approximately 30%" — fake-precise quantifier' not in default_render:
+elif '  - "approximately 30%": fake-precise quantifier' not in default_render:
     fail(f"agent-flagged list-item sub-bullet should render inline; got:\n{default_render}")
 else:
-    ok("list-flagged item header + sub-bullet render inline (R5/R7)")
+    ok("list-flagged item header + sub-bullet render inline (colon separator, no em dash)")
 
 
 # --- Default mode: severity glyphs mirror auto-detected (x / ! / ?) ---
@@ -191,8 +191,11 @@ expected_glyph_lines = {
 }
 glyph_mismatch = []
 for label, glyph in expected_glyph_lines.items():
-    line = next((line for line in tri_render.splitlines() if label in line), None)
-    if line is None or not line.startswith(f"{glyph} **{label}**"):
+    line = next(
+        (line for line in tri_render.splitlines() if label in line and not line.startswith("**")),
+        None,
+    )
+    if line is None or not line.startswith(f"{glyph} {label}"):
         glyph_mismatch.append((label, glyph, line))
 if glyph_mismatch:
     fail(f"severity-glyph mismatches in default-mode render: {glyph_mismatch}")
@@ -220,11 +223,11 @@ composite_render = with_patched_judgement(
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
 expected_composite_block = (
-    "? **Genre specific** — Genre detected: academic\n"
-    '  - "as we have seen" — rubric echo'
+    "? Genre specific: academic genre detected\n"
+    '  - "as we have seen": rubric echo'
 )
 if expected_composite_block in composite_render:
-    ok("composite-flagged renders inline: `? **Genre specific** — Genre detected: academic` + sub-bullet")
+    ok("composite-flagged renders inline: '? Genre specific: academic genre detected' + sub-bullet")
 else:
     fail(f"composite-flagged shape mismatch; expected:\n{expected_composite_block}\ngot:\n{composite_render}")
 
@@ -268,8 +271,8 @@ both_clear_render = with_patched_judgement(
     all_clear_judgement(),
     lambda: format_two_layer(clean_results(), depth="balanced"),
 )
-if not both_clear_render.startswith("Audit\n"):
-    fail(f"both-clear default render should still emit the Audit header (R9, no collapse); got:\n{both_clear_render}")
+if not both_clear_render.startswith("**Audit summary**\n"):
+    fail(f"both-clear default render should still emit the **Audit summary** heading (R9, no collapse); got:\n{both_clear_render}")
 elif "Auto-detected: 0 of " not in both_clear_render:
     fail(f"both-clear counts line should show 'Auto-detected: 0 of N flagged'; got:\n{both_clear_render}")
 elif "Agent-assessed: 0 of 8 flagged" not in both_clear_render:
@@ -308,12 +311,12 @@ full_report_render = with_patched_judgement(
     mixed_full,
     lambda: format_two_layer(clean_results(), depth="balanced", mode="full_report"),
 )
-if "**Agent-assessed patterns** — 1 flagged of 8" not in full_report_render:
-    fail(f"full-report should carry **Agent-assessed patterns** heading with count; got:\n{full_report_render}")
+if "**Agent-assessed**" not in full_report_render:
+    fail(f"full-report should carry the **Agent-assessed** mini-header; got:\n{full_report_render}")
 elif "Checks that are judged by an LLM based on reading the whole draft." not in full_report_render:
     fail(f"full-report should carry agent-assessed brief note; got:\n{full_report_render}")
 else:
-    ok("full-report renders **Agent-assessed patterns** heading + brief note")
+    ok("full-report renders **Agent-assessed** mini-header + brief note")
 
 # 8 items in judgement.json registry order
 EXPECTED_ROW_ORDER = [
@@ -326,7 +329,7 @@ EXPECTED_ROW_ORDER = [
     "Generic metaphors",
     "Genre specific",
 ]
-agent_section_start = full_report_render.find("**Agent-assessed patterns**")
+agent_section_start = full_report_render.find("**Agent-assessed**")
 agent_section = full_report_render[agent_section_start:]
 positions = [agent_section.find(label) for label in EXPECTED_ROW_ORDER]
 if any(p < 0 for p in positions):
@@ -405,8 +408,8 @@ print("\n=== full-report mode: empty judgement → placeholder row ===")
 empty_full = format_two_layer(clean_results(), depth="balanced", mode="full_report")
 if "agent reading not provided" not in empty_full:
     fail(f"empty-judgement full-report should render placeholder Detail; got:\n{empty_full}")
-elif "**Agent-assessed patterns** — 0 flagged of 0" not in empty_full:
-    fail(f"empty-judgement heading should report 'flagged of 0'; got:\n{empty_full}")
+elif "**Agent-assessed**" not in empty_full:
+    fail(f"empty-judgement full-report should still render the **Agent-assessed** mini-header; got:\n{empty_full}")
 else:
     ok("empty-judgement full-report renders the agent-assessed table with placeholder Detail")
 
