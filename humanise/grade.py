@@ -1032,13 +1032,15 @@ def check_rule_of_three(text):
     # Suffixes: -ing, -tion, -sion, -ment, -ness, -ity, -ity, -nce, -ncy, -cy, -ism, -ity
     _abs = r'\b\w+(?:ing|tion|sion|ment|ness|ity|ence|ance|ency|ancy|cy|ism)\b'
     pattern = rf'({_abs}), ({_abs}),? and ({_abs})'
-    matches = re.findall(pattern, text.lower())
+    # Match against original text (with IGNORECASE) so emitted phrases are the verbatim
+    # input span — needed for grader's every-flag-block-contains-input-substring check.
+    matches = list(re.finditer(pattern, text, flags=re.IGNORECASE))
     count = len(matches)
     return {
         "text": "no-forced-triads",
         "passed": count == 0,
         "evidence": (
-            f"Found {count} abstract triad(s): {[', '.join(m) for m in matches]}"
+            f"Found {count} abstract triad(s): {[m.group(0) for m in matches]}"
             if count > 0
             else "No forced triads"
         ),
@@ -1520,9 +1522,11 @@ def check_triad_density(text):
     # Each item: 1-4 words (handles "peer learning", "decision-making structures")
     _item = r'\w+(?:[- ]\w+){0,3}'
     pattern = rf'({_item}),\s+({_item}),?\s+(?:and|or)\s+({_item})'
-    matches = re.findall(pattern, text.lower())
+    # Match against original text (with IGNORECASE) so emitted phrases are the verbatim
+    # input span — needed for grader's every-flag-block-contains-input-substring check.
+    matches = list(re.finditer(pattern, text, flags=re.IGNORECASE))
     count = len(matches)
-    match_strs = [', '.join(m) for m in matches]
+    match_strs = [m.group(0) for m in matches]
     return {
         "text": "no-triad-density",
         "passed": count < 4,
@@ -2652,6 +2656,14 @@ DRAFT_HEADER_RE = re.compile(r"^\*\*Draft\*\*\s*$", re.MULTILINE)
 SUGGESTIONS_HEADER_RE = re.compile(r"^\*\*Suggestions[,]?[^*]*\*\*\s*$", re.MULTILINE)
 AGENT_JUDGEMENT_HEADER_RE = re.compile(r"^\*\*Agent[- ]judgement reading[^*]*\*\*\s*$", re.MULTILINE)
 SECTION_HEADER_RE = re.compile(r"^\*\*[^*]+\*\*\s*$", re.MULTILINE)
+# Top-level section boundaries only — used for sections whose bodies legitimately
+# contain nested bold-only headers (e.g. Suggestions has `**Pattern Name**` per flag,
+# which would otherwise be mistaken for a section terminator by SECTION_HEADER_RE).
+TOP_LEVEL_SECTION_HEADER_RE = re.compile(
+    r"^(?:Audit[ \t]*$(?=\r?\nSeverity:)|"
+    r"\*\*(?:Agent[- ]judgement reading|Suggestions|Rewrite|Draft|Next step)[^*]*\*\*\s*$)",
+    re.MULTILINE,
+)
 QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
 
 # Phase 3 (U11/U13) — the canonical all-clear single-line response emitted
@@ -2684,13 +2696,19 @@ LAYER_1_BLOCK_RE = re.compile(
 )
 
 
-def _section_text(output_text, header_re):
-    """Return the text of a section starting at header_re, ending at the next bold header."""
+def _section_text(output_text, header_re, terminator_re=SECTION_HEADER_RE):
+    """Return the text of a section starting at header_re, ending at the next terminator-matching line.
+
+    The audit section terminates at any bold-only line (its own body is single-line
+    flag blocks, then U11 section tables open with bold headers). The suggestions and
+    agent-judgement sections legitimately contain nested bold blocks per flag, so they
+    must terminate only on top-level section boundaries — pass TOP_LEVEL_SECTION_HEADER_RE.
+    """
     match = header_re.search(output_text)
     if not match:
         return None
     start = match.end()
-    next_match = SECTION_HEADER_RE.search(output_text, start)
+    next_match = terminator_re.search(output_text, start)
     end = next_match.start() if next_match else len(output_text)
     return output_text[start:end]
 
@@ -2700,7 +2718,7 @@ def _audit_section(output_text):
 
 
 def _suggestions_section(output_text):
-    return _section_text(output_text, SUGGESTIONS_HEADER_RE)
+    return _section_text(output_text, SUGGESTIONS_HEADER_RE, TOP_LEVEL_SECTION_HEADER_RE)
 
 
 def _flag_blocks(audit_text):
@@ -2717,8 +2735,8 @@ def _flag_blocks(audit_text):
 
 
 def _agent_judgement_section(output_text):
-    """Return the agent-judgement block text, from header to next bold section."""
-    return _section_text(output_text, AGENT_JUDGEMENT_HEADER_RE)
+    """Return the agent-judgement block text, from header to next top-level section."""
+    return _section_text(output_text, AGENT_JUDGEMENT_HEADER_RE, TOP_LEVEL_SECTION_HEADER_RE)
 
 
 def _agent_judgement_flagged_count(output_text):
@@ -2762,25 +2780,49 @@ def check_audit_shape_block_precedes_rewrite_block(output_text, input_text=None)
     return {"text": name, "passed": False, "evidence": f"follow-up appears before audit (audit={audit.start()}, follow={follow.start()})"}
 
 
+def _collapse_whitespace_inside_quotes(text):
+    """Collapse runs of whitespace (including newlines) inside `"..."` spans.
+    Layer-1 flag blocks are conceptually single-line, but verbatim quotes from
+    multi-line input spans (e.g. a triad split across lines) can carry embedded
+    newlines that break line-anchored regex matching. Whitespace inside quotes
+    has no semantic meaning for the audit-shape checks — collapse so the regex
+    sees a single-line block."""
+    return re.sub(r'"([^"]+)"', lambda m: '"' + re.sub(r'\s+', ' ', m.group(1)).strip() + '"', text, flags=re.DOTALL)
+
+
+def _normalise_for_substring_match(s):
+    """Lowercase + collapse whitespace runs to a single space. Used by
+    check_every_flag_block_contains_input_substring so quoted phrases match
+    the input modulo case (codex lowercases when echoing the script's
+    deterministic Layer 1) and modulo whitespace (a verbatim quote can wrap
+    where the input wraps)."""
+    return re.sub(r'\s+', ' ', s.lower()).strip()
+
+
 def check_every_flag_block_contains_input_substring(output_text, input_text=None):
     """Each Layer 1 flag block carrying a quoted phrase must quote a substring
     of the input. Structural patterns render with no quoted phrase and
-    are excluded — they have no quotable instance to anchor."""
+    are excluded — they have no quotable instance to anchor.
+
+    Comparison is case-insensitive and whitespace-collapsed; verbatim quotes
+    from the deterministic renderer can wrap on a different boundary than
+    the input file, and codex sometimes lowercases when echoing."""
     name = "every-flag-block-contains-input-substring"
     if input_text is None:
         return {"text": name, "passed": False, "evidence": "input_text required for this check"}
     audit = _audit_section(output_text)
     if not audit:
         return {"text": name, "passed": True, "evidence": "no audit section (vacuously true)"}
-    blocks = _flag_blocks(audit)
+    blocks = _flag_blocks(_collapse_whitespace_inside_quotes(audit))
     if not blocks:
         return {"text": name, "passed": True, "evidence": "no flag blocks (vacuously true)"}
+    norm_input = _normalise_for_substring_match(input_text)
     misses = []
     for block in blocks:
         phrases = QUOTED_PHRASE_RE.findall(block)
         if not phrases:
             continue  # structural patterns carry no quoted phrase
-        if not any(phrase in input_text for phrase in phrases):
+        if not any(_normalise_for_substring_match(phrase) in norm_input for phrase in phrases):
             misses.append(block[:80])
     if misses:
         return {"text": name, "passed": False, "evidence": f"{len(misses)} block(s) lack input-matching quotes: {misses[:3]}"}
@@ -2809,7 +2851,7 @@ def check_every_flag_block_has_explanation(output_text, input_text=None):
     audit = _audit_section(output_text)
     if not audit:
         return {"text": name, "passed": False, "evidence": "no audit section found"}
-    candidates = _FLAG_BLOCK_CANDIDATE_RE.findall(audit)
+    candidates = _FLAG_BLOCK_CANDIDATE_RE.findall(_collapse_whitespace_inside_quotes(audit))
     if not candidates:
         return {"text": name, "passed": True, "evidence": "no flag-block candidates (vacuously true)"}
     missing = [b[:80] for b in candidates if not re.search(r"Action:\s+\S", b)]

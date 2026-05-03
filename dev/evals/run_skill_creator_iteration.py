@@ -295,9 +295,9 @@ def paragraph_lengths(text: str) -> list[int]:
     return [len(re.findall(r"\b\w+\b", p)) for p in paragraphs]
 
 
-# patterns.md headings the audit uses (per SKILL.md) that don't substring-match
-# the corresponding CHECK_REPORT_TEXT label. Dedupes via check_id.
-_PATTERNS_MD_ALIASES = {
+# Names the skill emits in Layer 1 flag blocks that don't match the patterns.yaml
+# short_name verbatim. Lower-cased keys; values are catalogue check_ids.
+_LAYER_1_NAME_ALIASES = {
     "copula avoidance": "no-copula-avoidance",
     "contrived contrast / negative parallelism": "no-negative-parallelisms",
     "rule of three": "no-forced-triads",
@@ -308,17 +308,31 @@ _PATTERNS_MD_ALIASES = {
     "aggregate ai-signal pressure": "overall-ai-signal-pressure",
 }
 
+_LAYER_1_NAME_RE = re.compile(r"^[x!?]\s+\*\*([^*]+)\*\*")
+
 
 def catalogue_hits(output: str) -> set[str]:
-    lower = output.lower()
+    """Distinct catalogue-pattern IDs that appear as Layer-1 programmatic flags
+    (`! **Name** — ...` or `? **Name** — ...`) inside the response's audit section.
+
+    Replaces an earlier substring-matching heuristic that broke under U11's
+    two-layer renderer: section tables now list every pattern with Clear/Flagged
+    status, so a substring match against the full response always returned the
+    entire catalogue. Only flagged Layer-1 blocks count here.
+    """
+    audit = GRADE._audit_section(output) or ""
+    if not audit:
+        return set()
+    label_to_id = {label.lower(): cid for cid, label in _PATTERN_LABELS.items()}
     hits: set[str] = set()
-    for check_id, label in _PATTERN_LABELS.items():
-        terms = {label.lower(), check_id.replace("-", " ")}
-        if any(term in lower for term in terms):
-            hits.add(check_id)
-    for heading_lc, check_id in _PATTERNS_MD_ALIASES.items():
-        if heading_lc in lower:
-            hits.add(check_id)
+    for line in audit.splitlines():
+        match = _LAYER_1_NAME_RE.match(line)
+        if not match:
+            continue
+        name_lc = match.group(1).strip().lower()
+        cid = label_to_id.get(name_lc) or _LAYER_1_NAME_ALIASES.get(name_lc)
+        if cid:
+            hits.add(cid)
     return hits
 
 
