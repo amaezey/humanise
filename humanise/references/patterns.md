@@ -1,8 +1,8 @@
 # AI writing patterns
 
-<!-- This file is generated from `humanise/patterns.yaml`. Edit the YAML and regenerate via `python3 dev/tools/render_patterns_md.py --write`. -->
+<!-- This file is generated from `humanise/scripts/patterns.json`. Edit the JSON and regenerate via `python3 dev/tools/render_patterns_md.py --write`. -->
 
-53 patterns plus five sub-letter variants (10a, 23a, 31a, 35a, 35b) to detect and fix, plus one unnumbered aggregate meta-check (`overall-ai-signal-pressure`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
+53 patterns plus five sub-letter variants (10a, 23a, 31a, 35a, 35b) to detect and fix, plus one unnumbered aggregate meta-check (`overall-signal-stacking`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
 
 ## Contents
 
@@ -14,7 +14,7 @@
 - [Sensory and atmospheric (26-28)](#sensory-and-atmospheric)
 - [Structural tells (29-32, 38, 42, 44, 52)](#structural-tells)
 - [Voice and register (33-37, 39-41, 43, 45-46, 51)](#voice-and-register)
-- [Aggregate AI-signal pressure (meta-check)](#aggregate-ai-signal-pressure-meta-check)
+- [Signal stacking (meta-check)](#signal-stacking-meta-check)
 
 ---
 
@@ -262,9 +262,9 @@ Full GPTZero phrase list used by the grader:
 99. today at a fast pace
 100. stand in stark contrast
 
-**Kobak excess vocabulary:** The grader also loads the full 900-row `kobak-excess-words.csv` file from Kobak et al.'s `llm-excess-vocab` repository. The file includes `style`, `content`, `content/style`, and `other` annotations. The aggregate pressure check uses style-annotated terms as one vocabulary signal alongside the local AI-vocabulary list and all 100 GPTZero phrases. Kobak words do not fail text by themselves.
+**Kobak excess vocabulary:** The grader also loads the full 900-row `kobak-excess-words.csv` file from Kobak et al.'s `llm-excess-vocab` repository. The file includes `style`, `content`, `content/style`, and `other` annotations. The aggregate signal-stacking check uses style-annotated terms as one vocabulary signal alongside the local AI-vocabulary list and all 100 GPTZero phrases. Kobak words do not fail text by themselves.
 
-Current threshold: vocabulary pressure contributes points to an overall score. The overall score only trips when vocabulary pressure combines with structural signals such as manufactured insight, contrived reframes, paragraph uniformity, unrequested headings, soft scaffolding, or assistant residue. This follows the paper's corpus-level logic: excess vocabulary is evidence in a pattern, not a standalone detector verdict.
+Current threshold: vocabulary signals contribute points to an overall score. The overall score only trips when vocabulary signals combine with structural signals such as manufactured insight, contrived reframes, paragraph uniformity, unrequested headings, soft scaffolding, or assistant residue. This follows the paper's corpus-level logic: excess vocabulary is evidence in a pattern, not a standalone detector verdict.
 
 **Before:**
 > Additionally, a distinctive feature of Somali cuisine is the incorporation of camel meat. An enduring testament to Italian colonial influence is the widespread adoption of pasta in the local culinary landscape, showcasing how these dishes have integrated into the traditional diet.
@@ -1142,11 +1142,11 @@ Three or more consecutive sentences whose first word matches — "The X… The Y
 
 ---
 
-## Aggregate AI-signal pressure (meta-check)
+## Signal stacking (meta-check)
 
 The grader also runs one meta-check that does not correspond to a single AI tell.
 
-`overall-ai-signal-pressure` rolls up several weak/medium signals into a single pressure score. The component checks are:
+`overall-signal-stacking` rolls up several weak/medium signals into a single signal-stacking score. The component checks are:
 
 - manufactured insight framing (#42)
 - contrived contrast / negative parallelism (#9)
@@ -1164,9 +1164,9 @@ The grader also runs one meta-check that does not correspond to a single AI tell
 
 Plus Kobak et al. excess-vocabulary evidence (style-annotated terms from the `kobak-excess-words.csv` reference file).
 
-The check fires when the weighted score crosses a threshold AND vocabulary pressure combines with structural signals. Per Kobak et al.'s corpus-level logic, vocabulary alone cannot decide authorship — the meta-check therefore requires both vocabulary and structural pressure before tripping. Individually, each component may be weak; their combination indicates a generated piece that has been polished enough to dodge any single regex.
+The check fires when the weighted score crosses a threshold AND vocabulary signals combine with structural signals. Per Kobak et al.'s corpus-level logic, vocabulary alone cannot decide authorship — the meta-check therefore requires both vocabulary and structural signals stacking before tripping. Individually, each component may be weak; their combination indicates a generated piece that has been polished enough to dodge any single regex.
 
-**Severity:** context_warning · `overall-ai-signal-pressure`
+**Severity:** context_warning · `overall-signal-stacking`
 
 
-**Detection:** Programmatic meta-check `overall-ai-signal-pressure` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **context_warning**). Not numbered as a single AI tell; rolls up the components above. The check exposes its component breakdown and Kobak vocabulary profile in its evidence so the writer can read which signals contributed.
+**Detection:** Programmatic meta-check `overall-signal-stacking` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **context_warning**). Not numbered as a single AI tell; rolls up the components above. The check exposes its component breakdown and Kobak vocabulary profile in its evidence so the writer can read which signals contributed.

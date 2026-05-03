@@ -20,13 +20,13 @@
               "no-formulaic-openers"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-forced-triads",
               "no-signposted-conclusions",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-forced-triads",
               "no-signposted-conclusions",
               "no-triad-density"
@@ -39,7 +39,7 @@
               "no-formulaic-openers"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-forced-triads",
               "no-signposted-conclusions",
               "no-triad-density"
@@ -52,7 +52,7 @@
             "required_fixes": [
               "no-em-dashes",
               "no-ai-vocabulary-clustering",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-negative-parallelisms",
               "no-copula-avoidance",
               "no-forced-triads",
@@ -65,7 +65,7 @@
             "must_fix": [
               "no-em-dashes",
               "no-ai-vocabulary-clustering",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-negative-parallelisms",
               "no-copula-avoidance",
               "no-forced-triads",
@@ -80,7 +80,7 @@
         "failed_checks": [
           "no-em-dashes",
           "no-ai-vocabulary-clustering",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-negative-parallelisms",
           "no-copula-avoidance",
           "no-forced-triads",
@@ -162,12 +162,12 @@
               "no-section-scaffolding"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-triad-density"
             ],
@@ -177,7 +177,7 @@
               "no-section-scaffolding"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-triad-density"
             ],
@@ -188,7 +188,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-copula-avoidance",
               "no-markdown-headings",
               "no-triad-density",
@@ -198,7 +198,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-copula-avoidance",
               "no-markdown-headings",
               "no-triad-density",
@@ -210,7 +210,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-copula-avoidance",
           "no-markdown-headings",
           "no-triad-density",
@@ -284,12 +284,12 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-triad-density"
             ],
@@ -299,7 +299,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-triad-density"
             ],
@@ -310,7 +310,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-negative-parallelisms",
@@ -320,7 +320,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-negative-parallelisms",
@@ -332,7 +332,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-anaphora",
           "no-negative-parallelisms",
@@ -806,14 +806,14 @@
               "no-formulaic-openers"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-significance-inflation",
               "no-signposted-conclusions",
               "no-markdown-headings"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-significance-inflation",
               "no-signposted-conclusions",
@@ -824,7 +824,7 @@
               "no-formulaic-openers"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-significance-inflation",
               "no-signposted-conclusions",
@@ -837,7 +837,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-significance-inflation",
               "no-formulaic-openers",
@@ -848,7 +848,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-significance-inflation",
               "no-formulaic-openers",
@@ -861,7 +861,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-promotional-language",
           "no-significance-inflation",
           "no-formulaic-openers",
@@ -885,7 +885,7 @@
               "no-manufactured-insight"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-promotional-language",
               "no-significance-inflation",
@@ -895,7 +895,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-promotional-language",
               "no-significance-inflation",
@@ -909,7 +909,7 @@
               "no-manufactured-insight"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-promotional-language",
               "no-significance-inflation",
@@ -925,7 +925,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-promotional-language",
@@ -939,7 +939,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-promotional-language",
@@ -955,7 +955,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-anaphora",
           "no-promotional-language",
@@ -982,14 +982,14 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-signposted-conclusions",
               "no-markdown-headings",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-signposted-conclusions",
               "no-markdown-headings",
@@ -1000,7 +1000,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-signposted-conclusions",
               "no-markdown-headings",
@@ -1013,7 +1013,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-negative-parallelisms",
               "no-signposted-conclusions",
@@ -1024,7 +1024,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-negative-parallelisms",
               "no-signposted-conclusions",
@@ -1037,7 +1037,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-promotional-language",
           "no-negative-parallelisms",
           "no-signposted-conclusions",
@@ -1061,7 +1061,7 @@
               "no-manufactured-insight"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-significance-inflation",
               "no-signposted-conclusions",
@@ -1069,7 +1069,7 @@
               "paragraph-length-uniformity"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-significance-inflation",
               "no-signposted-conclusions",
@@ -1081,7 +1081,7 @@
               "no-manufactured-insight"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-significance-inflation",
               "no-signposted-conclusions",
@@ -1095,7 +1095,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-significance-inflation",
@@ -1107,7 +1107,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-significance-inflation",
@@ -1121,7 +1121,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-anaphora",
           "no-significance-inflation",
@@ -1147,13 +1147,13 @@
               "no-copula-avoidance"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-signposted-conclusions",
               "no-markdown-headings"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-signposted-conclusions",
               "no-markdown-headings"
@@ -1164,7 +1164,7 @@
               "no-copula-avoidance"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-promotional-language",
               "no-signposted-conclusions",
               "no-markdown-headings"
@@ -1176,7 +1176,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-promotional-language",
               "no-copula-avoidance",
@@ -1187,7 +1187,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-promotional-language",
               "no-copula-avoidance",
@@ -1200,7 +1200,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-promotional-language",
           "no-copula-avoidance",
@@ -1305,7 +1305,7 @@
               "no-filler-phrases"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1314,7 +1314,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1328,7 +1328,7 @@
               "no-filler-phrases"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1343,7 +1343,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-nonliteral-land-surface",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1357,7 +1357,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-nonliteral-land-surface",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1373,7 +1373,7 @@
         },
         "failed_checks": [
           "no-nonliteral-land-surface",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-staccato-sequences",
           "no-anaphora",
           "no-curly-quotes",
@@ -1545,7 +1545,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1553,7 +1553,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1564,7 +1564,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1577,7 +1577,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1588,7 +1588,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1601,7 +1601,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-staccato-sequences",
           "no-anaphora",
           "no-curly-quotes",
@@ -1697,7 +1697,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -1706,7 +1706,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -1718,7 +1718,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -1732,7 +1732,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -1744,7 +1744,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -1758,7 +1758,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-curly-quotes",
           "no-negative-parallelisms",
@@ -1783,7 +1783,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1793,7 +1793,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1806,7 +1806,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1821,7 +1821,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1834,7 +1834,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1849,7 +1849,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-staccato-sequences",
           "no-anaphora",
           "no-curly-quotes",
@@ -1936,7 +1936,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1947,7 +1947,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1962,7 +1962,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -1978,7 +1978,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-staccato-sequences",
               "no-anaphora",
@@ -1993,7 +1993,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-staccato-sequences",
               "no-anaphora",
@@ -2010,7 +2010,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-staccato-sequences",
           "no-anaphora",
@@ -2120,7 +2120,7 @@
               "no-section-scaffolding"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-promotional-language",
@@ -2130,7 +2130,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-promotional-language",
@@ -2146,7 +2146,7 @@
               "no-section-scaffolding"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-promotional-language",
@@ -2162,7 +2162,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-promotional-language",
@@ -2178,7 +2178,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-promotional-language",
@@ -2196,7 +2196,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-curly-quotes",
           "no-promotional-language",
@@ -2225,7 +2225,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-significance-inflation",
@@ -2234,7 +2234,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-significance-inflation",
@@ -2247,7 +2247,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-significance-inflation",
@@ -2262,7 +2262,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-significance-inflation",
@@ -2275,7 +2275,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-significance-inflation",
@@ -2290,7 +2290,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-curly-quotes",
           "no-promotional-language",
           "no-significance-inflation",
@@ -2374,14 +2374,14 @@
               "no-section-scaffolding"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-curly-quotes",
               "no-markdown-headings",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -2394,7 +2394,7 @@
               "no-section-scaffolding"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -2407,7 +2407,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -2420,7 +2420,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -2435,7 +2435,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-staccato-sequences",
           "no-curly-quotes",
           "no-negative-parallelisms",
@@ -2547,14 +2547,14 @@
               "no-formulaic-openers"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-forced-triads",
               "no-markdown-headings"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-forced-triads",
@@ -2567,7 +2567,7 @@
               "no-formulaic-openers"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-forced-triads",
@@ -2580,7 +2580,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -2593,7 +2593,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -2608,7 +2608,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-curly-quotes",
           "no-negative-parallelisms",
@@ -2921,7 +2921,7 @@
               "no-soft-scaffolding"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-forced-triads",
               "no-markdown-headings",
@@ -2929,7 +2929,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-forced-triads",
               "no-markdown-headings",
@@ -2940,7 +2940,7 @@
               "no-soft-scaffolding"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-forced-triads",
               "no-markdown-headings",
@@ -2953,7 +2953,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-soft-scaffolding",
               "no-forced-triads",
@@ -2964,7 +2964,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-soft-scaffolding",
               "no-forced-triads",
@@ -2977,7 +2977,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-soft-scaffolding",
           "no-forced-triads",
@@ -3052,7 +3052,7 @@
             "check_status": "fail",
             "required_fixes": [],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
@@ -3060,7 +3060,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
@@ -3069,7 +3069,7 @@
             ],
             "must_fix": [],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
@@ -3082,7 +3082,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
@@ -3092,7 +3092,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-markdown-headings",
@@ -3104,7 +3104,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-staccato-sequences",
           "no-anaphora",
           "no-markdown-headings",
@@ -3124,14 +3124,14 @@
             "check_status": "fail",
             "required_fixes": [],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3139,7 +3139,7 @@
             ],
             "must_fix": [],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3151,7 +3151,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3160,7 +3160,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3171,7 +3171,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-markdown-headings",
           "paragraph-length-uniformity",
@@ -3193,13 +3193,13 @@
               "no-filler-phrases"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3208,7 +3208,7 @@
               "no-filler-phrases"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3219,7 +3219,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-filler-phrases",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3228,7 +3228,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-filler-phrases",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3239,7 +3239,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-filler-phrases",
           "no-markdown-headings",
           "paragraph-length-uniformity",
@@ -3261,13 +3261,13 @@
               "no-manufactured-insight"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3276,7 +3276,7 @@
               "no-manufactured-insight"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3287,7 +3287,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3296,7 +3296,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3307,7 +3307,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-markdown-headings",
           "paragraph-length-uniformity",
@@ -3326,14 +3326,14 @@
             "check_status": "fail",
             "required_fixes": [],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3341,7 +3341,7 @@
             ],
             "must_fix": [],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3353,7 +3353,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3362,7 +3362,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3373,7 +3373,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-markdown-headings",
           "no-negation-density",
           "paragraph-length-uniformity",
@@ -3392,20 +3392,20 @@
             "check_status": "fail",
             "required_fixes": [],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "must_fix": [],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3416,7 +3416,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3424,7 +3424,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3434,7 +3434,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-markdown-headings",
           "paragraph-length-uniformity",
           "no-triad-density"
@@ -3452,20 +3452,20 @@
             "check_status": "fail",
             "required_fixes": [],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "must_fix": [],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3476,7 +3476,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3484,7 +3484,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3494,7 +3494,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-markdown-headings",
           "paragraph-length-uniformity",
           "no-triad-density"
@@ -3515,13 +3515,13 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3530,7 +3530,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3541,7 +3541,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-negative-parallelisms",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3550,7 +3550,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-negative-parallelisms",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3561,7 +3561,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-negative-parallelisms",
           "no-markdown-headings",
           "paragraph-length-uniformity",
@@ -3585,14 +3585,14 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3603,7 +3603,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3615,7 +3615,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-collaborative-artifacts",
               "no-negative-parallelisms",
@@ -3626,7 +3626,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-collaborative-artifacts",
               "no-negative-parallelisms",
@@ -3639,7 +3639,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-collaborative-artifacts",
           "no-negative-parallelisms",
@@ -3663,13 +3663,13 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3678,7 +3678,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "paragraph-length-uniformity",
               "no-triad-density"
@@ -3689,7 +3689,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-negative-parallelisms",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3698,7 +3698,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-negative-parallelisms",
               "no-markdown-headings",
               "paragraph-length-uniformity",
@@ -3709,7 +3709,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-negative-parallelisms",
           "no-markdown-headings",
           "paragraph-length-uniformity",
@@ -3841,7 +3841,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-promotional-language",
               "no-markdown-headings",
@@ -3849,7 +3849,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-promotional-language",
               "no-markdown-headings",
@@ -3860,7 +3860,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-promotional-language",
               "no-markdown-headings",
@@ -3873,7 +3873,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-promotional-language",
               "no-negative-parallelisms",
@@ -3884,7 +3884,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-promotional-language",
               "no-negative-parallelisms",
@@ -3897,7 +3897,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-staccato-sequences",
           "no-promotional-language",
           "no-negative-parallelisms",
@@ -3918,14 +3918,14 @@
             "check_status": "fail",
             "required_fixes": [],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3933,7 +3933,7 @@
             ],
             "must_fix": [],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3945,7 +3945,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3954,7 +3954,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-markdown-headings",
               "no-negation-density",
               "paragraph-length-uniformity",
@@ -3965,7 +3965,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-markdown-headings",
           "no-negation-density",
           "paragraph-length-uniformity",
@@ -4398,7 +4398,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-ghost-spectral-density",
@@ -4406,7 +4406,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-ghost-spectral-density",
@@ -4418,7 +4418,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-ghost-spectral-density",
@@ -4431,7 +4431,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-curly-quotes",
@@ -4443,7 +4443,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-anaphora",
               "no-curly-quotes",
@@ -4457,7 +4457,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-anaphora",
           "no-curly-quotes",
@@ -4642,7 +4642,7 @@
               "no-filler-phrases"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-rhetorical-questions",
@@ -4652,7 +4652,7 @@
               "no-boldface-overuse"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-rhetorical-questions",
@@ -4666,7 +4666,7 @@
               "no-filler-phrases"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-rhetorical-questions",
@@ -4681,7 +4681,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-negative-parallelisms",
@@ -4695,7 +4695,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-negative-parallelisms",
@@ -4711,7 +4711,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-staccato-sequences",
           "no-anaphora",
           "no-negative-parallelisms",
@@ -4843,7 +4843,7 @@
               "no-section-scaffolding"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -4851,7 +4851,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -4866,7 +4866,7 @@
               "no-section-scaffolding"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-markdown-headings",
@@ -4880,7 +4880,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -4895,7 +4895,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -4912,7 +4912,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-curly-quotes",
           "no-negative-parallelisms",
@@ -4939,7 +4939,7 @@
               "no-manufactured-insight"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-significance-inflation",
               "no-forced-triads",
@@ -4950,7 +4950,7 @@
               "no-boldface-overuse"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-significance-inflation",
               "no-forced-triads",
@@ -4964,7 +4964,7 @@
               "no-manufactured-insight"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-significance-inflation",
               "no-forced-triads",
@@ -4980,7 +4980,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-staccato-sequences",
               "no-significance-inflation",
@@ -4994,7 +4994,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-staccato-sequences",
               "no-significance-inflation",
@@ -5010,7 +5010,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-staccato-sequences",
           "no-significance-inflation",
@@ -7283,7 +7283,7 @@
               "no-negative-parallelisms"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-forced-triads",
@@ -7291,7 +7291,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-forced-triads",
@@ -7302,7 +7302,7 @@
               "no-negative-parallelisms"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-forced-triads",
@@ -7315,7 +7315,7 @@
             "status": "fail",
             "check_status": "fail",
             "required_fixes": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -7326,7 +7326,7 @@
             "preservable_with_disclosure": [],
             "user_decision_needed": [],
             "must_fix": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-anaphora",
               "no-curly-quotes",
               "no-negative-parallelisms",
@@ -7339,7 +7339,7 @@
           }
         },
         "failed_checks": [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-anaphora",
           "no-curly-quotes",
           "no-negative-parallelisms",
@@ -7609,7 +7609,7 @@
               "no-section-scaffolding"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-markdown-headings",
@@ -7617,7 +7617,7 @@
               "no-triad-density"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-markdown-headings",
@@ -7631,7 +7631,7 @@
               "no-section-scaffolding"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-markdown-headings",
@@ -7645,7 +7645,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-negative-parallelisms",
@@ -7659,7 +7659,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-curly-quotes",
               "no-promotional-language",
               "no-negative-parallelisms",
@@ -7675,7 +7675,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-curly-quotes",
           "no-promotional-language",
           "no-negative-parallelisms",
@@ -7988,7 +7988,7 @@
               "no-section-scaffolding"
             ],
             "preservable_with_disclosure": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -8000,7 +8000,7 @@
               "no-boldface-overuse"
             ],
             "user_decision_needed": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -8018,7 +8018,7 @@
               "no-section-scaffolding"
             ],
             "needs_user_decision": [
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-staccato-sequences",
               "no-anaphora",
               "no-curly-quotes",
@@ -8036,7 +8036,7 @@
             "check_status": "fail",
             "required_fixes": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-staccato-sequences",
               "no-anaphora",
@@ -8054,7 +8054,7 @@
             "user_decision_needed": [],
             "must_fix": [
               "no-em-dashes",
-              "overall-ai-signal-pressure",
+              "overall-signal-stacking",
               "no-manufactured-insight",
               "no-staccato-sequences",
               "no-anaphora",
@@ -8074,7 +8074,7 @@
         },
         "failed_checks": [
           "no-em-dashes",
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           "no-manufactured-insight",
           "no-staccato-sequences",
           "no-anaphora",
@@ -8228,7 +8228,7 @@
           8
         ],
         [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           8
         ],
         [
@@ -8321,7 +8321,7 @@
           22
         ],
         [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           22
         ],
         [
@@ -8455,7 +8455,7 @@
           7
         ],
         [
-          "overall-ai-signal-pressure",
+          "overall-signal-stacking",
           7
         ],
         [

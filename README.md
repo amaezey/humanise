@@ -28,7 +28,7 @@ The audit returns three sections. The first two come from a deterministic grader
 - **Detected patterns**: a per-category coverage list, so what passed and what was flagged are both visible.
 - **Agent judgement**: eight readings of voice, register, and grounding.
 
-When every check is clear and pressure has not triggered, the audit collapses to a single line.
+When every check is clear and signal stacking has not triggered, the audit collapses to a single line.
 
 ## Install
 
@@ -111,8 +111,8 @@ Excerpt from `python3 humanise/scripts/grade.py --format markdown --depth all de
 
 ```text
 Audit
-Severity: 1 hard_fail · 1 strong_warning · 4 context_warning · pressure: triggered
-Pressure triggered: weaker AI-writing signals stacked to 8 of the 4-point threshold (contrived contrast framing, paragraph length uniformity, headings in prose, assistant residue).
+Severity: 1 hard fail · 1 strong warning · 4 context warning · signal stacking: triggered
+Signal stacking triggered: weaker AI-writing signals stacked to 8 of the 4-point threshold (contrived contrast framing, paragraph length uniformity, headings in prose, assistant residue).
 
 ? **Mechanical repeated sentence starts** — Action: Fix
 x **Assistant residue** — "let me know if" — Action: Fix
@@ -213,10 +213,10 @@ Rewrite workflows include the rewritten draft, a structural self-check, and the 
 | 45 | Nonliteral land/surface phrasing |  | strong_warning | "the argument lands", "the idea lands", "your point lands" |
 | 46 | Bland critical template |  | strong_warning | "the kind of contemporary novel/film/book/album/show that..." |
 | 51 | Mechanical repeated sentence starts |  | context_warning | Three or more consecutive sentences whose first word matches: "The X… The Y… The Z…" |
-| | **Aggregate AI-signal pressure** | | | |
-| | AI pressure from stacked signals | | context_warning | Stacked weak signals reaching the threshold (e.g., "headings in prose, assistant residue, generic conclusion") |
+| | **Signal stacking** | | | |
+| | Signal stacking from stacked AI tells | | context_warning | Stacked weak signals reaching the threshold (e.g., "headings in prose, assistant residue, generic conclusion") |
 
-Density and stacking matter more than any single occurrence. The grader's `overall-ai-signal-pressure` check fires when several weaker patterns appear together; that is usually a stronger signal than any individual flag.
+Density and stacking matter more than any single occurrence. The grader's `overall-signal-stacking` check fires when several weaker patterns appear together; that is usually a stronger signal than any individual flag.
 
 ## Agent-judgement readings
 

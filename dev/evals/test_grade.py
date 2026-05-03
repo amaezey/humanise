@@ -181,10 +181,10 @@ expect_pass("no-nonliteral-land-surface",
     "literal paper landed on desk")
 
 
-# --- overall-ai-signal-pressure ---
+# --- overall-signal-stacking ---
 
-print("\n=== overall-ai-signal-pressure ===")
-expect_pass("overall-ai-signal-pressure",
+print("\n=== overall-signal-stacking ===")
+expect_pass("overall-signal-stacking",
     (
         "This clinical covid antiviral study additionally aims to address "
         "challenges and enhance outcomes. The analysis underscores advancements, "
@@ -192,20 +192,20 @@ expect_pass("overall-ai-signal-pressure",
         "patients receiving therapeutic intervention."
     ),
     "Kobak-heavy academic vocabulary alone is supporting evidence, not a failure")
-expect_pass("overall-ai-signal-pressure",
+expect_pass("overall-signal-stacking",
     (
         "The clinic tested an antiviral drug in patients with covid. Fever fell "
         "after two days, and three patients left the ward by Friday."
     ),
-    "biomedical content without style pressure")
-expect_pass("overall-ai-signal-pressure",
+    "biomedical content without style signal stacking")
+expect_pass("overall-signal-stacking",
     (
         "The essay additionally aims to address challenges and enhance outcomes. "
         "The analysis underscores advancements and offers a comprehensive approach "
         "for readers."
     ),
     "style words without other AI-ish structure")
-expect_fail("overall-ai-signal-pressure",
+expect_fail("overall-signal-stacking",
     (
         "## Overview\n\n"
         "At its core, this clinical covid antiviral study is not just about "
@@ -217,7 +217,7 @@ expect_fail("overall-ai-signal-pressure",
         "At its core, the work is less about data than about transformation. "
         "That is why the findings continue to inspire a deeper understanding."
     ),
-    "Kobak pressure plus vocabulary, headings, formulaic openers, tidy endings, and reframes")
+    "Kobak signals plus vocabulary, headings, formulaic openers, tidy endings, and reframes")
 
 
 # --- no-manufactured-insight ---
@@ -1078,7 +1078,7 @@ _GROUP_B_CHECKS = [
     "no-bland-critical-template",
     "no-soft-scaffolding",
     "no-negation-density",
-    "overall-ai-signal-pressure",
+    "overall-signal-stacking",
 ]
 for _check in _GROUP_B_CHECKS:
     if f"`{_check}`" not in _patterns_md:
@@ -1152,7 +1152,7 @@ expected_checks = {
     "no-em-dashes",
     "no-ai-vocabulary-clustering",
     "no-nonliteral-land-surface",
-    "overall-ai-signal-pressure",
+    "overall-signal-stacking",
     "no-manufactured-insight",
     "no-staccato-sequences",
     "no-anaphora",
@@ -1250,13 +1250,13 @@ _triggered_report = triggered_checks([
 ])
 _score_report = score_summary([
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
+        "evidence": "Overall signal stacking 5/4",
         "score": 5,
         "threshold": 4,
         "components": ["paragraph length uniformity", "headings in prose"],
-        "vocabulary_pressure": {
+        "vocabulary_signal_stacking": {
             "points": 1,
             "reasons": ["generic cluster"],
             "worst_generic": 2,
@@ -1271,13 +1271,13 @@ _score_report = score_summary([
 ])
 _human_report = human_report([
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
+        "evidence": "Overall signal stacking 5/4",
         "score": 5,
         "threshold": 4,
         "components": ["paragraph length uniformity", "headings in prose"],
-        "vocabulary_pressure": {
+        "vocabulary_signal_stacking": {
             "points": 1,
             "reasons": ["generic cluster"],
             "worst_generic": 2,
@@ -1310,15 +1310,15 @@ if _score_report["check_status"] != "fail" or _score_report["pass_rate"] != "1/3
 else:
     print("  ok: score summary exposes check totals")
 
-_ai_pressure = _score_report["ai_signal_pressure"]
-if not _ai_pressure or _ai_pressure["score"] != 5 or _ai_pressure["threshold"] != 4 or not _ai_pressure["triggered"]:
+_signal_stacking = _score_report["signal_stacking"]
+if not _signal_stacking or _signal_stacking["score"] != 5 or _signal_stacking["threshold"] != 4 or not _signal_stacking["triggered"]:
     FAILURES += 1
-    print(f"FAIL: score_summary should expose AI-signal pressure; got {_ai_pressure}")
+    print(f"FAIL: score_summary should expose signal stacking; got {_signal_stacking}")
 else:
-    print("  ok: score summary exposes AI-signal pressure")
+    print("  ok: score summary exposes signal stacking")
 
 # U8: human_report now returns the audit-format-v1 contract (structured-only).
-# The OLD assertions on overview/all_checks/ai_pressure_explanation/confidence
+# The OLD assertions on overview/all_checks/signal_stacking_explanation/confidence
 # moved to the contract's aggregates + programmatic_checks shape.
 
 _failed_count = sum(1 for c in _human_report["programmatic_checks"] if c["status"] == "flagged")
@@ -1329,22 +1329,22 @@ if _failed_count != 2 or _total != 3:
 else:
     print("  ok: contract programmatic_checks reports failed/total counts")
 
-_pressure_check = next(
-    (c for c in _human_report["programmatic_checks"] if c["id"] == "overall-ai-signal-pressure"),
+_signal_stacking_check = next(
+    (c for c in _human_report["programmatic_checks"] if c["id"] == "overall-signal-stacking"),
     None,
 )
-if not _pressure_check or _pressure_check["status"] != "flagged":
+if not _signal_stacking_check or _signal_stacking_check["status"] != "flagged":
     FAILURES += 1
-    print(f"FAIL: contract should include flagged aggregate-pressure check; got {_pressure_check}")
+    print(f"FAIL: contract should include flagged signal-stacking check; got {_signal_stacking_check}")
 else:
-    print("  ok: aggregate pressure is reported as one programmatic check")
+    print("  ok: signal stacking is reported as one programmatic check")
 
-_pressure_aggr = _human_report["aggregates"]["ai_pressure"]
-if "paragraph length uniformity" not in _pressure_aggr["components"]:
+_signal_stacking_aggr = _human_report["aggregates"]["signal_stacking"]
+if "paragraph length uniformity" not in _signal_stacking_aggr["components"]:
     FAILURES += 1
-    print(f"FAIL: aggregates.ai_pressure should list components; got {_pressure_aggr['components']}")
+    print(f"FAIL: aggregates.signal_stacking should list components; got {_signal_stacking_aggr['components']}")
 else:
-    print("  ok: aggregates.ai_pressure lists components")
+    print("  ok: aggregates.signal_stacking lists components")
 
 if "confidence" in _human_report:
     FAILURES += 1
@@ -1352,17 +1352,17 @@ if "confidence" in _human_report:
 else:
     print("  ok: contract has no confidence block (R14 removal)")
 
-# Vocab-only AI-pressure branch: aggregates.ai_pressure.vocabulary_points carries
-# the signal that the OLD ai_pressure_explanation prose used to mention.
+# Vocab-only signal-stacking branch: aggregates.signal_stacking.vocabulary_points carries
+# the signal that the OLD signal_stacking_explanation prose used to mention.
 _human_report_vocab_only = human_report([
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 4/4",
+        "evidence": "Overall signal stacking 4/4",
         "score": 4,
         "threshold": 4,
         "components": [],
-        "vocabulary_pressure": {
+        "vocabulary_signal_stacking": {
             "points": 4,
             "reasons": ["generic cluster x4"],
             "worst_generic": 4,
@@ -1373,20 +1373,20 @@ _human_report_vocab_only = human_report([
         },
     }),
 ])
-_vocab_pressure = _human_report_vocab_only["aggregates"]["ai_pressure"]
-if _vocab_pressure["vocabulary_points"] != 4 or _vocab_pressure["components"]:
+_vocab_signal_stacking = _human_report_vocab_only["aggregates"]["signal_stacking"]
+if _vocab_signal_stacking["vocabulary_points"] != 4 or _vocab_signal_stacking["components"]:
     FAILURES += 1
-    print(f"FAIL: vocab-only branch should expose vocabulary_points without components; got {_vocab_pressure}")
+    print(f"FAIL: vocab-only branch should expose vocabulary_points without components; got {_vocab_signal_stacking}")
 else:
-    print("  ok: contract aggregates handle vocab-only AI pressure")
+    print("  ok: contract aggregates handle vocab-only signal stacking")
 
 _friendly_vocab_only = friendly_evidence({
-    "text": "overall-ai-signal-pressure",
+    "text": "overall-signal-stacking",
     "passed": False,
     "score": 4,
     "threshold": 4,
     "components": [],
-    "vocabulary_pressure": {
+    "vocabulary_signal_stacking": {
         "points": 4,
         "reasons": ["generic cluster x4"],
         "worst_generic": 4,
@@ -1400,7 +1400,7 @@ if "no stacked weak signals" in _friendly_vocab_only or "Clustered AI vocabulary
     FAILURES += 1
     print(f"FAIL: friendly_evidence vocab-only branch should not contradict itself; got {_friendly_vocab_only}")
 else:
-    print("  ok: friendly_evidence handles vocab-only AI pressure cleanly")
+    print("  ok: friendly_evidence handles vocab-only signal stacking cleanly")
 
 _total_checks = len(ALL_CHECKS)
 _full_table_report = human_report([
@@ -1422,9 +1422,9 @@ _two_layer_smoke = format_two_layer([
 if not isinstance(_two_layer_smoke, str) or "---" not in _two_layer_smoke:
     FAILURES += 1
     print(f"FAIL: format_two_layer should return a string with a Layer 1/Layer 2 separator; got:\n{_two_layer_smoke[:400]}")
-elif "internal pressure score" in _two_layer_smoke:
+elif "pressure" in _two_layer_smoke.lower():
     FAILURES += 1
-    print("FAIL: format_two_layer should not expose implementation-first pressure language")
+    print("FAIL: format_two_layer should not contain 'pressure' (renamed to 'signal stacking' in U2)")
 else:
     print("  ok: format_two_layer smoke test renders both layers")
 
@@ -1510,8 +1510,8 @@ print("\n=== audit-shape U5 (dual-block assertions) ===")
 check_audit_shape = _grade.check_audit_shape
 
 _BOTH_BLOCKS = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
+Signal stacking clear: no weaker AI-writing signals stacked.
 
 ! **Em dashes** — "still—keen" — Action: Fix
 
@@ -1542,8 +1542,8 @@ Pressure clear: no weaker AI-writing signals stacked.
 Want suggestions, a rewrite, or to save?"""
 
 _PROGRAMMATIC_ONLY = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
+Signal stacking clear: no weaker AI-writing signals stacked.
 
 ! **Em dashes** — "still—keen" — Action: Fix
 
@@ -1577,7 +1577,7 @@ Want suggestions?"""
 
 # Variable name retained for diff stability; the value is now the Phase-3
 # canonical all-clear single-line response.
-_ALL_CLEAR_PHASE_1 = """48 of 48 clear · agent reading clean · pressure: clear.
+_ALL_CLEAR_PHASE_1 = """48 of 48 clear · agent reading clean · signal stacking: clear.
 Want me to re-run with --depth all to inspect lower-tier signals?"""
 
 _NEITHER_BLOCK_NOR_CLEAR = """**Some other report**
@@ -1590,7 +1590,7 @@ Want help?"""
 # the canonical all-clear phrase buried mid-line in a longer malformed
 # response must NOT pass the audit-shape checks. The anchored regex only
 # matches phrases that start a line.
-_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "48 of 48 clear · agent reading clean · pressure: clear" but the model returned a hallucinated paragraph instead.
+_BURIED_ALL_CLEAR = """The system prompt asked the agent to say "48 of 48 clear · agent reading clean · signal stacking: clear" but the model returned a hallucinated paragraph instead.
 
 We tried to render no-em-dashes but the structured block did not materialise.
 
@@ -1599,11 +1599,11 @@ Want help?"""
 # Regression fixture for Finding #2: a response containing BOTH the
 # canonical all-clear phrase AND block headers is ambiguous — agents must
 # pick one shape, not both. All three audit-shape checks must fail.
-_ALL_CLEAR_PLUS_BLOCKS = """48 of 48 clear · agent reading clean · pressure: clear.
+_ALL_CLEAR_PLUS_BLOCKS = """48 of 48 clear · agent reading clean · signal stacking: clear.
 Want me to re-run with --depth all?
 
 Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
+Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
 
 ! **Em dashes** — "still—keen" — Action: Fix
 
@@ -1616,8 +1616,8 @@ Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clea
 # structural-pattern blocks). The fixture mixes one quoted block with two
 # no-quote structural blocks; _flag_blocks must return all three.
 _LAYER_1_NO_QUOTE_BLOCKS = """Audit
-Severity: 1 hard_fail · 2 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+Severity: 1 hard fail · 2 strong warning · 0 context warning · signal stacking: clear
+Signal stacking clear: no weaker AI-writing signals stacked.
 
 x **Em dashes** — "still—keen" — Action: Fix
 ! **Paragraph length uniformity** — Action: Disclose or ask before preserving
@@ -1643,8 +1643,8 @@ Want suggestions?"""
 # regression — agents that emit a programmatic block alone without the
 # clean-form agent block are still caught by has-agent-judgement-block.
 _PROGRAMMATIC_WITH_CLEAN_AGENT = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
+Signal stacking clear: no weaker AI-writing signals stacked.
 
 ! **Em dashes** — "still—keen" — Action: Fix
 
@@ -1672,8 +1672,8 @@ Want suggestions?"""
 # The broader candidate-collection regex inside check_every_flag_block_has_explanation
 # catches the line; the predicate catches the missing verb.
 _FLAG_BLOCK_MISSING_ACTION = """Audit
-Severity: 0 hard_fail · 1 strong_warning · 0 context_warning · pressure: clear
-Pressure clear: no weaker AI-writing signals stacked.
+Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
+Signal stacking clear: no weaker AI-writing signals stacked.
 
 ! **Em dashes** — "still—keen"
 

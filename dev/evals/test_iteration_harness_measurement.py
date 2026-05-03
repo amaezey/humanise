@@ -37,8 +37,8 @@ print("=== catalogue_hits ===")
 
 OUTPUT_WITH_LAYER_2_CATALOGUE_ROWS = """
 Audit
-Severity: 1 hard_fail · 1 strong_warning · 1 context_warning · pressure: clear
-Pressure clear.
+Severity: 1 hard fail · 1 strong warning · 1 context warning · signal stacking: clear
+Signal stacking clear.
 
 x **Assistant residue** \u2014 "I hope this helps" \u2014 Action: Fix
 ! **Em dashes** \u2014 "\u2014" \u2014 Action: Fix
@@ -53,7 +53,7 @@ x **Assistant residue** \u2014 "I hope this helps" \u2014 Action: Fix
 | Manufactured insight | Clear | |
 | Significance inflation | Clear | |
 | Rule of three | Flagged | Disclose or ask before preserving |
-| Aggregate AI-signal pressure | Clear | |
+| Signal stacking | Clear | |
 
 **Language and grammar** \u2014 11/11 clear
 """
@@ -65,7 +65,7 @@ if hits == expected:
 else:
     fail(f"expected {sorted(expected)}, got {sorted(hits)}")
 
-if "overall-ai-signal-pressure" not in hits and "no-manufactured-insight" not in hits:
+if "overall-signal-stacking" not in hits and "no-manufactured-insight" not in hits:
     ok("ignores Layer 2 catalogue rows and suppressed aggregate rows")
 else:
     fail(f"Layer 2-only rows leaked into hits: {sorted(hits)}")

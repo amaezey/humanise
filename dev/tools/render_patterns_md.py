@@ -88,7 +88,7 @@ def parse_patterns_md(text):
             toc_body = body
         elif title.startswith("Evidence hierarchy"):
             evidence_body = body
-        elif title.startswith("Aggregate AI-signal pressure"):
+        elif title.startswith("Signal stacking"):
             meta_check_body = body
         elif title in CATEGORY_ORDER:
             categories[title] = parse_category_body(body)
@@ -310,7 +310,7 @@ def render():
             cat_block += f"{separator}### {entry['number']}. {entry['heading']}\n\n{entry['body']}"
         sections.append(cat_block)
 
-    sections.append(f"## Aggregate AI-signal pressure (meta-check)\n\n{meta['meta_check_body']}")
+    sections.append(f"## Signal stacking (meta-check)\n\n{meta['meta_check_body']}")
 
     return "\n\n---\n\n".join(sections).rstrip() + "\n"
 

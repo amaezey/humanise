@@ -10,7 +10,7 @@ Covers:
 - Layer 2 sub-table shape (R4): three columns Pattern | Result | Action
 - Layer 2 category collapse to one-liner when every check clear (R3)
 - Layer 2 ordering matches the eight patterns.md headings (R2)
-- overall-ai-signal-pressure suppressed from Layer 1 + Layer 2
+- overall-signal-stacking suppressed from Layer 1 + Layer 2
 - Phrase cap at 3 with overflow indicator
 - Action column reflects depth (balanced vs all) (R22)
 
@@ -89,10 +89,10 @@ if len(clear_lines) != 2:
 else:
     ok("all-clear render is one-line summary plus next-step prompt")
 
-if "agent reading clean" not in clear_lines[0] or "pressure: clear" not in clear_lines[0]:
+if "agent reading clean" not in clear_lines[0] or "signal stacking: clear" not in clear_lines[0]:
     fail(f"all-clear summary missing canonical phrasing; got {clear_lines[0]!r}")
 else:
-    ok("all-clear summary names agent + pressure status")
+    ok("all-clear summary names agent + signal-stacking status")
 
 # Confidence label removed (R14) — must not appear.
 for forbidden in ("Confidence:", "Low.", "Medium.", "High."):
@@ -182,25 +182,25 @@ for label, glyph in expected_glyphs.items():
         ok(f"{label!r} renders with glyph {glyph!r}")
 
 
-# --- Pressure explanation: single sentence ---
+# --- Signal-stacking explanation: single sentence ---
 
-print("\n=== one-sentence pressure explanation ===")
+print("\n=== one-sentence signal-stacking explanation ===")
 
-# Layer 1 has: heading, severity_line, pressure_sentence, blank, [blocks...]
+# Layer 1 has: heading, severity_line, signal_stacking_sentence, blank, [blocks...]
 layer_1_lines = [line for line in layer_1.splitlines() if line]
-pressure_line = layer_1_lines[2] if len(layer_1_lines) >= 3 else ""
-if not pressure_line.startswith("Pressure"):
-    fail(f"Layer 1 third non-blank line should be pressure explanation; got {pressure_line!r}")
-elif pressure_line.count(".") > 1:
-    fail(f"Pressure explanation should be a single sentence (one period); got {pressure_line!r}")
+signal_stacking_line = layer_1_lines[2] if len(layer_1_lines) >= 3 else ""
+if not signal_stacking_line.startswith("Signal stacking"):
+    fail(f"Layer 1 third non-blank line should be signal-stacking explanation; got {signal_stacking_line!r}")
+elif signal_stacking_line.count(".") > 1:
+    fail(f"Signal-stacking explanation should be a single sentence (one period); got {signal_stacking_line!r}")
 else:
-    ok("pressure explanation is a single sentence")
+    ok("signal-stacking explanation is a single sentence")
 
 # Confirm legacy multi-sentence prose did not survive.
 if "AI-pressure looks for accumulation" in mixed_render:
     fail("Legacy multi-sentence pressure explanation should be gone")
 else:
-    ok("Legacy multi-sentence pressure explanation removed")
+    ok("Legacy multi-sentence signal-stacking explanation removed")
 
 
 # --- Layer 2 sub-table shape (R4) ---
@@ -229,7 +229,7 @@ else:
 print("\n=== Layer 2 category ordering ===")
 
 # Each category appears at least once in Layer 2 (collapsed or expanded), in
-# CATEGORY_ORDER. Aggregate AI-signal pressure is suppressed (overall meta).
+# CATEGORY_ORDER. Signal stacking is suppressed (overall meta).
 seen_at = []
 for category in CATEGORY_ORDER:
     needle = f"**{category}**"
@@ -243,10 +243,10 @@ if seen_at == sorted(seen_at, key=lambda pair: pair[1]):
 else:
     fail(f"Layer 2 categories out of order: {[c for c, _ in seen_at]}")
 
-if "Aggregate AI-signal pressure" in mixed_render:
-    fail("Aggregate AI-signal pressure category should be suppressed (R8/R22)")
+if "**Signal stacking**" in mixed_render:
+    fail("Signal stacking category heading should be suppressed (R8/R22)")
 else:
-    ok("Aggregate AI-signal pressure category suppressed from output")
+    ok("Signal stacking category suppressed from output")
 
 
 # --- Layer 2 collapse to one-liner when every check clear (R3) ---
@@ -270,20 +270,20 @@ else:
     ok(f"{COLLAPSE_CATEGORY!r} category collapses to one-liner: {collapse_line!r}")
 
 
-# --- overall-ai-signal-pressure suppression (R8/R22) ---
+# --- overall-signal-stacking suppression (R8/R22) ---
 
-print("\n=== overall-ai-signal-pressure suppression ===")
+print("\n=== overall-signal-stacking suppression ===")
 
 # Build a contract where the meta-check is flagged.
-pressure_flagged_results = [
+signal_stacking_flagged_results = [
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
+        "evidence": "Overall signal stacking 5/4",
         "score": 5,
         "threshold": 4,
         "components": ["paragraph length uniformity"],
-        "vocabulary_pressure": {"points": 0, "reasons": [], "worst_generic": 0,
+        "vocabulary_signal_stacking": {"points": 0, "reasons": [], "worst_generic": 0,
                                 "gptzero_matches": [], "kobak_style_distinct": 0,
                                 "kobak_style_density": 0.0, "kobak_style_sample": []},
     }),
@@ -291,58 +291,58 @@ pressure_flagged_results = [
 ] + [
     annotate_result({"text": cid, "passed": True, "evidence": "clean"})
     for cid in ALL_CHECKS
-    if cid not in {"overall-ai-signal-pressure", "no-em-dashes"}
+    if cid not in {"overall-signal-stacking", "no-em-dashes"}
 ]
-pressure_render = format_two_layer(pressure_flagged_results, depth="balanced")
+signal_stacking_render = format_two_layer(signal_stacking_flagged_results, depth="balanced")
 
-# Verdict line should still report pressure: triggered.
-if "pressure: triggered" not in pressure_render:
-    fail("Verdict line should report 'pressure: triggered' when meta-check is flagged")
+# Verdict line should still report signal stacking: triggered.
+if "signal stacking: triggered" not in signal_stacking_render:
+    fail("Verdict line should report 'signal stacking: triggered' when meta-check is flagged")
 else:
-    ok("Verdict line carries pressure: triggered")
+    ok("Verdict line carries signal stacking: triggered")
 
 # But the meta-check itself should not appear as a Layer 1 block or Layer 2 row.
-if "Aggregate AI-signal pressure" in pressure_render:
-    fail("Layer 2 should not surface the suppressed Aggregate AI-signal pressure category")
+if "**Signal stacking**" in signal_stacking_render:
+    fail("Layer 2 should not surface the suppressed Signal stacking category heading")
 else:
     ok("Layer 2 does not include the suppressed category")
 
-# The check's short_name should not appear.
-if "Overall AI-signal pressure" in pressure_render:
-    fail("Layer 1 / Layer 2 should not include the overall-ai-signal-pressure block")
+# The check's short_name should not appear as a flagged-pattern block.
+if "**Signal stacking from stacked AI tells**" in signal_stacking_render:
+    fail("Layer 1 / Layer 2 should not include the overall-signal-stacking block")
 else:
     ok("Layer 1 / Layer 2 does not include the meta-check block")
 
-# If pressure is the only flagged programmatic check, the audit is not
+# If signal stacking is the only flagged programmatic check, the audit is not
 # all-clear: the meta-check stays suppressed as a row/block, but survives in
 # the verdict token.
-pressure_only_results = [
+signal_stacking_only_results = [
     annotate_result({
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": False,
-        "evidence": "Overall AI-signal pressure 5/4",
+        "evidence": "Overall signal stacking 5/4",
         "score": 5,
         "threshold": 4,
         "components": ["paragraph length uniformity"],
-        "vocabulary_pressure": {"points": 0, "reasons": [], "worst_generic": 0,
+        "vocabulary_signal_stacking": {"points": 0, "reasons": [], "worst_generic": 0,
                                 "gptzero_matches": [], "kobak_style_distinct": 0,
                                 "kobak_style_density": 0.0, "kobak_style_sample": []},
     }),
 ] + [
     annotate_result({"text": cid, "passed": True, "evidence": "clean"})
     for cid in ALL_CHECKS
-    if cid != "overall-ai-signal-pressure"
+    if cid != "overall-signal-stacking"
 ]
-pressure_only_render = format_two_layer(pressure_only_results, depth="balanced")
+signal_stacking_only_render = format_two_layer(signal_stacking_only_results, depth="balanced")
 
-if "agent reading clean" in pressure_only_render:
-    fail(f"pressure-only failure must not render all-clear; got:\n{pressure_only_render}")
-elif "pressure: triggered" not in pressure_only_render:
-    fail(f"pressure-only failure should survive in verdict token; got:\n{pressure_only_render}")
-elif "1 context_warning" in pressure_only_render:
-    fail(f"suppressed pressure meta-check should not inflate visible severity counts; got:\n{pressure_only_render}")
+if "agent reading clean" in signal_stacking_only_render:
+    fail(f"signal-stacking-only failure must not render all-clear; got:\n{signal_stacking_only_render}")
+elif "signal stacking: triggered" not in signal_stacking_only_render:
+    fail(f"signal-stacking-only failure should survive in verdict token; got:\n{signal_stacking_only_render}")
+elif "1 context_warning" in signal_stacking_only_render:
+    fail(f"suppressed signal-stacking meta-check should not inflate visible severity counts; got:\n{signal_stacking_only_render}")
 else:
-    ok("pressure-only failure renders as pressure triggered without an all-clear line or visible severity count")
+    ok("signal-stacking-only failure renders as signal-stacking triggered without an all-clear line or visible severity count")
 
 
 # --- Phrase cap (3 + overflow) ---
@@ -409,12 +409,12 @@ else:
 
 print("\n=== visible total excludes meta-check ===")
 
-clear_count = len([cid for cid in ALL_CHECKS if cid != "overall-ai-signal-pressure"])
+clear_count = len([cid for cid in ALL_CHECKS if cid != "overall-signal-stacking"])
 expected_summary = f"{clear_count} of {clear_count} clear"
 if expected_summary not in clear_render:
     fail(f"all-clear summary should exclude meta-check from visible total; expected {expected_summary!r}, got:\n{clear_render}")
 else:
-    ok(f"all-clear visible total = {clear_count} (excludes overall-ai-signal-pressure)")
+    ok(f"all-clear visible total = {clear_count} (excludes overall-signal-stacking)")
 
 
 # --- Summary ---

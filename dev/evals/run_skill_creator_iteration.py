@@ -305,7 +305,7 @@ _LAYER_1_NAME_ALIASES = {
     "staccato rhythm in extended contexts": "no-staccato-sequences",
     "ghost/spectral language": "no-ghost-spectral-density",
     "unicode flair": "no-unicode-flair",
-    "aggregate ai-signal pressure": "overall-ai-signal-pressure",
+    "signal stacking": "overall-signal-stacking",
 }
 
 _LAYER_1_NAME_RE = re.compile(r"^[x!?]\s+\*\*([^*]+)\*\*")
@@ -583,16 +583,16 @@ def grade_sample_file(filepath: Path) -> dict:
     for r in failures:
         sev = r.get("severity") or "unknown"
         severity_counts[sev] = severity_counts.get(sev, 0) + 1
-    pressure_check = next(
-        (r for r in results if r.get("text") == "overall-ai-signal-pressure"),
+    signal_stacking_check = next(
+        (r for r in results if r.get("text") == "overall-signal-stacking"),
         None,
     )
-    pressure_triggered = pressure_check is not None and not pressure_check.get("passed", True)
+    signal_stacking_triggered = signal_stacking_check is not None and not signal_stacking_check.get("passed", True)
     return {
         "input_file": str(filepath.relative_to(ROOT)),
         "total_flags": len(failures),
         "severity_counts": severity_counts,
-        "ai_pressure_triggered": pressure_triggered,
+        "signal_stacking_triggered": signal_stacking_triggered,
         "body_stats": analyze_sample_body(filepath),
     }
 
@@ -609,7 +609,7 @@ def grade_input_file(item: dict) -> dict | None:
         "input_file": graded["input_file"],
         "total_flags": graded["total_flags"],
         "severity_counts": graded["severity_counts"],
-        "ai_pressure_triggered": graded["ai_pressure_triggered"],
+        "signal_stacking_triggered": graded["signal_stacking_triggered"],
     }
 
 
@@ -836,15 +836,15 @@ def build_performance_report(evals: list[dict], iteration_dir: Path) -> tuple[st
             "independent of how the skill renders its audit."
         )
     lines.append("")
-    lines.append("| Sample | Group | Total | Strong | Context | AI-pressure |")
+    lines.append("| Sample | Group | Total | Strong | Context | Signal stacking |")
     lines.append("|---|---|---|---|---|---|")
     for row in corpus_rows:
         sample_name = Path(row["input_file"]).stem
         sev = row["severity_counts"]
-        pressure = "triggered" if row["ai_pressure_triggered"] else "—"
+        signal_stacking = "triggered" if row["signal_stacking_triggered"] else "—"
         lines.append(
             f"| {sample_name} | {row['type']} | {row['total_flags']} "
-            f"| {sev.get('strong_warning', 0)} | {sev.get('context_warning', 0)} | {pressure} |"
+            f"| {sev.get('strong_warning', 0)} | {sev.get('context_warning', 0)} | {signal_stacking} |"
         )
     if group_summary:
         lines.append("")

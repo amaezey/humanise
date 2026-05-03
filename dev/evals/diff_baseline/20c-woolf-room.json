@@ -99,19 +99,19 @@
     },
     {
       "components": [],
-      "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=12 distinct/5.6/1000",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=12 distinct/5.6/1000",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": true,
       "score": 0,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 5.6417489421720735,
         "kobak_style_distinct": 12,
@@ -884,7 +884,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -895,13 +895,6 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
-        "components": [],
-        "score": 0,
-        "threshold": 4,
-        "triggered": false,
-        "vocabulary_points": 0
-      },
       "by_category": {
         "Content patterns": 1,
         "Filler and hedging": 1,
@@ -913,6 +906,13 @@
         "context_warning": 6,
         "hard_fail": 0,
         "strong_warning": 1
+      },
+      "signal_stacking": {
+        "components": [],
+        "score": 0,
+        "threshold": 4,
+        "triggered": false,
+        "vocabulary_points": 0
       }
     },
     "metadata": {
@@ -992,7 +992,7 @@
         "status": "clear"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 0,
@@ -1002,17 +1002,17 @@
           "quoted_phrases": [],
           "raw": {
             "components": [],
-            "evidence": "Overall AI-signal pressure 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=12 distinct/5.6/1000",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 0/4 from []; vocab=0 point(s), worst_generic=0, gptzero=[], kobak=12 distinct/5.6/1000",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 0,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 5.6417489421720735,
               "kobak_style_distinct": 12,
@@ -1038,7 +1038,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "clear"
       },
@@ -2177,12 +2177,20 @@
   },
   "pass_rate": "42/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 7,
+    "failures_by_severity": {
+      "context_warning": 6,
+      "strong_warning": 1
+    },
+    "pass_rate": "42/49",
+    "passed_checks": 42,
+    "signal_stacking": {
       "components": [],
       "score": 0,
       "threshold": 4,
       "triggered": false,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 5.6417489421720735,
         "kobak_style_distinct": 12,
@@ -2203,14 +2211,6 @@
         "worst_generic": 0
       }
     },
-    "check_status": "fail",
-    "failed_checks": 7,
-    "failures_by_severity": {
-      "context_warning": 6,
-      "strong_warning": 1
-    },
-    "pass_rate": "42/49",
-    "passed_checks": 42,
     "total_checks": 49
   },
   "triggered_checks": [

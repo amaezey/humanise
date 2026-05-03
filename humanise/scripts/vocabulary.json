@@ -1,9 +1,9 @@
 {
   "schema_version": "1",
   "severity_labels": {
-    "hard_fail": "Must fix",
-    "strong_warning": "Strong AI-writing signal",
-    "context_warning": "Context-sensitive signal"
+    "hard_fail": "hard fail",
+    "strong_warning": "strong warning",
+    "context_warning": "context warning"
   },
   "severity_glyphs": {
     "hard_fail": "x",
@@ -19,7 +19,7 @@
     "flagged": "Flagged",
     "none": "None"
   },
-  "pressure_status": {
+  "signal_stacking_status": {
     "triggered": "triggered",
     "clear": "clear"
   },
@@ -42,7 +42,7 @@
     },
     "voice_erasure": {
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     },
     "genre_misfit": {
       "label": "Genre misfit",
@@ -69,14 +69,17 @@
     "next_step_prompt": "Want me to re-run with --depth all to inspect lower-tier signals?"
   },
   "templates": {
-    "severity_line": "{hard_fail} hard_fail · {strong_warning} strong_warning · {context_warning} context_warning · pressure: {pressure}",
+    "severity_line": "{hard_fail} hard fail · {strong_warning} strong warning · {context_warning} context warning · signal stacking: {signal_stacking}",
     "flagged_pattern_block": "{glyph} **{name}** — {quoted} — Action: {action}",
     "flagged_pattern_block_no_quote": "{glyph} **{name}** — Action: {action}",
+    "flagged_pattern_block_no_action": "{glyph} **{name}** — {quoted}",
+    "flagged_pattern_block_no_quote_no_action": "{glyph} **{name}**",
+    "agent_assessed_flagged_block": "{glyph} **{name}**",
     "category_subtable_heading": "**{category}** — {flagged} flagged of {total}",
     "category_subtable_header": "| Pattern | Result | Action |",
     "category_subtable_separator": "| --- | --- | --- |",
     "category_collapse": "**{category}** — {clear}/{total} clear",
-    "all_clear_single_line": "{total} of {total} clear · agent reading clean · pressure: clear.",
+    "all_clear_single_line": "{total} of {total} clear · agent reading clean · signal stacking: clear.",
     "agent_judgement_header": "**Agent-judgement reading — {flagged} flagged of {total}**",
     "agent_judgement_clean_header": "**Agent-judgement reading**",
     "agent_judgement_clean_body": "agent reading clean",
@@ -86,13 +89,20 @@
     "agent_judgement_finding_with_why": "  - \"{phrase}\" — {why}",
     "agent_judgement_finding_phrase_only": "  - \"{phrase}\"",
     "agent_judgement_genre_with_findings": "- {label} — {status}: Genre detected: {genre}.",
-    "agent_judgement_genre_pending": "- {label} — {status}: Genre detected: {genre}. Watchlist coverage pending."
+    "agent_judgement_genre_pending": "- {label} — {status}: Genre detected: {genre}. Watchlist coverage pending.",
+    "detected_patterns_heading": "**Detected patterns** — {flagged} flagged of {total}",
+    "agent_assessed_heading": "**Agent-assessed patterns** — {flagged} flagged of {total}",
+    "brief_note_auto_detected": "PLACEHOLDER — brief note explaining what auto-detected patterns are; copy reviewed in U6.",
+    "brief_note_agent_assessed": "PLACEHOLDER — brief note explaining what agent-assessed patterns are; copy reviewed in U6.",
+    "signal_stacking_clear": "Signal stacking: clear (weaker AI signals are not accumulating)",
+    "signal_stacking_triggered": "Signal stacking: triggered — {score} of {threshold} threshold ({components})",
+    "next_step_prompt_with_full_report": "Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?"
   },
-  "short_pressure_explanation": {
-    "triggered_with_components": "Pressure triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}, plus {vocab_points} clustered AI-vocabulary point(s)).",
-    "triggered_components_only": "Pressure triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}).",
-    "triggered_vocab_only": "Pressure triggered: {vocab_points} clustered AI-vocabulary point(s) pushed the score to {score} of the {threshold}-point threshold.",
-    "clear_with_components": "Pressure clear: weaker AI-writing signals scored {score}, below the {threshold}-point threshold.",
-    "clear_no_components": "Pressure clear: no weaker AI-writing signals stacked."
+  "short_signal_stacking_explanation": {
+    "triggered_with_components": "Signal stacking triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}, plus {vocab_points} clustered AI-vocabulary point(s)).",
+    "triggered_components_only": "Signal stacking triggered: weaker AI-writing signals stacked to {score} of the {threshold}-point threshold ({components}).",
+    "triggered_vocab_only": "Signal stacking triggered: {vocab_points} clustered AI-vocabulary point(s) pushed the score to {score} of the {threshold}-point threshold.",
+    "clear_with_components": "Signal stacking clear: weaker AI-writing signals scored {score}, below the {threshold}-point threshold.",
+    "clear_no_components": "Signal stacking clear: no weaker AI-writing signals stacked."
   }
 }

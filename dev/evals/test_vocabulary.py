@@ -78,14 +78,14 @@ REQUIRED_SECTIONS = {
     "severity_glyphs",
     "action_labels",
     "status_labels",
-    "pressure_status",
+    "signal_stacking_status",
     "failure_modes",
     "depth_consequence",
     "depth_summary",
     "section_headings",
     "inline_labels",
     "templates",
-    "short_pressure_explanation",
+    "short_signal_stacking_explanation",
 }
 
 missing_sections = sorted(REQUIRED_SECTIONS - set(vocab))
@@ -133,15 +133,15 @@ for status in ("clear", "flagged", "none"):
     else:
         ok(f"status_label({status!r}) = {label!r}")
 
-print("\n=== pressure_status ===")
-if registries.pressure_status(True) != "triggered":
-    fail(f"pressure_status(True) should be 'triggered', got {registries.pressure_status(True)!r}")
+print("\n=== signal_stacking_status ===")
+if registries.signal_stacking_status(True) != "triggered":
+    fail(f"signal_stacking_status(True) should be 'triggered', got {registries.signal_stacking_status(True)!r}")
 else:
-    ok("pressure_status(True) = 'triggered'")
-if registries.pressure_status(False) != "clear":
-    fail(f"pressure_status(False) should be 'clear', got {registries.pressure_status(False)!r}")
+    ok("signal_stacking_status(True) = 'triggered'")
+if registries.signal_stacking_status(False) != "clear":
+    fail(f"signal_stacking_status(False) should be 'clear', got {registries.signal_stacking_status(False)!r}")
 else:
-    ok("pressure_status(False) = 'clear'")
+    ok("signal_stacking_status(False) = 'clear'")
 
 
 # --- failure_modes catalogue ---
@@ -214,9 +214,9 @@ severity_line = registries.string_for(
     hard_fail=0,
     strong_warning=2,
     context_warning=1,
-    pressure="clear",
+    signal_stacking="clear",
 )
-expected_severity = "0 hard_fail · 2 strong_warning · 1 context_warning · pressure: clear"
+expected_severity = "0 hard fail · 2 strong warning · 1 context warning · signal stacking: clear"
 if severity_line != expected_severity:
     fail(f"severity_line: expected {expected_severity!r}, got {severity_line!r}")
 else:
@@ -275,7 +275,7 @@ else:
     ok("templates.category_subtable_separator preserved")
 
 all_clear = registries.string_for("templates.all_clear_single_line", total=48)
-expected_all_clear = "48 of 48 clear · agent reading clean · pressure: clear."
+expected_all_clear = "48 of 48 clear · agent reading clean · signal stacking: clear."
 if all_clear != expected_all_clear:
     fail(f"all_clear_single_line: expected {expected_all_clear!r}, got {all_clear!r}")
 else:

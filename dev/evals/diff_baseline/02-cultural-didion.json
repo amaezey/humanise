@@ -4,7 +4,7 @@
       "check_status": "fail",
       "must_fix": [
         "no-nonliteral-land-surface",
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -18,7 +18,7 @@
       "preservable_with_disclosure": [],
       "required_fixes": [
         "no-nonliteral-land-surface",
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -40,7 +40,7 @@
         "no-filler-phrases"
       ],
       "needs_user_decision": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -49,7 +49,7 @@
         "no-triad-density"
       ],
       "preservable_with_disclosure": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -65,7 +65,7 @@
       "status": "fail",
       "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output.",
       "user_decision_needed": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-curly-quotes",
@@ -115,19 +115,19 @@
         "contrived contrast framing",
         "headings in prose"
       ],
-      "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "passed": false,
       "score": 4,
       "severity": "context_warning",
-      "text": "overall-ai-signal-pressure",
+      "text": "overall-signal-stacking",
       "threshold": 4,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 7.133592736705577,
         "kobak_style_distinct": 9,
@@ -675,7 +675,7 @@
   "failure_mode_results": {
     "frictionless_structure": {
       "check_refs": [
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-staccato-sequences",
         "no-anaphora",
         "no-markdown-headings",
@@ -684,15 +684,15 @@
       ],
       "failed_checks": [
         {
-          "check": "overall-ai-signal-pressure",
+          "check": "overall-signal-stacking",
           "depth_actions": {
             "all": "fix",
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
-          "evidence_role": "aggregate_pressure",
-          "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
           "severity": "context_warning"
         },
         {
@@ -765,7 +765,7 @@
     "generic_abstraction": {
       "check_refs": [
         "no-nonliteral-land-surface",
-        "overall-ai-signal-pressure",
+        "overall-signal-stacking",
         "no-filler-phrases"
       ],
       "failed_checks": [
@@ -782,15 +782,15 @@
           "severity": "strong_warning"
         },
         {
-          "check": "overall-ai-signal-pressure",
+          "check": "overall-signal-stacking",
           "depth_actions": {
             "all": "fix",
             "balanced": "preserve_with_disclosure_or_user_decision"
           },
           "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-          "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
-          "evidence_role": "aggregate_pressure",
-          "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
           "severity": "context_warning"
         },
         {
@@ -951,7 +951,7 @@
       "failed_checks": [],
       "failures_by_severity": {},
       "label": "Voice erasure",
-      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial pressure."
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
     }
   },
   "failures_by_severity": {
@@ -962,7 +962,19 @@
   "human_report": {
     "agent_judgement": [],
     "aggregates": {
-      "ai_pressure": {
+      "by_category": {
+        "Filler and hedging": 3,
+        "Language and grammar": 2,
+        "Signal stacking": 1,
+        "Style": 2,
+        "Voice and register": 2
+      },
+      "by_severity": {
+        "context_warning": 7,
+        "hard_fail": 0,
+        "strong_warning": 3
+      },
+      "signal_stacking": {
         "components": [
           "contrived contrast framing",
           "headings in prose"
@@ -971,18 +983,6 @@
         "threshold": 4,
         "triggered": true,
         "vocabulary_points": 0
-      },
-      "by_category": {
-        "Aggregate AI-signal pressure": 1,
-        "Filler and hedging": 3,
-        "Language and grammar": 2,
-        "Style": 2,
-        "Voice and register": 2
-      },
-      "by_severity": {
-        "context_warning": 7,
-        "hard_fail": 0,
-        "strong_warning": 3
       }
     },
     "metadata": {
@@ -1064,7 +1064,7 @@
         "status": "flagged"
       },
       {
-        "category": "Aggregate AI-signal pressure",
+        "category": "Signal stacking",
         "evidence": {
           "counts": {
             "score": 4,
@@ -1077,17 +1077,17 @@
               "contrived contrast framing",
               "headings in prose"
             ],
-            "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
-            "evidence_role": "aggregate_pressure",
+            "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
+            "evidence_role": "signal_stacking",
             "failure_modes": [
               "generic_abstraction",
               "frictionless_structure"
             ],
-            "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
             "score": 4,
             "severity": "context_warning",
             "threshold": 4,
-            "vocabulary_pressure": {
+            "vocabulary_signal_stacking": {
               "gptzero_matches": [],
               "kobak_style_density": 7.133592736705577,
               "kobak_style_distinct": 9,
@@ -1112,7 +1112,7 @@
           "generic_abstraction",
           "frictionless_structure"
         ],
-        "id": "overall-ai-signal-pressure",
+        "id": "overall-signal-stacking",
         "severity": "context_warning",
         "status": "flagged"
       },
@@ -2229,7 +2229,15 @@
   },
   "pass_rate": "39/49",
   "score_summary": {
-    "ai_signal_pressure": {
+    "check_status": "fail",
+    "failed_checks": 10,
+    "failures_by_severity": {
+      "context_warning": 7,
+      "strong_warning": 3
+    },
+    "pass_rate": "39/49",
+    "passed_checks": 39,
+    "signal_stacking": {
       "components": [
         "contrived contrast framing",
         "headings in prose"
@@ -2237,7 +2245,7 @@
       "score": 4,
       "threshold": 4,
       "triggered": true,
-      "vocabulary_pressure": {
+      "vocabulary_signal_stacking": {
         "gptzero_matches": [],
         "kobak_style_density": 7.133592736705577,
         "kobak_style_distinct": 9,
@@ -2257,14 +2265,6 @@
         "worst_generic": 1
       }
     },
-    "check_status": "fail",
-    "failed_checks": 10,
-    "failures_by_severity": {
-      "context_warning": 7,
-      "strong_warning": 3
-    },
-    "pass_rate": "39/49",
-    "passed_checks": 39,
     "total_checks": 49
   },
   "triggered_checks": [
@@ -2285,19 +2285,19 @@
       "severity": "strong_warning"
     },
     {
-      "check": "overall-ai-signal-pressure",
+      "check": "overall-signal-stacking",
       "depth_actions": {
         "all": "fix",
         "balanced": "preserve_with_disclosure_or_user_decision"
       },
       "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
-      "evidence": "Overall AI-signal pressure 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
-      "evidence_role": "aggregate_pressure",
+      "evidence": "Overall signal stacking 4/4 from [contrived contrast framing, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=9 distinct/7.1/1000, sample=['lies', 'offers', 'deeper', 'insights', 'need', 'precise', 'research', 'seeks', 'valuable']",
+      "evidence_role": "signal_stacking",
       "failure_modes": [
         "generic_abstraction",
         "frictionless_structure"
       ],
-      "guidance": "Review aggregate signal pressure; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
       "severity": "context_warning"
     },
     {

@@ -22,8 +22,8 @@ Real `python3 humanise/scripts/grade.py --format markdown --depth balanced` outp
 
 ```
 Audit
-Severity: 2 hard_fail · 8 strong_warning · 3 context_warning · pressure: triggered
-Pressure triggered: weaker AI-writing signals stacked to 9 of the 4-point threshold (formulaic openings, assistant residue, generic conclusion endings, plus 4 clustered AI-vocabulary point(s)).
+Severity: 2 hard fail · 8 strong warning · 3 context warning · signal stacking: triggered
+Signal stacking triggered: weaker AI-writing signals stacked to 9 of the 4-point threshold (formulaic openings, assistant residue, generic conclusion endings, plus 4 clustered AI-vocabulary point(s)).
 
 ! **Clustered AI vocabulary** — "enduring", "landscape", "pivotal" (+4 more) — Action: Fix
 x **Assistant residue** — "i hope this helps", "great question", "let me know if" — Action: Fix
@@ -133,7 +133,7 @@ x **Generic conclusion** — "the future looks bright", "exciting times", "conti
 Want suggestions for per-flag replacements, a rewrite at a chosen depth, or to save this audit as a Markdown file?
 ```
 
-The all-clear case collapses to a single line — `<N> of <N> clear · agent reading clean · pressure: clear.` followed by the next-step prompt. No tables, no glyphs, no level label.
+The all-clear case collapses to a single line — `<N> of <N> clear · agent reading clean · signal stacking: clear.` followed by the next-step prompt. No tables, no glyphs, no level label.
 
 ## Rewrite
 

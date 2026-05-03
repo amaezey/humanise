@@ -52,7 +52,7 @@ VALID_CATEGORIES = {
     "Sensory and atmospheric",
     "Structural tells",
     "Voice and register",
-    "Aggregate AI-signal pressure",
+    "Signal stacking",
 }
 
 REQUIRED_JUDGEMENT_FIELDS = {"id", "severity", "prompt", "answer_schema", "flagged_when"}
@@ -255,7 +255,7 @@ def load_vocabulary():
 
 
 def _resolve_vocab_path(key):
-    """Resolve a dotted key (e.g. 'pressure_explanation.lead') to a value.
+    """Resolve a dotted key (e.g. 'signal_stacking_status.triggered') to a value.
 
     Raises KeyError with the full key path on miss so callers can localise
     the typo.
@@ -313,10 +313,10 @@ def status_label(status):
     return _resolve_vocab_path(f"status_labels.{status}")
 
 
-def pressure_status(triggered):
-    """Word for AI-pressure status — 'triggered' or 'clear'."""
+def signal_stacking_status(triggered):
+    """Word for signal-stacking status — 'triggered' or 'clear'."""
     return _resolve_vocab_path(
-        "pressure_status." + ("triggered" if triggered else "clear")
+        "signal_stacking_status." + ("triggered" if triggered else "clear")
     )
 
 

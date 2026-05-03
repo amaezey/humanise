@@ -522,8 +522,8 @@ def _find_ai_words(text_lower):
     return found
 
 
-def vocabulary_pressure_profile(text):
-    """Score vocabulary evidence as one aggregate pressure signal."""
+def vocabulary_signal_stacking_profile(text):
+    """Score vocabulary evidence as one aggregate signal-stacking contribution."""
     paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
     worst_generic = 0
     worst_words = []
@@ -656,7 +656,7 @@ def kobak_excess_profile(text):
     }
 
 
-def check_overall_signal_pressure(text):
+def check_overall_signal_stacking(text):
     """Aggregate multiple weak/medium signals instead of overreacting to one list."""
     checks = {
         "manufactured_insight": check_manufactured_insight(text),
@@ -707,7 +707,7 @@ def check_overall_signal_pressure(text):
         f"component_labels missing keys: {sorted(set(weights) - set(component_labels))}"
     )
 
-    vocab = vocabulary_pressure_profile(text)
+    vocab = vocabulary_signal_stacking_profile(text)
     score = vocab["points"]
     components = []
     for name, result in checks.items():
@@ -717,12 +717,12 @@ def check_overall_signal_pressure(text):
 
     failed = score >= 4
     return {
-        "text": "overall-ai-signal-pressure",
+        "text": "overall-signal-stacking",
         "passed": not failed,
         "score": score,
         "threshold": 4,
         "components": components,
-        "vocabulary_pressure": {
+        "vocabulary_signal_stacking": {
             "points": vocab["points"],
             "reasons": vocab["reasons"],
             "worst_generic": vocab["worst_generic"],
@@ -732,7 +732,7 @@ def check_overall_signal_pressure(text):
             "kobak_style_sample": vocab["kobak"]["style_sample"],
         },
         "evidence": (
-            f"Overall AI-signal pressure {score}/4 from [{', '.join(components)}]; "
+            f"Overall signal stacking {score}/4 from [{', '.join(components)}]; "
             f"vocab={vocab['points']} point(s), "
             f"worst_generic={vocab['worst_generic']}, "
             f"gptzero={vocab['gptzero_matches']}, "
@@ -741,7 +741,7 @@ def check_overall_signal_pressure(text):
             f"sample={vocab['kobak']['style_sample']}"
             if failed
             else (
-                f"Overall AI-signal pressure {score}/4 from [{', '.join(components)}]; "
+                f"Overall signal stacking {score}/4 from [{', '.join(components)}]; "
                 f"vocab={vocab['points']} point(s), "
                 f"worst_generic={vocab['worst_generic']}, "
                 f"gptzero={vocab['gptzero_matches']}, "
@@ -1795,7 +1795,7 @@ ALL_CHECKS = {
     "no-em-dashes": check_em_dashes,
     "no-ai-vocabulary-clustering": check_ai_vocabulary,
     "no-nonliteral-land-surface": check_nonliteral_land_surface,
-    "overall-ai-signal-pressure": check_overall_signal_pressure,
+    "overall-signal-stacking": check_overall_signal_stacking,
     "no-manufactured-insight": check_manufactured_insight,
     "no-staccato-sequences": check_staccato,
     "no-anaphora": check_anaphora,
@@ -1894,11 +1894,11 @@ def check_report_text(check_name):
 
 def friendly_evidence(result):
     """Convert check evidence into a concise human-facing explanation."""
-    if result["text"] == "overall-ai-signal-pressure":
+    if result["text"] == "overall-signal-stacking":
         score = result.get("score")
         threshold = result.get("threshold")
         components = list(result.get("components", []))
-        vocab = result.get("vocabulary_pressure", {})
+        vocab = result.get("vocabulary_signal_stacking", {})
         vocab_points = vocab.get("points", 0)
         if components:
             component_text = ", ".join(components)
@@ -1911,7 +1911,7 @@ def friendly_evidence(result):
             return sentence
         return (
             f"Clustered AI vocabulary alone reached {vocab_points} point(s) at score {score}/{threshold}. "
-            "The pressure check fired on vocabulary patterns rather than stacked structural signals."
+            "The signal-stacking check fired on vocabulary patterns rather than stacked structural signals."
         )
     evidence = result.get("evidence", "")
     list_match = re.search(r":\s*(\[[^\]]+\])", evidence)
@@ -1945,7 +1945,7 @@ def sentence_text(text):
 
 # confidence_assessment, checks_table, and markdown_checks_table were removed in U8
 # of the audit-report redesign. R14 drops the labelled-confidence framing
-# entirely; severity counts + ai_pressure aggregate carry the verdict signal.
+# entirely; severity counts + signal_stacking aggregate carry the verdict signal.
 # checks_table / markdown_checks_table fed the old human_report's prose-shaped
 # all_checks rows; the new contract carries structured-only data and the
 # renderer assembles its own table via _markdown_table_from_contract.
@@ -2000,10 +2000,10 @@ def _evidence_envelope(result):
 
 
 def _aggregates(results):
-    """Build the aggregates block: severity counts, category counts, AI-pressure."""
+    """Build the aggregates block: severity counts, category counts, signal stacking."""
     by_severity = {"hard_fail": 0, "strong_warning": 0, "context_warning": 0}
     by_category = {}
-    ai_pressure = {
+    signal_stacking = {
         "score": 0,
         "threshold": 4,
         "triggered": False,
@@ -2011,12 +2011,12 @@ def _aggregates(results):
         "vocabulary_points": 0,
     }
     for result in results:
-        if result["text"] == "overall-ai-signal-pressure":
-            ai_pressure["score"] = int(result.get("score", 0))
-            ai_pressure["threshold"] = int(result.get("threshold", 4))
-            ai_pressure["triggered"] = not result["passed"]
-            ai_pressure["components"] = list(result.get("components", []))
-            ai_pressure["vocabulary_points"] = int(result.get("vocabulary_pressure", {}).get("points", 0))
+        if result["text"] == "overall-signal-stacking":
+            signal_stacking["score"] = int(result.get("score", 0))
+            signal_stacking["threshold"] = int(result.get("threshold", 4))
+            signal_stacking["triggered"] = not result["passed"]
+            signal_stacking["components"] = list(result.get("components", []))
+            signal_stacking["vocabulary_points"] = int(result.get("vocabulary_signal_stacking", {}).get("points", 0))
         if result["passed"]:
             continue
         sev = result.get("severity", "context_warning")
@@ -2030,7 +2030,7 @@ def _aggregates(results):
     return {
         "by_severity": by_severity,
         "by_category": by_category,
-        "ai_pressure": ai_pressure,
+        "signal_stacking": signal_stacking,
     }
 
 
@@ -2078,9 +2078,9 @@ def table_cell(value):
 # sub-table render order matches this list. Any check whose category falls
 # outside this set is appended at the end so unexpected categories surface
 # instead of disappearing — the only intentional exclusion is the
-# `overall-ai-signal-pressure` meta-check (category "Aggregate AI-signal
-# pressure"), suppressed at the per-check level because the verdict line
-# already carries its signal.
+# `overall-signal-stacking` meta-check (category "Signal stacking"),
+# suppressed at the per-check level because the verdict line already
+# carries its signal.
 CATEGORY_ORDER = [
     "Content patterns",
     "Language and grammar",
@@ -2092,48 +2092,48 @@ CATEGORY_ORDER = [
     "Voice and register",
 ]
 
-PRESSURE_META_CHECK = "overall-ai-signal-pressure"
+SIGNAL_STACKING_META_CHECK = "overall-signal-stacking"
 
 
 def format_two_layer(results, depth="balanced", heading="Audit"):
     """Render the audit contract as user-facing Markdown — dual-layer output.
 
     Layer 1 (orientation): heading, severity-counts verdict line, one-sentence
-    pressure explanation, per-flagged-pattern blocks (glyph + name + quoted
-    phrase + action). Layer 2 (coverage receipt): eight per-category sub-tables
-    keyed to humanise/references/patterns.md headings, with collapsed
-    one-liners for categories where every check is clear.
+    signal-stacking explanation, per-flagged-pattern blocks (glyph + name +
+    quoted phrase + action). Layer 2 (coverage receipt): eight per-category
+    sub-tables keyed to humanise/references/patterns.md headings, with
+    collapsed one-liners for categories where every check is clear.
 
     All-clear case (R8): zero programmatic flagged AND zero agent-judgement
     flagged renders as a single line plus a next-step prompt; no tables, no
     glyphs, no level label.
 
-    The `overall-ai-signal-pressure` meta-check is suppressed from both
-    layers — its signal lives in the verdict line's `pressure: …` token.
+    The `overall-signal-stacking` meta-check is suppressed from both
+    layers — its signal lives in the verdict line's `signal stacking: …` token.
 
     Phase 3 (U11). Replaces the legacy format_human_report. Reads
     structured data from human_report()'s contract; all user-facing strings
-    flow through humanise/vocabulary.yml.
+    flow through humanise/scripts/vocabulary.json.
     """
     depth_key = depth.lower() if isinstance(depth, str) else "balanced"
     contract = human_report(results)
     aggregates = contract["aggregates"]
-    pressure = aggregates["ai_pressure"]
+    signal_stacking = aggregates["signal_stacking"]
     programmatic = contract["programmatic_checks"]
     judgement = contract["agent_judgement"]
 
-    visible = [c for c in programmatic if c["id"] != PRESSURE_META_CHECK]
+    visible = [c for c in programmatic if c["id"] != SIGNAL_STACKING_META_CHECK]
     flagged_visible = [c for c in visible if c["status"] == "flagged"]
     judgement_flagged = [j for j in judgement if j["status"] == "flagged"]
 
-    if not flagged_visible and not judgement_flagged and not pressure["triggered"]:
+    if not flagged_visible and not judgement_flagged and not signal_stacking["triggered"]:
         return _format_all_clear(len(visible))
 
     separator = registries.string_for("section_headings.layer_separator")
     parts = []
 
-    if flagged_visible or pressure["triggered"]:
-        layer_1 = _format_layer_1(heading, pressure, flagged_visible, depth_key)
+    if flagged_visible or signal_stacking["triggered"]:
+        layer_1 = _format_layer_1(heading, signal_stacking, flagged_visible, depth_key)
         layer_2 = _format_layer_2(visible, depth_key)
         parts.append(f"{layer_1}\n\n{separator}\n\n{layer_2}")
 
@@ -2158,20 +2158,20 @@ def _visible_severity_counts(checks):
     return counts
 
 
-def _format_layer_1(heading, pressure, flagged_visible, depth_key):
+def _format_layer_1(heading, signal_stacking, flagged_visible, depth_key):
     by_sev = _visible_severity_counts(flagged_visible)
     severity_line = registries.string_for(
         "templates.severity_line",
         hard_fail=by_sev["hard_fail"],
         strong_warning=by_sev["strong_warning"],
         context_warning=by_sev["context_warning"],
-        pressure=registries.pressure_status(pressure["triggered"]),
+        signal_stacking=registries.signal_stacking_status(signal_stacking["triggered"]),
     )
     severity_prefix = registries.string_for("inline_labels.severity_prefix")
     lines = [
         heading,
         f"{severity_prefix} {severity_line}",
-        _short_pressure_explanation(pressure),
+        _short_signal_stacking_explanation(signal_stacking),
         "",
     ]
     for check in flagged_visible:
@@ -2435,40 +2435,40 @@ def _render_judgement_composite_item(item, record, label, status_label):
 
 
 
-def _short_pressure_explanation(pressure):
-    """One-sentence AI-pressure explanation for Layer 1.
+def _short_signal_stacking_explanation(signal_stacking):
+    """One-sentence signal-stacking explanation for Layer 1.
 
     Four variants (triggered x components/vocabulary contribution). Strings
-    live in humanise/vocabulary.yml under `short_pressure_explanation`.
+    live in humanise/scripts/vocabulary.json under `short_signal_stacking_explanation`.
     """
-    components = pressure.get("components") or []
-    vocab_points = pressure.get("vocabulary_points", 0)
-    score = pressure.get("score", 0)
-    threshold = pressure.get("threshold", 0)
-    triggered = pressure.get("triggered", False)
+    components = signal_stacking.get("components") or []
+    vocab_points = signal_stacking.get("vocabulary_points", 0)
+    score = signal_stacking.get("score", 0)
+    threshold = signal_stacking.get("threshold", 0)
+    triggered = signal_stacking.get("triggered", False)
     components_str = ", ".join(components)
     if triggered:
         if components and vocab_points:
             return registries.string_for(
-                "short_pressure_explanation.triggered_with_components",
+                "short_signal_stacking_explanation.triggered_with_components",
                 score=score, threshold=threshold,
                 components=components_str, vocab_points=vocab_points,
             )
         if components:
             return registries.string_for(
-                "short_pressure_explanation.triggered_components_only",
+                "short_signal_stacking_explanation.triggered_components_only",
                 score=score, threshold=threshold, components=components_str,
             )
         return registries.string_for(
-            "short_pressure_explanation.triggered_vocab_only",
+            "short_signal_stacking_explanation.triggered_vocab_only",
             score=score, threshold=threshold, vocab_points=vocab_points,
         )
     if components or vocab_points:
         return registries.string_for(
-            "short_pressure_explanation.clear_with_components",
+            "short_signal_stacking_explanation.clear_with_components",
             score=score, threshold=threshold,
         )
-    return registries.string_for("short_pressure_explanation.clear_no_components")
+    return registries.string_for("short_signal_stacking_explanation.clear_no_components")
 
 
 def _action_for_check(check, depth):
@@ -2512,17 +2512,17 @@ def score_summary(results):
         failures_by_severity[result["severity"]] = failures_by_severity.get(result["severity"], 0) + 1
 
     overall_signal = next(
-        (result for result in results if result["text"] == "overall-ai-signal-pressure"),
+        (result for result in results if result["text"] == "overall-signal-stacking"),
         None,
     )
-    ai_signal_pressure = None
+    signal_stacking = None
     if overall_signal:
-        ai_signal_pressure = {
+        signal_stacking = {
             "score": overall_signal.get("score"),
             "threshold": overall_signal.get("threshold"),
             "triggered": not overall_signal["passed"],
             "components": overall_signal.get("components", []),
-            "vocabulary_pressure": overall_signal.get("vocabulary_pressure", {}),
+            "vocabulary_signal_stacking": overall_signal.get("vocabulary_signal_stacking", {}),
         }
 
     return {
@@ -2532,7 +2532,7 @@ def score_summary(results):
         "total_checks": total,
         "pass_rate": f"{passed}/{total}",
         "failures_by_severity": failures_by_severity,
-        "ai_signal_pressure": ai_signal_pressure,
+        "signal_stacking": signal_stacking,
     }
 
 
@@ -2669,7 +2669,7 @@ QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
 
 # Phase 3 (U11/U13) — the canonical all-clear single-line response emitted
 # by format_two_layer when every programmatic check is clear, every
-# agent-judgement item is clear, and aggregate AI-pressure has not
+# agent-judgement item is clear, and aggregate signal stacking has not
 # triggered. Replaces the Phase-1 "Audit clean: no AI tells detected,
 # agent reading clean" form (which was the placeholder shape U4-U10
 # inherited and is now retired).
@@ -2682,7 +2682,7 @@ QUOTED_PHRASE_RE = re.compile(r'["“]([^"”]+)["”]')
 # pair, **Agent-judgement reading**) is ambiguous and fails — agents must
 # choose one shape, not both.
 ALL_CLEAR_LINE_RE = re.compile(
-    r"^\s*(?:>\s*)?\d+\s+of\s+\d+\s+clear\s*·\s*agent\s+reading\s+clean\s*·\s*pressure:\s*clear\.",
+    r"^\s*(?:>\s*)?\d+\s+of\s+\d+\s+clear\s*·\s*agent\s+reading\s+clean\s*·\s*signal\s+stacking:\s*clear\.",
     re.IGNORECASE | re.MULTILINE,
 )
 
@@ -2962,7 +2962,7 @@ def check_audit_shape_has_agent_judgement_block(output_text, input_text=None):
 def check_audit_shape_all_clear_line_format(output_text, input_text=None):
     """When neither block is present, the response is expected to be the
     canonical all-clear single-line shape: `<N> of <N> clear · agent
-    reading clean · pressure: clear.` followed by the next-step prompt.
+    reading clean · signal stacking: clear.` followed by the next-step prompt.
     The canonical phrase must START a line (the regex is anchored with
     re.MULTILINE) so it cannot be embedded inside a longer malformed
     response.

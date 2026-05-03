@@ -72,7 +72,7 @@
     "aggregates": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["by_severity", "by_category", "ai_pressure"],
+      "required": ["by_severity", "by_category", "signal_stacking"],
       "properties": {
         "by_severity": {
           "type": "object",
@@ -88,7 +88,7 @@
           "type": "object",
           "additionalProperties": {"type": "integer", "minimum": 0}
         },
-        "ai_pressure": {
+        "signal_stacking": {
           "type": "object",
           "additionalProperties": false,
           "required": ["score", "threshold", "triggered", "components", "vocabulary_points"],
