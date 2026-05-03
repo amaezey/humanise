@@ -58,7 +58,7 @@ python3 humanise/scripts/grade.py --format markdown --depth all <file>
 
 ## Patterns
 
-52 numbered patterns, five sub-letter variants, and one aggregate meta-check across 8 categories. Full before/after examples in `humanise/references/patterns.md`. Catalogued patterns that aren't yet implemented are tracked separately in `docs/todos/grader-integrity-gaps.md`, not listed here.
+52 numbered patterns, five sub-letter variants, and one aggregate meta-check across 8 categories. Full before/after examples in `humanise/references/patterns.md`.
 
 - **Source**: primary external attribution. "Wikipedia (editor consensus)" means the pattern is in the WikiProject AI Cleanup catalogue without an external upstream citation.
 - **Check**: how the pattern is detected.
@@ -256,7 +256,7 @@ The grader reads from a registry, the audit pairs eight agent-judgement readings
 - Adding new candidate signals (sentence-length mean, ghost-spectral density, negation density, unicode flair) where evidence supports them.
 - Demoting pattern checks that do not separate humans from AI in matched genres (em dashes, manufactured insight, and triad density may belong in softer categories).
 - Growing the matched corpus past N=5 per group.
-- Closing two grader-integrity gaps catalogued in `docs/todos/grader-integrity-gaps.md`: 17 catalogued patterns without programmatic checks (Group A) and 8 grader checks without catalogued patterns (Group B).
+- Closing two grader-integrity gaps: 17 catalogued patterns without programmatic checks (Group A) and 8 grader checks without catalogued patterns (Group B).
 
 ## File structure
 

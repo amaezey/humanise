@@ -19,3 +19,9 @@ CLAUDE.md
 # Local-only artefacts at repo root
 strategy.md
 requirements.txt
+
+# Internal docs (plans, ideation, todos) — local-only, not shared via the repo
+docs/
+
+# Claude Code project config — local-only
+.claude/
