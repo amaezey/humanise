@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-"""Tests for format_two_layer() — Phase 3 dual-layer audit renderer (U11).
+"""Tests for format_two_layer() — dual-layer audit renderer.
 
 Covers:
-- All-clear single-line response (R8)
-- Layer 1 + Layer 2 separator on flagged input (R1)
-- Layer 1 per-flagged-pattern block shape (R5): glyph + name + quoted phrase
-  + action; no description, no "why this matters"
+- Zero-flag draft renders the full three-line summary (R9, no collapse)
+- Layer 1 + Layer 2 separator on flagged input
+- Layer 1 per-flagged-pattern block shape (R6 — U5): glyph + name + optional
+  quoted phrase, no Action clause
 - Severity glyphs (x / ! / ?)
-- Layer 2 sub-table shape (R4): three columns Pattern | Result | Action
-- Layer 2 category collapse to one-liner when every check clear (R3)
-- Layer 2 ordering matches the eight patterns.md headings (R2)
+- Layer 2 sub-table shape (R15 / R18 — U4): four columns
+  Pattern | Severity | Result | Detail
+- Layer 2 category collapse to one-liner when every check clear
+- Layer 2 ordering matches the eight patterns.md headings
 - overall-signal-stacking suppressed from Layer 1 + Layer 2
 - Phrase cap at 3 with overflow indicator
-- Action column reflects depth (balanced vs all) (R22)
+- _action_for_check resolves on agent-judgement-shaped items (U1 + U5
+  wiring — severity field flows through `_action_for_check` for downstream
+  callers; not surfaced in the audit body itself per R6/R18)
 
 Run: python3 dev/evals/test_two_layer_render.py
 """
@@ -155,27 +158,30 @@ print("\n=== Layer 1 block shape ===")
 
 for forbidden in ("What it looks for:", "What happened here:", "Why this matters:"):
     if forbidden in layer_1:
-        fail(f"Layer 1 should not include {forbidden!r} (R5); found in:\n{layer_1}")
+        fail(f"Layer 1 should not include {forbidden!r}; found in:\n{layer_1}")
         break
 else:
-    ok("Layer 1 carries no description / why-this-matters labels (R5)")
+    ok("Layer 1 carries no description / why-this-matters labels")
 
-# Glyph + name + quoted phrase + action — verify on the no-em-dashes block
-# (em-dashes is strong_warning per patterns.yaml → glyph '!').
+# U5 (R6): Action clause is retired. Layer 1 flagged blocks render as
+# `<glyph> **<name>** — "<phrase>"` (or just `<glyph> **<name>**` for
+# structural patterns with no quotable phrase). Verify on the no-em-dashes
+# block (em-dashes is strong_warning per patterns.json → glyph '!').
 em_dash_block = next(
     (line for line in layer_1.splitlines() if "Em dashes" in line),
     None,
 )
 if em_dash_block is None:
     fail(f"Layer 1 missing Em dashes block; got:\n{layer_1}")
-elif not em_dash_block.startswith("! **Em dashes**"):
-    fail(f"Em dashes block should start with strong_warning glyph '!'; got {em_dash_block!r}")
-elif '"—"' not in em_dash_block:
-    fail(f"Em dashes block should quote the phrase; got {em_dash_block!r}")
-elif "Action: Fix" not in em_dash_block:
-    fail(f"Em dashes block should carry Action: Fix; got {em_dash_block!r}")
+elif em_dash_block != '! **Em dashes** — "—"':
+    fail(f"Em dashes block should render exactly '! **Em dashes** — \"—\"'; got {em_dash_block!r}")
 else:
-    ok("Em dashes block: glyph + name + quoted phrase + action")
+    ok('Em dashes block renders as `! **Em dashes** — "—"` (no Action clause, R6)')
+
+if "Action:" in layer_1:
+    fail(f"Layer 1 should not carry any 'Action:' clause post-U5 (R6); got:\n{layer_1}")
+else:
+    ok("Layer 1 carries no 'Action:' clause (R6)")
 
 
 # --- Severity glyphs across tiers ---
@@ -428,33 +434,55 @@ else:
         ok(f"Layer 1 caps phrases at {LAYER_1_PHRASE_CAP} and appends overflow indicator")
 
 
-# --- Action column depth-awareness (R22) ---
+# --- _action_for_check on agent-judgement contract items (U1 + U5 wiring) ---
+#
+# U1 added severity to every agent-judgement contract item; U5 verifies the
+# same `_action_for_check` function — previously called only from Layer-1
+# auto-detected blocks — resolves correctly on agent-judgement-shaped items
+# now that severity is on the item record. The Action verb itself is not
+# surfaced in the audit body post-R6, but downstream callers (Suggestions,
+# Rewrite) consume the depth-aware action mapping; that mapping must keep
+# working across both block kinds (R17).
 
-print("\n=== Action column reflects depth ===")
+print("\n=== _action_for_check resolves on agent-judgement items (U1 + U5) ===")
 
-# At Balanced, context_warning → "Disclose or ask before preserving"; at All
-# every flagged → "Fix".
-ctx_results = [
-    flag("no-curly-quotes", evidence_phrases=['""']),  # context_warning per patterns.yaml
-] + [
-    annotate_result({"text": cid, "passed": True, "evidence": "clean"})
-    for cid in ALL_CHECKS
-    if cid != "no-curly-quotes"
-]
-balanced_render = format_two_layer(ctx_results, depth="balanced")
-all_render = format_two_layer(ctx_results, depth="all")
+_action_for_check = _grade._action_for_check
 
-if "Disclose or ask before preserving" not in balanced_render:
-    fail("Balanced depth should map context_warning to 'Disclose or ask before preserving'")
+# Strong-warning agent item at Balanced depth → "fix"; at All → "fix".
+strong_agent_item = {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning"}
+if _action_for_check(strong_agent_item, "balanced") != "fix":
+    fail(f"strong_warning agent item at Balanced should map to 'fix'; got {_action_for_check(strong_agent_item, 'balanced')!r}")
 else:
-    ok("Balanced depth maps context_warning to Disclose or ask before preserving")
+    ok("strong_warning agent item at Balanced → 'fix'")
 
-if "Disclose or ask before preserving" in all_render:
-    fail("All depth should never use 'Disclose or ask before preserving'")
-elif "Action: Fix" not in all_render:
-    fail("All depth should map every flagged severity to Fix")
+if _action_for_check(strong_agent_item, "all") != "fix":
+    fail(f"strong_warning agent item at All should map to 'fix'; got {_action_for_check(strong_agent_item, 'all')!r}")
 else:
-    ok("All depth maps every flagged severity to Fix")
+    ok("strong_warning agent item at All → 'fix'")
+
+# Context-warning agent item at Balanced → "preserve_with_disclosure_or_user_decision".
+context_agent_item = {"id": "structural_monotony", "status": "flagged", "severity": "context_warning"}
+balanced_action = _action_for_check(context_agent_item, "balanced")
+if balanced_action != "preserve_with_disclosure_or_user_decision":
+    fail(f"context_warning agent item at Balanced should map to "
+         f"'preserve_with_disclosure_or_user_decision'; got {balanced_action!r}")
+else:
+    ok("context_warning agent item at Balanced → 'preserve_with_disclosure_or_user_decision'")
+
+if _action_for_check(context_agent_item, "all") != "fix":
+    fail(f"context_warning agent item at All should map to 'fix'; got {_action_for_check(context_agent_item, 'all')!r}")
+else:
+    ok("context_warning agent item at All → 'fix' (depth=all upgrades every severity)")
+
+# Same severity / depth pair must yield the same action whether the item is
+# auto-detected or agent-assessed (R17). The function reads only `severity`,
+# so equivalence is by construction — pin it explicitly.
+auto_strong = {"id": "no-em-dashes", "status": "flagged", "severity": "strong_warning"}
+agent_strong = {"id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning"}
+if _action_for_check(auto_strong, "balanced") != _action_for_check(agent_strong, "balanced"):
+    fail("R17 broken: same severity should resolve to same action for auto-detected and agent-assessed items")
+else:
+    ok("R17 holds: severity × depth → action mapping is shared across both blocks")
 
 
 # --- U4 unit tests on _format_layer_1 (severity aggregation, judgement counts) ---

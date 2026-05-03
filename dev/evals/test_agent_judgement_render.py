@@ -156,16 +156,9 @@ else:
     ok("header carries flagged-of-total count")
 
 
-# --- status binary: no severity column, no severity glyphs, no `mixed` ---
+# --- U5 (R7): flagged items use glyph + bold-name shape; clear items don't ---
 
-print("\n=== status binary, no severity surface ===")
-
-for forbidden in ("hard_fail", "strong_warning", "context_warning"):
-    if forbidden in mixed_render:
-        fail(f"agent block should not include severity term {forbidden!r}")
-        break
-else:
-    ok("no severity terms in agent block")
+print("\n=== flagged items use glyph + bold-name shape (R7) ===")
 
 # `mixed` is a substring of "mixed_intentional" (old token, removed in U12 schema rewrite)
 # and shouldn't appear standalone. The mechanical transform of any judgement id
@@ -175,23 +168,130 @@ if " mixed " in f" {mixed_render.lower()} " or "mixed_intentional" in mixed_rend
 else:
     ok("no 'mixed' state vocabulary in render")
 
-# Severity glyphs: x !  ?  — none should appear at the start of any bullet line.
-# Each agent bullet starts with '- '. Glyph-style lines start with the glyph.
-for line in mixed_render.splitlines():
-    if line[:2] in {"x ", "! ", "? "}:
-        fail(f"bullet uses severity glyph: {line!r}")
-        break
+# Pre-U5 invariant ("no severity glyphs anywhere") is retired by U5. Flagged
+# items now lead with `! `, `x `, or `? `; clear items keep the dash-prefixed
+# `- <Label> — <Status>[: ...]` shape so the two are visually distinguishable.
+flagged_lines = [line for line in mixed_render.splitlines() if line[:2] in {"x ", "! ", "? "}]
+clear_lines = [
+    line for line in mixed_render.splitlines()
+    if line.startswith("- ") and " — Clear" in line
+]
+if not flagged_lines:
+    fail(f"flagged items should lead with severity glyph; got:\n{mixed_render}")
+elif not clear_lines:
+    fail(f"clear items should still use the dash-prefixed shape; got:\n{mixed_render}")
 else:
-    ok("no severity glyphs leading any line")
+    ok(f"flagged items use glyph leader ({len(flagged_lines)} lines) and clear items keep dash shape ({len(clear_lines)} lines)")
+
+# The pre-U5 `- <Label> — Flagged[: ...]` shape on flagged items must be gone.
+import re as _re_check
+old_shape = _re_check.findall(r"^- [^—\n]+ — Flagged", mixed_render, _re_check.MULTILINE)
+if old_shape:
+    fail(f"pre-U5 '- <Label> — Flagged' shape leaked: {old_shape}")
+else:
+    ok("pre-U5 '- <Label> — Flagged' shape no longer appears on flagged items")
 
 
-# Polymorphic genre slot test deleted in U3 (audit-output redesign): the
-# previous fixture asserted a `| Genre specific | Flagged | Fix |` table-row
-# shape that the current renderer never produced. U5 reworks
-# `_render_judgement_item` / `_render_judgement_list_item` /
-# `_render_judgement_composite_item` onto the new glyph + sub-bullet shape
-# (`! **Genre specific** — Genre detected: <genre>` + watchlist sub-bullets)
-# and adds the replacement composite-genre fixture per its plan.
+# --- U5 R7 happy paths: state, list, composite flagged shapes ---
+
+print("\n=== U5 R7: state-flagged renders `! **Label** — <value>` ===")
+
+state_flagged = all_clear_judgement()
+state_flagged[1] = {
+    "id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+    "answer": "register holds without breaks", "evidence": {},
+}
+state_render = format_agent_judgement(state_flagged)
+state_lines = [line for line in state_render.splitlines() if "Tonal uniformity" in line]
+if state_lines and state_lines[0] == "! **Tonal uniformity** — register holds without breaks":
+    ok("state-flagged renders `! **Tonal uniformity** — register holds without breaks`")
+else:
+    fail(f"state-flagged shape mismatch; got: {state_lines[:1]!r}")
+
+
+print("\n=== U5 R7: list-flagged renders header + sub-bullets per finding ===")
+
+list_flagged = all_clear_judgement()
+list_flagged[2] = {
+    "id": "faux_specificity", "status": "flagged", "severity": "strong_warning",
+    "answer": [
+        # judgement.json's faux_specificity schema uses `why_unspecific`; the
+        # renderer looks up the schema's `why_*` field name dynamically.
+        {"phrase": "approximately 30%", "why_unspecific": "fake-precise quantifier"},
+        {"phrase": "research suggests", "why_unspecific": "phantom citation pattern"},
+    ],
+    "evidence": {},
+}
+list_render = format_agent_judgement(list_flagged)
+expected_list_block = (
+    "! **Faux specificity**\n"
+    '  - "approximately 30%" — fake-precise quantifier\n'
+    '  - "research suggests" — phantom citation pattern'
+)
+if expected_list_block in list_render:
+    ok("list-flagged with 2 findings → header + 2 sub-bullets in the R7 shape (covers AE3)")
+else:
+    fail(f"list-flagged shape mismatch; expected:\n{expected_list_block}\ngot:\n{list_render}")
+
+
+print("\n=== U5 R7: composite-flagged renders `! **Label** — Genre detected: <genre>` + sub-bullets ===")
+
+composite_flagged = all_clear_judgement()
+composite_flagged[-1] = {
+    "id": "genre_specific", "status": "flagged", "severity": "context_warning",
+    "answer": {
+        "genre_detected": "academic",
+        "watchlist_findings": [
+            {"phrase": "as we have seen", "why_flagged": "rubric echo"},
+        ],
+    },
+    "evidence": {},
+}
+composite_render = format_agent_judgement(composite_flagged)
+expected_composite_block = (
+    "? **Genre specific** — Genre detected: academic\n"
+    '  - "as we have seen" — rubric echo'
+)
+if expected_composite_block in composite_render:
+    ok("composite-flagged renders `? **Genre specific** — Genre detected: academic` + sub-bullet")
+else:
+    fail(f"composite-flagged shape mismatch; expected:\n{expected_composite_block}\ngot:\n{composite_render}")
+
+
+# --- U5 (R7): composite-flagged with severity-tier glyph mapping ---
+
+print("\n=== U5 R7: severity glyphs mirror auto-detected (x / ! / ?) ===")
+
+# All three severities exercised in one render — confirms the agent-judgement
+# block uses the same severity → glyph mapping as Layer-1 auto-detected.
+tri_severity = all_clear_judgement()
+tri_severity[0] = {
+    "id": "structural_monotony", "status": "flagged", "severity": "hard_fail",
+    "answer": "every section follows the same arc", "evidence": {},
+}
+tri_severity[1] = {
+    "id": "tonal_uniformity", "status": "flagged", "severity": "strong_warning",
+    "answer": "register holds without breaks", "evidence": {},
+}
+tri_severity[3] = {
+    "id": "neutrality_collapse", "status": "flagged", "severity": "context_warning",
+    "answer": "hedges its position", "evidence": {},
+}
+tri_render = format_agent_judgement(tri_severity)
+expected_glyph_lines = {
+    "Structural monotony": "x",
+    "Tonal uniformity": "!",
+    "Neutrality collapse": "?",
+}
+glyph_mismatch = []
+for label, glyph in expected_glyph_lines.items():
+    line = next((line for line in tri_render.splitlines() if label in line), None)
+    if line is None or not line.startswith(f"{glyph} **{label}**"):
+        glyph_mismatch.append((label, glyph, line))
+if glyph_mismatch:
+    fail(f"severity-glyph mismatches: {glyph_mismatch}")
+else:
+    ok("hard_fail / strong_warning / context_warning render with x / ! / ? on agent flagged items")
 
 
 # --- all clear → single 'agent reading clean' line ---

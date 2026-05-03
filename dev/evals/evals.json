@@ -23,12 +23,6 @@
           "check": "every flag block contains a substring from the input file"
         },
         {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Every flagged pattern has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
-        },
-        {
           "name": "ends-with-next-step-question",
           "type": "programmatic",
           "description": "Output ends with a question offering suggestions / rewrite / done",
@@ -123,12 +117,6 @@
           "check": "every flag block contains a substring from the input file"
         },
         {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Any flag present has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
-        },
-        {
           "name": "ends-with-next-step-question",
           "type": "programmatic",
           "description": "Output ends with a question offering suggestions / rewrite / done",
@@ -221,12 +209,6 @@
           "type": "programmatic",
           "description": "Any flag present shows a quoted phrase from the input",
           "check": "every flag block contains a substring from the input file"
-        },
-        {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Any flag present has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
         },
         {
           "name": "ends-with-next-step-question",
@@ -795,12 +777,6 @@
           "check": "every flag block contains a substring from the input file"
         },
         {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Any flag present has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
-        },
-        {
           "name": "ends-with-next-step-question",
           "type": "programmatic",
           "description": "Output ends with a question offering suggestions / rewrite / done",
@@ -893,12 +869,6 @@
           "type": "programmatic",
           "description": "Any flag present shows a quoted phrase from the input",
           "check": "every flag block contains a substring from the input file"
-        },
-        {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Any flag present has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
         },
         {
           "name": "ends-with-next-step-question",
@@ -995,12 +965,6 @@
           "check": "every flag block contains a substring from the input file"
         },
         {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Any flag present has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
-        },
-        {
           "name": "ends-with-next-step-question",
           "type": "programmatic",
           "description": "Output ends with a question offering suggestions / rewrite / done",
@@ -1093,12 +1057,6 @@
           "type": "programmatic",
           "description": "Any flag present shows a quoted phrase from the input",
           "check": "every flag block contains a substring from the input file"
-        },
-        {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Any flag present has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
         },
         {
           "name": "ends-with-next-step-question",
@@ -1195,12 +1153,6 @@
           "check": "every flag block contains a substring from the input file"
         },
         {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Any flag present has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
-        },
-        {
           "name": "ends-with-next-step-question",
           "type": "programmatic",
           "description": "Output ends with a question offering suggestions / rewrite / done",
@@ -1293,12 +1245,6 @@
           "type": "programmatic",
           "description": "Every flagged pattern shows a quoted phrase from the input draft",
           "check": "every flag block contains a substring from the input file"
-        },
-        {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Every flagged pattern has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
         },
         {
           "name": "ends-with-next-step-question",
@@ -1395,12 +1341,6 @@
           "check": "every flag block contains a substring from the input file"
         },
         {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Every flagged pattern has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
-        },
-        {
           "name": "ends-with-next-step-question",
           "type": "programmatic",
           "description": "Output ends with a question offering suggestions / rewrite / done",
@@ -1493,12 +1433,6 @@
           "type": "programmatic",
           "description": "Every flagged pattern shows a quoted phrase from the input draft",
           "check": "every flag block contains a substring from the input file"
-        },
-        {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Every flagged pattern has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
         },
         {
           "name": "ends-with-next-step-question",
@@ -1595,12 +1529,6 @@
           "check": "every flag block contains a substring from the input file"
         },
         {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Every flagged pattern has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
-        },
-        {
           "name": "ends-with-next-step-question",
           "type": "programmatic",
           "description": "Output ends with a question offering suggestions / rewrite / done",
@@ -1693,12 +1621,6 @@
           "type": "programmatic",
           "description": "Every flagged pattern shows a quoted phrase from the input draft",
           "check": "every flag block contains a substring from the input file"
-        },
-        {
-          "name": "each-flag-has-explanation",
-          "type": "programmatic",
-          "description": "Every flagged pattern has a brief 'why' explanation",
-          "check": "every flag block contains an explanation paragraph or 'Why' line"
         },
         {
           "name": "ends-with-next-step-question",

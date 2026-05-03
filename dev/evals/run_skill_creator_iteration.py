@@ -349,9 +349,6 @@ def grade_one_assertion(name: str, output: str, input_text: str, generated: str)
     if name == "each-flag-has-quoted-phrase":
         result = GRADE.check_audit_shape("every-flag-block-contains-input-substring", output, input_text)
         return result["passed"], result["evidence"]
-    if name == "each-flag-has-explanation":
-        result = GRADE.check_audit_shape("every-flag-block-has-explanation", output, input_text)
-        return result["passed"], result["evidence"]
     if name == "ends-with-next-step-question":
         result = GRADE.check_audit_shape("final-non-empty-line-ends-with-question", output, input_text)
         return result["passed"], result["evidence"]

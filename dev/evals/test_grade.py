@@ -1528,7 +1528,7 @@ Signal stacking clear: no weaker AI-writing signals stacked.
 
 **Agent-judgement reading — 1 flagged of 8**
 
-- Structural monotony — Flagged: every section follows the same arc
+! **Structural monotony** — every section follows the same arc
 - Tonal uniformity — Clear: register breaks at least once
 - Faux specificity — Clear
 - Neutrality collapse — Clear: takes a position
@@ -1562,7 +1562,7 @@ Want suggestions?"""
 
 _AGENT_JUDGEMENT_ONLY = """**Agent-judgement reading — 1 flagged of 8**
 
-- Structural monotony — Flagged: every section follows the same arc
+! **Structural monotony** — every section follows the same arc
 - Tonal uniformity — Clear: register breaks at least once
 - Faux specificity — Clear
 - Neutrality collapse — Clear: takes a position
@@ -1609,7 +1609,7 @@ Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stackin
 
 **Agent-judgement reading — 1 flagged of 8**
 
-- Structural monotony — Flagged: every section follows the same arc"""
+! **Structural monotony** — every section follows the same arc"""
 
 # Regression fixture for Finding #1 from PR #14 review (LAYER_1_BLOCK_RE
 # previously required a middle clause and silently dropped no-quote
@@ -1662,28 +1662,6 @@ Signal stacking clear: no weaker AI-writing signals stacked.
 **Agent-judgement reading**
 
 agent reading clean
-
-**Next step**
-
-Want suggestions?"""
-
-# Regression fixture for PR #14 review Finding #9: a Layer 1 candidate line
-# opens with `<glyph> **<name>**` but is missing the trailing `Action:` verb.
-# The broader candidate-collection regex inside check_every_flag_block_has_explanation
-# catches the line; the predicate catches the missing verb.
-_FLAG_BLOCK_MISSING_ACTION = """Audit
-Severity: 0 hard fail · 1 strong warning · 0 context warning · signal stacking: clear
-Signal stacking clear: no weaker AI-writing signals stacked.
-
-! **Em dashes** — "still—keen"
-
----
-
-**Style** — 1 flagged of 6
-
-| Pattern | Result | Action |
-| --- | --- | --- |
-| Em dashes | Flagged | Fix |
 
 **Next step**
 
@@ -1866,14 +1844,11 @@ else:
     FAILURES += 1
     print(f"FAIL: Finding #4 — has-agent-judgement-block on programmatic + clean-form-agent: {_r['evidence']}")
 
-# Finding #9 (paired with Finding #5 in PR #14 review): every-flag-block-has-
-# explanation must catch a Layer 1 candidate line missing the trailing Action: verb.
-_r = check_audit_shape("every-flag-block-has-explanation", _FLAG_BLOCK_MISSING_ACTION)
-if not _r["passed"] and "missing 'Action:'" in _r["evidence"]:
-    print(f"  ok: Finding #9 — every-flag-block-has-explanation catches missing Action: on Layer 1 candidate")
-else:
-    FAILURES += 1
-    print(f"FAIL: Finding #9 — every-flag-block-has-explanation should fail when Action: missing (got: {_r['evidence']})")
+# Finding #9 (PR #14): the every-flag-block-has-explanation check enforced
+# the Phase-3 trailing `Action: <verb>` clause on every Layer 1 candidate.
+# U5 (R6) retired the Action clause — the check (and this fixture) were
+# removed in lockstep. R6/R7 enforcement now lives in
+# audit-shape-flagged-items-glyph-shape (covered above).
 
 # Finding #8: suggestion-block-count-equals-flag-count must sum programmatic
 # + agent-judgement flagged counts. Balanced fixture passes (2 flags = 2 Try);

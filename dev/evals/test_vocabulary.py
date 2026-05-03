@@ -302,6 +302,38 @@ if sep != "| --- | --- | --- | --- |":
 else:
     ok("templates.category_subtable_separator is the U4 4-column shape")
 
+# U5: agent-assessed flagged-item templates (R7 — glyph + bold + sub-bullets).
+# `agent_assessed_flagged_block` is the bare list-flagged header; the
+# state and composite-genre variants carry the inline value/genre clause.
+agent_flagged_block = registries.string_for(
+    "templates.agent_assessed_flagged_block", glyph="!", name="Faux specificity",
+)
+expected_agent_flagged_block = "! **Faux specificity**"
+if agent_flagged_block != expected_agent_flagged_block:
+    fail(f"agent_assessed_flagged_block: expected {expected_agent_flagged_block!r}, got {agent_flagged_block!r}")
+else:
+    ok("templates.agent_assessed_flagged_block renders byte-equivalent to expected text")
+
+agent_flagged_state = registries.string_for(
+    "templates.agent_assessed_flagged_state",
+    glyph="!", name="Tonal uniformity", value="register holds without breaks",
+)
+expected_agent_flagged_state = "! **Tonal uniformity** — register holds without breaks"
+if agent_flagged_state != expected_agent_flagged_state:
+    fail(f"agent_assessed_flagged_state: expected {expected_agent_flagged_state!r}, got {agent_flagged_state!r}")
+else:
+    ok("templates.agent_assessed_flagged_state renders byte-equivalent to expected text")
+
+agent_flagged_composite = registries.string_for(
+    "templates.agent_assessed_flagged_composite_genre",
+    glyph="!", name="Genre specific", genre="academic",
+)
+expected_agent_flagged_composite = "! **Genre specific** — Genre detected: academic"
+if agent_flagged_composite != expected_agent_flagged_composite:
+    fail(f"agent_assessed_flagged_composite_genre: expected {expected_agent_flagged_composite!r}, got {agent_flagged_composite!r}")
+else:
+    ok("templates.agent_assessed_flagged_composite_genre renders byte-equivalent to expected text")
+
 # Severity glyphs — Layer 1 per-flagged-pattern blocks.
 for sev, expected_glyph in (("hard_fail", "x"), ("strong_warning", "!"), ("context_warning", "?")):
     glyph = registries.string_for(f"severity_glyphs.{sev}")

@@ -76,6 +76,8 @@
     "flagged_pattern_block_no_action": "{glyph} **{name}** — {quoted}",
     "flagged_pattern_block_no_quote_no_action": "{glyph} **{name}**",
     "agent_assessed_flagged_block": "{glyph} **{name}**",
+    "agent_assessed_flagged_state": "{glyph} **{name}** — {value}",
+    "agent_assessed_flagged_composite_genre": "{glyph} **{name}** — Genre detected: {genre}",
     "category_subtable_heading": "**{category}** — {flagged} flagged of {total}",
     "category_subtable_header": "| Pattern | Severity | Result | Detail |",
     "category_subtable_separator": "| --- | --- | --- | --- |",

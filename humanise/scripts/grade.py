@@ -2202,21 +2202,29 @@ def _signal_stacking_line(signal_stacking):
 
 
 def _layer_1_pattern_block(check, depth_key):
+    """Layer 1 per-flagged-pattern block (R6 — Action gone).
+
+    Renders `<glyph> **<name>** — "<phrase>"` when the check carries
+    quotable phrases; falls back to the no-phrase shape `<glyph> **<name>**`
+    for structural patterns (no quotable instance). The Action verb is
+    retired by R6 — depth-aware action mapping survives in
+    `_action_for_check` for downstream callers, just not rendered here.
+    """
+    del depth_key  # action is no longer surfaced in flagged-item blocks (R6)
     glyph = registries.string_for(f"severity_glyphs.{check['severity']}")
     try:
         name = registries.pattern_for(check["id"])["short_name"]
     except KeyError:
         name = check["id"]
-    action = registries.action_label(_action_for_check(check, depth_key))
     quoted = _format_quoted_phrases(check)
     if quoted:
         return registries.string_for(
-            "templates.flagged_pattern_block",
-            glyph=glyph, name=name, quoted=quoted, action=action,
+            "templates.flagged_pattern_block_no_action",
+            glyph=glyph, name=name, quoted=quoted,
         )
     return registries.string_for(
-        "templates.flagged_pattern_block_no_quote",
-        glyph=glyph, name=name, action=action,
+        "templates.flagged_pattern_block_no_quote_no_action",
+        glyph=glyph, name=name,
     )
 
 
@@ -2362,62 +2370,22 @@ def format_agent_judgement(judgement):
     return "\n".join(lines)
 
 
-def _render_judgement_item(item):
-    """Render one agent-judgement item — returns a list of lines."""
-    item_id = item.get("id", "")
-    label = _judgement_label(item_id)
-    status_value = item.get("status", "clear")
-    status_label = registries.status_label(status_value)
-    answer = item.get("answer")
-
-    try:
-        record = registries.judgement_for(item_id)
-    except KeyError:
-        return [registries.string_for(
-            "templates.agent_judgement_item_status_only",
-            label=label, status=status_label,
-        )]
-
-    schema_type = record.get("answer_schema", {}).get("type")
-
-    if schema_type in {"state", "trichotomy"}:
-        # Always render the value — both clear and flagged carry the same enum.
-        return [registries.string_for(
-            "templates.agent_judgement_item_with_value",
-            label=label, status=status_label, value=str(answer),
-        )]
-
-    if schema_type == "list":
-        if status_value == "flagged" and answer:
-            return _render_judgement_list_item(item, record, label, status_label)
-        return [registries.string_for(
-            "templates.agent_judgement_item_status_only",
-            label=label, status=status_label,
-        )]
-
-    if schema_type == "composite":
-        return _render_judgement_composite_item(item, record, label, status_label)
-
-    return [registries.string_for(
-        "templates.agent_judgement_item_status_only",
-        label=label, status=status_label,
-    )]
+def _agent_glyph(item):
+    """Severity glyph for an agent-judgement item — defaults to context_warning if missing."""
+    return registries.string_for(
+        f"severity_glyphs.{item.get('severity', 'context_warning')}"
+    )
 
 
-def _render_judgement_list_item(item, record, label, status_label):
-    answer = item.get("answer") or []
-    if not answer:
-        return [registries.string_for(
-            "templates.agent_judgement_item_status_only",
-            label=label, status=status_label,
-        )]
-    fields = record.get("answer_schema", {}).get("items", []) or []
-    why_field = next((f for f in fields if f.startswith("why_")), None)
-    lines = [registries.string_for(
-        "templates.agent_judgement_item_status_then_findings",
-        label=label, status=status_label,
-    )]
-    for entry in answer:
+def _render_finding_bullets(entries, why_field):
+    """Render a list of finding entries as sub-bullets (R7).
+
+    Each entry is either `  - "<phrase>" — <why>` or `  - "<phrase>"`,
+    depending on whether the why-field is populated. Used by both
+    list-flagged and composite-flagged code paths.
+    """
+    lines = []
+    for entry in entries:
         if not isinstance(entry, dict):
             continue
         phrase = entry.get("phrase", "")
@@ -2435,32 +2403,101 @@ def _render_judgement_list_item(item, record, label, status_label):
     return lines
 
 
-def _render_judgement_composite_item(item, record, label, status_label):
+def _render_judgement_item(item):
+    """Render one agent-judgement item — returns a list of lines.
+
+    U5 (R7): flagged items use the glyph + bold-name shape from
+    `severity_glyphs.<severity>` on the item. State items render inline
+    (`<glyph> **<label>** — <value>`); list and composite items render a
+    glyph + bold header followed by sub-bullets per finding. Clear items
+    keep the U2 dash-prefixed shape (they aren't surfaced in the default
+    audit body — U6 handles per-block sections, this unit only converges
+    the flagged shape).
+    """
+    item_id = item.get("id", "")
+    label = _judgement_label(item_id)
+    status_value = item.get("status", "clear")
+    status_label = registries.status_label(status_value)
+    answer = item.get("answer")
+    is_flagged = status_value == "flagged"
+
+    try:
+        record = registries.judgement_for(item_id)
+    except KeyError:
+        return [registries.string_for(
+            "templates.agent_judgement_item_status_only",
+            label=label, status=status_label,
+        )]
+
+    schema_type = record.get("answer_schema", {}).get("type")
+
+    if schema_type in {"state", "trichotomy"}:
+        if is_flagged:
+            return [registries.string_for(
+                "templates.agent_assessed_flagged_state",
+                glyph=_agent_glyph(item), name=label, value=str(answer),
+            )]
+        # Clear: keep the U2 single-line shape; both clear and flagged carry the same enum.
+        return [registries.string_for(
+            "templates.agent_judgement_item_with_value",
+            label=label, status=status_label, value=str(answer),
+        )]
+
+    if schema_type == "list":
+        if is_flagged and answer:
+            return _render_judgement_list_item(item, record, label)
+        return [registries.string_for(
+            "templates.agent_judgement_item_status_only",
+            label=label, status=status_label,
+        )]
+
+    if schema_type == "composite":
+        return _render_judgement_composite_item(item, record, label, status_label, is_flagged)
+
+    return [registries.string_for(
+        "templates.agent_judgement_item_status_only",
+        label=label, status=status_label,
+    )]
+
+
+def _render_judgement_list_item(item, record, label):
+    """List-shape flagged item: glyph + bold header, sub-bullets per finding (R7)."""
+    answer = item.get("answer") or []
+    fields = record.get("answer_schema", {}).get("items", []) or []
+    why_field = next((f for f in fields if f.startswith("why_")), None)
+    header = registries.string_for(
+        "templates.agent_assessed_flagged_block",
+        glyph=_agent_glyph(item), name=label,
+    )
+    return [header, *_render_finding_bullets(answer, why_field)]
+
+
+def _render_judgement_composite_item(item, record, label, status_label, is_flagged):
+    """Composite-shape item (genre slot): inline genre clause + watchlist sub-bullets.
+
+    Flagged (R7): `<glyph> **<label>** — Genre detected: <genre>` header
+    followed by sub-bullets for each `watchlist_findings` entry. Clear:
+    keep the U2 dash-prefixed shape with status word — `with_findings` /
+    `pending` template depending on whether the genre's watchlist is
+    populated.
+    """
     answer = item.get("answer") if isinstance(item.get("answer"), dict) else {}
     genre = answer.get("genre_detected", "default")
     findings = answer.get("watchlist_findings") or []
 
+    if is_flagged:
+        header = registries.string_for(
+            "templates.agent_assessed_flagged_composite_genre",
+            glyph=_agent_glyph(item), name=label, genre=genre,
+        )
+        return [header, *_render_finding_bullets(findings, "why_flagged")]
+
     if findings:
-        lines = [registries.string_for(
+        header = registries.string_for(
             "templates.agent_judgement_genre_with_findings",
             label=label, status=status_label, genre=genre,
-        )]
-        for entry in findings:
-            if not isinstance(entry, dict):
-                continue
-            phrase = entry.get("phrase", "")
-            why = entry.get("why_flagged", "")
-            if why:
-                lines.append(registries.string_for(
-                    "templates.agent_judgement_finding_with_why",
-                    phrase=phrase, why=why,
-                ))
-            else:
-                lines.append(registries.string_for(
-                    "templates.agent_judgement_finding_phrase_only",
-                    phrase=phrase,
-                ))
-        return lines
+        )
+        return [header, *_render_finding_bullets(findings, "why_flagged")]
 
     sub_records = record.get("sub_records", {}) or {}
     sub = sub_records.get(genre, {}) or {}
@@ -2695,13 +2732,14 @@ ALL_CLEAR_LINE_RE = re.compile(
     re.IGNORECASE | re.MULTILINE,
 )
 
-# Phase 3 (U11/U13) — the new Layer 1 per-flagged-pattern block format.
-# Single-line shape: `<glyph> **<short_name>** — ["<phrase>" — ]Action: <action>`.
-# Glyphs are x (hard_fail), ! (strong_warning), ? (context_warning).
-# The quoted-phrase clause is optional — structural patterns carry no
-# quotable instance and render as `<glyph> **<name>** — Action: ...`.
+# Phase 3 (U11/U13) — the Layer 1 per-flagged-pattern block format.
+# U5 (R6) retired the trailing `— Action: <verb>` clause. Current shape:
+# `<glyph> **<short_name>**` with an optional `— "<phrase>"` (or
+# `— "<phrase>" (+N more)`) tail. Glyphs are x (hard_fail),
+# ! (strong_warning), ? (context_warning). Structural patterns carry no
+# quotable instance and render as the bare `<glyph> **<name>**` line.
 LAYER_1_BLOCK_RE = re.compile(
-    r"^[x!?]\s+\*\*[^*]+\*\*\s+—\s+(?:.+?\s+—\s+)?Action:\s+\S.*$",
+    r"^[x!?]\s+\*\*[^*]+\*\*(?:\s+—\s+\S.*)?$",
     re.MULTILINE,
 )
 
@@ -2752,15 +2790,17 @@ def _agent_judgement_section(output_text):
 def _agent_judgement_flagged_count(output_text):
     """Count flagged items in the agent-judgement block.
 
-    Items render as `- <Label> — Flagged[: ...]` or `- <Label> — Flagged:`
-    (clear items render as `- <Label> — Clear[: ...]`). The flagged-count
-    feeds the suggestion-flag parity check (each flag, programmatic or
-    agent-judgement, expects one suggestion).
+    Post-U5 (R7), flagged items open with a severity glyph + bold name —
+    `! **<Label>** — ...`, `x **<Label>**`, etc. — using the same opener
+    shape as Layer-1 auto-detected blocks. Clear items continue to render
+    as the U2 `- <Label> — Clear[: ...]` shape so the regex below counts
+    only flagged items. The flagged-count feeds the suggestion-flag parity
+    check (each flag, programmatic or agent-judgement, expects one suggestion).
     """
     section = _agent_judgement_section(output_text)
     if not section:
         return 0
-    return len(re.findall(r"^- [^—\n]+ — Flagged", section, re.MULTILINE))
+    return len(re.findall(r"^[x!?]\s+\*\*[^*]+\*\*", section, re.MULTILINE))
 
 
 def _suggestion_blocks(suggestions_text):
@@ -2837,37 +2877,6 @@ def check_every_flag_block_contains_input_substring(output_text, input_text=None
     if misses:
         return {"text": name, "passed": False, "evidence": f"{len(misses)} block(s) lack input-matching quotes: {misses[:3]}"}
     return {"text": name, "passed": True, "evidence": f"all {len(blocks)} flag block(s) anchor to input"}
-
-
-_FLAG_BLOCK_CANDIDATE_RE = re.compile(
-    r"^[x!?]\s+\*\*[^*]+\*\*\s+—.*$",
-    re.MULTILINE,
-)
-
-
-def check_every_flag_block_has_explanation(output_text, input_text=None):
-    """Each Layer 1 flag block must end with `Action: <verb>`. Phase-3 (R5)
-    moved the per-pattern explanation prose out of the audit (it lives in
-    `humanise/references/patterns.md` for drill-in); the Action verb is
-    the only per-block prose that survives, and it carries the
-    "what to do about this" signal that the Phase-1 `Why:` line carried.
-
-    Uses a broader candidate-collection regex than `_flag_blocks`: any line
-    opening with a severity glyph + bold name is a candidate, and each
-    candidate must end with `Action: <verb>`. The split lets `_flag_blocks`
-    stay strict (only well-formed blocks contribute to parity counts) while
-    this check actually gates the Action-verb requirement."""
-    name = "every-flag-block-has-explanation"
-    audit = _audit_section(output_text)
-    if not audit:
-        return {"text": name, "passed": False, "evidence": "no audit section found"}
-    candidates = _FLAG_BLOCK_CANDIDATE_RE.findall(_collapse_whitespace_inside_quotes(audit))
-    if not candidates:
-        return {"text": name, "passed": True, "evidence": "no flag-block candidates (vacuously true)"}
-    missing = [b[:80] for b in candidates if not re.search(r"Action:\s+\S", b)]
-    if missing:
-        return {"text": name, "passed": False, "evidence": f"{len(missing)} flag block(s) missing 'Action:': {missing[:3]}"}
-    return {"text": name, "passed": True, "evidence": f"all {len(candidates)} flag block(s) include 'Action:'"}
 
 
 def check_final_non_empty_line_ends_with_question(output_text, input_text=None):
@@ -3120,7 +3129,6 @@ def check_audit_shape_no_action_column(output_text, input_text=None):
 AUDIT_SHAPE_CHECKS = {
     "audit-shape-block-precedes-rewrite-block": check_audit_shape_block_precedes_rewrite_block,
     "every-flag-block-contains-input-substring": check_every_flag_block_contains_input_substring,
-    "every-flag-block-has-explanation": check_every_flag_block_has_explanation,
     "final-non-empty-line-ends-with-question": check_final_non_empty_line_ends_with_question,
     "no-large-prose-block-not-in-input": check_no_large_prose_block_not_in_input,
     "suggestion-block-count-equals-flag-count": check_suggestion_block_count_equals_flag_count,
