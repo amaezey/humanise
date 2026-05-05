@@ -117,7 +117,7 @@ Checks that are judged by an LLM based on reading the whole draft.
 | Even jargon distribution | context warning | Clear | jargon clumps where the writer knows things |
 | Forced synesthesia | context warning | Clear |  |
 | Generic metaphors | context warning | Clear |  |
-| Genre specific | context warning | Clear | default genre detected; watchlist coverage pending |
+| Genre specific | context warning | Clear | Genre detected: default |
 
 **Next steps**
 

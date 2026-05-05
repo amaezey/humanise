@@ -34,6 +34,12 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 
 **Have opinions.** "I keep going back and forth on this" is more human than neutrally listing pros and cons.
 
+**Write for an actual reader.** Audience, purpose, and stakes should shape the
+piece. A classroom essay needs evidence and student-level ownership; a
+marketing email needs domain knowledge and real personalisation; a reported
+article needs named sources; a poem needs pressure in its form rather than neat
+compliance.
+
 **Vary rhythm within reason.** Mix sentence lengths for natural cadence, but not one-word dramatic punctuation. It should feel like a person thinking at different speeds.
 
 **Acknowledge complexity.** "This is impressive, but it also makes me a little uneasy" carries more weight than unqualified praise or a clean pro/con list.
@@ -43,6 +49,11 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 **Be specific rather than atmospheric.** Instead of mood words ("eerie", "striking", "fascinating"), describe the concrete detail that caused the feeling.
 
 **Break register.** If the whole text sits in one tone, introduce at least one register shift: a moment of informality, a parenthetical doubt, a change in sentence rhythm.
+
+**Keep the hard or strange choice.** Do not smooth every oddity into fluent
+generic prose. Human writing often keeps a difficult stance, a stranger image,
+an ungainly but accurate phrase, or a punctuation habit because it serves the
+piece.
 
 ## Before (clean but soulless)
 

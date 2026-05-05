@@ -117,7 +117,7 @@
       "id": "genre_specific",
       "pattern_ref": 41,
       "severity": "context_warning",
-      "prompt": "First detect the genre of the text (academic, student_essay, poetry, fiction, or default if none of these fit). Then run the genre's watchlist below. Report `Genre detected: <genre>.` plus either watchlist findings or \"Watchlist coverage pending.\" if the genre's watchlist is empty.",
+      "prompt": "First detect the genre of the text (academic, student_essay, poetry, fiction, journalism, marketing_email, or default if none of these fit). Then run the genre's watchlist below. Report `Genre detected: <genre>.` plus either watchlist findings or \"No genre-specific findings.\"",
       "answer_schema": {
         "type": "composite",
         "fields": {
@@ -128,6 +128,8 @@
               "student_essay",
               "poetry",
               "fiction",
+              "journalism",
+              "marketing_email",
               "default"
             ]
           },
@@ -143,20 +145,64 @@
       "flagged_when": "non_empty_findings",
       "sub_records": {
         "academic": {
-          "description": "Verify citations, DOIs, dates, journals, reference order, and whether cited works actually support the claim. Plausible citation format is not evidence.",
-          "watchlist": []
+          "description": "Verify citations, DOIs, dates, journals, reference order, figure/data consistency, and whether cited works actually support the claim. Plausible citation format is not evidence. In argumentative academic prose, also watch for reduced engagement markers such as missing questions, reader address, personal asides, or stance-bearing commentary.",
+          "watchlist": [
+            "fake, broken, or irrelevant citations",
+            "wrong DOI, journal, date, figure, or data reference",
+            "citation exists but does not support the claim",
+            "argumentative essay with depleted questions, reader engagement, or stance markers",
+            "polished academic surface masking weak evidence or generic argument"
+          ]
         },
         "student_essay": {
-          "description": "Watch for rubric language echoing back (\"the author creates a tone\", \"I can tell because\", \"this quote shows that\"). Common in AI-generated student essays.",
-          "watchlist": []
+          "description": "Watch for rubric language echoing back, banal thesis claims, weak or missing evidence, student-level mismatch, abrupt tone or complexity shifts, surface polish masking weak argument, draft-history gaps, and loss of the student's own interpretive agency.",
+          "watchlist": [
+            "rubric language echoed as analysis",
+            "banal thesis or derivative argument",
+            "claim unsupported by quoted evidence or draft history",
+            "abrupt tone, complexity, or vocabulary shift from known student baseline",
+            "surface polish masking weak reasoning"
+          ]
         },
         "poetry": {
-          "description": "Watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.",
-          "watchlist": []
+          "description": "Watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, form compliance without pressure, process traces that look too neat, and revisions that do not deepen the poem.",
+          "watchlist": [
+            "default quatrains or regular stanzas without a reason",
+            "unrequested rhyme or high rhyme density",
+            "first-person plural clustering",
+            "mood-word accumulation without concrete perception",
+            "form compliance without surprise, breakage, or revision depth"
+          ]
         },
         "fiction": {
-          "description": "Watch for flattened dialogue, \"as-you-know\" exposition, parenthetical stage directions, locked POV with no pressure, over-resolved endings, and scene pacing that never surprises.",
-          "watchlist": []
+          "description": "Watch for flattened dialogue, \"as-you-know\" exposition, weak voice differentiation, parenthetical stage directions, locked POV with no pressure, scene pacing that never surprises, over-resolved endings, and generic fidelity to a target style without the source author's stranger choices.",
+          "watchlist": [
+            "dialogue voices not differentiated by rhythm, diction, or speech act",
+            "\"as-you-know\" exposition or role-explaining dialogue",
+            "scene pacing with no pressure, interruption, or surprise",
+            "over-resolved ending",
+            "style imitation that preserves surface but misses the source's oddities"
+          ]
+        },
+        "journalism": {
+          "description": "Watch for unsupported claims, vague sourcing, fake or disappearing bylines, synthetic headshots, broken links, wrong dates, unverifiable quotes, undisclosed vendor or affiliate provenance, and article facts that cannot be traced to named sources.",
+          "watchlist": [
+            "claim lacks a named source or verifiable link",
+            "byline, author bio, or headshot cannot be verified",
+            "broken link, wrong date, wrong organisation, or unverifiable quote",
+            "affiliate/product-review claim with unclear provenance",
+            "generated or third-party content not disclosed"
+          ]
+        },
+        "marketing_email": {
+          "description": "Watch for placeholders, generic subject lines, fake personalisation, weak domain understanding, exaggerated transformation claims, empty hype verbs, over-warm openings, unsupported business jargon, and action lists dressed up with symbols.",
+          "watchlist": [
+            "generic subject line or fake personalisation",
+            "placeholder residue or undeleted template slot",
+            "weak domain understanding hidden behind jargon",
+            "exaggerated transformation claim or empty hype verb",
+            "action list dressed up with symbols instead of useful specifics"
+          ]
         },
         "default": {
           "description": "No genre-specific watchlist applies. The agent reports \"Genre detected: default. No genre-specific findings.\" and moves on.",
