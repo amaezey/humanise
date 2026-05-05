@@ -25,7 +25,7 @@ Stylometry study distinguishing human-written and LLM-generated short Wikipedia-
 ## Skill-use audit
 - **Good use:** Back H1/H2 comparison framing and #52/#53 as stylometric feature families.
 - **Misuse / overclaim:** Do not cite this as evidence for general web prose, fiction, email, or student essays; the abstract's strong claim is limited to a well-defined text type.
-- **Weakly backed by this source:** Specific regex-level rules unless the full feature table is extracted.
+- **Unsupported use:** Specific regex-level rules unless the full feature table is extracted.
 - **Underused evidence:** The paper's Wikipedia-like reference baseline argues for genre-specific comparison baselines instead of universal prose thresholds.
 - **Patterns left on the table:** Grammatical standardisation may deserve its own structural pattern rather than being split between #52 and #53.
 

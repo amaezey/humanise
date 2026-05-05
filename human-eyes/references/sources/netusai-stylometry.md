@@ -24,7 +24,7 @@ Vendor explainer on stylometry and AI detectors. It describes stylometry as meas
 ## Skill-use audit
 - **Good use:** Back #52/#53 feature-family explanations as vendor/plain-English context when paired with academic sources.
 - **Misuse / overclaim:** Do not cite as empirical validation for thresholds.
-- **Weakly backed by this source:** Exact rule severities.
+- **Unsupported use:** Exact rule severities.
 - **Underused evidence:** The false-positive warning for traditionally clean writing is useful user-facing caveat language.
 - **Patterns left on the table:** None as pattern evidence; "detectors target patterns, not prose quality" is promoted only as user-facing caveat language.
 

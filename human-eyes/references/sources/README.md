@@ -67,7 +67,7 @@ Deep extraction exists for:
 - [Slate: ChatGPT, AI shaming, and the paranoia of writing](slate-ai-shaming-paranoia.md)
 - [Jonathan Bailey: Em dashes, hyphens, and spotting AI writing](bailey-em-dash-hyphens.md)
 - [Futurism: Sports Illustrated published AI-generated writers](futurism-sports-illustrated-ai-writers.md)
-- [PBS NewsHour: CNET AI-generated finance articles](pbs-cnet-ai-finance-articles.md)
+- [Gizmodo: CNET AI-generated finance articles](pbs-cnet-ai-finance-articles.md)
 
 ## Practitioner essays and writer blogs
 - [Linda Caroll: Good Writing, AI Slop, and the Dragon](caroll-good-writing-ai-slop.md)

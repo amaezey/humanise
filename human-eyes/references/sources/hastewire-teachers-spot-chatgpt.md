@@ -23,7 +23,7 @@ Practitioner education guide listing signs teachers look for in suspected ChatGP
 ## Skill-use audit
 - **Good use:** Generate student-writing review prompts and examples after stronger evidence is in place.
 - **Misuse / overclaim:** Do not treat teacher "spotting" guides as proof of reliable detection.
-- **Weakly backed by this source:** Any standalone authorship conclusion.
+- **Unsupported use:** Any standalone authorship conclusion.
 - **Underused evidence:** Student-level mismatch and abrupt tone/complexity shifts are useful as human-review questions, especially when compared with known student baseline writing.
 - **Patterns left on the table:** Student-level mismatch and abrupt tone/complexity shifts are useful manual review checks.
 

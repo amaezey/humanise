@@ -25,7 +25,7 @@ Large-scale academic-language drift study tracking 12 LLM-associated terms acros
 ## Skill-use audit
 - **Good use:** Strong backing for academic-register #7 vocabulary drift and for co-occurrence/signal-stacking logic.
 - **Misuse / overclaim:** Do not generalize the exact term frequencies to fiction, email, web copy, or non-academic prose.
-- **Weakly backed by this source:** Per-document authorship classification; the abstract reports aggregate database and full-text shifts.
+- **Unsupported use:** Per-document authorship classification; the abstract reports aggregate database and full-text shifts.
 - **Underused evidence:** Repeated-use and co-occurrence metrics are stronger than single-token hits and should inform scoring or examples.
 - **Patterns left on the table:** #7 should preserve co-occurrence evidence, repeated-use evidence, and field/register specificity rather than flattening to a word list.
 

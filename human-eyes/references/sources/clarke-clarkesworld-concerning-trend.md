@@ -27,15 +27,14 @@ Reports Clarkesworld submission problems and editor observations about AI-genera
 ## Skill-use audit
 - **Good use:** Strong support for AI-generated fiction as a submission/provenance problem and for false-positive caution.
 - **Misuse / overclaim:** The source does not disclose concrete fiction style tells, so it should not directly back #30, #54, or any specific prose-pattern regex.
-- **Weakly backed by this source:** Current mapping to flat dialogue, exposition, lack of subtext, generic metaphors, or structural monotony needs other fiction sources.
+- **Unsupported use:** Current mapping to flat dialogue, exposition, lack of subtext, generic metaphors, or structural monotony needs other fiction sources.
 - **Underused evidence:** Stronger fit for a provenance/process watchlist: submission spam, paraphrased plagiarism, evasion, and editorial burden.
 - **Patterns left on the table:** Fiction-market provenance checks, plagiarism/paraphraser residue, and "do not publish detector details that enable evasion" process guidance.
 
 ## Matched patterns / rules
-- #41 genre-specific manual checks: fiction
-- Provenance and submission-spam context
-- #30 generic/ungrounded metaphors (not directly backed by this source)
-- #54 structural monotony (not directly backed by this source)
+- #41 genre-specific manual checks: fiction submission provenance and editorial burden
+- Provenance and submission-spam background
+- Detector false-positive / false-negative caution
 
 ## Associated hypotheses
 - H12 genre-aware threshold calibration

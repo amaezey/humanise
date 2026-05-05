@@ -6,10 +6,10 @@
 - **Extracted:** 2026-05-05
 - **Source type:** Literary/cultural essay
 - **Evidence tier:** Practitioner / teacher / editor essays
-- **Extraction status:** second-pass reviewed from Longreads/n+1 excerpt
+- **Extraction status:** reviewed from saved full-text n+1 snapshot
 
 ## Summary
-Longform cultural essay about AI abundance and conversational-AI culture. Reviewed excerpts frame the piece around AI industry promises, loneliness/conversation claims, and the difference between language and lived connection.
+Longform cultural essay about AI abundance and conversational-AI culture. The saved article frames AI industry promises, loneliness/conversation claims, algorithmic harms, and the difference between language-like output and lived connection.
 
 ## Main insights
 - Useful for skill positioning.
@@ -17,19 +17,19 @@ Longform cultural essay about AI abundance and conversational-AI culture. Review
 - Not a direct pattern source; useful for strategy/context about what AI-mediated language misses.
 
 ## Evidence and claims to extract
-- Longreads summary: Preston attends Project Voice as an "honorary contrarian speaker" and reports on people trying to build for an AI-dominated future.
-- Reviewed excerpt contrasts AI-industry claims about loneliness/conversation with Preston's own experience of connection beyond language.
+- Preston attends Project Voice as an "honorary contrarian speaker" and reports on people trying to build for an AI-dominated future.
+- The saved article contrasts AI-industry claims about loneliness/conversation with Preston's own experience of connection beyond language.
+- The saved article includes a generated marketing-copy example for a hypothetical cereal brand, useful as product-framing background for generic commercial AI copy.
 
 ## Skill-use audit
-- **Good use:** Product/strategy context for voice, meaning, and limits of conversational-AI framing.
-- **Misuse / overclaim:** Do not cite for #36 or pattern-level claims.
-- **Weakly backed by this source:** Any direct prose-pattern rule.
+- **Good use:** Product/strategy background for voice, meaning, algorithmic mediation, and limits of conversational-AI framing.
+- **Misuse / overclaim:** Do not cite for #36; the strongest use is process/product framing rather than pattern evidence.
 - **Underused evidence:** Useful for product framing: conversation-like language can still miss lived connection and context.
 - **Patterns left on the table:** None for the current pattern catalogue.
 
 ## Matched patterns / rules
-- #36 faux specificity (not directly backed by reviewed excerpt)
-- overall framing
+- Product and process framing for conversational-AI limits
+- Generic commercial AI-copy example for #41 marketing review
 
 ## Associated hypotheses
 - H3 drop detection framing

@@ -6,34 +6,33 @@
 - **Extracted:** 2026-05-05
 - **Source type:** Academic preprint
 - **Evidence tier:** Peer-reviewed / academic empirical (preprint)
-- **Extraction status:** second-pass reviewed from arXiv abstract on 2026-05-05
+- **Extraction status:** reviewed from saved full-text arXiv PDF snapshot on 2026-05-05
 
 ## Summary
-The repo cites this for academic writing-style transformation after ChatGPT. The direct arXiv abstract supports an adaptive word-frequency model over arXiv abstracts and an estimated LLM-style share, but it does not by itself substantiate the repo's specific "10%+ decline in is/are" claim.
+Academic writing-style transformation paper using arXiv abstracts. The saved full text supports an adaptive word-frequency model and explicitly reports decreased "is" and "are" frequency after ChatGPT.
 
 ## Main insights
 - Supports the idea that LLM use changes academic abstract style.
 - Best used in academic-register notes.
-- The specific copula-avoidance claim needs PDF/full-text verification before it is treated as backed by this source.
+- The saved full text supports copula-frequency decline in arXiv abstracts; keep the claim corpus-scoped.
 
 ## Evidence and claims to extract
 - Direct source reviewed: arXiv abstract page.
 - Corpus: one million arXiv papers submitted from May 2018 to January 2024.
 - Method: statistical analysis of word-frequency changes in abstracts, calibrated and validated on mixed real and ChatGPT-modified abstracts.
 - Main abstract-level claim: LLM-style abstracts are increasingly visible in arXiv abstracts, especially computer science; with a GPT-3.5 "revise the following sentences" baseline, the estimated fraction is approximately 35%.
-- Important correction: the arXiv abstract does not mention "is/are" decline. That claim may be in the PDF or in another Geng/Trotta source and needs verification before this card can back #8.
+- Full-text verification: the PDF reports that "is" and "are" decrease after ChatGPT, with table values showing more than 10% drops in the analyzed arXiv-abstract corpus.
 
 ## Skill-use audit
-- **Good use:** Backs academic-register style shift and H12 calibration work.
-- **Misuse / overclaim:** The current first-pass card overstated this as the clearest support for copula avoidance. Based on the directly reviewed abstract, #8 remains unverified here.
-- **Weakly backed by this source:** This source should not be cited for copula avoidance until the full paper section or another source is checked.
+- **Good use:** Backs academic-register style shift, H12 calibration work, and #8 as a corpus-level word-frequency decrease.
+- **Misuse / overclaim:** Do not turn the corpus-level "is/are" decrease into a universal ban on copulas.
 - **Underused evidence:** Stronger fit for register-specific density calibration than for a single grammar rule.
 - **Patterns left on the table:** Adaptive word-frequency decreases as well as increases may matter for future register-distance scoring.
 
 ## Matched patterns / rules
 - #7 AI vocabulary words and phrases
 - Academic-register style shift
-- #8 copula avoidance (unverified from abstract; needs full-text check)
+- #8 copula avoidance in arXiv-abstract corpus frequency drift
 
 ## Associated hypotheses
 - H1 calibrated register-distance score

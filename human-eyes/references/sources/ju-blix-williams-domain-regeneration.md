@@ -24,7 +24,7 @@ Studies how well an open-source LLM can regenerate the syntactic distributions o
 ## Skill-use audit
 - **Good use:** Back #52 sentence-rhythm variance and broader register-aware structural comparison.
 - **Misuse / overclaim:** Do not turn this into a generic "AI sentences are shorter/longer" rule without domain-specific direction and measurement.
-- **Weakly backed by this source:** Any vocabulary, punctuation, or phrase-level pattern.
+- **Unsupported use:** Any vocabulary, punctuation, or phrase-level pattern.
 - **Underused evidence:** Reduced long-tail behavior is a stronger structural concept than a simple average sentence-length warning.
 - **Patterns left on the table:** Reduced long-tail behavior should be represented as its own structural insight, not folded only into sentence rhythm.
 

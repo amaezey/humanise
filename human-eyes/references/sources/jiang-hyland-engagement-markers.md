@@ -6,7 +6,7 @@
 - **Extracted:** 2026-05-05
 - **Source type:** Academic research
 - **Evidence tier:** Peer-reviewed / academic empirical
-- **Extraction status:** second-pass reviewed from SAGE article abstract
+- **Extraction status:** reviewed from saved full-text accepted manuscript snapshot
 
 ## Summary
 Compares ChatGPT-generated and student-written argumentative essays by analyzing engagement markers: how writers relate to readers while advancing positions. The study analyzes 145 essays from each group.
@@ -23,13 +23,11 @@ Compares ChatGPT-generated and student-written argumentative essays by analyzing
 
 ## Skill-use audit
 - **Good use:** Back academic/student argumentative essay checks around reader engagement, questions, and personal asides.
-- **Misuse / overclaim:** Do not collapse this into #37 neutrality collapse unless the rule is specifically about argumentative stance and reader relation.
-- **Weakly backed by this source:** Generic AI-detection claims outside argumentative student essays.
+- **Misuse / overclaim:** Do not collapse this into #37 neutrality collapse; the saved manuscript is specifically about engagement markers in argumentative essays.
 - **Underused evidence:** The stronger pattern candidate is engagement-marker depletion in argumentative essays, not broad neutrality collapse.
 - **Patterns left on the table:** "Reduced engagement markers" deserves a more precise academic-writing pattern than broad neutrality.
 
 ## Matched patterns / rules
-- #37 neutrality collapse (adjacent, not exact)
 - #41 genre-specific manual checks: academic/student essay
 - reader-engagement marker depletion
 - questions / personal asides underuse

@@ -23,7 +23,7 @@ Commercial/free AI detector page claiming 98.5% accuracy for detecting AI-genera
 ## Skill-use audit
 - **Good use:** Detector landscape / product comparison only.
 - **Misuse / overclaim:** Do not use as support for rule confidence or surface tells.
-- **Weakly backed by this source:** All current pattern matches.
+- **Unsupported use:** All current pattern matches.
 - **Underused evidence:** This is mainly a contrast case for what human-eyes should avoid: opaque percentage scores and broad product claims.
 - **Patterns left on the table:** None.
 

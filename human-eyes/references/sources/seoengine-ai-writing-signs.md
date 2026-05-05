@@ -29,7 +29,7 @@ Vendor SEO/AEO guide listing 27 signs of AI writing and 10 editing fixes. The so
 ## Skill-use audit
 - **Good use:** Advisory practitioner checklist for SEO/marketing copy review and as a source for candidate pattern families that should be backed by stronger sources where possible.
 - **Misuse / overclaim:** Do not cite this vendor article as proof that a pattern reliably detects AI, that a threshold is valid, or that SEO rankings/citation rates change by the stated amounts.
-- **Weakly backed by this source:** Exact frequency claims, detector-accuracy numbers, model-specific fingerprints, and search/AEO impact claims.
+- **Unsupported use:** Exact frequency claims, detector-accuracy numbers, model-specific fingerprints, and search/AEO impact claims.
 - **Underused evidence:** Its most useful operational advice is the non-detector workflow: combine human review, draft history, concrete editing, and upstream corroboration rather than treating the checklist as proof.
 - **Patterns left on the table:** Abstraction trap, treadmill effect, Latinate bias, sensing without sensing, first-word fingerprints, "from X to Y" repetition, personification, subtext vacuum, missing personal stakes, ghost citations, nice-nice wrap, and format bleed could be split into explicit review prompts or look-alike notes.
 

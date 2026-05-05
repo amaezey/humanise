@@ -6,13 +6,39 @@ Dispositions:
 - **Promoted:** added to a named subcheck, #41 genre branch, source note, report/process wording, source metadata convention, or `dev/hypotheses.md`.
 - **Hypothesis:** tracked in `dev/hypotheses.md`; needs design or validation before implementation.
 - **Process guidance:** added to rewrite/audit/report guidance rather than the pattern catalogue.
-- **Do not promote:** kept as context only; it should not become pattern evidence.
+- **Do not promote:** kept as background; it should not become pattern evidence.
+
+## Resolved Caveated Mappings
+
+These source-card mappings were checked against the saved markdown snapshots on 2026-05-05. Confirmed entries were rewritten as source-backed claims; unsupported mappings were removed from the card's matched-pattern list.
+
+| Source card | Prior mapping | Resolution |
+|---|---|---|
+| [Anthropic prompts](anthropic-sonnet-prompts.md) | #19 assistant residue | Removed; the saved release-notes index is model documentation, not prose-pattern evidence. |
+| [Bisztray code stylometry](bisztray-code-stylometry.md) | prose stylometry / model attribution | Rewritten as code-only model-attribution background with no prose-pattern mapping. |
+| [Caroll](caroll-good-writing-ai-slop.md) | #35 tonal uniformity | Removed; kept #36 and #30 for lived specificity and generic affect. |
+| [Chiang blurry JPEG](chiang-blurry-jpeg.md) | #23a false concession | Removed; retained source-grounding and hallucination-review process guidance. |
+| [Clarke](clarke-clarkesworld-concerning-trend.md) | #30 generic metaphors and #54 structural monotony | Removed; retained fiction provenance, submission-spam, and detector-caution support. |
+| [Copy Posse](copyposse-email-ai-signs.md) | #10 rule of three | Confirmed from saved article section on repetitive sentence patterns and patterns of three. |
+| [Csutoras](csutoras-em-dash-dilemma.md) | #39 machine-cleanliness / typo absence | Confirmed as practitioner clue, scoped away from standalone detection. |
+| [Dhillon](dhillon-mfa-students-llms-fiction.md) | #30 generic metaphors and #54 structural monotony | #30 confirmed as fiction cliche-density / purple-prose evidence; #54 removed. |
+| [Geng and Trotta ACL](geng-trotta-human-llm-coevolution.md) | #8 copula avoidance | Confirmed for arXiv-abstract corpus frequency drift. |
+| [Geng and Trotta arXiv](geng-trotta-transforming-academic-style.md) | #8 copula avoidance | Confirmed for arXiv-abstract corpus frequency drift. |
+| [GPTZero burstiness](gptzero-perplexity-burstiness.md) | #53 vocabulary diversity | Confirmed as vendor detector-feature framing for diction variation. |
+| [Guo](guo-field-guide-ai-slop.md) | #29 mid-sentence rhetorical questions and #42 manufactured insight framing | Confirmed from saved article examples. |
+| [Jiang and Hyland](jiang-hyland-engagement-markers.md) | #37 neutrality collapse | Removed; retained academic/student essay engagement-marker depletion. |
+| [Preston HUMAN_FALLBACK](preston-human-fallback.md) | #36 faux specificity, #30 generic metaphors, #37 neutrality collapse | Removed; retained human-fallback, script-break, and missing-specifics process guidance. |
+| [Preston hyperabundance](preston-hyperabundance.md) | #36 faux specificity | Removed; retained conversational-AI process framing and a generic commercial AI-copy example for marketing review. |
+| [Rudnicka](rudnicka-chatbot-writing-style.md) | #46 bland critical template | Removed; retained model-specific idiolect and topic-scoped wording preferences. |
+| [Stockton](stockton-dont-write-like-ai.md) | #33 countdown negation | Removed; retained contrastive negation, false concession, dense negation, vague-change intros, and vocabulary examples. |
+| [Vara](vara-confessions-viral-ai-writer.md) | #36 faux specificity and #37 neutrality collapse | Removed; added #30 cliche-ridden prose and #35 safe polite predictability from the saved article. |
+| [Zaitsu](zaitsu-stylometry.md) | punctuation and function-word feature note | Rewritten as confirmed stylometric feature families: phrase patterns, POS bigrams, function-word unigrams, and punctuation impressions. |
 
 ## Promoted Additions
 
 | Candidate | Proposed home | Source cards | Why |
 |---|---|---|---|
-| Source-grounding, fact-checking, and claim verification | #41 journalism/academic manual checks; report guidance | [Bailey](bailey-em-dash-hyphens.md), [Chiang blurry JPEG](chiang-blurry-jpeg.md), [PBS/CNET](pbs-cnet-ai-finance-articles.md), [Futurism](futurism-sports-illustrated-ai-writers.md), [SAGE peer review](sage-ai-detection-peer-reviewers.md), [AI Detectors](aidetectors-ai-writing-signs.md), [Rohrer](rohrer-promotional-register.md), [Wikipedia cleanup guide](wikipedia-signs-of-ai-writing.md) | Several sources point to factual errors, fake bylines, bad citations, broken links, wrong DOIs, missing sources, and platform artifacts as more concrete than surface prose tells. |
+| Source-grounding, fact-checking, and claim verification | #41 journalism/academic manual checks; report guidance | [Bailey](bailey-em-dash-hyphens.md), [Chiang blurry JPEG](chiang-blurry-jpeg.md), [Gizmodo/CNET](pbs-cnet-ai-finance-articles.md), [Futurism](futurism-sports-illustrated-ai-writers.md), [SAGE peer review](sage-ai-detection-peer-reviewers.md), [AI Detectors](aidetectors-ai-writing-signs.md), [Rohrer](rohrer-promotional-register.md), [Wikipedia cleanup guide](wikipedia-signs-of-ai-writing.md) | Several sources point to factual errors, fake bylines, bad citations, broken links, wrong DOIs, missing sources, and platform artifacts as more concrete than surface prose tells. |
 | Student-writing argument/evidence quality | #41 student/academic branch | [Belcher](belcher-ai-ruining-student-writing.md), [Murray and Tersigni](murray-tersigni-ai-generated-papers.md), [Hsu](hsu-students-lose-chatgpt.md), [Hastewire](hastewire-teachers-spot-chatgpt.md), [Waltzer](waltzer-teachers-detect-ai-essays.md) | Current #41 names student writing, but these cards support explicit checks for banal thesis, weak evidence, student-level mismatch, abrupt tone/complexity shifts, surface polish masking weak argument, draft ownership, and false-positive caution. |
 | Academic engagement-marker depletion | #41 academic/student branch; possible future agent check | [Jiang and Hyland](jiang-hyland-engagement-markers.md) | Stronger than broad neutrality collapse: the source specifically names reduced questions, personal asides, and engagement markers in argumentative essays. |
 | Poetry-specific manual checks | #41 poetry branch | [Walsh](walsh-ai-poetry.md), [Poetly](aranya-poetly-ai-poetry.md) | Walsh supports default quatrains, rhyme density, first-person plural clustering, and form compliance without variation; Poetly supports archive comparison, process trace, and revision depth. |
@@ -55,10 +81,10 @@ These are promoted to `human-eyes/SKILL.md`, `human-eyes/references/process.md`,
 
 | Candidate | Source cards | Reason |
 |---|---|---|
-| Code-only stylometry as prose evidence | [Bisztray](bisztray-code-stylometry.md) | Adjacent model-attribution context only; not natural-language prose evidence. |
+| Code-only stylometry as prose evidence | [Bisztray](bisztray-code-stylometry.md) | Model-attribution background; not natural-language prose evidence. |
 | Product detector scores or thresholds as rule severity | [Copyleaks](copyleaks-detector.md), [ZeroGPT](zerogpt-detector.md), [Originality.AI](originality-ai-detector.md), [Turnitin](turnitin-ai-writing-detection.md), [NetusAI](netusai-stylometry.md), [GPTZero perplexity](gptzero-perplexity-burstiness.md) | Useful for uncertainty UX and contrast, but opaque product metrics should not set human-eyes thresholds. |
 | Consumer recognition as pattern evidence | [Bynder](bynder-ai-marketing-study.md) | Useful for stakes and perception framing, but the source does not disclose which textual cues drove recognition. |
-| First-party prompts as direct prose-pattern proof | [Anthropic prompts](anthropic-sonnet-prompts.md), [OpenAI GPT-4 System Card](openai-gpt-4-system-card.md) | Model-context evidence unless exact prompt text or behavior is mapped directly. |
+| First-party prompts as direct prose-pattern proof | [Anthropic prompts](anthropic-sonnet-prompts.md), [OpenAI GPT-4 System Card](openai-gpt-4-system-card.md) | Model-background evidence unless exact prompt text or behavior is mapped directly. |
 | Pure framing essays as pattern evidence | [Chiang art essay](chiang-why-ai-isnt-art.md), [Preston hyperabundance](preston-hyperabundance.md), [Sloan](sloan-human-ai-writing.md) | Useful for rationale/process; not direct pattern support. |
 
 ## Suggested Next Patches

@@ -29,7 +29,7 @@ Trott reports an empirical analysis of "signatures" that distinguish a small set
 ## Skill-use audit
 - **Good use:** Support a calibrated, evidence-aware "predictability / homogenization" research note and a warning against binary detector claims.
 - **Misuse / overclaim:** Do not convert the reported classifier accuracy into a general-purpose detector promise; the author explicitly disallows that leap.
-- **Weakly backed by this source:** Surface tells such as punctuation, AI vocabulary, or generic prose texture are not the point of the analysis.
+- **Unsupported use:** Surface tells such as punctuation, AI vocabulary, or generic prose texture are not the point of the analysis.
 - **Underused evidence:** Trott is useful as a methodological caution: even model-derived features need genre, model-version, sample-size, and false-positive caveats.
 - **Patterns left on the table:** Feature-level signals around surprisal variance, intrinsic dimensionality, genre constraints, and model/version drift.
 

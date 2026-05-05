@@ -25,7 +25,7 @@ Tests experienced postsecondary writing instructors' ability to distinguish stud
 ## Skill-use audit
 - **Good use:** Back H3 detector-framing caution and academic/student manual checks around argument/evidence quality.
 - **Misuse / overclaim:** Do not cite this as a source for surface patterns; the reviewed abstract does not list textual tells.
-- **Weakly backed by this source:** Any deterministic AI-writing classifier.
+- **Unsupported use:** Any deterministic AI-writing classifier.
 - **Underused evidence:** The spelling/grammar/organization versus argument/evidence contrast is a concrete academic-writing review prompt.
 - **Patterns left on the table:** A useful academic-writing check is surface polish masking weak argument/evidence.
 

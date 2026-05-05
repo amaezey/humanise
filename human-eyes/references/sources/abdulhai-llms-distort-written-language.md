@@ -24,7 +24,7 @@ Studies how LLM assistance changes human writing. The abstract reports that LLMs
 ## Skill-use audit
 - **Good use:** Back agent-judgement checks about neutrality collapse, voice loss, semantic drift, and review-score inflation.
 - **Misuse / overclaim:** Do not cite this as direct evidence for pronoun depletion unless the full paper is extracted and confirms it.
-- **Weakly backed by this source:** Surface punctuation, vocabulary, or sentence-shape checks.
+- **Unsupported use:** Surface punctuation, vocabulary, or sentence-shape checks.
 - **Underused evidence:** This belongs in rewrite safety as much as detection: even grammar-edit prompts can change meaning, stance, and voice.
 - **Patterns left on the table:** Add a rewrite-specific "meaning changed despite grammar-only request" follow-up check.
 

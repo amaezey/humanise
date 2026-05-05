@@ -25,7 +25,7 @@ One of the strongest craft references for bad subjects, orphaned demonstratives,
 ## Skill-use audit
 - **Good use:** Strong craft support for #31, #34, #35a, #35b, #47, #52, and rewrite-process guidance around subject choice and information density.
 - **Misuse / overclaim:** Shankar should not be used to ban bullets, outlines, summary sentences, or "This..." starts categorically. Her point is misuse and low-information structure, not the device itself.
-- **Weakly backed by this source:** The source is not empirical evidence for detector claims or severity thresholds.
+- **Unsupported use:** The source is not empirical evidence for detector claims or severity thresholds.
 - **Underused evidence:** "Not the right subject" and "low information density" are not cleanly represented as first-class human-eyes patterns. They may belong in agent judgement or rewrite self-checks.
 - **Patterns left on the table:** Wrong sentence subject, low information density, and fluency without understanding are potential advisory checks. They likely need agent judgement or process guidance rather than regex.
 

@@ -26,7 +26,7 @@ Cited for common AI indicator words and phrases. It is a tentative phrase-list s
 ## Skill-use audit
 - **Good use:** Weakly backs #7, #22, #23, and #50 as practitioner/vendor corroboration for common AI-ish phrasing.
 - **Misuse / overclaim:** It should not define severity or prove AI generation. The page says terms can offer clues, not verdicts.
-- **Weakly backed by this source:** Compared with Kobak/Juzek/GPTZero, this is a less rigorous source for vocabulary frequency.
+- **Unsupported use:** Compared with Kobak/Juzek/GPTZero, this is a less rigorous source for vocabulary frequency.
 - **Underused evidence:** It supports separating lexical substitutions from structural rewrites: many examples are direct replacement candidates for `alternatives.md`.
 - **Patterns left on the table:** "Analytical and academic words" may overlap with #47 soft explainer scaffolding and #43 corporate AI-speak, but should be deduplicated before adding anything.
 

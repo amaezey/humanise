@@ -9,7 +9,7 @@
 - **Extraction status:** second-pass reviewed from Anthropic release-notes page on 2026-05-05
 
 ## Summary
-Cited for model prompt/style context. Current use is background only.
+Cited for model prompt/style background. Current use is model documentation only, not pattern evidence.
 
 ## Main insights
 - System prompts can explain assistant-register residue.
@@ -25,17 +25,17 @@ Cited for model prompt/style context. Current use is background only.
 ## Skill-use audit
 - **Good use:** Backs the general proposition that first-party system prompts can shape assistant response style.
 - **Misuse / overclaim:** It does not directly back any human-eyes prose pattern unless exact prompt text is reviewed and mapped.
-- **Weakly backed by this source:** Current mapping to #19 is only contextual. Assistant residue in user prose needs direct phrase evidence from outputs or other sources.
+- **Unsupported use:** Current mapping to #19 is only contextual. Assistant residue in user prose needs direct phrase evidence from outputs or other sources.
 - **Underused evidence:** Dated prompt changes could help model-drift notes if exact prompt text is extracted.
 - **Patterns left on the table:** None from the reviewed index alone.
 
 ## Matched patterns / rules
-- #19 assistant residue (weak contextual support only)
-- model behavior context
+- No direct human-eyes prose-pattern support from the reviewed release-notes index.
+- Model behavior background: first-party prompt release notes can explain why exact prompt dates matter.
 
 ## Associated hypotheses
 - H8 audience-aware voice
 
 ## Questions / follow-up
 - Extract exact Sonnet 3.5 prompt text for the cited dates before using this as evidence.
-- Should this card remain model-context only?
+- Should this card remain model-background only?

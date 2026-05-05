@@ -24,14 +24,13 @@ Conceptual essay explaining ChatGPT through a lossy-compression metaphor: it pro
 ## Skill-use audit
 - **Good use:** Back process checks for hallucination/source verification and conceptual explanation of approximate paraphrase.
 - **Misuse / overclaim:** Do not cite this as empirical support for #23a false concession unless the specific passage is extracted.
-- **Weakly backed by this source:** Specific style patterns and regexes.
+- **Unsupported use:** Specific style patterns and regexes.
 - **Underused evidence:** Stronger as report/process language: fluent text can still be approximate, so source-grounding and fact-checking should be explicit review steps.
 - **Patterns left on the table:** Source-grounding/fact-checking could be a stronger pattern family than "faux specificity" alone.
 
 ## Matched patterns / rules
-- #23a false concession (not directly backed by reviewed excerpt; do not use as rule support yet)
-- #36 faux specificity (conceptual context)
-- hallucination / source-verification process
+- Hallucination / source-verification process.
+- Source-grounding review: fluent generated text may require comparison to originals or world knowledge.
 
 ## Associated hypotheses
 - H3 drop detection framing

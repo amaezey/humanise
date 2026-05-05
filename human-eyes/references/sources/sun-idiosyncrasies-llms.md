@@ -25,7 +25,7 @@ Studies model-specific idiosyncrasies: output patterns that can distinguish whic
 ## Skill-use audit
 - **Good use:** Cite as model-specific drift/fingerprint context and as support for comparing signals by source model or source family where possible.
 - **Misuse / overclaim:** Do not use this as evidence that #1 significance inflation or any one word is a universal AI tell; the reviewed abstract does not name "significant".
-- **Weakly backed by this source:** Human-readable regex-level rules. The abstract's strongest evidence is embedding-model classification and aggregate word-level distributions.
+- **Unsupported use:** Human-readable regex-level rules. The abstract's strongest evidence is embedding-model classification and aggregate word-level distributions.
 - **Underused evidence:** The model-family distinction should be represented in source metadata so rules can say whether they are generic AI residue or model-specific fingerprints.
 - **Patterns left on the table:** Future metadata could distinguish "AI vs human" checks from "which model family" checks.
 

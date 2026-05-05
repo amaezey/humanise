@@ -12,7 +12,7 @@
 Commercial AI detector product page. Originality.AI claims third-party accuracy evidence, multiple detector models for different use cases, false-positive rates by model, shareable reports, highlighting, fact-checking, plagiarism checking, and paraphrase/humanizer detection.
 
 ## Main insights
-- Product-landscape context only; not a direct source for human-eyes pattern rules.
+- Product-landscape background; not a direct source for human-eyes pattern rules.
 - The page is useful for understanding how commercial detectors expose model choice, false-positive rates, and report artifacts.
 - The page itself says AI detectors are not perfect and have false positives.
 
@@ -24,7 +24,7 @@ Commercial AI detector product page. Originality.AI claims third-party accuracy 
 ## Skill-use audit
 - **Good use:** Back product-surface ideas around reporting uncertainty and separating use cases.
 - **Misuse / overclaim:** Do not use Originality.AI's marketing claims as validation for human-eyes patterns.
-- **Weakly backed by this source:** Any specific prose tell.
+- **Unsupported use:** Any specific prose tell.
 - **Underused evidence:** Its model-choice/reporting surface can inspire UX separation by use case, but its product metrics should not become rule thresholds.
 - **Patterns left on the table:** None as pattern evidence; separate use-case modes are only context for future audience/register UX.
 

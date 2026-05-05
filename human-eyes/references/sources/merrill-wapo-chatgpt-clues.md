@@ -24,7 +24,7 @@ Data-journalism analysis of 328,744 publicly shared English-language ChatGPT mes
 ## Skill-use audit
 - **Good use:** Back #49, #7, #9, emoji/bullet style notes, and model/time-specific drift metadata.
 - **Misuse / overclaim:** Do not generalize the exact frequencies to all LLMs or all dates.
-- **Weakly backed by this source:** Any non-ChatGPT model claim.
+- **Unsupported use:** Any non-ChatGPT model claim.
 - **Underused evidence:** The corpus date range and model label should be attached to every example imported from this source.
 - **Patterns left on the table:** Emoji overuse and "core"/"modern" drift are not currently represented as clearly as em dashes and "delve".
 

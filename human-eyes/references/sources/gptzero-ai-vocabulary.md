@@ -26,7 +26,7 @@ Provides a public list of AI-associated words and phrases. human-eyes uses it as
 ## Skill-use audit
 - **Good use:** Backs #7 as a vendor phrase-list and supports vocabulary as an advisory clustering signal.
 - **Misuse / overclaim:** The source itself warns against treating vocabulary hits as AI probability. Any hard-fail or authorship claim based on GPTZero vocabulary would misuse the source.
-- **Weakly backed by this source:** GPTZero's page is vendor-maintained and does not expose the full dataset or method enough to define severity alone.
+- **Unsupported use:** GPTZero's page is vendor-maintained and does not expose the full dataset or method enough to define severity alone.
 - **Underused evidence:** The explicit "not probability" caveat should be reflected in human-eyes vocabulary guidance and signal-stacking language.
 - **Patterns left on the table:** GPTZero names perplexity, burstiness, and generic/repetitive style as detector factors. Human-eyes already has sentence rhythm and vocabulary diversity hypotheses, but should not import the proprietary detector frame.
 

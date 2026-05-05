@@ -24,7 +24,7 @@ Technical report for Pangram Text, a transformer-based classifier trained to dis
 ## Skill-use audit
 - **Good use:** Back H3/H4 architecture cautions around calibration, domain coverage, and false-positive handling.
 - **Misuse / overclaim:** Do not cite this for any specific visible prose tell; it is classifier documentation, not a rule-source list.
-- **Weakly backed by this source:** Manual pattern checks, unless the full report exposes interpretable features.
+- **Unsupported use:** Manual pattern checks, unless the full report exposes interpretable features.
 - **Underused evidence:** Domain coverage and false-positive framing can guide evaluation design, but the classifier-performance claim should stay separate from human-eyes rule severity.
 - **Patterns left on the table:** Domain coverage should inform source-card metadata and benchmark planning, not the pattern inventory directly.
 

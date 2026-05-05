@@ -6,31 +6,31 @@
 - **Extracted:** 2026-05-05
 - **Source type:** Literary/journalistic essay
 - **Evidence tier:** Practitioner / teacher / editor essays
-- **Extraction status:** second-pass reviewed from WIRED and Longreads excerpts
+- **Extraction status:** reviewed from saved WIRED markdown snapshot
 
 ## Summary
-First-person literary/journalistic account of using GPT-3 in writing, especially Vara's grief essay "Ghosts." The reviewed excerpts emphasize why she used AI, what the AI could help articulate, and her uncertainty about whether AI-generated stories are good for writers or writing.
+First-person literary/journalistic account of using GPT-3 in writing, especially Vara's grief essay "Ghosts." The saved article includes process reflections plus direct observations about ChatGPT-era prose being boring, cliche-ridden, corporate, safe, polite, predictable, inoffensive, and upbeat.
 
 ## Main insights
 - Useful for voice, selfhood, and AI-assisted writing process framing.
-- The reviewed excerpts do not directly support specific claims about generated prose being vague/polite/inoffensive.
-- Stronger as Rewrite/process context than as direct pattern evidence.
+- The saved article supports bland/cliche tonal claims for ChatGPT-era literary/chatbot output, with process caveats.
+- Stronger as Rewrite/process context and literary-style caution than as detector evidence.
 
 ## Evidence and claims to extract
 - Vara describes using GPT-3 to write about her sister's death and feeling she could not find words on her own.
-- Longreads summary says Vara reflects on what she learned about text generators, Sudowrite, and the limitations of current language models in literature.
-- Limitation: full article likely contains richer prose examples, but they were not extracted in this pass.
+- The saved article reports other writers finding AI language boring and cliche-ridden.
+- It quotes a model-behavior explanation that ChatGPT was tuned to sound corporate, safe, and AP English.
+- It describes ChatGPT's voice as polite, predictable, inoffensive, and upbeat, contrasting those traits with strong characters, plots, style, and endings.
 
 ## Skill-use audit
-- **Good use:** Back questions about AI-assisted voice, grief/selfhood, and writing-process disclosure.
-- **Misuse / overclaim:** Do not cite this card for #36 or #37 without directly extracted examples.
-- **Weakly backed by this source:** Faux specificity and neutrality collapse as currently mapped.
+- **Good use:** Back questions about AI-assisted voice, grief/selfhood, writing-process disclosure, cliche density, and bland safe chatbot voice.
+- **Misuse / overclaim:** Do not cite this card for #36 or #37; use the saved evidence for cliche/tonal-safety claims and process guidance.
 - **Underused evidence:** Useful process guidance for disclosure and semantic preservation when AI helps articulate emotionally difficult material.
 - **Patterns left on the table:** AI as emotional articulation scaffold may belong in process guidance, not detection.
 
 ## Matched patterns / rules
-- #36 faux specificity (not verified from reviewed excerpts)
-- #37 neutrality collapse (not verified from reviewed excerpts)
+- #30 cliche-ridden generated prose in literary context
+- #35 tonal uniformity / safe polite predictability
 - Rewrite semantic-preservation process
 
 ## Associated hypotheses

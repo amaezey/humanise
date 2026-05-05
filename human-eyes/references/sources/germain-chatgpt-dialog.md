@@ -24,7 +24,7 @@ Practitioner fiction-writing article comparing vanilla ChatGPT dialogue with Elm
 ## Skill-use audit
 - **Good use:** Back fiction/dialogue manual checks around on-the-nose exposition and undifferentiated character voices.
 - **Misuse / overclaim:** Do not cite this for general prose patterns or current model behavior without caveat.
-- **Weakly backed by this source:** Parenthetical stage-direction tics are not the strongest direct extraction from reviewed text.
+- **Unsupported use:** Parenthetical stage-direction tics are not the strongest direct extraction from reviewed text.
 - **Underused evidence:** Dialogue review should look for voice differentiation, speech acts, register, fragments, and prosody rather than generic prose texture.
 - **Patterns left on the table:** "Dialogue voice differentiation" and "role-exposition dialogue" are clearer fiction checks.
 

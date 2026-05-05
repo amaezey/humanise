@@ -17,22 +17,22 @@ Practitioner field guide arguing that AI slop is marked by visible structural pa
 - Guo explicitly says human writers use these patterns too and detectors produce harmful false positives.
 
 ## Evidence and claims to extract
-- Structural patterns: list-heavy formatting, emoji-led bullets in professional contexts, repetitive structure, similar sentence length, consistent rhythm, and staying in one tense/person/point of view.
-- Content patterns: plausible but generic metaphors, filler, paragraphs that say in four sentences what could be said in one, and "surface polish with nothing underneath."
+- Structural patterns: list-heavy formatting, emoji-led bullets in professional contexts, repetitive structure, similar sentence length, consistent rhythm, staying in one tense/person/point of view, and mid-sentence question turns.
+- Content patterns: plausible but generic metaphors, filler, paragraphs that say in four sentences what could be said in one, "surface polish with nothing underneath", and unearned profundity / manufactured insight framing.
 - Caveat: the piece warns the patterns are not definitive because human writers use them too.
 
 ## Skill-use audit
-- **Good use:** Back examples/disambiguators for #30, #31, #51, #52, and low-information prose as practitioner guidance.
+- **Good use:** Back examples/disambiguators for #29, #30, #31, #42, #51, #52, and low-information prose as practitioner guidance.
 - **Misuse / overclaim:** Do not cite as empirical proof or detector evidence.
-- **Weakly backed by this source:** #29 and #42 are not the clearest direct matches from the reviewed excerpt.
+- **Supported scope:** #29 and #42 are supported by the saved article's examples of mid-sentence question turns and unearned profundity, but remain practitioner examples rather than empirical thresholds.
 - **Underused evidence:** The source's false-positive caveat should travel with every practitioner-derived pattern it supports.
 - **Patterns left on the table:** Emoji-led bullet/list formatting and low-information filler are stronger direct patterns than mid-sentence rhetorical questions here.
 
 ## Matched patterns / rules
-- #29 mid-sentence rhetorical questions (weak adjacent context; not directly backed by reviewed excerpt)
+- #29 mid-sentence rhetorical questions
 - #30 generic metaphors
 - #31 excessive list-making
-- #42 manufactured insight framing (adjacent, not exact)
+- #42 manufactured insight framing / unearned profundity
 - #51 mechanical repeated sentence starts
 - #52 sentence rhythm variance
 - low-information filler / surface polish

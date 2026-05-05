@@ -24,7 +24,7 @@ Vendor/practitioner guide listing nine signs of AI-written text: uniform sentenc
 ## Skill-use audit
 - **Good use:** Practitioner checklist crosswalk after stronger source mapping.
 - **Misuse / overclaim:** Do not let this weak vendor guide define thresholds or confidence.
-- **Weakly backed by this source:** #55 and exact em-dash thresholds.
+- **Unsupported use:** #55 and exact em-dash thresholds.
 - **Underused evidence:** Its best use is a multi-signal caution and citation/source-specificity prompt, not the numeric threshold language.
 - **Patterns left on the table:** Lack of specific citations/sources maps to a useful claim-evidence check.
 

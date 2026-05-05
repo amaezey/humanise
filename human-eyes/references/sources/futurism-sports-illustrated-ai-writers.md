@@ -25,7 +25,7 @@ Reports AI bylines, generated bios, and generated headshots in Sports Illustrate
 ## Skill-use audit
 - **Good use:** Back journalism/provenance checks around fake bylines, synthetic headshots, disappearing bios, and third-party content supply chains.
 - **Misuse / overclaim:** Do not cite this source for prose-style tells without analyzing the article text.
-- **Weakly backed by this source:** Any current lexical/rhythm pattern.
+- **Unsupported use:** Any current lexical/rhythm pattern.
 - **Underused evidence:** Journalism review should include non-prose provenance checks such as byline existence, bio history, headshot provenance, and vendor disclosure.
 - **Patterns left on the table:** Journalism checks should include byline/bio/headshot/provenance verification, not only prose style.
 

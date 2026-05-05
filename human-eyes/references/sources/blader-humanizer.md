@@ -24,7 +24,7 @@ The original humanizer skill that human-eyes forked from. It is provenance and i
 ## Skill-use audit
 - **Good use:** Project lineage, inherited-pattern inventory, and migration/provenance documentation.
 - **Misuse / overclaim:** Do not cite the upstream skill as independent evidence that a pattern is real.
-- **Weakly backed by this source:** All pattern-validity claims unless backed by upstream sources.
+- **Unsupported use:** All pattern-validity claims unless backed by upstream sources.
 - **Underused evidence:** The inherited 29-pattern list can be used as a migration checklist to mark each rule retained, renamed, split, or removed.
 - **Patterns left on the table:** Compare human-eyes current patterns against upstream 29-pattern list for retained/removed/renamed behavior.
 

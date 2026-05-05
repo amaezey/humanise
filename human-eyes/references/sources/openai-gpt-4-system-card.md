@@ -24,7 +24,7 @@ First-party system card for GPT-4 describing training/deployment context, safety
 ## Skill-use audit
 - **Good use:** Back model-behavior/process context, RLHF context, versioned behavior, and sycophancy background.
 - **Misuse / overclaim:** Do not use this as evidence for visible prose patterns like vocabulary, punctuation, or sentence rhythm.
-- **Weakly backed by this source:** Any current regex or checklist pattern.
+- **Unsupported use:** Any current regex or checklist pattern.
 - **Underused evidence:** The early-versus-launch model distinction should be used in model-drift notes so pattern confidence is not treated as timeless.
 - **Patterns left on the table:** None as direct prose-pattern evidence; first-party system cards are model-context evidence, separate from empirical prose-corpus evidence.
 

@@ -30,7 +30,7 @@ WNYC interview with Hua Hsu about what students lose when they outsource essay w
 ## Skill-use audit
 - **Good use:** Back process/rationale docs about writing as thinking and rewrite safeguards.
 - **Misuse / overclaim:** Do not cite this as evidence for visible style tells, AI detection, or neutrality collapse in final prose.
-- **Weakly backed by this source:** #37 as a text-pattern claim.
+- **Unsupported use:** #37 as a text-pattern claim.
 - **Underused evidence:** The student-ownership and draft-history concerns are stronger process checks than final-prose pattern claims.
 - **Patterns left on the table:** Student ownership, attachment to work, draft-history review, and "writing as discovery" belong in process guidance rather than regex checks.
 

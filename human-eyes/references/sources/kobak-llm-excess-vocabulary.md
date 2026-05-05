@@ -26,7 +26,7 @@ Analyzes biomedical publications for excess vocabulary associated with LLM-assis
 ## Skill-use audit
 - **Good use:** Strongly backs #7 and `overall-signal-stacking` when human-eyes treats vocabulary as corpus/register evidence and a density signal.
 - **Misuse / overclaim:** Using the Kobak word list as a per-document detector or hard failure would misuse the paper. The paper's logic is aggregate excess vocabulary, not one-token accusation.
-- **Weakly backed by this source:** It does not directly support non-academic prose, fiction, marketing copy, em dashes, assistant residue, or structural tells.
+- **Unsupported use:** It does not directly support non-academic prose, fiction, marketing copy, em dashes, assistant residue, or structural tells.
 - **Underused evidence:** The source supports H1 and H12 more strongly than the current first-pass note implied: it is a model for register-specific baseline comparison.
 - **Patterns left on the table:** A future "biomedical/academic register" branch could expose corpus-normalized excess-word density separately from the generic AI vocabulary rule.
 

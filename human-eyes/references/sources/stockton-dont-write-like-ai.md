@@ -24,14 +24,13 @@ Practitioner "Don't Write Like AI" series focused on recurring AI-like B2B writi
 ## Skill-use audit
 - **Good use:** Back #9/#23a/#48 in B2B/corporate register, plus #7/#22 phrase examples.
 - **Misuse / overclaim:** Do not treat his examples as universal bans.
-- **Weakly backed by this source:** #33 countdown negation is not directly reviewed here.
+- **Unsupported use:** #33 countdown negation is not directly reviewed here.
 - **Underused evidence:** Stockton is strongest for B2B contrastive reframe and vague-change intros, so those should stay register-scoped.
 - **Patterns left on the table:** Vague-change intros should be tracked separately from contrastive negation.
 
 ## Matched patterns / rules
 - #9 contrived contrast / negative parallelism
 - #23a false concession
-- #33 countdown negation (weak adjacent context; not directly backed by reviewed excerpts)
 - #48 dense negation
 - #22 filler phrases / vague-change intros
 - #7 AI vocabulary words and phrases

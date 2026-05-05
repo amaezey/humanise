@@ -24,7 +24,7 @@ Argues against treating em dashes as inherently AI and reminds the catalogue tha
 ## Skill-use audit
 - **Good use:** Back false-positive caution and preserve-good-writing guidance for #49.
 - **Misuse / overclaim:** Do not use as evidence that AI never overuses em dashes; it is a dissenting craft perspective.
-- **Weakly backed by this source:** Frequency or model-specific claims.
+- **Unsupported use:** Frequency or model-specific claims.
 - **Underused evidence:** This should directly temper rewrite guidance: preserve deliberate punctuation when it is part of voice, genre, quotation, or cadence.
 - **Patterns left on the table:** Pattern cards should include "do not penalize deliberate human punctuation" notes where public stigma exists.
 

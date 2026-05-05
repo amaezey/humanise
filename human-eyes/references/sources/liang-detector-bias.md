@@ -26,7 +26,7 @@ Shows detector false-positive risk for non-native English writers. human-eyes us
 ## Skill-use audit
 - **Good use:** Strongly backs human-eyes avoiding authorship verdicts and using warnings/review framing.
 - **Misuse / overclaim:** It should not be cited as evidence that any human-eyes pattern identifies AI writing. It is evidence that detector framing can harm non-native writers.
-- **Weakly backed by this source:** No individual pattern should claim support from Liang et al. unless the claim is about false positives, bias, or process safeguards.
+- **Unsupported use:** No individual pattern should claim support from Liang et al. unless the claim is about false positives, bias, or process safeguards.
 - **Underused evidence:** This should be connected to every user-facing place that says "AI generated", "detector", or implies authorship classification.
 - **Patterns left on the table:** Not a pattern source; it argues for disambiguation and uncertainty language around all surface/register features.
 

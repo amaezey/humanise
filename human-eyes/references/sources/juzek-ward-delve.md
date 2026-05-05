@@ -27,7 +27,7 @@ Studies lexical overrepresentation, especially the visibility of words such as "
 ## Skill-use audit
 - **Good use:** Backs #7 as a narrow scientific-abstract vocabulary signal and supports vocabulary clustering in `overall-signal-stacking`.
 - **Misuse / overclaim:** The paper should not be used to justify the whole GPTZero-style 100 phrase list, nor to hard-fail arbitrary prose for a word such as "delve".
-- **Weakly backed by this source:** It does not directly support structural rules, em dashes, assistant residue, or literary/marketing-register claims.
+- **Unsupported use:** It does not directly support structural rules, em dashes, assistant residue, or literary/marketing-register claims.
 - **Underused evidence:** The "21 focal words" should be extracted into a source-specific list and compared against `patterns.json` and `kobak-excess-words.csv`.
 - **Patterns left on the table:** No new pattern family beyond vocabulary, but the source suggests separating "scientific focal words" from broader practitioner phrase lists.
 

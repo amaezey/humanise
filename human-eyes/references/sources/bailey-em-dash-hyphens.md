@@ -24,7 +24,7 @@ Practitioner article testing whether em dashes are useful clues for AI writing. 
 ## Skill-use audit
 - **Good use:** Back #49 as an advisory clue with model-specific caveats.
 - **Misuse / overclaim:** Do not use this source to make em dashes a hard fail.
-- **Weakly backed by this source:** Any statistical threshold; the source's own sample is small.
+- **Unsupported use:** Any statistical threshold; the source's own sample is small.
 - **Underused evidence:** Bailey's stronger practical point is that factual errors and claim checking can be more telling than punctuation.
 - **Patterns left on the table:** Pair punctuation with factual-error and claim-checking review, which Bailey found more telling.
 
