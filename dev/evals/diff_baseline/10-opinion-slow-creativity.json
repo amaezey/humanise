@@ -1,0 +1,2646 @@
+{
+  "depth_results": {
+    "all": {
+      "check_status": "fail",
+      "must_fix": [
+        "overall-signal-stacking",
+        "no-manufactured-insight",
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-negative-parallelisms",
+        "no-markdown-headings",
+        "no-negation-density",
+        "paragraph-length-uniformity",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "needs_user_decision": [],
+      "preservable_with_disclosure": [],
+      "required_fixes": [
+        "overall-signal-stacking",
+        "no-manufactured-insight",
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-negative-parallelisms",
+        "no-markdown-headings",
+        "no-negation-density",
+        "paragraph-length-uniformity",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "status": "fail",
+      "summary": "One or more checks fail; All depth requires a clean pass unless user explicitly accepts risk.",
+      "user_decision_needed": []
+    },
+    "balanced": {
+      "check_status": "fail",
+      "must_fix": [
+        "no-manufactured-insight",
+        "no-negative-parallelisms"
+      ],
+      "needs_user_decision": [
+        "overall-signal-stacking",
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-markdown-headings",
+        "no-negation-density",
+        "paragraph-length-uniformity",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "preservable_with_disclosure": [
+        "overall-signal-stacking",
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-markdown-headings",
+        "no-negation-density",
+        "paragraph-length-uniformity",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "required_fixes": [
+        "no-manufactured-insight",
+        "no-negative-parallelisms"
+      ],
+      "status": "fail",
+      "summary": "Hard failures or strong warnings remain; fix or ask user before Balanced depth output.",
+      "user_decision_needed": [
+        "overall-signal-stacking",
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-markdown-headings",
+        "no-negation-density",
+        "paragraph-length-uniformity",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ]
+    }
+  },
+  "expectations": [
+    {
+      "evidence": "No em dashes found",
+      "evidence_role": "punctuation_signal",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+      "matches": [],
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-em-dashes"
+    },
+    {
+      "evidence": "Max AI words per paragraph: 1 (2 total in text)",
+      "evidence_role": "vocabulary_cluster",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-ai-vocabulary-clustering"
+    },
+    {
+      "evidence": "No nonliteral land/surface constructions found",
+      "evidence_role": "metaphor_residue",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "guidance": "Fix nonliteral land/surface phrasing; replace with the concrete action or claim.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-nonliteral-land-surface"
+    },
+    {
+      "components": [
+        "manufactured insight framing",
+        "contrived contrast framing",
+        "paragraph length uniformity",
+        "headings in prose"
+      ],
+      "evidence": "Overall signal stacking 8/4 from [manufactured insight framing, contrived contrast framing, paragraph length uniformity, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=11 distinct/11.3/1000, sample=['need', 'reveals', 'conditions', 'lies', 'necessity', 'remains', 'research', 'revealing', 'streamlined', 'substantial']",
+      "evidence_role": "signal_stacking",
+      "failure_modes": [
+        "generic_abstraction",
+        "frictionless_structure"
+      ],
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "passed": false,
+      "score": 8,
+      "severity": "context_warning",
+      "text": "overall-signal-stacking",
+      "threshold": 4,
+      "vocabulary_signal_stacking": {
+        "gptzero_matches": [],
+        "kobak_style_density": 11.335012594458437,
+        "kobak_style_distinct": 11,
+        "kobak_style_sample": [
+          "need",
+          "reveals",
+          "conditions",
+          "lies",
+          "necessity",
+          "remains",
+          "research",
+          "revealing",
+          "streamlined",
+          "substantial"
+        ],
+        "points": 0,
+        "reasons": [],
+        "worst_generic": 1
+      }
+    },
+    {
+      "evidence": "Found 1: ['the uncomfortable truth']",
+      "evidence_role": "rhetorical_pattern",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
+      "passed": false,
+      "severity": "strong_warning",
+      "text": "no-manufactured-insight"
+    },
+    {
+      "evidence": "Found sequence of 3 consecutive short sentences",
+      "evidence_role": "rhythm_signal",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "matches": [
+        "Deadlines are real.",
+        "Money is real.",
+        "Attention is scarce."
+      ],
+      "passed": false,
+      "severity": "context_warning",
+      "text": "no-staccato-sequences"
+    },
+    {
+      "evidence": "Found 4 consecutive sentences starting with 'content'",
+      "evidence_role": "rhythm_signal",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "matches": [
+        "Content must be regular.",
+        "Content must be optimised.",
+        "Content must be legible to platforms, calendars, audiences, metrics and clients.",
+        "Content does not ripen; it is published."
+      ],
+      "passed": false,
+      "severity": "context_warning",
+      "text": "no-anaphora"
+    },
+    {
+      "evidence": "No collaborative artifacts",
+      "evidence_role": "assistant_residue",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "guidance": "Fix at every depth; this is assistant residue, not authorial style.",
+      "passed": true,
+      "severity": "hard_fail",
+      "text": "no-collaborative-artifacts"
+    },
+    {
+      "evidence": "Found 8 curly quote(s)",
+      "evidence_role": "typographic_signal",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "matches": [
+        "It asks not \u201cWhat is this worth saying?\u201d but \u201cCan this be shipped by Thursday?\u201d The uncomfortable truth is that creative work can now be made very quickly.",
+        "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy."
+      ],
+      "passed": false,
+      "severity": "context_warning",
+      "text": "no-curly-quotes"
+    },
+    {
+      "evidence": "Sentence length stdev: 6.0 (target: >4)",
+      "evidence_role": "rhythm_signal",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "sentence-length-variance"
+    },
+    {
+      "evidence": "No promotional language",
+      "evidence_role": "hype_language",
+      "failure_modes": [
+        "generic_abstraction",
+        "synthetic_significance"
+      ],
+      "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-promotional-language"
+    },
+    {
+      "evidence": "No significance inflation",
+      "evidence_role": "importance_inflation",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "guidance": "Fix inflated importance unless the source genuinely argues significance.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-significance-inflation"
+    },
+    {
+      "evidence": "Found 1 contrived contrast/reframe pattern(s)",
+      "evidence_role": "rhetorical_pattern",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "matches": [
+        "not only through activity, but"
+      ],
+      "passed": false,
+      "severity": "strong_warning",
+      "text": "no-negative-parallelisms"
+    },
+    {
+      "evidence": "No copula avoidance",
+      "evidence_role": "grammar_substitution",
+      "failure_modes": [
+        "synthetic_significance",
+        "generic_abstraction"
+      ],
+      "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-copula-avoidance"
+    },
+    {
+      "evidence": "No filler phrases",
+      "evidence_role": "filler_phrase",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-filler-phrases"
+    },
+    {
+      "evidence": "No generic conclusions",
+      "evidence_role": "generic_closure",
+      "failure_modes": [
+        "provenance_residue",
+        "synthetic_significance"
+      ],
+      "guidance": "Fix at every depth unless quoted from source text.",
+      "passed": true,
+      "severity": "hard_fail",
+      "text": "no-generic-conclusions"
+    },
+    {
+      "evidence": "No false concession hedges",
+      "evidence_role": "stance_erasure",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-false-concession-hedges"
+    },
+    {
+      "evidence": "No placeholder residue",
+      "evidence_role": "template_residue",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "guidance": "Fix at every depth; unfilled placeholders are generated/template residue.",
+      "passed": true,
+      "severity": "hard_fail",
+      "text": "no-placeholder-residue"
+    },
+    {
+      "evidence": "Soft scaffold phrases: 0",
+      "evidence_role": "explainer_scaffold",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-soft-scaffolding"
+    },
+    {
+      "evidence": "Vague demonstrative subjects: 0",
+      "evidence_role": "sentence_subject",
+      "failure_modes": [
+        "voice_erasure",
+        "generic_abstraction"
+      ],
+      "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-orphaned-demonstratives"
+    },
+    {
+      "evidence": "No forced triads",
+      "evidence_role": "list_rhythm",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-forced-triads"
+    },
+    {
+      "evidence": "No superficial -ing phrases",
+      "evidence_role": "analysis_substitution",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+      "matches": [],
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-superficial-ing"
+    },
+    {
+      "evidence": "Ghost/spectral words: 0",
+      "evidence_role": "atmospheric_cliche",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-ghost-spectral-density"
+    },
+    {
+      "evidence": "Quietness words: 0",
+      "evidence_role": "atmospheric_cliche",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+      "matches": [],
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-quietness-obsession"
+    },
+    {
+      "evidence": "Rhetorical questions: 0",
+      "evidence_role": "rhetorical_template",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-rhetorical-questions"
+    },
+    {
+      "evidence": "List ratio: 0%",
+      "evidence_role": "listification",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-excessive-lists"
+    },
+    {
+      "evidence": "Decorative symbols/shortcodes: 0",
+      "evidence_role": "formatting_residue",
+      "failure_modes": [
+        "provenance_residue",
+        "genre_misfit"
+      ],
+      "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-unicode-flair"
+    },
+    {
+      "evidence": "No dramatic transitions",
+      "evidence_role": "narrative_template",
+      "failure_modes": [
+        "synthetic_significance",
+        "genre_misfit"
+      ],
+      "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-dramatic-transitions"
+    },
+    {
+      "evidence": "No formulaic openers",
+      "evidence_role": "formulaic_structure",
+      "failure_modes": [
+        "frictionless_structure",
+        "generic_abstraction"
+      ],
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-formulaic-openers"
+    },
+    {
+      "evidence": "No signposted conclusions",
+      "evidence_role": "structural_signpost",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-signposted-conclusions"
+    },
+    {
+      "evidence": "Found 1 heading(s): ['# In praise of slow work']",
+      "evidence_role": "formatting_signal",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+      "passed": false,
+      "severity": "context_warning",
+      "text": "no-markdown-headings"
+    },
+    {
+      "evidence": "No corporate AI speak",
+      "evidence_role": "domain_cliche",
+      "failure_modes": [
+        "generic_abstraction"
+      ],
+      "guidance": "Fix at every depth; recommend preserving only when quoting corporate source language.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-corporate-ai-speak"
+    },
+    {
+      "evidence": "Max 'This [verb]' run: 1",
+      "evidence_role": "sentence_subject",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-this-chains"
+    },
+    {
+      "evidence": "Hedging constructions: 1",
+      "evidence_role": "stance_erasure",
+      "failure_modes": [
+        "voice_erasure"
+      ],
+      "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-excessive-hedging"
+    },
+    {
+      "evidence": "No countdown negation",
+      "evidence_role": "rhetorical_pattern",
+      "failure_modes": [
+        "synthetic_significance",
+        "frictionless_structure"
+      ],
+      "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-countdown-negation"
+    },
+    {
+      "evidence": "Found 23 negation markers (14.5 per 1000 words)",
+      "evidence_role": "rhetorical_density",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "matches": [
+        "# In praise of slow work The first time I noticed how badly speed had colonised my attention, I was not at work.",
+        "Creative work is not soup, but it is also not unrelated to soup.",
+        "To work slowly is not to work lazily.",
+        "Content does not ripen; it is published.",
+        "This is why slowness is not merely an aesthetic preference.",
+        "The argument for slower creative work is not an argument against deadlines, discipline or publication.",
+        "Slowness matters here because experience is not insight.",
+        "To have lived something is not yet to know what it means.",
+        "These are not romantic luxuries.",
+        "A notebook full of fragments does not look productive.",
+        "It reveals that the central image is not central at all.",
+        "It exposes the fact that the argument is not about what we claimed it was about.",
+        "Taste is not simply preference; it is the capacity to perceive difference.",
+        "But ready and good are not the same thing.",
+        "Slower work is not guaranteed to be better.",
+        "Time alone does not confer depth.",
+        "The point is not to worship delay.",
+        "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy.",
+        "It may also become one of the few ways to make work that is not merely a reflection of the conditions that produced it.",
+        "The difference is not always visible at first."
+      ],
+      "passed": false,
+      "severity": "context_warning",
+      "text": "no-negation-density"
+    },
+    {
+      "evidence": "Paragraph length CV: 0.18 across 21 paragraphs (target: >=0.18)",
+      "evidence_role": "layout_rhythm",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "metric": "paragraph length variation 0.18 across 21 paragraphs (target above 0.18)",
+      "passed": false,
+      "severity": "context_warning",
+      "text": "paragraph-length-uniformity"
+    },
+    {
+      "evidence": "Tidy paragraph endings: 1",
+      "evidence_role": "paragraph_closure",
+      "failure_modes": [
+        "frictionless_structure",
+        "voice_erasure"
+      ],
+      "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-tidy-paragraph-endings"
+    },
+    {
+      "evidence": "Bland critical template phrases: 0",
+      "evidence_role": "genre_cliche",
+      "failure_modes": [
+        "generic_abstraction",
+        "voice_erasure"
+      ],
+      "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-bland-critical-template"
+    },
+    {
+      "evidence": "Rubric echo phrases: 0",
+      "evidence_role": "assignment_residue",
+      "failure_modes": [
+        "provenance_residue",
+        "voice_erasure"
+      ],
+      "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-rubric-echoing"
+    },
+    {
+      "evidence": "Type-token ratio: 0.391 (621 unique / 1589 total, target: >0.40)",
+      "evidence_role": "lexical_distribution",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "metric": "type-token ratio 0.39 (621 unique of 1589 words, target above 0.40)",
+      "passed": false,
+      "severity": "context_warning",
+      "text": "vocabulary-diversity"
+    },
+    {
+      "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
+      "evidence_role": "list_rhythm",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+      "passed": false,
+      "severity": "context_warning",
+      "text": "no-triad-density"
+    },
+    {
+      "evidence": "No repeated section labels",
+      "evidence_role": "repeated_template",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-section-scaffolding"
+    },
+    {
+      "evidence": "No notability claims",
+      "evidence_role": "notability_inflation",
+      "failure_modes": [
+        "synthetic_significance",
+        "generic_abstraction"
+      ],
+      "guidance": "Fix at Balanced and All; replace abstract notability claims with named sources or remove the framing.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-notability-claims"
+    },
+    {
+      "evidence": "No vague attributions",
+      "evidence_role": "attribution_vagueness",
+      "failure_modes": [
+        "synthetic_significance",
+        "generic_abstraction"
+      ],
+      "guidance": "Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-vague-attributions"
+    },
+    {
+      "evidence": "Bold spans in prose: 0",
+      "evidence_role": "emphasis_pattern",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "guidance": "Fix mechanical bold stacking; preserve only when bolded terms are genuine definition headers.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-boldface-overuse"
+    },
+    {
+      "evidence": "List items with bolded headers: 0",
+      "evidence_role": "list_template",
+      "failure_modes": [
+        "frictionless_structure",
+        "generic_abstraction"
+      ],
+      "guidance": "Fix at Balanced and All; fold bolded-header bullets back into prose unless the format is a real spec or reference list.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-inline-header-lists"
+    },
+    {
+      "evidence": "No dense compound-modifier sentences",
+      "evidence_role": "modifier_density",
+      "failure_modes": [
+        "frictionless_structure",
+        "generic_abstraction"
+      ],
+      "guidance": "Restructure sentences with three or more stock hyphenated compounds; preserve only when the compounds are domain-specific terms of art.",
+      "passed": true,
+      "severity": "context_warning",
+      "text": "no-compound-modifier-density"
+    },
+    {
+      "evidence": "No knowledge-cutoff disclaimers",
+      "evidence_role": "model_meta_residue",
+      "failure_modes": [
+        "provenance_residue"
+      ],
+      "guidance": "Fix at every depth; training-update and limited-information hedges are model meta-residue, not authorial uncertainty.",
+      "passed": true,
+      "severity": "strong_warning",
+      "text": "no-knowledge-cutoff-disclaimers"
+    }
+  ],
+  "failure_mode_results": {
+    "frictionless_structure": {
+      "check_refs": [
+        "overall-signal-stacking",
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-markdown-headings",
+        "no-negation-density",
+        "paragraph-length-uniformity",
+        "no-triad-density"
+      ],
+      "failed_checks": [
+        {
+          "check": "overall-signal-stacking",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Overall signal stacking 8/4 from [manufactured insight framing, contrived contrast framing, paragraph length uniformity, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=11 distinct/11.3/1000, sample=['need', 'reveals', 'conditions', 'lies', 'necessity', 'remains', 'research', 'revealing', 'streamlined', 'substantial']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-staccato-sequences",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found sequence of 3 consecutive short sentences",
+          "evidence_role": "rhythm_signal",
+          "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-anaphora",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 4 consecutive sentences starting with 'content'",
+          "evidence_role": "rhythm_signal",
+          "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-markdown-headings",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 1 heading(s): ['# In praise of slow work']",
+          "evidence_role": "formatting_signal",
+          "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-negation-density",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 23 negation markers (14.5 per 1000 words)",
+          "evidence_role": "rhetorical_density",
+          "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "paragraph-length-uniformity",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Paragraph length CV: 0.18 across 21 paragraphs (target: >=0.18)",
+          "evidence_role": "layout_rhythm",
+          "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-triad-density",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
+          "evidence_role": "list_rhythm",
+          "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+          "severity": "context_warning"
+        }
+      ],
+      "failures_by_severity": {
+        "context_warning": 7
+      },
+      "label": "Frictionless structure",
+      "summary": "Text is packaged too evenly through headings, lists, repeated shapes, or tidy closures."
+    },
+    "generic_abstraction": {
+      "check_refs": [
+        "overall-signal-stacking",
+        "vocabulary-diversity"
+      ],
+      "failed_checks": [
+        {
+          "check": "overall-signal-stacking",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Overall signal stacking 8/4 from [manufactured insight framing, contrived contrast framing, paragraph length uniformity, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=11 distinct/11.3/1000, sample=['need', 'reveals', 'conditions', 'lies', 'necessity', 'remains', 'research', 'revealing', 'streamlined', 'substantial']",
+          "evidence_role": "signal_stacking",
+          "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "vocabulary-diversity",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Type-token ratio: 0.391 (621 unique / 1589 total, target: >0.40)",
+          "evidence_role": "lexical_distribution",
+          "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+          "severity": "context_warning"
+        }
+      ],
+      "failures_by_severity": {
+        "context_warning": 2
+      },
+      "label": "Generic abstraction",
+      "summary": "Text relies on portable abstractions, stock vocabulary, or low-specificity claims."
+    },
+    "genre_misfit": {
+      "check_refs": [
+        "no-staccato-sequences",
+        "no-anaphora",
+        "no-curly-quotes",
+        "no-markdown-headings",
+        "no-negation-density",
+        "vocabulary-diversity",
+        "no-triad-density"
+      ],
+      "failed_checks": [
+        {
+          "check": "no-staccato-sequences",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found sequence of 3 consecutive short sentences",
+          "evidence_role": "rhythm_signal",
+          "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-anaphora",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 4 consecutive sentences starting with 'content'",
+          "evidence_role": "rhythm_signal",
+          "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-curly-quotes",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 8 curly quote(s)",
+          "evidence_role": "typographic_signal",
+          "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-markdown-headings",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 1 heading(s): ['# In praise of slow work']",
+          "evidence_role": "formatting_signal",
+          "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-negation-density",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 23 negation markers (14.5 per 1000 words)",
+          "evidence_role": "rhetorical_density",
+          "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "vocabulary-diversity",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Type-token ratio: 0.391 (621 unique / 1589 total, target: >0.40)",
+          "evidence_role": "lexical_distribution",
+          "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+          "severity": "context_warning"
+        },
+        {
+          "check": "no-triad-density",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "preserve_with_disclosure_or_user_decision"
+          },
+          "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+          "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
+          "evidence_role": "list_rhythm",
+          "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+          "severity": "context_warning"
+        }
+      ],
+      "failures_by_severity": {
+        "context_warning": 7
+      },
+      "label": "Genre misfit",
+      "summary": "Text uses a device that may be valid in one genre but suspicious in another."
+    },
+    "provenance_residue": {
+      "check_refs": [],
+      "failed_checks": [],
+      "failures_by_severity": {},
+      "label": "Provenance residue",
+      "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue."
+    },
+    "synthetic_significance": {
+      "check_refs": [
+        "no-manufactured-insight",
+        "no-negative-parallelisms"
+      ],
+      "failed_checks": [
+        {
+          "check": "no-manufactured-insight",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "fix"
+          },
+          "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+          "evidence": "Found 1: ['the uncomfortable truth']",
+          "evidence_role": "rhetorical_pattern",
+          "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
+          "severity": "strong_warning"
+        },
+        {
+          "check": "no-negative-parallelisms",
+          "depth_actions": {
+            "all": "fix",
+            "balanced": "fix"
+          },
+          "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+          "evidence": "Found 1 contrived contrast/reframe pattern(s)",
+          "evidence_role": "rhetorical_pattern",
+          "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+          "severity": "strong_warning"
+        }
+      ],
+      "failures_by_severity": {
+        "strong_warning": 2
+      },
+      "label": "Synthetic significance",
+      "summary": "Text performs importance, revelation, or depth without enough concrete support."
+    },
+    "voice_erasure": {
+      "check_refs": [],
+      "failed_checks": [],
+      "failures_by_severity": {},
+      "label": "Voice erasure",
+      "summary": "Text loses stance, concrete subjects, asymmetry, or authorial presence."
+    }
+  },
+  "failures_by_severity": {
+    "context_warning": 9,
+    "strong_warning": 2
+  },
+  "file": "dev/evals/samples/generated-ai/10-opinion-slow-creativity.md",
+  "human_report": {
+    "agent_judgement": [],
+    "aggregates": {
+      "by_category": {
+        "Filler and hedging": 2,
+        "Language and grammar": 3,
+        "Signal stacking": 1,
+        "Structural tells": 2,
+        "Style": 2,
+        "Voice and register": 1
+      },
+      "by_severity": {
+        "context_warning": 9,
+        "hard_fail": 0,
+        "strong_warning": 2
+      },
+      "signal_stacking": {
+        "components": [
+          "manufactured insight framing",
+          "contrived contrast framing",
+          "paragraph length uniformity",
+          "headings in prose"
+        ],
+        "score": 8,
+        "threshold": 4,
+        "triggered": true,
+        "vocabulary_points": 0
+      }
+    },
+    "metadata": {
+      "grader_version": "phase-2-u8",
+      "schema_version": "1"
+    },
+    "programmatic_checks": [
+      {
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No em dashes found",
+            "evidence_role": "punctuation_signal",
+            "failure_modes": [
+              "genre_misfit"
+            ],
+            "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+            "matches": [],
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "genre_misfit"
+        ],
+        "id": "no-em-dashes",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Max AI words per paragraph: 1 (2 total in text)",
+            "evidence_role": "vocabulary_cluster",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix clustered generic AI vocabulary; individual words may be fine in context.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-ai-vocabulary-clustering",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No nonliteral land/surface constructions found",
+            "evidence_role": "metaphor_residue",
+            "failure_modes": [
+              "generic_abstraction",
+              "synthetic_significance"
+            ],
+            "guidance": "Fix nonliteral land/surface phrasing; replace with the concrete action or claim.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction",
+          "synthetic_significance"
+        ],
+        "id": "no-nonliteral-land-surface",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Signal stacking",
+        "evidence": {
+          "counts": {
+            "score": 8,
+            "threshold": 4
+          },
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "components": [
+              "manufactured insight framing",
+              "contrived contrast framing",
+              "paragraph length uniformity",
+              "headings in prose"
+            ],
+            "evidence": "Overall signal stacking 8/4 from [manufactured insight framing, contrived contrast framing, paragraph length uniformity, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=11 distinct/11.3/1000, sample=['need', 'reveals', 'conditions', 'lies', 'necessity', 'remains', 'research', 'revealing', 'streamlined', 'substantial']",
+            "evidence_role": "signal_stacking",
+            "failure_modes": [
+              "generic_abstraction",
+              "frictionless_structure"
+            ],
+            "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+            "score": 8,
+            "severity": "context_warning",
+            "threshold": 4,
+            "vocabulary_signal_stacking": {
+              "gptzero_matches": [],
+              "kobak_style_density": 11.335012594458437,
+              "kobak_style_distinct": 11,
+              "kobak_style_sample": [
+                "need",
+                "reveals",
+                "conditions",
+                "lies",
+                "necessity",
+                "remains",
+                "research",
+                "revealing",
+                "streamlined",
+                "substantial"
+              ],
+              "points": 0,
+              "reasons": [],
+              "worst_generic": 1
+            }
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction",
+          "frictionless_structure"
+        ],
+        "id": "overall-signal-stacking",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "the uncomfortable truth"
+          ],
+          "raw": {
+            "evidence": "Found 1: ['the uncomfortable truth']",
+            "evidence_role": "rhetorical_pattern",
+            "failure_modes": [
+              "synthetic_significance"
+            ],
+            "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance"
+        ],
+        "id": "no-manufactured-insight",
+        "severity": "strong_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "Deadlines are real.",
+            "Money is real.",
+            "Attention is scarce."
+          ],
+          "raw": {
+            "evidence": "Found sequence of 3 consecutive short sentences",
+            "evidence_role": "rhythm_signal",
+            "failure_modes": [
+              "genre_misfit",
+              "frictionless_structure"
+            ],
+            "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+            "matches": [
+              "Deadlines are real.",
+              "Money is real.",
+              "Attention is scarce."
+            ],
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "genre_misfit",
+          "frictionless_structure"
+        ],
+        "id": "no-staccato-sequences",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "Content must be regular.",
+            "Content must be optimised.",
+            "Content must be legible to platforms, calendars, audiences, metrics and clients.",
+            "Content does not ripen; it is published."
+          ],
+          "raw": {
+            "evidence": "Found 4 consecutive sentences starting with 'content'",
+            "evidence_role": "rhythm_signal",
+            "failure_modes": [
+              "genre_misfit",
+              "frictionless_structure"
+            ],
+            "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+            "matches": [
+              "Content must be regular.",
+              "Content must be optimised.",
+              "Content must be legible to platforms, calendars, audiences, metrics and clients.",
+              "Content does not ripen; it is published."
+            ],
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "genre_misfit",
+          "frictionless_structure"
+        ],
+        "id": "no-anaphora",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Communication",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No collaborative artifacts",
+            "evidence_role": "assistant_residue",
+            "failure_modes": [
+              "provenance_residue"
+            ],
+            "guidance": "Fix at every depth; this is assistant residue, not authorial style.",
+            "severity": "hard_fail"
+          }
+        },
+        "failure_modes": [
+          "provenance_residue"
+        ],
+        "id": "no-collaborative-artifacts",
+        "severity": "hard_fail",
+        "status": "clear"
+      },
+      {
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "It asks not \u201cWhat is this worth saying?\u201d but \u201cCan this be shipped by Thursday?\u201d The uncomfortable truth is that creative work can now be made very quickly.",
+            "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy."
+          ],
+          "raw": {
+            "evidence": "Found 8 curly quote(s)",
+            "evidence_role": "typographic_signal",
+            "failure_modes": [
+              "genre_misfit"
+            ],
+            "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+            "matches": [
+              "It asks not \u201cWhat is this worth saying?\u201d but \u201cCan this be shipped by Thursday?\u201d The uncomfortable truth is that creative work can now be made very quickly.",
+              "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy."
+            ],
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "genre_misfit"
+        ],
+        "id": "no-curly-quotes",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Sentence length stdev: 6.0 (target: >4)",
+            "evidence_role": "rhythm_signal",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Use as a rhythm signal, not a hard failure for short or intentionally uniform forms.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "sentence-length-variance",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No promotional language",
+            "evidence_role": "hype_language",
+            "failure_modes": [
+              "generic_abstraction",
+              "synthetic_significance"
+            ],
+            "guidance": "Fix generic hype; recommend preserving quoted marketing copy or voiced enthusiasm.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction",
+          "synthetic_significance"
+        ],
+        "id": "no-promotional-language",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No significance inflation",
+            "evidence_role": "importance_inflation",
+            "failure_modes": [
+              "synthetic_significance"
+            ],
+            "guidance": "Fix inflated importance unless the source genuinely argues significance.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance"
+        ],
+        "id": "no-significance-inflation",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "not only through activity, but"
+          ],
+          "raw": {
+            "evidence": "Found 1 contrived contrast/reframe pattern(s)",
+            "evidence_role": "rhetorical_pattern",
+            "failure_modes": [
+              "synthetic_significance"
+            ],
+            "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+            "matches": [
+              "not only through activity, but"
+            ],
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance"
+        ],
+        "id": "no-negative-parallelisms",
+        "severity": "strong_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No copula avoidance",
+            "evidence_role": "grammar_substitution",
+            "failure_modes": [
+              "synthetic_significance",
+              "generic_abstraction"
+            ],
+            "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance",
+          "generic_abstraction"
+        ],
+        "id": "no-copula-avoidance",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No filler phrases",
+            "evidence_role": "filler_phrase",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-filler-phrases",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No generic conclusions",
+            "evidence_role": "generic_closure",
+            "failure_modes": [
+              "provenance_residue",
+              "synthetic_significance"
+            ],
+            "guidance": "Fix at every depth unless quoted from source text.",
+            "severity": "hard_fail"
+          }
+        },
+        "failure_modes": [
+          "provenance_residue",
+          "synthetic_significance"
+        ],
+        "id": "no-generic-conclusions",
+        "severity": "hard_fail",
+        "status": "clear"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No false concession hedges",
+            "evidence_role": "stance_erasure",
+            "failure_modes": [
+              "voice_erasure"
+            ],
+            "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "voice_erasure"
+        ],
+        "id": "no-false-concession-hedges",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No placeholder residue",
+            "evidence_role": "template_residue",
+            "failure_modes": [
+              "provenance_residue"
+            ],
+            "guidance": "Fix at every depth; unfilled placeholders are generated/template residue.",
+            "severity": "hard_fail"
+          }
+        },
+        "failure_modes": [
+          "provenance_residue"
+        ],
+        "id": "no-placeholder-residue",
+        "severity": "hard_fail",
+        "status": "clear"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Soft scaffold phrases: 0",
+            "evidence_role": "explainer_scaffold",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "no-soft-scaffolding",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Vague demonstrative subjects: 0",
+            "evidence_role": "sentence_subject",
+            "failure_modes": [
+              "voice_erasure",
+              "generic_abstraction"
+            ],
+            "guidance": "Review repeated 'This/That highlights...' starts; replace vague subjects with concrete nouns when the antecedent is unclear.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "voice_erasure",
+          "generic_abstraction"
+        ],
+        "id": "no-orphaned-demonstratives",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No forced triads",
+            "evidence_role": "list_rhythm",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix decorative triads; recommend preserving meaningful lists and deliberate rhetoric.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-forced-triads",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No superficial -ing phrases",
+            "evidence_role": "analysis_substitution",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix tacked-on analysis clauses unless they carry precise causal meaning.",
+            "matches": [],
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-superficial-ing",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Sensory and atmospheric",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Ghost/spectral words: 0",
+            "evidence_role": "atmospheric_cliche",
+            "failure_modes": [
+              "generic_abstraction",
+              "genre_misfit"
+            ],
+            "guidance": "Fix atmospheric filler; recommend preserving gothic, literary, or quoted prose.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction",
+          "genre_misfit"
+        ],
+        "id": "no-ghost-spectral-density",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Sensory and atmospheric",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Quietness words: 0",
+            "evidence_role": "atmospheric_cliche",
+            "failure_modes": [
+              "synthetic_significance",
+              "genre_misfit"
+            ],
+            "guidance": "Fix generic quietness mood; recommend preserving if quietness is the actual subject or voice.",
+            "matches": [],
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance",
+          "genre_misfit"
+        ],
+        "id": "no-quietness-obsession",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Rhetorical questions: 0",
+            "evidence_role": "rhetorical_template",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-rhetorical-questions",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "List ratio: 0%",
+            "evidence_role": "listification",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-excessive-lists",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Decorative symbols/shortcodes: 0",
+            "evidence_role": "formatting_residue",
+            "failure_modes": [
+              "provenance_residue",
+              "genre_misfit"
+            ],
+            "guidance": "Remove decorative symbols in prose; preserve only where symbols are part of a real UI, checklist, or quoted source.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "provenance_residue",
+          "genre_misfit"
+        ],
+        "id": "no-unicode-flair",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No dramatic transitions",
+            "evidence_role": "narrative_template",
+            "failure_modes": [
+              "synthetic_significance",
+              "genre_misfit"
+            ],
+            "guidance": "Fix generic turning-point beats; recommend preserving memoir or scene structure when earned.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance",
+          "genre_misfit"
+        ],
+        "id": "no-dramatic-transitions",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No formulaic openers",
+            "evidence_role": "formulaic_structure",
+            "failure_modes": [
+              "frictionless_structure",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "generic_abstraction"
+        ],
+        "id": "no-formulaic-openers",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No signposted conclusions",
+            "evidence_role": "structural_signpost",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix generic signposts in prose; recommend preserving academic/instructional structure when useful.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-signposted-conclusions",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "# In praise of slow work"
+          ],
+          "raw": {
+            "evidence": "Found 1 heading(s): ['# In praise of slow work']",
+            "evidence_role": "formatting_signal",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-markdown-headings",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No corporate AI speak",
+            "evidence_role": "domain_cliche",
+            "failure_modes": [
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at every depth; recommend preserving only when quoting corporate source language.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction"
+        ],
+        "id": "no-corporate-ai-speak",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Max 'This [verb]' run: 1",
+            "evidence_role": "sentence_subject",
+            "failure_modes": [
+              "frictionless_structure",
+              "voice_erasure"
+            ],
+            "guidance": "Fix mechanical sentence starts; recommend preserving only if rhythmically deliberate.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "voice_erasure"
+        ],
+        "id": "no-this-chains",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Hedging constructions: 1",
+            "evidence_role": "stance_erasure",
+            "failure_modes": [
+              "voice_erasure"
+            ],
+            "guidance": "Fix evasive hedging; recommend preserving scientific qualification and honest uncertainty.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "voice_erasure"
+        ],
+        "id": "no-excessive-hedging",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No countdown negation",
+            "evidence_role": "rhetorical_pattern",
+            "failure_modes": [
+              "synthetic_significance",
+              "frictionless_structure"
+            ],
+            "guidance": "Fix generic reveal structures; recommend preserving deliberate rhetoric only with strong reason.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance",
+          "frictionless_structure"
+        ],
+        "id": "no-countdown-negation",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Filler and hedging",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "# In praise of slow work The first time I noticed how badly speed had colonised my attention, I was not at work.",
+            "Creative work is not soup, but it is also not unrelated to soup.",
+            "To work slowly is not to work lazily.",
+            "Content does not ripen; it is published.",
+            "This is why slowness is not merely an aesthetic preference.",
+            "The argument for slower creative work is not an argument against deadlines, discipline or publication.",
+            "Slowness matters here because experience is not insight.",
+            "To have lived something is not yet to know what it means.",
+            "These are not romantic luxuries.",
+            "A notebook full of fragments does not look productive.",
+            "It reveals that the central image is not central at all.",
+            "It exposes the fact that the argument is not about what we claimed it was about.",
+            "Taste is not simply preference; it is the capacity to perceive difference.",
+            "But ready and good are not the same thing.",
+            "Slower work is not guaranteed to be better.",
+            "Time alone does not confer depth.",
+            "The point is not to worship delay.",
+            "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy.",
+            "It may also become one of the few ways to make work that is not merely a reflection of the conditions that produced it.",
+            "The difference is not always visible at first."
+          ],
+          "raw": {
+            "evidence": "Found 23 negation markers (14.5 per 1000 words)",
+            "evidence_role": "rhetorical_density",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+            "matches": [
+              "# In praise of slow work The first time I noticed how badly speed had colonised my attention, I was not at work.",
+              "Creative work is not soup, but it is also not unrelated to soup.",
+              "To work slowly is not to work lazily.",
+              "Content does not ripen; it is published.",
+              "This is why slowness is not merely an aesthetic preference.",
+              "The argument for slower creative work is not an argument against deadlines, discipline or publication.",
+              "Slowness matters here because experience is not insight.",
+              "To have lived something is not yet to know what it means.",
+              "These are not romantic luxuries.",
+              "A notebook full of fragments does not look productive.",
+              "It reveals that the central image is not central at all.",
+              "It exposes the fact that the argument is not about what we claimed it was about.",
+              "Taste is not simply preference; it is the capacity to perceive difference.",
+              "But ready and good are not the same thing.",
+              "Slower work is not guaranteed to be better.",
+              "Time alone does not confer depth.",
+              "The point is not to worship delay.",
+              "The better question is not \u201cHow fast can this be done?\u201d but \u201cWhat kind of time does this work need?\u201d Some pieces need the voltage of immediacy.",
+              "It may also become one of the few ways to make work that is not merely a reflection of the conditions that produced it.",
+              "The difference is not always visible at first."
+            ],
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-negation-density",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": "paragraph length variation 0.18 across 21 paragraphs (target above 0.18)",
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Paragraph length CV: 0.18 across 21 paragraphs (target: >=0.18)",
+            "evidence_role": "layout_rhythm",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+            "metric": "paragraph length variation 0.18 across 21 paragraphs (target above 0.18)",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "paragraph-length-uniformity",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Tidy paragraph endings: 1",
+            "evidence_role": "paragraph_closure",
+            "failure_modes": [
+              "frictionless_structure",
+              "voice_erasure"
+            ],
+            "guidance": "Cut generic paragraph-final summaries unless they carry a necessary argument turn.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "voice_erasure"
+        ],
+        "id": "no-tidy-paragraph-endings",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Bland critical template phrases: 0",
+            "evidence_role": "genre_cliche",
+            "failure_modes": [
+              "generic_abstraction",
+              "voice_erasure"
+            ],
+            "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction",
+          "voice_erasure"
+        ],
+        "id": "no-bland-critical-template",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Voice and register",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Rubric echo phrases: 0",
+            "evidence_role": "assignment_residue",
+            "failure_modes": [
+              "provenance_residue",
+              "voice_erasure"
+            ],
+            "guidance": "Review student/assignment prose for mirrored rubric language; preserve only where explicitly analysing a rubric.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "provenance_residue",
+          "voice_erasure"
+        ],
+        "id": "no-rubric-echoing",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": "type-token ratio 0.39 (621 unique of 1589 words, target above 0.40)",
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Type-token ratio: 0.391 (621 unique / 1589 total, target: >0.40)",
+            "evidence_role": "lexical_distribution",
+            "failure_modes": [
+              "generic_abstraction",
+              "genre_misfit"
+            ],
+            "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+            "metric": "type-token ratio 0.39 (621 unique of 1589 words, target above 0.40)",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "generic_abstraction",
+          "genre_misfit"
+        ],
+        "id": "vocabulary-diversity",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Language and grammar",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [
+            "heat, patience and the willingness to let",
+            "audiences, metrics and clients",
+            "templated, scheduled and distributed at a pace",
+            "an argument against deadlines, discipline or publication",
+            "when it carries force, clarity and purpose",
+            "return tomorrow, and the next day, and the next",
+            "own experience with discipline, suspicion and grace",
+            "noticing irritation, changing one word and then changing it back",
+            "It develops through exposure, attention and revision",
+            "matter most to me, as both writer and reader"
+          ],
+          "raw": {
+            "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
+            "evidence_role": "list_rhythm",
+            "failure_modes": [
+              "frictionless_structure",
+              "genre_misfit"
+            ],
+            "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "genre_misfit"
+        ],
+        "id": "no-triad-density",
+        "severity": "context_warning",
+        "status": "flagged"
+      },
+      {
+        "category": "Structural tells",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No repeated section labels",
+            "evidence_role": "repeated_template",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "no-section-scaffolding",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No notability claims",
+            "evidence_role": "notability_inflation",
+            "failure_modes": [
+              "synthetic_significance",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; replace abstract notability claims with named sources or remove the framing.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance",
+          "generic_abstraction"
+        ],
+        "id": "no-notability-claims",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Content patterns",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No vague attributions",
+            "evidence_role": "attribution_vagueness",
+            "failure_modes": [
+              "synthetic_significance",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; replace unnamed authorities with a named source, study, or quote.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "synthetic_significance",
+          "generic_abstraction"
+        ],
+        "id": "no-vague-attributions",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "Bold spans in prose: 0",
+            "evidence_role": "emphasis_pattern",
+            "failure_modes": [
+              "frictionless_structure"
+            ],
+            "guidance": "Fix mechanical bold stacking; preserve only when bolded terms are genuine definition headers.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure"
+        ],
+        "id": "no-boldface-overuse",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "List items with bolded headers: 0",
+            "evidence_role": "list_template",
+            "failure_modes": [
+              "frictionless_structure",
+              "generic_abstraction"
+            ],
+            "guidance": "Fix at Balanced and All; fold bolded-header bullets back into prose unless the format is a real spec or reference list.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "generic_abstraction"
+        ],
+        "id": "no-inline-header-lists",
+        "severity": "strong_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Style",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No dense compound-modifier sentences",
+            "evidence_role": "modifier_density",
+            "failure_modes": [
+              "frictionless_structure",
+              "generic_abstraction"
+            ],
+            "guidance": "Restructure sentences with three or more stock hyphenated compounds; preserve only when the compounds are domain-specific terms of art.",
+            "severity": "context_warning"
+          }
+        },
+        "failure_modes": [
+          "frictionless_structure",
+          "generic_abstraction"
+        ],
+        "id": "no-compound-modifier-density",
+        "severity": "context_warning",
+        "status": "clear"
+      },
+      {
+        "category": "Communication",
+        "evidence": {
+          "counts": {},
+          "locations": [],
+          "metric": null,
+          "quoted_phrases": [],
+          "raw": {
+            "evidence": "No knowledge-cutoff disclaimers",
+            "evidence_role": "model_meta_residue",
+            "failure_modes": [
+              "provenance_residue"
+            ],
+            "guidance": "Fix at every depth; training-update and limited-information hedges are model meta-residue, not authorial uncertainty.",
+            "severity": "strong_warning"
+          }
+        },
+        "failure_modes": [
+          "provenance_residue"
+        ],
+        "id": "no-knowledge-cutoff-disclaimers",
+        "severity": "strong_warning",
+        "status": "clear"
+      }
+    ],
+    "schema_version": "1"
+  },
+  "pass_rate": "38/49",
+  "score_summary": {
+    "check_status": "fail",
+    "failed_checks": 11,
+    "failures_by_severity": {
+      "context_warning": 9,
+      "strong_warning": 2
+    },
+    "pass_rate": "38/49",
+    "passed_checks": 38,
+    "signal_stacking": {
+      "components": [
+        "manufactured insight framing",
+        "contrived contrast framing",
+        "paragraph length uniformity",
+        "headings in prose"
+      ],
+      "score": 8,
+      "threshold": 4,
+      "triggered": true,
+      "vocabulary_signal_stacking": {
+        "gptzero_matches": [],
+        "kobak_style_density": 11.335012594458437,
+        "kobak_style_distinct": 11,
+        "kobak_style_sample": [
+          "need",
+          "reveals",
+          "conditions",
+          "lies",
+          "necessity",
+          "remains",
+          "research",
+          "revealing",
+          "streamlined",
+          "substantial"
+        ],
+        "points": 0,
+        "reasons": [],
+        "worst_generic": 1
+      }
+    },
+    "total_checks": 49
+  },
+  "triggered_checks": [
+    {
+      "check": "overall-signal-stacking",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Overall signal stacking 8/4 from [manufactured insight framing, contrived contrast framing, paragraph length uniformity, headings in prose]; vocab=0 point(s), worst_generic=1, gptzero=[], kobak=11 distinct/11.3/1000, sample=['need', 'reveals', 'conditions', 'lies', 'necessity', 'remains', 'research', 'revealing', 'streamlined', 'substantial']",
+      "evidence_role": "signal_stacking",
+      "failure_modes": [
+        "generic_abstraction",
+        "frictionless_structure"
+      ],
+      "guidance": "Review aggregate signal stacking; this combines weak signals and Kobak excess-vocabulary evidence but is not an authorship verdict.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "no-manufactured-insight",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "fix"
+      },
+      "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+      "evidence": "Found 1: ['the uncomfortable truth']",
+      "evidence_role": "rhetorical_pattern",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
+      "severity": "strong_warning"
+    },
+    {
+      "check": "no-staccato-sequences",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Found sequence of 3 consecutive short sentences",
+      "evidence_role": "rhythm_signal",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "guidance": "Fix generic emphasis; recommend preserving character voice, humour, panic, dialogue, or literary rhythm.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "no-anaphora",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Found 4 consecutive sentences starting with 'content'",
+      "evidence_role": "rhythm_signal",
+      "failure_modes": [
+        "genre_misfit",
+        "frictionless_structure"
+      ],
+      "guidance": "Fix mechanical repetition; recommend preserving deliberate rhetoric or literary patterning.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "no-curly-quotes",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Found 8 curly quote(s)",
+      "evidence_role": "typographic_signal",
+      "failure_modes": [
+        "genre_misfit"
+      ],
+      "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "no-negative-parallelisms",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "fix"
+      },
+      "depth_consequence": "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure.",
+      "evidence": "Found 1 contrived contrast/reframe pattern(s)",
+      "evidence_role": "rhetorical_pattern",
+      "failure_modes": [
+        "synthetic_significance"
+      ],
+      "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+      "severity": "strong_warning"
+    },
+    {
+      "check": "no-markdown-headings",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Found 1 heading(s): ['# In praise of slow work']",
+      "evidence_role": "formatting_signal",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "no-negation-density",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Found 23 negation markers (14.5 per 1000 words)",
+      "evidence_role": "rhetorical_density",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Review dense negation as a style signal; preserve polemic or technical qualification when purposeful.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "paragraph-length-uniformity",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Paragraph length CV: 0.18 across 21 paragraphs (target: >=0.18)",
+      "evidence_role": "layout_rhythm",
+      "failure_modes": [
+        "frictionless_structure"
+      ],
+      "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "vocabulary-diversity",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Type-token ratio: 0.391 (621 unique / 1589 total, target: >0.40)",
+      "evidence_role": "lexical_distribution",
+      "failure_modes": [
+        "generic_abstraction",
+        "genre_misfit"
+      ],
+      "guidance": "Use as a coarse signal; old prose, dialogue, and technical writing may fail legitimately.",
+      "severity": "context_warning"
+    },
+    {
+      "check": "no-triad-density",
+      "depth_actions": {
+        "all": "fix",
+        "balanced": "preserve_with_disclosure_or_user_decision"
+      },
+      "depth_consequence": "Review at Balanced; All requires removal unless the user explicitly accepts the risk.",
+      "evidence": "Found 10 triad(s): ['heat, patience and the willingness to let', 'audiences, metrics and clients', 'templated, scheduled and distributed at a pace', 'an argument against deadlines, discipline or publication', 'when it carries force, clarity and purpose', 'return tomorrow, and the next day, and the next', 'own experience with discipline, suspicion and grace', 'noticing irritation, changing one word and then changing it back', 'It develops through exposure, attention and revision', 'matter most to me, as both writer and reader']",
+      "evidence_role": "list_rhythm",
+      "failure_modes": [
+        "frictionless_structure",
+        "genre_misfit"
+      ],
+      "guidance": "Fix density-driven triads; recommend preserving if lists are structural or rhetorical.",
+      "severity": "context_warning"
+    }
+  ]
+}

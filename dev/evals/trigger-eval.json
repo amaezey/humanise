@@ -1,0 +1,82 @@
+[
+  {
+    "query": "i used chatgpt to draft a blog post about our team's approach to inclusive design. it's ok but it reads like AI wrote it. can you clean it up so it sounds like me? the draft is in ~/Documents/remote/06 Writing/Seeds/inclusive-design-draft.md",
+    "should_trigger": true
+  },
+  {
+    "query": "my colleague sent me this summary of our Q3 research findings and honestly it reads like it was spat out of an LLM. lots of 'delves into' and 'at its core' and em dashes everywhere. can you human-eyes it before I send it to the stakeholders?",
+    "should_trigger": true
+  },
+  {
+    "query": "ok so i wrote most of this linkedin post myself but then asked claude to 'polish' it and now it sounds nothing like me. it's got all these dramatic one-line paragraphs and 'Here's the thing:' openers. can you strip the AI out and get it back to how I write",
+    "should_trigger": true
+  },
+  {
+    "query": "I need to submit this essay for a writing course and I'm worried it reads as AI-generated. I did use copilot to help with some sections but the ideas are mine. Can you go through it and remove anything that sounds machine-generated? It's about 800 words on the ethics of aged care in rural communities.",
+    "should_trigger": true
+  },
+  {
+    "query": "this conference proposal abstract sounds like every other AI-generated abstract I've read this year. 'In today's rapidly evolving landscape of human-centred design...' ugh. help me de-AI it so the review committee takes it seriously",
+    "should_trigger": true
+  },
+  {
+    "query": "can you review this piece of writing and flag anything that looks like an AI tell? I don't necessarily want you to rewrite it, just point out the patterns so I can fix them myself. It's a personal essay about grief that I wrote with some AI assistance.",
+    "should_trigger": true
+  },
+  {
+    "query": "my client's website copy reads like chatgpt vomited all over it. 'nestled in the heart of Melbourne's vibrant arts precinct' and 'a testament to innovative design'. can you make it sound like a human being wrote it",
+    "should_trigger": true
+  },
+  {
+    "query": "I've got an email newsletter draft that I generated with AI and then edited, but a friend told me it still 'sounds AI'. about 500 words on what we learned from running our first community workshop. can you remove the slop?",
+    "should_trigger": true
+  },
+  {
+    "query": "please make this sound less like it was written by a robot. it's a bio for our new team member and it's full of 'passionate about leveraging cutting-edge solutions' type language. her name is Sarah and she's a service designer who just joined from NSW Health.",
+    "should_trigger": true
+  },
+  {
+    "query": "take a look at this draft report intro and tell me if you think people will clock it as AI-written. if they will, fix it. we're presenting to a government steering committee next week and credibility matters.",
+    "should_trigger": true
+  },
+  {
+    "query": "can you write me a 300-word bio for my linkedin profile? i'm a UX researcher who's been in gov for about 4 years, currently working on digital identity services. keep it professional but not stiff",
+    "should_trigger": false
+  },
+  {
+    "query": "I need to proofread this document for spelling and grammar mistakes. Australian English please. It's about 2000 words, a policy brief on digital accessibility standards.",
+    "should_trigger": false
+  },
+  {
+    "query": "can you translate this design research summary from english to japanese? it's for our tokyo office and needs to sound natural in japanese, not like a machine translation",
+    "should_trigger": false
+  },
+  {
+    "query": "summarise this 40-page PDF into a 1-page executive brief. focus on the key findings about user drop-off rates in the Medicare claims process. it's at ~/Downloads/medicare-claims-research-2025.pdf",
+    "should_trigger": false
+  },
+  {
+    "query": "I want to improve my writing style generally. can you recommend some books or resources? i write a lot of case studies and research reports for work and they always feel flat and boring",
+    "should_trigger": false
+  },
+  {
+    "query": "make this email more formal. I'm writing to the deputy secretary and my current draft is too casual - I used 'hey' and 'cheers' which doesn't feel right for this audience. the content is fine though, just needs a register shift",
+    "should_trigger": false
+  },
+  {
+    "query": "this technical documentation for our API is confusing. can you simplify it so a product manager who doesn't code could follow the integration steps? the docs are in /docs/api/auth-flow.md",
+    "should_trigger": false
+  },
+  {
+    "query": "write a thoughtful blog post about the future of service design in Australian government. about 1000 words, drawing on the recent DTA digital experience report",
+    "should_trigger": false
+  },
+  {
+    "query": "how accurate are AI writing detection tools? my university is using Turnitin's AI detector and it flagged my essay even though I wrote it myself. is there anything I can do?",
+    "should_trigger": false
+  },
+  {
+    "query": "can you restructure this document? the information is all there but the sections are in a weird order. it should go: background, methodology, findings, recommendations. currently it jumps around. don't change the wording, just move sections.",
+    "should_trigger": false
+  }
+]

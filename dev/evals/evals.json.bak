@@ -1,0 +1,267 @@
+{
+  "skill_name": "human-eyes",
+  "evals": [
+    {
+      "id": 0,
+      "name": "harris-free-will",
+      "prompt": "Human-eyes the following essay about free will and moral responsibility.",
+      "expected_output": "Text that reads like a thoughtful philosophical essay with personal voice, varied sentence rhythm, and no AI tells",
+      "files": ["evals/samples/harris-free-will.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied sentence rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
+        {"name": "no-significance-inflation", "type": "programmatic", "description": "No significance inflation", "check": "count == 0"},
+        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers free will objection, good/evil distinction, surgeon example, lack of ultimate control over desires"},
+        {"name": "voice-naturalness", "type": "qualitative", "description": "Reads as though a specific human wrote it, not a generic overview. Has opinions, acknowledges uncertainty, or uses first person where appropriate"}
+      ]
+    },
+    {
+      "id": 1,
+      "name": "murray-doctors-die",
+      "prompt": "Human-eyes the following essay about how doctors approach their own end-of-life care.",
+      "expected_output": "Text that reads like a personal medical essay with storytelling, direct observations, and no AI tells",
+      "files": ["evals/samples/murray-doctors-die.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied sentence rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
+        {"name": "no-significance-inflation", "type": "programmatic", "description": "No significance inflation", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers Charlie's anecdote, doctors choosing less treatment, knowledge of medicine's limits, fear of dying in pain/alone"},
+        {"name": "voice-naturalness", "type": "qualitative", "description": "Reads like personal medical essay, not a health article overview"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "woolf-moth",
+      "prompt": "Human-eyes the following descriptive essay about watching a moth at a window.",
+      "expected_output": "Text that reads like literary observation with sensory detail and natural rhythm, not a nature article",
+      "files": ["evals/samples/woolf-moth.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-copula-avoidance", "type": "programmatic", "description": "No copula avoidance", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Captures the moth at the window, the September morning, the outdoor energy, the moth as embodiment of life force"},
+        {"name": "literary-quality", "type": "qualitative", "description": "Uses concrete sensory detail rather than atmospheric adjectives. Shows rather than tells"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "wong-monkeysphere",
+      "prompt": "Human-eyes the following humorous essay about Dunbar's number and the Monkeysphere.",
+      "expected_output": "Text that retains irreverent humor, specific details (monkey names, pirate costume), and conversational tone without AI patterns",
+      "files": ["evals/samples/wong-monkeysphere.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-significance-inflation", "type": "programmatic", "description": "No significance inflation", "check": "count == 0"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
+        {"name": "humor-preserved", "type": "qualitative", "description": "The irreverent, conversational tone survives humanisation. Specific funny details (monkey names, pirate costume, jokes) are intact or replaced with equally specific humor"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers Dunbar's number, the monkey thought experiment, brain-size research, the 150 limit, and why this matters for how we treat strangers"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "orwell-why-write",
+      "prompt": "Human-eyes the following autobiographical essay about knowing from childhood you would be a writer.",
+      "expected_output": "Text that reads like honest autobiography with self-deprecation, specific memories, and direct prose",
+      "files": ["evals/samples/orwell-why-write.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No 'not just...but' or 'not only...but also' constructions", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-markdown-headings", "type": "programmatic", "description": "No markdown heading syntax in prose", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers childhood conviction of being a writer, lonely upbringing, early poems, the continuous mental story/internal narration habit"},
+        {"name": "voice-naturalness", "type": "qualitative", "description": "First-person, self-deprecating, honest about failures and limitations. Not a 'journey of self-discovery' narrative"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "essay-libraries",
+      "prompt": "Human-eyes the following essay about the importance of public libraries.",
+      "expected_output": "Text that reads like a thoughtful essay with personal voice and no AI tells",
+      "files": ["evals/samples/1-essay-libraries.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-staccato-sequences", "type": "programmatic", "description": "No 3+ consecutive short sentences", "check": "max < 3"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-copula-avoidance", "type": "programmatic", "description": "No copula avoidance", "check": "count == 0"},
+        {"name": "no-forced-triads", "type": "programmatic", "description": "No forced abstract triads", "check": "count == 0"},
+        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers equitable access, combating misinformation, lifelong learning, and social cohesion arguments for libraries"}
+      ]
+    },
+    {
+      "id": 6,
+      "name": "blog-cooking",
+      "prompt": "Human-eyes the following blog post about why everyone should learn to cook.",
+      "expected_output": "Text that reads like a personal blog post with opinions and no AI tells",
+      "files": ["evals/samples/2-blog-cooking.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No negative parallelisms", "check": "count == 0"},
+        {"name": "no-filler-phrases", "type": "programmatic", "description": "No filler phrases", "check": "count == 0"},
+        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers cooking as capability, autonomy, connection, and self-expression"}
+      ]
+    },
+    {
+      "id": 7,
+      "name": "listicle-remote",
+      "prompt": "Human-eyes the following listicle about remote work transforming the workplace.",
+      "expected_output": "Text that reads like a natural article rather than a slide deck, with no AI tells",
+      "files": ["evals/samples/3-listicle-remote.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-anaphora", "type": "programmatic", "description": "No 3+ consecutive sentences starting with same word", "check": "max run < 3"},
+        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No negative parallelisms", "check": "count == 0"},
+        {"name": "no-forced-triads", "type": "programmatic", "description": "No forced abstract triads", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-corporate-ai-speak", "type": "programmatic", "description": "No corporate AI register", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers location-agnostic work, productivity redefinition, and talent strategy shifts"}
+      ]
+    },
+    {
+      "id": 8,
+      "name": "reflection-travel",
+      "prompt": "Human-eyes the following reflective essay about what travel teaches us.",
+      "expected_output": "Text that reads like personal reflection with specific observations, not generic travel writing",
+      "files": ["evals/samples/4-reflection-travel.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-negative-parallelisms", "type": "programmatic", "description": "No negative parallelisms", "check": "count == 0"},
+        {"name": "no-filler-phrases", "type": "programmatic", "description": "No filler phrases", "check": "count == 0"},
+        {"name": "no-forced-triads", "type": "programmatic", "description": "No forced abstract triads", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers how travel disrupts identity assumptions and reveals coping mechanisms"}
+      ]
+    },
+    {
+      "id": 9,
+      "name": "explainer-quantum",
+      "prompt": "Human-eyes the following explainer about quantum computing for a general audience.",
+      "expected_output": "Text that reads like a clear, engaging explainer without AI tells",
+      "files": ["evals/samples/5-explainer-quantum.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers classical bits vs qubits, superposition, and quantum computing applications"}
+      ]
+    },
+    {
+      "id": 10,
+      "name": "cover-letter",
+      "prompt": "Human-eyes the following cover letter for a senior software engineer position.",
+      "expected_output": "Text that reads like a genuine personal letter, not a corporate template",
+      "files": ["evals/samples/6-cover-letter.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-corporate-ai-speak", "type": "programmatic", "description": "No corporate AI register", "check": "count == 0"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "no-this-chains", "type": "programmatic", "description": "No 3+ consecutive 'This [verb]' sentences", "check": "max < 3"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers experience with scalable systems, leadership, and startup capabilities"},
+        {"name": "voice-naturalness", "type": "qualitative", "description": "Reads like a person talking about their work, not a corporate template"}
+      ]
+    },
+    {
+      "id": 11,
+      "name": "hotel-description",
+      "prompt": "Human-eyes the following boutique hotel product description.",
+      "expected_output": "Text that reads like genuine copy rather than AI-generated tourism marketing",
+      "files": ["evals/samples/7-hotel-description.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
+        {"name": "no-copula-avoidance", "type": "programmatic", "description": "No copula avoidance", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "no-ghost-spectral-density", "type": "programmatic", "description": "No ghost/spectral language density", "check": "count < 3"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Covers the 18th-century building, heritage preservation, design, and location"}
+      ]
+    },
+    {
+      "id": 12,
+      "name": "email-decline",
+      "prompt": "Human-eyes the following short email declining a meeting invitation.",
+      "expected_output": "Text that reads like a natural, brief email",
+      "files": ["evals/samples/8-email-decline.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-collaborative-artifacts", "type": "programmatic", "description": "No chatbot artifacts", "check": "count == 0"},
+        {"name": "no-filler-phrases", "type": "programmatic", "description": "No filler phrases", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "meaning-preservation", "type": "qualitative", "description": "Declines the meeting and proposes alternative times"}
+      ]
+    },
+    {
+      "id": 13,
+      "name": "passthrough-human",
+      "prompt": "Human-eyes the following personal essay.",
+      "expected_output": "Text should be left mostly unchanged since it is already human-written with no AI tells",
+      "files": ["evals/samples/9-passthrough-human.md"],
+      "assertions": [
+        {"name": "no-em-dashes", "type": "programmatic", "description": "Zero em dashes", "check": "count of '\u2014' == 0"},
+        {"name": "no-ai-vocabulary-clustering", "type": "programmatic", "description": "No paragraph with 3+ AI vocabulary words", "check": "max AI words per paragraph < 3"},
+        {"name": "no-manufactured-insight", "type": "programmatic", "description": "No manufactured insight phrases", "check": "count == 0"},
+        {"name": "no-promotional-language", "type": "programmatic", "description": "No promotional words", "check": "count == 0"},
+        {"name": "no-curly-quotes", "type": "programmatic", "description": "No curly quotes", "check": "count == 0"},
+        {"name": "sentence-length-variance", "type": "programmatic", "description": "Varied rhythm (stdev > 4)", "check": "stdev > 4"},
+        {"name": "no-formulaic-openers", "type": "programmatic", "description": "No formulaic paragraph openers", "check": "count == 0"},
+        {"name": "no-signposted-conclusions", "type": "programmatic", "description": "No signposted conclusions", "check": "count == 0"},
+        {"name": "no-excessive-hedging", "type": "programmatic", "description": "No excessive hedging", "check": "count < 4"},
+        {"name": "passthrough-quality", "type": "qualitative", "description": "Output should be minimally changed from input since the input has no AI tells. Named people, specific memories, and personal voice should be preserved intact."}
+      ]
+    }
+  ]
+}

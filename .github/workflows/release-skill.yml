@@ -1,0 +1,27 @@
+name: Release skill zip
+
+on:
+  push:
+    branches: [main]
+    paths: ['human-eyes/**']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip skill folder
+        run: cd human-eyes && zip -r ../human-eyes-skill.zip .
+
+      - name: Update latest release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete latest --yes 2>/dev/null || true
+          gh release create latest human-eyes-skill.zip \
+            --title "human-eyes (latest)" \
+            --notes "Download **human-eyes-skill.zip** below (not the source code archives). Upload this zip in Claude Code desktop settings." \
+            --latest

@@ -1,0 +1,646 @@
+1
+I walked into the session expecting a tools demo. What I got instead was a set of organising instincts—patterns the Loomio founders have learned the hard way while building software for groups that don’t rely on hierarchy to get things done. The throughline was simple: decentralisation doesn’t happen by default. It’s designed, practised, and maintained.
+
+Below are the eight patterns as they were taught, with what landed for me in the room and how we’ve started to apply them.
+
+⸻
+
+1. Intentionally produce counter-culture (“belonging is a superpower”)
+
+The facilitators were explicit: if you want a decentralised group, you have to create a culture that makes it possible. That means designing for belonging—rituals, language, onboarding, and signals that say “you’re allowed to act here”.
+
+In the workshop, this showed up in small things: rounds where everyone spoke early, norms that prioritised listening over performance, and an assumption that newcomers could contribute meaningfully on day one. It felt engineered, not accidental.
+
+What we took away is that “culture” isn’t a backdrop. It’s an active system. If you don’t build it, the default culture (often hierarchical, often exclusionary) fills the gap.
+
+⸻
+
+2. Systematically distribute care labour (stewards and stewardees)
+
+Care work—checking in, following up, smoothing conflict—keeps groups alive, but it’s usually invisible and unevenly carried. The Loomio model pairs stewards with stewardees, making care a role with structure, not an afterthought.
+
+In the session, we mapped who currently holds care in our own group. The pattern was predictable: a small number of people doing most of it. Naming that out loud shifted the conversation from “people should step up” to “the system needs to change”.
+
+The steward/stewardee framing gives you a lightweight mechanism to distribute that load. It also legitimises care as work, which matters if you want it to be sustained.
+
+⸻
+
+3. Make explicit norms and boundaries
+
+“Unwritten rules are just rules some people don’t know yet.” That line stuck.
+
+The facilitators pushed us to externalise norms—how decisions are made, how conflict is handled, what’s in scope and what isn’t. Not as a static document, but as a living set of agreements that can be revised.
+
+We did a quick exercise where each group wrote down three norms we assume everyone knows. Then we swapped lists. The gaps were obvious. What felt “obvious” internally wasn’t obvious at all.
+
+The practical shift is to treat norms like infrastructure: visible, versioned, and easy to reference.
+
+⸻
+
+4. Keep talking about power
+
+Decentralisation doesn’t eliminate power; it redistributes it. If you stop naming power, it recentralises quietly.
+
+This pattern was less comfortable, which is probably the point. We were asked to identify where power actually sits in our groups—who sets agendas, who has context, who controls access to tools or information. The answers weren’t always aligned with formal roles.
+
+The facilitators modelled a simple discipline: revisit power regularly, not just when something breaks. That normalises the conversation and reduces the friction of raising it.
+
+⸻
+
+5. Make decisions asynchronously
+
+If decisions only happen in meetings, you privilege the people who can attend and perform in that format. Asynchronous decision-making widens participation and gives people time to think.
+
+The Loomio approach structures this: proposals, time-bound input, clear decision rules. In the workshop, we ran a short async-style decision in the room—draft a proposal, gather reactions, iterate, then decide. Even compressed, it produced a more considered outcome than a typical “any objections?” moment.
+
+The key is discipline. Async only works if people know when to engage, how to respond, and when a decision closes.
+
+⸻
+
+6. Agree how you use tech (the “holy trinity”: realtime / async / static)
+
+Most groups accumulate tools without agreement. The result is fragmentation: decisions in chat, context in documents, history lost in threads.
+
+The “holy trinity” frames three modes:
+
+	•	Realtime (e.g. chat, meetings) for rapid exchange
+	•	Async (e.g. forums, decision tools) for considered input and decisions
+	•	Static (e.g. docs, wikis) for durable knowledge
+
+The pattern is to agree what each mode is for—and stick to it. In the workshop, we mapped our current tools against these modes. The overlaps and gaps were obvious.
+
+Our immediate change was simple: stop making decisions in chat. Use async spaces for decisions, and static spaces for the final record.
+
+⸻
+
+7. Use rhythm to cut information overload
+
+Information overload isn’t just volume; it’s unpredictability. Rhythm—regular cycles of activity—helps people know when to pay attention.
+
+The facilitators shared examples: weekly check-ins, monthly retros, quarterly planning. Not as meetings for their own sake, but as anchors that structure the flow of work.
+
+We tested this by sketching a basic cadence for our group. Even a rough rhythm reduced the sense of constant interruption. It created “edges” around work, which is what people need to manage attention.
+
+The insight here is that rhythm is a coordination tool. It reduces cognitive load without centralising control.
+
+⸻
+
+8. Generate new patterns together
+
+The final pattern is meta: don’t just adopt patterns—create them. Decentralised groups need the capability to evolve their own practices.
+
+The workshop itself modelled this. After introducing the patterns, the facilitators had us adapt them to our contexts, then share back what we’d changed. Some groups merged patterns; others added constraints or rituals.
+
+What mattered wasn’t fidelity to the original model, but the act of collective design. That’s what builds ownership and keeps the system adaptable.
+
+⸻
+
+What changed for us
+
+The workshop didn’t give us a finished operating model. It gave us a set of levers.
+
+We left with a few concrete shifts:
+
+	•	Care is now explicit. We’ve started pairing stewards and stewardees, with a simple expectation of regular check-ins.
+	•	Decisions have a home. We’re moving proposals into an async space with clear timelines, and documenting outcomes in a static location.
+	•	Norms are visible. We’ve drafted a short set of working agreements and put them somewhere everyone can find (and edit).
+	•	We’re naming power earlier. Not perfectly, but more often, and with less hesitation.
+	•	We’re testing a rhythm. A lightweight weekly and monthly cadence to stabilise attention.
+
+None of this is dramatic. That’s the point. Decentralisation is built from small, repeatable practices.
+
+Friction and limits
+
+A few constraints are worth naming.
+
+	•	Discipline is required. Async decision-making and tool agreements only work if people follow them. Without that, things drift back to the easiest path (usually chat).
+	•	Time to adopt. Making norms explicit and redistributing care takes effort upfront. It can feel slower before it feels better.
+	•	Power doesn’t disappear. Even with good patterns, informal power persists. The work of noticing and rebalancing is ongoing.
+
+The facilitators didn’t present these as problems to solve once. They’re conditions to manage continuously.
+
+Closing reflection
+
+What stayed with me most is the framing of decentralisation as a design problem, not a personality trait. You don’t get it by hiring the right people or declaring flatness. You get it by building systems—cultural, social, and technical—that make distributed action viable.
+
+“Belonging is a superpower” sounded soft at first. By the end, it felt operational. If people feel they belong, they act. If they act, work distributes. If work distributes, hierarchy loosens.
+
+That’s the loop these patterns are trying to sustain.
+
+2
+Workshops as portals
+
+And how to create clarity in consulting work
+
+Halfway through the morning, someone in the room says the thing everyone has been avoiding.
+
+“So are we actually trying to fix the onboarding process, or are we trying to decide who owns it?”
+
+There is usually a small silence after a question like that. Not an awkward silence, exactly. More like the sound of a group recalibrating. People look at each other. Someone leans back. Someone else gives a tiny nod, because yes, that is the real question. The slide on the wall says “current-state journey map”, but the work has moved somewhere more useful. The room has crossed the threshold from performance into truth.
+
+This is why I like workshops.
+
+Not because they are fun. Not because they produce sticky notes. Not because everyone gets to feel included, though that can matter. I like workshops because they are portals. They move a client and a consultant from abstract possibility into a shared experience of working together. They show the client how you think. They show you how the client makes decisions. They reveal whether the problem is clear, whether the group has authority, whether the politics are manageable, and whether there is enough trust to do the larger piece of work.
+
+A good workshop is not a miniature version of the solution. It is a charged, time-boxed way to create clarity. That clarity is valuable in its own right. It is not a free prelude to the real work. It is consulting work.
+
+This is one of the most useful lessons I have learned as a consultant: you do not need to sell the whole transformation, research program, operating model, content strategy or service redesign upfront. Often, you should not. You can sell the first intelligent container. A one-day workshop is often the best container there is.
+
+The inside/outside problem
+
+Consulting has a persistent inside/outside problem.
+
+The client knows the organisation from the inside. They understand the history, the personalities, the prior attempts, the acronyms, the informal rules, the sensitivities, the teams that do not talk to each other, and the executive who has already formed a view. They know more than you do.
+
+The consultant comes from the outside. You bring pattern recognition, method, pace, independence, external examples, and the ability to ask questions that insiders may no longer be allowed to ask. You can see things that have become normalised inside the system. But you do not yet understand the local terrain.
+
+Both sides are slightly exposed at the beginning.
+
+The client is wondering: will this person get it? Will they understand our context without making us explain everything from first principles? Will they be useful, or will they sell us a generic process? Will they make us look foolish in front of our stakeholders?
+
+The consultant is wondering: is this the stated problem or the real problem? Does the sponsor have authority? Are the constraints real or inherited? Is there a decision to be made, or just an appetite for activity? Is this work feasible?
+
+A proposal can only answer so much. A credentials deck answers even less. A workshop answers something more important: how does it feel to work together?
+
+That question is not soft. It is commercial. It tells both parties whether there is enough shared language, confidence and momentum to proceed. It also prevents one of the most common failures in consulting: selling a large engagement before anyone has understood the shape of the problem.
+
+A workshop lets the relationship become real without pretending everything is already known.
+
+Clarity is a deliverable
+
+Consultants often undercharge for clarity because they confuse it with preparation.
+
+They treat discovery as something that happens before the paid work. They have a few unpaid conversations, diagnose too much too early, write a proposal full of assumptions, and hope the client agrees. Then the project begins, and everyone discovers that the assumptions were incomplete.
+
+A better model is to make clarity the first paid outcome.
+
+The point of a one-day workshop is not to solve the problem. It is to create a shared understanding of the problem, the decision context, the constraints, the stakeholders, and the next sensible move. That is not a lesser outcome. In many organisations, that is the work nobody has been able to do.
+
+Clarity matters for the client because it reduces internal fog. A team may have been carrying a problem for months, but carrying it in fragments. One person sees a governance issue. Another sees a technology issue. Another sees a resourcing issue. Another sees a leadership issue. Another sees a “comms problem”, which often means nobody has agreed what is true.
+
+The workshop makes the implicit visible. It gives the group a way to see the problem as a system rather than as competing grievances. It also creates a record: what we know, what we do not know, what we disagree on, what matters most, and what we are going to do next.
+
+Clarity matters for the consultant because it protects the work. It stops you from accepting a vague brief and turning it into an overconfident scope. It lets you test the client’s appetite for evidence, decisions and trade-offs. It shows you where the risks are before you are committed to delivery.
+
+A workshop also gives you something no written brief can provide: behavioural data.
+
+Who speaks first? Who keeps returning to risk? Who reframes everything as a technology issue? Who has authority but stays silent? Who is treated as difficult, but is actually naming the constraint? Who asks practical questions? Who performs certainty? Who is absent, and what does their absence tell you?
+
+This information changes the way you scope the work. It often changes whether you want the work at all.
+
+Do not sell the workshop as the solution
+
+A mistake I see consultants make is trying to sell a one-day workshop as though it will fix something.
+
+“We’ll solve your strategy.”
+“We’ll align the team.”
+“We’ll map the whole experience.”
+“We’ll define the operating model.”
+“We’ll create the roadmap.”
+
+No, you probably will not. Not properly. Not in a day.
+
+A one-day workshop can create the conditions for those things. It can clarify the decision to be made. It can surface assumptions. It can establish priorities. It can identify evidence gaps. It can generate options. It can produce a draft direction. It can build enough shared confidence to move into a larger engagement.
+
+But if you promise resolution, you will either over-facilitate the room into false agreement or disappoint the client when reality proves more complex.
+
+The more honest position is stronger: this workshop will create clarity about the problem, the stakeholders, the decision points and the next phase of work.
+
+That is chargeable. That is useful. That is a legitimate consulting outcome.
+
+The language matters. I try to avoid selling a workshop as “collaborative ideation” or “a fun session to get everyone aligned”. That makes it sound optional. Instead, I describe it as a structured working session to establish the current state, clarify the target outcome, identify constraints and agree the next decision pathway.
+
+This frames the workshop as serious work. It also attracts better participants. People understand they are not attending a morale exercise. They are there to think, decide and expose what needs to be resolved.
+
+Structure for outcomes, not happiness
+
+A workshop can feel good and still be useless.
+
+This is a harsh truth, but it saves a lot of trouble. Participants may enjoy the session because it is different from their usual meetings, because they get to speak, because the facilitator is competent, or because the catering is decent. Enjoyment is not the same as progress.
+
+The question is not “did people like the workshop?”
+
+The question is “what changed because the workshop happened?”
+
+Sometimes what changes is a decision. Sometimes it is a reframed problem. Sometimes it is agreement about scope. Sometimes it is the discovery that the client is not ready to proceed. Sometimes it is the recognition that three teams are using the same word to mean different things.
+
+Those are outcomes.
+
+When designing a workshop, I start with the exit conditions. By the end of the day, what must be clearer than it is now? What must the sponsor be able to say? What must the group understand? What must be documented? What decision does this workshop enable, even if it does not make the decision itself?
+
+That usually leads to a simple structure.
+
+First, establish the frame. Why are we here? What decision or uncertainty does this session support? What is in scope? What is out of scope? What will not be resolved today?
+
+Second, build the shared picture. What is happening now? What evidence do we have? What are people experiencing? Where are the pain points, risks or missed opportunities? What do we know versus assume?
+
+Third, expose the tensions. Where do participants disagree? What constraints matter? What trade-offs are unavoidable? What has been tried before? What would make this fail?
+
+Fourth, create direction. What options are available? What criteria should be used to assess them? What is the most sensible next step? What needs further investigation?
+
+Finally, close with commitments. Who needs to be involved next? What decisions are required? What artefact will come out of the session? What will the consultant do, and what does the client need to provide?
+
+This is not complicated, but it is disciplined. Without that discipline, workshops become a sequence of activities rather than a progression of thinking.
+
+The workshop is a diagnostic instrument
+
+The workshop itself tells you what kind of consulting work may be needed next.
+
+For example, if the group cannot agree on the problem, the next phase may need to be discovery, research or diagnostic work. If the problem is clear but ownership is confused, the next phase may need to focus on governance. If there is strong agreement but no evidence, the next phase may need to test assumptions with users, staff or data. If everyone knows the answer but nobody has permission to act, the issue is probably sponsorship or decision rights.
+
+This is why workshops are such effective entry points. They do not just produce outputs. They reveal the nature of the work.
+
+In one project, I was asked to run a session that was initially described as a content planning workshop. The client wanted to make a large website easier to use, and the assumed activity was to map content types and page priorities. Once we got into the room, it became obvious that the content problem was real but downstream. The deeper issue was ownership. Different business areas were publishing content to meet local needs, but nobody had authority over the whole user experience. Search was poor, navigation was inconsistent, and users were encountering the organisation as a set of internal divisions rather than as a coherent service.
+
+The workshop did not fix the website. It did something more useful at that stage: it clarified that a content uplift alone would fail without a governance model. That changed the next piece of work. The client did not need a better page template first. They needed decision rights, publishing standards, and a clearer model for who owned the digital front door.
+
+In another piece of work, a client came in wanting help designing a program for a new audience. The first conversation was full of good intent but too many assumptions. A one-day workshop helped us separate the policy ambition from the delivery mechanism. We mapped the audience’s likely barriers, the client’s constraints, the evidence already available, and the parts that still needed co-design. By the end, the most valuable output was not a polished program concept. It was a set of questions the organisation had to answer before investing in delivery.
+
+That sounds modest. It was not. It prevented premature design. It saved the client from building a program around internal enthusiasm rather than participant reality.
+
+Useful prompts for jam-sessions
+
+Some workshops need formal activities. Others need well-held conversation.
+
+I use “jam-session” to describe a working conversation with enough structure to stay productive but enough openness to let the real material emerge. These sessions are useful early in consulting work, especially when the client knows a lot but has not yet organised that knowledge into a clear brief.
+
+The facilitator’s job is to keep the conversation moving between concrete evidence and useful abstraction. Too concrete, and the room drowns in detail. Too abstract, and everyone agrees with words that do not mean anything.
+
+A few prompts I return to:
+
+“What is the problem this work is meant to change?”
+
+Not “what is the project?” Not “what are we building?” Start with the change. If the group cannot answer this, the brief is not ready.
+
+“What makes this hard here?”
+
+This prevents generic diagnosis. Most problems have a local shape. The method may be familiar, but the constraints are specific.
+
+“What has already been tried?”
+
+This respects the client’s history and avoids accidentally recommending something that failed two years ago. It also surfaces organisational scar tissue.
+
+“What do people disagree about?”
+
+This is often more useful than asking what people agree on. Agreement can be polite. Disagreement is informative.
+
+“What would make this work fail?”
+
+This prompt changes the energy in the room. People are often more honest when asked about failure than when asked about success.
+
+“Who needs this to be true?”
+
+This is useful when a claim keeps appearing without evidence. It helps separate fact from institutional preference.
+
+“What decision does this enable?”
+
+This keeps the workshop from becoming an exercise in discussion. Consulting work should eventually support a decision, even if that decision is to investigate further.
+
+“What would we need to know to proceed with confidence?”
+
+This prompt is especially useful when the room wants certainty too early. It turns anxiety into an evidence plan.
+
+“What is out of scope, and are we comfortable with that?”
+
+Scope is not just what you include. It is what you exclude without later pretending you forgot.
+
+“What is the smallest useful next step?”
+
+This helps when the group is overwhelmed. Not every next step needs to be dramatic. It needs to be real.
+
+These prompts work because they are not clever. They are plain. They create pressure in the right places. They also make the consultant’s value visible. You are not there to dominate the room with frameworks. You are there to help the room think better than it could without you.
+
+The artefact matters
+
+A workshop should produce something after the room clears.
+
+Not a transcript. Not photographs of sticky notes dumped into a slide deck. Not a decorative summary that says everyone had a productive discussion.
+
+The artefact should capture the clarity created.
+
+Depending on the work, this might be a concise findings note, a problem statement, a decision brief, a current-state map, a prioritised opportunity list, a draft roadmap, a scope recommendation, or a proposed next-phase plan.
+
+The artefact is where the consulting value becomes portable. It allows the sponsor to brief upward, socialise the work, secure funding, or decide not to proceed. It also protects against the workshop becoming a pleasant memory rather than a business input.
+
+I usually think about the artefact before designing the session. If the final output is a decision brief, the workshop needs to generate decision criteria. If the output is a discovery plan, the workshop needs to expose assumptions and evidence gaps. If the output is a roadmap, the workshop needs to clarify dependencies and sequencing.
+
+This also helps with pricing. The client is not paying for seven hours in a room. They are paying for preparation, facilitation, synthesis, judgement and a usable artefact.
+
+Do not undersell the day
+
+A one-day workshop should not be priced like a casual meeting.
+
+If you are a consultant with meaningful expertise, $4,000 for a day is not outrageous. In many contexts, it is low. The day itself may be seven hours, but the work is not.
+
+You need to understand the context, design the session, prepare materials, manage the room, adapt in real time, synthesise the outputs, and produce something the client can use. You are also bringing years of pattern recognition into that room. The client is not buying time. They are buying compression.
+
+A well-run workshop can save weeks of circular internal discussion. It can prevent a poorly scoped project. It can reveal that the client needs a different intervention. It can create the confidence required to fund the next stage. It can also show that a larger engagement would be wasteful or premature.
+
+That is valuable.
+
+Underpricing creates other problems too. It signals that the workshop is lightweight. It attracts clients who treat it as a brainstorming session rather than a serious working session. It also pressures the consultant to over-sell the next phase because the first phase was not commercially viable.
+
+A properly priced workshop lets you be more honest. You can sell the day as its own useful engagement, not as a loss leader. If more work follows, good. If it does not, the client still receives value and you have not subsidised their indecision.
+
+The workshop as mutual audition
+
+There is another reason workshops work well as an entry point: they are mutual auditions.
+
+The client is testing you. That is fair. They want to know whether you can hold complexity, work with their people, understand their language, and create momentum without bulldozing the room.
+
+You are also testing the client. That is equally fair. You want to know whether they can make decisions, tolerate ambiguity, provide access to the right people, and engage with evidence. You want to know whether the sponsor will protect the work or disappear when trade-offs appear.
+
+This does not need to be cynical. It is responsible.
+
+Some clients are not ready for the work they think they want. Some are ready, but for a different piece of work. Some have a strong sponsor and a messy problem, which is often workable. Some have a neat brief and no authority, which is often not.
+
+A workshop reveals these things quickly.
+
+I have left workshops more confident that the client needed a substantial program of work. I have also left workshops thinking the best recommendation was to pause, gather evidence, or narrow the scope. That recommendation can feel commercially counterintuitive, but it builds trust. It also prevents the consultant from inheriting a problem that nobody is willing to own.
+
+What the client is really buying
+
+When a client buys a workshop, they are not only buying facilitation.
+
+They are buying a temporary thinking environment.
+
+Inside that environment, the normal patterns are interrupted. The urgent gives way to the important. People who usually communicate through documents or meetings are asked to think together. Assumptions become visible. Decisions become explicit. Ambiguity gets named rather than carried.
+
+The consultant’s job is to design and hold that environment.
+
+That means paying attention to pace, evidence, authority, participation and synthesis. It means knowing when to let the room explore and when to intervene. It means not mistaking volume for insight. It means protecting quieter forms of expertise. It means noticing when the group is avoiding the real issue.
+
+It also means resisting the temptation to make everyone happy.
+
+Some of the best workshops involve discomfort. Not hostility, not confusion, not theatrical conflict. Just the discomfort of being more precise than usual. The discomfort of admitting that the problem is not the one written in the brief. The discomfort of realising that a favourite solution has no clear owner. The discomfort of seeing that “alignment” has been used to cover unresolved decisions.
+
+That discomfort is often the portal.
+
+A workshop is not a trick
+
+I do not see workshops as a sales trick. They are not a way to smuggle in a larger engagement. They are a way to begin in proportion to what is known.
+
+Sometimes the next step after a workshop is a major discovery phase. Sometimes it is a small advisory engagement. Sometimes it is a roadmap. Sometimes it is a recommendation that the client do internal work before bringing in external support. The point is not to force a predetermined path. The point is to create enough clarity that the next path is credible.
+
+This is why the one-day workshop is such a useful consulting offer. It is contained, understandable and low-risk compared with a large engagement. But it is not trivial. It gives the client something they need and gives the consultant enough exposure to scope responsibly.
+
+It bridges the inside/outside problem by creating a shared inside, even briefly. For one day, the consultant is no longer looking at the organisation through a brief, and the client is no longer assessing the consultant through a proposal. Both are in the work.
+
+That changes the relationship.
+
+The threshold
+
+By the end of a good workshop, the room should feel different. Not euphoric. Clearer.
+
+People should be able to say what the work is really about. They should understand where they agree, where they do not, what evidence is missing, and what decision comes next. The sponsor should have language they can use. The consultant should have enough information to recommend a sensible next step.
+
+That is the threshold.
+
+A workshop is a portal because it moves everyone through that threshold together. Before it, the work is still mostly imagined. After it, the work has a shape. It may be larger than expected, smaller than expected, or different from what was first described. But it is no longer vague.
+
+That is why clarity deserves to be sold.
+
+Not as a warm-up. Not as a free diagnostic. Not as a cheerful day of sticky notes.
+
+As real consulting work.
+
+3
+What MDMA Therapy Did For Me
+
+I never thought I’d be lying on a sofa, blindfolded, clutching the hand of a therapist I’d met barely a week before, as warm waves of chemically induced empathy peeled away decades of self-defence. But there I was, tears soaking through my mask, muttering softly, “Holy shit, I’m actually okay.”
+
+Let’s rewind.
+
+Before I stepped into MDMA-assisted therapy, the whole idea felt like something only privileged Californians or fringe psychonauts would entertain. I’d spent years navigating traditional talk therapy—battling childhood trauma, fucked-up attachment patterns, and a persistent sense of inadequacy—but those sessions, despite their usefulness, felt incomplete. They were missing something visceral, something I couldn’t access through mere words.
+
+The stigma was real. The moment I told a friend I was considering MDMA therapy, their face twisted in concern. “You’re going to take ecstasy with a therapist?” they asked, half-amused, half-horrified. It sounded irresponsible at best, dangerous at worst. Yet beneath my own scepticism, something resonated—a quiet, insistent voice telling me I needed a different approach.
+
+Eventually, curiosity and desperation outweighed the discomfort of judgment. My anxiety had reached critical levels; my marriage, though loving, was fraying under the weight of my unresolved emotional baggage. I was tired of flinching whenever someone hugged me, of overreacting to innocent comments, of carrying shame like a fucking birthmark. I needed a catalyst for change.
+
+The Setup
+
+My first session happened in a quiet room bathed in warm lamplight, designed specifically for psychedelic-assisted therapy. My two therapists—compassionate, steady, and deeply trained in trauma-informed care—sat nearby, offering reassuring smiles as they explained the process.
+
+The set and setting, they emphasised repeatedly, were critical. The therapeutic space was safe, private, and comforting. Soft blankets, ambient music, and fresh flowers created a cocoon-like atmosphere, contrasting sharply with my sterile preconceptions of medicalised interventions.
+
+After thorough medical screening and prep sessions, the day arrived. I swallowed 120 milligrams of pharmaceutical-grade MDMA with ceremonial gravitas, feeling a mixture of apprehension and cautious hope. They placed headphones over my ears, covered my eyes with a soft mask, and invited me inward.
+
+Within about forty-five minutes, warmth blossomed through my chest. It felt as though a heavy curtain had lifted, revealing a room in my heart I’d always avoided. I found myself weeping—not in pain, but from the profound relief of finally feeling safe.
+
+Into the Heart of Trauma
+
+MDMA allowed me to face my childhood without recoiling. Memories surfaced gently, carrying their emotional weight without overwhelming me. Rather than dissociating or numbing, I was fully present. I saw clearly, maybe for the first time, how early neglect and inconsistent caregiving had shaped my fears of abandonment and rejection. I recognised how these buried wounds had distorted my perceptions, influencing my marriage and friendships.
+
+The therapists guided me softly, asking gentle questions, validating my experiences without imposing narratives. For the first time, compassion—true, visceral compassion—for my younger self emerged effortlessly. The little kid who’d felt forgotten and unworthy was no longer someone I rejected or pitied; she was simply a part of me deserving of love and understanding.
+
+Shifting Patterns
+
+Integration—the period after the session where you actively process insights—wasn’t easy. My life didn’t magically fall into place; I still had difficult conversations, still faced painful triggers. But now, the groundwork had changed.
+
+I spoke to my parents with openness I’d never thought possible, finally expressing how certain childhood moments had lingered. Their responses weren’t perfect, but for once, that didn’t shake me. My attachment anxieties loosened their grip, not because the past changed, but because my relationship to it had shifted profoundly.
+
+My marriage transformed subtly but significantly. Arguments that previously spiralled into defensiveness became opportunities for deeper understanding. My husband remarked one night, “You’re here now. Like really here.” He was right—I’d stopped hiding behind protective layers.
+
+Yet, MDMA wasn’t a panacea. Some insecurities and patterns persisted stubbornly, still needing work. The treatment wasn’t about eradicating problems but equipping me to address them from a place of emotional clarity rather than defensive panic.
+
+The Real Talk
+
+I won’t sugarcoat it: this isn’t something everyone should rush into. MDMA is illegal in most contexts, and self-medicating carries significant risks. My experience was clinical, supervised, and meticulously prepared. It was therapy—not recreational experimentation.
+
+And even so, the drug itself didn’t heal me; it merely removed barriers that traditional therapy alone hadn’t breached.
+
+Today
+
+Months later, my sense of self has shifted fundamentally. The anxiety and trauma responses haven’t disappeared entirely, but my relationship with them has. I’m less reactive, more compassionate—both to myself and those around me. MDMA therapy didn’t solve every issue, but it made the path to healing clearer.
+
+This treatment taught me a crucial truth: trauma isn’t something you erase, it’s something you understand, accept, and learn to carry differently. In the end, MDMA therapy did exactly that for me—it showed me how to carry my pain without collapsing under it.
+
+And today, I’m finally walking upright.
+
+4
+Servant Hedonism:
+
+▎ My Life Philosophy
+
+It was an unremarkable Sunday afternoon when it landed. The laundry was half-done. The week’s calendar was open. I was doing that familiar thing where “rest” quietly turns into “planning” and the mind starts tallying what it owes.
+
+I began a list—who to check in on, what to finish, what to organise—and noticed the list wasn’t really about tasks. It was about what I keep trying to protect: people, promises, momentum, and whatever version of myself can meet the world without bracing.
+
+That’s when it clicked: there is a life philosophy running under my habits. It’s been there for years, shaping my choices even when I haven’t named it.
+
+If it needs a name, it’s Servant Hedonism.
+
+Here’s the thesis. Service to others and personal pleasure are usually treated as opposites. The cultural script is neat: sacrifice equals goodness; enjoyment equals selfishness. Pick a side.
+
+But in lived reality they’re not enemies. They reinforce each other. Service without pleasure becomes martyrdom. Pleasure without service becomes self-centredness. Together, deliberately, they form something stable: a way of living that is both useful and vivid.
+
+This isn’t a pitch for hustle in disguise, and it isn’t a defence of constant indulgence. It’s a practical philosophy for building a life where contribution and enjoyment support the same system: your energy, attention, and capacity to show up.
+
+The servant half
+
+Service is the most reliable compass I have. When I feel scattered, the fastest way back is to ask: Who needs something real from me, and what does “help” actually mean right now?
+
+There’s a steadiness that comes from being useful. It shifts me out of my own internal commentary and into concrete action: cook a meal, make the call, review the document carefully, show up, follow through. It also forces contact with reality. Reality has constraints—time, money, bodies, consent. If I’m paying attention, service trains humility: not self-neglect, but accurate self-assessment.
+
+Service is also a powerful productivity anchor. It turns effort into meaning. It makes planning feel less like personal optimisation and more like stewardship: of relationships, teams, and work that matters beyond my ego.
+
+But service has a shadow, and it’s not subtle once you know the signs.
+
+For me, the shadow is the moment service stops being chosen and becomes performed. Saying yes because I’m afraid of disappointing people. Confusing being needed with being valued. Treating my capacity as infinite and my needs as negotiable.
+
+Martyrdom doesn’t always look dramatic. Often it looks competent. Reliable. “Fine.” It’s the slow leak of always being the one who absorbs the mess, stays late, answers quickly, smooths things over, and then wonders why life feels tight and grey.
+
+The clearest early warning is resentment. Resentment is data. It says: Something here is out of balance. You’re giving beyond what you can sustainably offer.
+
+Another trap is control. Constant helping can be a way to avoid being helped. If I’m always the capable one, I don’t have to risk receiving, admitting limits, or letting someone else do it differently.
+
+This is where adrienne maree brown’s work has been a useful corrective. She writes about liberation and care in a way that refuses the idea that other people’s freedom should be built on someone else’s ongoing bondage. I treat that as an audit question: Am I trying to do good in a way that makes me smaller? If yes, it’s not noble. It’s a design flaw.
+
+Service is essential. But service alone becomes a moral treadmill: always more to do, always someone else first, always a lingering sense that rest must be earned.
+
+The hedonist half
+
+If service is my compass, pleasure is my fuel. And for a long time, I distrusted fuel. Pleasure felt like something to permit only if it didn’t interfere with output.
+
+That approach is efficient in the short term. It’s also brittle. A life that treats enjoyment as optional eventually pays for it in the currency of low motivation, thin creativity, and a constant sense of “getting through” rather than living.
+
+Pleasure, taken seriously, is not laziness. It’s information. It tells me what makes me feel awake. It points to what I care about when I’m not performing usefulness. It reminds me I’m a person in a body, not a productivity unit.
+
+It’s also something I can practise. In my best weeks, pleasure isn’t a reward at the end of deprivation; it’s built into the design. Coffee outside. Music while cleaning. A walk that isn’t for steps. Cooking slowly because it tastes better. A book that isn’t “relevant”. A proper laugh with someone who doesn’t require me to be impressive.
+
+In a productivity-adjacent sense, pleasure is maintenance. It replenishes attention. It reduces friction. It makes it more likely I’ll keep my promises without turning hard. Pleasure isn’t the opposite of discipline; it’s one of the things that makes discipline sustainable.
+
+But pleasure has its own shadow.
+
+Pleasure without service can become a self-referential loop: comfort as the highest good, the horizon shrinking to preference. Other people become either an audience or an inconvenience. The world becomes a background for personal taste.
+
+There’s also the problem of escalation. When pleasure is the primary organising principle, it can slide from aliveness into craving—more stimulation, more novelty, more consumption—while leaving the actual self untouched.
+
+Pleasure is essential. But pleasure alone is unstable. It needs a tether to something beyond the self.
+
+Bringing them together: Servant Hedonism
+
+Servant Hedonism is the decision to stop pretending these forces have to compete.
+
+Service keeps pleasure from becoming narcissism. Pleasure keeps service from becoming martyrdom.
+
+Together they form a feedback loop that works:
+
+	•	Service gives me a reason to care for myself, because my commitments require a functioning nervous system.
+	•	Pleasure gives me the capacity to keep serving, because it restores energy and goodwill.
+	•	Service expands meaning, which makes pleasure richer.
+	•	Pleasure softens my edges, which makes service kinder and less controlling.
+
+The day-to-day practice is small and repetitive. When I’m deciding how to spend an evening, or what to say yes to, I try to ask a paired question: What would be genuinely helpful here? And what would be genuinely nourishing? If I can’t answer both, I’m usually drifting towards one of the failure modes—self-sacrifice dressed up as virtue, or self-soothing dressed up as freedom.
+
+This philosophy also changes how I measure “goodness”.
+
+In the martyr model, goodness is self-erasure: the less I need, the better I am. In the indulgence model, goodness is self-gratification: the more I can secure, the better I am.
+
+In Servant Hedonism, goodness is sustainability with joy. Giving without disappearing. Receiving without taking. Contributing because I care, not because I’m buying worthiness with depletion.
+
+Practically, it shows up as a few rules I try to live by:
+
+	1	Resentment triggers renegotiation. Not because service is always easy, but because persistent resentment means I’m overdrawn.
+	2	Numbing isn’t pleasure. If a “treat” leaves me less present afterwards, it’s a coping strategy, not replenishment.
+	3	Helpful doesn’t mean indispensable. If my help makes me the only person who can hold something together, I’m probably propping up a broken system.
+	4	Joy is a line item. If my calendar has no joy, my service will eventually degrade into brittle efficiency.
+
+That Sunday afternoon wasn’t about discovering a new idea. It was about naming the pattern I keep returning to when life gets noisy.
+
+There will always be tension between what I owe and what I want. The aim isn’t to eliminate it. The aim is to stop letting it split me into two incompatible selves: the “responsible” one who never rests, and the “free” one who doesn’t care.
+
+Servant Hedonism is my refusal of that split. To serve with consent and boundaries. To pursue pleasure without shame or isolation. To build a life that is useful—and a life that tastes good—at the same time.
+
+5
+First men, original sins
+
+Faith, frontier, and the moral imagination of American spaceflight
+
+There is a familiar way to tell the story of the American space program: a sequence of technical milestones underwritten by Cold War urgency, culminating in the controlled triumph of Apollo 11 Moon Landing. The story moves from fear to mastery, from Sputnik to the Sea of Tranquillity, and it ends—implicitly—with a kind of secular apotheosis. Humanity leaves the earth, plants a flag, and returns with samples and images that seem to close the gap between myth and machine.
+
+Yet this account is incomplete. It omits the dense field of meaning that surrounded these events as they unfolded: the language of calling and destiny, the moral vocabulary of sacrifice and risk, the persistent intuition that to leave the earth was not merely to extend human capability but to trespass into a domain long reserved for the divine. Three works—To Touch the Face of God by Kendrick Oliver, Destined for the Stars by Catherine L. Newell, and First Man directed by Damien Chazelle—offer a more complex interpretive frame. Together, they show that American spaceflight was never merely technological. It was, from the outset, entangled with religious imagination, haunted by ideas of sin and transgression, and sustained by a frontier mythology that recast exploration as both redemption and repetition.
+
+What emerges is not a coherent theology of spaceflight but a set of overlapping, sometimes contradictory narratives: space as sacred frontier, as profane extension of earthly ambition, and as a site where the moral limits of human aspiration are tested.
+
+⸻
+
+The sacred and the profane
+
+Oliver’s central claim is deceptively simple: that religion was not peripheral to the American space program but constitutive of its meaning. His title, To Touch the Face of God, taken from a line often (mis)attributed to pilots and later associated with astronauts, captures the ambiguity at the heart of the enterprise. Is spaceflight an act of reverence or of hubris? Does it bring humanity closer to the divine, or does it risk collapsing the distinction altogether?
+
+Oliver tracks how religious language permeated NASA’s culture and public representation. Astronauts were framed not only as test pilots but as exemplars of moral character—disciplined, self-sacrificing, and oriented towards a purpose that exceeded individual ambition. This framing mattered. In a period defined by existential threat, the figure of the astronaut provided a counter-image: not the anonymous bureaucrat of nuclear deterrence, but the visible, almost liturgical figure of the explorer who risked death in the pursuit of knowledge.
+
+Public rituals reinforced this framing. The reading from Genesis during Apollo 8 is a canonical example. As the spacecraft circled the Moon, the astronauts broadcast the opening lines of scripture to a global audience. Oliver notes the careful calibration of this moment: it was not a declaration of doctrine but an invocation of shared cultural language. The effect was nonetheless profound. The Moon—long a symbol in religious and poetic traditions—was recast as both object of scientific inquiry and stage for a quasi-liturgical performance.
+
+Yet Oliver resists any simple reading of this as evidence of a unified “space religion”. Instead, he emphasises tension. The same programme that staged moments of reverence also operated within a technocratic framework that prioritised control, calculation, and efficiency. The sacred and the profane were not reconciled; they coexisted uneasily.
+
+This tension becomes more acute when framed in terms of sin. If spaceflight is imagined as a reaching towards the divine, it risks repeating the archetypal narrative of overreach—the desire to transcend human limits. Oliver gestures towards this without fully resolving it. The language of transcendence, he suggests, always carries the shadow of transgression.
+
+⸻
+
+Destiny and its discontents
+
+If Oliver’s account is attentive to the ambiguity of religious language, Newell’s is more explicitly concerned with its forward projection. Destined for the Stars examines how religious imagination shaped not only the interpretation of early spaceflight but the expectations attached to its future.
+
+Newell argues that American space discourse drew heavily on eschatological motifs—ideas about ultimate destiny, fulfilment, and transformation. Space was not merely a new domain to explore; it was imagined as the next stage in a broader narrative of human development. This narrative was often framed in explicitly religious terms. Space colonisation became, in some accounts, a form of salvation: a way to transcend the limitations of earth, to escape ecological or geopolitical catastrophe, and to realise a latent potential embedded in human nature.
+
+This language intersects with frontier mythology. The American frontier has long been imagined as a space of renewal—a place where old constraints fall away and new identities can be forged. Newell shows how this mythology was transposed into a cosmic register. The “final frontier” is not simply the last in a series of geographic expansions; it is a reactivation of a familiar narrative in a new context.
+
+There is, however, a structural problem with this transposition. The frontier myth depends on a particular moral framing: expansion is justified because it is assumed to bring progress, order, and ultimately moral improvement. When applied to space, this assumption becomes harder to sustain. There are no indigenous populations on the Moon to displace, but the logic of expansion remains. The question is not who is harmed, but whether the underlying impulse—to extend control indefinitely—is itself subject to critique.
+
+Newell is attentive to this tension. She notes that alongside narratives of destiny, there were persistent counter-narratives that framed spaceflight as ethically ambiguous or even dangerous. Religious critiques often focused on the risk of idolatry: the elevation of technological achievement to a status that displaces or distorts traditional understandings of the divine.
+
+In this sense, spaceflight becomes a site where competing theologies of progress collide. One presents expansion as fulfilment; the other warns that the desire to transcend limits may itself be a form of moral failure.
+
+⸻
+
+Silence, grief, and the limits of transcendence
+
+Where Oliver and Newell work primarily through historical and textual analysis, First Man offers a different entry point. Chazelle’s film, centred on Neil Armstrong, is notable for what it withholds. It avoids overt theological framing and largely sidesteps the triumphant rhetoric associated with the space race. Instead, it presents spaceflight as an extension of a more intimate narrative: the attempt to live with loss.
+
+Armstrong’s journey in the film is structured around the death of his daughter. This loss is not resolved through the mission; it is carried into it. The Moon landing, in this context, is not a moment of transcendence in the usual sense. It is quieter, more ambiguous. The famous images are reframed through a lens of isolation. The lunar surface is not presented as a site of conquest but as an environment of radical distance—silent, indifferent, and resistant to projection.
+
+This reframing has implications for how the film engages with religious imagination. Rather than staging explicit moments of reverence, it allows the viewer to confront the limits of meaning. The question is not whether space brings humanity closer to the divine, but whether such a question can be meaningfully posed in a context defined by absence.
+
+There is a subtle but important shift here. In Oliver’s account, religious language provides a framework for interpreting spaceflight. In Newell’s, it shapes expectations about its future. In First Man, that framework begins to dissolve. The film suggests that the experience of space may resist the categories used to describe it. The sacred/profane distinction becomes less stable, not because it is resolved, but because it is rendered insufficient.
+
+The film’s final sequence, often read as symbolic, underscores this point. Armstrong leaves a personal token on the lunar surface—a gesture that has been variously interpreted as mourning, closure, or offering. The act is private, almost hidden within the broader narrative. It does not resolve the tension between transcendence and limitation; it simply marks it.
+
+⸻
+
+Frontier myth and original sin
+
+Across these works, the concept of the frontier operates as a unifying thread. It provides a narrative structure through which spaceflight is made intelligible: exploration leads to discovery, which leads to expansion, which leads to transformation. This structure is deeply embedded in American cultural history. It is also, as historians have long noted, morally ambivalent.
+
+The frontier myth carries within it a logic of repetition. Each new frontier is framed as an opportunity to correct the failures of the previous one—to build a more just, more equitable, more enlightened society. At the same time, the mechanisms of expansion often reproduce the very dynamics they are meant to overcome.
+
+When applied to space, this dynamic becomes abstract but no less significant. The absence of immediate ethical conflict does not eliminate the underlying question: what is the moral status of expansion itself? Is the drive to extend human presence indefinitely a form of fulfilment, or does it risk replicating a pattern of overreach that has historically been associated with harm?
+
+This is where the language of sin becomes analytically useful. Not in a narrowly doctrinal sense, but as a way of naming the tension between aspiration and limitation. The desire to explore, to know, to extend—these are not inherently problematic. They are, in many accounts, constitutive of what it means to be human. The problem arises when these desires are framed as limitless, when the possibility of constraint is excluded from the narrative.
+
+Oliver’s attention to the coexistence of sacred and profane language highlights this tension. Newell’s analysis of destiny narratives shows how it is projected into the future. First Man renders it at the level of individual experience. Together, they suggest that the space program can be read as a site where the moral imagination of mid-century America is both expressed and tested.
+
+⸻
+
+After Apollo
+
+The period covered by these works—roughly from the late 1950s to the mid-1970s—has a particular coherence. It begins with uncertainty and ends with a sense of closure. The Moon landings mark both a culmination and a turning point. The narrative of ascent reaches its peak, and then, abruptly, it stalls.
+
+What follows is less often framed in religious terms. The language of destiny persists, particularly in discussions of Mars and beyond, but it is attenuated. The sense of collective purpose that characterised the early space race is harder to sustain. The frontier remains, but its moral clarity is diminished.
+
+This shift raises a question that these works collectively invite but do not fully answer: what happens to the religious imagination of spaceflight when the initial moment of transcendence has passed? If the Moon landing represents a kind of fulfilment, what follows is a period of recalibration. The categories that once structured the narrative—sacred and profane, destiny and restraint—are still available, but they no longer map as neatly onto the experience of space exploration.
+
+In this sense, the early space program can be understood as a bounded episode: a moment in which technological capability, political urgency, and religious imagination aligned in a particular way. The challenge, for subsequent generations, is to interpret that moment without collapsing its complexity into a single narrative.
+
+⸻
+
+Conclusion
+
+Taken together, these works resist the reduction of the American space program to either triumphalism or critique. They show that spaceflight was, and remains, a site of interpretive contestation. It invites readings that emphasise transcendence and those that foreground limitation. It can be framed as fulfilment of a destiny or as repetition of a pattern of overreach.
+
+The language of religion—of sacred and profane, of sin and redemption—provides one way of navigating this terrain. It does not resolve the tensions it names, but it makes them visible. The frontier myth, similarly, offers a narrative structure that both illuminates and obscures. It explains why spaceflight was compelling; it also risks importing assumptions that are not easily justified.
+
+First Man complicates both frameworks by attending to the experiential dimension of spaceflight—the silence, the isolation, the persistence of grief. It suggests that whatever meanings are projected onto space, they are mediated by the limits of human experience.
+
+The result is a more restrained, but also more precise, account of what the space program represents. Not a simple story of progress or hubris, but a moment in which a particular culture confronted the boundaries of its own imagination—and, in doing so, revealed both its aspirations and its constraints.

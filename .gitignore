@@ -1,0 +1,29 @@
+__pycache__/
+.DS_Store
+
+# Skill-workspace iteration directories are per-run working data — heavy raw
+# eval outputs that the harness regenerates on demand. Only the summary
+# survives in git: latest-performance-report.md (stable link target) and
+# reports/<date>-iteration-N.md (browseable history).
+dev/skill-workspace/iteration-*/
+
+# Local ce-work skill config
+.compound-engineering/
+
+# Agent / Claude project memory — local only, not shared via the repo
+AGENTS.md
+CLAUDE.md
+
+# Local-only artefacts at repo root
+STRATEGY.md
+strategy.md
+requirements.txt
+
+# Internal working docs (plans, brainstorms, research, reviews, ideation,
+# todos, hypotheses, issues) — local-only, not shared via the repo.
+# Shareable engineering content lives under dev/ (evals, skill-workspace,
+# tools, TESTING.md) and stays tracked.
+docs/
+
+# Claude Code project config — local-only
+.claude/
