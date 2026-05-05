@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Grade humanised text against programmatic assertions."""
+"""Grade rewritten text against programmatic assertions."""
 
 import csv
 import ast
@@ -163,7 +163,7 @@ def _load_kobak_excess_vocab():
     here = Path(__file__).resolve()
     candidates = [
         here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
-        here.parents[2] / "humanise" / "references" / KOBAK_EXCESS_WORDS_PATH,
+        here.parents[2] / "human-eyes" / "references" / KOBAK_EXCESS_WORDS_PATH,
     ]
     for path in candidates:
         if path.exists():

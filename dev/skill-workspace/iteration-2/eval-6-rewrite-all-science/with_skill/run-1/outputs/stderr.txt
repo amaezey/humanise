@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit and rewrite this at all depth, including subtle structural tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/04-science-mycorrhizal.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/04-science-mycorrhizal.md
 
 ```markdown
 # The forest beneath the forest
@@ -68,21 +68,21 @@ The forest beneath the forest is therefore not a hidden utopia. It is infrastruc
 2026-04-28T16:59:11.771578Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:59:11.772093Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/humanise/humanise/SKILL.md && find /Users/mae/Documents/humanise/humanise -maxdepth 2 -type f | sort" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md && find /Users/mae/Documents/human-eyes/human-eyes -maxdepth 2 -type f | sort" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -90,7 +90,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -102,7 +102,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -115,7 +115,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
 4. Render the audit using the output template below.
@@ -303,33 +303,33 @@ Save wraps any of the four actions' output in a Markdown file. Combine freely wi
 
 Default save paths:
 
-- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+- Fallback: `./human-eyes-<action>.md` when there is no input path (e.g., pasted text).
 - Append `-2`, `-3` rather than overwriting an existing file.
 
 When Save is used:
 
 - The chat output is a one-line summary of the action's verdict, followed by `Saved to: <path>`, followed by the next-step question if one applies.
-/Users/mae/Documents/humanise/humanise/.DS_Store
-/Users/mae/Documents/humanise/humanise/SKILL.md
-/Users/mae/Documents/humanise/humanise/examples ai.txt
-/Users/mae/Documents/humanise/humanise/grade.py
-/Users/mae/Documents/humanise/humanise/references/alternatives.md
-/Users/mae/Documents/humanise/humanise/references/example.md
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv
-/Users/mae/Documents/humanise/humanise/references/patterns.md
-/Users/mae/Documents/humanise/humanise/references/process.md
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md
-/Users/mae/Documents/humanise/humanise/references/voice.md
+/Users/mae/Documents/human-eyes/human-eyes/.DS_Store
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt
+/Users/mae/Documents/human-eyes/human-eyes/grade.py
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md
+/Users/mae/Documents/human-eyes/human-eyes/references/example.md
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md
+/Users/mae/Documents/human-eyes/human-eyes/references/process.md
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md
+/Users/mae/Documents/human-eyes/human-eyes/references/voice.md
 
 2026-04-28T16:59:18.478512Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:59:18.479008Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/04-science-mycorrhizal.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/04-science-mycorrhizal.md' in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/humanise/humanise/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/human-eyes/human-eyes/references/patterns.md" in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/humanise/humanise/references/process.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/human-eyes/human-eyes/references/process.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # AI writing patterns
 
@@ -593,7 +593,7 @@ Current threshold: vocabulary pressure contributes points to an overall score. T
 
 
  succeeded in 0ms:
-# Humanise Rewrite and Write Process
+# Human-eyes Rewrite and Write Process
 
 This file is required for Rewrite and Write actions. Use it as the operating
 procedure after the audit has identified patterns and before returning prose.
@@ -703,7 +703,7 @@ When residual issues remain, name them plainly in the post-check. Do not say
 "none identified" if the grader still reports required failures.
 
 exec
-/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/humanise/humanise/references/voice.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/human-eyes/human-eyes/references/voice.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # Personality and soul
 
@@ -719,7 +719,7 @@ Removing AI patterns is therefore only half the job. You must also watch for wha
 
 AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related pattern is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
 
-Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+Human writing draws on real memories, named people, actual places, felt emotions. When rewriting, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
 
 ## Density without purpose
 
@@ -763,7 +763,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 2026-04-28T16:59:28.689784Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
  succeeded in 219ms:
 {
-  "file": "/Users/mae/Documents/humanise/dev/evals/samples/generated-ai/04-science-mycorrhizal.md",
+  "file": "/Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/04-science-mycorrhizal.md",
   "pass_rate": "38/43",
   "failures_by_severity": {
     "context_warning": 4,
@@ -2302,7 +2302,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 2026-04-28T16:59:36.359792Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:59:36.360047Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "python3 /Users/mae/Documents/humanise/humanise/grade.py --format json <(cat <<'EOF'
+/bin/zsh -lc "python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format json <(cat <<'EOF'
 After rain, a forest can pull the eye upward: wet leaves, darker bark, birds shifting in the canopy. Much of the work, though, is underfoot. Beneath the litter layer, roots run through soil threaded with fungal filaments so fine that a teaspoon of earth can hold a living mesh. Those fungi are part of the forest's metabolism. They help trees feed, recover after stress, compete for resources, and move carbon through the soil.
 
 The relationship is called mycorrhiza, from the Greek for \"fungus-root\". In a mycorrhizal association, a fungus colonises a plant's root system and grows outward as microscopic filaments called hyphae. The plant pays in carbon-rich compounds made by photosynthesis. The fungus helps the plant reach nutrients, especially phosphorus and nitrogen, along with water or trace elements beyond the root's own range. More than 80% of plant species form nutritional symbioses of this kind, and in many soils these fungi make up a large share of the living microbial biomass.
@@ -2333,7 +2333,7 @@ The useful way to think about mycorrhizal networks is to drop the fairy tale wit
 
 The forest under the forest is infrastructure, digestive system, and battleground at once. Its exchanges are chemical rather than sentimental. Its networks are patchy and hard to measure. That makes them less tidy than the \"wood-wide web\" story, and more interesting. A forest is not just a collection of trunks and crowns. It is a layered community negotiating matter and energy above ground and below it, with fungi doing much of the work where light cannot reach.
 EOF
-)" in /Users/mae/Documents/humanise
+)" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 zsh:1: can't create temp file for here document: operation not permitted
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
@@ -3534,7 +3534,7 @@ python3: error: couldn't create cache file '/tmp/xcrun_db-EuPNgJPR' (errno=Opera
 2026-04-28T17:00:21.154261Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T17:00:21.154510Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'rg "def grade|def check|def main|read_text|argparse|format" /Users/mae/Documents/humanise/humanise/grade.py | head -80' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg "def grade|def check|def main|read_text|argparse|format" /Users/mae/Documents/human-eyes/human-eyes/grade.py | head -80' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
     "cutting-edge", "game-changing", "transformative", "seamlessly",
     "the transformative power",
@@ -3616,7 +3616,7 @@ def main():
 2026-04-28T17:00:26.665362Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T17:00:26.665602Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '2460,2535p' /Users/mae/Documents/humanise/humanise/grade.py && sed -n '2680,2765p' /Users/mae/Documents/humanise/humanise/grade.py" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '2460,2535p' /Users/mae/Documents/human-eyes/human-eyes/grade.py && sed -n '2680,2765p' /Users/mae/Documents/human-eyes/human-eyes/grade.py" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
             "needs_user_decision": context_warnings,
             "summary": (
@@ -3784,7 +3784,7 @@ if __name__ == "__main__":
 2026-04-28T17:00:31.605148Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T17:00:31.605424Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'rg "Re-grade prose|def .*re|def .*grade" -n /Users/mae/Documents/humanise/humanise/grade.py | tail -20' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg "Re-grade prose|def .*re|def .*grade" -n /Users/mae/Documents/human-eyes/human-eyes/grade.py | tail -20' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 1007:def check_rule_of_three(text):
 2024:def annotate_result(result):

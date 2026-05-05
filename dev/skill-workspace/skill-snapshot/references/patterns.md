@@ -754,7 +754,7 @@ Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral whe
 **How to fix:**
 > Remote work is better for most knowledge workers. The productivity data from Stanford and Owl Labs both point the same way, and the main counterarguments — spontaneous collaboration, mentorship, culture — have not held up well in studies that actually measured them.
 
-When humanising, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
+When rewriting, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
 
 ### 39. Template and placeholder residue
 

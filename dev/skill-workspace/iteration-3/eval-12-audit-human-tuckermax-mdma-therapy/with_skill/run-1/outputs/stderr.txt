@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit this draft for AI tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md
 
 ```markdown
 ---
@@ -837,21 +837,21 @@ Co-founder of Scribe ([www.scribewriting.com](http://www.scribewriting.com)), Au
 ```
 
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -859,7 +859,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -871,7 +871,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -884,7 +884,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
 4. Render the audit using the output template below.
@@ -1061,7 +1061,7 @@ Why: <one sentence on why this depth fits the brief>
 **Post-check at <depth>**
 
 exec
-/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/humanise/SKILL.md && sed -n '1,220p' /Users/mae/Documents/humanise/humanise/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md && sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/references/patterns.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 **Post-check at <depth>**
 [Same shape as Rewrite post-check]
@@ -1077,8 +1077,8 @@ Save wraps any of the four actions' output in a Markdown file. Combine freely wi
 
 Default save paths:
 
-- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+- Fallback: `./human-eyes-<action>.md` when there is no input path (e.g., pasted text).
 - Append `-2`, `-3` rather than overwriting an existing file.
 
 When Save is used:
@@ -1087,7 +1087,7 @@ When Save is used:
 - The saved file contains the action's full output template, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
 - Date: <ISO 8601>
@@ -1325,7 +1325,7 @@ Full GPTZero phrase list used by the grader:
 76. study shed light on
 
 exec
-/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/humanise/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/human-eyes/human-eyes/references/patterns.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 76. study shed light on
 77. a diverse perspective
@@ -1630,7 +1630,7 @@ This supplements the hard constraint on staccato fragments. Beyond the obvious s
 **Before:**
 
 exec
-/bin/zsh -lc "sed -n '520,1040p' /Users/mae/Documents/humanise/humanise/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '520,1040p' /Users/mae/Documents/human-eyes/human-eyes/references/patterns.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 **Before:**
 > The data was clear. Unmistakably so. Every metric pointed in the same direction. And that direction was down.
@@ -1869,7 +1869,7 @@ Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral whe
 **How to fix:**
 > Remote work is better for most knowledge workers. The productivity data from Stanford and Owl Labs both point the same way, and the main counterarguments — spontaneous collaboration, mentorship, culture — have not held up well in studies that actually measured them.
 
-When humanising, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
+When rewriting, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
 
 ### 39. Template and placeholder residue
 
@@ -1893,10 +1893,10 @@ These are not reliable enough for hard regex treatment yet, but they should be p
 - **Email/business:** watch for placeholders, over-warm openings, fake personalisation, and action lists dressed up with symbols.
 
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md' in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md' in /Users/mae/Documents/human-eyes/human-eyes
  succeeded in 249ms:
 {
-  "file": "/Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md",
+  "file": "/Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md",
   "pass_rate": "30/43",
   "failures_by_severity": {
     "strong_warning": 4,
@@ -3864,14 +3864,14 @@ exec
 }
 
 exec
-/bin/zsh -lc "python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md | python3 -c 'import sys,json; s=sys.stdin.read(); i=s.find(\"{\\n\"); data=json.loads(s[i:]); print(data.keys()); print(data[\"human_report\"].keys()); print(data.keys())'" in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc "python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md | python3 -c 'import sys,json; s=sys.stdin.read(); i=s.find(\"{\\n\"); data=json.loads(s[i:]); print(data.keys()); print(data[\"human_report\"].keys()); print(data.keys())'" in /Users/mae/Documents/human-eyes/human-eyes
  succeeded in 275ms:
 dict_keys(['file', 'pass_rate', 'failures_by_severity', 'score_summary', 'human_report', 'triggered_checks', 'failure_mode_results', 'depth_results', 'expectations'])
 dict_keys(['overview', 'score', 'confidence', 'ai_pressure_explanation', 'failed_checks', 'all_checks'])
 dict_keys(['file', 'pass_rate', 'failures_by_severity', 'score_summary', 'human_report', 'triggered_checks', 'failure_mode_results', 'depth_results', 'expectations'])
 
 exec
-/bin/zsh -lc "python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md | python3 -c 'import sys,json,pprint; s=sys.stdin.read(); data=json.loads(s[s.find(\"{\\n\"):]); pprint.pp(data[\"triggered_checks\"][:20]);'" in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc "python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md | python3 -c 'import sys,json,pprint; s=sys.stdin.read(); data=json.loads(s[s.find(\"{\\n\"):]); pprint.pp(data[\"triggered_checks\"][:20]);'" in /Users/mae/Documents/human-eyes/human-eyes
  succeeded in 248ms:
 [{'check': 'no-em-dashes',
   'severity': 'strong_warning',
@@ -4051,7 +4051,7 @@ exec
   'depth_actions': {'balanced': 'fix', 'all': 'fix'}}]
 
 exec
-/bin/zsh -lc 'rg -n "and honestly|profound|''^#|''^##|You |you " /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "and honestly|profound|''^#|''^##|You |you " /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 24:# What MDMA Therapy Did For Me
 26:I did MDMA therapy. It was a deeply profound and life-changing experience.
@@ -4149,9 +4149,9 @@ exec
 806:## Responses (83)[
 
 exec
-/bin/zsh -lc 'rg -n "—" /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md | head -40' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "—" /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md | head -40' in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc 'rg -n "not .*but|not .*—|not .* - |not .*;|not just|Not .*Not|more than|less than|as opposed|rather than|not a" /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "not .*but|not .*—|not .* - |not .*;|not just|Not .*Not|more than|less than|as opposed|rather than|not a" /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-tuckermax-mdma-therapy.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 36:I’m not trying to convince you to do MDMA therapy, but I won’t pretend to be objective. I do have a viewpoint:
 70:If I’m being honest, I think I failed at meditation. I could never meditate more than 20 minutes at a time, and I don’t think I really had the patience or determination to do it properly.

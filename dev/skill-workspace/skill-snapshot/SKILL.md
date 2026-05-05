@@ -1,5 +1,5 @@
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits text for AI-style writing patterns, rewrites existing drafts to remove
   them, or writes new content that avoids them. Uses 38 patterns and 43
@@ -10,7 +10,7 @@ description: >-
   or when drafting prose that needs to read as human.
 ---
 
-# Humanise: Audit, rewrite, or write without AI patterns
+# Human-eyes: Audit, rewrite, or write without AI patterns
 
 Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
 
@@ -58,7 +58,7 @@ Use this when the user asks things like:
 - "Does this sound AI?"
 - "Check this for AI writing."
 - "Audit this draft."
-- "Run humanise on this."
+- "Run human-eyes on this."
 - "What's flagged here?"
 
 Or any input where the user provides text without an explicit Rewrite or Write instruction.
@@ -78,7 +78,7 @@ The audit table uses a `Severity` column and a severity-tiered `Recommended acti
 
 ### 2. Rewrite
 
-Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, human-eyes-as-action, or confirms a rewrite after an audit.
 
 Do:
 
@@ -113,7 +113,7 @@ There is no initial audit — there is no input text to audit.
 ### Modifiers
 
 - **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
-- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`. Fall back to `./human-eyes-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
 
 ---
 
@@ -195,7 +195,7 @@ grep -i "promotional" references/patterns.md
 Decide which of the three actions applies:
 
 - If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
-- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user explicitly asks to rewrite, fix, clean up, human-eyes (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
 - If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
 - If the input has text but no clear instruction: use **Audit** and ask what's next.
 - If the input has no text and the request is unclear: ask what they want.
@@ -213,7 +213,7 @@ If you cannot ask, default to Audit. The audit is read-only and lets the user de
 Save the input text to a unique temp file using `mktemp` for portability:
 
 ```bash
-INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)
 # write the input text to "$INPUT_PATH"
 python3 grade.py --format markdown "$INPUT_PATH"
 ```
@@ -431,7 +431,7 @@ In the chat output:
 In the saved Markdown file, render the action's normal output template in full, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Mode: <Light / Medium / Hard, or "n/a" for Audit>
 - Date: <ISO 8601>

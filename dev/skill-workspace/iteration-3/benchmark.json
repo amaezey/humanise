@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "skill_name": "humanise",
-    "skill_path": "/Users/mae/Documents/humanise/humanise",
+    "skill_name": "human-eyes",
+    "skill_path": "/Users/mae/Documents/human-eyes/human-eyes",
     "executor_model": "<model-name>",
     "analyzer_model": "<model-name>",
     "timestamp": "2026-04-29T12:55:01Z",

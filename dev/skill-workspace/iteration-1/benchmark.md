@@ -1,4 +1,4 @@
-# Skill Benchmark: humanise
+# Skill Benchmark: human-eyes
 
 **Model**: <model-name>
 **Date**: 2026-04-28T16:42:35Z

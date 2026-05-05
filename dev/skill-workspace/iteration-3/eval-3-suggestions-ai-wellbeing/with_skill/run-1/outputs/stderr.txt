@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit this draft and give me a list of suggestions for each AI tell.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md
 
 ```markdown
 # The hour grief comes looking
@@ -70,9 +70,9 @@ Sleep does not cure grief. It gives the grieving body a place to repair while th
 codex
 I’ll read the local skill contract first, then the sample, and keep this to an audit-style user-facing response with suggestions tied to each tell.
 exec
-/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md" in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # The hour grief comes looking
 
@@ -114,18 +114,18 @@ Sleep does not cure grief. It gives the grieving body a place to repair while th
 
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -133,7 +133,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -145,7 +145,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -158,7 +158,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
 4. Render the audit using the output template below.
@@ -335,34 +335,34 @@ Why: <one sentence on why this depth fits the brief>
 **Post-check at <depth>**
 
 exec
-/bin/zsh -lc 'rg -n "humanise|audit-first|What it looks for|What happened here|Why this matters" /Users/mae/.codex/memories/MEMORY.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "human-eyes|audit-first|What it looks for|What happened here|Why this matters" /Users/mae/.codex/memories/MEMORY.md' in /Users/mae/Documents/human-eyes
  succeeded in 169ms:
-228:# Task Group: humanise audit-first skill design, report contract, and adversarial eval expansion
-230:scope: Use for `humanise` skill redesign, AI-writing audit workflows, report-language changes, adversarial detector hardening, and human-source eval expansion in the `humanise` repo.
-231:applies_to: cwd=/Users/mae/Documents/humanise; reuse_rule=safe for future `humanise` skill/report/eval work in this checkout, but re-check current grader duplication, workflow wording, and external-source availability before reusing exact implementation details
+228:# Task Group: human-eyes audit-first skill design, report contract, and adversarial eval expansion
+230:scope: Use for `human-eyes` skill redesign, AI-writing audit workflows, report-language changes, adversarial detector hardening, and human-source eval expansion in the `human-eyes` repo.
+231:applies_to: cwd=/Users/mae/Documents/human-eyes; reuse_rule=safe for future `human-eyes` skill/report/eval work in this checkout, but re-check current grader duplication, workflow wording, and external-source availability before reusing exact implementation details
 233:## Task 1: Refactor the skill into an audit-first workflow with end-user-readable reports, outcome success
-237:- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, skill operating model shifted from rewrite-first to audit-first)
-241:- humanise, SKILL.md, audit-only, audit plus recommendation, audit agree then rewrite, rewrite and verify, save report, What it looks for, What happened here, Why this matters, human_report, markdown_checks_table, README.md, dev/plans/2026-04-28-humanise-skill-operating-model-issue.md
-247:- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, adversarial rule broadening with regression coverage)
-251:- contrived contrast, negative parallelism, check_negative_parallelisms, It's Y not X, Less X than Y, You might think X Actually Y, No X No Y Just Z, humanise/references/patterns.md, humanise/grade.py, dev/evals/grade.py, dev/evals/test_grade.py, no-staccato-sequences, ALL PASSED
-257:- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, modern-source extraction landed with blocked-source notes preserved)
-265:- when the user says the tool "can be used in many ways" and should support audit-only, audit-plus-recommendation, audit-then-decide, and rewrite-verify workflows -> treat `humanise` as a protocol-driven AI detection skill, not a one-shot rewrite flow [Task 1]
+237:- rollout_summaries/2026-04-27T10-37-26-D5mv-human_eyes_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/human-eyes, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, skill operating model shifted from rewrite-first to audit-first)
+241:- human-eyes, SKILL.md, audit-only, audit plus recommendation, audit agree then rewrite, rewrite and verify, save report, What it looks for, What happened here, Why this matters, human_report, markdown_checks_table, README.md, dev/plans/2026-04-28-human-eyes-skill-operating-model-issue.md
+247:- rollout_summaries/2026-04-27T10-37-26-D5mv-human_eyes_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/human-eyes, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, adversarial rule broadening with regression coverage)
+251:- contrived contrast, negative parallelism, check_negative_parallelisms, It's Y not X, Less X than Y, You might think X Actually Y, No X No Y Just Z, human-eyes/references/patterns.md, human-eyes/grade.py, dev/evals/grade.py, dev/evals/test_grade.py, no-staccato-sequences, ALL PASSED
+257:- rollout_summaries/2026-04-27T10-37-26-D5mv-human_eyes_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/human-eyes, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, modern-source extraction landed with blocked-source notes preserved)
+265:- when the user says the tool "can be used in many ways" and should support audit-only, audit-plus-recommendation, audit-then-decide, and rewrite-verify workflows -> treat `human-eyes` as a protocol-driven AI detection skill, not a one-shot rewrite flow [Task 1]
 266:- when the user says the current setup feels like a "one shot" rewrite framework and that it is "a AI detection skill" -> default to audit-first behavior and ask before rewriting when intent is unclear or voice-sensitive [Task 1]
-275:- In `humanise`, the duplicated grader logic is real: `humanise/grade.py` and `dev/evals/grade.py` both need matching detection and report changes or the skill/report contract drifts [Task 1][Task 2]
-276:- The validated operating model is five explicit workflows in `humanise/SKILL.md`: audit only, audit plus recommendation, audit, agree, then rewrite, rewrite and verify, and save report. If intent is unclear, audit-only is the safe default [Task 1]
+275:- In `human-eyes`, the duplicated grader logic is real: `human-eyes/grade.py` and `dev/evals/grade.py` both need matching detection and report changes or the skill/report contract drifts [Task 1][Task 2]
+276:- The validated operating model is five explicit workflows in `human-eyes/SKILL.md`: audit only, audit plus recommendation, audit, agree, then rewrite, rewrite and verify, and save report. If intent is unclear, audit-only is the safe default [Task 1]
 277:- The user-facing report contract that survived review is `What it looks for / What happened here / Why this matters / Recommended action`, with `Clear` / `Flagged` labels instead of implementation-facing status names [Task 1]
-283:- Related artifact: `dev/plans/2026-04-28-humanise-skill-operating-model-issue.md` is the saved collaboration note for the product/workflow problem statement [Task 1]
+283:- Related artifact: `dev/plans/2026-04-28-human-eyes-skill-operating-model-issue.md` is the saved collaboration note for the product/workflow problem statement [Task 1]
 288:- Symptom: report output sounds like checker bookkeeping instead of useful writing feedback. Cause: the report explains internal pressure/accounting rather than the writing issue. Fix: enforce `What it looks for / What happened here / Why this matters` and strip implementation-first phrases from the normal report path and tests [Task 1]
-290:- Symptom: detector changes land in one grader path but not the other. Cause: `humanise/grade.py` and `dev/evals/grade.py` drifted. Fix: mirror behavior/report changes in both files and confirm with `python3 dev/evals/test_grade.py` [Task 1][Task 2]
-293:# Task Group: humanise repo setup and branch tracking
-295:scope: Use for lightweight `humanise` repository setup tasks where branch tracking or local-vs-remote status needs to be made easier before other work starts.
-296:applies_to: cwd=/Users/mae/Documents/humanise; reuse_rule=safe for future branch-setup checks in this checkout, but re-check the live remote and current sandbox/permission behavior before assuming the same command path
-302:- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, local `main` was wired to `origin/main` after a missing-upstream check)
+290:- Symptom: detector changes land in one grader path but not the other. Cause: `human-eyes/grade.py` and `dev/evals/grade.py` drifted. Fix: mirror behavior/report changes in both files and confirm with `python3 dev/evals/test_grade.py` [Task 1][Task 2]
+293:# Task Group: human-eyes repo setup and branch tracking
+295:scope: Use for lightweight `human-eyes` repository setup tasks where branch tracking or local-vs-remote status needs to be made easier before other work starts.
+296:applies_to: cwd=/Users/mae/Documents/human-eyes; reuse_rule=safe for future branch-setup checks in this checkout, but re-check the live remote and current sandbox/permission behavior before assuming the same command path
+302:- rollout_summaries/2026-04-27T10-37-26-D5mv-human_eyes_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/human-eyes, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, local `main` was wired to `origin/main` after a missing-upstream check)
 
 codex
 The skill’s “Suggestions” path requires an audit first, so I’m using the existing input file directly and reading the local pattern/alternative references rather than creating any saved artifact.
 exec
-/bin/zsh -lc "sed -n '1,260p' humanise/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,260p' human-eyes/references/patterns.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # AI writing patterns
 
@@ -626,7 +626,7 @@ Current threshold: vocabulary pressure contributes points to an overall score. T
 
 
 exec
-/bin/zsh -lc "sed -n '1,260p' humanise/references/alternatives.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,260p' human-eyes/references/alternatives.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # Vetted human alternatives
 
@@ -890,7 +890,7 @@ Phrases that promise revelation without doing the evidentiary work. They include
 ## Sycophantic / collaborative artifacts
 
 exec
-/bin/zsh -lc 'python3 humanise/grade.py --format json dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'python3 human-eyes/grade.py --format json dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-hatWf83v' (errno=Operation not permitted)
@@ -2479,9 +2479,9 @@ python3: error: couldn't create cache file '/tmp/xcrun_db-JBNGh7bl' (errno=Opera
 }
 
 exec
-/bin/zsh -lc "nl -ba dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md | sed -n '1,120p'" in /Users/mae/Documents/humanise
+/bin/zsh -lc "nl -ba dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md | sed -n '1,120p'" in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc "rg -n \"Sometimes|not |not\\.|not,|no |never|without|does not|cannot|less|least|unable|rather|but|nor|neither|nothing|none\" dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "rg -n \"Sometimes|not |not\\.|not,|no |never|without|does not|cannot|less|least|unable|rather|but|nor|neither|nothing|none\" dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 3:Grief has its own clock. It does not respect the ordinary architecture of a day: work, meals, messages, errands, sleep. In the first weeks after a loss, night can stop being a place of rest and become a second room where the dead feel closer, the mind gets louder, and the body refuses the simple mercy of switching off.
 5:This is one of the crueller parts of grief. The person most in need of rest is often the least able to get it.
@@ -2540,7 +2540,7 @@ exec
     37	Sleep does not cure grief. It gives the grieving body a place to repair while the heart does harder work than anyone else can see.
 
 exec
-/bin/zsh -lc 'rg -n "“|”" dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "“|”" dev/evals/samples/generated-ai/06-wellbeing-sleep-grief.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 15:This is why advice about “good sleep habits” can land badly with grieving people. A fixed bedtime, less caffeine, a dark room and no phone in bed are useful. Most adults need around 7 to 9 hours of sleep each night, and regular routines can support sleep quality.   But grief is not poor time management. It is not caused by bad lighting or an overused screen. A person who has lost someone may already know exactly what sleep hygiene requires and still be unable to obey it.
 17:The better question is not “How do I force myself to sleep?” but “How do I make the night less hostile?”

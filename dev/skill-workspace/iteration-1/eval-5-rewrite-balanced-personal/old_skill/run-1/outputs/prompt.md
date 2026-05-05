@@ -1,7 +1,7 @@
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -11,7 +11,7 @@ Task prompt:
 Audit and rewrite this at balanced depth.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/01-personal-essay-parents.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/01-personal-essay-parents.md
 
 ```markdown
 # The first crack in the porcelain

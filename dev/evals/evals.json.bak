@@ -1,10 +1,10 @@
 {
-  "skill_name": "humanise",
+  "skill_name": "human-eyes",
   "evals": [
     {
       "id": 0,
       "name": "harris-free-will",
-      "prompt": "Humanise the following essay about free will and moral responsibility.",
+      "prompt": "Human-eyes the following essay about free will and moral responsibility.",
       "expected_output": "Text that reads like a thoughtful philosophical essay with personal voice, varied sentence rhythm, and no AI tells",
       "files": ["evals/samples/harris-free-will.md"],
       "assertions": [
@@ -27,7 +27,7 @@
     {
       "id": 1,
       "name": "murray-doctors-die",
-      "prompt": "Humanise the following essay about how doctors approach their own end-of-life care.",
+      "prompt": "Human-eyes the following essay about how doctors approach their own end-of-life care.",
       "expected_output": "Text that reads like a personal medical essay with storytelling, direct observations, and no AI tells",
       "files": ["evals/samples/murray-doctors-die.md"],
       "assertions": [
@@ -49,7 +49,7 @@
     {
       "id": 2,
       "name": "woolf-moth",
-      "prompt": "Humanise the following descriptive essay about watching a moth at a window.",
+      "prompt": "Human-eyes the following descriptive essay about watching a moth at a window.",
       "expected_output": "Text that reads like literary observation with sensory detail and natural rhythm, not a nature article",
       "files": ["evals/samples/woolf-moth.md"],
       "assertions": [
@@ -70,7 +70,7 @@
     {
       "id": 3,
       "name": "wong-monkeysphere",
-      "prompt": "Humanise the following humorous essay about Dunbar's number and the Monkeysphere.",
+      "prompt": "Human-eyes the following humorous essay about Dunbar's number and the Monkeysphere.",
       "expected_output": "Text that retains irreverent humor, specific details (monkey names, pirate costume), and conversational tone without AI patterns",
       "files": ["evals/samples/wong-monkeysphere.md"],
       "assertions": [
@@ -89,7 +89,7 @@
     {
       "id": 4,
       "name": "orwell-why-write",
-      "prompt": "Humanise the following autobiographical essay about knowing from childhood you would be a writer.",
+      "prompt": "Human-eyes the following autobiographical essay about knowing from childhood you would be a writer.",
       "expected_output": "Text that reads like honest autobiography with self-deprecation, specific memories, and direct prose",
       "files": ["evals/samples/orwell-why-write.md"],
       "assertions": [
@@ -110,7 +110,7 @@
     {
       "id": 5,
       "name": "essay-libraries",
-      "prompt": "Humanise the following essay about the importance of public libraries.",
+      "prompt": "Human-eyes the following essay about the importance of public libraries.",
       "expected_output": "Text that reads like a thoughtful essay with personal voice and no AI tells",
       "files": ["evals/samples/1-essay-libraries.md"],
       "assertions": [
@@ -130,7 +130,7 @@
     {
       "id": 6,
       "name": "blog-cooking",
-      "prompt": "Humanise the following blog post about why everyone should learn to cook.",
+      "prompt": "Human-eyes the following blog post about why everyone should learn to cook.",
       "expected_output": "Text that reads like a personal blog post with opinions and no AI tells",
       "files": ["evals/samples/2-blog-cooking.md"],
       "assertions": [
@@ -148,7 +148,7 @@
     {
       "id": 7,
       "name": "listicle-remote",
-      "prompt": "Humanise the following listicle about remote work transforming the workplace.",
+      "prompt": "Human-eyes the following listicle about remote work transforming the workplace.",
       "expected_output": "Text that reads like a natural article rather than a slide deck, with no AI tells",
       "files": ["evals/samples/3-listicle-remote.md"],
       "assertions": [
@@ -166,7 +166,7 @@
     {
       "id": 8,
       "name": "reflection-travel",
-      "prompt": "Humanise the following reflective essay about what travel teaches us.",
+      "prompt": "Human-eyes the following reflective essay about what travel teaches us.",
       "expected_output": "Text that reads like personal reflection with specific observations, not generic travel writing",
       "files": ["evals/samples/4-reflection-travel.md"],
       "assertions": [
@@ -185,7 +185,7 @@
     {
       "id": 9,
       "name": "explainer-quantum",
-      "prompt": "Humanise the following explainer about quantum computing for a general audience.",
+      "prompt": "Human-eyes the following explainer about quantum computing for a general audience.",
       "expected_output": "Text that reads like a clear, engaging explainer without AI tells",
       "files": ["evals/samples/5-explainer-quantum.md"],
       "assertions": [
@@ -201,7 +201,7 @@
     {
       "id": 10,
       "name": "cover-letter",
-      "prompt": "Humanise the following cover letter for a senior software engineer position.",
+      "prompt": "Human-eyes the following cover letter for a senior software engineer position.",
       "expected_output": "Text that reads like a genuine personal letter, not a corporate template",
       "files": ["evals/samples/6-cover-letter.md"],
       "assertions": [
@@ -218,7 +218,7 @@
     {
       "id": 11,
       "name": "hotel-description",
-      "prompt": "Humanise the following boutique hotel product description.",
+      "prompt": "Human-eyes the following boutique hotel product description.",
       "expected_output": "Text that reads like genuine copy rather than AI-generated tourism marketing",
       "files": ["evals/samples/7-hotel-description.md"],
       "assertions": [
@@ -233,7 +233,7 @@
     {
       "id": 12,
       "name": "email-decline",
-      "prompt": "Humanise the following short email declining a meeting invitation.",
+      "prompt": "Human-eyes the following short email declining a meeting invitation.",
       "expected_output": "Text that reads like a natural, brief email",
       "files": ["evals/samples/8-email-decline.md"],
       "assertions": [
@@ -247,7 +247,7 @@
     {
       "id": 13,
       "name": "passthrough-human",
-      "prompt": "Humanise the following personal essay.",
+      "prompt": "Human-eyes the following personal essay.",
       "expected_output": "Text should be left mostly unchanged since it is already human-written with no AI tells",
       "files": ["evals/samples/9-passthrough-human.md"],
       "assertions": [

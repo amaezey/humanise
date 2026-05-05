@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -33,21 +33,21 @@ No input files.
 2026-04-28T16:59:28.933378Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:59:28.933824Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md && rg -n \"refer|file|template|mode|balanced\" /Users/mae/Documents/humanise/humanise -S" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md && rg -n \"refer|file|template|mode|balanced\" /Users/mae/Documents/human-eyes/human-eyes -S" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -55,7 +55,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -67,7 +67,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -80,7 +80,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
 4. Render the audit using the output template below.
@@ -255,247 +255,247 @@ Why: <one sentence on why this depth fits the brief>
 [Same eight items as Rewrite]
 
 **Post-check at <depth>**
-/Users/mae/Documents/humanise/humanise/SKILL.md:20:2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-/Users/mae/Documents/humanise/humanise/SKILL.md:23:The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
-/Users/mae/Documents/humanise/humanise/SKILL.md:46:1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
-/Users/mae/Documents/humanise/humanise/SKILL.md:48:3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
-/Users/mae/Documents/humanise/humanise/SKILL.md:49:4. Render the audit using the output template below.
-/Users/mae/Documents/humanise/humanise/SKILL.md:78:Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
-/Users/mae/Documents/humanise/humanise/SKILL.md:91:If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
-/Users/mae/Documents/humanise/humanise/SKILL.md:101:   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
-/Users/mae/Documents/humanise/humanise/SKILL.md:128:Want to apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file?
-/Users/mae/Documents/humanise/humanise/SKILL.md:139:- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
-/Users/mae/Documents/humanise/humanise/SKILL.md:142:When the user has not chosen a depth, ask which depth they want. Balanced is the lighter pass; All is the deeper one. Default to Balanced if the writer declines to choose.
-/Users/mae/Documents/humanise/humanise/SKILL.md:153:2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
-/Users/mae/Documents/humanise/humanise/SKILL.md:154:3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
-/Users/mae/Documents/humanise/humanise/SKILL.md:155:4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
-/Users/mae/Documents/humanise/humanise/SKILL.md:166:**Depth: <Balanced / All>**
-/Users/mae/Documents/humanise/humanise/SKILL.md:167:Why: <one sentence on why this depth fits the genre or the writer's stated preference>
-/Users/mae/Documents/humanise/humanise/SKILL.md:189:Show only the final rewrite. Intermediate drafts stay hidden unless the writer asks. Do not modify the writer's source file.
-/Users/mae/Documents/humanise/humanise/SKILL.md:197:1. Pick the depth: ask if you can; default to Balanced.
-/Users/mae/Documents/humanise/humanise/SKILL.md:198:2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
-/Users/mae/Documents/humanise/humanise/SKILL.md:199:3. Read `references/process.md`; it is required for Rewrite and Write. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
-/Users/mae/Documents/humanise/humanise/SKILL.md:210:**Depth: <Balanced / All>**
-/Users/mae/Documents/humanise/humanise/SKILL.md:230:Save wraps any of the four actions' output in a Markdown file. Combine freely with any action.
-/Users/mae/Documents/humanise/humanise/SKILL.md:234:- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-/Users/mae/Documents/humanise/humanise/SKILL.md:236:- Append `-2`, `-3` rather than overwriting an existing file.
-/Users/mae/Documents/humanise/humanise/SKILL.md:241:- The saved file contains the action's full output template, preceded by a short header:
-/Users/mae/Documents/humanise/humanise/SKILL.md:246:- Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
-/Users/mae/Documents/humanise/humanise/SKILL.md:250:Do not duplicate the full report inline in chat when a saved file exists.
-/Users/mae/Documents/humanise/humanise/SKILL.md:254:## References
-/Users/mae/Documents/humanise/humanise/SKILL.md:256:- `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
-/Users/mae/Documents/humanise/humanise/SKILL.md:257:- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
-/Users/mae/Documents/humanise/humanise/SKILL.md:258:- `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
-/Users/mae/Documents/humanise/humanise/SKILL.md:259:- `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.
-/Users/mae/Documents/humanise/humanise/references/process.md:3:This file is required for Rewrite and Write actions. Use it as the operating
-/Users/mae/Documents/humanise/humanise/references/process.md:41:Balanced must fix hard failures and strong warnings:
-/Users/mae/Documents/humanise/humanise/references/process.md:57:Use `references/alternatives.md` for lexical substitutions when the issue is a
-/Users/mae/Documents/humanise/humanise/references/process.md:63:Before returning, answer the eight self-check fields in the output template.
-/Users/mae/Documents/humanise/humanise/references/voice.md:7:Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
-/Users/mae/Documents/humanise/humanise/references/voice.md:9:Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:18:## Evidence hierarchy from the reference audit
-/Users/mae/Documents/humanise/humanise/references/patterns.md:32:- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
-/Users/mae/Documents/humanise/humanise/references/patterns.md:43:- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They must be removed at every depth (Balanced and All); preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:86:> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:246:**Kobak excess vocabulary:** The grader also loads the full 900-row `kobak-excess-words.csv` file from Kobak et al.'s `llm-excess-vocab` repository. The file includes `style`, `content`, `content/style`, and `other` annotations. The aggregate pressure check uses style-annotated terms as one vocabulary signal alongside the local AI-vocabulary list and all 100 GPTZero phrases. Kobak words do not fail text by themselves.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:323:Excessive synonym substitution, cycling through different words for the same referent within a short span due to repetition-penalty mechanisms.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:351:> It blends **OKRs (Objectives and Key Results)**, **KPIs (Key Performance Indicators)**, and visual strategy tools such as the **Business Model Canvas (BMC)** and **Balanced Scorecard (BSC)**.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:354:> It blends OKRs, KPIs, and visual strategy tools like the Business Model Canvas and Balanced Scorecard.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:387:> :bulb: **Key Insight:** Users prefer simplicity
-/Users/mae/Documents/humanise/humanise/references/patterns.md:391:> The product launches in Q3. User research showed a preference for simplicity, so the next step is to schedule a follow-up meeting to discuss how that finding should shape the launch.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:396:**Tolerance note:** Curly quotes are typography, not inherently AI writing. Normalise them in hard-mode plain output if requested. Preserve them in sourced excerpts, literary fixtures, publication text, or quoted material.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:562:AI blends senses inappropriately to simulate literary depth: emotions get tastes, sounds get colours, abstract concepts get textures. This happens because the model has no physical experience, so its sensory vocabulary gravitates to immaterial subjects. Real synesthetic writing is specific and grounded ("a great plateful of blue water" works because Woolf had both stood before a view and sat down to a meal). AI synesthesia is unanchored.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:589:AI metaphors are plausible but specific to nobody. They gesture toward meaning without achieving it. Human metaphors draw from personal experience or shared cultural references. AI metaphors draw from the statistical middle.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:602:AI converts prose to bullet points when the content does not warrant it. This is driven by RLHF training: human raters reward structured-looking answers, so the model learns that bullets = quality. The result is text that looks organised but reads like a slide deck rather than writing.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:629:AI-generated articles with numbered sections often repeat the same structural label in each section, creating a cookie-cutter template. The repetition itself is the tell — human writers vary their section structure and rarely use identical action labels across multiple sections.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:670:> The improvement came from rewriting the prompt, not from changes to the model or data. The team had spent weeks on architecture changes before trying this.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:697:Also check paragraph size. AI-generated longform often settles into near-identical blocks: ten paragraphs of 65-85 words, each making one balanced point. Human paragraphs usually show uneven pressure; some are short, some wander, some carry a scene or example longer than expected.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:744:LLMs systematically strip argumentative stance, defaulting to balanced treatment of everything. "There are compelling arguments on both sides" where the original had a clear position. Distinct from generic positive conclusions (#24) — this is about the **removal** of opinion, not the addition of optimism.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:759:### 39. Template and placeholder residue
-/Users/mae/Documents/humanise/humanise/references/patterns.md:763:Unfilled placeholders are not style issues; they are generated/template residue. Replace them with real values if known, or remove the surrounding sentence if not.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:775:- **Academic/research:** verify citations, DOIs, dates, journals, reference order, and whether cited works actually support the claim. Plausible citation format is not evidence.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:5:Non-negotiable at All depth. At Balanced depth, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:9:At Balanced and All depth, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:28:These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test at Balanced depth; remove at All depth unless the phrase clearly belongs to the writer's voice.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:55:> The results were clear. Strikingly so. The model outperformed every baseline. Every single one. And nobody saw it coming.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:59:> The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
-/Users/mae/Documents/humanise/humanise/grade.py:29:    # Added from Vollmer/GPTZero reference audit
-/Users/mae/Documents/humanise/humanise/grade.py:162:    """Load Kobak et al. excess-vocabulary annotations from the skill data file."""
-/Users/mae/Documents/humanise/humanise/grade.py:163:    here = Path(__file__).resolve()
-/Users/mae/Documents/humanise/humanise/grade.py:165:        here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
-/Users/mae/Documents/humanise/humanise/grade.py:166:        here.parents[2] / "humanise" / "references" / KOBAK_EXCESS_WORDS_PATH,
-/Users/mae/Documents/humanise/humanise/grade.py:348:BLAND_CRITICAL_TEMPLATE = [
-/Users/mae/Documents/humanise/humanise/grade.py:503:def vocabulary_pressure_profile(text):
-/Users/mae/Documents/humanise/humanise/grade.py:516:    kobak = kobak_excess_profile(text)
-/Users/mae/Documents/humanise/humanise/grade.py:593:def kobak_excess_profile(text):
-/Users/mae/Documents/humanise/humanise/grade.py:651:        "bland_critical_template": check_bland_critical_template(text),
-/Users/mae/Documents/humanise/humanise/grade.py:666:        "bland_critical_template": 1,
-/Users/mae/Documents/humanise/humanise/grade.py:681:        "bland_critical_template": "bland critical template",
-/Users/mae/Documents/humanise/humanise/grade.py:688:    vocab = vocabulary_pressure_profile(text)
-/Users/mae/Documents/humanise/humanise/grade.py:961:    """Detect unfilled template placeholders in generated prose/email."""
-/Users/mae/Documents/humanise/humanise/grade.py:1447:def check_bland_critical_template(text):
-/Users/mae/Documents/humanise/humanise/grade.py:1448:    """Detect generated literary/review criticism that sounds balanced but generic."""
-/Users/mae/Documents/humanise/humanise/grade.py:1449:    count, matches = count_pattern_matches(text, BLAND_CRITICAL_TEMPLATE)
-/Users/mae/Documents/humanise/humanise/grade.py:1451:        "text": "no-bland-critical-template",
-/Users/mae/Documents/humanise/humanise/grade.py:1454:            f"Found {count} bland critical template phrase(s): {matches[:6]}"
-/Users/mae/Documents/humanise/humanise/grade.py:1456:            else f"Bland critical template phrases: {count}"
-/Users/mae/Documents/humanise/humanise/grade.py:1632:    "no-bland-critical-template": check_bland_critical_template,
-/Users/mae/Documents/humanise/humanise/grade.py:1647:    "no-anaphora": ("Mechanical repeated sentence starts", "Checks for repeated sentence openings that read like template rhythm."),
-/Users/mae/Documents/humanise/humanise/grade.py:1658:    "no-placeholder-residue": ("Placeholder residue", "Checks for unfilled template markers and placeholder instructions."),
-/Users/mae/Documents/humanise/humanise/grade.py:1665:    "no-rhetorical-questions": ("Template rhetorical questions", "Checks for article-style questions followed by obvious answers."),
-/Users/mae/Documents/humanise/humanise/grade.py:1679:    "no-bland-critical-template": ("Bland critical template", "Checks for generic review language instead of concrete critical claims."),
-/Users/mae/Documents/humanise/humanise/grade.py:1683:    "no-section-scaffolding": ("Repeated section scaffolding", "Checks for repeated section labels or repeated structural templates."),
-/Users/mae/Documents/humanise/humanise/grade.py:1694:    "no-anaphora": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
-/Users/mae/Documents/humanise/humanise/grade.py:1703:    "no-generic-conclusions": "Generic conclusions make the ending feel templated and interchangeable.",
-/Users/mae/Documents/humanise/humanise/grade.py:1705:    "no-placeholder-residue": "Placeholder residue signals unfinished generated or templated text.",
-/Users/mae/Documents/humanise/humanise/grade.py:1712:    "no-rhetorical-questions": "Template questions often simulate engagement without adding real inquiry.",
-/Users/mae/Documents/humanise/humanise/grade.py:1716:    "no-formulaic-openers": "Formulaic openings make paragraphs feel assembled from templates.",
-/Users/mae/Documents/humanise/humanise/grade.py:1725:    "no-tidy-paragraph-endings": "Repeated tidy endings make paragraphs feel over-resolved and templated.",
-/Users/mae/Documents/humanise/humanise/grade.py:1726:    "no-bland-critical-template": "Bland critical language replaces concrete judgment with portable review phrases.",
-/Users/mae/Documents/humanise/humanise/grade.py:1730:    "no-section-scaffolding": "Repeated section structure makes the whole piece feel assembled from a template.",
-/Users/mae/Documents/humanise/humanise/grade.py:1737:        "failure_modes": ["provenance_residue"],
-/Users/mae/Documents/humanise/humanise/grade.py:1743:        "failure_modes": ["provenance_residue", "synthetic_significance"],
-/Users/mae/Documents/humanise/humanise/grade.py:1749:        "failure_modes": ["provenance_residue"],
-/Users/mae/Documents/humanise/humanise/grade.py:1750:        "evidence_role": "template_residue",
-/Users/mae/Documents/humanise/humanise/grade.py:1751:        "guidance": "Fix at every depth; unfilled placeholders are generated/template residue.",
-/Users/mae/Documents/humanise/humanise/grade.py:1755:        "failure_modes": ["synthetic_significance"],
-/Users/mae/Documents/humanise/humanise/grade.py:1757:        "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
-/Users/mae/Documents/humanise/humanise/grade.py:1761:        "failure_modes": ["voice_erasure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1763:        "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence.",
-/Users/mae/Documents/humanise/humanise/grade.py:1767:        "failure_modes": ["synthetic_significance"],
-/Users/mae/Documents/humanise/humanise/grade.py:1769:        "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
-/Users/mae/Documents/humanise/humanise/grade.py:1773:        "failure_modes": ["generic_abstraction"],
-/Users/mae/Documents/humanise/humanise/grade.py:1779:        "failure_modes": ["generic_abstraction", "synthetic_significance"],
-/Users/mae/Documents/humanise/humanise/grade.py:1785:        "failure_modes": ["generic_abstraction", "frictionless_structure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1791:        "failure_modes": ["synthetic_significance", "generic_abstraction"],
-/Users/mae/Documents/humanise/humanise/grade.py:1793:        "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
-/Users/mae/Documents/humanise/humanise/grade.py:1797:        "failure_modes": ["generic_abstraction"],
-/Users/mae/Documents/humanise/humanise/grade.py:1799:        "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice.",
-/Users/mae/Documents/humanise/humanise/grade.py:1803:        "failure_modes": ["generic_abstraction"],
-/Users/mae/Documents/humanise/humanise/grade.py:1809:        "failure_modes": ["generic_abstraction"],
-/Users/mae/Documents/humanise/humanise/grade.py:1815:        "failure_modes": ["frictionless_structure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1817:        "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content.",
-/Users/mae/Documents/humanise/humanise/grade.py:1821:        "failure_modes": ["frictionless_structure", "generic_abstraction"],
-/Users/mae/Documents/humanise/humanise/grade.py:1823:        "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre.",
-/Users/mae/Documents/humanise/humanise/grade.py:1827:        "failure_modes": ["frictionless_structure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1828:        "evidence_role": "repeated_template",
-/Users/mae/Documents/humanise/humanise/grade.py:1829:        "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
-/Users/mae/Documents/humanise/humanise/grade.py:1831:    "no-bland-critical-template": {
-/Users/mae/Documents/humanise/humanise/grade.py:1833:        "failure_modes": ["generic_abstraction", "voice_erasure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1835:        "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work.",
-/Users/mae/Documents/humanise/humanise/grade.py:1839:        "failure_modes": ["genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1841:        "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
-/Users/mae/Documents/humanise/humanise/grade.py:1845:        "failure_modes": ["genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1851:        "failure_modes": ["genre_misfit", "frictionless_structure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1857:        "failure_modes": ["genre_misfit", "frictionless_structure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1863:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1869:        "failure_modes": ["generic_abstraction", "synthetic_significance"],
-/Users/mae/Documents/humanise/humanise/grade.py:1875:        "failure_modes": ["synthetic_significance"],
-/Users/mae/Documents/humanise/humanise/grade.py:1881:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1887:        "failure_modes": ["generic_abstraction", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1893:        "failure_modes": ["synthetic_significance", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1899:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1900:        "evidence_role": "rhetorical_template",
-/Users/mae/Documents/humanise/humanise/grade.py:1901:        "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument.",
-/Users/mae/Documents/humanise/humanise/grade.py:1905:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1907:        "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
-/Users/mae/Documents/humanise/humanise/grade.py:1911:        "failure_modes": ["synthetic_significance", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1912:        "evidence_role": "narrative_template",
-/Users/mae/Documents/humanise/humanise/grade.py:1917:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1923:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1925:        "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
-/Users/mae/Documents/humanise/humanise/grade.py:1929:        "failure_modes": ["frictionless_structure", "voice_erasure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1935:        "failure_modes": ["voice_erasure", "generic_abstraction"],
-/Users/mae/Documents/humanise/humanise/grade.py:1941:        "failure_modes": ["voice_erasure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1947:        "failure_modes": ["synthetic_significance", "frictionless_structure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1953:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1959:        "failure_modes": ["frictionless_structure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1961:        "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
-/Users/mae/Documents/humanise/humanise/grade.py:1965:        "failure_modes": ["frictionless_structure", "voice_erasure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1971:        "failure_modes": ["provenance_residue", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1977:        "failure_modes": ["provenance_residue", "voice_erasure"],
-/Users/mae/Documents/humanise/humanise/grade.py:1983:        "failure_modes": ["generic_abstraction", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1989:        "failure_modes": ["frictionless_structure", "genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:1996:FAILURE_MODE_METADATA = {
-/Users/mae/Documents/humanise/humanise/grade.py:1999:        "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue.",
-/Users/mae/Documents/humanise/humanise/grade.py:2028:        "failure_modes": ["genre_misfit"],
-/Users/mae/Documents/humanise/humanise/grade.py:2035:DEPTHS = ("balanced", "all")
-/Users/mae/Documents/humanise/humanise/grade.py:2042:        return "Fix at Balanced and All."
-/Users/mae/Documents/humanise/humanise/grade.py:2044:        return "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure."
-/Users/mae/Documents/humanise/humanise/grade.py:2045:    return "Review at Balanced; All requires removal unless the user explicitly accepts the risk."
-/Users/mae/Documents/humanise/humanise/grade.py:2197:            "why_it_matters": CHECK_WHY_IT_MATTERS.get(result["text"], "This pattern can make prose read as generated or over-templated."),
-/Users/mae/Documents/humanise/humanise/grade.py:2349:            "failure_modes": result.get("failure_modes", ["genre_misfit"]),
-/Users/mae/Documents/humanise/humanise/grade.py:2395:def failure_mode_results(results):
-/Users/mae/Documents/humanise/humanise/grade.py:2396:    """Group failed checks by failure mode without changing legacy report fields."""
-/Users/mae/Documents/humanise/humanise/grade.py:2404:        for key, meta in FAILURE_MODE_METADATA.items()
-/Users/mae/Documents/humanise/humanise/grade.py:2410:        for failure_mode in result.get("failure_modes", ["genre_misfit"]):
-/Users/mae/Documents/humanise/humanise/grade.py:2411:            group = grouped.setdefault(failure_mode, {
-/Users/mae/Documents/humanise/humanise/grade.py:2412:                "label": failure_mode.replace("_", " ").title(),
-/Users/mae/Documents/humanise/humanise/grade.py:2413:                "summary": "Unclassified failure mode.",
-/Users/mae/Documents/humanise/humanise/grade.py:2439:    Balanced does not silently approve preserved warnings; it indicates what
-/Users/mae/Documents/humanise/humanise/grade.py:2453:        "balanced": {
-/Users/mae/Documents/humanise/humanise/grade.py:2462:                "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
-/Users/mae/Documents/humanise/humanise/grade.py:2488:def grade_file(filepath, assertion_names=None):
-/Users/mae/Documents/humanise/humanise/grade.py:2489:    """Grade a file against specified assertions (or all if none specified)."""
-/Users/mae/Documents/humanise/humanise/grade.py:2490:    text = Path(filepath).read_text()
-/Users/mae/Documents/humanise/humanise/grade.py:2679:def regrade(text, depth="balanced"):
-/Users/mae/Documents/humanise/humanise/grade.py:2708:USAGE = "Usage: grade.py [--format json|markdown] [--depth balanced|all] <file> [assertion1,assertion2,...]"
-/Users/mae/Documents/humanise/humanise/grade.py:2738:    filepath = args[0]
-/Users/mae/Documents/humanise/humanise/grade.py:2741:    results = grade_file(filepath, assertions)
-/Users/mae/Documents/humanise/humanise/grade.py:2750:        "file": filepath,
-/Users/mae/Documents/humanise/humanise/grade.py:2756:        "failure_mode_results": failure_mode_results(results),
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:165:163,"corp","other","noun","often part of citation that refer to a corporation like Microsoft corp."
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:187:185,"deeper","content/style","adjective","can potentially refer to deep learning / deep networks"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:232:230,"efficacy","style/count","noun","can refer to vaccine efficacy"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:329:327,"frontline","content","noun","frontline staff (COVID!), or Frontline therapy refers to a patient's first CLL treatment"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:391:389,"ieee","content","noun","Mostly refers to IEEE Xplore"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:402:400,"inaccuracies","content","noun","refers to problems with data"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:462:460,"llms","content","noun","large language model"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:476:474,"mafld","content","noun","“Metabolic dysfunction-associated fatty liver disease (MAFLD)” is the term suggested in 2020 to refer to fatty liver disease"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:481:479,"marking","content","noun","Can refer to tumor marking, see ""tumor marker"""
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:508:506,"model","content","noun","statistical model, model organism, etc."
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:509:507,"moderating","content","adjective","moderating factors/effects"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:510:508,"moderna","content","noun","Covid vaccine"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:696:694,"rstudio","content","noun","refers to R language"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:712:710,"seir","content","noun","susceptible-exposed-infected-recovered - infection model"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:895:893,"xgboost","content","noun","ML model"
-/Users/mae/Documents/humanise/humanise/references/example.md:3:End-to-end demonstration of a rewrite at All depth: an AI-generated essay through audit, rewrite, structural self-check, and revised rewrite. Use as a reference for what a real Rewrite action's output should look like.
-/Users/mae/Documents/humanise/humanise/references/example.md:9:> AI-assisted coding serves as an enduring testament to the transformative potential of large language models, marking a pivotal moment in the evolution of software development. In today's rapidly evolving technological landscape, these groundbreaking tools--nestled at the intersection of research and practice--are reshaping how engineers ideate, iterate, and deliver, underscoring their vital role in modern workflows.
-/Users/mae/Documents/humanise/humanise/references/example.md:23:> The tools work well for boilerplate: config files, test scaffolding, and repetitive refactors. They are less reliable when it comes to knowing when they are wrong. I have accepted suggestions in bulk that compiled and passed lint but still did the wrong thing, because I stopped paying close enough attention to catch the error.
-/Users/mae/Documents/humanise/humanise/references/example.md:41:> They are good at boilerplate: config files, test scaffolding, repetitive refactors. They are also good at producing code that looks right and compiles and passes lint but does something slightly different from what you intended. I have learned this the hard way more than once, usually when I was too tired to review carefully.
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:7:This file covers lexical patterns: patterns where a specific word or phrase can be swapped for a plain-English alternative. Structural patterns (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance, tonal uniformity) do not appear here. Suggestions writes contextual rewriting instructions for those.
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:9:A few patterns that look lexical (contrived contrast, false-concession, bland critical templates) get entries below, but their middle column names what the construction usually *means* rather than offering a phrase to swap. Substitution does not work for those; the construction itself is the problem.
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:32:- [Bland critical templates](#bland-critical-templates)
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:227:Bland labelled-block introductions that mark a generated explainer arranging information into balanced sections. The phrases survive because they are not flashy, which is exactly the problem.
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:283:| As of (date) | (cut, or replace with a specific date and source) | Often left over from prompts asking the model what it knows. |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:284:| Up to my last training update | (cut) | Pure model artefact. |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:333:## Bland critical templates
-/Users/mae/Documents/humanise/humanise/examples ai.txt:136:Reread every decade, this aspect of the book becomes more consequential. The first time, the reader may focus on the death. Later, the book’s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference. Didion and Dunne’s marriage was also a working partnership, an editorial relationship, a long conversation. His absence is therefore not only emotional. It is cognitive. The person who helped her verify reality is gone.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:170:You make categories. You tag things. You build a dashboard. You watch someone on YouTube explain their frictionless weekly review and think, yes, this is the missing layer. The app becomes a little model of a better self: calmer, more intentional, less reactive, never surprised by a deadline, never leaving a receipt in a tote bag or a document in the wrong folder.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:190:This is not a moral failing. It is a design pattern. Apps have interfaces. Interfaces invite interaction. You can drag, sort, nest, colour, schedule, reschedule, link, archive, review and reframe. These actions feel constructive because they are concrete. They produce visible change. The list is cleaner. The board is aligned. The note has metadata. The project has a template.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:275:I arrived with the usual vague promises people make to themselves before travel. I would wander. I would not over-plan. I would eat properly, sleep enough, look up from my phone. Lisbon immediately made most of this feel unnecessary, because the city has its own sense of direction and seems faintly amused by yours. Streets that appear modest on a map turn into staircases. Alleys bend into courtyards. A quiet residential slope suddenly opens onto the Tagus, broad and pale and almost too bright to look at.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:313:I arrived with the usual vague promises people make to themselves before travel. I would wander. I would not over-plan. I would eat properly, sleep enough, look up from my phone. Lisbon immediately made most of this feel unnecessary, because the city has its own sense of direction and seems faintly amused by yours. Streets that appear modest on a map turn into staircases. Alleys bend into courtyards. A quiet residential slope suddenly opens onto the Tagus, broad and pale and almost too bright to look at.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:365:The uncomfortable truth is that creative work can now be made very quickly. Tools have become astonishingly efficient. Drafts can be generated, edited, templated, scheduled and distributed at a pace that would once have seemed absurd. The question is no longer whether we can make more, faster. We plainly can. The more serious question is whether speed is making our work thinner.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:371:This is why slowness is not merely an aesthetic preference. It is an ethical practice. When work is slow, it has more opportunities to become accountable to reality. It can absorb doubt. It can admit complexity. It can resist the easy shape that makes an idea pleasing but untrue.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:387:To defend slowness is also to defend taste. Taste is not simply preference; it is the capacity to perceive difference. It develops through exposure, attention and revision. A culture of speed weakens taste because it reduces the time available for comparison. We no longer ask whether the work is good. We ask whether it is ready. But ready and good are not the same thing. Ready means it can leave us. Good means it can survive leaving us.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:410:Flour, water, salt, yeast. The list looked almost offensively modest. I had spent much of that year overwhelmed by things I could not simplify: illness in the family, work that expanded to fill every waking hour, the quiet dread of unanswered messages, the particular exhaustion that comes from making decisions when none of the options feel good. Bread offered the illusion of containment. Four ingredients. A bowl. A bench. A loaf tin if I felt cautious; a tray if I felt brave.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:469:This is where the popular phrase “wood-wide web” enters the story, and where accuracy matters. A common mycorrhizal network is not just “fungi in the soil”. It means a physical fungal connection linking the roots of two or more plants. Such connections can, in principle, move carbon, nutrients, water or chemical signals between plants. But proving that this happens in intact forests is difficult. Researchers have to separate transfer through fungal hyphae from other routes: roots leaking compounds into soil, microbes consuming and re-releasing them, water moving dissolved chemicals, or plants responding to airborne signals. A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:504:The Renaissance did exactly this. When Stoicism reappeared in early modern Europe, it was not restored as a museum piece. It was adapted. Late Renaissance Neo-Stoicism tried to revive ancient Stoic ethics in a form acceptable to Christian readers, modifying or rejecting parts of ancient Stoic physics and determinism. Justus Lipsius became the key figure in this revival; his De constantia, published in 1584, argued that Christians could draw on Stoic resources during troubled times while marking the limits of what Christian doctrine could accept. This was rediscovery as translation. Stoicism returned because Europe needed a vocabulary for constancy under disorder, but it had to be made theologically survivable.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:510:The contemporary revival is both more democratic and more compromised. On one side, it is genuinely popular philosophy. Modern Stoicism projects such as Stoic Week have turned ancient exercises into public experiments; by 2022, organisers reported that about 38,600 people had signed up across a decade and more than 20,000 had contributed data. On another side, the revival has been absorbed into self-optimisation culture: podcasts, productivity routines, executive coaching, gym discipline, start-up mythology and social media quotation tiles. Ryan Holiday’s Daily Stoic empire has helped bring Stoicism to a mass audience through books, a website, newsletter, podcast and Instagram presence; The Guardian described his audience as including athletes, politicians and tech chief executives.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:512:This is not automatically a corruption. Popularisation is often how old ideas remain socially alive. The problem is selective inheritance. Contemporary Stoicism frequently keeps emotional regulation and discards ethics. It likes discipline, but not always justice; resilience, but not always obligation; serenity, but not always solidarity. Ancient Stoicism was not merely a way to become unbothered. It was a demanding account of how to live according to reason and virtue in a shared cosmos. The modern version is weakest when it becomes a technique for tolerating bad systems rather than judging them. A worker told to “focus on what you can control” may be receiving useful psychological advice, or a subtle instruction to accept exploitation. The difference is political.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:518:The deeper reason Stoicism keeps being rediscovered is that it solves a cultural contradiction. Modern societies preach control while multiplying experiences of powerlessness. People are told to optimise their bodies, careers, attention, finances, sleep, influence and emotional lives, while living under forces too large for individual command: markets, platforms, bureaucracies, pandemics, wars, climate systems, housing prices, institutional decay. Stoicism cuts through that contradiction by narrowing the field of command. It says: stop pretending the whole world is your project. Your character is.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:520:That message is bracing because it is both modest and demanding. It refuses grandiosity. It also removes many excuses. If reputation is not fully yours, then neither praise nor humiliation should govern conduct. If death is inevitable, then fear of it should not waste life. If anger begins in judgement, then outrage is not simply evidence of moral seriousness. If wealth and status are unstable, then they cannot be the centre of a good life. These claims remain culturally abrasive. They offend consumer capitalism, therapeutic indulgence and political performance in equal measure.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:522:Stoicism returns, then, not because people keep misunderstanding antiquity, but because antiquity keeps offering a discipline for recurring human conditions. Its revivals are never innocent. The Roman court, the Christian Renaissance, modern psychotherapy, military captivity, Silicon Valley and Instagram have each taken different things from it. Some have deepened it; some have flattened it. But the pattern is clear. Whenever a culture becomes noisy, unstable and overconfident about control, Stoicism reappears with its old rebuke: the world is not yours to command, but your response is not nothing.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:548:I once watched a junior designer present three concept options to senior stakeholders. The options were thoughtful, but the discussion quickly collapsed into preference. One executive liked the version with fewer words. Another wanted more reassurance. A third asked whether “users even read”. The junior designer responded by defending each screen in turn. The more they defended, the more the room treated the work as opinion.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:562:Juniors also need exposure to the boring parts of design, because that is where design becomes real. Design publishing still over-indexes on the visible moments: the workshop, the prototype, the launch, the elegant case study. Much of the actual work sits elsewhere: the content spreadsheet with 1,700 rows, the naming convention no one wants to resolve, the accessibility review that finds the same pattern failing in six different templates.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:564:One junior designer once told me they were disappointed to be spending so much time on content governance rather than “proper UX”. We were working on a service with hundreds of pages, multiple publishers and inconsistent ownership. The interface problems were real, but they were symptoms of a deeper operating problem. Pages decayed because no one knew who owned them, when they should be reviewed, or what standard they needed to meet. We mapped the publishing workflow, identified where accountability disappeared, and designed a review model that matched the organisation’s capacity. It did more for the user experience than another round of page templates would have done.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:20:2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:23:The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:46:1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:48:3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:49:4. Render the audit using the output template below.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:78:Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:91:If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:101:   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:128:Want to apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file?
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:139:- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:142:When the user has not chosen a depth, ask which depth they want. Balanced is the lighter pass; All is the deeper one. Default to Balanced if the writer declines to choose.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:153:2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:154:3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:155:4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:166:**Depth: <Balanced / All>**
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:167:Why: <one sentence on why this depth fits the genre or the writer's stated preference>
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:189:Show only the final rewrite. Intermediate drafts stay hidden unless the writer asks. Do not modify the writer's source file.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:197:1. Pick the depth: ask if you can; default to Balanced.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:198:2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:199:3. Read `references/process.md`; it is required for Rewrite and Write. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:210:**Depth: <Balanced / All>**
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:230:Save wraps any of the four actions' output in a Markdown file. Combine freely with any action.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:234:- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:236:- Append `-2`, `-3` rather than overwriting an existing file.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:241:- The saved file contains the action's full output template, preceded by a short header:
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:246:- Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:250:Do not duplicate the full report inline in chat when a saved file exists.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:254:## References
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:256:- `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:257:- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:258:- `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:259:- `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.
+/Users/mae/Documents/human-eyes/human-eyes/references/process.md:3:This file is required for Rewrite and Write actions. Use it as the operating
+/Users/mae/Documents/human-eyes/human-eyes/references/process.md:41:Balanced must fix hard failures and strong warnings:
+/Users/mae/Documents/human-eyes/human-eyes/references/process.md:57:Use `references/alternatives.md` for lexical substitutions when the issue is a
+/Users/mae/Documents/human-eyes/human-eyes/references/process.md:63:Before returning, answer the eight self-check fields in the output template.
+/Users/mae/Documents/human-eyes/human-eyes/references/voice.md:7:Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+/Users/mae/Documents/human-eyes/human-eyes/references/voice.md:9:Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:18:## Evidence hierarchy from the reference audit
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:32:- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:43:- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They must be removed at every depth (Balanced and All); preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:86:> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:246:**Kobak excess vocabulary:** The grader also loads the full 900-row `kobak-excess-words.csv` file from Kobak et al.'s `llm-excess-vocab` repository. The file includes `style`, `content`, `content/style`, and `other` annotations. The aggregate pressure check uses style-annotated terms as one vocabulary signal alongside the local AI-vocabulary list and all 100 GPTZero phrases. Kobak words do not fail text by themselves.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:323:Excessive synonym substitution, cycling through different words for the same referent within a short span due to repetition-penalty mechanisms.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:351:> It blends **OKRs (Objectives and Key Results)**, **KPIs (Key Performance Indicators)**, and visual strategy tools such as the **Business Model Canvas (BMC)** and **Balanced Scorecard (BSC)**.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:354:> It blends OKRs, KPIs, and visual strategy tools like the Business Model Canvas and Balanced Scorecard.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:387:> :bulb: **Key Insight:** Users prefer simplicity
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:391:> The product launches in Q3. User research showed a preference for simplicity, so the next step is to schedule a follow-up meeting to discuss how that finding should shape the launch.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:396:**Tolerance note:** Curly quotes are typography, not inherently AI writing. Normalise them in hard-mode plain output if requested. Preserve them in sourced excerpts, literary fixtures, publication text, or quoted material.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:562:AI blends senses inappropriately to simulate literary depth: emotions get tastes, sounds get colours, abstract concepts get textures. This happens because the model has no physical experience, so its sensory vocabulary gravitates to immaterial subjects. Real synesthetic writing is specific and grounded ("a great plateful of blue water" works because Woolf had both stood before a view and sat down to a meal). AI synesthesia is unanchored.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:589:AI metaphors are plausible but specific to nobody. They gesture toward meaning without achieving it. Human metaphors draw from personal experience or shared cultural references. AI metaphors draw from the statistical middle.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:602:AI converts prose to bullet points when the content does not warrant it. This is driven by RLHF training: human raters reward structured-looking answers, so the model learns that bullets = quality. The result is text that looks organised but reads like a slide deck rather than writing.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:629:AI-generated articles with numbered sections often repeat the same structural label in each section, creating a cookie-cutter template. The repetition itself is the tell — human writers vary their section structure and rarely use identical action labels across multiple sections.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:670:> The improvement came from rewriting the prompt, not from changes to the model or data. The team had spent weeks on architecture changes before trying this.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:697:Also check paragraph size. AI-generated longform often settles into near-identical blocks: ten paragraphs of 65-85 words, each making one balanced point. Human paragraphs usually show uneven pressure; some are short, some wander, some carry a scene or example longer than expected.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:744:LLMs systematically strip argumentative stance, defaulting to balanced treatment of everything. "There are compelling arguments on both sides" where the original had a clear position. Distinct from generic positive conclusions (#24) — this is about the **removal** of opinion, not the addition of optimism.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:759:### 39. Template and placeholder residue
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:763:Unfilled placeholders are not style issues; they are generated/template residue. Replace them with real values if known, or remove the surrounding sentence if not.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:775:- **Academic/research:** verify citations, DOIs, dates, journals, reference order, and whether cited works actually support the claim. Plausible citation format is not evidence.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:5:Non-negotiable at All depth. At Balanced depth, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:9:At Balanced and All depth, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:28:These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test at Balanced depth; remove at All depth unless the phrase clearly belongs to the writer's voice.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:55:> The results were clear. Strikingly so. The model outperformed every baseline. Every single one. And nobody saw it coming.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:59:> The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:29:    # Added from Vollmer/GPTZero reference audit
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:162:    """Load Kobak et al. excess-vocabulary annotations from the skill data file."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:163:    here = Path(__file__).resolve()
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:165:        here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:166:        here.parents[2] / "human-eyes" / "references" / KOBAK_EXCESS_WORDS_PATH,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:348:BLAND_CRITICAL_TEMPLATE = [
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:503:def vocabulary_pressure_profile(text):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:516:    kobak = kobak_excess_profile(text)
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:593:def kobak_excess_profile(text):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:651:        "bland_critical_template": check_bland_critical_template(text),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:666:        "bland_critical_template": 1,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:681:        "bland_critical_template": "bland critical template",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:688:    vocab = vocabulary_pressure_profile(text)
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:961:    """Detect unfilled template placeholders in generated prose/email."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1447:def check_bland_critical_template(text):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1448:    """Detect generated literary/review criticism that sounds balanced but generic."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1449:    count, matches = count_pattern_matches(text, BLAND_CRITICAL_TEMPLATE)
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1451:        "text": "no-bland-critical-template",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1454:            f"Found {count} bland critical template phrase(s): {matches[:6]}"
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1456:            else f"Bland critical template phrases: {count}"
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1632:    "no-bland-critical-template": check_bland_critical_template,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1647:    "no-anaphora": ("Mechanical repeated sentence starts", "Checks for repeated sentence openings that read like template rhythm."),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1658:    "no-placeholder-residue": ("Placeholder residue", "Checks for unfilled template markers and placeholder instructions."),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1665:    "no-rhetorical-questions": ("Template rhetorical questions", "Checks for article-style questions followed by obvious answers."),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1679:    "no-bland-critical-template": ("Bland critical template", "Checks for generic review language instead of concrete critical claims."),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1683:    "no-section-scaffolding": ("Repeated section scaffolding", "Checks for repeated section labels or repeated structural templates."),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1694:    "no-anaphora": "Mechanical repeated openings can signal template rhythm instead of intentional rhetoric.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1703:    "no-generic-conclusions": "Generic conclusions make the ending feel templated and interchangeable.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1705:    "no-placeholder-residue": "Placeholder residue signals unfinished generated or templated text.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1712:    "no-rhetorical-questions": "Template questions often simulate engagement without adding real inquiry.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1716:    "no-formulaic-openers": "Formulaic openings make paragraphs feel assembled from templates.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1725:    "no-tidy-paragraph-endings": "Repeated tidy endings make paragraphs feel over-resolved and templated.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1726:    "no-bland-critical-template": "Bland critical language replaces concrete judgment with portable review phrases.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1730:    "no-section-scaffolding": "Repeated section structure makes the whole piece feel assembled from a template.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1737:        "failure_modes": ["provenance_residue"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1743:        "failure_modes": ["provenance_residue", "synthetic_significance"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1749:        "failure_modes": ["provenance_residue"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1750:        "evidence_role": "template_residue",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1751:        "guidance": "Fix at every depth; unfilled placeholders are generated/template residue.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1755:        "failure_modes": ["synthetic_significance"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1757:        "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it clearly belongs to the writer's voice.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1761:        "failure_modes": ["voice_erasure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1763:        "guidance": "Fix fake both-sides framing at Balanced and All; preserve only if the piece actually argues both positions with evidence.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1767:        "failure_modes": ["synthetic_significance"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1769:        "guidance": "Fix contrived reframes at Balanced and All; recommend preserving only purposeful contrast at Balanced.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1773:        "failure_modes": ["generic_abstraction"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1779:        "failure_modes": ["generic_abstraction", "synthetic_significance"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1785:        "failure_modes": ["generic_abstraction", "frictionless_structure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1791:        "failure_modes": ["synthetic_significance", "generic_abstraction"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1793:        "guidance": "Usually simplify at Balanced and All; recommend preserving if the construction is idiomatic or technical.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1797:        "failure_modes": ["generic_abstraction"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1799:        "guidance": "Fix stock filler at Balanced and All; at Balanced, disclose and remove unless it belongs to quoted or intentionally casual voice.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1803:        "failure_modes": ["generic_abstraction"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1809:        "failure_modes": ["generic_abstraction"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1815:        "failure_modes": ["frictionless_structure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1817:        "guidance": "Fix at Balanced and All; these phrases usually mark generated explainer structure rather than content.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1821:        "failure_modes": ["frictionless_structure", "generic_abstraction"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1823:        "guidance": "Fix at Balanced and All; at Balanced, recommend preserving only if it matches the source genre.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1827:        "failure_modes": ["frictionless_structure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1828:        "evidence_role": "repeated_template",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1829:        "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1831:    "no-bland-critical-template": {
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1833:        "failure_modes": ["generic_abstraction", "voice_erasure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1835:        "guidance": "Fix at Balanced and All for reviews and criticism; replace generic balance with concrete claims from the work.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1839:        "failure_modes": ["genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1841:        "guidance": "Treat as a strong 2026 AI-style signal. May be preserved only at Balanced depth with explicit disclosure; All requires removal.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1845:        "failure_modes": ["genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1851:        "failure_modes": ["genre_misfit", "frictionless_structure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1857:        "failure_modes": ["genre_misfit", "frictionless_structure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1863:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1869:        "failure_modes": ["generic_abstraction", "synthetic_significance"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1875:        "failure_modes": ["synthetic_significance"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1881:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1887:        "failure_modes": ["generic_abstraction", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1893:        "failure_modes": ["synthetic_significance", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1899:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1900:        "evidence_role": "rhetorical_template",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1901:        "guidance": "Fix article-template questions; recommend preserving interviews, teaching prose, or deliberate argument.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1905:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1907:        "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1911:        "failure_modes": ["synthetic_significance", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1912:        "evidence_role": "narrative_template",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1917:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1923:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1925:        "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1929:        "failure_modes": ["frictionless_structure", "voice_erasure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1935:        "failure_modes": ["voice_erasure", "generic_abstraction"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1941:        "failure_modes": ["voice_erasure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1947:        "failure_modes": ["synthetic_significance", "frictionless_structure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1953:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1959:        "failure_modes": ["frictionless_structure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1961:        "guidance": "Review as a structural signal; vary paragraph lengths when the piece reads like a generated article template.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1965:        "failure_modes": ["frictionless_structure", "voice_erasure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1971:        "failure_modes": ["provenance_residue", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1977:        "failure_modes": ["provenance_residue", "voice_erasure"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1983:        "failure_modes": ["generic_abstraction", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1989:        "failure_modes": ["frictionless_structure", "genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1996:FAILURE_MODE_METADATA = {
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1999:        "summary": "Text leaks assistant, template, formatting, assignment, or publication-workflow residue.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2028:        "failure_modes": ["genre_misfit"],
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2035:DEPTHS = ("balanced", "all")
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2042:        return "Fix at Balanced and All."
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2044:        return "Fix at Balanced and All unless the user explicitly accepts the risk after disclosure."
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2045:    return "Review at Balanced; All requires removal unless the user explicitly accepts the risk."
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2197:            "why_it_matters": CHECK_WHY_IT_MATTERS.get(result["text"], "This pattern can make prose read as generated or over-templated."),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2349:            "failure_modes": result.get("failure_modes", ["genre_misfit"]),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2395:def failure_mode_results(results):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2396:    """Group failed checks by failure mode without changing legacy report fields."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2404:        for key, meta in FAILURE_MODE_METADATA.items()
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2410:        for failure_mode in result.get("failure_modes", ["genre_misfit"]):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2411:            group = grouped.setdefault(failure_mode, {
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2412:                "label": failure_mode.replace("_", " ").title(),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2413:                "summary": "Unclassified failure mode.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2439:    Balanced does not silently approve preserved warnings; it indicates what
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2453:        "balanced": {
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2462:                "Hard failures or strong warnings remain; fix or ask user before Balanced depth output."
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2488:def grade_file(filepath, assertion_names=None):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2489:    """Grade a file against specified assertions (or all if none specified)."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2490:    text = Path(filepath).read_text()
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2679:def regrade(text, depth="balanced"):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2708:USAGE = "Usage: grade.py [--format json|markdown] [--depth balanced|all] <file> [assertion1,assertion2,...]"
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2738:    filepath = args[0]
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2741:    results = grade_file(filepath, assertions)
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2750:        "file": filepath,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2756:        "failure_mode_results": failure_mode_results(results),
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:165:163,"corp","other","noun","often part of citation that refer to a corporation like Microsoft corp."
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:187:185,"deeper","content/style","adjective","can potentially refer to deep learning / deep networks"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:232:230,"efficacy","style/count","noun","can refer to vaccine efficacy"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:329:327,"frontline","content","noun","frontline staff (COVID!), or Frontline therapy refers to a patient's first CLL treatment"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:391:389,"ieee","content","noun","Mostly refers to IEEE Xplore"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:402:400,"inaccuracies","content","noun","refers to problems with data"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:462:460,"llms","content","noun","large language model"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:476:474,"mafld","content","noun","“Metabolic dysfunction-associated fatty liver disease (MAFLD)” is the term suggested in 2020 to refer to fatty liver disease"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:481:479,"marking","content","noun","Can refer to tumor marking, see ""tumor marker"""
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:508:506,"model","content","noun","statistical model, model organism, etc."
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:509:507,"moderating","content","adjective","moderating factors/effects"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:510:508,"moderna","content","noun","Covid vaccine"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:696:694,"rstudio","content","noun","refers to R language"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:712:710,"seir","content","noun","susceptible-exposed-infected-recovered - infection model"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:895:893,"xgboost","content","noun","ML model"
+/Users/mae/Documents/human-eyes/human-eyes/references/example.md:3:End-to-end demonstration of a rewrite at All depth: an AI-generated essay through audit, rewrite, structural self-check, and revised rewrite. Use as a reference for what a real Rewrite action's output should look like.
+/Users/mae/Documents/human-eyes/human-eyes/references/example.md:9:> AI-assisted coding serves as an enduring testament to the transformative potential of large language models, marking a pivotal moment in the evolution of software development. In today's rapidly evolving technological landscape, these groundbreaking tools--nestled at the intersection of research and practice--are reshaping how engineers ideate, iterate, and deliver, underscoring their vital role in modern workflows.
+/Users/mae/Documents/human-eyes/human-eyes/references/example.md:23:> The tools work well for boilerplate: config files, test scaffolding, and repetitive refactors. They are less reliable when it comes to knowing when they are wrong. I have accepted suggestions in bulk that compiled and passed lint but still did the wrong thing, because I stopped paying close enough attention to catch the error.
+/Users/mae/Documents/human-eyes/human-eyes/references/example.md:41:> They are good at boilerplate: config files, test scaffolding, repetitive refactors. They are also good at producing code that looks right and compiles and passes lint but does something slightly different from what you intended. I have learned this the hard way more than once, usually when I was too tired to review carefully.
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:7:This file covers lexical patterns: patterns where a specific word or phrase can be swapped for a plain-English alternative. Structural patterns (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance, tonal uniformity) do not appear here. Suggestions writes contextual rewriting instructions for those.
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:9:A few patterns that look lexical (contrived contrast, false-concession, bland critical templates) get entries below, but their middle column names what the construction usually *means* rather than offering a phrase to swap. Substitution does not work for those; the construction itself is the problem.
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:32:- [Bland critical templates](#bland-critical-templates)
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:227:Bland labelled-block introductions that mark a generated explainer arranging information into balanced sections. The phrases survive because they are not flashy, which is exactly the problem.
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:283:| As of (date) | (cut, or replace with a specific date and source) | Often left over from prompts asking the model what it knows. |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:284:| Up to my last training update | (cut) | Pure model artefact. |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:333:## Bland critical templates
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:136:Reread every decade, this aspect of the book becomes more consequential. The first time, the reader may focus on the death. Later, the book’s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference. Didion and Dunne’s marriage was also a working partnership, an editorial relationship, a long conversation. His absence is therefore not only emotional. It is cognitive. The person who helped her verify reality is gone.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:170:You make categories. You tag things. You build a dashboard. You watch someone on YouTube explain their frictionless weekly review and think, yes, this is the missing layer. The app becomes a little model of a better self: calmer, more intentional, less reactive, never surprised by a deadline, never leaving a receipt in a tote bag or a document in the wrong folder.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:190:This is not a moral failing. It is a design pattern. Apps have interfaces. Interfaces invite interaction. You can drag, sort, nest, colour, schedule, reschedule, link, archive, review and reframe. These actions feel constructive because they are concrete. They produce visible change. The list is cleaner. The board is aligned. The note has metadata. The project has a template.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:275:I arrived with the usual vague promises people make to themselves before travel. I would wander. I would not over-plan. I would eat properly, sleep enough, look up from my phone. Lisbon immediately made most of this feel unnecessary, because the city has its own sense of direction and seems faintly amused by yours. Streets that appear modest on a map turn into staircases. Alleys bend into courtyards. A quiet residential slope suddenly opens onto the Tagus, broad and pale and almost too bright to look at.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:313:I arrived with the usual vague promises people make to themselves before travel. I would wander. I would not over-plan. I would eat properly, sleep enough, look up from my phone. Lisbon immediately made most of this feel unnecessary, because the city has its own sense of direction and seems faintly amused by yours. Streets that appear modest on a map turn into staircases. Alleys bend into courtyards. A quiet residential slope suddenly opens onto the Tagus, broad and pale and almost too bright to look at.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:365:The uncomfortable truth is that creative work can now be made very quickly. Tools have become astonishingly efficient. Drafts can be generated, edited, templated, scheduled and distributed at a pace that would once have seemed absurd. The question is no longer whether we can make more, faster. We plainly can. The more serious question is whether speed is making our work thinner.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:371:This is why slowness is not merely an aesthetic preference. It is an ethical practice. When work is slow, it has more opportunities to become accountable to reality. It can absorb doubt. It can admit complexity. It can resist the easy shape that makes an idea pleasing but untrue.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:387:To defend slowness is also to defend taste. Taste is not simply preference; it is the capacity to perceive difference. It develops through exposure, attention and revision. A culture of speed weakens taste because it reduces the time available for comparison. We no longer ask whether the work is good. We ask whether it is ready. But ready and good are not the same thing. Ready means it can leave us. Good means it can survive leaving us.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:410:Flour, water, salt, yeast. The list looked almost offensively modest. I had spent much of that year overwhelmed by things I could not simplify: illness in the family, work that expanded to fill every waking hour, the quiet dread of unanswered messages, the particular exhaustion that comes from making decisions when none of the options feel good. Bread offered the illusion of containment. Four ingredients. A bowl. A bench. A loaf tin if I felt cautious; a tray if I felt brave.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:469:This is where the popular phrase “wood-wide web” enters the story, and where accuracy matters. A common mycorrhizal network is not just “fungi in the soil”. It means a physical fungal connection linking the roots of two or more plants. Such connections can, in principle, move carbon, nutrients, water or chemical signals between plants. But proving that this happens in intact forests is difficult. Researchers have to separate transfer through fungal hyphae from other routes: roots leaking compounds into soil, microbes consuming and re-releasing them, water moving dissolved chemicals, or plants responding to airborne signals. A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:504:The Renaissance did exactly this. When Stoicism reappeared in early modern Europe, it was not restored as a museum piece. It was adapted. Late Renaissance Neo-Stoicism tried to revive ancient Stoic ethics in a form acceptable to Christian readers, modifying or rejecting parts of ancient Stoic physics and determinism. Justus Lipsius became the key figure in this revival; his De constantia, published in 1584, argued that Christians could draw on Stoic resources during troubled times while marking the limits of what Christian doctrine could accept. This was rediscovery as translation. Stoicism returned because Europe needed a vocabulary for constancy under disorder, but it had to be made theologically survivable.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:510:The contemporary revival is both more democratic and more compromised. On one side, it is genuinely popular philosophy. Modern Stoicism projects such as Stoic Week have turned ancient exercises into public experiments; by 2022, organisers reported that about 38,600 people had signed up across a decade and more than 20,000 had contributed data. On another side, the revival has been absorbed into self-optimisation culture: podcasts, productivity routines, executive coaching, gym discipline, start-up mythology and social media quotation tiles. Ryan Holiday’s Daily Stoic empire has helped bring Stoicism to a mass audience through books, a website, newsletter, podcast and Instagram presence; The Guardian described his audience as including athletes, politicians and tech chief executives.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:512:This is not automatically a corruption. Popularisation is often how old ideas remain socially alive. The problem is selective inheritance. Contemporary Stoicism frequently keeps emotional regulation and discards ethics. It likes discipline, but not always justice; resilience, but not always obligation; serenity, but not always solidarity. Ancient Stoicism was not merely a way to become unbothered. It was a demanding account of how to live according to reason and virtue in a shared cosmos. The modern version is weakest when it becomes a technique for tolerating bad systems rather than judging them. A worker told to “focus on what you can control” may be receiving useful psychological advice, or a subtle instruction to accept exploitation. The difference is political.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:518:The deeper reason Stoicism keeps being rediscovered is that it solves a cultural contradiction. Modern societies preach control while multiplying experiences of powerlessness. People are told to optimise their bodies, careers, attention, finances, sleep, influence and emotional lives, while living under forces too large for individual command: markets, platforms, bureaucracies, pandemics, wars, climate systems, housing prices, institutional decay. Stoicism cuts through that contradiction by narrowing the field of command. It says: stop pretending the whole world is your project. Your character is.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:520:That message is bracing because it is both modest and demanding. It refuses grandiosity. It also removes many excuses. If reputation is not fully yours, then neither praise nor humiliation should govern conduct. If death is inevitable, then fear of it should not waste life. If anger begins in judgement, then outrage is not simply evidence of moral seriousness. If wealth and status are unstable, then they cannot be the centre of a good life. These claims remain culturally abrasive. They offend consumer capitalism, therapeutic indulgence and political performance in equal measure.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:522:Stoicism returns, then, not because people keep misunderstanding antiquity, but because antiquity keeps offering a discipline for recurring human conditions. Its revivals are never innocent. The Roman court, the Christian Renaissance, modern psychotherapy, military captivity, Silicon Valley and Instagram have each taken different things from it. Some have deepened it; some have flattened it. But the pattern is clear. Whenever a culture becomes noisy, unstable and overconfident about control, Stoicism reappears with its old rebuke: the world is not yours to command, but your response is not nothing.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:548:I once watched a junior designer present three concept options to senior stakeholders. The options were thoughtful, but the discussion quickly collapsed into preference. One executive liked the version with fewer words. Another wanted more reassurance. A third asked whether “users even read”. The junior designer responded by defending each screen in turn. The more they defended, the more the room treated the work as opinion.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:562:Juniors also need exposure to the boring parts of design, because that is where design becomes real. Design publishing still over-indexes on the visible moments: the workshop, the prototype, the launch, the elegant case study. Much of the actual work sits elsewhere: the content spreadsheet with 1,700 rows, the naming convention no one wants to resolve, the accessibility review that finds the same pattern failing in six different templates.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:564:One junior designer once told me they were disappointed to be spending so much time on content governance rather than “proper UX”. We were working on a service with hundreds of pages, multiple publishers and inconsistent ownership. The interface problems were real, but they were symptoms of a deeper operating problem. Pages decayed because no one knew who owned them, when they should be reviewed, or what standard they needed to meet. We mapped the publishing workflow, identified where accountability disappeared, and designed a review model that matched the organisation’s capacity. It did more for the user experience than another round of page templates would have done.
 
 2026-04-28T16:59:34.364777Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:59:34.365015Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/references/voice.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/references/voice.md" in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc "sed -n '190,280p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '190,280p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # Personality and soul
 
@@ -511,7 +511,7 @@ Removing AI patterns is therefore only half the job. You must also watch for wha
 
 AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related pattern is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
 
-Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+Human writing draws on real memories, named people, actual places, felt emotions. When rewriting, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
 
 ## Density without purpose
 
@@ -596,8 +596,8 @@ Save wraps any of the four actions' output in a Markdown file. Combine freely wi
 
 Default save paths:
 
-- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+- Fallback: `./human-eyes-<action>.md` when there is no input path (e.g., pasted text).
 - Append `-2`, `-3` rather than overwriting an existing file.
 
 When Save is used:
@@ -606,7 +606,7 @@ When Save is used:
 - The saved file contains the action's full output template, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
 - Date: <ISO 8601>
@@ -624,9 +624,9 @@ Do not duplicate the full report inline in chat when a saved file exists.
 - `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.
 
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/references/process.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/references/process.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
-# Humanise Rewrite and Write Process
+# Human-eyes Rewrite and Write Process
 
 This file is required for Rewrite and Write actions. Use it as the operating
 procedure after the audit has identified patterns and before returning prose.
@@ -740,7 +740,7 @@ When residual issues remain, name them plainly in the post-check. Do not say
 2026-04-28T16:59:58.504373Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:59:58.504664Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "python3 -c 'import sys; sys.path.insert(0,\"/Users/mae/Documents/humanise/humanise\"); from grade import regrade; text = \"\"\"I expected linocut printing to feel like drawing with a knife, but the first surprise was how much of it happened before the ink came out. I spent nearly an hour deciding which parts of a small pear should stay black and which should be carved away. Every line felt slightly irreversible. Pencil lets you fuss. Lino asks for a decision.\\n\\nThe cutting itself was calmer than I expected, at least once I stopped gripping the tool like it was about to escape. The blade made a soft, gritty sound as it lifted curls from the block. I liked the physical evidence of progress gathering beside my hand. I also learned quickly that impatience has a shape: one rushed gouge, too close to the stem, left a pale nick I had to pretend was reflected light.\\n\\nPrinting was the messy part. The ink looked smooth on the slab but behaved differently on the roller, then differently again on the lino. My first pull was patchy, with one over-inked corner and a bald spot through the middle. Still, peeling the paper back had a small ceremony to it. The image was not exactly what I planned, but it had pressure in it, and my mistakes were suddenly part of its surface.\\n\\nWhat stayed with me was the slowness. Linocut makes you think backwards, work carefully, and accept that the hand will show. I found that frustrating. I also found it honest.\"\"\"; print(\"words\", len(text.split())); import json; print(json.dumps(regrade(text, depth=\"balanced\"), indent=2))'" in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc "python3 -c 'import sys; sys.path.insert(0,\"/Users/mae/Documents/human-eyes/human-eyes\"); from grade import regrade; text = \"\"\"I expected linocut printing to feel like drawing with a knife, but the first surprise was how much of it happened before the ink came out. I spent nearly an hour deciding which parts of a small pear should stay black and which should be carved away. Every line felt slightly irreversible. Pencil lets you fuss. Lino asks for a decision.\\n\\nThe cutting itself was calmer than I expected, at least once I stopped gripping the tool like it was about to escape. The blade made a soft, gritty sound as it lifted curls from the block. I liked the physical evidence of progress gathering beside my hand. I also learned quickly that impatience has a shape: one rushed gouge, too close to the stem, left a pale nick I had to pretend was reflected light.\\n\\nPrinting was the messy part. The ink looked smooth on the slab but behaved differently on the roller, then differently again on the lino. My first pull was patchy, with one over-inked corner and a bald spot through the middle. Still, peeling the paper back had a small ceremony to it. The image was not exactly what I planned, but it had pressure in it, and my mistakes were suddenly part of its surface.\\n\\nWhat stayed with me was the slowness. Linocut makes you think backwards, work carefully, and accept that the hand will show. I found that frustrating. I also found it honest.\"\"\"; print(\"words\", len(text.split())); import json; print(json.dumps(regrade(text, depth=\"balanced\"), indent=2))'" in /Users/mae/Documents/human-eyes/human-eyes
 2026-04-28T17:00:12.123812Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T17:00:12.126838Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
  succeeded in 116ms:
@@ -1270,7 +1270,7 @@ words 240
 }
 
 exec
-/bin/zsh -lc "python3 -c 'import sys, json; sys.path.insert(0,\"/Users/mae/Documents/humanise/humanise\"); from grade import regrade; text = \"\"\"I expected linocut printing to feel like drawing with a knife, but the first surprise was how much of it happened before the ink came out. I spent nearly an hour deciding which parts of a small pear should stay black and which should be carved away. Every line felt slightly irreversible, because pencil lets you fuss while lino asks for a decision.\\n\\nThe cutting itself was calmer than I expected, at least once I stopped gripping the tool like it was about to escape. The blade made a soft, gritty sound as it lifted curls from the block. I liked the physical evidence of progress gathering beside my hand. I also learned quickly that impatience has a shape: one rushed gouge, too close to the stem, left a pale nick I had to pretend was reflected light.\\n\\nPrinting was the messy part. The ink looked smooth on the slab but behaved differently on the roller, then differently again on the lino. My first pull was patchy, with one over-inked corner and a bald spot through the middle. Still, peeling the paper back had a small ceremony to it. The image was not exactly what I planned, but it had pressure in it, and my mistakes were suddenly part of its surface.\\n\\nWhat stayed with me was the slowness. Linocut makes you think backwards, work carefully, and accept that the hand will show. I found that frustrating at the start. I also found it honest, which is why I want to try again.\"\"\"; print(\"words\", len(text.split())); print(json.dumps(regrade(text, depth=\"balanced\"), indent=2))'" in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc "python3 -c 'import sys, json; sys.path.insert(0,\"/Users/mae/Documents/human-eyes/human-eyes\"); from grade import regrade; text = \"\"\"I expected linocut printing to feel like drawing with a knife, but the first surprise was how much of it happened before the ink came out. I spent nearly an hour deciding which parts of a small pear should stay black and which should be carved away. Every line felt slightly irreversible, because pencil lets you fuss while lino asks for a decision.\\n\\nThe cutting itself was calmer than I expected, at least once I stopped gripping the tool like it was about to escape. The blade made a soft, gritty sound as it lifted curls from the block. I liked the physical evidence of progress gathering beside my hand. I also learned quickly that impatience has a shape: one rushed gouge, too close to the stem, left a pale nick I had to pretend was reflected light.\\n\\nPrinting was the messy part. The ink looked smooth on the slab but behaved differently on the roller, then differently again on the lino. My first pull was patchy, with one over-inked corner and a bald spot through the middle. Still, peeling the paper back had a small ceremony to it. The image was not exactly what I planned, but it had pressure in it, and my mistakes were suddenly part of its surface.\\n\\nWhat stayed with me was the slowness. Linocut makes you think backwards, work carefully, and accept that the hand will show. I found that frustrating at the start. I also found it honest, which is why I want to try again.\"\"\"; print(\"words\", len(text.split())); print(json.dumps(regrade(text, depth=\"balanced\"), indent=2))'" in /Users/mae/Documents/human-eyes/human-eyes
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-Nkg4eQN1' (errno=Operation not permitted)

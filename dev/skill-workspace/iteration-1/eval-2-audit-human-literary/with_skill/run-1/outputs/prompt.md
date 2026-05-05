@@ -1,7 +1,7 @@
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -11,7 +11,7 @@ Task prompt:
 Audit this draft for AI tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/woolf-moth.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/woolf-moth.md
 
 ```markdown
 # The Death of a Moth: A Meditation on Life's Fragility

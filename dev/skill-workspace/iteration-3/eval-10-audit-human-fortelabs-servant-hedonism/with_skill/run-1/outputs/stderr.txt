@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit this draft for AI tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md
 
 ```markdown
 ---
@@ -129,21 +129,21 @@ I find the courage to go on by reminding myself: you get to be part of the futur
 codex
 I’ll read the local skill contract first, then run the audit against the provided draft without changing any files.
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -151,7 +151,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -163,7 +163,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -176,7 +176,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
 4. Render the audit using the output template below.
@@ -353,7 +353,7 @@ Why: <one sentence on why this depth fits the brief>
 **Post-check at <depth>**
 
 exec
-/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/humanise/SKILL.md && sed -n '1,260p' /Users/mae/Documents/humanise/humanise/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md && sed -n '1,260p' /Users/mae/Documents/human-eyes/human-eyes/references/patterns.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 **Post-check at <depth>**
 [Same shape as Rewrite post-check]
@@ -369,8 +369,8 @@ Save wraps any of the four actions' output in a Markdown file. Combine freely wi
 
 Default save paths:
 
-- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+- Fallback: `./human-eyes-<action>.md` when there is no input path (e.g., pasted text).
 - Append `-2`, `-3` rather than overwriting an existing file.
 
 When Save is used:
@@ -379,7 +379,7 @@ When Save is used:
 - The saved file contains the action's full output template, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
 - Date: <ISO 8601>
@@ -659,10 +659,10 @@ Current threshold: vocabulary pressure contributes points to an overall score. T
 codex
 The skill’s default action is an audit only, with no rewrite and no file changes. I’m using the local grader plus the pattern catalogue so the output follows the skill’s own report format.
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md' in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md' in /Users/mae/Documents/human-eyes/human-eyes
  succeeded in 109ms:
 {
-  "file": "/Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md",
+  "file": "/Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md",
   "pass_rate": "36/43",
   "failures_by_severity": {
     "context_warning": 6,
@@ -2308,11 +2308,11 @@ exec
 }
 
 exec
-/bin/zsh -lc 'rg -n "triad|anaphora|curly|markdown" /Users/mae/Documents/humanise/humanise/grade.py' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "triad|anaphora|curly|markdown" /Users/mae/Documents/human-eyes/human-eyes/grade.py' in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc 'rg -n "negative|parallel|not.*but|beyond|less.*than|no-negative" /Users/mae/Documents/humanise/humanise/grade.py' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "negative|parallel|not.*but|beyond|less.*than|no-negative" /Users/mae/Documents/human-eyes/human-eyes/grade.py' in /Users/mae/Documents/human-eyes
 exec
-/bin/zsh -lc "nl -ba /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md | sed -n '1,180p'" in /Users/mae/Documents/humanise
+/bin/zsh -lc "nl -ba /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md | sed -n '1,180p'" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 28:    "unparalleled", "invaluable", "bolstered", "meticulous",
 641:        "negative_parallelism": check_negative_parallelisms(text),
@@ -2491,7 +2491,7 @@ exec
     96	**Follow us for the latest updates and insights around productivity and Building a Second Brain on [X](https://twitter.com/fortelabs/), [Facebook](https://www.facebook.com/fortelabs/), [Instagram](https://www.instagram.com/fortelabsco/), [LinkedIn](https://www.linkedin.com/in/tiagoforte/), and [YouTube](https://www.youtube.com/@TiagoForte). And if you're ready to start building your Second Brain, [get the book](https://www.buildingasecondbrain.com/book) and learn the proven method to organize your digital life and unlock your creative potential.**
 
 exec
-/bin/zsh -lc "sed -n '861,920p' /Users/mae/Documents/humanise/humanise/grade.py" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '861,920p' /Users/mae/Documents/human-eyes/human-eyes/grade.py" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 def check_negative_parallelisms(text):
     normalized = normalize_for_regex(text)
@@ -2555,7 +2555,7 @@ def check_copula_avoidance(text):
     count, matches = count_pattern_matches(text, COPULA_AVOIDANCE)
 
 exec
-/bin/zsh -lc "python3 -c 'import re, pathlib, sys; sys.path.insert(0,\"/Users/mae/Documents/humanise/humanise\"); import grade; text=grade.normalize_for_regex(pathlib.Path(\"/Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md\").read_text()); subject=r\"(?:it|this|that|the (?:point|question|problem|goal|story|work|piece|tool|song|film|book|app|product|value))\"; neg=r\"(?:not|isn.t|is not|wasn.t|was not|aren.t|are not|isnt|wasnt|arent)\"; soft=r\"(?:just|only|merely|simply|really|actually|about|a matter of|a question of|a story of)\"; abstract=r\"(?:meaning|identity|dignity|human|humanity|connection|creativity|trust|belonging|agency|purpose|truth|memory|resilience|empathy|transformation|possibility|culture|power|relationship|experience|what matters|what it means|reclaiming|unlocking|reminder|lesson|journey|conversation|negotiation|reflection|statement|capability)\"; pats=[r\"\\bnot\\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\\b.{0,120}\\bbut(?: also)?\\b\", r\"\\b(?:isn.t|is not|wasn.t|was not|aren.t|are not|isnt|wasnt|arent)\\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\\b.{0,120}\\bbut(?: also)?\\b\", rf\"\\bnot\\s+so\\s+much\\b.{{0,120}}\\bas\\b\", rf\"\\b{subject}\\s+{neg}\\s+{soft}\\s+.{{0,120}}[;:,\\-]\\s+(?:it.s|that.s|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\\b\", rf\"\\b{subject}\\s+{neg}\\s+.{{0,120}}[;:,\\-]\\s+(?:it.s|that.s|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\\b["'^.!?'"\\n]{{0,120}}\\b{abstract}\\b\", rf\"\\b{neg}\\s+(?:(?:just|only|merely|simply)\\s+)?about\\b.{{0,120}}[."'!?]'"\\s+(?:it|this|that)\\s+(?:is|was|becomes?)\\s+about\\b["'^.!?'"\\n]{{0,120}}\\b{abstract}\\b\", r\"\\b(?:is|are|was|were|becomes?)\\s+less\\s+about\\b.{0,120}\\bthan\\s+(?:about\\s+)?\", r\"\\b(?:is|are|was|were|becomes?)\\s+more\\s+about\\b.{0,120}\\bthan\\s+(?:about\\s+)?\", r\"\\b(?:is|are|was|were|becomes?)\\s+(?:less|more)\\s+a\\b.{0,120}\\bthan\\s+a\\b\", r\"\\b(?:you might think|at first glance|on the surface|it may seem)\\b.{0,120}\\b(?:but|yet|actually|in reality)\\b\", rf\"\\b(?:is|are|was|were|becomes?|means?)\\b["'^.!?'"\\n]{{0,90}}\\b{abstract}\\b["'^.!?'"\\n]{{0,80}},?\\s+(?:rather than|instead of|not)\\b\", rf\"\\b(?:a|an|the)\\s+(?:question|matter|story|lesson|reminder|act|gesture|exercise|conversation|negotiation|reflection)\\s+of\\s+{abstract}\\b["'^.!?'"\\n]{{0,80}},?\\s+(?:rather than|instead of|not)\\b\", rf\"\\b(?:beyond|more than|larger than|deeper than)\\b["'^.!?'"\\n]{{1,80}},?\\s+(?:{subject}\\s+)?(?:is|was|becomes?|means?)\\b["'^.!?'"\\n]{{0,90}}\\b{abstract}\\b\", rf\"\\b(?:actually|in reality|the real (?:point|story|question|issue|challenge) is)\\b["'^.!?'"\\n]{{0,120}}\\b{abstract}\\b\"]; [print(m.group(0)) for pat in pats for m in re.finditer(pat,text,flags=re.I|re.S)]'" in /Users/mae/Documents/humanise
+/bin/zsh -lc "python3 -c 'import re, pathlib, sys; sys.path.insert(0,\"/Users/mae/Documents/human-eyes/human-eyes\"); import grade; text=grade.normalize_for_regex(pathlib.Path(\"/Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md\").read_text()); subject=r\"(?:it|this|that|the (?:point|question|problem|goal|story|work|piece|tool|song|film|book|app|product|value))\"; neg=r\"(?:not|isn.t|is not|wasn.t|was not|aren.t|are not|isnt|wasnt|arent)\"; soft=r\"(?:just|only|merely|simply|really|actually|about|a matter of|a question of|a story of)\"; abstract=r\"(?:meaning|identity|dignity|human|humanity|connection|creativity|trust|belonging|agency|purpose|truth|memory|resilience|empathy|transformation|possibility|culture|power|relationship|experience|what matters|what it means|reclaiming|unlocking|reminder|lesson|journey|conversation|negotiation|reflection|statement|capability)\"; pats=[r\"\\bnot\\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\\b.{0,120}\\bbut(?: also)?\\b\", r\"\\b(?:isn.t|is not|wasn.t|was not|aren.t|are not|isnt|wasnt|arent)\\s+(?:just|only|merely|simply|about|a matter of|a question of|a story of)\\b.{0,120}\\bbut(?: also)?\\b\", rf\"\\bnot\\s+so\\s+much\\b.{{0,120}}\\bas\\b\", rf\"\\b{subject}\\s+{neg}\\s+{soft}\\s+.{{0,120}}[;:,\\-]\\s+(?:it.s|that.s|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\\b\", rf\"\\b{subject}\\s+{neg}\\s+.{{0,120}}[;:,\\-]\\s+(?:it.s|that.s|this is|it is|that is|it was|that was|this was|it becomes?|that becomes?|this becomes?)\\b["'^.!?'"\\n]{{0,120}}\\b{abstract}\\b\", rf\"\\b{neg}\\s+(?:(?:just|only|merely|simply)\\s+)?about\\b.{{0,120}}[."'!?]'"\\s+(?:it|this|that)\\s+(?:is|was|becomes?)\\s+about\\b["'^.!?'"\\n]{{0,120}}\\b{abstract}\\b\", r\"\\b(?:is|are|was|were|becomes?)\\s+less\\s+about\\b.{0,120}\\bthan\\s+(?:about\\s+)?\", r\"\\b(?:is|are|was|were|becomes?)\\s+more\\s+about\\b.{0,120}\\bthan\\s+(?:about\\s+)?\", r\"\\b(?:is|are|was|were|becomes?)\\s+(?:less|more)\\s+a\\b.{0,120}\\bthan\\s+a\\b\", r\"\\b(?:you might think|at first glance|on the surface|it may seem)\\b.{0,120}\\b(?:but|yet|actually|in reality)\\b\", rf\"\\b(?:is|are|was|were|becomes?|means?)\\b["'^.!?'"\\n]{{0,90}}\\b{abstract}\\b["'^.!?'"\\n]{{0,80}},?\\s+(?:rather than|instead of|not)\\b\", rf\"\\b(?:a|an|the)\\s+(?:question|matter|story|lesson|reminder|act|gesture|exercise|conversation|negotiation|reflection)\\s+of\\s+{abstract}\\b["'^.!?'"\\n]{{0,80}},?\\s+(?:rather than|instead of|not)\\b\", rf\"\\b(?:beyond|more than|larger than|deeper than)\\b["'^.!?'"\\n]{{1,80}},?\\s+(?:{subject}\\s+)?(?:is|was|becomes?|means?)\\b["'^.!?'"\\n]{{0,90}}\\b{abstract}\\b\", rf\"\\b(?:actually|in reality|the real (?:point|story|question|issue|challenge) is)\\b["'^.!?'"\\n]{{0,120}}\\b{abstract}\\b\"]; [print(m.group(0)) for pat in pats for m in re.finditer(pat,text,flags=re.I|re.S)]'" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-qPwf5cWL' (errno=Operation not permitted)
@@ -2564,7 +2564,7 @@ python3: error: couldn't create cache file '/tmp/xcrun_db-eFJpkkYw' (errno=Opera
 not just our needs, but
 
 exec
-/bin/zsh -lc "python3 /Users/mae/Documents/humanise/humanise/grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md | sed -n '1,180p'" in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc "python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format markdown /Users/mae/Documents/human-eyes/dev/evals/samples/human-sourced/21c-fortelabs-servant-hedonism.md | sed -n '1,180p'" in /Users/mae/Documents/human-eyes/human-eyes
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-34oMNruX' (errno=Operation not permitted)

@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -33,10 +33,10 @@ No input files.
 2026-04-28T16:41:13.327369Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:41:13.327591Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits text for AI-style writing patterns, rewrites existing drafts to remove
   them, or writes new content that avoids them. Uses 38 patterns and 43
@@ -47,7 +47,7 @@ description: >-
   or when drafting prose that needs to read as human.
 ---
 
-# Humanise: Audit, rewrite, or write without AI patterns
+# Human-eyes: Audit, rewrite, or write without AI patterns
 
 Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
 
@@ -95,7 +95,7 @@ Use this when the user asks things like:
 - "Does this sound AI?"
 - "Check this for AI writing."
 - "Audit this draft."
-- "Run humanise on this."
+- "Run human-eyes on this."
 - "What's flagged here?"
 
 Or any input where the user provides text without an explicit Rewrite or Write instruction.
@@ -115,7 +115,7 @@ The audit table uses a `Severity` column and a severity-tiered `Recommended acti
 
 ### 2. Rewrite
 
-Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, human-eyes-as-action, or confirms a rewrite after an audit.
 
 Do:
 
@@ -150,7 +150,7 @@ There is no initial audit — there is no input text to audit.
 ### Modifiers
 
 - **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
-- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`. Fall back to `./human-eyes-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
 
 ---
 
@@ -232,7 +232,7 @@ grep -i "promotional" references/patterns.md
 Decide which of the three actions applies:
 
 - If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
-- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user explicitly asks to rewrite, fix, clean up, human-eyes (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
 - If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
 - If the input has text but no clear instruction: use **Audit** and ask what's next.
 - If the input has no text and the request is unclear: ask what they want.
@@ -250,7 +250,7 @@ If you cannot ask, default to Audit. The audit is read-only and lets the user de
 Save the input text to a unique temp file using `mktemp` for portability:
 
 ```bash
-INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)
 # write the input text to "$INPUT_PATH"
 python3 grade.py --format markdown "$INPUT_PATH"
 ```
@@ -259,7 +259,7 @@ python3 grade.py --format markdown "$INPUT_PATH"
 2026-04-28T16:41:19.598959Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:41:19.599175Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 
 The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
@@ -475,7 +475,7 @@ In the chat output:
 In the saved Markdown file, render the action's normal output template in full, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Mode: <Light / Medium / Hard, or "n/a" for Audit>
 - Date: <ISO 8601>
@@ -507,7 +507,7 @@ A full Hard-mode Rewrite walked through end-to-end (AI-sounding draft → audit 
 2026-04-28T16:41:24.095487Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:41:24.095688Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/voice.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/voice.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # Personality and soul
 
@@ -523,7 +523,7 @@ Removing AI patterns is therefore only half the job. You must also watch for wha
 
 AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related move is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
 
-Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+Human writing draws on real memories, named people, actual places, felt emotions. When rewriting, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
 
 ## Density without purpose
 
@@ -564,7 +564,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 > Three million lines of code, generated overnight while the developers slept. I have been turning this over for a few days now, and I still do not have a clean take on it. Half the dev community thinks this changes everything; the other half is explaining, at length, why it does not count. My own reaction keeps shifting depending on which examples I look at.
 
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # Severity detail: deep-dive on the four most distinctive AI tells
 
@@ -627,7 +627,7 @@ A sentence should be as long as the thought it contains. When you find fragments
 > The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
 
 exec
-/bin/zsh -lc "ls -la /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot && rg --files /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot | sed -n '1,120p'" in /Users/mae/Documents/humanise
+/bin/zsh -lc "ls -la /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot && rg --files /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot | sed -n '1,120p'" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 total 504
 drwxr-xr-x@ 7 mae  staff     224 Apr 28 17:58 .
@@ -637,25 +637,25 @@ drwxr-xr-x@ 4 mae  staff     128 Apr 29 02:24 ..
 -rw-r--r--@ 1 mae  staff  103162 Apr 28 17:58 examples ai.txt
 -rw-r--r--@ 1 mae  staff  109035 Apr 28 17:58 grade.py
 drwxr-xr-x@ 7 mae  staff     224 Apr 28 17:58 references
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/examples ai.txt
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/kobak-excess-words.csv
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/patterns.md
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/example.md
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/voice.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/examples ai.txt
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/kobak-excess-words.csv
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/patterns.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/example.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/voice.md
 
 2026-04-28T16:41:33.757536Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:41:33.757793Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "cd /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot && python3 grade.py --format markdown --mode medium <(printf '%s' 'I thought linocut would be a tidy kind of making: draw, carve, ink, press. The first afternoon corrected me quickly. My pencil lines looked confident on the block, but the cutter did not care about confidence. It caught on small changes in pressure, skipped when I rushed, and left blunt white scars where I had imagined fine light.
+/bin/zsh -lc "cd /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot && python3 grade.py --format markdown --mode medium <(printf '%s' 'I thought linocut would be a tidy kind of making: draw, carve, ink, press. The first afternoon corrected me quickly. My pencil lines looked confident on the block, but the cutter did not care about confidence. It caught on small changes in pressure, skipped when I rushed, and left blunt white scars where I had imagined fine light.
 
 The strangest part was learning that the print is made as much by what is removed as by what remains. I knew that in theory. In my hand, it felt less elegant. Every cut was permanent, so I kept pausing with the tool above the lino, trying to decide whether a shadow needed one more line or whether I was about to ruin it. That hesitation became part of the work. The finished print carried all the little decisions I had made too late or too fast.
 
 Inking was messier than I expected. Too much ink filled the cuts; too little made the image look tired. When I finally pulled a print that held together, I did not feel triumphant exactly. I felt alert. The process had made me look harder at edges, pressure, reversal, and patience. It also made me more forgiving of roughness. A slightly uneven line can show the hand that made it, and for a first linocut, that seems worth keeping.
 
-I left with black ink under my fingernails and a better respect for slow decisions.')" in /Users/mae/Documents/humanise
+I left with black ink under my fingernails and a better respect for slow decisions.')" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-O2j2LYXO' (errno=Operation not permitted)

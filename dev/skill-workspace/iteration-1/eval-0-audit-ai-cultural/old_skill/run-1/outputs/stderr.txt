@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit this draft for AI tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md
 
 ```markdown
 # Why The year of magical thinking should be reread every decade
@@ -78,10 +78,10 @@ That is why the book should not be left on the shelf as a classic once read and 
 2026-04-28T16:24:08.130854Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:24:08.131127Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md && rg -n \"\" /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot -g '"'!**/.git/**'"' -g '"'!SKILL.md'"' -g '"'!node_modules/**'"' | head -200 && sed -n '1,220p' /Users/mae/.codex/memories/MEMORY.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md && rg -n \"\" /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot -g '"'!**/.git/**'"' -g '"'!SKILL.md'"' -g '"'!node_modules/**'"' | head -200 && sed -n '1,220p' /Users/mae/.codex/memories/MEMORY.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits text for AI-style writing patterns, rewrites existing drafts to remove
   them, or writes new content that avoids them. Uses 38 patterns and 43
@@ -92,7 +92,7 @@ description: >-
   or when drafting prose that needs to read as human.
 ---
 
-# Humanise: Audit, rewrite, or write without AI patterns
+# Human-eyes: Audit, rewrite, or write without AI patterns
 
 Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
 
@@ -140,7 +140,7 @@ Use this when the user asks things like:
 - "Does this sound AI?"
 - "Check this for AI writing."
 - "Audit this draft."
-- "Run humanise on this."
+- "Run human-eyes on this."
 - "What's flagged here?"
 
 Or any input where the user provides text without an explicit Rewrite or Write instruction.
@@ -160,7 +160,7 @@ The audit table uses a `Severity` column and a severity-tiered `Recommended acti
 
 ### 2. Rewrite
 
-Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, human-eyes-as-action, or confirms a rewrite after an audit.
 
 Do:
 
@@ -195,7 +195,7 @@ There is no initial audit — there is no input text to audit.
 ### Modifiers
 
 - **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
-- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`. Fall back to `./human-eyes-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
 
 ---
 
@@ -277,7 +277,7 @@ grep -i "promotional" references/patterns.md
 Decide which of the three actions applies:
 
 - If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
-- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user explicitly asks to rewrite, fix, clean up, human-eyes (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
 - If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
 - If the input has text but no clear instruction: use **Audit** and ask what's next.
 - If the input has no text and the request is unclear: ask what they want.
@@ -295,211 +295,211 @@ If you cannot ask, default to Audit. The audit is read-only and lets the user de
 Save the input text to a unique temp file using `mktemp` for portability:
 
 ```bash
-INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)
 # write the input text to "$INPUT_PATH"
 python3 grade.py --format markdown "$INPUT_PATH"
 ```
 
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:1:# Severity detail: deep-dive on the four most distinctive AI tells
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:2:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:3:Expanded detail on four patterns from the Severity classes table in SKILL.md (em dashes, manufactured insight, adversarial reframes, generic staccato fragments). They get their own subsections because they are the most common and most distinctive AI tells in 2026 — the rules below are the canonical source of truth when these patterns appear.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:4:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:5:Non-negotiable in Hard mode. In Medium and Light mode, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:6:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:7:## No em dashes except disclosed Light mode preservation
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:8:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:9:In Medium and Hard mode, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:10:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:11:Replace with commas, colons, semicolons, periods, or parentheses. Restructure the sentence if none of those fit. There is always an alternative.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:12:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:13:In Light mode only, em dashes may be preserved if they are part of an author's established style, quoted source text, dialogue rhythm, or period/literary voice. Disclose the preservation explicitly so the user can decide. If the user asked for publication-ready plain prose, normalise them.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:14:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:15:## No manufactured insight
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:16:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:17:Eliminate all framing that performs the act of having a deeper take. AI cannot have insider knowledge, so it compensates with linguistic markers that signal depth without providing any. Either state the observation plainly or remove the sentence if stripping the framing reveals no substance.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:18:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:19:- **False revelation:** "But the real answer is...", "What's actually happening here is...", "Here's what's really going on..."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:20:- **Contrived contrarianism:** "What nobody is talking about...", "What no one is talking about...", "Contrary to popular belief...", "The uncomfortable truth is..."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:21:- **Unnoticed-shift framing:** "When no one noticed...", "The shift nobody noticed...", "Before anyone noticed...", "Without anyone noticing..." when used to manufacture secret significance.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:22:- **Pseudo-profundity:** "quietly revolutionary", "quietly became", "the quiet part", "subtly", "understated", "unassuming" when used to inflate significance
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:23:- **Performed knowingness:** "If you know, you know", "And that changes everything", "Let that sink in", "Read that again", "And honestly?", "Here's the thing:"
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:24:- **Formulaic depth framing:** "The reason is straightforward:", "The reason is simple:", "Here's why:", "What's strange is", "What's interesting is", "What's remarkable is". These perform the act of having an explanation before delivering one.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:25:- **Dramatic narrative transitions:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me." These claim a turning point without earning it.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:26:- **Contrived contrast:** "This isn't X. It's Y." as a standalone dramatic beat (e.g. "This isn't a bug. It's a feature." or "This isn't a character flaw. It's hardware."). The two-sentence snap format is a reliable AI fingerprint regardless of content.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:27:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:28:These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test in Light mode; remove in Medium and Hard unless the phrase clearly belongs to the writer's voice.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:29:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:30:## No adversarial reframes
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:31:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:32:Do not satisfy the letter of a rule while keeping the same AI-shaped move. This especially applies to pattern 9, contrived contrast / negative parallelism. If the draft says "It's not X, it's Y", an acceptable rewrite is not "It is Y, not X" or "Beyond X, it becomes Y". Those are the same device with the furniture moved around.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:33:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:34:Flag and rewrite all of these as direct claims:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:35:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:36:- "It's not X, it's Y."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:37:- "It's Y, not X."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:38:- "Less X than Y."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:39:- "More Y than X."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:40:- "Not so much X as Y."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:41:- "Beyond X, it is Y."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:42:- "You might think X. Actually, Y."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:43:- "No X. No Y. Just Z."
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:44:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:45:The test is semantic: if the sentence creates drama by rejecting a plain interpretation and revealing a supposedly deeper abstraction, remove the setup and state the actual claim with concrete support.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:46:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:47:## No staccato fragments
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:48:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:49:Short sentences used in sequence for dramatic effect are often an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats in generic articles are usually generated.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:50:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:51:A sentence should be as long as the thought it contains. When you find fragments used for generic emphasis, fold their content into a neighbouring sentence or expand into something that earns its own line. Preserve staccato when it is character voice, comedy, panic, dialogue, or deliberate literary rhythm.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:52:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:53:### Before
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:54:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:55:> The results were clear. Strikingly so. The model outperformed every baseline. Every single one. And nobody saw it coming.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:56:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:57:### After
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:58:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md:59:> The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:1:#!/usr/bin/env python3
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:2:"""Grade humanised text against programmatic assertions."""
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:3:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:4:import csv
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:5:import ast
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:6:import json
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:7:import re
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:8:import sys
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:9:from pathlib import Path
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:10:from statistics import stdev
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:11:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:12:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:13:# --- Pattern lists ---
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:14:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:15:AI_VOCABULARY = [
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:16:    "additionally", "crucial", "delve", "emphasizing",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:17:    "enduring", "enhance", "fostering", "garner", "interplay",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:18:    "intricate", "intricacies", "landscape", "pivotal", "showcase",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:19:    "showcasing", "tapestry", "testament", "underscore", "underscoring",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:20:    "valuable", "vibrant", "foster", "highlighting",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:21:    # Added from Grammarly research
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:22:    "realm", "harness", "illuminate", "facilitate", "bolster",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:23:    "streamline", "shed light on", "revolutionize", "innovative",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:24:    "cutting-edge", "game-changing", "transformative", "seamlessly",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:25:    # Added from user observations
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:26:    "genuinely", "unspoken", "seamless",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:27:    # Added from April 2026 research (Nature biomedical study, practitioner guides)
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:28:    "unparalleled", "invaluable", "bolstered", "meticulous",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:29:    # Added from Vollmer/GPTZero reference audit
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:30:    "mosaic", "ecosystem", "symphony", "labyrinth", "beacon",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:31:    "cornerstone", "bedrock", "kaleidoscope", "odyssey", "robust",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:32:    "dynamic", "comprehensive", "multifaceted", "nuanced", "holistic",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:33:    "state-of-the-art", "ever-evolving", "ever-changing", "utilize",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:34:    "optimize", "empower", "navigate", "unpack", "explore", "embrace",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:35:    "unlock", "commendable", "paramount", "unwavering", "alignment",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:36:    "resonate", "compelling",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:37:]
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:38:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:39:# GPTZero's April 2026 public AI Vocabulary table exposes 100 high-ratio
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:40:# phrases. Treat them as tentative clustering signals, not single-phrase proof.
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:41:GPTZERO_AI_PHRASES = [
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:42:    "provide a valuable insight",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:43:    "left an indelible mark",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:44:    "a stark reminder",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:45:    "a nuanced understanding",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:46:    "significant role in shaping",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:47:    "the complex interplay",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:48:    "broad implication",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:49:    "an unwavering commitment",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:50:    "endure a legacy",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:51:    "underscore the importance",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:52:    "play a pivotal role",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:53:    "a pivotal moment",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:54:    "navigate the complex",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:55:    "mark a turning point",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:56:    "continue to inspire",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:57:    "gain a deeper understanding",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:58:    "the transformative power",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:59:    "hold a significant",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:60:    "play a crucial role",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:61:    "particularly a concern",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:62:    "the relentless pursuit",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:63:    "emphasize the need",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:64:    "target an intervention",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:65:    "a multi-faceted approach",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:66:    "a serf reminder",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:67:    "highlight the potential",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:68:    "a significant milestone",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:69:    "implication to understand",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:70:    "potential risk associated",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:71:    "leave a lasting",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:72:    "add a layer",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:73:    "offer a valuable",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:74:    "a profound implication",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:75:    "case highlights the importance",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:76:    "finding a highlight of the importance",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:77:    "pave the way for the future",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:78:    "a significant step forward",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:79:    "face a significant",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:80:    "finding an important implication",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:81:    "emphasize the importance",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:82:    "a significant implication",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:83:    "delve deeper into",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:84:    "reply in tone",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:85:    "raise an important question",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:86:    "make an informed decision in regard to",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:87:    "far-reaching implications",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:88:    "a comprehensive framework",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:89:    "importance to consider",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:90:    "a unique blend",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:91:    "couldn't help but wonder",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:92:    "underscore the need",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:93:    "framework for understanding",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:94:    "highlight the need",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:95:    "a comprehensive understanding",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:96:    "the journey begins",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:97:    "understanding the fundamental",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:98:    "despite the face",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:99:    "a delicate balance",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:100:    "the path ahead",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:101:    "gain an insight",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:102:    "laid the groundwork",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:103:    "understand the behavior",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:104:    "renew a sense",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:105:    "aim to explore",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:106:    "present a unique challenge",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:107:    "provide a comprehensive",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:108:    "particularly with regard to",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:109:    "address the root cause",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:110:    "loom large in",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:111:    "the implication of the finding",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:112:    "approach ensures a",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:113:    "an ongoing dialogue",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:114:    "carry a weight",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:115:    "ability to navigate",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:116:    "present a significant",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:117:    "study shed light on",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:118:    "a diverse perspective",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:119:    "face an adversity",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:120:    "a comprehensive overview",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:121:    "potentially lead to",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:122:    "a broad understanding",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:123:    "contribute to the understanding",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:124:    "shape the public",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:125:    "particularly noteworthy",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:126:    "the evidence base for decision making",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:127:    "identify an area of improvement",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:128:    "analysis of the data to analyze and use",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:129:    "undergone a significant",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:130:    "need a robust",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:131:    "voice will fill",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:132:    "concern a potential",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:133:    "initiative aims to",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:134:    "offering a unique",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:135:    "a new avenue",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:136:    "despite the challenge",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:137:    "ready to embrace",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:138:    "the societal expectation",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:139:    "make accessible",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:140:    "today at a fast pace",
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py:141:    "stand in stark contrast",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:1:# Severity detail: deep-dive on the four most distinctive AI tells
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:2:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:3:Expanded detail on four patterns from the Severity classes table in SKILL.md (em dashes, manufactured insight, adversarial reframes, generic staccato fragments). They get their own subsections because they are the most common and most distinctive AI tells in 2026 — the rules below are the canonical source of truth when these patterns appear.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:4:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:5:Non-negotiable in Hard mode. In Medium and Light mode, hard failures and strong warnings must be fixed. Context warnings may be preserved only with explicit disclosure and a concrete reason. Check first, check last, check again.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:6:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:7:## No em dashes except disclosed Light mode preservation
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:8:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:9:In Medium and Hard mode, the em dash character must never appear in output. Not once. Not for emphasis, not for asides, not for attribution, not for any reason.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:10:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:11:Replace with commas, colons, semicolons, periods, or parentheses. Restructure the sentence if none of those fit. There is always an alternative.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:12:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:13:In Light mode only, em dashes may be preserved if they are part of an author's established style, quoted source text, dialogue rhythm, or period/literary voice. Disclose the preservation explicitly so the user can decide. If the user asked for publication-ready plain prose, normalise them.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:14:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:15:## No manufactured insight
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:16:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:17:Eliminate all framing that performs the act of having a deeper take. AI cannot have insider knowledge, so it compensates with linguistic markers that signal depth without providing any. Either state the observation plainly or remove the sentence if stripping the framing reveals no substance.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:18:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:19:- **False revelation:** "But the real answer is...", "What's actually happening here is...", "Here's what's really going on..."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:20:- **Contrived contrarianism:** "What nobody is talking about...", "What no one is talking about...", "Contrary to popular belief...", "The uncomfortable truth is..."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:21:- **Unnoticed-shift framing:** "When no one noticed...", "The shift nobody noticed...", "Before anyone noticed...", "Without anyone noticing..." when used to manufacture secret significance.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:22:- **Pseudo-profundity:** "quietly revolutionary", "quietly became", "the quiet part", "subtly", "understated", "unassuming" when used to inflate significance
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:23:- **Performed knowingness:** "If you know, you know", "And that changes everything", "Let that sink in", "Read that again", "And honestly?", "Here's the thing:"
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:24:- **Formulaic depth framing:** "The reason is straightforward:", "The reason is simple:", "Here's why:", "What's strange is", "What's interesting is", "What's remarkable is". These perform the act of having an explanation before delivering one.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:25:- **Dramatic narrative transitions:** "Something shifted.", "Everything changed.", "And then, everything clicked.", "That's when it hit me." These claim a turning point without earning it.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:26:- **Contrived contrast:** "This isn't X. It's Y." as a standalone dramatic beat (e.g. "This isn't a bug. It's a feature." or "This isn't a character flaw. It's hardware."). The two-sentence snap format is a reliable AI fingerprint regardless of content.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:27:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:28:These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test in Light mode; remove in Medium and Hard unless the phrase clearly belongs to the writer's voice.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:29:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:30:## No adversarial reframes
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:31:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:32:Do not satisfy the letter of a rule while keeping the same AI-shaped move. This especially applies to pattern 9, contrived contrast / negative parallelism. If the draft says "It's not X, it's Y", an acceptable rewrite is not "It is Y, not X" or "Beyond X, it becomes Y". Those are the same device with the furniture moved around.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:33:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:34:Flag and rewrite all of these as direct claims:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:35:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:36:- "It's not X, it's Y."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:37:- "It's Y, not X."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:38:- "Less X than Y."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:39:- "More Y than X."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:40:- "Not so much X as Y."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:41:- "Beyond X, it is Y."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:42:- "You might think X. Actually, Y."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:43:- "No X. No Y. Just Z."
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:44:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:45:The test is semantic: if the sentence creates drama by rejecting a plain interpretation and revealing a supposedly deeper abstraction, remove the setup and state the actual claim with concrete support.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:46:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:47:## No staccato fragments
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:48:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:49:Short sentences used in sequence for dramatic effect are often an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats in generic articles are usually generated.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:50:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:51:A sentence should be as long as the thought it contains. When you find fragments used for generic emphasis, fold their content into a neighbouring sentence or expand into something that earns its own line. Preserve staccato when it is character voice, comedy, panic, dialogue, or deliberate literary rhythm.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:52:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:53:### Before
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:54:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:55:> The results were clear. Strikingly so. The model outperformed every baseline. Every single one. And nobody saw it coming.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:56:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:57:### After
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:58:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md:59:> The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:1:#!/usr/bin/env python3
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:2:"""Grade rewritten text against programmatic assertions."""
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:3:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:4:import csv
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:5:import ast
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:6:import json
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:7:import re
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:8:import sys
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:9:from pathlib import Path
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:10:from statistics import stdev
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:11:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:12:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:13:# --- Pattern lists ---
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:14:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:15:AI_VOCABULARY = [
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:16:    "additionally", "crucial", "delve", "emphasizing",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:17:    "enduring", "enhance", "fostering", "garner", "interplay",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:18:    "intricate", "intricacies", "landscape", "pivotal", "showcase",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:19:    "showcasing", "tapestry", "testament", "underscore", "underscoring",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:20:    "valuable", "vibrant", "foster", "highlighting",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:21:    # Added from Grammarly research
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:22:    "realm", "harness", "illuminate", "facilitate", "bolster",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:23:    "streamline", "shed light on", "revolutionize", "innovative",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:24:    "cutting-edge", "game-changing", "transformative", "seamlessly",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:25:    # Added from user observations
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:26:    "genuinely", "unspoken", "seamless",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:27:    # Added from April 2026 research (Nature biomedical study, practitioner guides)
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:28:    "unparalleled", "invaluable", "bolstered", "meticulous",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:29:    # Added from Vollmer/GPTZero reference audit
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:30:    "mosaic", "ecosystem", "symphony", "labyrinth", "beacon",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:31:    "cornerstone", "bedrock", "kaleidoscope", "odyssey", "robust",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:32:    "dynamic", "comprehensive", "multifaceted", "nuanced", "holistic",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:33:    "state-of-the-art", "ever-evolving", "ever-changing", "utilize",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:34:    "optimize", "empower", "navigate", "unpack", "explore", "embrace",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:35:    "unlock", "commendable", "paramount", "unwavering", "alignment",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:36:    "resonate", "compelling",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:37:]
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:38:
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:39:# GPTZero's April 2026 public AI Vocabulary table exposes 100 high-ratio
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:40:# phrases. Treat them as tentative clustering signals, not single-phrase proof.
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:41:GPTZERO_AI_PHRASES = [
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:42:    "provide a valuable insight",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:43:    "left an indelible mark",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:44:    "a stark reminder",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:45:    "a nuanced understanding",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:46:    "significant role in shaping",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:47:    "the complex interplay",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:48:    "broad implication",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:49:    "an unwavering commitment",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:50:    "endure a legacy",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:51:    "underscore the importance",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:52:    "play a pivotal role",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:53:    "a pivotal moment",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:54:    "navigate the complex",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:55:    "mark a turning point",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:56:    "continue to inspire",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:57:    "gain a deeper understanding",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:58:    "the transformative power",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:59:    "hold a significant",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:60:    "play a crucial role",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:61:    "particularly a concern",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:62:    "the relentless pursuit",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:63:    "emphasize the need",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:64:    "target an intervention",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:65:    "a multi-faceted approach",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:66:    "a serf reminder",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:67:    "highlight the potential",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:68:    "a significant milestone",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:69:    "implication to understand",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:70:    "potential risk associated",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:71:    "leave a lasting",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:72:    "add a layer",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:73:    "offer a valuable",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:74:    "a profound implication",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:75:    "case highlights the importance",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:76:    "finding a highlight of the importance",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:77:    "pave the way for the future",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:78:    "a significant step forward",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:79:    "face a significant",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:80:    "finding an important implication",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:81:    "emphasize the importance",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:82:    "a significant implication",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:83:    "delve deeper into",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:84:    "reply in tone",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:85:    "raise an important question",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:86:    "make an informed decision in regard to",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:87:    "far-reaching implications",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:88:    "a comprehensive framework",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:89:    "importance to consider",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:90:    "a unique blend",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:91:    "couldn't help but wonder",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:92:    "underscore the need",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:93:    "framework for understanding",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:94:    "highlight the need",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:95:    "a comprehensive understanding",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:96:    "the journey begins",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:97:    "understanding the fundamental",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:98:    "despite the face",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:99:    "a delicate balance",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:100:    "the path ahead",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:101:    "gain an insight",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:102:    "laid the groundwork",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:103:    "understand the behavior",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:104:    "renew a sense",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:105:    "aim to explore",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:106:    "present a unique challenge",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:107:    "provide a comprehensive",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:108:    "particularly with regard to",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:109:    "address the root cause",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:110:    "loom large in",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:111:    "the implication of the finding",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:112:    "approach ensures a",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:113:    "an ongoing dialogue",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:114:    "carry a weight",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:115:    "ability to navigate",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:116:    "present a significant",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:117:    "study shed light on",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:118:    "a diverse perspective",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:119:    "face an adversity",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:120:    "a comprehensive overview",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:121:    "potentially lead to",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:122:    "a broad understanding",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:123:    "contribute to the understanding",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:124:    "shape the public",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:125:    "particularly noteworthy",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:126:    "the evidence base for decision making",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:127:    "identify an area of improvement",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:128:    "analysis of the data to analyze and use",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:129:    "undergone a significant",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:130:    "need a robust",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:131:    "voice will fill",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:132:    "concern a potential",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:133:    "initiative aims to",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:134:    "offering a unique",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:135:    "a new avenue",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:136:    "despite the challenge",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:137:    "ready to embrace",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:138:    "the societal expectation",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:139:    "make accessible",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:140:    "today at a fast pace",
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py:141:    "stand in stark contrast",
 # Task Group: stylemanual Phase 2 saturation plan review and commit undo workflow
 
 scope: Use for one-shot review of `stylemanual` plan docs when execution blockers, capability-family assumptions, and commit reversal need to be handled carefully.
@@ -724,7 +724,7 @@ applies_to: cwd=/Users/mae/Documents/stylemanual and sibling-doc work launched f
 2026-04-28T16:24:16.493756Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:24:16.493953Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 
 The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
@@ -940,7 +940,7 @@ In the chat output:
 In the saved Markdown file, render the action's normal output template in full, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Mode: <Light / Medium / Hard, or "n/a" for Audit>
 - Date: <ISO 8601>
@@ -972,12 +972,12 @@ A full Hard-mode Rewrite walked through end-to-end (AI-sounding draft → audit 
 2026-04-28T16:24:22.259042Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:24:22.259320Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'ls -la /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot && python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+/bin/zsh -lc 'ls -la /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot && python3 /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot
 2026-04-28T16:24:30.812003Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:24:30.812220Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
  succeeded in 149ms:
 {
-  "file": "/Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md",
+  "file": "/Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md",
   "pass_rate": "33/43",
   "failures_by_severity": {
     "strong_warning": 3,
@@ -2908,32 +2908,32 @@ exec
 }
 
 exec
-/bin/zsh -lc 'rg -n "humanise|audit-first|What it looks for|contrived contrast" /Users/mae/.codex/memories/MEMORY.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "human-eyes|audit-first|What it looks for|contrived contrast" /Users/mae/.codex/memories/MEMORY.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
-228:# Task Group: humanise audit-first skill design, report contract, and adversarial eval expansion
-230:scope: Use for `humanise` skill redesign, AI-writing audit workflows, report-language changes, adversarial detector hardening, and human-source eval expansion in the `humanise` repo.
-231:applies_to: cwd=/Users/mae/Documents/humanise; reuse_rule=safe for future `humanise` skill/report/eval work in this checkout, but re-check current grader duplication, workflow wording, and external-source availability before reusing exact implementation details
+228:# Task Group: human-eyes audit-first skill design, report contract, and adversarial eval expansion
+230:scope: Use for `human-eyes` skill redesign, AI-writing audit workflows, report-language changes, adversarial detector hardening, and human-source eval expansion in the `human-eyes` repo.
+231:applies_to: cwd=/Users/mae/Documents/human-eyes; reuse_rule=safe for future `human-eyes` skill/report/eval work in this checkout, but re-check current grader duplication, workflow wording, and external-source availability before reusing exact implementation details
 233:## Task 1: Refactor the skill into an audit-first workflow with end-user-readable reports, outcome success
-237:- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, skill operating model shifted from rewrite-first to audit-first)
-241:- humanise, SKILL.md, audit-only, audit plus recommendation, audit agree then rewrite, rewrite and verify, save report, What it looks for, What happened here, Why this matters, human_report, markdown_checks_table, README.md, dev/plans/2026-04-28-humanise-skill-operating-model-issue.md
+237:- rollout_summaries/2026-04-27T10-37-26-D5mv-human_eyes_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/human-eyes, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, skill operating model shifted from rewrite-first to audit-first)
+241:- human-eyes, SKILL.md, audit-only, audit plus recommendation, audit agree then rewrite, rewrite and verify, save report, What it looks for, What happened here, Why this matters, human_report, markdown_checks_table, README.md, dev/plans/2026-04-28-human-eyes-skill-operating-model-issue.md
 243:## Task 2: Harden contrived contrast / negative parallelism detection without overfitting, outcome success
-247:- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, adversarial rule broadening with regression coverage)
-251:- contrived contrast, negative parallelism, check_negative_parallelisms, It's Y not X, Less X than Y, You might think X Actually Y, No X No Y Just Z, humanise/references/patterns.md, humanise/grade.py, dev/evals/grade.py, dev/evals/test_grade.py, no-staccato-sequences, ALL PASSED
-257:- rollout_summaries/2026-04-27T10-37-26-D5mv-humanise_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/humanise, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, modern-source extraction landed with blocked-source notes preserved)
-265:- when the user says the tool "can be used in many ways" and should support audit-only, audit-plus-recommendation, audit-then-decide, and rewrite-verify workflows -> treat `humanise` as a protocol-driven AI detection skill, not a one-shot rewrite flow [Task 1]
+247:- rollout_summaries/2026-04-27T10-37-26-D5mv-human_eyes_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/human-eyes, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, adversarial rule broadening with regression coverage)
+251:- contrived contrast, negative parallelism, check_negative_parallelisms, It's Y not X, Less X than Y, You might think X Actually Y, No X No Y Just Z, human-eyes/references/patterns.md, human-eyes/grade.py, dev/evals/grade.py, dev/evals/test_grade.py, no-staccato-sequences, ALL PASSED
+257:- rollout_summaries/2026-04-27T10-37-26-D5mv-human_eyes_audit_first_workflow_and_report_clarity.md (cwd=/Users/mae/Documents/human-eyes, rollout_path=/Users/mae/.codex/sessions/2026/04/27/rollout-2026-04-27T20-37-26-019dce83-f119-7d30-b372-77014c4c79af.jsonl, updated_at=2026-04-28T00:59:10+00:00, thread_id=019dce83-f119-7d30-b372-77014c4c79af, modern-source extraction landed with blocked-source notes preserved)
+265:- when the user says the tool "can be used in many ways" and should support audit-only, audit-plus-recommendation, audit-then-decide, and rewrite-verify workflows -> treat `human-eyes` as a protocol-driven AI detection skill, not a one-shot rewrite flow [Task 1]
 266:- when the user says the current setup feels like a "one shot" rewrite framework and that it is "a AI detection skill" -> default to audit-first behavior and ask before rewriting when intent is unclear or voice-sensitive [Task 1]
-275:- In `humanise`, the duplicated grader logic is real: `humanise/grade.py` and `dev/evals/grade.py` both need matching detection and report changes or the skill/report contract drifts [Task 1][Task 2]
-276:- The validated operating model is five explicit workflows in `humanise/SKILL.md`: audit only, audit plus recommendation, audit, agree, then rewrite, rewrite and verify, and save report. If intent is unclear, audit-only is the safe default [Task 1]
+275:- In `human-eyes`, the duplicated grader logic is real: `human-eyes/grade.py` and `dev/evals/grade.py` both need matching detection and report changes or the skill/report contract drifts [Task 1][Task 2]
+276:- The validated operating model is five explicit workflows in `human-eyes/SKILL.md`: audit only, audit plus recommendation, audit, agree, then rewrite, rewrite and verify, and save report. If intent is unclear, audit-only is the safe default [Task 1]
 277:- The user-facing report contract that survived review is `What it looks for / What happened here / Why this matters / Recommended action`, with `Clear` / `Flagged` labels instead of implementation-facing status names [Task 1]
 279:- Pattern 9 was intentionally broadened from narrow "negative parallelism" wording into contrived contrast / reveal laundering shapes such as `It's Y, not X`, `Less X than Y`, `Not so much X as Y`, `Beyond X, it is Y`, `You might think X. Actually, Y`, and `No X. No Y. Just Z` [Task 2]
-283:- Related artifact: `dev/plans/2026-04-28-humanise-skill-operating-model-issue.md` is the saved collaboration note for the product/workflow problem statement [Task 1]
+283:- Related artifact: `dev/plans/2026-04-28-human-eyes-skill-operating-model-issue.md` is the saved collaboration note for the product/workflow problem statement [Task 1]
 288:- Symptom: report output sounds like checker bookkeeping instead of useful writing feedback. Cause: the report explains internal pressure/accounting rather than the writing issue. Fix: enforce `What it looks for / What happened here / Why this matters` and strip implementation-first phrases from the normal report path and tests [Task 1]
-290:- Symptom: detector changes land in one grader path but not the other. Cause: `humanise/grade.py` and `dev/evals/grade.py` drifted. Fix: mirror behavior/report changes in both files and confirm with `python3 dev/evals/test_grade.py` [Task 1][Task 2]
+290:- Symptom: detector changes land in one grader path but not the other. Cause: `human-eyes/grade.py` and `dev/evals/grade.py` drifted. Fix: mirror behavior/report changes in both files and confirm with `python3 dev/evals/test_grade.py` [Task 1][Task 2]
 
 2026-04-28T16:24:36.873508Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:24:36.873727Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot
 2026-04-28T16:24:43.886767Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:24:43.887731Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
  succeeded in 118ms:

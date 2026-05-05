@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit this draft for AI tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/harris-free-will.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/harris-free-will.md
 
 ```markdown
 # The Illusion of Free Will: Why Your Choices Aren't Really Yours
@@ -60,21 +60,21 @@ In conclusion, the illusion of free will is a fascinating and important topic th
 2026-04-28T16:25:39.600041Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:25:39.601071Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/humanise/SKILL.md && rg -n \"refer|report|audit|AI tell|What it looks\" /Users/mae/Documents/humanise/humanise -S" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md && rg -n \"refer|report|audit|AI tell|What it looks\" /Users/mae/Documents/human-eyes/human-eyes -S" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -82,7 +82,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -94,7 +94,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -107,7 +107,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
 4. Render the audit using the output template below.
@@ -282,174 +282,174 @@ Why: <one sentence on why this depth fits the brief>
 [Same eight items as Rewrite]
 
 **Post-check at <depth>**
-/Users/mae/Documents/humanise/humanise/SKILL.md:8:  phrases like "audit this for AI", "humanise this", "unsloppify", "this
-/Users/mae/Documents/humanise/humanise/SKILL.md:9:  reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
-/Users/mae/Documents/humanise/humanise/SKILL.md:19:1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
-/Users/mae/Documents/humanise/humanise/SKILL.md:21:3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
-/Users/mae/Documents/humanise/humanise/SKILL.md:23:The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
-/Users/mae/Documents/humanise/humanise/SKILL.md:33:| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
-/Users/mae/Documents/humanise/humanise/SKILL.md:34:| **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
-/Users/mae/Documents/humanise/humanise/SKILL.md:35:| **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
-/Users/mae/Documents/humanise/humanise/SKILL.md:38:If the writer's intent is genuinely ambiguous and the agent can ask, ask whether the writer wants an audit or a rewrite, or whether they're handing over a brief for a new draft. If the agent can't ask (headless invocation, no human turn), default to Audit only.
-/Users/mae/Documents/humanise/humanise/SKILL.md:48:3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
-/Users/mae/Documents/humanise/humanise/SKILL.md:49:4. Render the audit using the output template below.
-/Users/mae/Documents/humanise/humanise/SKILL.md:55:**Audit, N AI tells found**
-/Users/mae/Documents/humanise/humanise/SKILL.md:78:Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
-/Users/mae/Documents/humanise/humanise/SKILL.md:89:> Audit clean: no AI tells detected. Want me to look at a specific aspect of the draft more closely?
-/Users/mae/Documents/humanise/humanise/SKILL.md:91:If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
-/Users/mae/Documents/humanise/humanise/SKILL.md:99:1. If an audit hasn't been run on this draft in this turn, run one first.
-/Users/mae/Documents/humanise/humanise/SKILL.md:100:2. For each flagged pattern from the audit, produce one suggestion:
-/Users/mae/Documents/humanise/humanise/SKILL.md:101:   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
-/Users/mae/Documents/humanise/humanise/SKILL.md:103:3. Render the audit findings followed by the suggestions list.
-/Users/mae/Documents/humanise/humanise/SKILL.md:114:  - "<quoted phrase from the audit>"
-/Users/mae/Documents/humanise/humanise/SKILL.md:139:- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
-/Users/mae/Documents/humanise/humanise/SKILL.md:152:1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
-/Users/mae/Documents/humanise/humanise/SKILL.md:154:3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
-/Users/mae/Documents/humanise/humanise/SKILL.md:155:4. Read `references/process.md` for the process steps used by Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
-/Users/mae/Documents/humanise/humanise/SKILL.md:158:7. Re-grade the rewrite at the chosen depth. If at All depth and failures remain, iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
-/Users/mae/Documents/humanise/humanise/SKILL.md:159:8. Render the audit findings, the rewritten draft, and the post-check.
-/Users/mae/Documents/humanise/humanise/SKILL.md:167:Why: <one sentence on why this depth fits the genre or the writer's stated preference>
-/Users/mae/Documents/humanise/humanise/SKILL.md:198:2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
-/Users/mae/Documents/humanise/humanise/SKILL.md:199:3. Read `references/process.md`. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
-/Users/mae/Documents/humanise/humanise/SKILL.md:202:6. Re-grade the draft at the chosen depth. Iterate up to two re-runs at All depth if failures remain, then report unresolved issues.
-/Users/mae/Documents/humanise/humanise/SKILL.md:224:Write has no audit step because there is no input text to audit. The skill avoids AI patterns prospectively and verifies via the post-check.
-/Users/mae/Documents/humanise/humanise/SKILL.md:234:- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-/Users/mae/Documents/humanise/humanise/SKILL.md:244:# Humanise <action> report
-/Users/mae/Documents/humanise/humanise/SKILL.md:250:Do not duplicate the full report inline in chat when a saved file exists.
-/Users/mae/Documents/humanise/humanise/SKILL.md:256:- `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
-/Users/mae/Documents/humanise/humanise/SKILL.md:257:- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
-/Users/mae/Documents/humanise/humanise/SKILL.md:258:- `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
-/Users/mae/Documents/humanise/humanise/SKILL.md:259:- `references/process.md`: Steps A through D for Rewrite and Write. Address structural patterns, address surface patterns, structural self-check, semantic preservation check.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:1:# Severity detail: deep-dive on the four most distinctive AI tells
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:3:Expanded detail on four patterns from the Severity classes table in SKILL.md (em dashes, manufactured insight, adversarial reframes, generic staccato fragments). They get their own subsections because they are the most common and most distinctive AI tells in 2026 — the rules below are the canonical source of truth when these patterns appear.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:28:These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test at Balanced depth; remove at All depth unless the phrase clearly belongs to the writer's voice.
-/Users/mae/Documents/humanise/humanise/references/severity-detail.md:49:Short sentences used in sequence for dramatic effect are often an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats in generic articles are usually generated.
-/Users/mae/Documents/humanise/humanise/grade.py:29:    # Added from Vollmer/GPTZero reference audit
-/Users/mae/Documents/humanise/humanise/grade.py:165:        here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
-/Users/mae/Documents/humanise/humanise/grade.py:166:        here.parents[2] / "humanise" / "references" / KOBAK_EXCESS_WORDS_PATH,
-/Users/mae/Documents/humanise/humanise/grade.py:563:    # Also report total count across the whole text
-/Users/mae/Documents/humanise/humanise/grade.py:819:    # Skip for short-form text where low variance is expected, not an AI tell
-/Users/mae/Documents/humanise/humanise/grade.py:1829:        "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
-/Users/mae/Documents/humanise/humanise/grade.py:1907:        "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
-/Users/mae/Documents/humanise/humanise/grade.py:1925:        "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
-/Users/mae/Documents/humanise/humanise/grade.py:2071:def check_report_text(check_name):
-/Users/mae/Documents/humanise/humanise/grade.py:2121:    """Ensure report fragments read as sentences."""
-/Users/mae/Documents/humanise/humanise/grade.py:2183:    """Return every check as a plain-English row for user-facing reports."""
-/Users/mae/Documents/humanise/humanise/grade.py:2186:        label, description = check_report_text(result["text"])
-/Users/mae/Documents/humanise/humanise/grade.py:2206:def human_report(results):
-/Users/mae/Documents/humanise/humanise/grade.py:2207:    """Return a plain-English report contract for agents and end users."""
-/Users/mae/Documents/humanise/humanise/grade.py:2283:    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {depth_key.title()} action |"
-/Users/mae/Documents/humanise/humanise/grade.py:2302:def format_human_report(results, depth="all", heading="Initial assessment"):
-/Users/mae/Documents/humanise/humanise/grade.py:2303:    """Render the plain-English report contract as user-facing Markdown."""
-/Users/mae/Documents/humanise/humanise/grade.py:2305:    report = human_report(results)
-/Users/mae/Documents/humanise/humanise/grade.py:2306:    confidence = report["confidence"]
-/Users/mae/Documents/humanise/humanise/grade.py:2309:        f"Summary: {report['overview']}",
-/Users/mae/Documents/humanise/humanise/grade.py:2315:        f"AI-pressure explanation: {report['ai_pressure_explanation']}",
-/Users/mae/Documents/humanise/humanise/grade.py:2319:    if report["failed_checks"]:
-/Users/mae/Documents/humanise/humanise/grade.py:2320:        for row in report["failed_checks"]:
-/Users/mae/Documents/humanise/humanise/grade.py:2324:                f"What it looks for: {row['what_it_checks']} "
-/Users/mae/Documents/humanise/humanise/grade.py:2335:        markdown_checks_table(report["all_checks"], depth_key),
-/Users/mae/Documents/humanise/humanise/grade.py:2341:    """Return each failed check exactly once for user-facing reports."""
-/Users/mae/Documents/humanise/humanise/grade.py:2362:    """Return structured totals for human-facing reports."""
-/Users/mae/Documents/humanise/humanise/grade.py:2396:    """Group failed checks by failure mode without changing legacy report fields."""
-/Users/mae/Documents/humanise/humanise/grade.py:2526:def _audit_section(output_text):
-/Users/mae/Documents/humanise/humanise/grade.py:2534:def _flag_blocks(audit_text):
-/Users/mae/Documents/humanise/humanise/grade.py:2535:    """Return paragraphs in the audit that contain a 'Why:' line."""
-/Users/mae/Documents/humanise/humanise/grade.py:2536:    if not audit_text:
-/Users/mae/Documents/humanise/humanise/grade.py:2538:    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit_text) if p.strip()]
-/Users/mae/Documents/humanise/humanise/grade.py:2550:def check_audit_shape_block_precedes_rewrite_block(output_text, input_text=None):
-/Users/mae/Documents/humanise/humanise/grade.py:2551:    """Verify the audit appears before any rewrite or suggestions block."""
-/Users/mae/Documents/humanise/humanise/grade.py:2552:    name = "audit-shape-block-precedes-rewrite-block"
-/Users/mae/Documents/humanise/humanise/grade.py:2553:    audit = AUDIT_HEADER_RE.search(output_text)
-/Users/mae/Documents/humanise/humanise/grade.py:2560:    if not audit:
-/Users/mae/Documents/humanise/humanise/grade.py:2561:        return {"text": name, "passed": False, "evidence": "No audit header found in output"}
-/Users/mae/Documents/humanise/humanise/grade.py:2564:    if audit.start() < follow.start():
-/Users/mae/Documents/humanise/humanise/grade.py:2565:        return {"text": name, "passed": True, "evidence": f"audit at offset {audit.start()}; follow-up at offset {follow.start()}"}
-/Users/mae/Documents/humanise/humanise/grade.py:2566:    return {"text": name, "passed": False, "evidence": f"follow-up appears before audit (audit={audit.start()}, follow={follow.start()})"}
-/Users/mae/Documents/humanise/humanise/grade.py:2574:    blocks = _flag_blocks(_audit_section(output_text))
-/Users/mae/Documents/humanise/humanise/grade.py:2592:    audit = _audit_section(output_text)
-/Users/mae/Documents/humanise/humanise/grade.py:2593:    if not audit:
-/Users/mae/Documents/humanise/humanise/grade.py:2594:        return {"text": name, "passed": False, "evidence": "no audit section found"}
-/Users/mae/Documents/humanise/humanise/grade.py:2595:    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit) if p.strip()]
-/Users/mae/Documents/humanise/humanise/grade.py:2632:    flag_count = len(_flag_blocks(_audit_section(output_text)))
-/Users/mae/Documents/humanise/humanise/grade.py:2657:    "audit-shape-block-precedes-rewrite-block": check_audit_shape_block_precedes_rewrite_block,
-/Users/mae/Documents/humanise/humanise/grade.py:2667:def check_audit_shape(check_name, output_text, input_text=None):
-/Users/mae/Documents/humanise/humanise/grade.py:2668:    """Run a single audit-shape check by name."""
-/Users/mae/Documents/humanise/humanise/grade.py:2671:        raise KeyError(f"Unknown audit-shape check: {check_name!r}; known: {sorted(AUDIT_SHAPE_CHECKS)}")
-/Users/mae/Documents/humanise/humanise/grade.py:2746:        print(format_human_report(results, depth=depth))
-/Users/mae/Documents/humanise/humanise/grade.py:2754:        "human_report": human_report(results),
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:42:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:113:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:130:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:146:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:161:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:179:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:196:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:214:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:229:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:246:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:264:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:281:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:297:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:322:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/references/alternatives.md:339:| AI tell | What it usually means | Notes |
-/Users/mae/Documents/humanise/humanise/examples ai.txt:25:Dreams add another layer. Grieving people often report dreams in which the dead return with startling ordinariness. They are in the kitchen. They are wearing the old jumper. They have not died after all. Waking from these dreams can feel like losing the person again before breakfast. A dream can be comforting, but it can also make the day harder. Wellness culture often wants to interpret every dream as healing. Some dreams are not healing. Some are just the sleeping mind trying to process an impossible absence.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:122:That precision matters. She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork. She reconstructs the event not only as a grieving widow but as a reporter. She seeks the timeline. She wants the medical explanation. She reads the records. She returns to the details because details imply sequence, and sequence implies cause. Cause, in turn, suggests that reality might still be governed by rules.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:136:Reread every decade, this aspect of the book becomes more consequential. The first time, the reader may focus on the death. Later, the book’s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference. Didion and Dunne’s marriage was also a working partnership, an editorial relationship, a long conversation. His absence is therefore not only emotional. It is cognitive. The person who helped her verify reality is gone.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:371:This is why slowness is not merely an aesthetic preference. It is an ethical practice. When work is slow, it has more opportunities to become accountable to reality. It can absorb doubt. It can admit complexity. It can resist the easy shape that makes an idea pleasing but untrue.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:387:To defend slowness is also to defend taste. Taste is not simply preference; it is the capacity to perceive difference. It develops through exposure, attention and revision. A culture of speed weakens taste because it reduces the time available for comparison. We no longer ask whether the work is good. We ask whether it is ready. But ready and good are not the same thing. Ready means it can leave us. Good means it can survive leaving us.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:469:This is where the popular phrase “wood-wide web” enters the story, and where accuracy matters. A common mycorrhizal network is not just “fungi in the soil”. It means a physical fungal connection linking the roots of two or more plants. Such connections can, in principle, move carbon, nutrients, water or chemical signals between plants. But proving that this happens in intact forests is difficult. Researchers have to separate transfer through fungal hyphae from other routes: roots leaking compounds into soil, microbes consuming and re-releasing them, water moving dissolved chemicals, or plants responding to airborne signals. A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:475:The “communication” claim needs the same discipline. Plants certainly detect and respond to chemical cues. When leaves are attacked, they can alter defensive chemistry; when neighbours are damaged, nearby plants may respond. Some experiments suggest that mycorrhizal networks can mediate stress-related signalling. In one study, damaged Douglas-fir was reported to transfer carbon and defence-related signals to neighbouring ponderosa pine through ectomycorrhizal networks.   But this is not conversation in the human sense. There is no evidence of intention, language or conscious warning. A more accurate analogy is a biochemical alarm system: changes in one organism can alter the chemical environment of connected organisms, which may then shift their own physiology.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:485:The story also matters for climate and conservation. Mycorrhizal fungi are involved in plant productivity, nutrient cycling and soil carbon dynamics at large scales. A 2025 Nature study mapping global mycorrhizal fungal richness reported that mycorrhizal fungi form extensive underground networks and that many biodiversity hotspots for these fungi fall outside protected areas.   That does not mean protecting fungi is a simple climate solution. It means forest policy that ignores below-ground biodiversity is missing part of the system it is trying to manage.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:510:The contemporary revival is both more democratic and more compromised. On one side, it is genuinely popular philosophy. Modern Stoicism projects such as Stoic Week have turned ancient exercises into public experiments; by 2022, organisers reported that about 38,600 people had signed up across a decade and more than 20,000 had contributed data. On another side, the revival has been absorbed into self-optimisation culture: podcasts, productivity routines, executive coaching, gym discipline, start-up mythology and social media quotation tiles. Ryan Holiday’s Daily Stoic empire has helped bring Stoicism to a mass audience through books, a website, newsletter, podcast and Instagram presence; The Guardian described his audience as including athletes, politicians and tech chief executives.
-/Users/mae/Documents/humanise/humanise/examples ai.txt:548:I once watched a junior designer present three concept options to senior stakeholders. The options were thoughtful, but the discussion quickly collapsed into preference. One executive liked the version with fewer words. Another wanted more reassurance. A third asked whether “users even read”. The junior designer responded by defending each screen in turn. The more they defended, the more the room treated the work as opinion.
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:165:163,"corp","other","noun","often part of citation that refer to a corporation like Microsoft corp."
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:187:185,"deeper","content/style","adjective","can potentially refer to deep learning / deep networks"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:232:230,"efficacy","style/count","noun","can refer to vaccine efficacy"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:329:327,"frontline","content","noun","frontline staff (COVID!), or Frontline therapy refers to a patient's first CLL treatment"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:391:389,"ieee","content","noun","Mostly refers to IEEE Xplore"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:402:400,"inaccuracies","content","noun","refers to problems with data"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:476:474,"mafld","content","noun","“Metabolic dysfunction-associated fatty liver disease (MAFLD)” is the term suggested in 2020 to refer to fatty liver disease"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:481:479,"marking","content","noun","Can refer to tumor marking, see ""tumor marker"""
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:632:630,"proms","content","noun","Patient-reported outcome measures"
-/Users/mae/Documents/humanise/humanise/references/kobak-excess-words.csv:696:694,"rstudio","content","noun","refers to R language"
-/Users/mae/Documents/humanise/humanise/references/example.md:3:End-to-end demonstration of a rewrite at All depth: an AI-generated essay through audit, rewrite, structural self-check, and revised rewrite. Use as a reference for what a real Rewrite action's output should look like.
-/Users/mae/Documents/humanise/humanise/references/example.md:45:> GitHub reports that Copilot users "accept 30% of suggestions," but acceptance is not correctness, and correctness is not value. If your codebase does not have good test coverage, you are mostly guessing about whether the suggestion helped or hurt.
-/Users/mae/Documents/humanise/humanise/references/voice.md:3:Voice-craft guidance for the Rewrite and Write actions. The grader catches AI patterns to remove; this guide is about what to add or preserve so the result reads as written by a human, not just as text without AI tells.
-/Users/mae/Documents/humanise/humanise/references/voice.md:7:Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
-/Users/mae/Documents/humanise/humanise/references/voice.md:24:- No opinions, just neutral reporting: stance has been stripped or was never there
-/Users/mae/Documents/humanise/humanise/references/patterns.md:18:## Evidence hierarchy from the reference audit
-/Users/mae/Documents/humanise/humanise/references/patterns.md:27:- Stanford HAI's detector-bias reporting supports warnings over accusations, especially for non-native English writers. Use process evidence and user review rather than detector-style verdicts. Source: https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers
-/Users/mae/Documents/humanise/humanise/references/patterns.md:32:- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
-/Users/mae/Documents/humanise/humanise/references/patterns.md:38:- Clarkesworld reporting supports fiction as a submission/provenance problem and a manual craft-audit area. Use it for flat dialogue, exposition, pacing, lack of subtext, and over-resolved endings, not as a global regex rule. Source: https://www.npr.org/2023/02/24/1159286436/ai-chatbot-chatgpt-magazine-clarkesworld-artificial-intelligence
-/Users/mae/Documents/humanise/humanise/references/patterns.md:39:- Futurism's Sports Illustrated reporting supports journalism and review-provenance checks: fake bylines, fake bios, AI headshots, affiliate product-review sludge, undisclosed generated content, and byline laundering. Source: https://futurism.com/sports-illustrated-ai-generated-writers
-/Users/mae/Documents/humanise/humanise/references/patterns.md:86:> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:104:**Words to watch:** Industry reports, Observers have cited, Experts argue, Some critics argue, several sources/publications (when few cited)
-/Users/mae/Documents/humanise/humanise/references/patterns.md:312:**Tolerance note:** Three-part structures are common in human rhetoric, comedy, fiction, speeches, and criticism. Treat this as an AI tell when triads cluster densely, feel interchangeable, or use abstract nouns to simulate breadth. Preserve when the three items are concrete, necessary, funny, rhythmic, or part of a voiced argument.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:323:Excessive synonym substitution, cycling through different words for the same referent within a short span due to repetition-penalty mechanisms.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:387:> :bulb: **Key Insight:** Users prefer simplicity
-/Users/mae/Documents/humanise/humanise/references/patterns.md:391:> The product launches in Q3. User research showed a preference for simplicity, so the next step is to schedule a follow-up meeting to discuss how that finding should shape the launch.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:414:> The cross-functional team delivered a high-quality, data-driven report on our client-facing tools. Their decision-making process was well-known for being thorough and detail-oriented.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:417:> The team, drawn from several departments, delivered a report grounded in usage data for our client-facing tools. Their process for making decisions was known for being thorough.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:578:**Tolerance note:** Interviews, teaching prose, polemic, and comic essays often use questions legitimately. Treat as an AI tell when the answer is immediate, generic, and framed as revelation.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:589:AI metaphors are plausible but specific to nobody. They gesture toward meaning without achieving it. Human metaphors draw from personal experience or shared cultural references. AI metaphors draw from the statistical middle.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:684:> The study surveyed 400 teachers across 12 districts. Most reported increased workload since 2020. The takeaway is clear: teachers are stretched thin and the trend shows no signs of reversing.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:689:> The study surveyed 400 teachers across 12 districts. Most reported increased workload since 2020, with marking and administrative tasks growing fastest.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:710:This pattern cannot be caught programmatically. During the self-audit, ask: does the whole text sit in one register? If it reads like a single voice speaking at a single speed about everything, introduce at least one register break — a moment of informality, a parenthetical doubt, a shift in sentence rhythm.
-/Users/mae/Documents/humanise/humanise/references/patterns.md:773:These are not reliable enough for hard regex treatment yet, but they should be part of the self-audit:
-/Users/mae/Documents/humanise/humanise/references/patterns.md:775:- **Academic/research:** verify citations, DOIs, dates, journals, reference order, and whether cited works actually support the claim. Plausible citation format is not evidence.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:8:  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:9:  reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:19:1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:21:3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:23:The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:33:| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:34:| **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:35:| **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:38:If the writer's intent is genuinely ambiguous and the agent can ask, ask whether the writer wants an audit or a rewrite, or whether they're handing over a brief for a new draft. If the agent can't ask (headless invocation, no human turn), default to Audit only.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:48:3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:49:4. Render the audit using the output template below.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:55:**Audit, N AI tells found**
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:78:Want Suggestions for per-flag replacements, a Rewrite at a chosen depth, or to save this audit as a Markdown file?
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:89:> Audit clean: no AI tells detected. Want me to look at a specific aspect of the draft more closely?
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:91:If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `references/patterns.md`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:99:1. If an audit hasn't been run on this draft in this turn, run one first.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:100:2. For each flagged pattern from the audit, produce one suggestion:
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:101:   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:103:3. Render the audit findings followed by the suggestions list.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:114:  - "<quoted phrase from the audit>"
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:139:- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:152:1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:154:3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:155:4. Read `references/process.md` for the process steps used by Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:158:7. Re-grade the rewrite at the chosen depth. If at All depth and failures remain, iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:159:8. Render the audit findings, the rewritten draft, and the post-check.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:167:Why: <one sentence on why this depth fits the genre or the writer's stated preference>
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:198:2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:199:3. Read `references/process.md`. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:202:6. Re-grade the draft at the chosen depth. Iterate up to two re-runs at All depth if failures remain, then report unresolved issues.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:224:Write has no audit step because there is no input text to audit. The skill avoids AI patterns prospectively and verifies via the post-check.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:234:- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:244:# Human-eyes <action> report
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:250:Do not duplicate the full report inline in chat when a saved file exists.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:256:- `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:257:- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:258:- `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md:259:- `references/process.md`: Steps A through D for Rewrite and Write. Address structural patterns, address surface patterns, structural self-check, semantic preservation check.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:1:# Severity detail: deep-dive on the four most distinctive AI tells
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:3:Expanded detail on four patterns from the Severity classes table in SKILL.md (em dashes, manufactured insight, adversarial reframes, generic staccato fragments). They get their own subsections because they are the most common and most distinctive AI tells in 2026 — the rules below are the canonical source of truth when these patterns appear.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:28:These patterns are non-negotiable when they are generic assistant performance. A funny piece with "And honestly?" may still be carrying an AI tell, but a voiced essay may use similar phrasing intentionally. Apply the purpose test at Balanced depth; remove at All depth unless the phrase clearly belongs to the writer's voice.
+/Users/mae/Documents/human-eyes/human-eyes/references/severity-detail.md:49:Short sentences used in sequence for dramatic effect are often an AI tell. "That matters." or "Full stop." or "This is it." as standalone beats in generic articles are usually generated.
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:29:    # Added from Vollmer/GPTZero reference audit
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:165:        here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:166:        here.parents[2] / "human-eyes" / "references" / KOBAK_EXCESS_WORDS_PATH,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:563:    # Also report total count across the whole text
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:819:    # Skip for short-form text where low variance is expected, not an AI tell
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1829:        "guidance": "Fix repeated templates at Balanced and All; recommend preserving only for genuinely structured reference material.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1907:        "guidance": "Fix unnecessary listification; recommend preserving reference, instructional, or interview structure.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:1925:        "guidance": "Fix markdown headings and plain title headings when prose should flow; recommend preserving web articles, guides, and reference docs.",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2071:def check_report_text(check_name):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2121:    """Ensure report fragments read as sentences."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2183:    """Return every check as a plain-English row for user-facing reports."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2186:        label, description = check_report_text(result["text"])
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2206:def human_report(results):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2207:    """Return a plain-English report contract for agents and end users."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2283:    header = f"| Check | Status | What it looks for | What happened here | Why this matters | {depth_key.title()} action |"
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2302:def format_human_report(results, depth="all", heading="Initial assessment"):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2303:    """Render the plain-English report contract as user-facing Markdown."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2305:    report = human_report(results)
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2306:    confidence = report["confidence"]
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2309:        f"Summary: {report['overview']}",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2315:        f"AI-pressure explanation: {report['ai_pressure_explanation']}",
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2319:    if report["failed_checks"]:
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2320:        for row in report["failed_checks"]:
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2324:                f"What it looks for: {row['what_it_checks']} "
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2335:        markdown_checks_table(report["all_checks"], depth_key),
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2341:    """Return each failed check exactly once for user-facing reports."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2362:    """Return structured totals for human-facing reports."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2396:    """Group failed checks by failure mode without changing legacy report fields."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2526:def _audit_section(output_text):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2534:def _flag_blocks(audit_text):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2535:    """Return paragraphs in the audit that contain a 'Why:' line."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2536:    if not audit_text:
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2538:    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit_text) if p.strip()]
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2550:def check_audit_shape_block_precedes_rewrite_block(output_text, input_text=None):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2551:    """Verify the audit appears before any rewrite or suggestions block."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2552:    name = "audit-shape-block-precedes-rewrite-block"
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2553:    audit = AUDIT_HEADER_RE.search(output_text)
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2560:    if not audit:
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2561:        return {"text": name, "passed": False, "evidence": "No audit header found in output"}
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2564:    if audit.start() < follow.start():
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2565:        return {"text": name, "passed": True, "evidence": f"audit at offset {audit.start()}; follow-up at offset {follow.start()}"}
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2566:    return {"text": name, "passed": False, "evidence": f"follow-up appears before audit (audit={audit.start()}, follow={follow.start()})"}
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2574:    blocks = _flag_blocks(_audit_section(output_text))
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2592:    audit = _audit_section(output_text)
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2593:    if not audit:
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2594:        return {"text": name, "passed": False, "evidence": "no audit section found"}
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2595:    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", audit) if p.strip()]
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2632:    flag_count = len(_flag_blocks(_audit_section(output_text)))
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2657:    "audit-shape-block-precedes-rewrite-block": check_audit_shape_block_precedes_rewrite_block,
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2667:def check_audit_shape(check_name, output_text, input_text=None):
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2668:    """Run a single audit-shape check by name."""
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2671:        raise KeyError(f"Unknown audit-shape check: {check_name!r}; known: {sorted(AUDIT_SHAPE_CHECKS)}")
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2746:        print(format_human_report(results, depth=depth))
+/Users/mae/Documents/human-eyes/human-eyes/grade.py:2754:        "human_report": human_report(results),
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:42:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:113:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:130:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:146:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:161:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:179:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:196:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:214:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:229:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:246:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:264:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:281:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:297:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:322:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/references/alternatives.md:339:| AI tell | What it usually means | Notes |
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:25:Dreams add another layer. Grieving people often report dreams in which the dead return with startling ordinariness. They are in the kitchen. They are wearing the old jumper. They have not died after all. Waking from these dreams can feel like losing the person again before breakfast. A dream can be comforting, but it can also make the day harder. Wellness culture often wants to interpret every dream as healing. Some dreams are not healing. Some are just the sleeping mind trying to process an impossible absence.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:122:That precision matters. She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork. She reconstructs the event not only as a grieving widow but as a reporter. She seeks the timeline. She wants the medical explanation. She reads the records. She returns to the details because details imply sequence, and sequence implies cause. Cause, in turn, suggests that reality might still be governed by rules.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:136:Reread every decade, this aspect of the book becomes more consequential. The first time, the reader may focus on the death. Later, the book’s real subject may appear to be marriage: not romance as an event, but intimacy as accumulated reference. Didion and Dunne’s marriage was also a working partnership, an editorial relationship, a long conversation. His absence is therefore not only emotional. It is cognitive. The person who helped her verify reality is gone.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:371:This is why slowness is not merely an aesthetic preference. It is an ethical practice. When work is slow, it has more opportunities to become accountable to reality. It can absorb doubt. It can admit complexity. It can resist the easy shape that makes an idea pleasing but untrue.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:387:To defend slowness is also to defend taste. Taste is not simply preference; it is the capacity to perceive difference. It develops through exposure, attention and revision. A culture of speed weakens taste because it reduces the time available for comparison. We no longer ask whether the work is good. We ask whether it is ready. But ready and good are not the same thing. Ready means it can leave us. Good means it can survive leaving us.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:469:This is where the popular phrase “wood-wide web” enters the story, and where accuracy matters. A common mycorrhizal network is not just “fungi in the soil”. It means a physical fungal connection linking the roots of two or more plants. Such connections can, in principle, move carbon, nutrients, water or chemical signals between plants. But proving that this happens in intact forests is difficult. Researchers have to separate transfer through fungal hyphae from other routes: roots leaking compounds into soil, microbes consuming and re-releasing them, water moving dissolved chemicals, or plants responding to airborne signals. A 2023 review in Nature Ecology & Evolution argued that several strong public claims about common mycorrhizal networks in forests, including that they are widespread, that they reliably improve seedling performance, and that mature trees preferentially send resources to offspring, are not yet supported by enough field evidence.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:475:The “communication” claim needs the same discipline. Plants certainly detect and respond to chemical cues. When leaves are attacked, they can alter defensive chemistry; when neighbours are damaged, nearby plants may respond. Some experiments suggest that mycorrhizal networks can mediate stress-related signalling. In one study, damaged Douglas-fir was reported to transfer carbon and defence-related signals to neighbouring ponderosa pine through ectomycorrhizal networks.   But this is not conversation in the human sense. There is no evidence of intention, language or conscious warning. A more accurate analogy is a biochemical alarm system: changes in one organism can alter the chemical environment of connected organisms, which may then shift their own physiology.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:485:The story also matters for climate and conservation. Mycorrhizal fungi are involved in plant productivity, nutrient cycling and soil carbon dynamics at large scales. A 2025 Nature study mapping global mycorrhizal fungal richness reported that mycorrhizal fungi form extensive underground networks and that many biodiversity hotspots for these fungi fall outside protected areas.   That does not mean protecting fungi is a simple climate solution. It means forest policy that ignores below-ground biodiversity is missing part of the system it is trying to manage.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:510:The contemporary revival is both more democratic and more compromised. On one side, it is genuinely popular philosophy. Modern Stoicism projects such as Stoic Week have turned ancient exercises into public experiments; by 2022, organisers reported that about 38,600 people had signed up across a decade and more than 20,000 had contributed data. On another side, the revival has been absorbed into self-optimisation culture: podcasts, productivity routines, executive coaching, gym discipline, start-up mythology and social media quotation tiles. Ryan Holiday’s Daily Stoic empire has helped bring Stoicism to a mass audience through books, a website, newsletter, podcast and Instagram presence; The Guardian described his audience as including athletes, politicians and tech chief executives.
+/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt:548:I once watched a junior designer present three concept options to senior stakeholders. The options were thoughtful, but the discussion quickly collapsed into preference. One executive liked the version with fewer words. Another wanted more reassurance. A third asked whether “users even read”. The junior designer responded by defending each screen in turn. The more they defended, the more the room treated the work as opinion.
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:165:163,"corp","other","noun","often part of citation that refer to a corporation like Microsoft corp."
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:187:185,"deeper","content/style","adjective","can potentially refer to deep learning / deep networks"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:232:230,"efficacy","style/count","noun","can refer to vaccine efficacy"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:329:327,"frontline","content","noun","frontline staff (COVID!), or Frontline therapy refers to a patient's first CLL treatment"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:391:389,"ieee","content","noun","Mostly refers to IEEE Xplore"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:402:400,"inaccuracies","content","noun","refers to problems with data"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:476:474,"mafld","content","noun","“Metabolic dysfunction-associated fatty liver disease (MAFLD)” is the term suggested in 2020 to refer to fatty liver disease"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:481:479,"marking","content","noun","Can refer to tumor marking, see ""tumor marker"""
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:632:630,"proms","content","noun","Patient-reported outcome measures"
+/Users/mae/Documents/human-eyes/human-eyes/references/kobak-excess-words.csv:696:694,"rstudio","content","noun","refers to R language"
+/Users/mae/Documents/human-eyes/human-eyes/references/example.md:3:End-to-end demonstration of a rewrite at All depth: an AI-generated essay through audit, rewrite, structural self-check, and revised rewrite. Use as a reference for what a real Rewrite action's output should look like.
+/Users/mae/Documents/human-eyes/human-eyes/references/example.md:45:> GitHub reports that Copilot users "accept 30% of suggestions," but acceptance is not correctness, and correctness is not value. If your codebase does not have good test coverage, you are mostly guessing about whether the suggestion helped or hurt.
+/Users/mae/Documents/human-eyes/human-eyes/references/voice.md:3:Voice-craft guidance for the Rewrite and Write actions. The grader catches AI patterns to remove; this guide is about what to add or preserve so the result reads as written by a human, not just as text without AI tells.
+/Users/mae/Documents/human-eyes/human-eyes/references/voice.md:7:Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+/Users/mae/Documents/human-eyes/human-eyes/references/voice.md:24:- No opinions, just neutral reporting: stance has been stripped or was never there
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:18:## Evidence hierarchy from the reference audit
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:27:- Stanford HAI's detector-bias reporting supports warnings over accusations, especially for non-native English writers. Use process evidence and user review rather than detector-style verdicts. Source: https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:32:- Shreya Shankar's AI Writing essay is one of the strongest craft references: bad sentence subjects, orphaned demonstratives, empty paragraph endings, over-bulleting, flat rhythm, low information density, vagueness, and fluency without understanding. These directly support the self-audit and several programmatic checks. Source: https://www.sh-reya.com/blog/ai-writing/
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:38:- Clarkesworld reporting supports fiction as a submission/provenance problem and a manual craft-audit area. Use it for flat dialogue, exposition, pacing, lack of subtext, and over-resolved endings, not as a global regex rule. Source: https://www.npr.org/2023/02/24/1159286436/ai-chatbot-chatgpt-magazine-clarkesworld-artificial-intelligence
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:39:- Futurism's Sports Illustrated reporting supports journalism and review-provenance checks: fake bylines, fake bios, AI headshots, affiliate product-review sludge, undisclosed generated content, and byline laundering. Source: https://futurism.com/sports-illustrated-ai-generated-writers
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:86:> The temple uses blue, green, and gold. According to the architect, the colours were chosen to reference local bluebonnets and the Gulf coast.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:104:**Words to watch:** Industry reports, Observers have cited, Experts argue, Some critics argue, several sources/publications (when few cited)
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:312:**Tolerance note:** Three-part structures are common in human rhetoric, comedy, fiction, speeches, and criticism. Treat this as an AI tell when triads cluster densely, feel interchangeable, or use abstract nouns to simulate breadth. Preserve when the three items are concrete, necessary, funny, rhythmic, or part of a voiced argument.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:323:Excessive synonym substitution, cycling through different words for the same referent within a short span due to repetition-penalty mechanisms.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:387:> :bulb: **Key Insight:** Users prefer simplicity
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:391:> The product launches in Q3. User research showed a preference for simplicity, so the next step is to schedule a follow-up meeting to discuss how that finding should shape the launch.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:414:> The cross-functional team delivered a high-quality, data-driven report on our client-facing tools. Their decision-making process was well-known for being thorough and detail-oriented.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:417:> The team, drawn from several departments, delivered a report grounded in usage data for our client-facing tools. Their process for making decisions was known for being thorough.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:578:**Tolerance note:** Interviews, teaching prose, polemic, and comic essays often use questions legitimately. Treat as an AI tell when the answer is immediate, generic, and framed as revelation.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:589:AI metaphors are plausible but specific to nobody. They gesture toward meaning without achieving it. Human metaphors draw from personal experience or shared cultural references. AI metaphors draw from the statistical middle.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:684:> The study surveyed 400 teachers across 12 districts. Most reported increased workload since 2020. The takeaway is clear: teachers are stretched thin and the trend shows no signs of reversing.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:689:> The study surveyed 400 teachers across 12 districts. Most reported increased workload since 2020, with marking and administrative tasks growing fastest.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:710:This pattern cannot be caught programmatically. During the self-audit, ask: does the whole text sit in one register? If it reads like a single voice speaking at a single speed about everything, introduce at least one register break — a moment of informality, a parenthetical doubt, a shift in sentence rhythm.
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:773:These are not reliable enough for hard regex treatment yet, but they should be part of the self-audit:
+/Users/mae/Documents/human-eyes/human-eyes/references/patterns.md:775:- **Academic/research:** verify citations, DOIs, dates, journals, reference order, and whether cited works actually support the claim. Plausible citation format is not evidence.
 
 2026-04-28T16:25:45.471242Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:25:45.471491Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/harris-free-will.md' in /Users/mae/Documents/humanise/humanise
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/human-eyes/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/harris-free-will.md' in /Users/mae/Documents/human-eyes/human-eyes
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-m5hVE04V' (errno=Operation not permitted)
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-JyacWwmi' (errno=Operation not permitted)
 {
-  "file": "/Users/mae/Documents/humanise/dev/evals/samples/harris-free-will.md",
+  "file": "/Users/mae/Documents/human-eyes/dev/evals/samples/harris-free-will.md",
   "pass_rate": "36/43",
   "failures_by_severity": {
     "strong_warning": 2,
@@ -2103,7 +2103,7 @@ python3: error: couldn't create cache file '/tmp/xcrun_db-JyacWwmi' (errno=Opera
 2026-04-28T16:25:54.939416Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:25:54.939667Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,140p' /Users/mae/Documents/humanise/dev/evals/samples/harris-free-will.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,140p' /Users/mae/Documents/human-eyes/dev/evals/samples/harris-free-will.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # The Illusion of Free Will: Why Your Choices Aren't Really Yours
 
@@ -2130,7 +2130,7 @@ This doesn't necessarily mean we should abandon the concept of responsibility al
 In conclusion, the illusion of free will is a fascinating and important topic that challenges our most fundamental assumptions about human nature. While it may be uncomfortable to accept that our choices are not truly "free," understanding this reality can lead to greater empathy, more effective social policies, and a deeper understanding of what it means to be human. The evidence from both philosophy and neuroscience points in the same direction: free will, as we commonly understand it, is an illusion — albeit a remarkably persistent one.
 
 exec
-/bin/zsh -lc 'rg -n "Em dashes|Formulaic openers|Generic promotional language|Inflated significance|Signposted conclusion|Headings in prose|AI pressure|Markdown headings|section" /Users/mae/Documents/humanise/humanise/references/patterns.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "Em dashes|Formulaic openers|Generic promotional language|Inflated significance|Signposted conclusion|Headings in prose|AI pressure|Markdown headings|section" /Users/mae/Documents/human-eyes/human-eyes/references/patterns.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 43:- Em dashes are still used by human writers, but in publication-ready plain prose they are now a strong AI-style signal. Treat them as strong warnings. They must be removed at every depth (Balanced and All); preserve only when the source genuinely uses them stylistically and the preservation is disclosed.
 115:### 6. Formulaic challenges sections

@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/humanise/SKILL.md
+/Users/mae/Documents/human-eyes/human-eyes/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit this draft for AI tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md
 
 ```markdown
 # Why The year of magical thinking should be reread every decade
@@ -72,21 +72,21 @@ That is why the book should not be left on the shelf as a classic once read and 
 ```
 
 exec
-/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/humanise/humanise/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,240p' /Users/mae/Documents/human-eyes/human-eyes/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -94,7 +94,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -106,7 +106,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -119,7 +119,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
 2. Run the grader: `python3 grade.py --format json "$INPUT_PATH"`.
 3. Parse the grader output. For each detected pattern, extract these fields: the pattern name; the offending phrase or sentence quoted from the input; the severity; and the relevant explanation from `references/patterns.md`.
 4. Render the audit using the output template below.
@@ -307,8 +307,8 @@ Save wraps any of the four actions' output in a Markdown file. Combine freely wi
 
 Default save paths:
 
-- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+- Fallback: `./human-eyes-<action>.md` when there is no input path (e.g., pasted text).
 - Append `-2`, `-3` rather than overwriting an existing file.
 
 When Save is used:
@@ -316,7 +316,7 @@ When Save is used:
 - The chat output is a one-line summary of the action's verdict, followed by `Saved to: <path>`, followed by the next-step question if one applies.
 
 exec
-/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/humanise/humanise/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,260p' /Users/mae/Documents/human-eyes/human-eyes/references/patterns.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # AI writing patterns
 
@@ -580,14 +580,14 @@ Current threshold: vocabulary pressure contributes points to an overall score. T
 
 
 exec
-/bin/zsh -lc 'python3 humanise/grade.py --format json /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'python3 human-eyes/grade.py --format json /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-POTzFrVG' (errno=Operation not permitted)
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-tIDOgQo0' (errno=Operation not permitted)
 {
-  "file": "/Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md",
+  "file": "/Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md",
   "pass_rate": "33/43",
   "failures_by_severity": {
     "strong_warning": 3,
@@ -2396,7 +2396,7 @@ python3: error: couldn't create cache file '/tmp/xcrun_db-tIDOgQo0' (errno=Opera
 }
 
 exec
-/bin/zsh -lc 'rg -n "not only|not because|less like|not .* but|not merely|not just|not for|not that" /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "not only|not because|less like|not .* but|not merely|not just|not for|not that" /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 9:That precision matters. She remembers the fire, the table, the salad, the ambulance, the hospital, the paperwork. She reconstructs the event not only as a grieving widow but as a reporter. She seeks the timeline. She wants the medical explanation. She reads the records. She returns to the details because details imply sequence, and sequence implies cause. Cause, in turn, suggests that reality might still be governed by rules.
 15:That scene lands differently across a life. At twenty-five, it may seem like an elegant symbol. At thirty-five or forty-five, after enough losses, it reads less like symbolism than documentary fact. Grief does not always announce itself as despair. It can appear as a logistical hesitation: keep the shoes, preserve the room, do not cancel the account, do not move the glass. The dead remain embedded in systems designed for the living.
@@ -2410,7 +2410,7 @@ exec
 41:That is why the book should not be left on the shelf as a classic once read and respectfully admired. It should be returned to, not for comfort, but for calibration. Every decade, it will measure something different: what has been lost, what is now feared, what can no longer be controlled, and what forms of magical thinking still remain.
 
 exec
-/bin/zsh -lc 'rg -n "scene lands|is often described as|She remembers|She reconstructs|She seeks|She wants|She reads|She returns|That precision matters|He has a drink|Then he is dead" /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'rg -n "scene lands|is often described as|She remembers|She reconstructs|She seeks|She wants|She reads|She returns|That precision matters|He has a drink|Then he is dead" /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 3:Joan Didion’s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient. It is also a book about evidence, memory, control, marriage, medical language, social performance, and the collapse of ordinary time. Its subject is the year after the sudden death of Didion’s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill. But its deeper achievement is that it changes shape as the reader ages. Read in one decade, it is a devastating account of bereavement. Read in another, it becomes a study of how fragile the structures of adult life really are. Later again, it reads as an anatomy of denial, a critique of competence, and a warning about the stories we tell ourselves to survive.
 7:The book begins with a sentence that now feels almost proverbial: life changes fast. Didion does not stage grief as an emotional revelation. She stages it as administrative shock. One evening in December 2003, after visiting Quintana in hospital, Didion and Dunne return to their New York apartment. They sit down to dinner. He has a drink. He says something ordinary. Then he is dead. The horror of the scene lies in its lack of drama. There is no warning, no moral preparation, no cinematic pause. Didion’s account is precise because precision is the only instrument she still trusts.

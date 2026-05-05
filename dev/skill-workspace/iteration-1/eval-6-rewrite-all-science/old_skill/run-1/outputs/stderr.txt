@@ -1,7 +1,7 @@
 Reading additional input from stdin...
 OpenAI Codex v0.125.0 (research preview)
 --------
-workdir: /Users/mae/Documents/humanise
+workdir: /Users/mae/Documents/human-eyes
 model: gpt-5.5
 provider: openai
 approval: never
@@ -14,7 +14,7 @@ user
 You are running an evaluation of a local writing skill.
 
 Use the skill at:
-/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md
+/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md
 
 Read that skill and any referenced files you need from the same skill directory.
 Do not edit repository files. Do not save files. Return only the final user-facing output for the task.
@@ -24,7 +24,7 @@ Task prompt:
 Audit and rewrite this at all depth, including subtle structural tells.
 
 Inputs:
-Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/04-science-mycorrhizal.md
+Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/04-science-mycorrhizal.md
 
 ```markdown
 # The forest beneath the forest
@@ -68,10 +68,10 @@ The forest beneath the forest is therefore not a hidden utopia. It is infrastruc
 2026-04-28T16:38:15.811452Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:38:15.811881Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits text for AI-style writing patterns, rewrites existing drafts to remove
   them, or writes new content that avoids them. Uses 38 patterns and 43
@@ -82,7 +82,7 @@ description: >-
   or when drafting prose that needs to read as human.
 ---
 
-# Humanise: Audit, rewrite, or write without AI patterns
+# Human-eyes: Audit, rewrite, or write without AI patterns
 
 Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
 
@@ -130,7 +130,7 @@ Use this when the user asks things like:
 - "Does this sound AI?"
 - "Check this for AI writing."
 - "Audit this draft."
-- "Run humanise on this."
+- "Run human-eyes on this."
 - "What's flagged here?"
 
 Or any input where the user provides text without an explicit Rewrite or Write instruction.
@@ -150,7 +150,7 @@ The audit table uses a `Severity` column and a severity-tiered `Recommended acti
 
 ### 2. Rewrite
 
-Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, humanise-as-action, or confirms a rewrite after an audit.
+Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, human-eyes-as-action, or confirms a rewrite after an audit.
 
 Do:
 
@@ -185,7 +185,7 @@ There is no initial audit — there is no input text to audit.
 ### Modifiers
 
 - **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
-- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-rewrite.md`, or `.humanise-write.md`. Fall back to `./humanise-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
+- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`. Fall back to `./human-eyes-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
 
 ---
 
@@ -267,7 +267,7 @@ grep -i "promotional" references/patterns.md
 Decide which of the three actions applies:
 
 - If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
-- If the user explicitly asks to rewrite, fix, clean up, humanise (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
+- If the user explicitly asks to rewrite, fix, clean up, human-eyes (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
 - If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
 - If the input has text but no clear instruction: use **Audit** and ask what's next.
 - If the input has no text and the request is unclear: ask what they want.
@@ -285,7 +285,7 @@ If you cannot ask, default to Audit. The audit is read-only and lets the user de
 Save the input text to a unique temp file using `mktemp` for portability:
 
 ```bash
-INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)
+INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)
 # write the input text to "$INPUT_PATH"
 python3 grade.py --format markdown "$INPUT_PATH"
 ```
@@ -294,7 +294,7 @@ python3 grade.py --format markdown "$INPUT_PATH"
 2026-04-28T16:38:22.521768Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:38:22.522025Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '220,520p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/SKILL.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 
 The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
@@ -510,7 +510,7 @@ In the chat output:
 In the saved Markdown file, render the action's normal output template in full, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Mode: <Light / Medium / Hard, or "n/a" for Audit>
 - Date: <ISO 8601>
@@ -542,7 +542,7 @@ A full Hard-mode Rewrite walked through end-to-end (AI-sounding draft → audit 
 2026-04-28T16:38:26.497146Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:38:26.497353Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/severity-detail.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/severity-detail.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # Severity detail: deep-dive on the four most distinctive AI tells
 
@@ -605,7 +605,7 @@ A sentence should be as long as the thought it contains. When you find fragments
 > The results were unambiguous: the model outperformed every baseline by a significant margin, which surprised most of the team.
 
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/voice.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/voice.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # Personality and soul
 
@@ -621,7 +621,7 @@ Removing AI patterns is therefore only half the job. You must also watch for wha
 
 AI has no lived experience, so it generalises. It writes about gratitude using "the smell of coffee" and "the way the light hits your kitchen table" because those are universally relatable but specific to nobody. A related move is **faux specificity** (pattern 36): AI *performs* specificity by constructing examples from genre conventions rather than lived experience. The detail sounds concrete but belongs to nobody.
 
-Human writing draws on real memories, named people, actual places, felt emotions. When humanising, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
+Human writing draws on real memories, named people, actual places, felt emotions. When rewriting, look not just for patterns to remove but for the **absence** of specificity, vulnerability, and personal stakes.
 
 ## Density without purpose
 
@@ -662,7 +662,7 @@ A good writer uses em dashes, triads, and parallelism sparingly, with intention.
 > Three million lines of code, generated overnight while the developers slept. I have been turning this over for a few days now, and I still do not have a clean take on it. Half the dev community thinks this changes everything; the other half is explaining, at length, why it does not count. My own reaction keeps shifting depending on which examples I look at.
 
 exec
-/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references/patterns.md" in /Users/mae/Documents/humanise
+/bin/zsh -lc "sed -n '1,220p' /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references/patterns.md" in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 # AI writing patterns
 
@@ -886,7 +886,7 @@ Full GPTZero phrase list used by the grader:
 76. study shed light on
 
 exec
-/bin/zsh -lc 'ls -la /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot && ls -la /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/references' in /Users/mae/Documents/humanise
+/bin/zsh -lc 'ls -la /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot && ls -la /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/references' in /Users/mae/Documents/human-eyes
  succeeded in 0ms:
 total 504
 drwxr-xr-x@ 7 mae  staff     224 Apr 28 17:58 .
@@ -908,7 +908,7 @@ drwxr-xr-x@ 7 mae  staff    224 Apr 28 17:58 ..
 2026-04-28T16:38:35.741503Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:38:35.741708Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/04-science-mycorrhizal.md' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py --format markdown /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/04-science-mycorrhizal.md' in /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot
 2026-04-28T16:38:40.032735Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:38:40.032938Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
  succeeded in 121ms:
@@ -979,18 +979,18 @@ Full check table
 2026-04-28T16:38:48.086995Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:38:48.087251Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc "python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --help | sed -n '1,140p'" in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+/bin/zsh -lc "python3 /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py --help | sed -n '1,140p'" in /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot
  succeeded in 0ms:
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-BeJnf4Uw' (errno=Operation not permitted)
 python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead
 python3: error: couldn't create cache file '/tmp/xcrun_db-sfgaLaJA' (errno=Operation not permitted)
 Traceback (most recent call last):
-  File "/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py", line 2567, in <module>
+  File "/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py", line 2567, in <module>
     main()
-  File "/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py", line 2543, in main
+  File "/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py", line 2543, in main
     results = grade_file(filepath, assertions)
-  File "/Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py", line 2504, in grade_file
+  File "/Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py", line 2504, in grade_file
     text = Path(filepath).read_text()
   File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1256, in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
@@ -1005,7 +1005,7 @@ FileNotFoundError: [Errno 2] No such file or directory: '--help'
 2026-04-28T16:39:30.149840Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:39:30.153858Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot
 2026-04-28T16:39:38.169996Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:39:38.170211Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 2026-04-28T16:40:10.259139Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
@@ -1103,7 +1103,7 @@ Full check table
 | Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
 
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot
 2026-04-28T16:40:23.976450Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:40:23.976657Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 2026-04-28T16:40:58.246091Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
@@ -1201,7 +1201,7 @@ Full check table
 | Repeated section scaffolding | Clear | Checks for repeated section labels or repeated structural templates. | No issue found in this text. | Repeated section structure makes the whole piece feel assembled from a template. | None |
 
 exec
-/bin/zsh -lc 'python3 /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/humanise/dev/skill-workspace/skill-snapshot
+/bin/zsh -lc 'python3 /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot/grade.py --format markdown --mode hard /dev/stdin' in /Users/mae/Documents/human-eyes/dev/skill-workspace/skill-snapshot
 2026-04-28T16:41:12.518714Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
 2026-04-28T16:41:12.518934Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=/Users/mae/.codex/.tmp/plugins/plugins/plugin-eval/.codex-plugin/plugin.json
 2026-04-28T16:41:48.920765Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: prompt must be at most 128 characters path=/Users/mae/.codex/.tmp/plugins/plugins/build-ios-apps/.codex-plugin/plugin.json
