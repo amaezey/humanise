@@ -23,24 +23,7 @@ Three rounds of isolation-based testing, where no agent has access to informatio
 
 ## Results
 
-### Original run: pre-check/post-check loop, 10 samples, 21 checks
-
-| Sample | Pre-check | Post-check |
-|---|---|---|
-| Harris (free will) | 20/21 | **21/21** |
-| Murray (how doctors die) | 15/21 | **21/21** |
-| Woolf (death of the moth) | 20/21 | **21/21** |
-| Wong (monkeysphere) | 17/21 | **21/21** |
-| Orwell (why I write) | 19/21 | **21/21** |
-| Gratitude (slop prompt) | 19/21 | **21/21** |
-| Insect (slop prompt) | 20/21 | **21/21** |
-| Passion (slop prompt) | 19/21 | **21/21** |
-| End of life (slop prompt) | 20/21 | **21/21** |
-| Dunbar (slop prompt) | 20/21 | **21/21** |
-
-10/10 clean passes. The pre-check script finds the problems, the model fixes them, the post-check script confirms they're gone.
-
-**Note:** These results were against the original 21-check grader. The grader has since been expanded to 43 checks (fixing bugs in existing checks and adding structural/corpus-derived checks). The original 10 samples need re-running against the updated grader to confirm they still pass. See [ISSUES.md](ISSUES.md) for details.
+Current performance lives in the auto-rewritten block in `README.md` and in full at `dev/skill-workspace/latest-performance-report.md`. The harness writes a dated archive entry to `dev/skill-workspace/reports/` on every run.
 
 ## Grading script
 
@@ -64,7 +47,7 @@ Expanded assertion test suite verifying each check catches known-bad text and pa
 python3 evals/test_grade.py
 ```
 
-Run this after any change to `grade.py` to prevent silent regex breakage. See [ISSUES.md](ISSUES.md) for technical gotchas (e.g. substring vs regex matching for multi-word phrases, cross-sentence pattern matching).
+Run this after any change to `grade.py` to prevent silent regex breakage.
 
 ## Key findings
 

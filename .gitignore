@@ -7,6 +7,9 @@ __pycache__/
 # reports/<date>-iteration-N.md (browseable history).
 dev/skill-workspace/iteration-*/
 
+# Generated artefact from run_grade_sweep.py — regenerated on demand.
+dev/evals/grade-sweep-report.json
+
 # Local ce-work skill config
 .compound-engineering/
 
