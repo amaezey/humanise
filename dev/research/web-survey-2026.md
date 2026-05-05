@@ -2,7 +2,7 @@
 
 **Method:** Web search across academic, journalistic, and practitioner sources
 **Date:** 1 April 2026
-**Focus:** Identifying patterns not already captured in existing humanise research
+**Focus:** Identifying patterns not already captured in existing human-eyes research
 
 ---
 
@@ -23,7 +23,7 @@
   - GPT-4o era: "align with", "enhance", "showcasing"
   - "Delve" peaked in 2023–early 2024, declined through 2024, dropped sharply by 2025
 
-### New patterns for humanise
+### New patterns for human-eyes
 
 | Pattern | Status vs existing list |
 |---|---|
@@ -50,14 +50,14 @@
 - In code stylometry, **removing comments dropped accuracy from 92.65% to 85.45%**, showing comment phrasing is the richest stylometric feature for model attribution.
 - Researchers propose the concept of **stylometric watermarks**: models consistently favouring unusual sentence structures or specific synonyms, creating differences too subtle for readers but statistically detectable.
 
-### New patterns for humanise
+### New patterns for human-eyes
 
 | Pattern | Status vs existing list |
 |---|---|
 | Function word distribution (the, of, and, etc.) differs between AI and human text | **New signal** — not surface vocabulary but statistical distribution |
 | Part-of-speech bigram patterns (e.g., adjective-noun frequency) | **New signal** — grammatical sequencing differs |
 | Most commercial LLMs cluster together stylistically (except Llama) | **New insight** — detection may work better as human-vs-AI than model-vs-model |
-| Comment/aside phrasing is the richest attribution signal in code | **New insight** — relevant if humanise is ever applied to technical writing |
+| Comment/aside phrasing is the richest attribution signal in code | **New insight** — relevant if human-eyes is ever applied to technical writing |
 
 ---
 
@@ -85,7 +85,7 @@
 - **15% of Reddit posts** are now estimated to be AI-generated.
 - **21% of ICLR 2026 reviews** were written entirely by AI.
 
-### New patterns for humanise
+### New patterns for human-eyes
 
 | Pattern | Status vs existing list |
 |---|---|
@@ -164,7 +164,7 @@ Three evaluation settings:
 - AI reviews systematically **deprioritised clarity and relevance** while over-emphasising reproducibility and scalability.
 - AI reviews assigned scores **a full point higher on average** — an inflationary bias.
 
-### New patterns for humanise
+### New patterns for human-eyes
 
 | Pattern | Status vs existing list |
 |---|---|
@@ -175,6 +175,6 @@ Three evaluation settings:
 | Peer review score inflation (+1 point average) | **Contextual** — domain-specific but demonstrates systematic bias |
 | Impersonal language shift — fewer anecdotes, fewer human experience references | **Reinforces** existing "experiential vacancy" with experimental evidence |
 
-### Why this matters for humanise
+### Why this matters for human-eyes
 
-This is the strongest empirical evidence yet that LLMs don't just add detectable surface patterns — they **subtract meaning**. The existing humanise skill focuses heavily on what AI *adds* (vocabulary, formatting, rhetorical devices). This paper shows the equally important flip side: what AI *removes* (stance, pronouns, personal experience, argumentative commitment). The neutrality collapse finding is particularly actionable — a humanised text should preserve or restore the author's actual position rather than defaulting to both-sides balance.
+This is the strongest empirical evidence yet that LLMs don't just add detectable surface patterns — they **subtract meaning**. The existing human-eyes skill focuses heavily on what AI *adds* (vocabulary, formatting, rhetorical devices). This paper shows the equally important flip side: what AI *removes* (stance, pronouns, personal experience, argumentative commitment). The neutrality collapse finding is particularly actionable — a rewritten text should preserve or restore the author's actual position rather than defaulting to both-sides balance.

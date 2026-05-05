@@ -1,6 +1,6 @@
-# Humanise: skill refocus plan
+# Human-eyes: skill refocus plan
 
-> **Superseded by [`dev/plans/2026-04-28-humanise-implementation.md`](2026-04-28-humanise-implementation.md).** This plan is the earlier exploratory pass; the implementation plan is the canonical record of executed and remaining work. Decisions in this file (3-mode depth dial, "Light" intensity, open identity placeholders) have been resolved or revised in the implementation plan — read that plan first.
+> **Superseded by [`dev/plans/2026-04-28-human-eyes-implementation.md`](2026-04-28-human-eyes-implementation.md).** This plan is the earlier exploratory pass; the implementation plan is the canonical record of executed and remaining work. Decisions in this file (3-mode depth dial, "Light" intensity, open identity placeholders) have been resolved or revised in the implementation plan — read that plan first.
 
 The current SKILL.md is patchwork. Iterative cleanup hasn't fixed the foundational confusion. This plan steps back to first principles, then proposes a clean structure.
 
@@ -46,7 +46,7 @@ There are two existing tool categories: AI detectors (GPTZero etc., score-based,
 ### Components
 
 ```
-humanise/
+human-eyes/
 ├── SKILL.md                          The operating contract (~200 lines target)
 ├── grade.py                          43 checks, severity-classified, plain-English report
 ├── references/
@@ -77,7 +77,7 @@ That table is the entire intensity logic. Everything else (genre rules, voice co
 
 ### What the agent reads
 
-When `/humanise` fires, the agent loads `SKILL.md`. SKILL.md contains the operating contract — three actions, intensity rules, severity logic, output shape. It points to `references/` for catalogues and detail. The agent only reads references when the action calls for it (e.g. read `voice.md` during Rewrite/Write Step 5).
+When `/human-eyes` fires, the agent loads `SKILL.md`. SKILL.md contains the operating contract — three actions, intensity rules, severity logic, output shape. It points to `references/` for catalogues and detail. The agent only reads references when the action calls for it (e.g. read `voice.md` during Rewrite/Write Step 5).
 
 ---
 
@@ -96,7 +96,7 @@ The audit is mode-agnostic. The 43 checks pass or fail based on the text, not th
 
 ### Action 2: Rewrite
 
-Triggered by an explicit rewrite instruction (rewrite, fix, clean up, de-AI, strip tells, humanise as a verb on text), or by the user picking rewrite after an audit.
+Triggered by an explicit rewrite instruction (rewrite, fix, clean up, de-AI, strip tells, human-eyes as a verb on text), or by the user picking rewrite after an audit.
 
 1. Run audit (skip if just done in the same turn).
 2. Ask intensity if not specified. Default to balanced.
@@ -122,7 +122,7 @@ Triggered by an explicit composition request (write, draft, compose, "help me wr
 ### Modifiers
 
 - **Recommendation** — after an audit, optionally state a one-sentence intensity suggestion tied to the genre.
-- **Save** — wrap any action's output in a Markdown file at `<input-stem>.humanise-<action>.md` next to the input, or `./humanise-<action>.md` if no input file. Append `-2`, `-3` rather than overwriting.
+- **Save** — wrap any action's output in a Markdown file at `<input-stem>.human-eyes-<action>.md` next to the input, or `./human-eyes-<action>.md` if no input file. Append `-2`, `-3` rather than overwriting.
 
 ### What the agent should NOT do
 
@@ -139,10 +139,10 @@ Triggered by an explicit composition request (write, draft, compose, "help me wr
 
 ```
 1. Frontmatter (~8 lines)
-   - name: humanise
+   - name: human-eyes
    - description: one paragraph, three actions, no citations
 
-2. # Humanise + What this skill is (~25 lines)
+2. # Human-eyes + What this skill is (~25 lines)
    - Identity statement (the prose at the bottom of this plan)
    - The hard-mode caveat (intensity ≠ quality)
    - What this skill doesn't do
@@ -209,11 +209,11 @@ Mae's edited version of the opening paragraphs (work in progress, includes open 
 
 > AI-generated text has detectable patterns. After someone uses an LLM to draft, or expand a piece of writing, the prose picks up traces: vocabulary clusters, structural rhythms, formatting tics, voice flattening. These mark the text as machine-touched even when the writer can't see them.
 >
-> Humanise [what it does] so that humans can identify and remove signs of AI writing. Each of the 43 checks [and what about guidance that isn't programmatic?] in published research; sources in references/evidence.md.
+> Human-eyes [what it does] so that humans can identify and remove signs of AI writing. Each of the 43 checks [and what about guidance that isn't programmatic?] in published research; sources in references/evidence.md.
 
 Open questions Mae flagged:
 
-1. **What does Humanise do?** — paragraph 2 has a `[what it does]` placeholder. The verb is the thing.
+1. **What does Human-eyes do?** — paragraph 2 has a `[what it does]` placeholder. The verb is the thing.
 2. **What about non-programmatic guidance?** — the 43 checks are programmatic. The skill also includes structural self-check questions, semantic preservation checks, and voice-craft guidance that the agent applies, not the script. The identity statement should account for both.
 
 The original draft and the iterated revisions are in the conversation history. Subsequent paragraphs (use case, three actions, detection layer / action layer split, "not for" disclaimers) need to be rewritten — Mae's note: "framed around my critique of your shallow analysis and not the actual identity of the skill". A fresh start is required, not further iteration on the existing prose.

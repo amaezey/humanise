@@ -2,7 +2,7 @@
 """
 diff_renders.py — Phase 2 verification harness.
 
-Runs humanise/scripts/grade.py JSON output over the U10 corpus and either captures
+Runs human-eyes/scripts/grade.py JSON output over the U10 corpus and either captures
 a baseline or verifies current output matches the captured baseline.
 
 Phase 2 (U7-U9) is a no-op refactor; this harness is the gate that proves it.
@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-GRADE = REPO_ROOT / "humanise" / "scripts" / "grade.py"
+GRADE = REPO_ROOT / "human-eyes" / "scripts" / "grade.py"
 BASELINE_DIR = REPO_ROOT / "dev" / "evals" / "diff_baseline"
 
 CORPUS = [

@@ -1,6 +1,6 @@
 # Hypotheses
 
-Hypotheses to test in future iterations of the humanise project. Each entry stays here until capacity allows a test, or until something cheaper or stronger replaces it.
+Hypotheses to test in future iterations of the human-eyes project. Each entry stays here until capacity allows a test, or until something cheaper or stronger replaces it.
 
 Each hypothesis includes status, source, statement, test, and impact.
 
@@ -42,7 +42,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Source:** Internal: meta-question raised during this session's ideation and review of the README. Current positioning kept for now.
 
-**Statement:** Reposition humanise as a vocabulary tool, a register-feature explainer, or a writing aid, not as anything that detects AI. The current detection framing inherits unsustainable epistemic claims (Sadasivan AUROC bound; Stanford HAI bias finding on non-native English writers).
+**Statement:** Reposition human-eyes as a vocabulary tool, a register-feature explainer, or a writing aid, not as anything that detects AI. The current detection framing inherits unsustainable epistemic claims (Sadasivan AUROC bound; Stanford HAI bias finding on non-native English writers).
 
 **Test:**
 - Draft three alternative framings (vocabulary tool, register explainer, comparison engine).
@@ -57,7 +57,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #1.
 
-**Statement:** One canonical structured source (`humanise/vocabulary.yaml` keyed by pattern_id with audit_voice, prescriptive_voice, severity, audit_priority, evidence_summary, corpus_separation, references). SKILL.md, severity-detail.md, alternatives.md, evals.json prompts, and grade.py's CHECK_REPORT_TEXT all render from it via a thin generator. Pair with promoting the audit format from prose convention to a versioned JSON schema in `humanise/contracts/audit-format-v1.json`.
+**Statement:** One canonical structured source (`human-eyes/vocabulary.yaml` keyed by pattern_id with audit_voice, prescriptive_voice, severity, audit_priority, evidence_summary, corpus_separation, references). SKILL.md, severity-detail.md, alternatives.md, evals.json prompts, and grade.py's CHECK_REPORT_TEXT all render from it via a thin generator. Pair with promoting the audit format from prose convention to a versioned JSON schema in `human-eyes/contracts/audit-format-v1.json`.
 
 **Test:**
 - Spec the registry schema.
@@ -121,7 +121,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #6. External: Turnitin precedent (Draft Coach for writers, Feedback Studio for instructors).
 
-**Statement:** One engine, one registry, one corpus, one set of patterns. Voice changes by invocation surface. `/humanise audit` (reviewer voice) uses calibrated audit framing: review priority, register-X density, look-alike disambiguator. `/humanise rewrite` (writer voice) uses prescriptive framing: consider replacing with X. The registry holds twin fields and renders the right one for each surface.
+**Statement:** One engine, one registry, one corpus, one set of patterns. Voice changes by invocation surface. `/human-eyes audit` (reviewer voice) uses calibrated audit framing: review priority, register-X density, look-alike disambiguator. `/human-eyes rewrite` (writer voice) uses prescriptive framing: consider replacing with X. The registry holds twin fields and renders the right one for each surface.
 
 **Test:**
 - Add audit_voice and prescriptive_voice fields to the registry.
@@ -151,7 +151,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` worth-revisiting #3. External: ASRS (Aviation Safety Reporting System) non-punitive intake design.
 
-**Statement:** An opt-in `humanise report-fp` flow captures false positives the user encountered, with a non-punitive covenant (the report does not change the user's audit history). Reports grow the corpus from real authoring rather than synthetic generation.
+**Statement:** An opt-in `human-eyes report-fp` flow captures false positives the user encountered, with a non-punitive covenant (the report does not change the user's audit history). Reports grow the corpus from real authoring rather than synthetic generation.
 
 **Test:**
 - Spec the report shape (passage, pattern that fired, user's claim, optional context).
@@ -164,7 +164,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `dev/research/2026-04-29-genre-paired-corpus-findings.md` shows manufactured-insight firing 2/5 on humans and 0/5 on AI rewrites, against the pattern's catalogued severity in `humanise/references/patterns.md`.
+**Source:** Internal: `dev/research/2026-04-29-genre-paired-corpus-findings.md` shows manufactured-insight firing 2/5 on humans and 0/5 on AI rewrites, against the pattern's catalogued severity in `human-eyes/references/patterns.md`.
 
 **Statement:** The "X is not just Y, it's Z" formulation is a rhetorical move humans use deliberately in reflective essay. AI overuses it. In matched-genre corpus, the human signal is stronger than the AI signal.
 
@@ -212,7 +212,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #7. Internal: PR #5 review noted project-standards reviewer returned zero findings due to absent AGENTS.md / CLAUDE.md.
 
-**Statement:** Four conventions established together. AGENTS.md at repo root captures skill conventions (frontmatter rules, humanise vs dev separation, vocabulary source-of-truth, audit-format contract location, eval discipline). dev/STATUS.md is updated by the harness on successful runs and edited manually for strategic state. dev/plans/active.md is the only un-prefixed plan with mechanical supersession. docs/solutions/ captures generalisable learnings.
+**Statement:** Four conventions established together. AGENTS.md at repo root captures skill conventions (frontmatter rules, human-eyes vs dev separation, vocabulary source-of-truth, audit-format contract location, eval discipline). dev/STATUS.md is updated by the harness on successful runs and edited manually for strategic state. dev/plans/active.md is the only un-prefixed plan with mechanical supersession. docs/solutions/ captures generalisable learnings.
 
 **Test:**
 - Establish each convention with seed content.
@@ -228,7 +228,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` rejection #21 ("overkill at N=5; revisit at N≥50").
 
-**Statement:** Move the corpus to a separate repo or git submodule consumed by humanise via SHA pin. Corpus growth becomes its own discipline with its own review surface. The skill repo tracks a corpus_sha rather than corpus contents.
+**Statement:** Move the corpus to a separate repo or git submodule consumed by human-eyes via SHA pin. Corpus growth becomes its own discipline with its own review surface. The skill repo tracks a corpus_sha rather than corpus contents.
 
 **Test:**
 - Wait until corpus reaches N≥50 per group.

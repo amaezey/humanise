@@ -129,9 +129,9 @@ These words appear in the article text or as alternatives but are not listed as 
 
 ---
 
-## Comparison: Words NOT Already in the Existing Humanise List
+## Comparison: Words NOT Already in the Existing Human-eyes List
 
-### Existing humanise vocabulary list:
+### Existing human-eyes vocabulary list:
 additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, interplay, intricate, intricacies, landscape, pivotal, showcase, showcasing, tapestry, testament, underscore, underscoring, valuable, vibrant, foster, highlighting
 
 ### NEW words from Grammarly NOT in the existing list:
@@ -181,7 +181,7 @@ additionally, align with, crucial, delve, emphasizing, enduring, enhance, foster
 - testament
 - vibrant
 
-These 10 items from the existing humanise list have no overlap with the Grammarly article. They come from other sources (likely Wikipedia's "Signs of AI writing" or similar).
+These 10 items from the existing human-eyes list have no overlap with the Grammarly article. They come from other sources (likely Wikipedia's "Signs of AI writing" or similar).
 
 ---
 
@@ -196,13 +196,13 @@ The article does reference:
 
 ---
 
-## Summary for Humanise Skill
+## Summary for Human-eyes Skill
 
-The Grammarly article provides 31 AI indicator words/phrases across 5 categories. Of these, **29 are not in the current humanise vocabulary list** (only "delve" and "underscore" overlap, plus "pivotal" which is in both). The article is particularly useful for adding:
+The Grammarly article provides 31 AI indicator words/phrases across 5 categories. Of these, **29 are not in the current human-eyes vocabulary list** (only "delve" and "underscore" overlap, plus "pivotal" which is in both). The article is particularly useful for adding:
 
 - **Transition phrases** (a category the existing list lacks entirely)
 - **Qualifier/hedging words** (another gap in the existing list)
 - **Tech buzzwords** (revolutionize, innovative, cutting-edge, game-changing, transformative, seamless integration, scalable solution)
 - **Academic-register words** (facilitate, bolster, shed light on, streamline)
 
-The existing humanise list's strengths are in a different area: inflated symbolism words (tapestry, testament, interplay, vibrant, enduring, landscape) that Grammarly does not cover.
+The existing human-eyes list's strengths are in a different area: inflated symbolism words (tapestry, testament, interplay, vibrant, enduring, landscape) that Grammarly does not cover.

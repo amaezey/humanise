@@ -8,7 +8,7 @@
 
 ## Why this matters for the skill
 
-Vollmer's essay was the source review that drove the 2026-04-27 expansion of `humanise/references/patterns.md` and `humanise/grade.py` (commit `9ce1cec`). It is the conduit for several patterns currently in the catalogue (#23a False concession, #31a Unicode flair, #35a Orphaned demonstratives, #39 Template/placeholder residue, #40 Rubric echoing). It is also a literature synthesis: most of its patterns trace back to 5–7 core empirical sources (Kobak, GPTZero, Clarke, Shankar, Chiang, Wikipedia) plus specialist studies for domain-specific tells (Walsh for poetry, Waltzer for student writing, Jiang & Hyland for academic).
+Vollmer's essay was the source review that drove the 2026-04-27 expansion of `human-eyes/references/patterns.md` and `human-eyes/grade.py` (commit `9ce1cec`). It is the conduit for several patterns currently in the catalogue (#23a False concession, #31a Unicode flair, #35a Orphaned demonstratives, #39 Template/placeholder residue, #40 Rubric echoing). It is also a literature synthesis: most of its patterns trace back to 5–7 core empirical sources (Kobak, GPTZero, Clarke, Shankar, Chiang, Wikipedia) plus specialist studies for domain-specific tells (Walsh for poetry, Waltzer for student writing, Jiang & Hyland for academic).
 
 For evidence-map purposes, Vollmer attribution should follow the upstream-first principle: where Vollmer cites Smith for X, attribute X to Smith with Vollmer as conduit. Where Vollmer presents an observation as his own (synthesis, taxonomy, or no external source), attribute to Vollmer directly.
 
@@ -125,11 +125,11 @@ These are Vollmer's synthesis or independent observations, not sourced from else
 
 ---
 
-## Vollmer's role in the humanise catalogue (2026-04-27 review)
+## Vollmer's role in the human-eyes catalogue (2026-04-27 review)
 
 The 2026-04-27 Codex session that produced commit `9ce1cec` ran a "Gaps Worth Adding" pass against Vollmer. Items that became numbered patterns:
 
-- **Item 1 (Orphaned demonstratives, citing Shankar via Vollmer)** → #35a in `humanise/references/patterns.md`. Catalogue currently cites Shankar; Vollmer is the conduit.
+- **Item 1 (Orphaned demonstratives, citing Shankar via Vollmer)** → #35a in `human-eyes/references/patterns.md`. Catalogue currently cites Shankar; Vollmer is the conduit.
 - **Item 2 (False concession / both-sides hedge, citing Chiang via Vollmer)** → #23a. Catalogue currently cites Wikipedia + Abdulhai mechanism; Vollmer is the conduit and Chiang is the upstream.
 - **Item 3 (Closing ritual phrases)** → folded into existing `no-signposted-conclusions` and possibly drove `no-soft-scaffolding` (one of the Group B undocumented checks).
 - **Item 4 (Unicode flair, citing Wikipedia via Vollmer)** → #31a. Catalogue currently cites Guo + Wikipedia + Corpus.

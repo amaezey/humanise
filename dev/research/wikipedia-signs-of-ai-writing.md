@@ -8,7 +8,7 @@
 
 ## Why this matters for the skill
 
-Wikipedia's "Signs of AI writing" is the most heavily cited single source in `humanise/references/patterns.md` and the per-pattern evidence map. It looks like a primary source but is actually a *literature synthesis* — most of its claims are backed by academic and journalistic research it cites by footnote. This file extracts those upstream sources so the evidence map can attribute claims to the underlying research, not just to Wikipedia.
+Wikipedia's "Signs of AI writing" is the most heavily cited single source in `human-eyes/references/patterns.md` and the per-pattern evidence map. It looks like a primary source but is actually a *literature synthesis* — most of its claims are backed by academic and journalistic research it cites by footnote. This file extracts those upstream sources so the evidence map can attribute claims to the underlying research, not just to Wikipedia.
 
 Where the article makes a claim and cites an upstream source, the upstream source is the better citation. Where the article makes a claim with no citation, that's editor consensus and should be marked as such.
 

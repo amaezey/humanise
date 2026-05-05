@@ -1,5 +1,5 @@
 """
-humanise.registries — Loaders for the pattern and judgement YAML registries.
+human_eyes.registries — Loaders for the pattern and judgement YAML registries.
 
 Schema for patterns.json (one record per check_id):
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-render_patterns_md.py — Generate humanise/references/patterns.md from
-humanise/scripts/patterns.json.
+render_patterns_md.py — Generate human-eyes/references/patterns.md from
+human-eyes/scripts/patterns.json.
 
 Two modes:
     --enrich   One-shot: parse current patterns.md, enrich patterns.json
@@ -21,8 +21,8 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-PATTERNS_JSON = REPO_ROOT / "humanise" / "scripts" / "patterns.json"
-PATTERNS_MD = REPO_ROOT / "humanise" / "references" / "patterns.md"
+PATTERNS_JSON = REPO_ROOT / "human-eyes" / "scripts" / "patterns.json"
+PATTERNS_MD = REPO_ROOT / "human-eyes" / "references" / "patterns.md"
 
 # Order of H2 categories as they appear in patterns.md.
 CATEGORY_ORDER = [

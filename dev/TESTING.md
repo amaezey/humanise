@@ -13,11 +13,11 @@ Three rounds of isolation-based testing, where no agent has access to informatio
 
 2. **Generate AI versions with isolated agents.** Each agent got a content brief but never saw the original text. This produced AI-flavoured rewrites of the same content.
 
-3. **Humanise with isolated agents.** Separate agents applied the skill blind (no access to originals), exactly as it works in real use.
+3. **Human-eyes with isolated agents.** Separate agents applied the skill blind (no access to originals), exactly as it works in real use.
 
 4. **Grade programmatically.** 43-check script (`evals/grade.py`) tests for em dashes, AI vocabulary clustering, aggregate AI-signal pressure, manufactured insight, staccato sequences, anaphora, paragraph uniformity, soft scaffolding, orphaned demonstratives, placeholder residue, hedging density, and other patterns. The script emits severity metadata so failures can be interpreted by mode rather than treated as one flat category.
 
-5. **Compare to originals.** Read the humanised output alongside the original human text to check voice, meaning, and plausibility.
+5. **Compare to originals.** Read the rewritten output alongside the original human text to check voice, meaning, and plausibility.
 
 6. **Fix failures and re-run.** When Wong's piece kept "And honestly?" because the agent thought it served the humour, we tightened the hard constraints and re-ran until it passed.
 

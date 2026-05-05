@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for humanise/scripts/registries.py — pattern + judgement registry loaders.
+"""Tests for human-eyes/scripts/registries.py — pattern + judgement registry loaders.
 
 Run: python3 dev/evals/test_registries.py
 """
@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-HUMANISE = ROOT / "humanise"
+HUMAN_EYES = ROOT / "human-eyes"
 
 # Load registries.py and grade.py the same way the rest of the test suite does.
 def _load_module(name, path):
@@ -17,14 +17,14 @@ def _load_module(name, path):
     if spec is None or spec.loader is None:
         raise RuntimeError(f"could not load {path}")
     module = importlib.util.module_from_spec(spec)
-    if str(HUMANISE) not in sys.path:
-        sys.path.insert(0, str(HUMANISE))
+    if str(HUMAN_EYES) not in sys.path:
+        sys.path.insert(0, str(HUMAN_EYES))
     spec.loader.exec_module(module)
     return module
 
 
-registries = _load_module("registries", HUMANISE / "scripts" / "registries.py")
-grade = _load_module("humanise_grade", HUMANISE / "scripts" / "grade.py")
+registries = _load_module("registries", HUMAN_EYES / "scripts" / "registries.py")
+grade = _load_module("human_eyes_grade", HUMAN_EYES / "scripts" / "grade.py")
 
 ALL_CHECKS = grade.ALL_CHECKS
 

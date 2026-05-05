@@ -12,7 +12,7 @@ Raw collation of 7 parallel subagent slices. The following issues are NOT yet fi
 3. **"web-survey-2026" mis-cited as a source.** [Resolved: U1b grep pass found no live mis-citations — slice agents named the primary sources directly (Nature 2025, Przystalski/Zaitsu/Bisztray, practitioner guides, Abdulhai). Likely cleaned during slice work.]
 4. **"patterns.md '2026 operating stance'" mis-cited as a source.** [Resolved: U1b dropped patterns.md self-citations from entries #39, #40, and the paragraph-length-variance grader check. patterns.md is a derivative description of patterns, not a source. Real provenance recovered for #39 (Gmelius via Vollmer) and #40 (Vollmer's own observation, "I Asked the Machine to Tell on Itself") by reading the 2026-04-27 Codex session that introduced both patterns. Paragraph-length-variance retains practitioner guides + Guo + Corpus.]
 5. **Formatting inconsistencies across slices.** Slices vary in field naming, source list format, and citation style. Need a single normalised template applied uniformly.
-6. **Severity not yet looked up.** Each pattern needs its severity (`hard_fail` / `strong_warning` / `context_warning`) looked up from `humanise/grade.py` and added.
+6. **Severity not yet looked up.** Each pattern needs its severity (`hard_fail` / `strong_warning` / `context_warning`) looked up from `human-eyes/grade.py` and added.
 
 ---
 
@@ -675,7 +675,7 @@ Two analytical fields per pattern.
 
 **Sources:** Shankar (sh-reya.com/blog/ai-writing); Vollmer ("I Asked the Machine to Tell on Itself", conduit)
 
-**Why it's in the skill:** Shankar names directly as core craft tell: AI starts sentences with "This highlights…" / "This underscores…" where "this" points vaguely back at a whole previous paragraph. Vollmer surfaced this as item 1 of his "Gaps Worth Adding" review during the 2026-04-27 source pass, citing Shankar; the pattern was added to `humanise/references/patterns.md` and `humanise/grade.py` (`check_orphaned_demonstratives`, `check_this_chains`) in commit 9ce1cec as a result.
+**Why it's in the skill:** Shankar names directly as core craft tell: AI starts sentences with "This highlights…" / "This underscores…" where "this" points vaguely back at a whole previous paragraph. Vollmer surfaced this as item 1 of his "Gaps Worth Adding" review during the 2026-04-27 source pass, citing Shankar; the pattern was added to `human-eyes/references/patterns.md` and `human-eyes/grade.py` (`check_orphaned_demonstratives`, `check_this_chains`) in commit 9ce1cec as a result.
 
 **How AI uses it:** appropriate-use-coded
 **Evidence basis:** external-only
@@ -730,7 +730,7 @@ Two analytical fields per pattern.
 **Severity:** [pending — U1d]
 
 **Source claims:**
-- Gmelius (catalog of "AI-isms" in email, cited in Vollmer "I Asked the Machine to Tell on Itself", Section VI.F "In Emails and Business Writing"): "Unedited placeholders left in: 'Hi {client_name},'". Pattern added to humanise/references/patterns.md and humanise/grade.py on 2026-04-27 (commit 9ce1cec) following review of Vollmer's article.
+- Gmelius (catalog of "AI-isms" in email, cited in Vollmer "I Asked the Machine to Tell on Itself", Section VI.F "In Emails and Business Writing"): "Unedited placeholders left in: 'Hi {client_name},'". Pattern added to human-eyes/references/patterns.md and human-eyes/grade.py on 2026-04-27 (commit 9ce1cec) following review of Vollmer's article.
 
 ### 40. Rubric echoing
 
@@ -743,7 +743,7 @@ Two analytical fields per pattern.
 **Severity:** [pending — U1d]
 
 **Source claims:**
-- Vollmer ("I Asked the Machine to Tell on Itself", https://matthewvollmer.substack.com/p/i-asked-the-machine-to-tell-on-itself, Section VI.C "In Student Writing"): "Rubric-language echoing — the essay names the rubric's own criteria with suspicious fluency." Framed as part of what teachers report noticing; Vollmer presents this as his own observation without crediting an external source. Pattern added to humanise/references/patterns.md and humanise/grade.py on 2026-04-27 (commit 9ce1cec) following review of Vollmer's article.
+- Vollmer ("I Asked the Machine to Tell on Itself", https://matthewvollmer.substack.com/p/i-asked-the-machine-to-tell-on-itself, Section VI.C "In Student Writing"): "Rubric-language echoing — the essay names the rubric's own criteria with suspicious fluency." Framed as part of what teachers report noticing; Vollmer presents this as his own observation without crediting an external source. Pattern added to human-eyes/references/patterns.md and human-eyes/grade.py on 2026-04-27 (commit 9ce1cec) following review of Vollmer's article.
 
 **Notes:** Genre-bound — fires in academic submissions.
 

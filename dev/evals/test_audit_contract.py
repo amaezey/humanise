@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Tests the audit-format-v1 contract emitted by humanise/scripts/grade.py human_report().
+"""Tests the audit-format-v1 contract emitted by human-eyes/scripts/grade.py human_report().
 
 Hand-rolled assertions per the plan's no-deps stance — the contract is small
 enough to validate without a full JSON Schema library. The schema file at
-humanise/scripts/contracts/audit-format-v1.json is the authoritative shape and is
+human-eyes/scripts/contracts/audit-format-v1.json is the authoritative shape and is
 loaded for completeness checks (required fields, enums) but the assertions
 below are written explicitly for actionable error messages.
 
@@ -16,8 +16,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-HUMANISE = ROOT / "humanise"
-CONTRACT_PATH = HUMANISE / "scripts" / "contracts" / "audit-format-v1.json"
+HUMAN_EYES = ROOT / "human-eyes"
+CONTRACT_PATH = HUMAN_EYES / "scripts" / "contracts" / "audit-format-v1.json"
 
 
 def _load_module(name, path):
@@ -25,14 +25,14 @@ def _load_module(name, path):
     if spec is None or spec.loader is None:
         raise RuntimeError(f"could not load {path}")
     module = importlib.util.module_from_spec(spec)
-    if str(HUMANISE) not in sys.path:
-        sys.path.insert(0, str(HUMANISE))
+    if str(HUMAN_EYES) not in sys.path:
+        sys.path.insert(0, str(HUMAN_EYES))
     spec.loader.exec_module(module)
     return module
 
 
-grade = _load_module("humanise_grade", HUMANISE / "scripts" / "grade.py")
-registries = _load_module("registries", HUMANISE / "scripts" / "registries.py")
+grade = _load_module("human_eyes_grade", HUMAN_EYES / "scripts" / "grade.py")
+registries = _load_module("registries", HUMAN_EYES / "scripts" / "registries.py")
 
 human_report = grade.human_report
 annotate_result = grade.annotate_result
@@ -75,7 +75,7 @@ print("\n=== representative output (synthetic-hard-fail-only) ===")
 import subprocess
 sample = ROOT / "dev/evals/samples/synthetic/synthetic-hard-fail-only.md"
 result = subprocess.run(
-    ["python3", str(HUMANISE / "scripts" / "grade.py"), "--format", "json", str(sample)],
+    ["python3", str(HUMAN_EYES / "scripts" / "grade.py"), "--format", "json", str(sample)],
     capture_output=True, text=True, check=True,
 )
 contract = json.loads(result.stdout)["human_report"]

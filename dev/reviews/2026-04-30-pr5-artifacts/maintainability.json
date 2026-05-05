@@ -4,31 +4,31 @@
     {
       "title": "Two new reference files added but never linked from SKILL.md or any other reference (orphan docs-as-code)",
       "severity": "high",
-      "file": "/Users/mae/Documents/humanise/humanise/references/example.md",
+      "file": "/Users/mae/Documents/human-eyes/human-eyes/references/example.md",
       "line": 1,
       "confidence": 100,
       "autofix_class": "trivial",
       "owner": "author",
       "requires_verification": false,
       "pre_existing": false,
-      "suggested_fix": "humanise/references/example.md (65 LOC) and humanise/references/severity-detail.md (59 LOC) were added in this PR but are not referenced from humanise/SKILL.md, any other reference markdown, or any code. The SKILL.md 'References' section (lines 254-259) lists only patterns/voice/alternatives/process. For skill prose treated as code-as-instructions, an unreferenced reference file is dead code: the runtime model never loads it, and a future maintainer will not know whether to update it when patterns change. Either (a) link both files from SKILL.md (e.g., add a reference under Severity rules pointing at severity-detail.md, and a reference under Action 3: Rewrite pointing at example.md), or (b) delete them. The current state guarantees they will drift from the canonical patterns.md / process.md immediately."
+      "suggested_fix": "human-eyes/references/example.md (65 LOC) and human-eyes/references/severity-detail.md (59 LOC) were added in this PR but are not referenced from human-eyes/SKILL.md, any other reference markdown, or any code. The SKILL.md 'References' section (lines 254-259) lists only patterns/voice/alternatives/process. For skill prose treated as code-as-instructions, an unreferenced reference file is dead code: the runtime model never loads it, and a future maintainer will not know whether to update it when patterns change. Either (a) link both files from SKILL.md (e.g., add a reference under Severity rules pointing at severity-detail.md, and a reference under Action 3: Rewrite pointing at example.md), or (b) delete them. The current state guarantees they will drift from the canonical patterns.md / process.md immediately."
     },
     {
-      "title": "humanise/examples ai.txt is a 575-line orphan file with a space in the filename",
+      "title": "human-eyes/examples ai.txt is a 575-line orphan file with a space in the filename",
       "severity": "high",
-      "file": "/Users/mae/Documents/humanise/humanise/examples ai.txt",
+      "file": "/Users/mae/Documents/human-eyes/human-eyes/examples ai.txt",
       "line": 1,
       "confidence": 100,
       "autofix_class": "trivial",
       "owner": "author",
       "requires_verification": false,
       "pre_existing": false,
-      "suggested_fix": "humanise/examples ai.txt was added in this PR but is referenced nowhere (not from SKILL.md, references/*.md, grade.py, run_skill_creator_iteration.py, evals.json, or corpus.json). The filename contains a literal space, which forces every shell consumer to quote it and breaks naive globbing. Two problems compound: (1) a 575-line file with no consumer is dead weight inside the skill bundle that ships to the model, polluting the skill directory listing the model browses; (2) the spaced filename suggests this was a manual paste that ended up in the wrong directory. Likely belongs under dev/evals/manual-pastes/ or dev/evals/samples/generated-ai/, with hyphens-not-spaces. Move and rename, or delete."
+      "suggested_fix": "human-eyes/examples ai.txt was added in this PR but is referenced nowhere (not from SKILL.md, references/*.md, grade.py, run_skill_creator_iteration.py, evals.json, or corpus.json). The filename contains a literal space, which forces every shell consumer to quote it and breaks naive globbing. Two problems compound: (1) a 575-line file with no consumer is dead weight inside the skill bundle that ships to the model, polluting the skill directory listing the model browses; (2) the spaced filename suggests this was a manual paste that ended up in the wrong directory. Likely belongs under dev/evals/manual-pastes/ or dev/evals/samples/generated-ai/, with hyphens-not-spaces. Move and rename, or delete."
     },
     {
       "title": "evals.json.bak is checked into the repo and not gitignored",
       "severity": "medium",
-      "file": "/Users/mae/Documents/humanise/dev/evals/evals.json.bak",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/evals.json.bak",
       "line": 1,
       "confidence": 100,
       "autofix_class": "trivial",
@@ -40,7 +40,7 @@
     {
       "title": "Magic numbers in grade_one_assertion are spread across 8 callsites with no shared definition",
       "severity": "medium",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 299,
       "confidence": 75,
       "autofix_class": "manual",
@@ -52,7 +52,7 @@
     {
       "title": "Module-level mutable global ITERATION rebound in main() — coupling risk for any importer",
       "severity": "medium",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 31,
       "confidence": 75,
       "autofix_class": "manual",
@@ -64,7 +64,7 @@
     {
       "title": "_relative_report_path takes readme_path parameter it never uses",
       "severity": "low",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 937,
       "confidence": 100,
       "autofix_class": "trivial",
@@ -76,7 +76,7 @@
     {
       "title": "mode_counts variable name is stale leftover from --mode rename in run_grade_sweep.py",
       "severity": "low",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_grade_sweep.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_grade_sweep.py",
       "line": 54,
       "confidence": 100,
       "autofix_class": "trivial",
@@ -88,7 +88,7 @@
     {
       "title": "grade_input_file marked 'legacy' in its own docstring but still has live callers",
       "severity": "low",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 551,
       "confidence": 75,
       "autofix_class": "manual",
@@ -101,7 +101,7 @@
   "residual_risks": [
     "Naming consistency in run_skill_creator_iteration.py: catalogue_hits, audit_case_corpus_class, extract_audit_reported_count, normalize_benchmark_config_order are descriptive but the file mixes 'mode' (legacy) and 'depth' (current) terminology in places. Not severe enough to flag individually but worth a sweep next time the file is touched.",
     "build_performance_report is ~275 lines (615-890) and builds four distinct sections (per-eval table, corpus baseline, audit fidelity, regression). It is borderline for splitting but currently each section is clearly delimited by comments and a section split would also need a shared local-state struct, so the cost-benefit is roughly even today. If a fifth section is added, splitting becomes the right move.",
-    "The two-location candidate search in grade.py:_load_kobak_excess_vocab (lines 164-167) tolerates two layouts: humanise/references/kobak-excess-words.csv and parents[2]/humanise/references/kobak-excess-words.csv. Currently only one layout is in use. Acceptable defensive coding, but if the second branch never fires after another iteration or two, simplify."
+    "The two-location candidate search in grade.py:_load_kobak_excess_vocab (lines 164-167) tolerates two layouts: human-eyes/references/kobak-excess-words.csv and parents[2]/human-eyes/references/kobak-excess-words.csv. Currently only one layout is in use. Acceptable defensive coding, but if the second branch never fires after another iteration or two, simplify."
   ],
   "testing_gaps": [
     "test_grade.py (1300 LOC, 4 helper functions, hundreds of inline expect_pass/expect_fail calls) has no test for the new depth_results / depth_check_status_counts surface introduced when --mode → --depth was renamed. expect_depth_status and expect_depth_actions exist but the diff does not show new uses of them for the depth-renamed surface.",

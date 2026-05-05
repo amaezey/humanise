@@ -32,10 +32,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "scripts" / "grade.py")
+_spec = importlib.util.spec_from_file_location("grade", ROOT / "human-eyes" / "scripts" / "grade.py")
 _grade = importlib.util.module_from_spec(_spec)
 if _spec.loader is None:
-    raise RuntimeError("Could not load humanise/scripts/grade.py")
+    raise RuntimeError("Could not load human-eyes/scripts/grade.py")
 _spec.loader.exec_module(_grade)
 
 format_two_layer = _grade.format_two_layer
@@ -76,7 +76,7 @@ def clean_results():
 
 
 def with_patched_judgement(judgement, fn):
-    """Run fn() with humanise.grade.human_report monkey-patched to inject a
+    """Run fn() with human-eyes.grade.human_report monkey-patched to inject a
     judgement list into the contract. The grader's empty default would
     otherwise prevent format_two_layer from exercising the new code paths.
 

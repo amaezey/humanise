@@ -1,11 +1,11 @@
 ---
-title: Comprehensive humanise project work — prose-last sequencing
+title: Comprehensive human-eyes project work — prose-last sequencing
 type: feat
 status: active
 date: 2026-04-30
 ---
 
-# Comprehensive humanise project work — prose-last sequencing
+# Comprehensive human-eyes project work — prose-last sequencing
 
 ## Summary
 
@@ -15,10 +15,10 @@ Build a per-pattern evidence map from the corpus and reference research. Capture
 
 ## Problem Frame
 
-This session generated three layers of work on the humanise project:
+This session generated three layers of work on the human-eyes project:
 
 1. Ideation that produced seven ranked survivors plus three worth-revisiting ideas plus rejected-but-warranted items.
-2. Mae's running feedback on direction: KNOW vs SUSPECT split, no infrastructure inflation, do not remove functionality, increase transparency, the README must meet humanise's own standards, references preserved with per-pattern traceability, iterate structure before drafting prose.
+2. Mae's running feedback on direction: KNOW vs SUSPECT split, no infrastructure inflation, do not remove functionality, increase transparency, the README must meet human-eyes's own standards, references preserved with per-pattern traceability, iterate structure before drafting prose.
 3. Review of the README on origin/main (the "honest narrative" version with 14 em dashes, "we" voice, contrived contrast in load-bearing positions, undefined jargon) plus a merge of the diverged local main with origin/main that resolved on origin's side for all 12 conflicts (commit `d76d585`, local-only).
 
 The earlier draft of this plan was a "fix Mae's last feedback" plan that put prose first and treated the alignment sweep as out of scope. Mae corrected both: prose work goes LAST so later steps do not overwrite it; and the plan must reflect the comprehensive analysis from ideation, not just the immediate-feedback fixes. This version incorporates both corrections.
@@ -27,11 +27,11 @@ The earlier draft of this plan was a "fix Mae's last feedback" plan that put pro
 
 ## Requirements
 
-- R1. `dev/research/2026-04-30-per-pattern-evidence-map.md` exists with one row per pattern (38 rows). Each row has a Strength rating (Strong, Register-coded, or Untested) derived from the evidence hierarchy in `humanise/references/patterns.md` plus the corpus findings in `dev/research/2026-04-29-genre-paired-corpus-findings.md`. Each row has a Primary Source citation (and Secondary Sources where multiple sources contributed). Rating logic explained in the file's intro.
+- R1. `dev/research/2026-04-30-per-pattern-evidence-map.md` exists with one row per pattern (38 rows). Each row has a Strength rating (Strong, Register-coded, or Untested) derived from the evidence hierarchy in `human-eyes/references/patterns.md` plus the corpus findings in `dev/research/2026-04-29-genre-paired-corpus-findings.md`. Each row has a Primary Source citation (and Secondary Sources where multiple sources contributed). Rating logic explained in the file's intro.
 - R2. `dev/hypotheses.md` exists with at least 19 entries covering every SUSPECT item surfaced in this session's ideation and analysis. Each entry: Status (open / testing / confirmed / refuted), Source (which finding or idea this came from), Statement (what the hypothesis is), Test (what would actually test it), Stakes (what changes if confirmed; what changes if refuted).
-- R3. `humanise/SKILL.md`, `humanise/references/severity-detail.md`, `humanise/references/alternatives.md`, `humanise/references/example.md`, `humanise/references/process.md`, and `dev/evals/evals.json` (prompt strings only) speak with the canonical voice the README will land on. Specifically: zero em dashes in prose; no "we" / "our" / "us" in authorial voice; no contrived contrast in load-bearing positions; no AI vocabulary in voice; Australian spelling. The four-action vocabulary (must-fix / consider / nudge / context-warning) is consistent across surfaces. "AI tell" replaced with the canonical phrasing throughout.
-- R4. README on local main rewritten in place. Voice constraints met. Structure follows: tagline; "What humanise does" (high-level overview); install and invoke; what it does well; patterns table with Strength + Source columns; what it doesn't do (yet); what testing showed; what's next (links to `dev/hypotheses.md`); sources. Existing sections (Why this exists, Performance auto-block, Representative output, File structure, Licence) preserved with prose fixes rather than removed. Performance auto-block kept with one transparency caveat. Per-pattern Strength + Source columns added to the patterns table using R1's evidence map. Inline evidence on claims; jargon defined before use; references preserved in full.
-- R5. `python3 humanise/grade.py --format markdown --depth all README.md` runs and shows the README passing its own audit at the gating action level.
+- R3. `human-eyes/SKILL.md`, `human-eyes/references/severity-detail.md`, `human-eyes/references/alternatives.md`, `human-eyes/references/example.md`, `human-eyes/references/process.md`, and `dev/evals/evals.json` (prompt strings only) speak with the canonical voice the README will land on. Specifically: zero em dashes in prose; no "we" / "our" / "us" in authorial voice; no contrived contrast in load-bearing positions; no AI vocabulary in voice; Australian spelling. The four-action vocabulary (must-fix / consider / nudge / context-warning) is consistent across surfaces. "AI tell" replaced with the canonical phrasing throughout.
+- R4. README on local main rewritten in place. Voice constraints met. Structure follows: tagline; "What human-eyes does" (high-level overview); install and invoke; what it does well; patterns table with Strength + Source columns; what it doesn't do (yet); what testing showed; what's next (links to `dev/hypotheses.md`); sources. Existing sections (Why this exists, Performance auto-block, Representative output, File structure, Licence) preserved with prose fixes rather than removed. Performance auto-block kept with one transparency caveat. Per-pattern Strength + Source columns added to the patterns table using R1's evidence map. Inline evidence on claims; jargon defined before use; references preserved in full.
+- R5. `python3 human-eyes/grade.py --format markdown --depth all README.md` runs and shows the README passing its own audit at the gating action level.
 - R6. Mae signs off on each unit before commit. No commits without explicit go-ahead.
 
 ---
@@ -42,10 +42,10 @@ The earlier draft of this plan was a "fix Mae's last feedback" plan that put pro
 - No removal of existing functionality. Depth dial stays. 43-check grader stays. Audit / Suggest / Rewrite / Write / Save modes stay. The Performance auto-block stays in the README.
 - No positioning shift. Detection vs review framing stays as currently positioned, per Mae's planning interview.
 - The local merge commit (`d76d585`) stays local. Pushing to origin requires Mae's explicit go-ahead and is OUT of scope here.
-- `humanise/references/voice.md` is NOT touched — it is voice-craft guidance for Rewrite/Write actions, a different artefact from project voice.
-- `humanise/references/patterns.md` catalogue content is NOT modified except for prose fixes in its intro/header sections if voice issues are present. The 38-pattern catalogue and "Evidence hierarchy from the reference audit" section are read-only inputs to U1.
-- `humanise/references/kobak-excess-words.csv` is NOT modified (data file).
-- `humanise/grade.py` is NOT modified — used as a verification tool only.
+- `human-eyes/references/voice.md` is NOT touched — it is voice-craft guidance for Rewrite/Write actions, a different artefact from project voice.
+- `human-eyes/references/patterns.md` catalogue content is NOT modified except for prose fixes in its intro/header sections if voice issues are present. The 38-pattern catalogue and "Evidence hierarchy from the reference audit" section are read-only inputs to U1.
+- `human-eyes/references/kobak-excess-words.csv` is NOT modified (data file).
+- `human-eyes/grade.py` is NOT modified — used as a verification tool only.
 
 ### Deferred to Follow-Up Work
 
@@ -59,13 +59,13 @@ The earlier draft of this plan was a "fix Mae's last feedback" plan that put pro
 
 ### Relevant Code and Patterns
 
-- `humanise/references/patterns.md`: 38-pattern catalogue. Contains an "Evidence hierarchy from the reference audit" section at the top that explicitly categorises sources as Strong empirical backbone vs Useful but tentative style vs Domain and provenance signals. This is the structural input to U1's strength column.
-- `humanise/references/severity-detail.md`: per-check severity definitions. Touched by U3 sweep for voice fixes.
-- `humanise/references/alternatives.md`: per-pattern suggested alternative phrasings. Touched by U3 sweep for voice fixes.
-- `humanise/references/example.md`, `humanise/references/process.md`: skill references. Touched by U3 sweep if voice issues are present.
-- `humanise/references/voice.md`: voice-craft guide for Rewrite and Write actions. NOT modified; different artefact from project voice.
-- `humanise/SKILL.md`: skill manifest. Touched by U3 sweep.
-- `humanise/grade.py`: 43-check grader. NOT modified; used as a verification tool (`python3 humanise/grade.py --format markdown --depth all README.md`).
+- `human-eyes/references/patterns.md`: 38-pattern catalogue. Contains an "Evidence hierarchy from the reference audit" section at the top that explicitly categorises sources as Strong empirical backbone vs Useful but tentative style vs Domain and provenance signals. This is the structural input to U1's strength column.
+- `human-eyes/references/severity-detail.md`: per-check severity definitions. Touched by U3 sweep for voice fixes.
+- `human-eyes/references/alternatives.md`: per-pattern suggested alternative phrasings. Touched by U3 sweep for voice fixes.
+- `human-eyes/references/example.md`, `human-eyes/references/process.md`: skill references. Touched by U3 sweep if voice issues are present.
+- `human-eyes/references/voice.md`: voice-craft guide for Rewrite and Write actions. NOT modified; different artefact from project voice.
+- `human-eyes/SKILL.md`: skill manifest. Touched by U3 sweep.
+- `human-eyes/grade.py`: 43-check grader. NOT modified; used as a verification tool (`python3 human-eyes/grade.py --format markdown --depth all README.md`).
 - `dev/research/linda-caroll.md`, `dev/research/nyt-chatbot-style.md`, `dev/research/ignorance-ai-field-guide.md`, `dev/research/grammarly-ai-words.md`, `dev/research/web-survey-2026.md`: per-source analyses. Read-only inputs to U1.
 - `dev/research/2026-04-29-genre-paired-corpus-findings.md`: corpus-level findings from N=5 testing. Read-only input to U1.
 - `dev/research/2026-04-29-readme-research-section-intent.md`: Mae's notes on how the README's research section should work. Read-only input to U4.
@@ -91,7 +91,7 @@ The earlier draft of this plan was a "fix Mae's last feedback" plan that put pro
 - **Strength column rating method.** Per-pattern strength is derived from two inputs: (1) source category in `patterns.md` "Evidence hierarchy from the reference audit" — Strong empirical backbone vs Useful but tentative style vs Domain and provenance signals; (2) corpus separation in `dev/research/2026-04-29-genre-paired-corpus-findings.md`. **Strong** when empirical backbone AND corpus separation; **Register-coded** when corpus shows it firing on humans at meaningful density; **Untested** when no direct corpus measurement (most rows).
 - **Per-pattern source attribution.** Each row carries a Primary Source citation. Multiple-source patterns name the primary in the cell; full attribution remains in the README's Sources section and in `patterns.md` detail.
 - **Project voice spec.** Lives in this plan, applied to both U3 and U4. Constraints: zero em dashes; no "we" / "our" / "us" in authorial voice; no contrived contrast in load-bearing positions; no AI vocabulary; no "Let's explore" section starters; Australian spelling; active voice; varied sentence length.
-- **Voice-constraint enforcement via grader self-audit.** After U4, run `python3 humanise/grade.py --format markdown --depth all README.md`. Iterate the rewrite until the grader runs clean at the gating action level.
+- **Voice-constraint enforcement via grader self-audit.** After U4, run `python3 human-eyes/grade.py --format markdown --depth all README.md`. Iterate the rewrite until the grader runs clean at the gating action level.
 - **README rewrite is surgical.** Existing structure preserved. Section ordering rearranged per R4. Prose rewritten section by section. Performance auto-block kept with a one-line transparency caveat. Representative output section kept (it is the most direct way to show what the skill produces).
 - **Iterate structure before drafting prose.** U4 begins with a structural skeleton agreed with Mae before any prose drafting.
 - **Hypothesis log format.** Plain markdown. Each hypothesis is an H2 section with five named fields below it (Status, Source, Statement, Test, Stakes). No tooling, no frontmatter system.
@@ -109,15 +109,15 @@ The earlier draft of this plan was a "fix Mae's last feedback" plan that put pro
 - **Should detection framing be dropped entirely?** No for action; yes for capture. Mae confirmed in interview to keep current positioning. The hypothesis is captured in U2 entry #3 for future revisit.
 - **Should the patterns table show grader severity (must-fix / consider / nudge / context-warning) instead of corpus-derived strength?** No. Strength is corpus-derived (what the data shows). Severity is a separate axis (what the grader does on a fire). The README explains both; the table column is strength because that is what the user needs to interpret a flag.
 - **Where does the plan live, where does the hypothesis log live?** Plan: `dev/plans/2026-04-30-readme-rewrite-and-hypothesis-log.md` (this file). Hypothesis log: `dev/hypotheses.md`. Mae confirmed.
-- **Is `humanise/references/voice.md` the canonical project voice spec for the sweep?** No. voice.md is voice-craft for Rewrite/Write actions, a different artefact. Project voice constraints live in this plan and are applied to both U3 and U4.
+- **Is `human-eyes/references/voice.md` the canonical project voice spec for the sweep?** No. voice.md is voice-craft for Rewrite/Write actions, a different artefact. Project voice constraints live in this plan and are applied to both U3 and U4.
 
 ### Deferred to Implementation
 
-- Exact wording of the "What humanise does" high-level paragraph in U4. Drafted during U4; iterated with Mae before commit.
+- Exact wording of the "What human-eyes does" high-level paragraph in U4. Drafted during U4; iterated with Mae before commit.
 - Specific phrasings to replace each "we" / "our" usage in U3 and U4. Pattern: "the skill" or passive voice where the actor is unimportant; first person singular ("I") only where the agency is genuinely Mae's voice.
 - Whether the "Two audiences, two rules" section in the README gets reworded (likely) or removed (possibly). Decision falls out of structural rewrite during U4.
 - The exact canonical phrasing that replaces "AI tell" across U3 and U4. Candidates: "review priority", "high-correlation pattern", "AI-correlated pattern". Decision early in U3.
-- Whether `humanise/references/process.md` and `humanise/references/example.md` need voice fixes. Confirmed during U3 file inspection.
+- Whether `human-eyes/references/process.md` and `human-eyes/references/example.md` need voice fixes. Confirmed during U3 file inspection.
 
 ---
 
@@ -133,10 +133,10 @@ The earlier draft of this plan was a "fix Mae's last feedback" plan that put pro
 
 **Files:**
 - Create: `dev/research/2026-04-30-per-pattern-evidence-map.md`
-- Read-only: `humanise/references/patterns.md`, `dev/research/2026-04-29-genre-paired-corpus-findings.md`, `dev/research/{linda-caroll, nyt-chatbot-style, ignorance-ai-field-guide, grammarly-ai-words, web-survey-2026}.md`
+- Read-only: `human-eyes/references/patterns.md`, `dev/research/2026-04-29-genre-paired-corpus-findings.md`, `dev/research/{linda-caroll, nyt-chatbot-style, ignorance-ai-field-guide, grammarly-ai-words, web-survey-2026}.md`
 
 **Approach:**
-1. Read `humanise/references/patterns.md` end to end. Extract for each pattern: name, source attribution from inline notes, category in the "Evidence hierarchy from the reference audit" section.
+1. Read `human-eyes/references/patterns.md` end to end. Extract for each pattern: name, source attribution from inline notes, category in the "Evidence hierarchy from the reference audit" section.
 2. Read `dev/research/2026-04-29-genre-paired-corpus-findings.md`. Extract per-pattern corpus separation results where present.
 3. For each pattern, derive Strength: **Strong** when empirical backbone in the evidence hierarchy AND not contradicted by corpus, OR clear corpus separation. **Register-coded** when corpus shows the pattern firing on humans at meaningful density (manufactured insight, triads, anaphora, contrived contrast, etc.). **Untested** when no direct corpus measurement.
 4. Cross-reference the per-source files in `dev/research/` for source attribution detail where patterns.md does not name a single source.
@@ -216,14 +216,14 @@ The earlier draft of this plan was a "fix Mae's last feedback" plan that put pro
 **Dependencies:** Decision early in U3 on the canonical phrasing that replaces "AI tell" (likely "review priority"; final choice in U3).
 
 **Files:**
-- Modify: `humanise/SKILL.md`
-- Modify: `humanise/references/severity-detail.md`
-- Modify: `humanise/references/alternatives.md`
-- Modify: `humanise/references/example.md` (only if voice issues present)
-- Modify: `humanise/references/process.md` (only if voice issues present)
+- Modify: `human-eyes/SKILL.md`
+- Modify: `human-eyes/references/severity-detail.md`
+- Modify: `human-eyes/references/alternatives.md`
+- Modify: `human-eyes/references/example.md` (only if voice issues present)
+- Modify: `human-eyes/references/process.md` (only if voice issues present)
 - Modify: `dev/evals/evals.json` (prompt strings only, not structure)
 
-NOT modified: `humanise/references/voice.md`, `humanise/references/patterns.md` (catalogue content), `humanise/references/kobak-excess-words.csv`.
+NOT modified: `human-eyes/references/voice.md`, `human-eyes/references/patterns.md` (catalogue content), `human-eyes/references/kobak-excess-words.csv`.
 
 **Approach:**
 1. Decide the canonical phrasing for "AI tell" (likely "review priority" based on Mae's earlier framing).
@@ -242,8 +242,8 @@ NOT modified: `humanise/references/voice.md`, `humanise/references/patterns.md` 
 - Edge case: existing structural content (process steps, severity definitions, eval IDs) preserved.
 
 **Verification:**
-- `grep -c '—' humanise/SKILL.md humanise/references/*.md dev/evals/evals.json` returns 0 across modified files (data files exempt).
-- `grep -c "AI tell" humanise/SKILL.md humanise/references/*.md dev/evals/evals.json` returns 0 (replaced everywhere).
+- `grep -c '—' human-eyes/SKILL.md human-eyes/references/*.md dev/evals/evals.json` returns 0 across modified files (data files exempt).
+- `grep -c "AI tell" human-eyes/SKILL.md human-eyes/references/*.md dev/evals/evals.json` returns 0 (replaced everywhere).
 - Mae signs off before commit.
 
 ---
@@ -265,7 +265,7 @@ NOT modified: `humanise/references/voice.md`, `humanise/references/patterns.md` 
 3. Add Strength + Source columns to patterns table using U1's evidence map.
 4. Reframe Performance auto-block with a one-line transparency caveat. Do not strip the block.
 5. Reword "Two audiences, two rules" to remove its contrived-contrast structure.
-6. Verify with `python3 humanise/grade.py --format markdown --depth all README.md`. Iterate until clean at the gating action level.
+6. Verify with `python3 human-eyes/grade.py --format markdown --depth all README.md`. Iterate until clean at the gating action level.
 7. Hand to Mae for review. Iterate on her feedback.
 8. Commit only on Mae's explicit go-ahead.
 
@@ -277,7 +277,7 @@ NOT modified: `humanise/references/voice.md`, `humanise/references/patterns.md` 
 **Test scenarios:**
 - Happy path: `grep -c '—' README.md` returns 0.
 - Happy path: `grep -niE '\b(we|our|us)\b' README.md` returns no matches outside URLs, code blocks, and quoted source titles.
-- Happy path: `python3 humanise/grade.py --format markdown --depth all README.md` runs clean at the gating action level.
+- Happy path: `python3 human-eyes/grade.py --format markdown --depth all README.md` runs clean at the gating action level.
 - Edge case: every claim with a number (the +44% figure, "23 words", "n=5", "stdev 17") sits in a section that names the source corpus or links to the research doc.
 - Edge case: every pattern row in the table has a Strength cell and a Source cell.
 - Edge case: the Sources section retains every entry from the pre-rewrite version (≥17 named sources across Foundation / Pattern research / Academic research / Practitioner guides).
@@ -294,12 +294,12 @@ NOT modified: `humanise/references/voice.md`, `humanise/references/patterns.md` 
 
 ## System-Wide Impact
 
-- **Interaction graph:** `README.md` is the public entry point. `humanise/SKILL.md` is the skill manifest invoked by Claude Code. Changes to either are highly visible. `dev/hypotheses.md` and `dev/research/2026-04-30-per-pattern-evidence-map.md` are new and have no existing consumers. Modifications to skill references are visible to the skill itself when loaded.
+- **Interaction graph:** `README.md` is the public entry point. `human-eyes/SKILL.md` is the skill manifest invoked by Claude Code. Changes to either are highly visible. `dev/hypotheses.md` and `dev/research/2026-04-30-per-pattern-evidence-map.md` are new and have no existing consumers. Modifications to skill references are visible to the skill itself when loaded.
 - **Error propagation:** If the grader self-audit fails on the rewritten README, the rewrite must iterate before commit. No external systems depend on the rewrite.
 - **State lifecycle risks:** The Performance auto-block in the README is auto-rewritten by the harness on every iteration run. The U4 rewrite preserves the marker comments so the harness keeps writing into them.
 - **API surface parity:** All four action levels (must-fix / consider / nudge / context-warning) and the depth dial (`balanced` / `all`) survive in U3 and U4. Functionality is unchanged.
-- **Integration coverage:** `humanise/grade.py --depth all README.md` is the verification step. No other integration coverage needed since no code is modified.
-- **Unchanged invariants:** Skill functionality (audit / suggest / rewrite / write / save), the 43-check grader, the depth dial, the four action levels, and the PR #5 corpus and harness are unchanged. `humanise/grade.py`, `humanise/references/voice.md`, `humanise/references/patterns.md` (catalogue content), and `humanise/references/kobak-excess-words.csv` are not touched.
+- **Integration coverage:** `human-eyes/grade.py --depth all README.md` is the verification step. No other integration coverage needed since no code is modified.
+- **Unchanged invariants:** Skill functionality (audit / suggest / rewrite / write / save), the 43-check grader, the depth dial, the four action levels, and the PR #5 corpus and harness are unchanged. `human-eyes/grade.py`, `human-eyes/references/voice.md`, `human-eyes/references/patterns.md` (catalogue content), and `human-eyes/references/kobak-excess-words.csv` are not touched.
 
 ---
 
@@ -319,11 +319,11 @@ NOT modified: `humanise/references/voice.md`, `humanise/references/patterns.md` 
 ## Sources & References
 
 - Origin: this session's conversation with Mae. No upstream brainstorm document.
-- Code: `humanise/references/patterns.md`, `humanise/references/severity-detail.md`, `humanise/references/alternatives.md`, `humanise/references/voice.md`, `humanise/references/process.md`, `humanise/references/example.md`, `humanise/SKILL.md`, `humanise/grade.py`, `dev/evals/evals.json`, `dev/research/2026-04-29-genre-paired-corpus-findings.md`, `dev/research/2026-04-29-readme-research-section-intent.md`, `dev/research/{linda-caroll, nyt-chatbot-style, ignorance-ai-field-guide, grammarly-ai-words, web-survey-2026}.md`.
+- Code: `human-eyes/references/patterns.md`, `human-eyes/references/severity-detail.md`, `human-eyes/references/alternatives.md`, `human-eyes/references/voice.md`, `human-eyes/references/process.md`, `human-eyes/references/example.md`, `human-eyes/SKILL.md`, `human-eyes/grade.py`, `dev/evals/evals.json`, `dev/research/2026-04-29-genre-paired-corpus-findings.md`, `dev/research/2026-04-29-readme-research-section-intent.md`, `dev/research/{linda-caroll, nyt-chatbot-style, ignorance-ai-field-guide, grammarly-ai-words, web-survey-2026}.md`.
 - Review: `dev/reviews/2026-04-30-pr5-review-findings.md`. This plan addresses the README-related findings (P0-DOC-01, P0-DOC-02, P0-DOC-03, P1-DOC-06, P1-DOC-07, P1-DOC-09, P1-DOC-12, P1-DOC-19) plus the SUSPECT items captured in U2.
 - Ideation: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md`. Source for U2 hypothesis entries.
 - Session-level summary of approved plan: `/Users/mae/.claude/plans/melodic-purring-oasis.md`.
-- Mae's stated principles applied throughout: KNOW vs SUSPECT split (R2 via comprehensive `dev/hypotheses.md`); do not remove functionality (Scope Boundaries); no infrastructure inflation (Scope Boundaries); README must meet humanise's standards (R4, R5); preserve full references with attribution and per-pattern traceability (R1, R4); iterate structure before drafting prose (U4 step 1); prose work last (sequencing).
+- Mae's stated principles applied throughout: KNOW vs SUSPECT split (R2 via comprehensive `dev/hypotheses.md`); do not remove functionality (Scope Boundaries); no infrastructure inflation (Scope Boundaries); README must meet human-eyes's standards (R4, R5); preserve full references with attribution and per-pattern traceability (R1, R4); iterate structure before drafting prose (U4 step 1); prose work last (sequencing).
 
 ---
 
@@ -339,7 +339,7 @@ R1 originally specified a Strength rating per pattern (Strong / Register-coded /
 - Why it's in the skill (1-2 sentence synthesis)
 - How AI uses it (frequency-coded / appropriate-use-coded / both / unclear-from-sources) — analytical field
 - Evidence basis (corpus-measured / external-only / both) — analytical field
-- Severity (`hard_fail` / `strong_warning` / `context_warning`) — looked up from `humanise/grade.py`. Operational alignment to the actual audit. NOT must-fix / consider / nudge / context-warning, that vocabulary was invented.
+- Severity (`hard_fail` / `strong_warning` / `context_warning`) — looked up from `human-eyes/grade.py`. Operational alignment to the actual audit. NOT must-fix / consider / nudge / context-warning, that vocabulary was invented.
 - Source claims (per-source quotes)
 - Notes (caveats, register issues, data limits)
 
@@ -355,13 +355,13 @@ Original U1 was "build the evidence map". Slice work (7 parallel subagents, one 
 
 - **U1b. Citation cleanup.** Replace "(web-survey-2026)" mis-citations with the actual primary source (Nature 2025, Przystalski/Zaitsu/Bisztray stylometry, practitioner guides aidetectors.io/seoengine.ai/SAGE, Abdulhai). Drop or rename "patterns.md operating stance" citations — internal commentary, not external source.
 - **U1c. Source gap audit.** Create per-source analysis files for load-bearing sources without one: Wikipedia "Signs of AI writing" (priority), Kobak, Shankar, OpenAI sycophancy, GPTZero, Stanford HAI, Juzek/Ward, Vollmer, Walsh/Preus/Gronski, Clarkesworld, Futurism. Or honestly acknowledge the gap.
-- **U1d. Severity lookup.** Look up severity per pattern from `humanise/grade.py` and add to each entry.
+- **U1d. Severity lookup.** Look up severity per pattern from `human-eyes/grade.py` and add to each entry.
 - **U1e. Formatting normalisation.** Apply a single normalised template to every per-pattern entry. Slices used inconsistent field naming and citation style.
 - **U1f. Review with Mae.** Sign-off after U1b-e complete. This is the explicit review step Mae called for.
 
 ### Severity vocabulary correction
 
-Severity vocabulary in this project is `hard_fail` / `strong_warning` / `context_warning`. Defined per pattern in `humanise/grade.py`. Not must-fix / consider / nudge / context-warning, which was invented in earlier turns of this session.
+Severity vocabulary in this project is `hard_fail` / `strong_warning` / `context_warning`. Defined per pattern in `human-eyes/grade.py`. Not must-fix / consider / nudge / context-warning, which was invented in earlier turns of this session.
 
 ### Per-source files that exist vs source citations used
 

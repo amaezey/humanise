@@ -1,6 +1,6 @@
 # AI writing patterns
 
-<!-- This file is generated from `humanise/scripts/patterns.json`. Edit the JSON and regenerate via `python3 dev/tools/render_patterns_md.py --write`. -->
+<!-- This file is generated from `human-eyes/scripts/patterns.json`. Edit the JSON and regenerate via `python3 dev/tools/render_patterns_md.py --write`. -->
 
 53 patterns plus five sub-letter variants (10a, 23a, 31a, 35a, 35b) to detect and fix, plus one unnumbered aggregate meta-check (`overall-signal-stacking`). Organised by category. Each entry has words to watch, a brief description of the problem, and a before/after example. Group A and Group B entries also carry a **Detection** marker stating whether the pattern is enforced by a programmatic check, folded into another check, or left to manual / agent-judgement reading.
 
@@ -748,9 +748,9 @@ AI blends senses inappropriately to simulate literary depth: emotions get tastes
 **After:**
 > Thursday felt like waiting. She kept pulling out old photographs and putting them back. The room was silent in a way that made her aware of her own breathing.
 
-**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — forced synesthesia is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — forced synesthesia is not regex-amenable.
 
 ---
 
@@ -783,9 +783,9 @@ AI metaphors are plausible but specific to nobody. They gesture toward meaning w
 
 When you spot a metaphor, ask: could anyone have written this, or does it come from a specific experience? If anyone could have written it, replace it with a concrete detail.
 
-**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — judging metaphor groundedness is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — judging metaphor groundedness is not regex-amenable.
 
 
 ### 31. Excessive list-making
@@ -969,9 +969,9 @@ This pattern cannot be caught programmatically. During the self-audit, ask: does
 
 In reviews and criticism, tonal uniformity often appears as bland evaluative balance: "emotional range", "field of sympathy", "moral strength", "earns its weight", "ambitious in an old-fashioned way", "social texture", "slow revelation". Replace this with concrete claims about scenes, sentences, performances, or formal choices.
 
-**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — register lock is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — register lock is not regex-amenable.
 
 ### 35a. Orphaned demonstratives
 
@@ -1017,9 +1017,9 @@ Related to experiential vacancy (see Personality and soul in SKILL.md) but names
 
 When you spot a "specific" detail, ask: could anyone have written this, or does it come from a particular person's experience? If it reads like a stock photo in prose form, replace it with something that could not have been generated from genre conventions.
 
-**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) — distinguishing genuine specificity from genre-convention filler is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — distinguishing genuine specificity from genre-convention filler is not regex-amenable.
 
 
 ### 37. Neutrality collapse
@@ -1037,11 +1037,11 @@ Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral whe
 **How to fix:**
 > Remote work is better for most knowledge workers. The productivity data from Stanford and Owl Labs both point the same way, and the main counterarguments — spontaneous collaboration, mentorship, culture — have not held up well in studies that actually measured them.
 
-When humanising, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
+When rewriting, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
 
-**Severity:** N/A · agent-judgement (registered in U14's `humanise/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14). The surface false-balance phrasing piece is partly covered by `check_false_concession` (#23a); expanding regex coverage of stance erasure is out of scope here.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14). The surface false-balance phrasing piece is partly covered by `check_false_concession` (#23a); expanding regex coverage of stance erasure is out of scope here.
 
 ### 39. Template and placeholder residue
 
@@ -1068,9 +1068,9 @@ These are not reliable enough for hard regex treatment yet, but they should be p
 - **Fiction:** watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, locked POV with no pressure, over-resolved endings, and scene pacing that never surprises.
 - **Email/business:** watch for placeholders, over-warm openings, fake personalisation, and action lists dressed up with symbols.
 
-**Severity:** N/A · agent-judgement (polymorphic genre slot; registered in U14's `humanise/judgement.yaml`)
+**Severity:** N/A · agent-judgement (polymorphic genre slot; registered in U14's `human-eyes/judgement.yaml`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`humanise/judgement.yaml`, U14) as a polymorphic genre slot — the agent first detects genre (academic, student essay, poetry, fiction, default), then runs the matching watchlist.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) as a polymorphic genre slot — the agent first detects genre (academic, student essay, poetry, fiction, default), then runs the matching watchlist.
 
 
 ### 43. Corporate AI-speak

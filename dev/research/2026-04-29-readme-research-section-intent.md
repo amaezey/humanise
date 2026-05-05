@@ -73,7 +73,7 @@ Putting findings between "What it does" and "Performance" gives readers the *mea
 
 After at least one more iteration of the reframe lands — i.e., after:
 
-- The audit voice is updated in `humanise/SKILL.md` and `humanise/grade.py`'s report templates
+- The audit voice is updated in `human-eyes/SKILL.md` and `human-eyes/grade.py`'s report templates
 - The patterns documentation reflects "review priority" framing
 - A subsequent iteration's data confirms the reframed output
 

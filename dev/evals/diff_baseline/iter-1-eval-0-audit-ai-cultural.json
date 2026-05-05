@@ -217,7 +217,7 @@
       ],
       "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
       "matches": [
-        "Inputs: Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+        "Inputs: Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
         "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
         "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
         "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
@@ -1322,7 +1322,7 @@
           "locations": [],
           "metric": null,
           "quoted_phrases": [
-            "Inputs: Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+            "Inputs: Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
             "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
             "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
             "Didion\u2019s account is precise because precision is the only instrument she still trusts.",
@@ -1349,7 +1349,7 @@
             ],
             "guidance": "Normalise in All/plain output; recommend preserving in sourced literary or typographic text.",
             "matches": [
-              "Inputs: Input file: /Users/mae/Documents/humanise/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
+              "Inputs: Input file: /Users/mae/Documents/human-eyes/dev/evals/samples/generated-ai/02-cultural-didion.md ```markdown # Why The year of magical thinking should be reread every decade Joan Didion\u2019s The year of magical thinking is often described as a grief memoir, which is accurate but insufficient.",
               "Its subject is the year after the sudden death of Didion\u2019s husband, John Gregory Dunne, while their daughter, Quintana, was gravely ill.",
               "Not because its meaning changes, exactly, but because the reader\u2019s defences do.",
               "Didion\u2019s account is precise because precision is the only instrument she still trusts.",

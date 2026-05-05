@@ -4,19 +4,19 @@
     {
       "title": "Seven new audit-shape check functions have zero unit tests",
       "severity": "P0",
-      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/test_grade.py",
       "line": 1300,
       "confidence": 100,
       "autofix_class": "manual",
       "owner": "downstream-resolver",
       "requires_verification": false,
       "pre_existing": false,
-      "suggested_fix": "Add expect_pass / expect_fail style tests for each of the seven AUDIT_SHAPE_CHECKS in grade.py: check_audit_shape_block_precedes_rewrite_block, check_every_flag_block_contains_input_substring, check_every_flag_block_has_explanation, check_final_non_empty_line_ends_with_question, check_no_large_prose_block_not_in_input, check_suggestion_block_count_equals_flag_count, check_every_suggestion_block_has_replacement. Each needs at minimum: a passing example, a failing example, and the vacuously-true / missing-section edge cases. These checks are the contract between the iteration runner (run_skill_creator_iteration.py:310-329) and the grader, so a regex regression in any one of them silently mis-grades every audit eval. grep '/Users/mae/Documents/humanise/dev/evals/test_grade.py' for 'audit_shape' returns zero hits."
+      "suggested_fix": "Add expect_pass / expect_fail style tests for each of the seven AUDIT_SHAPE_CHECKS in grade.py: check_audit_shape_block_precedes_rewrite_block, check_every_flag_block_contains_input_substring, check_every_flag_block_has_explanation, check_final_non_empty_line_ends_with_question, check_no_large_prose_block_not_in_input, check_suggestion_block_count_equals_flag_count, check_every_suggestion_block_has_replacement. Each needs at minimum: a passing example, a failing example, and the vacuously-true / missing-section edge cases. These checks are the contract between the iteration runner (run_skill_creator_iteration.py:310-329) and the grader, so a regex regression in any one of them silently mis-grades every audit eval. grep '/Users/mae/Documents/human-eyes/dev/evals/test_grade.py' for 'audit_shape' returns zero hits."
     },
     {
       "title": "regrade() and depth-based action API are untested despite being load-bearing for rewrite/draft evals",
       "severity": "P0",
-      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/test_grade.py",
       "line": 1300,
       "confidence": 100,
       "autofix_class": "manual",
@@ -28,7 +28,7 @@
     {
       "title": "Body-stat helper analyze_sample_body() is untested and silently consumed by performance-report",
       "severity": "P1",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 505,
       "confidence": 100,
       "autofix_class": "manual",
@@ -40,7 +40,7 @@
     {
       "title": "1079-LOC iteration runner has no unit-test coverage at all",
       "severity": "P1",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 1,
       "confidence": 100,
       "autofix_class": "manual",
@@ -52,7 +52,7 @@
     {
       "title": "section_text() in iteration runner duplicates AUDIT_HEADER_RE / SECTION_HEADER_RE in grade.py — regex drift will silently mis-extract Rewrite/Draft sections",
       "severity": "P1",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 264,
       "confidence": 75,
       "autofix_class": "manual",
@@ -64,7 +64,7 @@
     {
       "title": "corpus.json and evals.json are consumed without structural validation",
       "severity": "P2",
-      "file": "/Users/mae/Documents/humanise/dev/evals/run_skill_creator_iteration.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/run_skill_creator_iteration.py",
       "line": 567,
       "confidence": 75,
       "autofix_class": "manual",
@@ -76,7 +76,7 @@
     {
       "title": "format_human_report depth='all' branch tested but new label 'All action' header coupling is brittle",
       "severity": "P3",
-      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/test_grade.py",
       "line": 1186,
       "confidence": 50,
       "autofix_class": "manual",
@@ -88,7 +88,7 @@
     {
       "title": "test_grade.py asserts on legacy literal '43 checks' count — test will break on every check addition",
       "severity": "P3",
-      "file": "/Users/mae/Documents/humanise/dev/evals/test_grade.py",
+      "file": "/Users/mae/Documents/human-eyes/dev/evals/test_grade.py",
       "line": 1167,
       "confidence": 75,
       "autofix_class": "manual",

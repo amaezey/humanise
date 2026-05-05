@@ -1,16 +1,16 @@
 ---
-name: humanise
+name: human-eyes
 description: >-
   Audits prose for AI fingerprints and explains each one in plain English.
   Optionally hands back alternative phrasings for each flagged tell, redrafts
   the prose at a chosen intensity, or composes new prose from a brief while
   avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
-  phrases like "audit this for AI", "humanise this", "unsloppify", "this
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
   reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
   "help me write something that doesn't sound AI".
 ---
 
-# Humanise
+# Human-eyes
 
 The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
@@ -18,7 +18,7 @@ Three principles cut across the skill:
 
 1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
 2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
-3. **Every interaction with text starts with an audit.** "Humanise this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
 The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
@@ -30,7 +30,7 @@ Four actions:
 
 | Action | When to fire | Output |
 |---|---|---|
-| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "humanise this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
 | **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
 | **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
 | **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
@@ -43,13 +43,13 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 ### Audit steps
 
-1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/humanise-input-XXXXXX.md)`. Write the draft to it.
-2. **Run the agent-judgement reading and write it to a JSON file.** Read `humanise/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its `status` (`flagged` or `clear`) and the `answer` shape required by the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case `watchlist_findings` stays empty. These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
+2. **Run the agent-judgement reading and write it to a JSON file.** Read `human-eyes/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its `status` (`flagged` or `clear`) and the `answer` shape required by the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case `watchlist_findings` stays empty. These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
 
    Write the eight items to a JSON file matching the contract's `agent_judgement` slot:
 
    ```bash
-   JUDGEMENT_PATH=$(mktemp /tmp/humanise-judgement-XXXXXX.json)
+   JUDGEMENT_PATH=$(mktemp /tmp/human-eyes-judgement-XXXXXX.json)
    ```
 
    ```json
@@ -71,7 +71,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 3. Render the audit in a single deterministic call:
 
    ```bash
-   python3 humanise/scripts/grade.py --format markdown --depth <balanced|all> --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"
+   python3 human-eyes/scripts/grade.py --format markdown --depth <balanced|all> --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"
    ```
 
    The script merges the agent-judgement file into the contract before rendering, so this one call produces the full audit — summary lines, both flagged-items blocks, and the next-step prompt. **Print the script's output verbatim.** Do not paraphrase, summarise, normalise quotes, lower-case anything, or re-render any block. The script's quoted phrases are guaranteed to substring-match the input; rephrasing them breaks the audit's contract with the grader.
@@ -79,7 +79,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 
 The default audit emits the summary block + mini-headers + flagged items + next-step. When the writer asks for the full coverage report (per the next-step prompt), re-run with `--full-report` (keep the `--judgement-file` flag): the script keeps the same audit body and inserts brief notes + coverage tables under each mini-header. Both modes share the same audit body shape — full-report mode adds depth (brief notes + coverage tables and the full unbounded phrase list per flagged item).
 
-If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
+If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `human-eyes/scripts/patterns.json` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
 
 ### Audit output
 
@@ -136,7 +136,7 @@ Checks the script runs against the text directly.
 | <pattern short_name> | <severity> | <Flagged | Clear> | <guidance text when flagged, empty when clear> |
 | ... | ... | ... | ... |
 
-(eight category sub-tables in `humanise/references/patterns.md` heading order: Content patterns, Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, Voice and register. Categories where every check is clear collapse to a one-liner; categories with at least one flag render the full sub-table including the clear rows for coverage.)
+(eight category sub-tables in `human-eyes/references/patterns.md` heading order: Content patterns, Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, Voice and register. Categories where every check is clear collapse to a one-liner; categories with at least one flag render the full sub-table including the clear rows for coverage.)
 
 **Agent-assessed**
 
@@ -149,7 +149,7 @@ Checks that are judged by an LLM based on reading the whole draft.
 | <Item label> | <severity> | <Flagged | Clear> | <(see above) when flagged, answer/value text when clear> |
 | ... | ... | ... | ... |
 
-(one flat eight-row table in `humanise/scripts/judgement.json` registry order. Flagged rows point back at the inline list via `(see above)` in Detail; clear rows carry the answer enum or genre detection in Detail.)
+(one flat eight-row table in `human-eyes/scripts/judgement.json` registry order. Flagged rows point back at the inline list via `(see above)` in Detail; clear rows carry the answer enum or genre detection in Detail.)
 
 **Next steps**
 
@@ -163,16 +163,16 @@ A zero-flag draft renders the same shape — the summary block carries all-zero 
 ### Rendering rules
 
 - **Severity glyphs** in flagged-item blocks (both auto-detected and agent-assessed): `x` for hard_fail, `!` for strong_warning, `?` for context_warning. No glyphs in coverage tables.
-- **Pattern names** are the human-readable `short_name` from `humanise/scripts/patterns.json` (e.g., "Em dashes", "Triad density", "Assistant residue"). Pattern names render unbold in flagged-item blocks (the only bold elements in the audit body are the headings: `**Audit summary**`, `**Auto-detected**`, `**Agent-assessed**`, `**Next steps**`). Never use the internal check ID (`no-em-dashes`, `no-triad-density`); check IDs are assertion names, not user-facing labels. Agent-judgement labels are computed mechanically from the registry id (`structural_monotony` → "Structural monotony").
+- **Pattern names** are the human-readable `short_name` from `human-eyes/scripts/patterns.json` (e.g., "Em dashes", "Triad density", "Assistant residue"). Pattern names render unbold in flagged-item blocks (the only bold elements in the audit body are the headings: `**Audit summary**`, `**Auto-detected**`, `**Agent-assessed**`, `**Next steps**`). Never use the internal check ID (`no-em-dashes`, `no-triad-density`); check IDs are assertion names, not user-facing labels. Agent-judgement labels are computed mechanically from the registry id (`structural_monotony` → "Structural monotony").
 - **Lexical patterns** carry a quoted phrase in their flagged-item block: `<glyph> <name>: "<phrase>"`. The phrase list caps at three with a `(+N more)` overflow suffix in default mode; full-report mode renders every captured phrase.
 - **Structural patterns** (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) carry no quoted phrase — they render as `<glyph> <name>`. The pattern's "where" lives in the grader's evidence object, not in the rendered prose.
 - **Category collapse** in full-report-mode coverage tables: a category with every check clear renders as one line — `**<Category>**: <N>/<N> clear`. A category with at least one flagged check renders the full sub-table including the clear rows so coverage stays visible.
 - **Agent-assessed coverage** is one flat eight-row table in full-report mode (no per-category grouping). Detail column carries `(see above)` for flagged rows (points at the inline bullet block) and the answer/value text for clear rows.
 - **Signal stacking** is suppressed from flagged-item blocks and coverage tables — its signal lives in the third summary line. The summary-line severity counts aggregate auto-detected + agent-assessed flagged severities; the signal-stacking meta-check itself never inflates them.
-- **No "Why this matters" or "What it looks for" prose** in the audit output. Per-pattern explanations live in `humanise/references/patterns.md` and are read on drill-in for Suggestions or Rewrite — not in the audit itself.
+- **No "Why this matters" or "What it looks for" prose** in the audit output. Per-pattern explanations live in `human-eyes/references/patterns.md` and are read on drill-in for Suggestions or Rewrite — not in the audit itself.
 - Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
 
-If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `humanise/references/patterns.md` and run the agent-judgement reading directly from `humanise/scripts/judgement.json`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `human-eyes/references/patterns.md` and run the agent-judgement reading directly from `human-eyes/scripts/judgement.json`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
 
 ---
 
@@ -319,8 +319,8 @@ Save wraps any of the four actions' output in a Markdown file. Combine freely wi
 
 Default save paths:
 
-- Same directory as the input file, with the input's stem plus `.humanise-audit.md`, `.humanise-suggestions.md`, `.humanise-rewrite.md`, or `.humanise-write.md`.
-- Fallback: `./humanise-<action>.md` when there is no input path (e.g., pasted text).
+- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+- Fallback: `./human-eyes-<action>.md` when there is no input path (e.g., pasted text).
 - Append `-2`, `-3` rather than overwriting an existing file.
 
 When Save is used:
@@ -329,7 +329,7 @@ When Save is used:
 - The saved file contains the action's full output template, preceded by a short header:
 
 ```
-# Humanise <action> report
+# Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
 - Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
 - Date: <ISO 8601>

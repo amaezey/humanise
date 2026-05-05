@@ -1,13 +1,13 @@
 ---
 date: 2026-04-28
-topic: humanise-skill-refocus
+topic: human-eyes-skill-refocus
 ---
 
-# Humanise — skill refocus requirements
+# Human-eyes — skill refocus requirements
 
 ## Problem Frame
 
-The `humanise` skill audits writing for AI fingerprints and (optionally) helps the writer remove them. Today's `humanise/SKILL.md` is 461 lines of patchwork from iterative cleanup. The most recent attempt to fix it, `dev/plans/2026-04-28-humanise-refocus.md`, locked in a structure (three actions, "severity × intensity" mode/severity matrix) that conflates two unrelated things: how confidently a pattern is an AI tell (intrinsic to the pattern) and how aggressively the user wants to clean it up (user choice).
+The `human-eyes` skill audits writing for AI fingerprints and (optionally) helps the writer remove them. Today's `human-eyes/SKILL.md` is 461 lines of patchwork from iterative cleanup. The most recent attempt to fix it, `dev/plans/2026-04-28-human-eyes-refocus.md`, locked in a structure (three actions, "severity × intensity" mode/severity matrix) that conflates two unrelated things: how confidently a pattern is an AI tell (intrinsic to the pattern) and how aggressively the user wants to clean it up (user choice).
 
 This brainstorm reframes the user-facing model around a single observation: **the dial only applies to generative outputs.** The audit is full information — it shows every detected tell, no filter. The dial sits on the response side, when the user asks the skill to produce new prose.
 
@@ -18,7 +18,7 @@ The deliverable from the planning phase that follows is a clean SKILL.md and a g
 ## Actors
 
 - A1. **Writer** — supplies a draft (existing text) or a brief (no draft yet). Reads the audit, decides whether to ask for an intervention, and applies any suggestions or rewrites in their own editor.
-- A2. **Agent** — Claude Code invoking the `humanise` skill. Runs the grader, presents flags in the agreed shape, and offers interventions when the writer asks.
+- A2. **Agent** — Claude Code invoking the `human-eyes` skill. Runs the grader, presents flags in the agreed shape, and offers interventions when the writer asks.
 
 ---
 
@@ -72,7 +72,7 @@ The deliverable from the planning phase that follows is a clean SKILL.md and a g
 
 - R7. Triggered only by the writer choosing it after an audit.
 - R8. Output is a full list — one suggestion or replacement per flagged tell from the audit. The list is not filtered by depth or severity.
-- R8a. Suggestions for lexical patterns (e.g., `delve`, `hedging`, em-dashes, formulaic depth phrases) are drawn from a curated reference file `humanise/references/alternatives.md` so that the alternatives are vetted human options, not freshly generated text that may itself read as AI.
+- R8a. Suggestions for lexical patterns (e.g., `delve`, `hedging`, em-dashes, formulaic depth phrases) are drawn from a curated reference file `human-eyes/references/alternatives.md` so that the alternatives are vetted human options, not freshly generated text that may itself read as AI.
 - R8b. Suggestions for structural patterns (e.g., paragraph-length uniformity, anaphoric scaffolding) are produced contextually by the agent because the replacement is rewriting, not substitution. The `alternatives.md` file does not need to cover these.
 
 **Rewrite (generative, depth dial)**
@@ -118,7 +118,7 @@ The deliverable from the planning phase that follows is a clean SKILL.md and a g
 
 - The new SKILL.md fits comfortably under ~250 lines and a writer can read the whole thing once and know which action they want without trial and error.
 - A writer who has seen one audit can describe the output shape from memory ("located + explained per flag"), the four actions, and what the dial does — without reading SKILL.md again.
-- An agent invoked with `/humanise` on a draft never proceeds to a rewrite without an explicit user choice. An agent invoked with a brief never silently audits an existing file as a fallback.
+- An agent invoked with `/human-eyes` on a draft never proceeds to a rewrite without an explicit user choice. An agent invoked with a brief never silently audits an existing file as a fallback.
 - A planner picking up this document and the existing codebase can write the implementation plan without re-deciding any of the four actions, the dial structure, or the audit's output shape.
 
 ---
@@ -146,10 +146,10 @@ The deliverable from the planning phase that follows is a clean SKILL.md and a g
 
 ## Dependencies / Assumptions
 
-- The existing grader (`humanise/grade.py`, 43 programmatic checks across hard_fail / strong_warning / context_warning severity classes) provides the detection layer the audit calls into. This requirements document assumes the grader stays roughly as-is in capability; how its severity classes map to the new 3-point depth dial is a planning decision.
-- The existing references (`humanise/references/patterns.md`, `severity-detail.md`, `voice.md`, `example.md`) are assumed to remain useful as agent-loaded context for the actions that need them. Whether each one survives the rewrite is a planning question.
-- A new `humanise/references/alternatives.md` will be created during planning/implementation to provide canonical human alternatives for lexical patterns. Initial scope: at minimum the patterns covered by `severity-detail.md` plus the most common lexical tells from `patterns.md`. Coverage breadth is a planning decision.
-- The skill is invoked through Claude Code as a slash command (`/humanise`) or by the agent recognising a humanise-shaped intent. Headless / non-interactive invocation behaviour is unspecified by this document and deferred to planning.
+- The existing grader (`human-eyes/grade.py`, 43 programmatic checks across hard_fail / strong_warning / context_warning severity classes) provides the detection layer the audit calls into. This requirements document assumes the grader stays roughly as-is in capability; how its severity classes map to the new 3-point depth dial is a planning decision.
+- The existing references (`human-eyes/references/patterns.md`, `severity-detail.md`, `voice.md`, `example.md`) are assumed to remain useful as agent-loaded context for the actions that need them. Whether each one survives the rewrite is a planning question.
+- A new `human-eyes/references/alternatives.md` will be created during planning/implementation to provide canonical human alternatives for lexical patterns. Initial scope: at minimum the patterns covered by `severity-detail.md` plus the most common lexical tells from `patterns.md`. Coverage breadth is a planning decision.
+- The skill is invoked through Claude Code as a slash command (`/human-eyes`) or by the agent recognising a human-eyes-shaped intent. Headless / non-interactive invocation behaviour is unspecified by this document and deferred to planning.
 - The existing blind-eval harness in `dev/evals/` is assumed to be the consistency-gate for any SKILL.md change, per the prior plan.
 
 ---

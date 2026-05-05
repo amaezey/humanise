@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run one skill-creator style output-quality iteration for humanise.
+"""Run one skill-creator style output-quality iteration for human-eyes.
 
 This is a thin adapter around Anthropic's skill-creator workflow:
 - execute each eval against the current skill and the pre-rewrite snapshot
@@ -29,14 +29,14 @@ ROOT = Path(__file__).resolve().parents[2]
 EVALS_PATH = ROOT / "dev" / "evals" / "evals.json"
 WORKSPACE = ROOT / "dev" / "skill-workspace"
 ITERATION = WORKSPACE / "iteration-1"
-CURRENT_SKILL = ROOT / "humanise"
+CURRENT_SKILL = ROOT / "human-eyes"
 OLD_SKILL = WORKSPACE / "skill-snapshot"
 
 
 def load_grade_module():
-    spec = importlib.util.spec_from_file_location("humanise_grade", ROOT / "humanise" / "scripts" / "grade.py")
+    spec = importlib.util.spec_from_file_location("human_eyes_grade", ROOT / "human-eyes" / "scripts" / "grade.py")
     if spec is None or spec.loader is None:
-        raise RuntimeError("Could not load humanise/scripts/grade.py")
+        raise RuntimeError("Could not load human-eyes/scripts/grade.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -50,7 +50,7 @@ GRADE = load_grade_module()
 import json as _json
 _PATTERN_LABELS = {
     cid: rec["short_name"]
-    for cid, rec in _json.loads((ROOT / "humanise" / "scripts" / "patterns.json").read_text()).items()
+    for cid, rec in _json.loads((ROOT / "human-eyes" / "scripts" / "patterns.json").read_text()).items()
     if not cid.startswith("_")
 }
 
@@ -191,7 +191,7 @@ def run_claude(prompt: str, model: str | None) -> tuple[str, str, int]:
 
 
 def run_codex(prompt: str, model: str | None) -> tuple[str, str, int]:
-    with tempfile.NamedTemporaryFile(prefix="humanise-codex-output-", suffix=".md", delete=False) as f:
+    with tempfile.NamedTemporaryFile(prefix="human-eyes-codex-output-", suffix=".md", delete=False) as f:
         output_path = Path(f.name)
     cmd = [
         "codex",
@@ -1069,7 +1069,7 @@ def run_iteration(
         str(aggregate),
         str(ITERATION),
         "--skill-name",
-        "humanise",
+        "human-eyes",
         "--skill-path",
         str(CURRENT_SKILL),
     ], cwd=skill_creator_path, check=True)
@@ -1089,7 +1089,7 @@ def run_iteration(
             str(viewer),
             str(ITERATION),
             "--skill-name",
-            "humanise",
+            "human-eyes",
             "--benchmark",
             str(ITERATION / "benchmark.json"),
             "--static",
@@ -1103,7 +1103,7 @@ def run_iteration(
                 str(viewer),
                 str(ITERATION),
                 "--skill-name",
-                "humanise",
+                "human-eyes",
                 "--benchmark",
                 str(ITERATION / "benchmark.json"),
             ], cwd=skill_creator_path, stdout=log, stderr=subprocess.STDOUT)

@@ -1,8 +1,8 @@
-# Humanise Skill: Current Collaboration Issue
+# Human-eyes Skill: Current Collaboration Issue
 
 ## What I Understand The Problem To Be
 
-The current `humanise` skill is drifting toward a one-shot rewrite workflow:
+The current `human-eyes` skill is drifting toward a one-shot rewrite workflow:
 
 1. receive text,
 2. run checks,
@@ -108,7 +108,7 @@ When the user has not clearly requested a rewrite, the skill should ask a short 
 
 If the user asks for a rewrite but the mode is unclear:
 
-> How hard should I go: Light cleanup, Medium humanise pass, or Hard de-AI pass?
+> How hard should I go: Light cleanup, Medium human-eyes pass, or Hard de-AI pass?
 
 If the genre is voice-sensitive:
 

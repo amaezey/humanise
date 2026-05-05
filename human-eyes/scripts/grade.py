@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Grade humanised text against programmatic assertions."""
+"""Grade rewritten text against programmatic assertions."""
 
 import csv
 import ast
@@ -11,9 +11,9 @@ import uuid
 from pathlib import Path
 from statistics import stdev
 
-# grade.py runs both as a script (python3 humanise/scripts/grade.py) and as an imported
+# grade.py runs both as a script (python3 human-eyes/scripts/grade.py) and as an imported
 # module (test_grade.py and run_skill_creator_iteration.py load it via
-# importlib.util.spec_from_file_location). Ensure humanise/ is on sys.path so
+# importlib.util.spec_from_file_location). Ensure human-eyes/ is on sys.path so
 # `import registries` resolves in both invocation modes.
 _HUMANISE_DIR = str(Path(__file__).resolve().parent)
 if _HUMANISE_DIR not in sys.path:
@@ -175,7 +175,7 @@ def _load_kobak_excess_vocab():
     here = Path(__file__).resolve()
     candidates = [
         here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
-        here.parents[2] / "humanise" / "references" / KOBAK_EXCESS_WORDS_PATH,
+        here.parents[2] / "human-eyes" / "references" / KOBAK_EXCESS_WORDS_PATH,
     ]
     for path in candidates:
         if path.exists():
@@ -1938,11 +1938,11 @@ ALL_CHECKS = {
 
 
 # CHECK_REPORT_TEXT, CHECK_WHY_IT_MATTERS, CHECK_METADATA were migrated
-# to humanise/patterns.yaml in U7 of the audit-report redesign. Access via
+# to human-eyes/patterns.yaml in U7 of the audit-report redesign. Access via
 # registries.report_text_for / why_it_matters_for / metadata_for.
 
 
-# FAILURE_MODE_METADATA was migrated to humanise/vocabulary.yml in U9.
+# FAILURE_MODE_METADATA was migrated to human-eyes/vocabulary.yml in U9.
 # Access via registries.failure_mode_metadata().
 
 
@@ -1958,7 +1958,7 @@ DEPTHS = ("balanced", "all")
 def depth_consequence(result):
     """Describe what each severity means across rewrite depths.
 
-    Strings live in humanise/vocabulary.yml (U9); look up by severity tier.
+    Strings live in human-eyes/vocabulary.yml (U9); look up by severity tier.
     """
     severity = result["severity"]
     if severity not in {"hard_fail", "strong_warning", "context_warning"}:
@@ -1976,7 +1976,7 @@ def action_for_depth(result, depth):
     return "preserve_with_disclosure_or_user_decision"
 
 
-# SEVERITY_LABELS and ACTION_LABELS were migrated to humanise/vocabulary.yml
+# SEVERITY_LABELS and ACTION_LABELS were migrated to human-eyes/vocabulary.yml
 # in U9. Access via registries.severity_label() / registries.action_label().
 
 
@@ -2239,7 +2239,7 @@ def load_agent_judgement_overlay(path):
 def human_report(results, agent_judgement_items=None):
     """Return the audit-format-v1 contract payload — structured data only.
 
-    Schema: humanise/scripts/contracts/audit-format-v1.json. The renderer composes
+    Schema: human-eyes/scripts/contracts/audit-format-v1.json. The renderer composes
     user-facing prose by combining contract data with templates (vocabulary.yml
     in U9; hardcoded inline in U8).
 
@@ -2282,7 +2282,7 @@ def table_cell(value):
     return str(value).replace("\n", " ").replace("|", "\\|")
 
 
-# Eight categories from humanise/references/patterns.md (R2). Layer 2
+# Eight categories from human-eyes/references/patterns.md (R2). Layer 2
 # sub-table render order matches this list. Any check whose category falls
 # outside this set is appended at the end so unexpected categories surface
 # instead of disappearing — the only intentional exclusion is the
@@ -2327,7 +2327,7 @@ def format_two_layer(results, depth="balanced", heading=None, mode="default", ag
 
     The `overall-signal-stacking` meta-check is suppressed from the audit
     body; its signal lives in the third summary line. All user-facing
-    strings flow through humanise/scripts/vocabulary.json.
+    strings flow through human-eyes/scripts/vocabulary.json.
     """
     if mode not in {"default", "full_report"}:
         raise ValueError(f"mode must be 'default' or 'full_report', got {mode!r}")

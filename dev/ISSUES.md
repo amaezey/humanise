@@ -62,7 +62,7 @@ Verify the rewriting step doesn't itself neutralise stance (Abdulhai et al. show
 
 ### MEDIUM: No regression test for original 10/10 results
 
-TESTING.md notes the original 10 humanised outputs need re-running against the 31-check grader. Requires the original output files (still in Obsidian vault, not version-controlled).
+TESTING.md notes the original 10 rewritten outputs need re-running against the 31-check grader. Requires the original output files (still in Obsidian vault, not version-controlled).
 
 ### LOW: Wire new checks into evals.json eval assertions
 
@@ -84,11 +84,11 @@ No automated pipeline. A SKILL.md edit could regress quality silently. `test_gra
 
 ### LOW: Subtraction-oriented evals
 
-Current evals test "did the AI tells get removed?" (additive). No evals test "did the author's stance survive?" (subtractive). Would need: opinionated input, humanise it, verify the opinion survived.
+Current evals test "did the AI tells get removed?" (additive). No evals test "did the author's stance survive?" (subtractive). Would need: opinionated input, human-eyes it, verify the opinion survived.
 
 ### LOW: Original eval text files not in repo
 
-The 5 original human-written texts and their AI-generated + humanised versions are in an Obsidian vault, not version-controlled. The original 10/10 results were against the 21-check grader and have not been re-run against the current 31-check grader.
+The 5 original human-written texts and their AI-generated + rewritten versions are in an Obsidian vault, not version-controlled. The original 10/10 results were against the 21-check grader and have not been re-run against the current 31-check grader.
 
 ---
 
@@ -102,7 +102,7 @@ Full analysis in `research/web-survey-2026.md`.
 Function word unigrams, POS bigrams, and phrase patterns achieve .98 binary accuracy on 10-sentence samples. These are classification features for a detector, not patterns for a rewriting tool. The insight that matters is already captured: commercial LLMs cluster together, validating the skill's approach of targeting shared patterns.
 
 **Code stylometry (Bisztray et al., ACM AISec 2025):**
-Comment phrasing is the richest signal for model attribution. The skill targets prose, not code. Relevant if humanise ever expands to code comments or technical documentation.
+Comment phrasing is the richest signal for model attribution. The skill targets prose, not code. Relevant if human-eyes ever expands to code comments or technical documentation.
 
 **Stylometric watermarking proposals:**
 Models could embed watermarks via consistent synonym preferences or unusual syntactic structures. Speculative/theoretical; no production watermarking to detect yet. Worth monitoring.
@@ -157,7 +157,7 @@ Checked against [Anthropic's skill best practices](https://docs.anthropic.com/en
 
 ## Gaps against Wikipedia's "Signs of AI writing"
 
-Comparison of [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (79 items) against the 32 patterns currently in humanise. Wikipedia-specific signs (wikitext markup, citation bugs, hallucinated templates, DOI/ISBN errors, etc.) are excluded as out of scope.
+Comparison of [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (79 items) against the 32 patterns currently in human-eyes. Wikipedia-specific signs (wikitext markup, citation bugs, hallucinated templates, DOI/ISBN errors, etc.) are excluded as out of scope.
 
 ### Missing vocabulary words
 

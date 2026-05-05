@@ -14,13 +14,13 @@ Current worktree is intentionally dirty with behavior-preserving consolidation w
 
 Current changed areas:
 
-- `humanise/grade.py` and `dev/evals/grade.py`: 43-check grader, severity metadata, mode summaries, vocabulary pressure, GPTZero 100 phrase list, Kobak excess-vocabulary loading, aggregate signal pressure.
+- `human-eyes/grade.py` and `dev/evals/grade.py`: 43-check grader, severity metadata, mode summaries, vocabulary pressure, GPTZero 100 phrase list, Kobak excess-vocabulary loading, aggregate signal pressure.
 - `dev/evals/test_grade.py`: assertion tests for new and existing checks, including Light/Medium/Hard behavior and aggregate pressure calibration.
-- `humanise/SKILL.md`: mode architecture, transparency report, hard/medium/light behavior, semantic preservation, structural self-audit.
-- `humanise/references/patterns.md`: pattern catalogue, evidence hierarchy, full GPTZero 100 list, Kobak methodology notes, genre-specific manual checks.
+- `human-eyes/SKILL.md`: mode architecture, transparency report, hard/medium/light behavior, semantic preservation, structural self-audit.
+- `human-eyes/references/patterns.md`: pattern catalogue, evidence hierarchy, full GPTZero 100 list, Kobak methodology notes, genre-specific manual checks.
 - `dev/evals/grade-sweep-report.json`: regenerated sweep over existing, human-sourced, and generated-AI samples.
 - `dev/evals/samples/human-sourced/` and `dev/evals/samples/generated-ai/`: expanded evaluation corpus.
-- `humanise/references/kobak-excess-words.csv`: 900-row Kobak et al. excess-vocabulary source file.
+- `human-eyes/references/kobak-excess-words.csv`: 900-row Kobak et al. excess-vocabulary source file.
 
 Latest verification before this plan:
 
@@ -387,8 +387,8 @@ Acceptance criteria:
 Update:
 
 - `README.md`
-- `humanise/SKILL.md`
-- `humanise/references/patterns.md`
+- `human-eyes/SKILL.md`
+- `human-eyes/references/patterns.md`
 - `dev/TESTING.md`
 
 Documentation should stop leading with "38 patterns across 8 categories" as the conceptual model. Keep the full pattern catalogue, but introduce failure modes first.

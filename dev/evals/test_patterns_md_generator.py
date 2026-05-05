@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Asserts humanise/references/patterns.md equals the generator output from
+"""Asserts human-eyes/references/patterns.md equals the generator output from
 dev/tools/render_patterns_md.py. Catches drift between the YAML registry
 (authoritative source) and the on-disk markdown (generated transparency view).
 
@@ -23,7 +23,7 @@ if result.stderr:
 
 if result.returncode != 0:
     print()
-    print("FAIL: humanise/references/patterns.md is out of sync with humanise/scripts/patterns.json.")
+    print("FAIL: human-eyes/references/patterns.md is out of sync with human-eyes/scripts/patterns.json.")
     print("      Edit patterns.json, then regenerate:")
     print("      python3 dev/tools/render_patterns_md.py --write")
     sys.exit(1)

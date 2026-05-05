@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / "samples" / "human-sourced"
 MANIFEST = OUT_DIR / "manifest.json"
 
-HEADERS = {"User-Agent": "Mozilla/5.0 humanise-eval-fetcher"}
+HEADERS = {"User-Agent": "Mozilla/5.0 human-eyes-eval-fetcher"}
 
 
 def clean_text(text: str) -> str:

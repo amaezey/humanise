@@ -1,6 +1,6 @@
 # PR #5 review artifacts
 
-Raw per-reviewer JSON output from the multi-reviewer code + document review of [PR #5](https://github.com/amaezey/humanise/pull/5) on 2026-04-30.
+Raw per-reviewer JSON output from the multi-reviewer code + document review of [PR #5](https://github.com/amaezey/human-eyes/pull/5) on 2026-04-30.
 
 The deduplicated, prioritised findings are in [`../2026-04-30-pr5-review-findings.md`](../2026-04-30-pr5-review-findings.md). Read that first.
 
@@ -29,5 +29,5 @@ These per-reviewer files are the **fallback for detail**: each finding includes 
 - **Run ID:** `20260430-080004-59ee2000`
 - **Original /tmp path:** `/tmp/compound-engineering/ce-code-review/20260430-080004-59ee2000/` (ephemeral; this dir is the persistent copy)
 - **PR base:** `739d8ba` (origin/main)
-- **PR head:** `codex/humanise-iteration-loop`
+- **PR head:** `codex/human-eyes-iteration-loop`
 - **Diff scope:** code-diff.txt (5,767 lines covering python + skill .md), doc-diff.txt (1,264 lines covering brainstorm + plans + research + README)

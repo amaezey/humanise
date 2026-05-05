@@ -12,19 +12,19 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "scripts" / "grade.py")
+_spec = importlib.util.spec_from_file_location("grade", ROOT / "human-eyes" / "scripts" / "grade.py")
 _grade = importlib.util.module_from_spec(_spec)
 if _spec.loader is None:
-    raise RuntimeError("Could not load humanise/scripts/grade.py")
+    raise RuntimeError("Could not load human-eyes/scripts/grade.py")
 _spec.loader.exec_module(_grade)
 
 ALL_CHECKS = _grade.ALL_CHECKS
 
 # CHECK_METADATA was removed from grade.py in U7 (audit-report redesign).
-# Reconstruct the four-field metadata view from humanise/scripts/patterns.json so the
+# Reconstruct the four-field metadata view from human-eyes/scripts/patterns.json so the
 # severity-propagation and failure-mode meta-tests below keep working.
 import json as _json
-_patterns_data = _json.loads((ROOT / "humanise" / "scripts" / "patterns.json").read_text())
+_patterns_data = _json.loads((ROOT / "human-eyes" / "scripts" / "patterns.json").read_text())
 CHECK_METADATA = {
     _cid: {k: _rec[k] for k in ("severity", "failure_modes", "evidence_role", "guidance")}
     for _cid, _rec in _patterns_data.items()
@@ -1050,7 +1050,7 @@ expect_pass("no-unicode-flair",
 
 print("\n=== group-a-resolution-markers ===")
 import re as _re_meta
-_patterns_md = (ROOT / "humanise" / "references" / "patterns.md").read_text()
+_patterns_md = (ROOT / "human-eyes" / "references" / "patterns.md").read_text()
 _pattern_sections = _re_meta.split(r"(?=^### \d+[a-z]?\.\s)", _patterns_md, flags=_re_meta.MULTILINE)
 _GROUP_A = [2, 5, 11, 12, 13, 14, 15, 16, 18, 20, 21, 28, 30, 35, 36, 37, 41]
 _resolution_seen = {}
@@ -2222,7 +2222,7 @@ else:
 
 print("\n=== U7 --judgement-file CLI subprocess smoke tests ===")
 
-_u7_grade_path = ROOT / "humanise" / "scripts" / "grade.py"
+_u7_grade_path = ROOT / "human-eyes" / "scripts" / "grade.py"
 _u7_sample_path = ROOT / "dev" / "evals" / "samples" / "synthetic" / "synthetic-hard-fail-only.md"
 
 # Markdown mode with valid overlay: the agent-judgement item appears in stdout.

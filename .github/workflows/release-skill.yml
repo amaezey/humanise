@@ -3,7 +3,7 @@ name: Release skill zip
 on:
   push:
     branches: [main]
-    paths: ['humanise/**']
+    paths: ['human-eyes/**']
 
 jobs:
   release:
@@ -14,14 +14,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Zip skill folder
-        run: cd humanise && zip -r ../humanise-skill.zip .
+        run: cd human-eyes && zip -r ../human-eyes-skill.zip .
 
       - name: Update latest release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release delete latest --yes 2>/dev/null || true
-          gh release create latest humanise-skill.zip \
-            --title "humanise (latest)" \
-            --notes "Download **humanise-skill.zip** below (not the source code archives). Upload this zip in Claude Code desktop settings." \
+          gh release create latest human-eyes-skill.zip \
+            --title "human-eyes (latest)" \
+            --notes "Download **human-eyes-skill.zip** below (not the source code archives). Upload this zip in Claude Code desktop settings." \
             --latest

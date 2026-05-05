@@ -19,10 +19,10 @@ SETS = {
 
 
 def load_grade_module():
-    spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "scripts" / "grade.py")
+    spec = importlib.util.spec_from_file_location("grade", ROOT / "human-eyes" / "scripts" / "grade.py")
     grade = importlib.util.module_from_spec(spec)
     if spec.loader is None:
-        raise RuntimeError("Could not load humanise/scripts/grade.py")
+        raise RuntimeError("Could not load human-eyes/scripts/grade.py")
     spec.loader.exec_module(grade)
     return grade
 

@@ -106,13 +106,13 @@ The article's AI-generated example demonstrates multiple tells in one piece:
 
 ---
 
-## 2. Patterns NOT already covered by the existing humanise list
+## 2. Patterns NOT already covered by the existing human-eyes list
 
-Cross-referencing the article against the 25-pattern humanise catalogue plus the three hard constraints (em dashes, manufactured insight, staccato fragments):
+Cross-referencing the article against the 25-pattern human-eyes catalogue plus the three hard constraints (em dashes, manufactured insight, staccato fragments):
 
 ### Already covered (confirmed overlap)
 
-| Article pattern | Humanise pattern # |
+| Article pattern | Human-eyes pattern # |
 |---|---|
 | Em dashes | Hard constraint |
 | Parallelism / "It's not X, It's Y" | #9 Negative parallelisms + Manufactured insight (contrived contrast) |
@@ -131,21 +131,21 @@ Cross-referencing the article against the 25-pattern humanise catalogue plus the
 **1. Unearned profundity / dramatic narrative transitions**
 Guo describes: "Serious, narrative-shifting transitions that come out of nowhere. 'Something shifted.' 'Everything changed.' 'But here's the thing.'"
 
-The humanise list covers *manufactured insight* (performed knowingness like "Here's the thing:") and *staccato fragments* ("That matters."), but the specific sub-pattern of **standalone dramatic narrative beats** used as paragraph openers/transitions ("Something shifted." "Everything changed.") is not explicitly called out. These are more specific than staccato fragments because they claim a narrative turning point rather than just being short for emphasis.
+The human-eyes list covers *manufactured insight* (performed knowingness like "Here's the thing:") and *staccato fragments* ("That matters."), but the specific sub-pattern of **standalone dramatic narrative beats** used as paragraph openers/transitions ("Something shifted." "Everything changed.") is not explicitly called out. These are more specific than staccato fragments because they claim a narrative turning point rather than just being short for emphasis.
 
 **Verdict: Partially new.** "But here's the thing" is already in manufactured insight. "Something shifted" and "Everything changed" are a blend of staccato fragments and manufactured insight but are not explicitly listed as words to watch in either pattern.
 
 **2. Mid-sentence rhetorical questions**
 > "'But now? You won't be able to unsee this one.' 'The solution? It's simpler than you think.'"
 
-The humanise list does not mention this pattern at all. These are short questions dropped mid-paragraph as a pacing device, followed by a declarative answer. They are distinct from filler phrases and manufactured insight.
+The human-eyes list does not mention this pattern at all. These are short questions dropped mid-paragraph as a pacing device, followed by a declarative answer. They are distinct from filler phrases and manufactured insight.
 
 **Verdict: NEW.** Not covered.
 
 **3. Unicode symbol substitution (non-standard formatting characters)**
 > "most authors (even professional ones) aren't going out of their way to grab Unicode arrows or multiplication signs to add to their text"
 
-The humanise list covers emojis (#16) and curly quotes (#17) but does not mention the broader pattern of Unicode symbol substitution: using Unicode bold/italic characters instead of markdown/HTML formatting, or inserting Unicode arrows, multiplication signs, and similar symbols.
+The human-eyes list covers emojis (#16) and curly quotes (#17) but does not mention the broader pattern of Unicode symbol substitution: using Unicode bold/italic characters instead of markdown/HTML formatting, or inserting Unicode arrows, multiplication signs, and similar symbols.
 
 **Verdict: NEW.** Not covered. Curly quotes are one narrow case; this is broader.
 
@@ -153,21 +153,21 @@ The humanise list covers emojis (#16) and curly quotes (#17) but does not mentio
 > "AI metaphors are... plausible. Generic. They gesture toward meaning without quite achieving it."
 > "Human metaphors tend to be either highly specific (drawing from personal experience) or culturally resonant (drawing from shared references)."
 
-The humanise list does not have a pattern for AI metaphor quality. The closest is promotional language (#4) and significance inflation (#1), but neither addresses the specific problem of metaphors that are technically coherent but lack specificity or personal grounding.
+The human-eyes list does not have a pattern for AI metaphor quality. The closest is promotional language (#4) and significance inflation (#1), but neither addresses the specific problem of metaphors that are technically coherent but lack specificity or personal grounding.
 
 **Verdict: NEW.** Not covered.
 
 **5. Lack of point-of-view variation**
 > "It's uncommon to see LLMs switch from second or third person to first, and vice versa. They tend to pick a lane and stay in it with unnatural consistency."
 
-The humanise SKILL.md mentions "Creative writing varies not only sentence structure, but also tense and point of view" under Personality and soul, but the patterns.md catalogue does not include this as a numbered pattern with words-to-watch or before/after examples.
+The human-eyes SKILL.md mentions "Creative writing varies not only sentence structure, but also tense and point of view" under Personality and soul, but the patterns.md catalogue does not include this as a numbered pattern with words-to-watch or before/after examples.
 
 **Verdict: Partially new.** Acknowledged in the skill's guidance but not a catalogued detection pattern.
 
 **6. Excessive list-making (bullet point density)**
 > "ChatGPT loves making lists."
 
-The humanise list covers emoji-led bullets (#16) and inline-header lists (#14), but not the broader meta-pattern of excessive or unnecessary list-making itself. A piece that converts flowing prose into bullet points when the content does not warrant it is a separate tell from the formatting of those bullets.
+The human-eyes list covers emoji-led bullets (#16) and inline-header lists (#14), but not the broader meta-pattern of excessive or unnecessary list-making itself. A piece that converts flowing prose into bullet points when the content does not warrant it is a separate tell from the formatting of those bullets.
 
 **Verdict: NEW.** The existing patterns address how lists are formatted, not whether the content should be a list at all.
 
@@ -276,7 +276,7 @@ The patterns are transient. The article itself will become training data that he
 
 ---
 
-## 5. Key takeaways for the humanise skill
+## 5. Key takeaways for the human-eyes skill
 
 ### Patterns worth adding to the catalogue:
 1. **Mid-sentence rhetorical questions** -- distinct pattern, easy to detect, not currently covered
@@ -294,4 +294,4 @@ The patterns are transient. The article itself will become training data that he
 ### Guo's personal defence against AI slop:
 > "It's to cultivate specificity: to write things rooted in particular knowledge and tangible experience. To develop a voice and a point of view, and stay as true to them as I can. These are things that AI still struggles to replicate convincingly."
 
-This aligns with the humanise skill's "Personality and soul" section and its emphasis on being specific rather than atmospheric.
+This aligns with the human-eyes skill's "Personality and soul" section and its emphasis on being specific rather than atmospheric.

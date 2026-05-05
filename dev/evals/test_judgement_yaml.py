@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Self-tests for humanise/scripts/judgement.json.
+"""Self-tests for human-eyes/scripts/judgement.json.
 
 Independent of the U7 registry loader. Loads the JSON directly so the
 file's shape can be validated without going through the loader.
@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-JUDGEMENT_PATH = ROOT / "humanise" / "scripts" / "judgement.json"
+JUDGEMENT_PATH = ROOT / "human-eyes" / "scripts" / "judgement.json"
 
 FAILURES = 0
 

@@ -2,18 +2,18 @@
   "reviewer": "correctness",
   "findings": [
     {
-      "title": "PR description's premise about 'two grade.py files' is incorrect; only humanise/grade.py exists in the diff",
+      "title": "PR description's premise about 'two grade.py files' is incorrect; only human-eyes/grade.py exists in the diff",
       "severity": "P3",
-      "file": "humanise/grade.py",
+      "file": "human-eyes/grade.py",
       "line": 1,
       "confidence": 100,
       "autofix_class": "advisory",
       "owner": "human",
       "requires_verification": false,
       "pre_existing": false,
-      "suggested_fix": "No code change. The reviewer's prompt asked us to inspect 'humanise/grade.py vs dev/evals/grade.py' but git ls-files shows only humanise/grade.py is tracked. Importers in run_skill_creator_iteration.py, run_grade_sweep.py and dev/evals/test_grade.py all load humanise/grade.py via importlib — single source of truth, no drift.",
+      "suggested_fix": "No code change. The reviewer's prompt asked us to inspect 'human-eyes/grade.py vs dev/evals/grade.py' but git ls-files shows only human-eyes/grade.py is tracked. Importers in run_skill_creator_iteration.py, run_grade_sweep.py and dev/evals/test_grade.py all load human-eyes/grade.py via importlib — single source of truth, no drift.",
       "why_it_matters": "Suspected duplication does not exist. The grader logic is centralised; risk of divergence is low.",
-      "evidence": "Diff at lines 4056 onwards modifies humanise/grade.py only. `ls dev/evals/grade.py` returns no such file. test_grade.py at line 2315 explicitly loads ROOT/humanise/grade.py."
+      "evidence": "Diff at lines 4056 onwards modifies human-eyes/grade.py only. `ls dev/evals/grade.py` returns no such file. test_grade.py at line 2315 explicitly loads ROOT/human-eyes/grade.py."
     },
     {
       "title": "run_claude crashes on null token-count fields rather than degrading to 0",
@@ -81,14 +81,14 @@
       "owner": "review-fixer",
       "requires_verification": false,
       "pre_existing": false,
-      "suggested_fix": "Wrap the subprocess.run call in a try/finally that always unlinks output_path. Currently if subprocess.run raises TimeoutExpired (or the worker thread is interrupted), the tempfile.NamedTemporaryFile(delete=False) created at line 184 is never cleaned. Each timed-out codex run leaves a humanise-codex-output-*.md file in /tmp.",
+      "suggested_fix": "Wrap the subprocess.run call in a try/finally that always unlinks output_path. Currently if subprocess.run raises TimeoutExpired (or the worker thread is interrupted), the tempfile.NamedTemporaryFile(delete=False) created at line 184 is never cleaned. Each timed-out codex run leaves a human-eyes-codex-output-*.md file in /tmp.",
       "why_it_matters": "Slow-burn /tmp pollution across iteration runs. Not a logic bug but a resource leak the worker error-handler doesn't cover. Anchor 75: the leak path is mechanical; the only question is how often timeouts fire in practice.",
       "evidence": "Line 184-185 creates output_path with delete=False. Line 201-207 calls subprocess.run with timeout=900. Lines 208-216 cleanup is inside `try/finally` but the try begins AFTER subprocess.run completes successfully — TimeoutExpired raised at line 201 propagates before reaching the cleanup."
     },
     {
-      "title": "humanise/examples ai.txt: 100KB unreferenced text file with a space in its filename shipped inside the skill directory",
+      "title": "human-eyes/examples ai.txt: 100KB unreferenced text file with a space in its filename shipped inside the skill directory",
       "severity": "P2",
-      "file": "humanise/examples ai.txt",
+      "file": "human-eyes/examples ai.txt",
       "line": 1,
       "confidence": 100,
       "autofix_class": "manual",
@@ -97,12 +97,12 @@
       "pre_existing": false,
       "suggested_fix": "Move to dev/evals/manual-pastes/ (where similar working artifacts live) or delete. Filenames with spaces break shell tab-completion and require quoting in scripts; shipping 100KB of unreferenced AI-generated samples inside the skill directory bloats the deliverable users will install.",
       "why_it_matters": "The skill directory is the artifact users install. Including a 100KB unreferenced sample file confuses what the skill ships. Not a correctness bug for code paths, but a clear intent-vs-implementation mismatch: it's a working artifact in a published location.",
-      "evidence": "diff line 3473-3478 adds humanise/examples ai.txt as a new file. grep across humanise/ and dev/evals/ for 'examples ai' returns no references. The file's content is raw prompt-and-response text, not a skill input."
+      "evidence": "diff line 3473-3478 adds human-eyes/examples ai.txt as a new file. grep across human-eyes/ and dev/evals/ for 'examples ai' returns no references. The file's content is raw prompt-and-response text, not a skill input."
     },
     {
       "title": "regrade(text='') would still execute every check on empty string; rewrite-passes-* could give misleading 'pass' on truly-empty rewrite blocks",
       "severity": "P3",
-      "file": "humanise/grade.py",
+      "file": "human-eyes/grade.py",
       "line": 2679,
       "confidence": 50,
       "autofix_class": "manual",

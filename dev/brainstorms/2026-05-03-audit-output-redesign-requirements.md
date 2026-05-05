@@ -7,7 +7,7 @@ topic: audit-output-redesign
 
 ## Summary
 
-Restructure the humanise audit so the script renders both halves uniformly, the summary tells the reader what was checked and what fired, and per-block content is symmetric on shape and progressive on disclosure. The default audit is a compact summary plus flagged items with examples; the full coverage report is available on request. Severity replaces the action column in coverage tables, agent-judgement items gain a severity field, and "pressure" is renamed to "signal stacking" with an inline definition.
+Restructure the human-eyes audit so the script renders both halves uniformly, the summary tells the reader what was checked and what fired, and per-block content is symmetric on shape and progressive on disclosure. The default audit is a compact summary plus flagged items with examples; the full coverage report is available on request. Severity replaces the action column in coverage tables, agent-judgement items gain a severity field, and "pressure" is renamed to "signal stacking" with an inline definition.
 
 ---
 
@@ -29,15 +29,15 @@ The cumulative cost is that the writer scanning the audit can't trust shape pari
 ## Actors
 
 - A1. **Writer** — supplies a draft and reads the audit. Decides what to do next: see the full coverage report, ask for suggestions, request a rewrite, or save the audit to a file.
-- A2. **Agent** — Claude Code (or another harness) invoking the humanise skill. Calls `grade.py` for the auto-detected pass, produces a structured judgement contract for the agent-assessed pass, and prints the script's rendered output verbatim.
-- A3. **Script** — `humanise/scripts/grade.py`. Owns all rendering: the default audit, the full coverage report, the all-states output. The agent supplies data; the script supplies the words.
+- A2. **Agent** — Claude Code (or another harness) invoking the human-eyes skill. Calls `grade.py` for the auto-detected pass, produces a structured judgement contract for the agent-assessed pass, and prints the script's rendered output verbatim.
+- A3. **Script** — `human-eyes/scripts/grade.py`. Owns all rendering: the default audit, the full coverage report, the all-states output. The agent supplies data; the script supplies the words.
 
 ---
 
 ## Key Flows
 
 - F1. **Default audit on a draft**
-  - **Trigger:** Writer hands the agent a draft (or invokes humanise on a file).
+  - **Trigger:** Writer hands the agent a draft (or invokes human-eyes on a file).
   - **Actors:** A1, A2, A3.
   - **Steps:** A2 runs the auto-detected grader. A2 produces the agent-judgement findings (status + severity + reasoning per item, plus phrase-level findings for flagged items). A2 passes both into A3's renderer. A3 emits the default audit shape. A2 prints the result verbatim.
   - **Outcome:** Writer sees the global counts, severity breakdown, signal-stacking state, and flagged items in both blocks (with examples and reasoning), plus the next-step prompt.
@@ -86,17 +86,17 @@ The cumulative cost is that the writer scanning the audit can't trust shape pari
 **Severity model**
 
 - R16. Each agent-judgement item in `judgement.json` carries a severity field (`hard_fail` / `strong_warning` / `context_warning`), assigned during planning per item. The agent populates status (clear / flagged) at runtime; severity is intrinsic to the item.
-- R17. Rewrite action selection uses the same severity × depth → action mapping for both blocks. At Balanced depth, hard fail and strong warning → Fix; context warning → Disclose or ask before preserving. At All depth, every severity → Fix. The depth dial documentation (`humanise/SKILL.md` "The depth dial" section) is the canonical statement of this mapping.
+- R17. Rewrite action selection uses the same severity × depth → action mapping for both blocks. At Balanced depth, hard fail and strong warning → Fix; context warning → Disclose or ask before preserving. At All depth, every severity → Fix. The depth dial documentation (`human-eyes/SKILL.md` "The depth dial" section) is the canonical statement of this mapping.
 - R18. The Action column is removed from coverage tables. The action that applies to any flagged row is read from the depth dial doc, not duplicated per row.
 
 **Architecture**
 
-- R19. The script (`humanise/scripts/grade.py`) renders all visible audit shapes — default, full report, and any future variant. The agent's role for any audit is: produce structured input data, call the script, print the script's output verbatim. The agent does not paraphrase, summarise, lower-case, or re-render any block.
+- R19. The script (`human-eyes/scripts/grade.py`) renders all visible audit shapes — default, full report, and any future variant. The agent's role for any audit is: produce structured input data, call the script, print the script's output verbatim. The agent does not paraphrase, summarise, lower-case, or re-render any block.
 - R20. The agent supplies the agent-judgement findings to the script as a structured contract (status, severity, answer, per-finding phrase + why for list-shape items, genre + watchlist findings for the composite item). The script consumes this contract and renders it with the same template logic that renders the auto-detected side.
 
 **Vocabulary and templates**
 
-- R21. All user-facing strings (block headers, severity labels, signal-stacking copy, next-step prompt, brief notes) live in `humanise/scripts/vocabulary.json` and are looked up via `registries.string_for(...)`. No user-facing strings are hard-coded inside `grade.py` rendering functions.
+- R21. All user-facing strings (block headers, severity labels, signal-stacking copy, next-step prompt, brief notes) live in `human-eyes/scripts/vocabulary.json` and are looked up via `registries.string_for(...)`. No user-facing strings are hard-coded inside `grade.py` rendering functions.
 - R22. Brief-note copy for each block is drafted by the agent during implementation and reviewed by the writer (A1) at that point. The brainstorm captures the requirement to *have* brief notes; the words themselves are deferred.
 
 ---
@@ -115,7 +115,7 @@ The cumulative cost is that the writer scanning the audit can't trust shape pari
 
 - A writer reading any audit can answer, without leaving the audit, three questions: how many checks fired (counts line), how serious they are in aggregate (severity line), and whether weaker signals are stacking up (signal-stacking line). Each question maps to one line; nothing requires hover, expansion, or external lookup.
 - The two blocks read parallel: the same shape decisions (counts in header, glyph in flagged items, table columns) apply on both sides. A reader can scan one block, learn the convention, and read the other without re-orienting.
-- A downstream agent (or a future humanise contributor) can implement R1–R22 without inventing what each block name means, where examples go, or how severity flows into rewrite. The doc plus the depth-dial section are sufficient.
+- A downstream agent (or a future human-eyes contributor) can implement R1–R22 without inventing what each block name means, where examples go, or how severity flows into rewrite. The doc plus the depth-dial section are sufficient.
 - The default audit is short enough that a writer with a clean draft can read it in under five seconds and decide what to do next.
 
 ---
@@ -160,4 +160,4 @@ The cumulative cost is that the writer scanning the audit can't trust shape pari
 - [Affects R19, R20][Technical] Exact CLI / data-flow shape for the agent passing the judgement contract into the script. Candidates: `--judgement-file <path>` flag, stdin pipe, two-call sequence with the script joining outputs.
 - [Affects R16][User decision during implementation] Severity assignment per agent-judgement item. Each of the eight items needs a severity (`hard_fail` / `strong_warning` / `context_warning`); the writer reviews proposed values during implementation.
 - [Affects R22][User decision during implementation] Brief-note copy for each block. The words are drafted by the agent and reviewed by the writer at implementation time.
-- [Affects R13][Technical] How the existing `_section_text` boundary regex in `humanise/scripts/grade.py` interacts with the new "full coverage report" section (which contains nested bold sub-category headers). Likely already handled by the recent `TOP_LEVEL_SECTION_HEADER_RE` work, but worth re-verifying once the new sections are in place.
+- [Affects R13][Technical] How the existing `_section_text` boundary regex in `human-eyes/scripts/grade.py` interacts with the new "full coverage report" section (which contains nested bold sub-category headers). Likely already handled by the recent `TOP_LEVEL_SECTION_HEADER_RE` work, but worth re-verifying once the new sections are in place.

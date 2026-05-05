@@ -4,7 +4,7 @@
     "should_trigger": true
   },
   {
-    "query": "my colleague sent me this summary of our Q3 research findings and honestly it reads like it was spat out of an LLM. lots of 'delves into' and 'at its core' and em dashes everywhere. can you humanise it before I send it to the stakeholders?",
+    "query": "my colleague sent me this summary of our Q3 research findings and honestly it reads like it was spat out of an LLM. lots of 'delves into' and 'at its core' and em dashes everywhere. can you human-eyes it before I send it to the stakeholders?",
     "should_trigger": true
   },
   {

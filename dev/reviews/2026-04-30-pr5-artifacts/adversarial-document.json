@@ -29,7 +29,7 @@
       "falsifying_experiment": "Bootstrap the existing data: resample 5 essays from each group with replacement 1000 times; report 95% CI on the strong-flag means. If the human / AI-rewrite CIs overlap, the +44% headline is unsupported. Defer demotion decisions until N>=10/group with non-overlapping CIs on each demoted pattern individually.",
       "confidence": 75,
       "severity": "blocking",
-      "recommendation": "Move the +44% number out of README's Performance block (README L120-L127) until CIs are reported, OR caveat it inline as 'directional, N=5/group.' In dev/plans/2026-04-28-humanise-implementation.md (or a new decision log) add a gate: 'no pattern demotions land until N>=10 per group AND a per-pattern test shows the human/AI separation is not statistically distinguishable.' Today's implementation plan does not encode this gate."
+      "recommendation": "Move the +44% number out of README's Performance block (README L120-L127) until CIs are reported, OR caveat it inline as 'directional, N=5/group.' In dev/plans/2026-04-28-human-eyes-implementation.md (or a new decision log) add a gate: 'no pattern demotions land until N>=10 per group AND a per-pattern test shows the human/AI separation is not statistically distinguishable.' Today's implementation plan does not encode this gate."
     },
     {
       "id": "ADV-003",
@@ -67,11 +67,11 @@
       "evidence_quote": "research L1132-L1142 table: ghost-spectral fires 0/5 hum, 2/5 fresh, 0/5 rewrite; negation-density 0/5, 2/5, 0/5; unicode-flair 0/5, 2/5, 0/5. README L242 'Adding new candidate signals (sentence-length mean, ghost-spectral density, negation density, unicode flair) where evidence supports.'",
       "the_assumption": "Patterns that fired only on AI-fresh in this corpus are genuine AI discriminators worth promoting.",
       "why_it_might_be_wrong": "The pattern fired on 2 of 5 AI-fresh essays and 0 elsewhere. With 5 samples, a 2/5 vs 0/5 split is one essay away from 1/5 vs 1/5 — i.e., not significant by any reasonable test. Worse, the pattern fires zero times on AI-rewrite, which is the 'load-bearing' AI group per the rest of the document. So a signal that catches some AI-fresh but no AI-rewrite is identifying a sub-mode of one model's style on one prompt run, not a robust AI tell. Promoting it bakes corpus noise into the grader.",
-      "consequence_if_wrong": "Adding three weakly-evidenced signals while demoting four more strongly-evidenced ones is a net signal loss. The implementation plan (dev/plans/2026-04-28-humanise-implementation.md) doesn't gate the additions on validation, so they could land in the next iteration as 'evidence supports' when the evidence is 2 essays.",
+      "consequence_if_wrong": "Adding three weakly-evidenced signals while demoting four more strongly-evidenced ones is a net signal loss. The implementation plan (dev/plans/2026-04-28-human-eyes-implementation.md) doesn't gate the additions on validation, so they could land in the next iteration as 'evidence supports' when the evidence is 2 essays.",
       "falsifying_experiment": "Before promoting any new check, hold it back from the iteration corpus and run it on a separate held-out N>=10 set (the 18 ai-XX samples are noted as held-out in the implementation plan). If ghost-spectral / negation / unicode flair don't fire on at least 30% of the held-out AI samples and <5% of human samples, drop them.",
       "confidence": 75,
       "severity": "important",
-      "recommendation": "In README L240-L243 (the 'What's next' bullet), explicitly mark the new candidate signals as 'hypothesis-stage, requires validation on held-out corpus.' Add a corresponding gate to dev/plans/2026-04-28-humanise-implementation.md step 5 (Iterate based on iteration-2 results)."
+      "recommendation": "In README L240-L243 (the 'What's next' bullet), explicitly mark the new candidate signals as 'hypothesis-stage, requires validation on held-out corpus.' Add a corresponding gate to dev/plans/2026-04-28-human-eyes-implementation.md step 5 (Iterate based on iteration-2 results)."
     },
     {
       "id": "ADV-006",
@@ -85,21 +85,21 @@
       "falsifying_experiment": "Define one observable that should change after the reframe lands. E.g., 'on the human-guardrail evals, the fraction of audit outputs that the user marks as helpful rises from X% to Y%.' If no such observable can be defined, the reframe is voice-styling, not a feature change, and shouldn't be presented as the headline takeaway from the research.",
       "confidence": 75,
       "severity": "important",
-      "recommendation": "In dev/research/2026-04-29-readme-research-section-intent.md (the section-intent doc), require a measurable success criterion for the reframe before it ships to README. In dev/plans/2026-04-28-humanise-implementation.md, the reframe should appear as a step with a pass/fail test, not as a 'follow-up' bullet."
+      "recommendation": "In dev/research/2026-04-29-readme-research-section-intent.md (the section-intent doc), require a measurable success criterion for the reframe before it ships to README. In dev/plans/2026-04-28-human-eyes-implementation.md, the reframe should appear as a step with a pass/fail test, not as a 'follow-up' bullet."
     },
     {
       "id": "ADV-007",
       "title": "Two plans from the same date: stale plan still in tree, supersedes header is structural but the in-tree plan contradicts current SKILL.md",
       "technique": "alternative_blindness",
-      "files": ["dev/plans/2026-04-28-humanise-refocus.md", "dev/plans/2026-04-28-humanise-implementation.md"],
-      "evidence_quote": "implementation L654 'supersedes: dev/plans/2026-04-28-humanise-refocus.md'.  refocus L873-L880 still describes a 3-mode dial (Light / Balanced / All) and 'Light' as a real intensity name.  implementation L686 'Depth-setting names are ~~Obvious / Balanced / All~~ Balanced / All.'  refocus L1030 outstanding decisions still listing 'Intensity names. ... pick.'  refocus L1014-L1022 has open placeholders ('[what it does]') in the identity statement.",
+      "files": ["dev/plans/2026-04-28-human-eyes-refocus.md", "dev/plans/2026-04-28-human-eyes-implementation.md"],
+      "evidence_quote": "implementation L654 'supersedes: dev/plans/2026-04-28-human-eyes-refocus.md'.  refocus L873-L880 still describes a 3-mode dial (Light / Balanced / All) and 'Light' as a real intensity name.  implementation L686 'Depth-setting names are ~~Obvious / Balanced / All~~ Balanced / All.'  refocus L1030 outstanding decisions still listing 'Intensity names. ... pick.'  refocus L1014-L1022 has open placeholders ('[what it does]') in the identity statement.",
       "the_assumption": "Frontmatter 'supersedes' is enough to mark refocus.md as historical, and readers will know to ignore its contents.",
       "why_it_might_be_wrong": "The superseded plan is 245 lines of detailed structure with no 'SUPERSEDED — DO NOT EXECUTE' banner at the top of the body. A future maintainer (human or agent) doing repo-grep for 'depth dial' or 'severity table' finds two contradicting answers and can't tell which is current without reading frontmatter that's easy to miss. Worse, the superseded plan contains decisions the implementation plan reversed (3-point dial collapsed to 2; Audit asks the user to choose; em-dash special case folded). Leaving them documented as 'the plan' invites someone to re-implement the wrong version. The brainstorm-then-implementation plan path is fine; the issue is the superseded plan contains live-looking instructions.",
       "consequence_if_wrong": "Future iteration (or an agent invoked with this repo as context) reads refocus.md, picks up the 3-point dial / 'Light' intensity, and re-implements decisions Mae explicitly reversed. This kind of ping-pong is in Mae's known-failure-mode list.",
-      "falsifying_experiment": "Hand the repo + a prompt 'execute the humanise refocus plan' to a fresh agent with no other context. If the agent picks refocus.md or merges decisions from both, the supersession is not actually working.",
+      "falsifying_experiment": "Hand the repo + a prompt 'execute the human-eyes refocus plan' to a fresh agent with no other context. If the agent picks refocus.md or merges decisions from both, the supersession is not actually working.",
       "confidence": 75,
       "severity": "important",
-      "recommendation": "Add a top-of-body banner to dev/plans/2026-04-28-humanise-refocus.md: '> SUPERSEDED 2026-04-29 by dev/plans/2026-04-28-humanise-implementation.md. Do not execute. Retained for journey context only.' The frontmatter alone is not load-bearing enough."
+      "recommendation": "Add a top-of-body banner to dev/plans/2026-04-28-human-eyes-refocus.md: '> SUPERSEDED 2026-04-29 by dev/plans/2026-04-28-human-eyes-implementation.md. Do not execute. Retained for journey context only.' The frontmatter alone is not load-bearing enough."
     },
     {
       "id": "ADV-008",
@@ -119,7 +119,7 @@
       "id": "ADV-009",
       "title": "Implementation plan asserts 'Iteration 2 ... 86.6% mean pass rate' as success but the success bar (>=80% per case) was set after the data",
       "technique": "decision_stress_testing",
-      "files": ["dev/plans/2026-04-28-humanise-implementation.md"],
+      "files": ["dev/plans/2026-04-28-human-eyes-implementation.md"],
       "evidence_quote": "implementation L679 'Current skill scored 86.6% mean pass rate'.  L767 'Iteration loop converges with each case at >=80% assertion pass rate (or Mae's qualitative sign-off, whichever is the gating criterion).'  L766 'The new SKILL.md fits comfortably under ~250 lines (currently 314 — see iteration 1 for trimming).'",
       "the_assumption": "The 86.6% mean and the success criteria together establish the iteration is converging.",
       "why_it_might_be_wrong": "(a) The success criterion is per-case >=80%, not mean >=80%. Reporting the mean and calling it converged hides whether the worst case is below the bar. (b) The 250-line SKILL.md target is missed by ~25% (314 vs 250) and the plan files this as 'see iteration 1 for trimming' rather than as a failure to meet the success criterion. The plan effectively self-grades by adjusting interpretation of the bar after seeing the result. (c) The 'qualitative sign-off, whichever is the gating criterion' clause makes the bar unfalsifiable: if 80% isn't met, qualitative sign-off applies; if line count is missed, that becomes a future task. There is no condition under which this plan can be said to have failed.",
@@ -127,13 +127,13 @@
       "falsifying_experiment": "List the per-case pass rates from iteration 2 and check whether each one >= 80%. If any case is below, the plan should report 'not yet converged' rather than '86.6% mean.' Independently, treat the 250-line target as a hard bar: if it's missed, mark the success criterion as not yet met and link to the trimming task rather than narrating around it.",
       "confidence": 50,
       "severity": "advisory",
-      "recommendation": "In dev/plans/2026-04-28-humanise-implementation.md update the iteration-2 status (L679) to report (a) per-case pass rates with a column showing whether each meets the >=80% bar, (b) which success criteria from L766-L772 are met / unmet. The narrative '86.6% mean' is misleading vs the stated bar."
+      "recommendation": "In dev/plans/2026-04-28-human-eyes-implementation.md update the iteration-2 status (L679) to report (a) per-case pass rates with a column showing whether each meets the >=80% bar, (b) which success criteria from L766-L772 are met / unmet. The narrative '86.6% mean' is misleading vs the stated bar."
     },
     {
       "id": "ADV-010",
       "title": "Hidden assumption: the audit + suggestions + rewrite + write split assumes a turn-taking conversational shell that headless invocation will not provide",
       "technique": "assumption_surfacing",
-      "files": ["dev/brainstorms/2026-04-28-humanise-refocus-requirements.md", "dev/plans/2026-04-28-humanise-implementation.md"],
+      "files": ["dev/brainstorms/2026-04-28-human-eyes-refocus-requirements.md", "dev/plans/2026-04-28-human-eyes-implementation.md"],
       "evidence_quote": "brainstorm L429 'After presenting the audit, the agent asks the writer whether to proceed with Suggestions, Rewrite, or stop.'  L466 'The agent asks the writer for a depth setting when invoking Rewrite or Write, unless the writer specified one.'  brainstorm L538 outstanding question (deferred): 'Headless / programmatic invocation contract. What's the default action when there's no human turn-taking?' Implementation plan does not list this question as resolved.",
       "the_assumption": "There is always a writer available to answer 'Suggestions / Rewrite / stop' and 'which depth.' The brainstorm explicitly defers what happens when there isn't.",
       "why_it_might_be_wrong": "Skills get invoked from agent loops, CI pipelines, batch jobs, and programmatic harnesses (the project's own iteration harness is one). In any non-interactive context, an agent that 'asks the writer' will either hang, hallucinate the user's choice, or default silently. The current contract gives no explicit answer for any of these. If the default is 'audit only' (as the superseded plan suggests at L1034), then any programmatic 'rewrite this' invocation degrades to audit, which is a silent failure. If the default is 'rewrite at Balanced,' then any audit-only intent is silently mutated. Either way the spec has a hole; the brainstorm names it; the implementation plan files it as 'still open' without a placeholder default.",
@@ -141,7 +141,7 @@
       "falsifying_experiment": "Try to invoke the skill on a file via the iteration harness with no conversational context and an instruction 'rewrite at All.' Observe whether the skill rewrites, audits, or stalls. Whichever happens, ask whether SKILL.md describes that behaviour. If not, headless invocation is undefined.",
       "confidence": 50,
       "severity": "advisory",
-      "recommendation": "Add an explicit headless-invocation contract to dev/plans/2026-04-28-humanise-implementation.md (or move the brainstorm's deferred question to resolved). State which action runs when no user turn-taking is possible, what the default depth is, and how the skill signals that a needed choice was assumed."
+      "recommendation": "Add an explicit headless-invocation contract to dev/plans/2026-04-28-human-eyes-implementation.md (or move the brainstorm's deferred question to resolved). State which action runs when no user turn-taking is possible, what the default depth is, and how the skill signals that a needed choice was assumed."
     },
     {
       "id": "ADV-011",

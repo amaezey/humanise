@@ -9,7 +9,7 @@
       "title": "run_grade_sweep.py ignores --help and unconditionally runs the full sweep",
       "file": "dev/evals/run_grade_sweep.py",
       "line_range": "86-101",
-      "evidence": "main() takes no arguments and parses none. sys.argv is never inspected. Calling `python3 run_grade_sweep.py --help` skips help and executes the full sweep (grade ~50+ sample files via humanise/grade.py, then write grade-sweep-report.json + print summary JSON). Confirmed empirically: running with --help printed the summary and would have rewritten the report.",
+      "evidence": "main() takes no arguments and parses none. sys.argv is never inspected. Calling `python3 run_grade_sweep.py --help` skips help and executes the full sweep (grade ~50+ sample files via human-eyes/grade.py, then write grade-sweep-report.json + print summary JSON). Confirmed empirically: running with --help printed the summary and would have rewritten the report.",
       "impact": "An agent that probes a script with --help to learn how to invoke it will (a) trigger a multi-second compute job, (b) overwrite a repo-tracked artefact (grade-sweep-report.json, ~221KB), and (c) get a JSON summary instead of usage info — which it may then mistake for valid help output and parse incorrectly. This is the worst class of CLI footgun: the discovery action itself is the destructive action.",
       "suggested_fix": "Add an argparse.ArgumentParser with --help support even if there are no other arguments. Optionally add --output PATH (default to current report path) and --groups (subset). Minimum viable: `parser = argparse.ArgumentParser(description='Regenerate the corpus-wide grade sweep report'); parser.parse_args()` before any work.",
       "confidence": 100,

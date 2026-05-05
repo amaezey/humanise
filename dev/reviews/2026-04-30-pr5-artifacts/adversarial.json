@@ -34,7 +34,7 @@
         "run_codex creates a NamedTemporaryFile with delete=False at line 1388 to give codex an --output-last-message path.",
         "The cleanup path (output_path.unlink) is inside the try/finally block at lines 1412-1420. That try/finally only wraps the read of output_path AFTER subprocess.run returns.",
         "Trigger: subprocess.run at line 1405 raises TimeoutExpired (timeout=900) or KeyboardInterrupt or OSError (e.g. codex binary missing).",
-        "Step 1: The exception escapes run_codex BEFORE reaching the try/finally that owns the unlink. The tempfile, ~/var/folders/.../humanise-codex-output-*.md, leaks.",
+        "Step 1: The exception escapes run_codex BEFORE reaching the try/finally that owns the unlink. The tempfile, ~/var/folders/.../human-eyes-codex-output-*.md, leaks.",
         "Step 2: With repeated failures (a flaky model, ctrl-c during runs, dev iteration loops), /tmp accumulates one orphan per failed call.",
         "Step 3: On macOS the temp dir is per-user and is cleared periodically, but on Linux CI runners /tmp can fill before clean-up.",
         "Failure outcome: silent disk-space leak; under pathological retry loops can fill the volume."
@@ -150,7 +150,7 @@
     },
     {
       "id": "adv-8",
-      "title": "Determinism claim violated: changing humanise/grade.py thresholds makes 'iteration N' corpus baseline incomparable to 'iteration N-1' though the PR claims they are",
+      "title": "Determinism claim violated: changing human-eyes/grade.py thresholds makes 'iteration N' corpus baseline incomparable to 'iteration N-1' though the PR claims they are",
       "severity": "medium",
       "confidence": 75,
       "category": "assumption-violation",
@@ -158,8 +158,8 @@
       "lines": "1709-1730, 1733-1752, 1942-1962",
       "evidence": [
         "The PR documents (line 1986, in the report markdown) and the task summary state that group means are 'deterministic — independent of how the skill renders its audit'.",
-        "But group means come from grade_sample_file(filepath) which calls GRADE.grade_file(...). GRADE is humanise/grade.py loaded fresh at module import every iteration.",
-        "Trigger: developer tunes a regex threshold in humanise/grade.py between iteration 3 and iteration 4 (the normal iteration loop).",
+        "But group means come from grade_sample_file(filepath) which calls GRADE.grade_file(...). GRADE is human-eyes/grade.py loaded fresh at module import every iteration.",
+        "Trigger: developer tunes a regex threshold in human-eyes/grade.py between iteration 3 and iteration 4 (the normal iteration loop).",
         "Step 1: iteration 4 corpus_baseline is computed with the new grade.py rules; iteration 3's baseline (read from previous_iteration_dir/performance-report.json) was computed with the old rules.",
         "Step 2: regression_rows compares per_eval pass rates only — but that depends on the grader too via 'rewrite-passes-balanced-grader' and 'rewrite-passes-all-grader' assertions (lines 1551-1559). A grader change alone causes a regression flag.",
         "Step 3: build_performance_report's narrative claims 'deterministic across both iterations' but the code makes no version check on grade.py.",
@@ -300,7 +300,7 @@
   ],
   "residual_risks": [
     "ThreadPoolExecutor with subprocess.run inside threads is the wrong concurrency primitive when subprocesses need to be cancelled; the codebase will keep accumulating cancellation/cleanup hazards until this is migrated to Popen + a signal-aware supervisor.",
-    "humanise/grade.py is imported once at module load via importlib (line 1240-1249); any test or dev script that mutates GRADE.* state will leak across iteration runs in the same process, since GRADE is a module-level singleton.",
+    "human-eyes/grade.py is imported once at module load via importlib (line 1240-1249); any test or dev script that mutates GRADE.* state will leak across iteration runs in the same process, since GRADE is a module-level singleton.",
     "The PR introduces a 'comparative report' that becomes a public artefact (auto-published to README.md via update_readme_performance_block). Any data-quality bug in the harness now writes directly to a public surface — there is no review gate.",
     "Subprocess call uses cwd=ROOT and the executor inherits the parent's filesystem permissions; a malicious skill prompt that bypasses claude's allowedTools could read repo secrets. claude --allowedTools Read,Bash is permissive — Bash with cwd=ROOT can do anything the user can do."
   ],

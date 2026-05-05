@@ -18,7 +18,7 @@ End-to-end demonstration on a single AI-generated essay: the audit it produces i
 
 ## Agent-judgement file
 
-The agent reads `humanise/scripts/judgement.json` for the eight-item registry, decides each item's status and answer against the draft, and writes a JSON file matching the contract's `agent_judgement` slot. Severity is omitted so `grade.py` defaults each item to its registry value. The file:
+The agent reads `human-eyes/scripts/judgement.json` for the eight-item registry, decides each item's status and answer against the draft, and writes a JSON file matching the contract's `agent_judgement` slot. Severity is omitted so `grade.py` defaults each item to its registry value. The file:
 
 ```json
 {
@@ -39,7 +39,7 @@ The agent reads `humanise/scripts/judgement.json` for the eight-item registry, d
 
 ## Audit (default mode)
 
-`python3 humanise/scripts/grade.py --format markdown --depth balanced --judgement-file <agent-judgement.json>` produces the summary block + flagged items from both blocks + the next-step prompt. Severity glyphs: `x` hard_fail, `!` strong_warning, `?` context_warning. Auto-detected flagged items appear under the `**Auto-detected**` mini-header; agent-assessed flagged items appear under `**Agent-assessed**`. Within each block items render in severity-descending order (x first, then !, then ?). Clear items don't appear in the default body — they show up in the full-report-mode coverage tables.
+`python3 human-eyes/scripts/grade.py --format markdown --depth balanced --judgement-file <agent-judgement.json>` produces the summary block + flagged items from both blocks + the next-step prompt. Severity glyphs: `x` hard_fail, `!` strong_warning, `?` context_warning. Auto-detected flagged items appear under the `**Auto-detected**` mini-header; agent-assessed flagged items appear under `**Agent-assessed**`. Within each block items render in severity-descending order (x first, then !, then ?). Clear items don't appear in the default body — they show up in the full-report-mode coverage tables.
 
 ```
 **Audit summary**
@@ -78,7 +78,7 @@ A zero-flag draft renders the same shape — the summary block carries all-zero 
 
 ## Audit (full-report mode)
 
-When the writer asks for the full coverage report, re-run with `--full-report` (keep the `--judgement-file` flag). Full-report mode keeps the same audit body shape (summary + mini-headers + flagged items) and inserts a brief note + coverage tables under each mini-header. Auto-detected coverage is broken into eight category sub-tables in `humanise/references/patterns.md` heading order; agent-assessed coverage is a flat eight-row table in `humanise/scripts/judgement.json` registry order. Coverage tables are 4-column: `Pattern | Severity | Result | Detail`. Detail carries the per-pattern guidance text on flagged auto-detected rows (empty when clear), and `(see above)` for flagged agent-assessed rows (pointing back at the inline list) with the answer/value text on clear rows. In full-report mode the per-item phrase list also drops the `(+N more)` cap and renders every captured phrase, since the reader has explicitly asked for the full coverage.
+When the writer asks for the full coverage report, re-run with `--full-report` (keep the `--judgement-file` flag). Full-report mode keeps the same audit body shape (summary + mini-headers + flagged items) and inserts a brief note + coverage tables under each mini-header. Auto-detected coverage is broken into eight category sub-tables in `human-eyes/references/patterns.md` heading order; agent-assessed coverage is a flat eight-row table in `human-eyes/scripts/judgement.json` registry order. Coverage tables are 4-column: `Pattern | Severity | Result | Detail`. Detail carries the per-pattern guidance text on flagged auto-detected rows (empty when clear), and `(see above)` for flagged agent-assessed rows (pointing back at the inline list) with the answer/value text on clear rows. In full-report mode the per-item phrase list also drops the `(+N more)` cap and renders every captured phrase, since the reader has explicitly asked for the full coverage.
 
 ```
 **Audit summary**

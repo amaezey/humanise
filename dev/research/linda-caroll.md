@@ -168,11 +168,11 @@ And Dr. Seuss:
 
 ---
 
-## 6. Summary Assessment for Humanise Skill
+## 6. Summary Assessment for Human-eyes Skill
 
 **Relevance to detection:** Moderate-high. This article doesn't catalogue surface tells (specific words, punctuation patterns) but identifies the **deeper structural pattern** that underlies many surface tells: **genericness born from having no lived experience**. This is arguably the root cause behind many items on the existing list (manufactured insight, generic positive conclusions, significance inflation, filler phrases).
 
-**Key additions for the humanise skill:**
+**Key additions for the human-eyes skill:**
 
 | Pattern | Description | Already covered? |
 |---------|-------------|-----------------|
@@ -183,4 +183,4 @@ And Dr. Seuss:
 | Shallow relatability | Designed-to-resonate observations that are broad but never specific | Partially (manufactured insight) |
 | "Warm fuzzies" default | Defaulting to pleasant, emotionally safe content | Not covered distinctly |
 
-**The article's most useful insight for the humanise skill:** The antidote to AI writing is not avoiding specific words or punctuation -- it's **writing from lived experience with emotional risk**. Detection should look not just for the presence of AI tells but for the *absence* of specificity, vulnerability, and personal stakes.
+**The article's most useful insight for the human-eyes skill:** The antidote to AI writing is not avoiding specific words or punctuation -- it's **writing from lived experience with emotional risk**. Detection should look not just for the presence of AI tells but for the *absence* of specificity, vulnerability, and personal stakes.

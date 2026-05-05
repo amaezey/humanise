@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for humanise/scripts/vocabulary.json — user-facing strings + prose templates.
+"""Tests for human-eyes/scripts/vocabulary.json — user-facing strings + prose templates.
 
 Covers U9 of the audit-report redesign plan:
 - load_vocabulary() shape + schema_version pin
@@ -16,8 +16,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-HUMANISE = ROOT / "humanise"
-SCRIPTS = HUMANISE / "scripts"
+HUMAN_EYES = ROOT / "human-eyes"
+SCRIPTS = HUMAN_EYES / "scripts"
 
 
 def _load_module(name, path):
@@ -444,7 +444,7 @@ print("\n=== renderer integration ===")
 
 import re as _re  # noqa: E402
 
-renderer_source = (HUMANISE / "scripts" / "grade.py").read_text()
+renderer_source = (HUMAN_EYES / "scripts" / "grade.py").read_text()
 
 # These literals would be the legacy hardcoded forms. If any reappear in
 # grade.py, U9's "no hardcoded user-facing strings" claim is broken.

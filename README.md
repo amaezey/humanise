@@ -1,4 +1,4 @@
-# humanise
+# human-eyes
 
 A [Claude Code skill](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills) that flags patterns in text that make it sound like AI, and (if asked) suggests fixes or rewrites.
 
@@ -11,25 +11,25 @@ Forked from [blader/humanizer](https://github.com/blader/humanizer), restructure
 Get updates with `git pull`. Run from your local checkout.
 
 ```bash
-git clone https://github.com/amaezey/humanise.git ~/.local/share/humanise
-ln -s ~/.local/share/humanise/humanise ~/.claude/skills/humanise
+git clone https://github.com/amaezey/human-eyes.git ~/.local/share/human-eyes
+ln -s ~/.local/share/human-eyes/human-eyes ~/.claude/skills/human-eyes
 ```
 
 ### Claude Code CLI
 
 ```bash
-npx skills@latest add amaezey/humanise/humanise
+npx skills@latest add amaezey/human-eyes/human-eyes
 ```
 
 ### Codex and Claude Code desktop
 
-Download the latest release zip from <https://github.com/amaezey/humanise/releases/latest>.
+Download the latest release zip from <https://github.com/amaezey/human-eyes/releases/latest>.
 
 ## Why this exists
 
 People are increasingly expected to use AI for workplace writing, then left with prose that feels wrong but is hard to diagnose or repair. The damage is usually cumulative: small tells stack across voice, rhythm, structure, and phrasing until the writing reads as synthetic, even when no single sentence is obviously broken.
 
-humanise audits a draft against a catalogue of AI-writing patterns drawn from peer-reviewed research, journalism, and craft analysis. The grader is deterministic, so the same input always produces the same audit. The output names each flagged pattern, quotes the phrase from your draft, and points to the source it comes from, so you can read the evidence and decide what to change yourself.
+human-eyes audits a draft against a catalogue of AI-writing patterns drawn from peer-reviewed research, journalism, and craft analysis. The grader is deterministic, so the same input always produces the same audit. The output names each flagged pattern, quotes the phrase from your draft, and points to the source it comes from, so you can read the evidence and decide what to change yourself.
 
 ## What it does
 
@@ -45,37 +45,37 @@ The audit ends with a prompt: full coverage report, suggestions, rewrite, or sav
 
 ## Usage
 
-Invoke with `/humanise` or ask Claude to "audit this", "humanise this", "unsloppify", "strip the AI tells", or "rewrite to sound human". The Audit action runs first. Suggestions, Rewrite, and Write only run when asked.
+Invoke with `/human-eyes` or ask Claude to "audit this", "human-eyes this", "unsloppify", "strip the AI tells", or "rewrite to sound human". The Audit action runs first. Suggestions, Rewrite, and Write only run when asked.
 
 ### Run the grader directly (no LLM)
 
 The grader is a deterministic script. Running it without the skill is useful when you want a reproducible audit with no LLM in the loop and no API cost. The agent-judgement layer is skipped in this mode.
 
 ```bash
-python3 humanise/scripts/grade.py --format markdown --depth balanced <file>
-python3 humanise/scripts/grade.py --format markdown --depth all <file>
+python3 human-eyes/scripts/grade.py --format markdown --depth balanced <file>
+python3 human-eyes/scripts/grade.py --format markdown --depth all <file>
 ```
 
 `--depth balanced` requires fixing hard-fail and strong-warning patterns. `--depth all` adds context-sensitive ones. Add `--judgement-file <path>` to merge a precomputed agent-judgement reading into the audit. Add `--full-report` for per-category coverage tables and the full phrase list.
 
 ## How it works
 
-humanise has three layers:
+human-eyes has three layers:
 
-- **Pattern catalogue.** A registry of named AI-writing patterns with severity, sources, and before/after examples. Source of truth is `humanise/scripts/patterns.json`; the human-readable view is `humanise/references/patterns.md`.
-- **Grader.** A deterministic Python script (`humanise/scripts/grade.py`) that runs regex and density checks against the draft. No LLM in this layer, so the same input always produces the same audit.
-- **Agent-judgement registry.** Structural readings the grader can't do (tonal uniformity, faux specificity, neutrality collapse, structural monotony, generic metaphors, forced synesthesia, even jargon distribution, plus a polymorphic genre slot). Lives in `humanise/scripts/judgement.json`. The agent reads each prompt, returns a structured answer, and the grader merges those answers into the final audit before rendering.
+- **Pattern catalogue.** A registry of named AI-writing patterns with severity, sources, and before/after examples. Source of truth is `human-eyes/scripts/patterns.json`; the human-readable view is `human-eyes/references/patterns.md`.
+- **Grader.** A deterministic Python script (`human-eyes/scripts/grade.py`) that runs regex and density checks against the draft. No LLM in this layer, so the same input always produces the same audit.
+- **Agent-judgement registry.** Structural readings the grader can't do (tonal uniformity, faux specificity, neutrality collapse, structural monotony, generic metaphors, forced synesthesia, even jargon distribution, plus a polymorphic genre slot). Lives in `human-eyes/scripts/judgement.json`. The agent reads each prompt, returns a structured answer, and the grader merges those answers into the final audit before rendering.
 
 When you invoke the skill, it makes the agent-judgement reading, calls the grader with `--judgement-file`, prints the audit verbatim, then asks what you want next.
 
 ## Patterns
 
-Patterns are organised by category. Full before/after examples in `humanise/references/patterns.md`.
+Patterns are organised by category. Full before/after examples in `human-eyes/references/patterns.md`.
 
 - **Source**: primary external attribution. "Wikipedia (editor consensus)" means the pattern is in the WikiProject AI Cleanup catalogue without an external upstream citation.
 - **Check**: how the pattern is detected.
     - `regex` runs against the text deterministically.
-    - `agent` runs as a small LLM reading on the whole draft (items defined in `humanise/scripts/judgement.json`).
+    - `agent` runs as a small LLM reading on the whole draft (items defined in `human-eyes/scripts/judgement.json`).
 - **Severity**: enforcement tier. One of `hard_fail`, `strong_warning`, or `context_warning`.
 
 | # | Pattern | Source | Check | Severity | Example |
@@ -268,7 +268,7 @@ Active work, with open questions tracked in `dev/hypotheses.md`:
 ## File structure
 
 ```
-humanise/                          Skill (this is what gets installed)
+human-eyes/                          Skill (this is what gets installed)
 ├── SKILL.md                       Main skill instructions
 ├── scripts/                       Grader and registry loaders
 │   ├── grade.py                   Grading script
@@ -364,7 +364,7 @@ dev/                               Development only (not installed)
 - [Grammarly](https://www.grammarly.com/blog/ai/common-ai-words/) (31 indicator words and phrases)
 - [Gmelius](https://gmelius.com/blog/can-customers-tell-an-email-is-written-using-generative-ai) (catalogue of "AI-isms" in email)
 - Bynder (2024 consumer study; 55% of US consumers correctly identify AI marketing; referenced through [Copy Posse](https://copyposse.com/blog/5-signs-your-email-was-written-by-ai-and-how-to-write-emails-that-sound-like-a-human/))
-- Pangram ([Spero & Emi 2024](https://arxiv.org/abs/2402.14873)), [Copyleaks](https://copyleaks.com/ai-content-detector), [ZeroGPT](https://www.zerogpt.com/), [Originality.AI](https://originality.ai/), NetusAI, [Turnitin](https://www.turnitin.com/products/features/ai-writing-detection) (commercial detector landscape, referenced for context; humanise is not a detector)
+- Pangram ([Spero & Emi 2024](https://arxiv.org/abs/2402.14873)), [Copyleaks](https://copyleaks.com/ai-content-detector), [ZeroGPT](https://www.zerogpt.com/), [Originality.AI](https://originality.ai/), NetusAI, [Turnitin](https://www.turnitin.com/products/features/ai-writing-detection) (commercial detector landscape, referenced for context; human-eyes is not a detector)
 
 **Practitioner guides referenced for detection thresholds:**
 - [AI Detectors: How to tell if text is AI written](https://www.aidetectors.io/blog/how-to-tell-if-text-is-ai-written)

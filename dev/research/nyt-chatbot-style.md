@@ -68,9 +68,9 @@ Note: The NYT paywalled the article. This analysis is reconstructed from extensi
 
 ---
 
-## 2. Patterns NOT already covered by the existing humanise skill
+## 2. Patterns NOT already covered by the existing human-eyes skill
 
-The existing humanise skill covers 25 patterns plus 3 hard constraints (em dashes, manufactured insight, staccato fragments). Comparing with Kriss's article:
+The existing human-eyes skill covers 25 patterns plus 3 hard constraints (em dashes, manufactured insight, staccato fragments). Comparing with Kriss's article:
 
 ### Already covered (good overlap):
 - Em dashes (hard constraint)
@@ -197,7 +197,7 @@ Research cited in the article found that most people prefer AI-generated poems t
 
 ---
 
-## 6. Summary: patterns to consider adding to humanise skill
+## 6. Summary: patterns to consider adding to human-eyes skill
 
 Priority additions (genuinely new patterns with strong signal):
 

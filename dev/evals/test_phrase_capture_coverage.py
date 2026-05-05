@@ -26,10 +26,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLES = sorted((ROOT / "dev" / "evals" / "samples" / "generated-ai").glob("*.md"))
 
-_spec = importlib.util.spec_from_file_location("grade", ROOT / "humanise" / "scripts" / "grade.py")
+_spec = importlib.util.spec_from_file_location("grade", ROOT / "human-eyes" / "scripts" / "grade.py")
 grade = importlib.util.module_from_spec(_spec)
 if _spec.loader is None:
-    raise RuntimeError("Could not load humanise/scripts/grade.py")
+    raise RuntimeError("Could not load human-eyes/scripts/grade.py")
 _spec.loader.exec_module(grade)
 
 # Checks whose signal is a draft-wide metric, not a quotable span. Each

@@ -1,13 +1,13 @@
 ---
 date: 2026-04-28
-topic: humanise-implementation
-supersedes: dev/plans/2026-04-28-humanise-refocus.md
-informed-by: dev/brainstorms/2026-04-28-humanise-refocus-requirements.md
+topic: human-eyes-implementation
+supersedes: dev/plans/2026-04-28-human-eyes-refocus.md
+informed-by: dev/brainstorms/2026-04-28-human-eyes-refocus-requirements.md
 ---
 
-# Humanise: implementation plan
+# Human-eyes: implementation plan
 
-The brainstorm at `dev/brainstorms/2026-04-28-humanise-refocus-requirements.md` produced the user-facing model. This plan captures what's been done since, what's left, and the sequencing from here to a shippable skill backed by passing evals.
+The brainstorm at `dev/brainstorms/2026-04-28-human-eyes-refocus-requirements.md` produced the user-facing model. This plan captures what's been done since, what's left, and the sequencing from here to a shippable skill backed by passing evals.
 
 The plan is being executed via `/skill-creator:skill-creator` (chosen in lieu of `/ce-plan` because the iteration-loop framework is purpose-built for skill development with parallel with-skill / baseline runs, eval grading, and a review viewer).
 
@@ -17,15 +17,15 @@ The plan is being executed via `/skill-creator:skill-creator` (chosen in lieu of
 
 ### Done
 
-- **Brainstorm complete.** Requirements doc at `dev/brainstorms/2026-04-28-humanise-refocus-requirements.md`. Resolves the four-action model (Audit / Suggestions / Rewrite / Write), the depth dial scope (generative actions only), the depth scale (originally Obvious / Balanced / All; collapsed to Balanced / All on 2026-04-29 — see Decisions below), and the introduction of `references/alternatives.md`.
+- **Brainstorm complete.** Requirements doc at `dev/brainstorms/2026-04-28-human-eyes-refocus-requirements.md`. Resolves the four-action model (Audit / Suggestions / Rewrite / Write), the depth dial scope (generative actions only), the depth scale (originally Obvious / Balanced / All; collapsed to Balanced / All on 2026-04-29 — see Decisions below), and the introduction of `references/alternatives.md`.
 - **AI sample corpus expanded.** 10 new article-shaped AI samples (1100–1800 words each) added at `dev/evals/samples/generated-ai/01-10`. Topics: personal essay, cultural commentary, tech, science explainer, design craft, wellbeing, ideas/Stoicism, travel, hobby, opinion. Existing 18 shorter `ai-XX` samples retained; iteration set draws from the new 10.
 - **`dev/evals/evals.json` rewritten and updated.** 8 cases covering all four actions. Case 4 (`rewrite-balanced-tech`) was originally `rewrite-obvious-tech` and got retargeted when Obvious was dropped. Old 14-case evals backed up to `evals.json.bak`.
-- **`humanise/SKILL.md` rewritten and approved (2026-04-29).** Four-action model. Frontmatter description updated for richer triggering. Audit-as-default with optional Suggestions/Rewrite/Write. Depth dial (Balanced / All) only on generative actions. Audit findings shown alongside Rewrite/Suggestions output. Em-dash special-casing folded into strong warnings. References block points at `alternatives.md`.
-- **`humanise/references/alternatives.md` authored.** Vetted human alternatives for the lexical patterns flagged by the grader. Used by the Suggestions action and by Rewrite/Write during the surface pass. ~350 lines.
-- **`humanise/grade.py` updated.** Depth flag rename (`--mode light|medium|hard` → `--depth balanced|all`), audit-shape assertion registry (`AUDIT_SHAPE_CHECKS` with the seven shape checks the eval cases need), and a `regrade(text, depth=...)` helper for re-grading rewrite/draft outputs at a chosen depth. `dev/evals/test_grade.py`, `dev/evals/run_grade_sweep.py`, `README.md`, `dev/TESTING.md`, and the references files all updated to the new depth API. Test suite green.
-- **Pre-rewrite snapshot** of `humanise/` saved at `dev/skill-workspace/skill-snapshot/` so iteration 1's baseline runs can compare against the prior version.
+- **`human-eyes/SKILL.md` rewritten and approved (2026-04-29).** Four-action model. Frontmatter description updated for richer triggering. Audit-as-default with optional Suggestions/Rewrite/Write. Depth dial (Balanced / All) only on generative actions. Audit findings shown alongside Rewrite/Suggestions output. Em-dash special-casing folded into strong warnings. References block points at `alternatives.md`.
+- **`human-eyes/references/alternatives.md` authored.** Vetted human alternatives for the lexical patterns flagged by the grader. Used by the Suggestions action and by Rewrite/Write during the surface pass. ~350 lines.
+- **`human-eyes/grade.py` updated.** Depth flag rename (`--mode light|medium|hard` → `--depth balanced|all`), audit-shape assertion registry (`AUDIT_SHAPE_CHECKS` with the seven shape checks the eval cases need), and a `regrade(text, depth=...)` helper for re-grading rewrite/draft outputs at a chosen depth. `dev/evals/test_grade.py`, `dev/evals/run_grade_sweep.py`, `README.md`, `dev/TESTING.md`, and the references files all updated to the new depth API. Test suite green.
+- **Pre-rewrite snapshot** of `human-eyes/` saved at `dev/skill-workspace/skill-snapshot/` so iteration 1's baseline runs can compare against the prior version.
 - **Iteration loop 1 completed.** `dev/skill-workspace/iteration-1/` contains the first skill-creator-style benchmark run: 8 current-skill outputs plus 8 old-skill baseline outputs, graded and aggregated. Current skill scored 88.4% mean pass rate against 77.1% for the old snapshot. The strongest remaining failures were the All-depth science rewrite's structural variance and the weak human guardrail fixtures.
-- **Iteration loop 2 completed after focused fixes.** `dev/skill-workspace/iteration-2/` contains the rerun after retargeting the two human guardrails to real repo corpus samples, adding `humanise/references/process.md`, tightening Rewrite/Write re-grade instructions, and improving the benchmark harness. Iteration 2 ran the current skill on all 8 evals and the old snapshot only on the two human guardrails. Current skill scored 86.6% mean pass rate; old-skill aggregate is partial-baseline context only. Balanced tech now passes 7/7. Remaining failures are mostly the All-depth science rewrite's structural variance, anaphora, and triad density, plus strict flag-count expectations on expressive human prose.
+- **Iteration loop 2 completed after focused fixes.** `dev/skill-workspace/iteration-2/` contains the rerun after retargeting the two human guardrails to real repo corpus samples, adding `human-eyes/references/process.md`, tightening Rewrite/Write re-grade instructions, and improving the benchmark harness. Iteration 2 ran the current skill on all 8 evals and the old snapshot only on the two human guardrails. Current skill scored 86.6% mean pass rate; old-skill aggregate is partial-baseline context only. Balanced tech now passes 7/7. Remaining failures are mostly the All-depth science rewrite's structural variance, anaphora, and triad density, plus strict flag-count expectations on expressive human prose.
 
 ### Decisions made beyond the brainstorm
 
@@ -67,7 +67,7 @@ Current candidate fixes:
 
 ### 6. Description optimization
 
-After SKILL.md is stable, run skill-creator's description-optimization loop against `dev/evals/trigger-eval.json` (already exists; ~20 trigger queries). Note: trigger-eval.json may need refreshing if any of its should-trigger queries assume the old "humanise = rewrite" framing. Spot-check before running.
+After SKILL.md is stable, run skill-creator's description-optimization loop against `dev/evals/trigger-eval.json` (already exists; ~20 trigger queries). Note: trigger-eval.json may need refreshing if any of its should-trigger queries assume the old "human-eyes = rewrite" framing. Spot-check before running.
 
 ### 7. Final blind eval
 
@@ -95,7 +95,7 @@ The hard dependencies (steps 1–3 now closed; preserved here for handoff contex
 
 ### Resolved 2026-04-29
 
-- ~~**Duplicate `grade.py` files.**~~ **Resolved: removed.** `dev/evals/grade.py` deleted. `dev/evals/test_grade.py` now loads `humanise/grade.py` via importlib, matching what `run_grade_sweep.py` already does. Single source of truth restored.
+- ~~**Duplicate `grade.py` files.**~~ **Resolved: removed.** `dev/evals/grade.py` deleted. `dev/evals/test_grade.py` now loads `human-eyes/grade.py` via importlib, matching what `run_grade_sweep.py` already does. Single source of truth restored.
 - ~~**Iteration set hold-out strategy.**~~ **Resolved: rotate.** Iteration set rotates samples between iterations to guard against overfitting to a fixed five.
 - ~~**Existing `ai-XX` samples in the blind eval.**~~ **Resolved: drop.** The 18 older `ai-XX` samples are dropped from the blind eval. Held-out blind set is the 5 unused new AI samples only (rotated each iteration; the unused-this-iteration set forms the blind pool for that iteration's blind eval).
 - ~~**Blind eval pass threshold.**~~ **Resolved: per-case ≥70% AND held-out within 10% of iteration-set pass rate.** Two-part bar — the 70% floor catches "wasn't good enough to begin with"; the within-10% check catches "doesn't generalise". Aggregate scores rejected because they hide one broken case behind several strong ones.
@@ -117,7 +117,7 @@ From the brainstorm requirements doc plus skill-creator's quality bar:
 - Iteration loop converges with each case at ≥80% assertion pass rate (or Mae's qualitative sign-off, whichever is the gating criterion).
 - Trigger-eval test score after description optimization is ≥80% on held-out queries.
 - Blind eval against held-out corpus shows the skill generalises — pass rates within 10% of iteration-set rates.
-- A planner, eval reviewer, or future maintainer can pick up `dev/brainstorms/2026-04-28-humanise-refocus-requirements.md` plus this plan and the codebase, and reconstruct what was decided and why.
+- A planner, eval reviewer, or future maintainer can pick up `dev/brainstorms/2026-04-28-human-eyes-refocus-requirements.md` plus this plan and the codebase, and reconstruct what was decided and why.
 
 ---
 
@@ -125,16 +125,16 @@ From the brainstorm requirements doc plus skill-creator's quality bar:
 
 | Path | Status | Note |
 |---|---|---|
-| `dev/brainstorms/2026-04-28-humanise-refocus-requirements.md` | new | Brainstorm output. |
-| `dev/plans/2026-04-28-humanise-implementation.md` | new (this file) | Implementation plan. |
-| `dev/plans/2026-04-28-humanise-refocus.md` | superseded | Kept for history. |
-| `humanise/SKILL.md` | rewritten and approved | Four-action model, 2-point depth dial (Balanced / All). |
-| `humanise/references/alternatives.md` | new | Vetted human alternatives for lexical patterns. |
-| `humanise/references/process.md` | new | Required Rewrite/Write operating process: structural pass, surface pass, self-check, semantic preservation, re-grade revision loop. |
-| `humanise/references/severity-detail.md` | updated | Old Light/Medium/Hard wording replaced with Balanced/All. |
-| `humanise/references/patterns.md` | updated | Em-dash guidance reworded for the new depth dial. |
-| `humanise/grade.py` | updated | `--depth balanced\|all` flag, `AUDIT_SHAPE_CHECKS` registry, `regrade(text, depth=...)` helper, metadata guidance reworded. |
-| `dev/evals/grade.py` | re-synced from `humanise/grade.py` | Duplicate of the active grader; flagged for cleanup (see Open decisions). |
+| `dev/brainstorms/2026-04-28-human-eyes-refocus-requirements.md` | new | Brainstorm output. |
+| `dev/plans/2026-04-28-human-eyes-implementation.md` | new (this file) | Implementation plan. |
+| `dev/plans/2026-04-28-human-eyes-refocus.md` | superseded | Kept for history. |
+| `human-eyes/SKILL.md` | rewritten and approved | Four-action model, 2-point depth dial (Balanced / All). |
+| `human-eyes/references/alternatives.md` | new | Vetted human alternatives for lexical patterns. |
+| `human-eyes/references/process.md` | new | Required Rewrite/Write operating process: structural pass, surface pass, self-check, semantic preservation, re-grade revision loop. |
+| `human-eyes/references/severity-detail.md` | updated | Old Light/Medium/Hard wording replaced with Balanced/All. |
+| `human-eyes/references/patterns.md` | updated | Em-dash guidance reworded for the new depth dial. |
+| `human-eyes/grade.py` | updated | `--depth balanced\|all` flag, `AUDIT_SHAPE_CHECKS` registry, `regrade(text, depth=...)` helper, metadata guidance reworded. |
+| `dev/evals/grade.py` | re-synced from `human-eyes/grade.py` | Duplicate of the active grader; flagged for cleanup (see Open decisions). |
 | `dev/evals/test_grade.py` | updated to depth API | All assertions green. |
 | `dev/evals/run_grade_sweep.py` | updated to depth API | Emits `depth_results` keys. |
 | `dev/evals/evals.json` | rewritten and updated | 8 cases; case 4 retargeted from `rewrite-obvious-tech` to `rewrite-balanced-tech`; human guardrails retargeted to real repo corpus samples (`21c-dillard-this-is-the-life.md`, `20c-woolf-room.md`). |
