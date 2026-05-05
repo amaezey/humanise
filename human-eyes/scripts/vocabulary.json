@@ -94,7 +94,6 @@
     "agent_judgement_finding_with_why": "  - \"{phrase}\": {why}",
     "agent_judgement_finding_phrase_only": "  - \"{phrase}\"",
     "agent_judgement_genre_with_findings": "- {label}, {status}: {genre} genre detected.",
-    "agent_judgement_genre_pending": "- {label}, {status}: {genre} genre detected. Watchlist coverage pending.",
     "brief_note_auto_detected": "Checks the script runs against the text directly.",
     "brief_note_agent_assessed": "Checks that are judged by an LLM based on reading the whole draft.",
     "signal_stacking_clear": "Signal stacking: clear (weaker AI signals are not accumulating)",

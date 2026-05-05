@@ -17,8 +17,8 @@ Covers:
 - agent-flagged state / list / composite shapes inline in default mode (R7)
 - severity glyph mirroring auto-detected (x / ! / ?) on agent-flagged items
 - 8 items in registry order in the full-report agent-assessed coverage table
-- composite-clear with empty watchlist renders "watchlist coverage pending"
-  in the coverage Detail column
+- composite-clear with no findings renders detected genre without old
+  "watchlist coverage pending" wording
 - default mode emits no `**Agent-judgement reading**` parallel block
 - severity line aggregates agent + auto-detected severities (R2 / R17)
 - both halves clear → full three-line summary, no agent block in default body
@@ -367,9 +367,9 @@ else:
     ok("clear state-row Detail carries the answer/value text (R15)")
 
 
-# --- Full-report: composite-clear with empty watchlist → coverage pending in Detail ---
+# --- Full-report: composite-clear with no findings → detected genre in Detail ---
 
-print("\n=== full-report mode: composite-clear with empty watchlist → 'coverage pending' ===")
+print("\n=== full-report mode: composite-clear with no findings → detected genre ===")
 
 pending_full = all_clear_judgement()
 pending_full[-1] = {
@@ -393,12 +393,12 @@ genre_row = next(
 )
 if genre_row is None:
     fail(f"missing Genre specific row in agent table; got:\n{pending_render}")
-elif "watchlist coverage pending" not in genre_row.lower():
-    fail(f"composite-clear genre row should mention watchlist coverage pending; got {genre_row!r}")
+elif "watchlist coverage pending" in genre_row.lower():
+    fail(f"composite-clear genre row should not use retired watchlist coverage pending wording; got {genre_row!r}")
 elif "Genre detected: poetry" not in genre_row:
     fail(f"composite-clear genre row should name the detected genre; got {genre_row!r}")
 else:
-    ok("composite-clear w/ empty watchlist → 'Genre detected: poetry; watchlist coverage pending' in Detail (R15)")
+    ok("composite-clear with no findings renders 'Genre detected: poetry' in Detail (R15)")
 
 
 # --- Full-report: empty judgement renders a placeholder row ---

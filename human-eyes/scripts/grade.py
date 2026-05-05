@@ -2537,8 +2537,7 @@ def _agent_assessed_clear_detail(item):
     Mirrors the answer the agent would have surfaced inline:
       - state / trichotomy → enum value text
       - list → empty (clear list = no findings)
-      - composite → `Genre detected: <genre>`, plus
-        `; watchlist coverage pending` when the genre's watchlist is empty
+      - composite → `Genre detected: <genre>`
     """
     item_id = item.get("id", "")
     answer = item.get("answer")
@@ -2553,11 +2552,6 @@ def _agent_assessed_clear_detail(item):
         return ""
     if schema_type == "composite" and isinstance(answer, dict):
         genre = answer.get("genre_detected", "default")
-        sub_records = record.get("sub_records", {}) or {}
-        sub = sub_records.get(genre, {}) or {}
-        watchlist = sub.get("watchlist") or []
-        if not watchlist:
-            return f"Genre detected: {genre}; watchlist coverage pending"
         return f"Genre detected: {genre}"
     return ""
 
@@ -2867,14 +2861,6 @@ def _render_judgement_composite_item(item, record, label, status_label, is_flagg
         )
         return [header, *_render_finding_bullets(findings, "why_flagged")]
 
-    sub_records = record.get("sub_records", {}) or {}
-    sub = sub_records.get(genre, {}) or {}
-    watchlist = sub.get("watchlist") or []
-    if not watchlist:
-        return [registries.string_for(
-            "templates.agent_judgement_genre_pending",
-            label=label, status=status_label, genre=genre,
-        )]
     return [registries.string_for(
         "templates.agent_judgement_genre_with_findings",
         label=label, status=status_label, genre=genre,

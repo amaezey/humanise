@@ -134,13 +134,21 @@ if genre_record is None:
     fail("genre_specific record missing")
 else:
     sub = genre_record.get("sub_records", {})
-    EXPECTED_GENRES = {"academic", "student_essay", "poetry", "fiction", "default"}
+    EXPECTED_GENRES = {
+        "academic",
+        "student_essay",
+        "poetry",
+        "fiction",
+        "journalism",
+        "marketing_email",
+        "default",
+    }
     actual_genres = set(sub.keys())
     if actual_genres != EXPECTED_GENRES:
         fail(f"genre_specific sub_records mismatch.\n  expected: {sorted(EXPECTED_GENRES)}\n  got:      {sorted(actual_genres)}")
     else:
-        ok(f"genre_specific has all 5 sub_records: {sorted(EXPECTED_GENRES)}")
-    # Each sub-record carries a watchlist (initially empty for non-default genres).
+        ok(f"genre_specific has all {len(EXPECTED_GENRES)} sub_records: {sorted(EXPECTED_GENRES)}")
+    # Each sub-record carries a watchlist.
     for genre, sub_record in sub.items():
         if "watchlist" not in sub_record:
             fail(f"genre_specific.sub_records.{genre} missing `watchlist`")

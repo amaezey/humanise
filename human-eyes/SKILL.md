@@ -44,7 +44,7 @@ If the writer's intent is genuinely ambiguous and the agent can ask, ask whether
 ### Audit steps
 
 1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
-2. **Run the agent-judgement reading and write it to a JSON file.** Read `human-eyes/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its `status` (`flagged` or `clear`) and the `answer` shape required by the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case `watchlist_findings` stays empty. These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
+2. **Run the agent-judgement reading and write it to a JSON file.** Read `human-eyes/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its `status` (`flagged` or `clear`) and the `answer` shape required by the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, journalism, marketing_email, or default), then runs the matching `sub_records[<genre>].watchlist`. These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
 
    Write the eight items to a JSON file matching the contract's `agent_judgement` slot:
 
@@ -173,6 +173,12 @@ A zero-flag draft renders the same shape — the summary block carries all-zero 
 - Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
 
 If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `human-eyes/references/patterns.md` and run the agent-judgement reading directly from `human-eyes/scripts/judgement.json`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+
+### Audit caveats
+
+Treat the audit as a review surface, not an authorship verdict. Pattern flags, detector-like cues, vendor scores, and genre watchlist findings are single data points. They identify places to inspect, source, rewrite, or preserve deliberately. They do not prove that a passage was written by AI.
+
+When a flag concerns facts, citations, journalism, academic writing, or product claims, prefer source verification over surface rewriting. Name the missing source, broken link, wrong date, weak evidence, or unverifiable claim instead of treating fluent prose as the core problem.
 
 ---
 
