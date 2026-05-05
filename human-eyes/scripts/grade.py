@@ -172,25 +172,20 @@ BIOMEDICAL_DOMAIN_TERMS = {
 
 def _load_kobak_excess_vocab():
     """Load Kobak et al. excess-vocabulary annotations from the skill data file."""
-    here = Path(__file__).resolve()
-    candidates = [
-        here.parent / "references" / KOBAK_EXCESS_WORDS_PATH,
-        here.parents[2] / "human-eyes" / "references" / KOBAK_EXCESS_WORDS_PATH,
-    ]
-    for path in candidates:
-        if path.exists():
-            with path.open(newline="", encoding="utf-8") as f:
-                rows = []
-                for row in csv.DictReader(f):
-                    word = row.get("word", "").strip().lower()
-                    if word:
-                        rows.append({
-                            "word": word,
-                            "type": row.get("type", "").strip().lower(),
-                            "part_of_speech": row.get("part_of_speech", "").strip().lower(),
-                        })
-                return rows
-    return []
+    path = Path(__file__).resolve().parent.parent / "references" / KOBAK_EXCESS_WORDS_PATH
+    if not path.exists():
+        return []
+    with path.open(newline="", encoding="utf-8") as f:
+        rows = []
+        for row in csv.DictReader(f):
+            word = row.get("word", "").strip().lower()
+            if word:
+                rows.append({
+                    "word": word,
+                    "type": row.get("type", "").strip().lower(),
+                    "part_of_speech": row.get("part_of_speech", "").strip().lower(),
+                })
+        return rows
 
 
 KOBAK_EXCESS_VOCAB = _load_kobak_excess_vocab()
