@@ -8,7 +8,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #4. External: Sadasivan et al. 2023 (arXiv:2303.11156) on bounded AUROC; GhostBuster (NAACL 2024) on uncertainty as first-class output.
+**Source:** Internal ideation, survivor #4. External: Sadasivan et al. 2023 (arXiv:2303.11156) on bounded AUROC; GhostBuster (NAACL 2024) on uncertainty as first-class output.
 
 **Statement:** Each pattern emits a continuous z-score against a register-specific human-corpus distribution rather than a binary fire / no-fire. The four-action vocabulary becomes a display layer applied to the underlying distance. Each pattern carries a reliability curve (firing density on AI vs human in matched register, with bootstrap CI).
 
@@ -24,7 +24,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` worth-revisiting #2.
+**Source:** Internal ideation, worth-revisiting #2.
 
 **Statement:** Input is two pieces of prose; output is divergence on register-distance dimensions ("Doc B sits 1.4σ further from human-cluster than Doc A on these dimensions"). Single-document audit becomes a degenerate case where the second input is the human-corpus centroid.
 
@@ -55,7 +55,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #1.
+**Source:** Internal ideation, survivor #1.
 
 **Statement:** One canonical structured source (`human-eyes/vocabulary.yaml` keyed by pattern_id with audit_voice, prescriptive_voice, severity, audit_priority, evidence_summary, corpus_separation, references). SKILL.md, severity-detail.md, alternatives.md, evals.json prompts, and grade.py's CHECK_REPORT_TEXT all render from it via a thin generator. Pair with promoting the audit format from prose convention to a versioned JSON schema in `human-eyes/contracts/audit-format-v1.json`.
 
@@ -69,9 +69,9 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 ## 5. Editorial gate on the README
 
-**Status:** open
+**Status:** done — implemented 2026-05-05 as `dev/skill-workspace/latest-performance-report.md` (auto-rewritten by the harness on each run, with a marker-bounded summary block in README.md linking to it). Diverges from the original proposal in that the README still carries a short auto-rewritten summary block rather than being fully torn out — the full report is the separate artefact.
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #2.
+**Source:** Internal ideation, survivor #2.
 
 **Statement:** Tear README.md into two artefacts. README.md is a slow-changing narrative pitch with no auto-blocks and no harness data. dev/dashboards/latest-performance.md is auto-rewritten by the harness with corpus statistics, per-pattern density, and iteration deltas. Promotion of any dashboard claim into README copy becomes a deliberate edit, never a side-effect of running evals.
 
@@ -87,7 +87,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #3. External: Promptfoo and Anthropic eval guidance on judge-version pinning and continuous calibration.
+**Source:** Internal ideation, survivor #3. External: Promptfoo and Anthropic eval guidance on judge-version pinning and continuous calibration.
 
 **Statement:** Replace the mutable `dev/skill-workspace/iteration-N/` model with `dev/skill-workspace/runs/<run-id>/` (timestamped, never overwritten). Each run carries a `manifest.json` with grader_sha, threshold_set_hash, corpus_sha, executor, model, started_at, completed_at, status, failed_evals. iteration-N becomes a symlink to the latest successful run. Comparator refuses cross-version compares without an explicit flag.
 
@@ -103,7 +103,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #5. Internal: `dev/research/2026-04-29-genre-paired-corpus-findings.md` shows most current gating patterns do not separate human from AI in matched register.
+**Source:** Internal ideation, survivor #5. Internal corpus-findings analysis shows most current gating patterns do not separate human from AI in matched register.
 
 **Statement:** Five checks gate; the rest become advisory diagnostic context. Likely gating candidates from the existing corpus: sentence-length mean, sentence-length variance with corrected threshold, em-dashes density, paragraph-length variance, vocabulary diversity. The 38-pattern catalogue continues to surface densities without making categorical claims.
 
@@ -119,7 +119,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #6. External: Turnitin precedent (Draft Coach for writers, Feedback Studio for instructors).
+**Source:** Internal ideation, survivor #6. External: Turnitin precedent (Draft Coach for writers, Feedback Studio for instructors).
 
 **Statement:** One engine, one registry, one corpus, one set of patterns. Voice changes by invocation surface. `/human-eyes audit` (reviewer voice) uses calibrated audit framing: review priority, register-X density, look-alike disambiguator. `/human-eyes rewrite` (writer voice) uses prescriptive framing: consider replacing with X. The registry holds twin fields and renders the right one for each surface.
 
@@ -134,7 +134,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` worth-revisiting #1. External: Stanford HAI / TOEFL bias finding on register features misread as authorship.
+**Source:** Internal ideation, worth-revisiting #1. External: Stanford HAI / TOEFL bias finding on register features misread as authorship.
 
 **Statement:** Every pattern carries a "looks like, but isn't" block. For example, manufactured-insight: "vs legitimate epistemic hedging in academic prose; vs quoted material with attribution". The block disambiguates the pattern from genre-typical look-alikes the writer might actually be doing.
 
@@ -149,7 +149,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` worth-revisiting #3. External: ASRS (Aviation Safety Reporting System) non-punitive intake design.
+**Source:** Internal ideation, worth-revisiting #3. External: ASRS (Aviation Safety Reporting System) non-punitive intake design.
 
 **Statement:** An opt-in `human-eyes report-fp` flow captures false positives the user encountered, with a non-punitive covenant (the report does not change the user's audit history). Reports grow the corpus from real authoring rather than synthetic generation.
 
@@ -164,7 +164,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `dev/research/2026-04-29-genre-paired-corpus-findings.md` shows manufactured-insight firing 2/5 on humans and 0/5 on AI rewrites, against the pattern's catalogued severity in `human-eyes/references/patterns.md`.
+**Source:** Internal corpus-findings analysis shows manufactured-insight firing 2/5 on humans and 0/5 on AI rewrites, against the pattern's catalogued severity in `human-eyes/references/patterns.md`.
 
 **Statement:** The "X is not just Y, it's Z" formulation is a rhetorical move humans use deliberately in reflective essay. AI overuses it. In matched-genre corpus, the human signal is stronger than the AI signal.
 
@@ -179,7 +179,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `dev/research/2026-04-29-genre-paired-corpus-findings.md` shows several patterns inverting or vanishing in long-form personal essay (markdown headings inverted, vocabulary diversity tracking length not authorship, forced-triads firing universally).
+**Source:** Internal corpus-findings analysis shows several patterns inverting or vanishing in long-form personal essay (markdown headings inverted, vocabulary diversity tracking length not authorship, forced-triads firing universally).
 
 **Statement:** Pattern thresholds are register-specific. A single threshold set cannot fit both encyclopaedia register (where the catalogue largely originates) and long-form personal essay register (where the corpus tests them). Genre detection plus a per-genre threshold set is the corrective.
 
@@ -195,7 +195,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `dev/research/2026-04-29-genre-paired-corpus-findings.md` reports sentence-length mean of 23.3 words (humans) vs 13.2 (AI fresh) vs 14.0 (AI rewrites), a clean separation that no current grader check captures.
+**Source:** Internal corpus-findings analysis reports sentence-length mean of 23.3 words (humans) vs 13.2 (AI fresh) vs 14.0 (AI rewrites), a clean separation that no current grader check captures.
 
 **Statement:** Mean sentence length in long-form prose separates human from AI more cleanly than several current gating checks. It belongs in the grader as a register-aware check (mean-too-low against the register's human distribution).
 
@@ -210,7 +210,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` survivor #7. Internal: PR #5 review noted project-standards reviewer returned zero findings due to absent AGENTS.md / CLAUDE.md.
+**Source:** Internal ideation, survivor #7. Internal: PR #5 review noted project-standards reviewer returned zero findings due to absent AGENTS.md / CLAUDE.md.
 
 **Statement:** Four conventions established together. AGENTS.md at repo root captures skill conventions (frontmatter rules, human-eyes vs dev separation, vocabulary source-of-truth, audit-format contract location, eval discipline). dev/STATUS.md is updated by the harness on successful runs and edited manually for strategic state. dev/plans/active.md is the only un-prefixed plan with mechanical supersession. docs/solutions/ captures generalisable learnings.
 
@@ -226,7 +226,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` rejection #21 ("overkill at N=5; revisit at N≥50").
+**Source:** Internal ideation, rejection #21 ("overkill at N=5; revisit at N≥50").
 
 **Statement:** Move the corpus to a separate repo or git submodule consumed by human-eyes via SHA pin. Corpus growth becomes its own discipline with its own review surface. The skill repo tracks a corpus_sha rather than corpus contents.
 
@@ -242,7 +242,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` rejection #22 ("premature; needs golden set first"). External: Promptfoo and Anthropic eval guidance on judge variance.
+**Source:** Internal ideation, rejection #22 ("premature; needs golden set first"). External: Promptfoo and Anthropic eval guidance on judge variance.
 
 **Statement:** Run each eval through more than one judge model (or the same model with varied seeds). Surface judge disagreement as a first-class signal rather than averaging it away. Cases where judges disagree route to human review.
 
@@ -258,7 +258,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` rejection #19 ("strong but premature").
+**Source:** Internal ideation, rejection #19 ("strong but premature").
 
 **Statement:** Maintain a hand-labelled golden set of around 30 samples covering the most contested patterns. Any change to grade.py or its thresholds must reproduce the golden-set labels within a tolerance before it ships. Acts as a regression gate.
 
@@ -274,7 +274,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `docs/ideation/2026-04-30-pr5-strategic-moves-ideation.md` rejection #23.
+**Source:** Internal ideation, rejection #23.
 
 **Statement:** Compute a length-normalised mean discrimination metric across the catalogue, with bootstrap CI. A grader release does not ship unless the metric is at least flat against the prior version on the corpus.
 
@@ -290,7 +290,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: `dev/research/2026-04-29-genre-paired-corpus-findings.md` reports counts and means without CIs at N=5.
+**Source:** Internal corpus-findings analysis reports counts and means without CIs at N=5.
 
 **Statement:** Every corpus-derived claim in research docs and in the README ships with a bootstrap CI alongside the point estimate. At N=5 per group, CIs will be wide. The point of shipping them is that the CI width is the most honest single signal of how much weight a claim can bear.
 
@@ -306,7 +306,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 **Status:** open
 
-**Source:** Internal: U1 of `docs/plans/2026-05-03-001-feat-audit-output-redesign-plan.md` assigned severity per item by reasoning about each item's prompt and `flagged_when` rule against patterns.json severity precedent. Assignments were a Mae-review checkpoint, not a corpus-validated calibration.
+**Source:** Internal: U1 of the audit-output redesign plan assigned severity per item by reasoning about each item's prompt and `flagged_when` rule against patterns.json severity precedent. Assignments were a Mae-review checkpoint, not a corpus-validated calibration.
 
 **Statement:** The U1 severity assignments — `strong_warning` for tonal_uniformity, faux_specificity, neutrality_collapse, generic_metaphors; `context_warning` for structural_monotony, even_jargon_distribution, forced_synesthesia, genre_specific — should reflect the human vs AI separation each item actually achieves on the corpus. Items at `strong_warning` should fire more on AI prose than on register-matched human prose; items at `context_warning` should show legitimate human flags often enough that the lower severity is justified.
 
