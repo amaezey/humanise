@@ -1,461 +1,347 @@
 ---
 name: human-eyes
 description: >-
-  Audits text for AI-style writing patterns, rewrites existing drafts to remove
-  them, or writes new content that avoids them. Uses 38 patterns and 43
-  programmatic checks across vocabulary, structure, tone, voice, and formatting.
-  Default action is Audit (analyse and explain findings); Rewrite and Write
-  fire only when the user explicitly asks for them. Useful when a draft feels
-  flat, robotic, over-polished, structurally repetitive, or voice-neutralised,
-  or when drafting prose that needs to read as human.
+  Audits prose for AI fingerprints and explains each one in plain English.
+  Optionally hands back alternative phrasings for each flagged tell, redrafts
+  the prose at a chosen intensity, or composes new prose from a brief while
+  avoiding AI patterns. Use this skill for content writing, editing and review. Triggers on
+  phrases like "audit this for AI", "human-eyes this", "unsloppify", "this
+  reads like ChatGPT", "strip the AI tells", "rewrite to sound human", and
+  "help me write something that doesn't sound AI".
 ---
 
-# Human-eyes: Audit, rewrite, or write without AI patterns
+# Human-eyes
 
-Three actions: **Audit** (analyse text for AI-style patterns and explain in plain English), **Rewrite** (clean an existing draft at a chosen intensity), **Write** (draft new content under AI-avoidance constraints). Audit is the default. Mode (Light / Medium / Hard) is a Rewrite/Write parameter only — the audit is mode-agnostic. Based on Wikipedia's "Signs of AI writing" guide and Abdulhai et al. (2026), "How LLMs Distort Our Written Language".
+The skill helps writers see what marks their prose as machine-flavoured by surfacing patterns and explaining them. Removing or replacing them is opt-in.
 
-## Your task
+Three principles cut across the skill:
 
-When given input, identify which of three actions to take:
+1. **The writer decides what to do.** The audit shows every flagged pattern with its location and a short explanation. There is no filter and no ranking. The writer reads the audit and chooses whether to act, and how.
+2. **The writer chooses the depth when the skill generates new prose.** Audit and Suggestions return everything regardless of depth. Rewrite and Write run at a depth the writer picks (Balanced or All).
+3. **Every interaction with text starts with an audit.** "Human-eyes this" reads as Audit alone, not Rewrite. Direct rewrite requests still audit first; the findings are part of the Rewrite output. The audit teaches the writer to spot the pattern; whatever happens after is the writer's call.
 
-1. **Audit** (default) — analyse text for AI-style writing patterns and explain the findings. No mode pre-classification; the audit is mode-agnostic.
-2. **Rewrite** — given existing text, produce a cleaner version. Always runs an audit first, then asks for a rewrite intensity (Light / Medium / Hard).
-3. **Write** — given a brief or topic, draft new content under AI-avoidance constraints at a chosen intensity.
-
-Modifiers (orthogonal to action; combine freely):
-
-- **Recommendation** — after an audit, optionally suggest a rewrite intensity tied to genre and findings.
-- **Save** — write the chosen action's output to a Markdown file.
-
-Default to Audit when the action is ambiguous. Do not rewrite or compose new content unless the user explicitly asks.
+The skill does not score the draft or classify authorship. It does not modify the writer's source file. After an audit, it asks what the writer wants next.
 
 ---
 
-## Modes
+## Action selection
 
-Three intensities for Rewrite and Write. Audit is mode-agnostic — the 43 checks pass or fail based on the text, not on a chosen mode. Default to Medium when the user does not specify.
+Four actions:
 
-- **Light** — for fiction, memoir, voiced essays, humour, dialogue, interviews, literary prose. Removes the most obvious AI tells (assistant residue, sycophancy, manufactured insight) but preserves your voice. Devices like staccato, triads, em dashes can stay if they serve the writing; disclose what you preserve and why.
-- **Medium** — the default. For blog posts, workplace writing, newsletters, product copy, generic prose. Removes obvious patterns and all strong tells. Preserves voice where the device is doing real work; trims it where it is autopilot.
-- **Hard** — for prose that needs to read as unambiguously human. Strips every flagged pattern unless removing it would change what you mean. No em dashes, no manufactured-insight framing, no decorative triads. Voice can take a hit; risk reduction is the goal.
+| Action | When to fire | Output |
+|---|---|---|
+| **Audit** *(default)* | The writer hands the agent a draft and asks the skill to look at it, or hands over a draft with no action specified. Triggers: "audit this", "check this for AI", "does this sound AI", "human-eyes this", "what's flagged". | Every flagged pattern with its location in the prose and a short explanation. |
+| **Suggestions** | The writer asks for replacements after seeing an audit. Triggers: "give me suggestions", "what should I change", "show me alternatives", "list the fixes". | One suggestion per flagged tell. |
+| **Rewrite** | The writer asks for a redrafted version, or confirms a rewrite after an audit. Triggers: "rewrite this", "fix it", "clean it up", "strip the AI tells", "audit and rewrite at <depth>". | An audit followed by a rewrite at the chosen depth. |
+| **Write** | The writer hands the agent a brief and no draft. Triggers: "write a 500-word post on X", "draft an opening paragraph about Y", "compose a blog post on Z without sounding AI". | A new draft at the chosen depth. |
 
-When the user has not chosen a mode and the genre makes the answer ambiguous, ask:
-
-> How hard should I go: Light, Medium, or Hard?
-
-If you cannot ask, infer from the genre — Light for voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), Medium otherwise. Record the chosen mode and the reason in the output.
-
-A failed grader check is a failed check in every mode. Mode decides what to *do* about it (fix, disclose, preserve), not whether the pattern was detected. The Severity classes section below lists which actions apply by severity in each mode.
+If the writer's intent is genuinely ambiguous and the agent can ask, ask whether the writer wants an audit or a rewrite, or whether they're handing over a brief for a new draft. If the agent can't ask (headless invocation, no human turn), default to Audit only.
 
 ---
 
-## Actions
+## Action 1: Audit (default)
 
-### 1. Audit (default)
+### Audit steps
 
-Use this when the user asks things like:
+1. Save the input to a temp file: `INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)`. Write the draft to it.
+2. **Run the agent-judgement reading and write it to a JSON file.** Read `human-eyes/scripts/judgement.json` for the canonical eight-item registry (seven semantic items plus one polymorphic genre slot) with their prompts and answer schemas. For each item, decide its `status` (`flagged` or `clear`) and the `answer` shape required by the item's `answer_schema`. The genre slot first detects the genre (academic, student_essay, poetry, fiction, or default), then runs the matching `sub_records[<genre>].watchlist` — currently empty for non-default genres, in which case `watchlist_findings` stays empty. These items cover what the regex grader cannot: structural monotony, tonal uniformity, faux specificity, neutrality collapse, even jargon distribution, forced synesthesia, generic metaphors, and the genre-specific watchlist.
 
-- "Does this sound AI?"
-- "Check this for AI writing."
-- "Audit this draft."
-- "Run human-eyes on this."
-- "What's flagged here?"
+   Write the eight items to a JSON file matching the contract's `agent_judgement` slot:
 
-Or any input where the user provides text without an explicit Rewrite or Write instruction.
+   ```bash
+   JUDGEMENT_PATH=$(mktemp /tmp/human-eyes-judgement-XXXXXX.json)
+   ```
 
-Do:
+   ```json
+   {
+     "agent_judgement": [
+       {"id": "tonal_uniformity", "status": "flagged", "answer": "register holds without breaks", "evidence": {}},
+       {"id": "faux_specificity", "status": "clear", "answer": [], "evidence": {}}
+     ]
+   }
+   ```
 
-1. Run the grader with no mode constraint.
-2. Render the audit report with all 43 checks classified by severity.
-3. Explain the flagged patterns in plain English.
-4. Stop.
+   Per-item fields:
+   - `id` — the registry id from `judgement.json` (e.g. `tonal_uniformity`, `genre_specific`).
+   - `status` — `clear` or `flagged`, decided by the item's `flagged_when` rule.
+   - `answer` — the value matching the item's `answer_schema.type`: a single string for `state` / `trichotomy`, a list of `{phrase, why_*}` objects for `list`, an object with `genre_detected` + `watchlist_findings` for `composite`.
+   - `evidence` — an object; `{}` is fine when no extra evidence is captured.
+   - `severity` — optional. Omit it and `grade.py` defaults to the registry's curated value. Override only when the writer's draft genuinely shifts the severity for that item.
 
-End with a short next-step question:
+3. Render the audit in a single deterministic call:
 
-> Do you want a rewrite, a recommendation on intensity, or a saved Markdown report?
+   ```bash
+   python3 human-eyes/scripts/grade.py --format markdown --depth <balanced|all> --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"
+   ```
 
-The audit table uses a `Severity` column and a severity-tiered `Recommended action` column. It does not pre-pick a single mode for the user — that decision belongs to the user, after they've seen the indicators.
+   The script merges the agent-judgement file into the contract before rendering, so this one call produces the full audit — summary lines, both flagged-items blocks, and the next-step prompt. **Print the script's output verbatim.** Do not paraphrase, summarise, normalise quotes, lower-case anything, or re-render any block. The script's quoted phrases are guaranteed to substring-match the input; rephrasing them breaks the audit's contract with the grader.
+4. Stop without proceeding to a rewrite or coverage report unless asked.
 
-### 2. Rewrite
+The default audit emits the summary block + mini-headers + flagged items + next-step. When the writer asks for the full coverage report (per the next-step prompt), re-run with `--full-report` (keep the `--judgement-file` flag): the script keeps the same audit body and inserts brief notes + coverage tables under each mini-header. Both modes share the same audit body shape — full-report mode adds depth (brief notes + coverage tables and the full unbounded phrase list per flagged item).
 
-Use this when the user explicitly asks to rewrite, fix, clean up, de-AI, strip AI tells, human-eyes-as-action, or confirms a rewrite after an audit.
-
-Do:
-
-1. Run the audit (Action 1's behaviour) regardless of any prior context. The rewrite must be informed by the indicators.
-2. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
-3. Rewrite under the chosen intensity. Address structural patterns first, then surface patterns.
-4. Run the structural self-check (Process Step 7).
-5. Run the semantic preservation check (Process Step 6).
-6. Run the post-check at the chosen intensity (Process Step 8).
-7. Report before/after, with remaining issues.
-
-### 3. Write
-
-Use this when the user asks for new content rather than analysis or rewriting:
-
-- "Write a 500-word essay on X."
-- "Draft an opening paragraph about Y."
-- "Compose a blog post on Z without sounding AI."
-- "Help me write something on W that doesn't read like AI."
-
-Do:
-
-1. Pick the mode (see [Modes](#modes) above): ask if you can, default to Medium otherwise.
-2. Draft the content under the chosen intensity's constraints — same severity rules as a Rewrite. Avoid hard failures, avoid strong warnings, treat context warnings per the mode.
-3. Apply the [Personality and soul](#personality-and-soul) guidance directly. Write must produce content that reads as human, not just content that lacks AI tells.
-4. Run the structural self-check on the draft.
-5. Run the post-check at the chosen intensity.
-6. Report status and remaining issues.
-
-There is no initial audit — there is no input text to audit.
-
-### Modifiers
-
-- **Recommendation** — after an Audit, state a one-sentence recommended rewrite intensity tied to the genre and findings. Use the genre→mode mapping in the [Modes](#modes) section above.
-- **Save** — wrap any of the three actions' outputs in a Markdown file. Default save path: same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`. Fall back to `./human-eyes-<action>.md` when there's no input path. Append `-2`, `-3` rather than overwriting an existing file. State the path in the output.
-
----
-
-## Severity and the purpose test
-
-The grader is a diagnostic tool, not an authorship verdict. A failed check stays a failed check in every mode. Mode decides what to do about it.
-
-Transparency rule: every remaining grader warning must be shown in the report, grouped by severity, with one of three statuses:
-
-- **Fixed**
-- **Recommended preserve**
-- **Needs user decision**
-
-Do not silently classify your own writing as the exception. If you preserve a flagged device, name it, quote or identify the relevant passage briefly, and explain the concrete function it serves.
-
-### Severity classes
-
-- **Hard failures:** assistant residue, collaborative artifacts, sycophancy, knowledge-cutoff disclaimers, generic conclusions, fake continuation offers, unfilled placeholders, and unsupported claims that read fabricated. Fix in every mode.
-- **Strong warnings:** manufactured insight, contrived contrast/reframe laundering, AI vocabulary clusters, false-concession hedges, copula avoidance, corporate AI-speak, soft scaffold phrasing, bland critical templates, superficial -ing analysis, formulaic openers, and section scaffolding. Fix in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure.
-- **Context warnings:** curly quotes, staccato, anaphora, triads, rhetorical questions, orphaned demonstratives, Unicode flair, rubric echoing, headings including plain title headings, list density, promotional language, ghost/quiet language, negation density, tidy paragraph endings, paragraph length uniformity, and vocabulary diversity. Review with the purpose test before changing.
-- **Preserve if purposeful:** literary repetition, dialogue rhythm, comic timing, interview cadence, historical prose, technical qualification, character voice, and deliberately patterned argument.
-
-Em dashes get their own deep-dive in [Hard constraints](#hard-constraints) below — they are a strong-warning-class pattern with mode-specific rules, kept separate because they are the highest-volume single AI tell of 2026.
-
-### Purpose test
-
-For any context warning, ask:
-
-> Is this device doing real work here, or is it autopilot?
-
-You may recommend preserving it if it reveals character, controls timing, creates humour, mirrors thought, supports a period voice, or clarifies structure. Remove it if it is generic emphasis, tidy profundity, decorative balance, or a default article template. If you are unsure, mark it **Needs user decision** rather than deciding for the user.
-
-Examples:
-
-- Poe-style staccato can be voice. "That matters. A lot." in a productivity article is usually autopilot.
-- A Sedaris-style comic escalation can stay. A corporate triad like "clarity, collaboration, and innovation" should go.
-- Curly quotes in a sourced literary sample are not an AI tell. Curly quotes in this skill's final plain-text output may still be normalised if the user asked for hard cleanup.
-
----
-
-## Hard constraints (deep-dive)
-
-The four most distinctive AI tells — em dashes, manufactured insight, adversarial reframes, generic staccato fragments — have expanded rules and word lists at [references/severity-detail.md](references/severity-detail.md). When these patterns appear, that file is the canonical source of truth. Read it during Rewrite (Step 5) and Write (Step 5) before settling on the final draft.
-
----
-
-## Personality and soul
-
-Removing AI patterns is only half the job. AI also **subtracts** — Abdulhai et al. (2026) found extensive LLM use produces a ~70% increase in neutral-stance essays, 50% fewer pronouns, and fewer anecdotes. Sterile, voiceless, perfectly balanced writing is as obvious as slop.
-
-Voice-craft guidance for Rewrite and Write — what to watch for, what to add or preserve, signs of soulless writing, before/after examples — is in [references/voice.md](references/voice.md). Read it during Step 5 (Rewrite or Write under mode), and especially before drafting in the Write action.
-
----
-
-## Pattern catalogue
-
-Read [references/patterns.md](references/patterns.md) for all 38 AI writing patterns with words-to-watch and before/after examples, organised as:
-
-- **Content patterns (1-6):** Significance inflation, notability claims, superficial -ing analyses, promotional language, vague attributions, formulaic challenges sections
-- **Language and grammar (7-12):** AI vocabulary words and phrases, Kobak biomedical excess-vocabulary clusters, copula avoidance, contrived contrast / negative parallelisms, rule of three, synonym cycling, false ranges
-- **Style (13-18):** Boldface overuse, inline-header lists, title case, emojis, curly quotes, hyphenated compound modifier clusters
-- **Communication (19-21):** Collaborative artifacts, knowledge-cutoff disclaimers, sycophantic tone
-- **Filler and hedging (22-25):** Filler phrases, excessive hedging, generic positive conclusions, staccato rhythm in non-fragment contexts
-- **Sensory and atmospheric (26-28):** Ghost/spectral language, quietness obsession, forced synesthesia
-- **Structural tells (29-32, 38):** Mid-sentence rhetorical questions, generic/ungrounded metaphors, excessive list-making, dramatic narrative transitions, section scaffolding
-- **Voice and register (35-37):** Tonal uniformity/register lock, faux specificity, neutrality collapse
-
-Search for specific patterns when needed:
-```bash
-grep -i "promotional" references/patterns.md
-```
-
----
-
-## Process
-
-### Step 1: Pick the action
-
-Decide which of the three actions applies:
-
-- If the user asks to check, audit, detect, review, diagnose, or explain signs of AI writing: use **Audit**.
-- If the user explicitly asks to rewrite, fix, clean up, human-eyes (as an action on existing text), de-AI, strip AI tells, or confirms a rewrite after an audit: use **Rewrite**.
-- If the user asks for new content (write, draft, compose, "help me write…"): use **Write**.
-- If the input has text but no clear instruction: use **Audit** and ask what's next.
-- If the input has no text and the request is unclear: ask what they want.
-
-Record the chosen action in the output.
-
-If the action is unclear and you can ask:
-
-> Do you want me to audit this, rewrite it, or write something new?
-
-If you cannot ask, default to Audit. The audit is read-only and lets the user decide the next action with full information. An unwanted audit costs a round-trip; an unwanted rewrite or write loses trust.
-
-### Step 2: Audit (Audit and Rewrite actions only — Write skips)
-
-Save the input text to a unique temp file using `mktemp` for portability:
-
-```bash
-INPUT_PATH=$(mktemp /tmp/human-eyes-input-XXXXXX.md)
-# write the input text to "$INPUT_PATH"
-python3 grade.py --format markdown "$INPUT_PATH"
-```
-
-The audit runs **without** a `--mode` flag. The 43 checks are mode-agnostic — they pass or fail based on the text, not on the user's chosen rewrite intensity. The audit table shows severity (hard fail / strong warning / context warning / em-dash) and a severity-tiered recommended action; mode-specific actions appear only in the Rewrite and Write post-checks.
-
-The script returns a plain-English Markdown report built from `human_report`: `overview`, `score`, `confidence`, `ai_pressure_explanation`, `failed_checks`, and `all_checks`. If you need debugging details, run the script with `--format json` to get JSON diagnostics. The older fields (`triggered_checks`, `failure_mode_results`, `mode_results`, and raw expectations) are for debugging only.
-
-Do not paste raw JSON. Do not expose internal labels such as `context_warning`, `strong_warning`, `hard_fail`, `failure_modes`, `frictionless_structure`, or `generic_abstraction` in normal output. Use the plain-English strings in `human_report`.
-
-The audit report must include:
-
-- **Summary:** use `human_report.overview`, such as "5 of 43 checks were flagged for AI-style writing patterns."
-- **Confidence:** use `human_report.confidence.level`, `meaning`, and `basis`. Make clear this is confidence about AI-writing signs, not authorship.
-- **AI-pressure explanation:** include `human_report.ai_pressure_explanation`. Explain accumulation in user-facing terms: several weak signals can stack into machine-packaged rhythm or structure.
-- **Main issues:** list the failed rows from `human_report.failed_checks` using the plain check name, what it looks for, what happened here, why it matters, severity, and severity-tiered recommended action.
-- **Full check table:** render every row from `human_report.all_checks` as a Markdown table with columns `Check`, `Status`, `What it looks for`, `What happened here`, `Why this matters`, `Severity`, and `Recommended action`. For clear checks, use "Clear", the plain reason, "—", and "None". For flagged checks, show what happened, why it matters, the severity class, and the severity-tiered recommended action.
-
-The severity-tiered recommended actions are:
-
-- Hard failure → "Fix in any mode."
-- Strong warning → "Fix in Light, Medium, and Hard. Disclose only if explicitly preserved."
-- Context warning → "Preserve in Light if purposeful (disclose). Fix in Medium and Hard."
-- Em dash → "Preserve in Light only with disclosure. Fix in Medium and Hard."
-
-The full 43-row table is required. It is how the user can see that the system checked all signals, not only the ones that failed. Do not replace it with a bullet list or a summary.
-
-**Depth signal:** If the audit shows multiple structural failures (triad density, section scaffolding, countdown negation, paragraph uniformity, soft scaffolding, orphaned demonstratives, tidy paragraph endings), the text is likely AI-generated from scratch and will need structural rewriting, not just word-swaps.
-
-If the script is not available (e.g. no Python, or running in Claude.ai), fall back to a manual scan: read [references/patterns.md](references/patterns.md) and check each pattern. **Disclose the limitation in the output:** the manual scan covers surface patterns only and cannot replicate the script's statistical density or pressure-accumulation checks. Prefer the script when possible.
-
-For Audit actions, stop after the audit and ask what the user wants next. Do not include a rewrite.
-
-### Step 3: Decide next step (Rewrite paths only)
-
-After the audit, if the action is Rewrite (or the user is undecided after seeing the audit), recommend a rewrite intensity tied to the findings and genre.
-
-Use this format:
-
-```text
-Recommended next step: [Light / Medium / Hard rewrite, or save the audit, or stop]
-Why: [one sentence tied to the findings and genre]
-Question: Do you want me to proceed with that, choose a different mode, or save the audit as Markdown?
-```
-
-Skip this question when the user has already clearly asked for a specific intensity, or for an Audit-only request.
-
-### Step 4: Pick mode (Rewrite and Write only)
-
-If the user has not chosen a mode, follow the Modes block at the top of this doc — ask if you can; default to Medium otherwise (Light for voice-sensitive genres). For voice-sensitive prose (fiction, memoir, humour, interview, literary essay, poetry-adjacent, dialogue-heavy), ask before applying Hard mode. Record the chosen mode in the output.
-
-### Step 5: Rewrite or write under mode
-
-Address structural patterns first, then surface patterns. The grader catches surface patterns well but cannot enforce structural integrity. You must do that work here.
-
-For Rewrite, apply the structural and surface patterns to the existing draft.
-For Write, apply the same patterns prospectively while drafting from the brief. The [Personality and soul](#personality-and-soul) section is especially load-bearing for Write — the goal is content that reads as human, not just content that lacks AI tells.
-
-**Structural patterns (address first):**
-
-1. **Structural monotony:** Do all sections follow the same arc (problem, evidence, anecdote, advice)? Vary paragraph structures. Some paragraphs should be one sentence. Some should start with evidence, not claims. Break at least one section out of the template.
-2. **Tonal uniformity (35):** Does the whole text sit in one register? Humans drift between registers. If every paragraph sounds the same, introduce at least one register break: a moment of informality, a parenthetical doubt, or a shift in rhythm.
-3. **Resolution density (34):** Do most paragraphs end with a tidy summary sentence? Leave some threads open. Cut paragraph-final sentences that merely restate the paragraph's point.
-4. **Faux specificity (36):** Are the "specific" examples actually specific to anyone, or genre-convention filler? "The smell of coffee on a Sunday morning" is a stock photo in prose form.
-5. **Neutrality collapse (37):** Does the text take a position? If the input had a stance, make sure the output keeps it. "There are pros and cons" is not a rewrite of an opinion.
-6. **Even jargon distribution:** Humans clump technical terms when introducing a concept then relax into plain language. AI distributes jargon uniformly. If technical vocabulary is spread too evenly, clump it.
-7. **Soft scaffold phrasing:** Remove paragraph labels such as "One useful area", "Another useful area", "The main strength", "The main risk", and "Good use usually comes down to". State the point directly.
-8. **Bland critical templates:** In reviews and criticism, replace phrases like "emotional range", "field of sympathy", "moral strength", and "earns its weight" with concrete claims from the work.
-9. **False concessions:** Replace "critics say/supporters say/the truth lies in the middle" with the actual stance and evidence. Do not let balance stand in for thought.
-10. **Orphaned demonstratives:** Replace vague starts like "This highlights..." or "That underscores..." with concrete subjects.
-11. **Forced synesthesia (28)** and **generic metaphors (30):** replace with concrete details.
-12. **Section scaffolding (38):** If all sections use the same structural label or follow the same template, vary them.
-13. **Hard-mode headings:** If `no-markdown-headings` fails, remove both markdown headings and plain title headings. Do not reintroduce a title line in the rewrite unless the user explicitly asked to preserve article packaging.
-
-**Genre-specific tentative checks:**
-
-- **Academic/research:** Verify citations, DOIs, journals, dates, and reference-list formatting. Do not trust plausible-looking references. Flag citation oddities for user review rather than inventing replacements.
-- **Student essays:** Watch for rubric echoing: "the author creates a tone", "I can tell because", "this quote shows that", "according to the rubric". Preserve only if the text is explicitly discussing a rubric.
-- **Poetry:** Watch for default quatrains, unrequested rhyme, first-person plural overuse, mood-word accumulation, and formal gestures that do not follow through.
-- **Fiction:** Watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, fixed POV with no pressure, over-resolved endings, scene pacing that never surprises, characters stating subtext, and exposition that arrives before the scene has earned it.
-
-**Surface patterns (address second):**
-
-14. Read [references/patterns.md](references/patterns.md) for context on each flagged pattern from the audit
-15. Fix every hard failure and strong warning from the audit report in Light, Medium, and Hard unless the user explicitly accepts the risk after disclosure. Review context warnings with the purpose test.
-16. Add personality and voice per [references/voice.md](references/voice.md)
-17. Preserve meaning and match the intended tone
-
-### Step 6: Semantic preservation check (Rewrite only)
-
-Compare your rewrite's conclusions to the input's conclusions. Abdulhai et al. (2026) showed that LLMs shift meaning even in grammar-only passes, and this skill is itself an LLM rewriting text. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position. Check:
-
-- Did the input have an opinion? Does the output still have it?
-- Are there fewer pronouns in the output than the input? If so, why?
-- Did specific claims get softened into "on the other hand" balance?
-
-### Step 7: Structural self-check (Rewrite and Write)
-
-Answer each question below with a specific count or finding. Do not skip any. Show your answers in the output (see Output format).
-
-1. **Section arcs:** Do all sections follow the same arc? Count how many do. If more than half follow the same template, restructure at least one.
-2. **Resolution density:** Count paragraphs that end with a summary sentence. If more than half do, rewrite some to leave threads open.
-3. **Register breaks:** Is there at least one register break (moment of doubt, informality, or tonal shift)? If not, add one.
-4. **Triad count:** Count the triads. If there are more than 4, redistribute some as pairs or longer lists.
-5. **Reframe laundering:** Did any banned contrast survive in flipped form ("Y, not X"), softened form ("beyond X"), comparative form ("less X than Y"), or correction form ("you might think X, actually Y")? If yes, rewrite as a direct claim.
-6. **Purposeful devices:** Which flagged context warnings did you preserve, and why? Name the device and its function.
-7. **Stance preservation:** Did you preserve the author's original position, or did you neutralise it?
-8. **Remaining tells:** What still makes this obviously AI generated? List them, revise, repeat until no obvious tells remain.
-
-After answering and acting on these questions, re-run the grader to confirm your structural fixes didn't introduce new failures. In Hard mode, all checks should pass. In Medium and Light mode, hard failures and strong warnings should be gone; em dashes are never acceptable in Medium and should be fixed in Light unless the user explicitly accepts the risk after disclosure. In Light mode, remaining context warnings are acceptable when they preserve voice and are disclosed.
-
-### Step 8: Post-check (Rewrite and Write — script verifies the output)
-
-Run the grading script on your output (use a unique temp path that will not collide with concurrent runs):
-
-```bash
-python3 grade.py --format markdown --mode hard <output-path>
-```
-
-Use the selected mode in the command.
-
-Interpret the post-check by mode:
-
-- **Hard:** fix failures and re-run, up to a maximum of **2 re-runs** (3 total grader runs including the post-check itself). If failures remain after the second re-run, stop and report them as residual issues — do not loop indefinitely. A fix should not be applied if it would materially change meaning; document why a flagged item was preserved.
-- **Medium:** hard failures and strong warnings must be gone; context warnings may remain if purposeful and disclosed.
-- **Light:** hard failures and strong warnings must be gone; context warnings may remain if they preserve voice and are disclosed.
-
-Always report check status and mode action separately. A check failure remains a failure even when Light or Medium allows disclosure instead of rewriting. Example:
-
-```text
-Score summary: fail, 7/43 checks failed, pass rate 36/43. AI-signal pressure: 5/4, triggered.
-Light action: fix 1 strong warning; disclose or ask on 6 context warnings
-Medium action: fix 1 strong warning; disclose or ask on 6 context warnings
-Hard action: fix all 7 failed checks
-```
-
-The post-check report must use the post-check `human_report` the same way: overview, confidence, AI-pressure explanation, remaining failed checks, and the full 43-check Markdown table. Do not report only "pass" or "fail"; show the numbers.
-
-If the script is not available, manually verify hard failures and scan for generic AI structures. Use the purpose test before flattening voice.
-
-## Output format
-
-One template per action. The Save modifier wraps the chosen action's output in a Markdown file (see "Save-report output" at the bottom).
+If you also need the structured findings (e.g. for Suggestions or Rewrite drill-in), run `python3 grade.py --format json --judgement-file "$JUDGEMENT_PATH" "$INPUT_PATH"` separately. The pattern name in any rendered output is the human-readable `short_name` from `human-eyes/scripts/patterns.json` (e.g., "Em dashes", "Triad density") — never the internal check ID (`no-em-dashes`, `no-triad-density`).
 
 ### Audit output
 
-Use this when the action is Audit (the default).
+The default audit shape (`grade.py --format markdown`):
 
-1. Action: Audit
-2. Audit report:
-   - Summary: [X of 43 checks flagged / all checks clear]
-   - Confidence: [Low / Low to medium / Medium / High, with basis]
-   - AI-pressure explanation: [plain-English accumulation explanation]
-   - Main issues found: [plain-English flagged checks with what they look for, what happened, why it matters, severity, and severity-tiered recommended action]
-   - Full check table: Markdown table with all 43 checks. Columns: `Check | Status | What it looks for | What happened here | Why this matters | Severity | Recommended action`. The `Recommended action` column is severity-tiered (no per-mode column at the audit phase).
-3. Recommended next step (optional, when the Recommendation modifier applies): a one-sentence Light/Medium/Hard suggestion tied to genre and findings.
-4. Question: [ask whether the user wants a rewrite, a saved report, or stop]
+```
+**Audit summary**
+Auto-detected: <auto_flagged> of <auto_total> flagged · Agent-assessed: <agent_flagged> of <agent_total> flagged
+Severity: <hard_fail count> hard fail · <strong_warning count> strong warning · <context_warning count> context warning
+Signal stacking: clear (...)   |   Signal stacking triggered: <score> of <threshold> threshold (<components>)
 
-Do not include a rewrite in Audit output.
+**Auto-detected**
+
+<severity glyph> <pattern short_name>: "<quoted phrase>"
+<severity glyph> <pattern short_name>
+
+**Agent-assessed**
+
+<severity glyph> <agent item label>: <state value>
+<severity glyph> <agent item label>
+  - "<phrase>": <why>
+  - "<phrase>": <why>
+<severity glyph> <genre slot label>: <genre> genre detected
+  - "<phrase>": <why>
+
+**Next steps**
+
+Want the full coverage report, suggestions for edits, a full rewrite, or to save this audit as a file?
+```
+
+Auto-detected flagged items appear under the `**Auto-detected**` mini-header; agent-assessed flagged items appear under `**Agent-assessed**`. Within each block, items render in severity-descending order (`x` first, then `!`, then `?`). Both blocks share the same `<glyph> <short_name>` opener (pattern names render unbold); the suffix shape varies per item type:
+
+- Auto-detected lexical pattern: `<glyph> <name>: "<phrase>"` (caps at three phrases in default mode with `(+N more)` overflow; full-report mode renders all phrases).
+- Auto-detected structural pattern: `<glyph> <name>` (no quoted phrase).
+- Agent-assessed `state` / `trichotomy` flagged item: `<glyph> <label>: <state value>` (single line).
+- Agent-assessed `list` flagged item: `<glyph> <label>` header followed by nested `  - "<phrase>": <why>` sub-bullets per finding.
+- Agent-assessed `composite` (genre slot) flagged item: `<glyph> <label>: <genre> genre detected` header, then nested watchlist sub-bullets if any.
+
+The `**Next steps**` heading and prompt are emitted by the script — print them verbatim. The audit format itself contains no em dashes — em dash overuse is one of the patterns the skill flags, so the audit itself avoids them.
+
+The full-report shape (`grade.py --format markdown --full-report`) keeps the same audit body and adds a brief note + coverage tables under each mini-header, before the `**Next steps**` heading:
+
+```
+[default audit body: **Audit summary** + summary lines + **Auto-detected** + flagged items]
+
+Checks the script runs against the text directly.
+
+**<Category>**: <clear>/<total> clear
+
+**<Category>**: <flagged> flagged of <total>
+
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| <pattern short_name> | <severity> | <Flagged | Clear> | <guidance text when flagged, empty when clear> |
+| ... | ... | ... | ... |
+
+(eight category sub-tables in `human-eyes/references/patterns.md` heading order: Content patterns, Language and grammar, Style, Communication, Filler and hedging, Sensory and atmospheric, Structural tells, Voice and register. Categories where every check is clear collapse to a one-liner; categories with at least one flag render the full sub-table including the clear rows for coverage.)
+
+**Agent-assessed**
+
+[agent-assessed flagged items]
+
+Checks that are judged by an LLM based on reading the whole draft.
+
+| Pattern | Severity | Result | Detail |
+| --- | --- | --- | --- |
+| <Item label> | <severity> | <Flagged | Clear> | <(see above) when flagged, answer/value text when clear> |
+| ... | ... | ... | ... |
+
+(one flat eight-row table in `human-eyes/scripts/judgement.json` registry order. Flagged rows point back at the inline list via `(see above)` in Detail; clear rows carry the answer enum or genre detection in Detail.)
+
+**Next steps**
+
+Want suggestions for edits, a full rewrite, or to save this audit as a file?
+```
+
+In full-report mode the next-step prompt drops the "full coverage report" option, since the writer has just read it.
+
+A zero-flag draft renders the same shape — the summary block carries all-zero counts, the mini-headers still appear with no items beneath them, and the per-block coverage tables (in full-report mode) show every category collapsed to clear / every agent row clear. There's no all-clear single-line shortcut.
+
+### Rendering rules
+
+- **Severity glyphs** in flagged-item blocks (both auto-detected and agent-assessed): `x` for hard_fail, `!` for strong_warning, `?` for context_warning. No glyphs in coverage tables.
+- **Pattern names** are the human-readable `short_name` from `human-eyes/scripts/patterns.json` (e.g., "Em dashes", "Triad density", "Assistant residue"). Pattern names render unbold in flagged-item blocks (the only bold elements in the audit body are the headings: `**Audit summary**`, `**Auto-detected**`, `**Agent-assessed**`, `**Next steps**`). Never use the internal check ID (`no-em-dashes`, `no-triad-density`); check IDs are assertion names, not user-facing labels. Agent-judgement labels are computed mechanically from the registry id (`structural_monotony` → "Structural monotony").
+- **Lexical patterns** carry a quoted phrase in their flagged-item block: `<glyph> <name>: "<phrase>"`. The phrase list caps at three with a `(+N more)` overflow suffix in default mode; full-report mode renders every captured phrase.
+- **Structural patterns** (paragraph-length uniformity, anaphoric scaffolding, section scaffolding, sentence-length variance) carry no quoted phrase — they render as `<glyph> <name>`. The pattern's "where" lives in the grader's evidence object, not in the rendered prose.
+- **Category collapse** in full-report-mode coverage tables: a category with every check clear renders as one line — `**<Category>**: <N>/<N> clear`. A category with at least one flagged check renders the full sub-table including the clear rows so coverage stays visible.
+- **Agent-assessed coverage** is one flat eight-row table in full-report mode (no per-category grouping). Detail column carries `(see above)` for flagged rows (points at the inline bullet block) and the answer/value text for clear rows.
+- **Signal stacking** is suppressed from flagged-item blocks and coverage tables — its signal lives in the third summary line. The summary-line severity counts aggregate auto-detected + agent-assessed flagged severities; the signal-stacking meta-check itself never inflates them.
+- **No "Why this matters" or "What it looks for" prose** in the audit output. Per-pattern explanations live in `human-eyes/references/patterns.md` and are read on drill-in for Suggestions or Rewrite — not in the audit itself.
+- Keep explanations concrete and avoid jargon. The point is to teach the writer how to recognise the pattern rather than display the catalogue.
+
+If the grader is unavailable (no Python, restricted environment), fall back to a manual scan reading `human-eyes/references/patterns.md` and run the agent-judgement reading directly from `human-eyes/scripts/judgement.json`. Disclose the limitation: a manual scan covers surface patterns and cannot replicate the script's structural and density checks.
+
+---
+
+## Action 2: Suggestions
+
+### Suggestion steps
+
+1. If an audit hasn't been run on this draft in this turn, run one first.
+2. For each flagged pattern from the audit, produce one suggestion:
+   - Lexical patterns (`delve`, hedging phrases, formulaic depth phrases, em dashes, AI vocabulary words): pull from `references/alternatives.md`. Pick the alternative that fits the surrounding sentence.
+   - Structural patterns (paragraph-length uniformity, anaphoric scaffolding, sentence-length variance, tonal uniformity): compose a contextual suggestion. Substitution does not work for these patterns; rewriting does. Say what to vary and how.
+3. Render the audit findings followed by the suggestions list.
+4. Stop without producing a full rewrite.
+
+### Suggestion output
+
+```
+[Audit output as in Action 1, but without the trailing question]
+
+**Suggestions, one per flag**
+
+<pattern-name-1>
+  - "<quoted phrase from the audit>"
+  Try: "<replacement>"
+
+<pattern-name-2>
+  - "<another quoted phrase>"
+  Try: "<replacement>"
+
+<structural-pattern>
+  Try: <contextual rewriting instruction, e.g., "Vary paragraph 3 to be one short sentence, then expand paragraph 4 with two new clauses to break the rhythm.">
+
+...
+
+**Next step**
+
+Want to apply these yourself, ask for a Rewrite at a chosen depth, or save this list of suggestions as a Markdown file?
+```
+
+The number of suggestions equals the number of flagged tells, with no filtering applied. The writer chooses what to apply.
+
+---
+
+## The depth dial (Rewrite and Write only)
+
+Two settings:
+
+- **Balanced** *(default)*: address surface-level and strong AI tells — lexical tells (such as `delve` and em dashes), formulaic openers, manufactured-insight framing, signposted conclusions, AI vocabulary clustering, contrived contrast, and soft scaffold phrasing. Most context warnings can be preserved if they are doing real work. Structural patterns like paragraph-length uniformity may remain.
+- **All**: address every flagged pattern, even the implicit and structural ones a reader wouldn't consciously notice. Voice can take a hit at this depth. The goal is unambiguous human-shape; preserving every flourish comes second.
+
+When the user has not chosen a depth, ask which depth they want. Phrase the question to match how the writer usually decides — they want to know what each depth does to the prose, not which label means what:
+
+> Would you like a balanced rewrite that reduces the most distinctive AI patterns while preserving voice, or a full rewrite that removes every flagged pattern? Note: even human text can fail some checks and still read naturally, so Balanced is usually the right call unless you specifically want maximum pattern removal.
+
+Default to Balanced if the writer declines to choose.
+
+The dial only governs Rewrite and Write. It does not apply to Audit or Suggestions. Both of those return the full list of flagged tells regardless.
+
+---
+
+## Action 3: Rewrite
+
+### Rewrite steps
+
+1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
+2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
+3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
+4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
+5. Run the structural self-check (Step C from `process.md`). Show the answers in the output.
+6. Run the semantic preservation check (Step D from `process.md`).
+7. Re-grade the rewrite at the chosen depth. If required failures remain for that depth, revise before returning unless removing the issue would materially change meaning or voice. Iterate up to two re-runs and then report unresolved issues. Do not loop indefinitely.
+8. Render the audit findings, the rewritten draft, and the post-check.
 
 ### Rewrite output
 
-Use this when the action is Rewrite.
+```
+[Audit output as in Action 1, but without the trailing question]
 
-1. Action: Rewrite
-2. Mode selected: Light / Medium / Hard, with one sentence explaining why
-3. Initial audit report (from Step 2):
-   - Summary, Confidence, AI-pressure explanation, Main issues found, Full check table — same shape as the Audit output above. The Severity / Recommended action column stays severity-tiered; mode-specific actions appear in the post-check, not the initial audit.
-4. Rewrite
-5. Structural self-check (mandatory, with counts):
-   - Section arcs: N/M following same template - [what you changed]
-   - Resolution density: N/M paragraphs end with summary - [what you changed]
-   - Register breaks: [where you added one, or "already present at..."]
-   - Triads: N found - reduced to M by [method]
-   - Reframe laundering: [none / fixed at...]
-   - Purposeful devices recommended for preservation: [device - reason, or "none"]
-   - Stance: [preserved / shifted - restored by...]
-   - Remaining tells: [list, or "none identified"]
-6. Final report:
-   - Summary: [before -> after numbers]
-   - Confidence after rewrite: [post-check confidence]
-   - Remaining issues: [none / list failed checks with why and selected-mode action]
-   - Full post-check table: Markdown table with all 43 checks. Columns: `Check | Status | What it looks for | What happened here | Why this matters | <Selected mode> action`. The mode-specific action column appears here because the user has chosen a mode.
-   - Brief summary of changes made
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the genre or the writer's stated preference>
 
-Do not show a discarded draft rewrite by default. If you revise after self-check, show only the final rewrite plus the audit notes. Show intermediate drafts only if the user asks.
+**Rewrite**
 
-### Write output
+<rewritten draft>
 
-Use this when the action is Write.
+**Structural self-check**
+1. Section arcs: <count of similar arcs>/<total>. <What you changed.>
+2. Resolution density: <count of summary endings>/<total>. <What you changed.>
+3. Register breaks: <where you added one, or "already present at...">
+4. Triads: <count> found, reduced to <count> by <method>.
+5. Reframe laundering: <none / fixed at...>
+6. Purposeful devices preserved: <device: reason, or "none">
+7. Stance: <preserved / shifted, restored by...>
+8. Remaining tells: <list, or "none identified">
 
-1. Action: Write
-2. Mode selected: Light / Medium / Hard, with one sentence explaining why
-3. Brief summary: one sentence restating what the user asked for. (No initial audit — there's no input text.)
-4. Draft
-5. Structural self-check (same eight items as Rewrite, applied to the draft):
-   - Section arcs, Resolution density, Register breaks, Triads, Reframe laundering, Purposeful devices, Stance, Remaining tells — same format as Rewrite output's self-check.
-6. Final report:
-   - Post-check summary: [X of 43 checks failed / all checks clear, at chosen mode]
-   - Confidence: [post-check confidence]
-   - Remaining issues: [none / list failed checks with why and selected-mode action]
-   - Full post-check table: same shape as Rewrite output's post-check table.
+**Post-check at <depth>**
+- Score: how many of the grader's checks failed at the chosen depth, plus whether signal stacking triggered or stayed clear.
+- Confidence: the level and meaning string from the grader, with the caveat that this describes AI-writing signs rather than offering an authorship verdict.
+- Remaining issues: list the failed checks that remain unaddressed, or state "none" if the rewrite cleared everything.
+```
 
-### Save-report output
+Show only the final rewrite. Intermediate drafts stay hidden unless the writer asks. Do not modify the writer's source file.
 
-Use this when the user asked for a saved file. Save is a modifier — it can wrap any of the three actions' outputs.
+---
 
-In the chat output:
+## Action 4: Write
 
-1. Action: [Audit / Rewrite / Write] (saved)
-2. One-line summary of the action's verdict.
-3. The saved file path: `Saved to: <path>`.
-4. A short next-step question if appropriate.
+### Drafting steps
 
-In the saved Markdown file, render the action's normal output template in full, preceded by a short header:
+1. Pick the depth: ask if you can; default to Balanced.
+2. Read `references/voice.md`. Write produces new prose, so voice-craft is load-bearing. There is no input voice to preserve; the writer fills an absence.
+3. Read `references/process.md`; it is required for Rewrite and Write. Apply the structural patterns (Step A) prospectively while drafting. Vary paragraph structures and take a stance. Avoid the default section arc.
+4. Draft from the brief at the chosen depth.
+5. Run the structural self-check (Step C from `process.md`) on the draft.
+6. Re-grade the draft at the chosen depth. If required failures remain for that depth, revise before returning unless fixing them would materially change the brief or voice. Iterate up to two re-runs, then report unresolved issues.
+7. Render the draft and the post-check.
+
+### Drafting output
+
+```
+**Brief: <one-sentence restatement of what the writer asked for>**
+
+**Depth: <Balanced / All>**
+Why: <one sentence on why this depth fits the brief>
+
+**Draft**
+
+<drafted text>
+
+**Structural self-check**
+[Same eight items as Rewrite]
+
+**Post-check at <depth>**
+[Same shape as Rewrite post-check]
+```
+
+Write has no audit step because there is no input text to audit. The skill avoids AI patterns prospectively and verifies via the post-check.
+
+---
+
+## The save modifier
+
+Save wraps any of the four actions' output in a Markdown file. Combine freely with any action.
+
+Default save paths:
+
+- Same directory as the input file, with the input's stem plus `.human-eyes-audit.md`, `.human-eyes-suggestions.md`, `.human-eyes-rewrite.md`, or `.human-eyes-write.md`.
+- Fallback: `./human-eyes-<action>.md` when there is no input path (e.g., pasted text).
+- Append `-2`, `-3` rather than overwriting an existing file.
+
+When Save is used:
+
+- The chat output is a one-line summary of the action's verdict, followed by `Saved to: <path>`, followed by the next-step question if one applies.
+- The saved file contains the action's full output template, preceded by a short header:
 
 ```
 # Human-eyes <action> report
 - Input: <input path, or "pasted text", or "brief">
-- Mode: <Light / Medium / Hard, or "n/a" for Audit>
+- Depth: <Balanced / All, or "n/a" for Audit and Suggestions>
 - Date: <ISO 8601>
 ```
 
-Do not duplicate the full report inline in chat when a saved file exists. Reference the path instead.
+Do not duplicate the full report inline in chat when a saved file exists.
 
 ---
 
-## Worked example
+## References
 
-A full Hard-mode Rewrite walked through end-to-end (AI-sounding draft → audit → first rewrite → structural self-check → revised rewrite → changes made) is at [references/example.md](references/example.md). Read it as a reference for what a real Rewrite output should look like.
-
----
-
-## Sources
-
-- [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), WikiProject AI Cleanup (foundation, patterns 1-25)
-- [Linda Caroll, "Good Writing, AI Slop, and the Dragon"](https://lindac.substack.com/p/good-writing-ai-slop-and-the-dragon) (experiential vacancy framing)
-- [Sam Kriss, "Why Does A.I. Write Like ... That?"](https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html), NYT Magazine (patterns 26-28: ghost language, quietness, synesthesia)
-- [Charlie Guo, "The Field Guide to AI Slop"](https://www.ignorance.ai/p/the-field-guide-to-ai-slop) (patterns 29-32: rhetorical questions, metaphors, list-making, dramatic transitions; density framing)
-- [Grammarly, "Common Words and Phrases in AI-Generated Content"](https://www.grammarly.com/blog/ai/common-ai-words/) (expanded vocabulary list)
-- [GPTZero, "AI Vocabulary"](https://gptzero.me/ai-vocabulary), April 2026 (100 high-ratio AI phrases from public table, used as tentative clustering signals)
-- [Matthew Vollmer, "I Asked the Machine to Tell on Itself"](https://matthewvollmer.substack.com/p/i-asked-the-machine-to-tell-on-itself) (cross-source taxonomy and reference trail)
-- [Shreya Shankar, "AI Writing"](https://sh-reya.com/blog/ai-writing/) (orphaned demonstratives and weak AI prose mechanics)
-- [Abdulhai et al., "How LLMs Distort Our Written Language"](https://arxiv.org/abs/2603.18161), 2026 (subtraction framing: neutrality collapse, pronoun depletion, semantic drift; patterns 35-37)
-- [Nature, "Signs of AI-generated text found in 14% of biomedical abstracts"](https://www.nature.com/articles/d41586-025-02097-6), 2025 (vocabulary items, temporal fingerprinting)
+- `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
+- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
+- `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
+- `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.
