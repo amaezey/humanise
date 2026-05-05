@@ -25,7 +25,7 @@ import time
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 EVALS_PATH = ROOT / "dev" / "evals" / "evals.json"
 WORKSPACE = ROOT / "dev" / "skill-workspace"
 ITERATION = WORKSPACE / "iteration-1"
@@ -44,9 +44,9 @@ def load_grade_module():
 
 GRADE = load_grade_module()
 
-# patterns.json replaces CHECK_REPORT_TEXT (U7 of the audit-report redesign).
+# patterns.json is the source of truth for pattern labels.
 # Loaded once at module scope; consumers iterate _PATTERN_LABELS for (id, label) pairs.
-# Skips _meta / _extra_entries (page-level content for U15 generator).
+# Skips _meta / _extra_entries (page-level content for the patterns.md generator).
 import json as _json
 _PATTERN_LABELS = {
     cid: rec["short_name"]

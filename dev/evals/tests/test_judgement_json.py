@@ -11,7 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 JUDGEMENT_PATH = ROOT / "human-eyes" / "scripts" / "judgement.json"
 
 FAILURES = 0

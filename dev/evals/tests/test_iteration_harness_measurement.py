@@ -12,10 +12,10 @@ import importlib.util
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 _spec = importlib.util.spec_from_file_location(
     "run_skill_creator_iteration",
-    ROOT / "dev" / "evals" / "run_skill_creator_iteration.py",
+    ROOT / "dev" / "evals" / "harness" / "run_skill_creator_iteration.py",
 )
 iteration = importlib.util.module_from_spec(_spec)
 sys.modules["run_skill_creator_iteration"] = iteration

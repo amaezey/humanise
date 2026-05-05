@@ -13,8 +13,8 @@ The current testing regime has six layers. Each one catches a different class of
 **4. Diff-renders regression gate.** `dev/evals/diff_renders.py` re-runs `grade.py` over a fixed corpus and pins every field of the output against a captured baseline. Any change to grader behaviour shows up as an explicit JSON diff. Used to lock down no-op refactors.
 
 ```bash
-python3 dev/evals/diff_renders.py --verify
-python3 dev/evals/diff_renders.py --capture   # only when grader output legitimately changes
+python3 dev/evals/harness/diff_renders.py --verify
+python3 dev/evals/harness/diff_renders.py --capture   # only when grader output legitimately changes
 ```
 
 **5. Programmatic grading.** 43-check `human-eyes/scripts/grade.py` covering 38 patterns plus structural tells. Severity metadata so failures interpret by mode (hard fail / strong / context warning), not as one flat category. Generated-AI fixtures should fail multiple checks. Human-sourced fixtures often trip context warnings (curly quotes, staccato, anaphora, rhetorical questions, triad density) — they're style references, not "must pass" fixtures.
@@ -22,7 +22,7 @@ python3 dev/evals/diff_renders.py --capture   # only when grader output legitima
 ```bash
 python3 human-eyes/scripts/grade.py path/to/text.md
 python3 human-eyes/scripts/grade.py path/to/text.md no-em-dashes,no-manufactured-insight
-python3 dev/evals/run_grade_sweep.py
+python3 dev/evals/harness/run_grade_sweep.py
 ```
 
 Outputs JSON with pass/fail, evidence, severity, depth guidance per check, and `depth_results` showing whether the text passes Balanced and All criteria.
@@ -30,7 +30,7 @@ Outputs JSON with pass/fail, evidence, severity, depth guidance per check, and `
 **6. Self-tests for the grader.** `dev/evals/test_grade.py` asserts each check catches known-bad and passes known-clean text — the regression gate for the grader's regex layer. Run after any change to `grade.py` to prevent silent regex breakage.
 
 ```bash
-python3 dev/evals/test_grade.py
+python3 dev/evals/tests/test_grade.py
 ```
 
 ## Results

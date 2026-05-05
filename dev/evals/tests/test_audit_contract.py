@@ -15,7 +15,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 HUMAN_EYES = ROOT / "human-eyes"
 CONTRACT_PATH = HUMAN_EYES / "scripts" / "contracts" / "audit-format-v1.json"
 

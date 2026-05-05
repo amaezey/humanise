@@ -15,7 +15,7 @@ import importlib.util
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 HUMAN_EYES = ROOT / "human-eyes"
 SCRIPTS = HUMAN_EYES / "scripts"
 

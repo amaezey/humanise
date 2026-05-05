@@ -8,13 +8,13 @@ import json
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 REPORT_PATH = ROOT / "dev" / "evals" / "grade-sweep-report.json"
 SAMPLE_ROOT = ROOT / "dev" / "evals" / "samples"
 SETS = {
-    "existing_samples": sorted(SAMPLE_ROOT.glob("*.md")),
-    "generated_ai": sorted((SAMPLE_ROOT / "generated-ai").glob("*.md")),
-    "human_sourced": sorted((SAMPLE_ROOT / "human-sourced").glob("*.md")),
+    "generated_ai": sorted((SAMPLE_ROOT / "generated-ai").rglob("*.md")),
+    "human_sourced": sorted((SAMPLE_ROOT / "human-sourced").rglob("*.md")),
+    "synthetic": sorted((SAMPLE_ROOT / "synthetic").rglob("*.md")),
 }
 
 

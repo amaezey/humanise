@@ -11,7 +11,7 @@ import importlib.util
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 _spec = importlib.util.spec_from_file_location("grade", ROOT / "human-eyes" / "scripts" / "grade.py")
 _grade = importlib.util.module_from_spec(_spec)
 if _spec.loader is None:
@@ -1946,7 +1946,7 @@ else:
 
 # --- Human passthrough: opinion piece ---
 print("\n=== human-opinion-passthrough ===")
-opinion_text = Path(__file__).parent.joinpath("samples/human-sourced/legacy/10-human-opinion.md").read_text()
+opinion_text = Path(__file__).resolve().parents[1].joinpath("samples/human-sourced/legacy/10-human-opinion.md").read_text()
 for check_name in ALL_CHECKS:
     if check_name == "no-staccato-sequences":
         continue  # existing human sample also fails this, known limitation
@@ -1954,7 +1954,7 @@ for check_name in ALL_CHECKS:
 
 # --- Human passthrough: instructional piece ---
 print("\n=== human-instructional-passthrough ===")
-instructional_text = Path(__file__).parent.joinpath("samples/human-sourced/legacy/11-human-instructional.md").read_text()
+instructional_text = Path(__file__).resolve().parents[1].joinpath("samples/human-sourced/legacy/11-human-instructional.md").read_text()
 for check_name in ALL_CHECKS:
     if check_name == "no-staccato-sequences":
         continue

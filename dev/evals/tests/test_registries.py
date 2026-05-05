@@ -8,7 +8,7 @@ import importlib.util
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 HUMAN_EYES = ROOT / "human-eyes"
 
 # Load registries.py and grade.py the same way the rest of the test suite does.

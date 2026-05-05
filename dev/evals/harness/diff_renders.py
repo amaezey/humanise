@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 """
-diff_renders.py — Phase 2 verification harness.
+diff_renders.py — grader regression gate.
 
-Runs human-eyes/scripts/grade.py JSON output over the U10 corpus and either captures
-a baseline or verifies current output matches the captured baseline.
-
-Phase 2 (U7-U9) is a no-op refactor; this harness is the gate that proves it.
+Runs human-eyes/scripts/grade.py JSON output over a fixed corpus of inputs
+and pins every field of the output against a captured baseline. Used to lock
+down no-op refactors of grade.py and to catch unintended behaviour shifts.
 
 Usage:
-    python3 dev/evals/diff_renders.py --capture
-    python3 dev/evals/diff_renders.py --verify   (default)
-
-This is the U10a skeleton — equality check + first-divergence report. U10b
-will extend it with structured key-path diff output and baseline-regeneration
-support for U8's deliberate contract-shape changes.
+    python3 dev/evals/harness/diff_renders.py --verify   (default)
+    python3 dev/evals/harness/diff_renders.py --capture  (only when grader output legitimately changes)
 """
 
 import json
@@ -21,7 +16,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 GRADE = REPO_ROOT / "human-eyes" / "scripts" / "grade.py"
 BASELINE_DIR = REPO_ROOT / "dev" / "evals" / "diff_baseline"
 
