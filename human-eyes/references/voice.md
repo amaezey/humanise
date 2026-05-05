@@ -1,10 +1,10 @@
-# Personality and soul
+# Voice-craft
 
 Voice-craft guidance for the Rewrite and Write actions. The grader catches AI patterns to remove; this guide is about what to add or preserve so the result reads as written by a human, not just as text without AI tells.
 
 ## The real problem: subtraction
 
-Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But research shows AI also **subtracts**. Abdulhai et al. (2026) found that extensive LLM use led to a ~70% increase in essays that remained neutral, 50% fewer pronouns, and fewer anecdotes or personal references. Even when instructed to only fix grammar, LLMs frequently changed the writer's conclusions.
+Most AI tells are things AI **adds**: vocabulary, formatting, rhetorical devices. But AI also **subtracts**. LLM rewrites flatten stance, deplete pronouns, and drain personal anecdote — even on grammar-only passes, the model frequently changes the writer's conclusions toward neutrality.
 
 Removing AI patterns is therefore only half the job. You must also watch for what AI took away: the author's stance, their pronouns, their willingness to be specific and wrong. Sterile, voiceless, perfectly balanced writing is just as obvious as slop.
 

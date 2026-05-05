@@ -1,6 +1,6 @@
 # Vetted human alternatives
 
-Replacements the Suggestions action draws from when a flagged tell is lexical. Also used by Rewrite and Write when picking replacements during the surface pass.
+Called by the Suggestions action and by Rewrite/Write during the surface pass (Step B in `process.md`). Provides replacements for lexical tells flagged in the audit.
 
 ## Scope
 

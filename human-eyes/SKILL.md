@@ -239,7 +239,7 @@ The dial only governs Rewrite and Write. It does not apply to Audit or Suggestio
 
 1. Run the audit (as in Action 1) regardless of whether the writer asked directly. The audit findings are part of the Rewrite output, and the writer benefits from seeing what was flagged before reading the rewrite.
 2. Pick the depth: ask if you can; default to Balanced. See the depth dial section above.
-3. Read `references/voice.md` for voice-craft guidance. Recent research (Abdulhai et al., 2026) showed that LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
+3. Read `references/voice.md` for voice-craft guidance. LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Voice-preservation is required during the rewrite.
 4. Read `references/process.md`; it is required for Rewrite and Write. Address structural patterns first (Step A), then surface patterns (Step B).
 5. Run the structural self-check (Step C from `process.md`). Show the answers in the output.
 6. Run the semantic preservation check (Step D from `process.md`).
@@ -342,6 +342,6 @@ Do not duplicate the full report inline in chat when a saved file exists.
 ## References
 
 - `references/patterns.md`: full catalogue of detected patterns with words to watch and before/after examples. Includes the four most distinctive AI tells (em dashes, manufactured insight, contrived reframes, generic staccato) with their deeper rules and word lists.
-- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem (Abdulhai et al., 2026): LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
+- `references/voice.md`: voice-craft for Rewrite and Write. The subtraction problem: LLM rewrites flatten stance and deplete pronouns; neutrality creeps in even on grammar-only passes. Read during the rewrite or draft step.
 - `references/alternatives.md`: vetted human alternatives for lexical patterns, used by Suggestions and by Rewrite or Write when picking replacements.
 - `references/process.md`: required operating procedure for Rewrite and Write. Steps A through E cover structural changes, surface cleanup, structural self-check, semantic preservation, and re-grade revision loops.

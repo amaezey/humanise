@@ -79,7 +79,7 @@ Asserts notability by listing sources without context, as though the mention its
 
 **Severity:** strong_warning · `no-notability-claims`
 
-**Detection:** Programmatic check `no-notability-claims` (added in U1 of the audit-report redesign).
+**Detection:** Programmatic check `no-notability-claims`.
 
 
 ### 3. Superficial -ing analyses
@@ -126,7 +126,7 @@ Attributes opinions to vague authorities without specific sources, creating illu
 
 **Severity:** strong_warning · `no-vague-attributions`
 
-**Detection:** Programmatic check `no-vague-attributions` (added in U1 of the audit-report redesign).
+**Detection:** Programmatic check `no-vague-attributions`.
 
 
 ### 6. Formulaic challenges sections
@@ -357,7 +357,7 @@ The density variant of #10 rule of three. While #10 catches a single forced tria
 
 **Severity:** context_warning · `no-triad-density`
 
-**Detection:** Programmatic check `no-triad-density` (added in 42e4d00 on 2026-04-02 as part of the structural AI detection expansion; **context_warning**). Counts "X, Y, and/or Z" patterns where each item is 1-4 words; fails at 4+ triads in prose of 300+ words. Distinct from #10 forced triads (single-instance, semantic check); #10a is the cumulative-density check across a piece.
+**Detection:** Programmatic check `no-triad-density`. Counts "X, Y, and/or Z" patterns where each item is 1-4 words; fails at 4+ triads in prose of 300+ words. Distinct from #10 forced triads (single-instance, semantic check); #10a is the cumulative-density check across a piece.
 
 
 ### 11. Synonym cycling
@@ -404,7 +404,7 @@ A coarse type-token ratio metric for prose of 150+ words: the ratio of unique wo
 
 **Severity:** context_warning · `vocabulary-diversity`
 
-**Detection:** Programmatic check `vocabulary-diversity` (added in PR #3 at 3c013e3 on 2026-04-01 as part of the AI-writing research expansion; **context_warning**). Computes type-token ratio on stripped lowercased words and fails below a corpus-tuned threshold. Skipped on prose under 150 words. Distinct from #11 synonym cycling (which targets the *opposite* failure mode — over-substituting synonyms for the same referent — and is a manual-only check) and from #7 AI vocabulary words (which targets specific stock vocabulary, not the lexical-density distribution).
+**Detection:** Programmatic check `vocabulary-diversity`. Computes type-token ratio on stripped lowercased words and fails below a corpus-tuned threshold. Skipped on prose under 150 words. Distinct from #11 synonym cycling (which targets the *opposite* failure mode — over-substituting synonyms for the same referent — and is a manual-only check) and from #7 AI vocabulary words (which targets specific stock vocabulary, not the lexical-density distribution).
 
 ---
 
@@ -422,7 +422,7 @@ Emphasises phrases in boldface mechanically, bolding things that do not need vis
 
 **Severity:** context_warning · `no-boldface-overuse`
 
-**Detection:** Programmatic check `no-boldface-overuse` (added in U1; flags four or more bold spans in non-list, non-heading prose).
+**Detection:** Programmatic check `no-boldface-overuse`. Flags four or more bold spans in non-list, non-heading prose.
 
 
 ### 14. Inline-header lists
@@ -439,7 +439,7 @@ List items start with bolded headers followed by colons, turning prose into a sl
 
 **Severity:** strong_warning · `no-inline-header-lists`
 
-**Detection:** Programmatic check `no-inline-header-lists` (added in U1; flags two or more list items beginning with a bolded header and colon).
+**Detection:** Programmatic check `no-inline-header-lists`. Flags two or more list items beginning with a bolded header and colon.
 
 
 ### 15. Title case in headings
@@ -471,7 +471,7 @@ Decorating headings or bullet points with emojis is almost never appropriate in 
 
 **Severity:** inherits context_warning from `no-unicode-flair` (see Detection)
 
-**Detection:** Folded into `no-unicode-flair` (extended in U1 to cover broader Unicode emoji ranges and `:shortcode:` forms such as `:rocket:` or `:bulb:`).
+**Detection:** Folded into `no-unicode-flair` — covers broader Unicode emoji ranges and `:shortcode:` forms such as `:rocket:` or `:bulb:`.
 
 
 ### 17. Curly quotation marks
@@ -503,7 +503,7 @@ Individual hyphenations are often correct, but AI stacks four or five in a singl
 
 **Severity:** context_warning · `no-compound-modifier-density`
 
-**Detection:** Programmatic check `no-compound-modifier-density` (added in U1; flags three or more AI-stock hyphenated compounds in a single sentence, drawn from a watchlist of common offenders).
+**Detection:** Programmatic check `no-compound-modifier-density`. Flags three or more AI-stock hyphenated compounds in a single sentence, drawn from a watchlist of common offenders.
 
 
 ### 49. Em dashes
@@ -520,7 +520,7 @@ ChatGPT and similar systems use the em dash (`—`) as default mid-sentence punc
 
 **Severity:** strong_warning · `no-em-dashes`
 
-**Detection:** Programmatic check `no-em-dashes` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **strong_warning**). Counts U+2014 occurrences and fails on any. Distinct from #17 curly quotes (a typographic substitution at the quotation-mark level); this check targets the long-dash glyph as default mid-sentence punctuation.
+**Detection:** Programmatic check `no-em-dashes`. Counts U+2014 occurrences and fails on any. Distinct from #17 curly quotes (a typographic substitution at the quotation-mark level); this check targets the long-dash glyph as default mid-sentence punctuation.
 
 ---
 
@@ -555,7 +555,7 @@ AI disclaimers about incomplete information left in the text.
 
 **Severity:** strong_warning · `no-knowledge-cutoff-disclaimers`
 
-**Detection:** Programmatic check `no-knowledge-cutoff-disclaimers` (added in U1). Note that this does not fold into `no-collaborative-artifacts` — that check covers chat residue ("I hope this helps", "great question") but not training-update or limited-information hedges.
+**Detection:** Programmatic check `no-knowledge-cutoff-disclaimers`. Note that this does not fold into `no-collaborative-artifacts` — that check covers chat residue ("I hope this helps", "great question") but not training-update or limited-information hedges.
 
 
 ### 21. Sycophantic/servile tone
@@ -664,7 +664,7 @@ Bland transition phrases from generated explainers. They are not flashy, which i
 
 **Severity:** strong_warning · `no-soft-scaffolding`
 
-**Detection:** Programmatic check `no-soft-scaffolding` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion). The soft-scaffold phrase set is also referenced in pattern #7's preamble as part of AI vocabulary discussion, but it is enforced as its own check rather than folded into the vocabulary cluster.
+**Detection:** Programmatic check `no-soft-scaffolding`. The soft-scaffold phrase set is also referenced in pattern #7's preamble as part of AI vocabulary discussion, but it is enforced as its own check rather than folded into the vocabulary cluster.
 
 
 ### 48. Dense negation
@@ -681,7 +681,7 @@ Distinct from #9 (contrived contrast in a single sentence) and #33 (countdown ne
 
 **Severity:** context_warning · `no-negation-density`
 
-**Detection:** Programmatic check `no-negation-density` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion). Triggers only on prose of 300+ words.
+**Detection:** Programmatic check `no-negation-density`. Triggers only on prose of 300+ words.
 
 
 ### 50. Formulaic openers
@@ -698,7 +698,7 @@ Generated paragraph openers that frame the next bit as a step up in abstraction.
 
 **Severity:** strong_warning · `no-formulaic-openers`
 
-**Detection:** Programmatic check `no-formulaic-openers` (added in PR #1 at ee05591 on 2026-04-01; **strong_warning**). Anchored regex against the first line of each paragraph; flags any paragraph whose opener fits the formulaic-opener template. Distinct from #7 AI vocabulary words (which lists opener phrases as one sub-bullet under the broader vocabulary check) and from #47 soft scaffolding (which catches between-sentence connectives like "One useful area..." rather than paragraph-opening abstractions).
+**Detection:** Programmatic check `no-formulaic-openers`. Anchored regex against the first line of each paragraph; flags any paragraph whose opener fits the formulaic-opener template. Distinct from #7 AI vocabulary words (which lists opener phrases as one sub-bullet under the broader vocabulary check) and from #47 soft scaffolding (which catches between-sentence connectives like "One useful area..." rather than paragraph-opening abstractions).
 
 ---
 
@@ -748,9 +748,9 @@ AI blends senses inappropriately to simulate literary depth: emotions get tastes
 **After:**
 > Thursday felt like waiting. She kept pulling out old photographs and putting them back. The room was silent in a way that made her aware of her own breathing.
 
-**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in `human-eyes/scripts/judgement.json`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — forced synesthesia is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/scripts/judgement.json`) — forced synesthesia is not regex-amenable.
 
 ---
 
@@ -783,9 +783,9 @@ AI metaphors are plausible but specific to nobody. They gesture toward meaning w
 
 When you spot a metaphor, ask: could anyone have written this, or does it come from a specific experience? If anyone could have written it, replace it with a concrete detail.
 
-**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in `human-eyes/scripts/judgement.json`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — judging metaphor groundedness is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/scripts/judgement.json`) — judging metaphor groundedness is not regex-amenable.
 
 
 ### 31. Excessive list-making
@@ -865,7 +865,7 @@ Performs revelation through phrasing — claims hidden depth or secret significa
 
 **Severity:** strong_warning · `no-manufactured-insight`
 
-**Detection:** Programmatic check `no-manufactured-insight` (introduced before the 2026-04-08 file-move refactor at 618c723; **strong_warning**). Closely related to #9 contrived contrast — manufactured insight framing is the *content* of the false reveal; #9 is the *syntactic shape*. A piece can carry one without the other but they often co-occur.
+**Detection:** Programmatic check `no-manufactured-insight`. Closely related to #9 contrived contrast — manufactured insight framing is the *content* of the false reveal; #9 is the *syntactic shape*. A piece can carry one without the other but they often co-occur.
 
 **Hypothesis (performed candour):** The honesty/truth-framing phrases ("the honest answer is", "here's the real truth", "if I'm being honest") are folded into `no-manufactured-insight` rather than promoted to their own numbered entry. They share the same generative move as the rest of #42 (claiming significance through phrasing rather than earning it), so a single check captures the family. Promote to a sibling entry if either signal lands: the candour regex set grows materially beyond the current handful of phrases, or audit failures cluster on candour without co-occurring with the rest of #42's mechanisms. Until then, keep folded.
 
@@ -886,7 +886,7 @@ Explicit conclusion labels turn the ending into a generic summary. AI overuses t
 
 **Severity:** context_warning · `no-signposted-conclusions`
 
-**Detection:** Programmatic check `no-signposted-conclusions` (introduced before the 2026-04-08 file-move refactor at 618c723; **context_warning**).
+**Detection:** Programmatic check `no-signposted-conclusions`.
 
 
 ### 52. Sentence length variance
@@ -903,13 +903,13 @@ A coarse rhythm metric for prose of 100+ words. Human writing varies sentence le
 
 **Severity:** context_warning · `sentence-length-variance`
 
-**Detection:** Programmatic check `sentence-length-variance` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **context_warning**). Computes the standard deviation of sentence word counts and fails when the SD drops below 4. Skipped on prose under 100 words and 6 sentences. Distinct from #34 paragraph-length uniformity (which measures paragraph block sizes, not sentence-level rhythm) and from #25 staccato (which targets very short standalone sentences regardless of variance).
+**Detection:** Programmatic check `sentence-length-variance`. Computes the standard deviation of sentence word counts and fails when the SD drops below 4. Skipped on prose under 100 words and 6 sentences. Distinct from #34 paragraph-length uniformity (which measures paragraph block sizes, not sentence-level rhythm) and from #25 staccato (which targets very short standalone sentences regardless of variance).
 
 ---
 
 ## Voice and register
 
-These patterns concern what AI **removes** from writing — stance, personality, specificity — rather than what it adds. Based on Abdulhai et al. (2026), "How LLMs Distort Our Written Language", which showed LLMs systematically strip argumentative commitment (~70% neutrality increase) and personal voice (50% pronoun depletion) even in minimal edits.
+These patterns concern what AI **removes** from writing — stance, personality, specificity — rather than what it adds. LLMs systematically strip argumentative commitment and deplete personal voice even in minimal edits.
 
 ### 33. Countdown negation
 
@@ -969,9 +969,9 @@ This pattern cannot be caught programmatically. During the self-audit, ask: does
 
 In reviews and criticism, tonal uniformity often appears as bland evaluative balance: "emotional range", "field of sympathy", "moral strength", "earns its weight", "ambitious in an old-fashioned way", "social texture", "slow revelation". Replace this with concrete claims about scenes, sentences, performances, or formal choices.
 
-**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in `human-eyes/scripts/judgement.json`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — register lock is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/scripts/judgement.json`) — register lock is not regex-amenable.
 
 ### 35a. Orphaned demonstratives
 
@@ -1000,7 +1000,7 @@ Three or more consecutive sentences in a paragraph that begin with "This [verb]"
 
 **Severity:** context_warning · `no-this-chains`
 
-**Detection:** Programmatic check `no-this-chains` (added in PR #1 at ee05591 on 2026-04-01; **context_warning**). Walks each paragraph and flags 3+ consecutive sentences matching `^this\s+(?!is)\w+`. Distinct from #35a orphaned demonstratives (single-sentence vague-subject `this`); #35b is the multi-sentence chain pattern within a paragraph.
+**Detection:** Programmatic check `no-this-chains`. Walks each paragraph and flags 3+ consecutive sentences matching `^this\s+(?!is)\w+`. Distinct from #35a orphaned demonstratives (single-sentence vague-subject `this`); #35b is the multi-sentence chain pattern within a paragraph.
 
 
 ### 36. Faux specificity
@@ -1017,16 +1017,16 @@ Related to experiential vacancy (see Personality and soul in SKILL.md) but names
 
 When you spot a "specific" detail, ask: could anyone have written this, or does it come from a particular person's experience? If it reads like a stock photo in prose form, replace it with something that could not have been generated from genre conventions.
 
-**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in `human-eyes/scripts/judgement.json`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) — distinguishing genuine specificity from genre-convention filler is not regex-amenable.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/scripts/judgement.json`) — distinguishing genuine specificity from genre-convention filler is not regex-amenable.
 
 
 ### 37. Neutrality collapse
 
 LLMs systematically strip argumentative stance, defaulting to balanced treatment of everything. "There are compelling arguments on both sides" where the original had a clear position. Distinct from generic positive conclusions (#24) — this is about the **removal** of opinion, not the addition of optimism.
 
-Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral when writers used LLMs extensively, and that LLMs frequently changed the writer's conclusions even when instructed to only fix grammar.
+LLM use sharply increases the share of essays that remain neutral, and LLMs frequently change the writer's conclusions even when instructed to only fix grammar.
 
 **Before (human original):**
 > Remote work is better for most knowledge workers. The evidence is overwhelming and the objections are mostly about control, not productivity.
@@ -1039,9 +1039,9 @@ Abdulhai et al. (2026) found a ~70% increase in essays that remained neutral whe
 
 When rewriting, compare your rewrite's conclusions to the input's conclusions. If the stance shifted toward neutral, you have introduced the same distortion the research documents. Restore the original position.
 
-**Severity:** N/A · agent-judgement (registered in U14's `human-eyes/judgement.yaml`)
+**Severity:** N/A · agent-judgement (registered in `human-eyes/scripts/judgement.json`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14). The surface false-balance phrasing piece is partly covered by `check_false_concession` (#23a); expanding regex coverage of stance erasure is out of scope here.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/scripts/judgement.json`). The surface false-balance phrasing piece is partly covered by `check_false_concession` (#23a); expanding regex coverage of stance erasure is out of scope here.
 
 ### 39. Template and placeholder residue
 
@@ -1068,9 +1068,9 @@ These are not reliable enough for hard regex treatment yet, but they should be p
 - **Fiction:** watch for flattened dialogue, "as-you-know" exposition, parenthetical stage directions, locked POV with no pressure, over-resolved endings, and scene pacing that never surprises.
 - **Email/business:** watch for placeholders, over-warm openings, fake personalisation, and action lists dressed up with symbols.
 
-**Severity:** N/A · agent-judgement (polymorphic genre slot; registered in U14's `human-eyes/judgement.yaml`)
+**Severity:** N/A · agent-judgement (polymorphic genre slot; registered in `human-eyes/scripts/judgement.json`)
 
-**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/judgement.yaml`, U14) as a polymorphic genre slot — the agent first detects genre (academic, student essay, poetry, fiction, default), then runs the matching watchlist.
+**Detection:** Manual / agent-judgement only. Reserved for the agent-judgement registry (`human-eyes/scripts/judgement.json`) as a polymorphic genre slot — the agent first detects genre (academic, student essay, poetry, fiction, default), then runs the matching watchlist.
 
 
 ### 43. Corporate AI-speak
@@ -1087,7 +1087,7 @@ Generic LinkedIn-AI corporate register. Hides specific work behind operational a
 
 **Severity:** strong_warning · `no-corporate-ai-speak`
 
-**Detection:** Programmatic check `no-corporate-ai-speak` (introduced before the 2026-04-08 file-move refactor at 618c723; **strong_warning**).
+**Detection:** Programmatic check `no-corporate-ai-speak`.
 
 
 ### 45. Nonliteral land/surface phrasing
@@ -1104,7 +1104,7 @@ Treats abstract ideas as physical objects that land or surface. Often used to ma
 
 **Severity:** strong_warning · `no-nonliteral-land-surface`
 
-**Detection:** Programmatic check `no-nonliteral-land-surface` (added in 1422bad on 2026-04-27 during a hard-mode calibration pass; **strong_warning**).
+**Detection:** Programmatic check `no-nonliteral-land-surface`.
 
 
 ### 46. Bland critical template
@@ -1121,7 +1121,7 @@ Generated literary, film, or review criticism that sounds balanced but generic. 
 
 **Severity:** strong_warning · `no-bland-critical-template`
 
-**Detection:** Programmatic check `no-bland-critical-template` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **strong_warning**). Closely related to #35 tonal uniformity in reviews and criticism — the tonal-uniformity entry mentions the same evaluative phrases ("emotional range", "field of sympathy", "moral strength") as a register signal; this check enforces them at phrase level.
+**Detection:** Programmatic check `no-bland-critical-template`. Closely related to #35 tonal uniformity in reviews and criticism — the tonal-uniformity entry mentions the same evaluative phrases ("emotional range", "field of sympathy", "moral strength") as a register signal; this check enforces them at phrase level.
 
 
 ### 51. Mechanical repeated sentence starts
@@ -1138,7 +1138,7 @@ Three or more consecutive sentences whose first word matches — "The X… The Y
 
 **Severity:** context_warning · `no-anaphora`
 
-**Detection:** Programmatic check `no-anaphora` (in the catalogue since the initial release at e68bc3d on 2026-04-01; **context_warning**). Flags three or more consecutive sentences whose first word matches case-insensitively, ignoring trivial starts ("I", "A", "The", "It", "It's"). Distinct from #25 staccato rhythm (which fires on short standalone sentences regardless of opener) and from #35a orphaned demonstratives (vague-subject `this` in a single sentence) and #35b `This …` chains (paragraph-level repetition of `This` as subject).
+**Detection:** Programmatic check `no-anaphora`. Flags three or more consecutive sentences whose first word matches case-insensitively, ignoring trivial starts ("I", "A", "The", "It", "It's"). Distinct from #25 staccato rhythm (which fires on short standalone sentences regardless of opener) and from #35a orphaned demonstratives (vague-subject `this` in a single sentence) and #35b `This …` chains (paragraph-level repetition of `This` as subject).
 
 ---
 
@@ -1169,4 +1169,4 @@ The check fires when the weighted score crosses a threshold AND vocabulary signa
 **Severity:** context_warning · `overall-signal-stacking`
 
 
-**Detection:** Programmatic meta-check `overall-signal-stacking` (added in 9ce1cec on 2026-04-27 as part of the AI-writing-signal framework expansion; **context_warning**). Not numbered as a single AI tell; rolls up the components above. The check exposes its component breakdown and Kobak vocabulary profile in its evidence so the writer can read which signals contributed.
+**Detection:** Programmatic meta-check `overall-signal-stacking`. Not numbered as a single AI tell; rolls up the components above. The check exposes its component breakdown and Kobak vocabulary profile in its evidence so the writer can read which signals contributed.

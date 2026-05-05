@@ -8,7 +8,7 @@ procedure after the audit has identified patterns and before returning prose.
 > returning, to verify the rewrite actually changed the structural shape.
 > This is distinct from the **agent-judgement reading** in `SKILL.md`
 > Action 1 (Audit), which runs on the *input* via the eight-item registry
-> in `human-eyes/judgement.yaml` (structural monotony, tonal uniformity,
+> in `human-eyes/scripts/judgement.json` (structural monotony, tonal uniformity,
 > faux specificity, neutrality collapse, even jargon distribution, forced
 > synesthesia, generic metaphors, and the polymorphic genre slot). Step C
 > is post-rewrite verification; the Audit-time agent-judgement reading is
