@@ -24,7 +24,7 @@ Bynder consumer study comparing AI-generated and human-written marketing copy. T
 ## Skill-use audit
 - **Good use:** Back marketing/business #41 context around consumer perception and brand impact.
 - **Misuse / overclaim:** Do not cite for any specific textual tell unless the study discloses which features participants used.
-- **Weakly backed by this source:** Pattern-level matches.
+- **Unsupported use:** Pattern-level matches.
 - **Underused evidence:** The study is useful for stakes and perception framing: users may notice AI-marketing copy, but the source does not explain which textual cues caused that judgement.
 - **Patterns left on the table:** None as pattern evidence; consumer-identification results stay separate from expert/source-grounded pattern evidence.
 

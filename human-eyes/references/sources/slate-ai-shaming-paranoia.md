@@ -25,7 +25,7 @@ Covers writers changing prose to avoid being accused of using AI. It is an ethic
 ## Skill-use audit
 - **Good use:** Back H3/H9 caution about false positives and the social cost of detector-like framing.
 - **Misuse / overclaim:** Do not cite as evidence that any specific feature is or is not AI-generated.
-- **Weakly backed by this source:** Rule thresholds.
+- **Unsupported use:** Rule thresholds.
 - **Underused evidence:** Report language should avoid pushing users toward anti-AI camouflage such as needless typos or punctuation removal.
 - **Patterns left on the table:** Reports should avoid pushing users toward unnatural "humanizing" performance.
 

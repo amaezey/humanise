@@ -24,7 +24,7 @@ Studies whether learning from human feedback contributes to LLM lexical overuse.
 ## Skill-use audit
 - **Good use:** Cite as mechanism context for #7 and for why vocabulary lists drift with alignment and feedback processes.
 - **Misuse / overclaim:** Do not cite it as proof that individual occurrences of "delve", "intricate", or similar words are AI evidence.
-- **Weakly backed by this source:** Any fixed blacklist, severity score, or claim that all aligned models share the same lexical profile.
+- **Unsupported use:** Any fixed blacklist, severity score, or claim that all aligned models share the same lexical profile.
 - **Underused evidence:** The mechanism distinction matters: separate observed corpus spikes from alignment-induced candidate words and from practitioner phrase-list anecdotes.
 - **Patterns left on the table:** A future source-note field for "mechanism class" could distinguish corpus-observed words, alignment-induced candidates, and practitioner anecdotes.
 

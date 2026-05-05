@@ -31,7 +31,7 @@ Aranya's Poetly post is a reflective essay on AI, poetry, young poets, and writi
 ## Skill-use audit
 - **Good use:** Support poetry-specific review questions about process, revision, archival comparison, mistakes, testimony, and whether the poem carries earned specificity.
 - **Misuse / overclaim:** Do not cite this source as direct evidence for aphorism density, negate-and-redefine structure, or mood-word accumulation; those mappings appear to come from repo synthesis rather than the post itself.
-- **Weakly backed by this source:** Hard AI-poetry detector rules and surface-pattern scoring.
+- **Unsupported use:** Hard AI-poetry detector rules and surface-pattern scoring.
 - **Underused evidence:** The archive-comparison exercise is a stronger poetry review method than a surface-tell checklist.
 - **Patterns left on the table:** Process trace, revision depth, personal archive comparison, specificity of perception, and the role of mistakes.
 

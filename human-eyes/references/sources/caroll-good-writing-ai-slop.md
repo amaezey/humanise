@@ -26,13 +26,12 @@ Craft essay arguing that "AI slop" is not bad simply because AI made it, and hum
 ## Skill-use audit
 - **Good use:** Back craft/agent-judgement checks about generic affect, missing lived specificity, and writing that is readable but not personally grounded.
 - **Misuse / overclaim:** Do not cite as empirical evidence that a pattern proves AI authorship.
-- **Weakly backed by this source:** #35 tonal uniformity is only adjacent unless tied to generic, non-specific affect.
+- **Supported scope:** The saved article supports #36 and #30 through its claim that AI can be warm and readable while still generic and lacking unique human perspective.
 - **Underused evidence:** Caroll's strongest contribution is positive rewrite guidance: simple prose can work when it carries lived specificity and a real reader takeaway.
 - **Patterns left on the table:** Add a positive rewrite principle: simple language plus specific lived experience beats generic polish.
 
 ## Matched patterns / rules
-- #35 tonal uniformity (adjacent craft context)
-- #36 faux specificity
+- #36 faux specificity / missing lived specificity
 - #30 generic metaphors / generic affect
 - lived-experience specificity
 - false-positive caution for human-written slop

@@ -26,7 +26,7 @@ Cited for user ability to identify AI-generated text and for several Wikipedia-b
 ## Skill-use audit
 - **Good use:** Supports the idea that experienced humans use lexical and higher-level style cues together.
 - **Misuse / overclaim:** It should not be used to make human-eyes a detector or to imply ordinary users can reliably classify authorship. Its strong result is for selected frequent users and a specific corpus.
-- **Weakly backed by this source:** The abstract does not directly back #9, #10, or #15 unless the full paper's qualitative coding names those cues.
+- **Unsupported use:** The abstract does not directly back #9, #10, or #15 unless the full paper's qualitative coding names those cues.
 - **Underused evidence:** Formality, originality, and clarity may belong in agent-judgement or field-guide disambiguation rather than regex.
 - **Current README treatment:** Cited only as selected-user detection context for #9, #10, and #15 until the full qualitative coding is mapped.
 - **Patterns left on the table:** "Originality" and "clarity" are not current pattern families; they could become explanatory dimensions in a comparison engine, not standalone failures.

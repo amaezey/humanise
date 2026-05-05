@@ -20,17 +20,18 @@ Practitioner account of trying to remove AI signatures from generated text and f
 - Claims: hard-coded instructions, reminders, warnings, and "critical error" labels did not reliably remove em dashes in the author's experiments.
 - Mechanism claim: em dashes were common in human-written training data and not flagged as special during training.
 - Caveat: the article explicitly says em dashes are not reliable AI evidence.
+- The saved article points to typo absence / unusually clean copy as a stronger clue than em dashes, citing Daphne Ippolito's observation that AI-generated text is usually spotless while human writing has mistakes or quirks.
 
 ## Skill-use audit
 - **Good use:** Back public-salience and anecdotal prompt-resistance context for #49.
 - **Misuse / overclaim:** Do not cite as empirical proof of em-dash frequency or as a hard detector.
-- **Weakly backed by this source:** Model-wide claims across systems; the evidence is anecdotal/practitioner.
+- **Unsupported use:** Model-wide claims across systems; the evidence is anecdotal/practitioner.
 - **Underused evidence:** The source's own caveat should travel with any citation: em dashes are not reliable standalone evidence.
 - **Patterns left on the table:** Lack of typos/over-cleanliness is a more general clue the source points toward.
 
 ## Matched patterns / rules
 - #49 em dashes (public-salience/anecdotal context)
-- #39 machine-cleanliness / typo absence (adjacent)
+- #39 machine-cleanliness / typo absence as practitioner clue, not a standalone detector
 
 ## Associated hypotheses
 - H7 five-check gating plus advisory catalogue

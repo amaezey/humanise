@@ -24,14 +24,14 @@ Scientific American article by linguist Karolina Rudnicka arguing that different
 ## Skill-use audit
 - **Good use:** Back model-drift/model-specific-source notes and warnings against overfitting to one model's style.
 - **Misuse / overclaim:** Do not use this as support for #46 bland critical template without direct mapping; the reviewed evidence is about model idiolects.
-- **Weakly backed by this source:** Universal AI vocabulary claims.
+- **Unsupported use:** Universal AI vocabulary claims.
 - **Underused evidence:** Model-specific idiolect should be metadata on examples, especially when a source compares named tools in one topic domain.
 - **Patterns left on the table:** Add "model-specific wording preference" as a metadata dimension on examples.
 
 ## Matched patterns / rules
-- #46 bland critical template (not directly backed by reviewed article)
-- model drift context
-- model-specific idiolect context
+- Model drift background
+- Model-specific idiolect background
+- Topic-scoped wording preference examples: formal/clinical ChatGPT phrasing versus conversational Gemini phrasing in diabetes texts
 
 ## Associated hypotheses
 - H1 calibrated register-distance score

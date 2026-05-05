@@ -24,7 +24,7 @@ Commercial AI detector product page. Copyleaks claims over 99% accuracy, 30+ lan
 ## Skill-use audit
 - **Good use:** Back H3 positioning that human-eyes is not a detector and should expose uncertainty/caveats.
 - **Misuse / overclaim:** Do not cite Copyleaks as evidence for visible prose patterns.
-- **Weakly backed by this source:** Any rule-level match.
+- **Unsupported use:** Any rule-level match.
 - **Underused evidence:** Minimum-length and confidence caveats can inform human-eyes report language, but Copyleaks product metrics should not define human-eyes thresholds.
 - **Patterns left on the table:** None as pattern evidence; minimum-length and confidence requirements are promoted only as audit caveat language.
 

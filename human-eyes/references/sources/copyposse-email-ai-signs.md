@@ -9,32 +9,32 @@
 - **Extraction status:** second-pass reviewed from Copy Posse page on 2026-05-05
 
 ## Summary
-Cited for business-email and marketing-copy tells, but the directly reviewed rendered source supports promotional-cliche language more clearly than the inherited LinkedIn tricolon-armature claim.
+Cited for business-email and marketing-copy tells. The saved article supports promotional-cliche language, repetitive sentence patterns, and explicit pattern-of-three examples in marketing email.
 
 ## Main insights
 - Domain-specific source.
 - Useful for email/marketing examples.
-- Indirect claims need primary backup.
-- The inherited LinkedIn/tricolon mapping should stay out of pattern support unless a cleaner source view confirms it.
+- The saved article directly names repetitive sentence patterns and "patterns of three" as an AI-email tell.
+- It is practitioner advice, so use it for examples and genre guidance rather than empirical severity.
 
 ## Evidence and claims to extract
 - Direct source reviewed: Copy Posse article.
-- The rendered page exposes a five-sign structure; one directly reviewed sign is overly dramatic/cliche copy with sweeping claims such as "game-changer", "unlock your true potential", and similar bad-ad-copy phrasing.
+- The rendered page exposes a five-sign structure; one sign is overly dramatic/cliche copy with sweeping claims such as "game-changer", "unlock your true potential", and similar bad-ad-copy phrasing.
+- The saved article names "Repetitive Sentence Patterns" and says AI emails especially use patterns of three, with examples such as "No fluff. No filler. No stress."
 - The page is practitioner marketing advice, not empirical evidence.
 - The first-pass Bynder linkage is not visible in the reviewed rendered lines and still needs primary-source verification.
 
 ## Skill-use audit
-- **Good use:** Supports #4 promotional language and #43 corporate AI-speak more clearly than #10 rule of three based on the directly reviewed content.
-- **Misuse / overclaim:** The first-pass mapping to LinkedIn tricolon armature is not yet directly backed by the rendered source review.
-- **Weakly backed by this source:** Do not use this as severity evidence; it is marketing-practitioner advice.
+- **Good use:** Supports #4 promotional language, #10 rule of three in marketing emails, and #43 corporate AI-speak.
+- **Misuse / overclaim:** Do not use this as severity evidence; it is marketing-practitioner advice.
 - **Underused evidence:** The cliche/promotional-copy angle may be useful for marketing-specific #41 guidance.
 - **Patterns left on the table:** Marketing email watchlist for exaggerated transformation claims and empty hype verbs.
 
 ## Matched patterns / rules
 - #4 promotional language
+- #10 rule of three in marketing-email examples
 - #41 genre-specific manual checks: email/business
 - #43 corporate AI-speak
-- #10 rule of three (not verified from reviewed rendered lines; do not use as support yet)
 
 ## Associated hypotheses
 - H12 genre-aware threshold calibration

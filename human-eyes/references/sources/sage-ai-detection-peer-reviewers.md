@@ -27,7 +27,7 @@ Publisher guide for peer reviewers and editors about red flags for irresponsible
 ## Skill-use audit
 - **Good use:** Back academic #41 manual checks and citation/provenance/data-integrity checks.
 - **Misuse / overclaim:** Do not turn the red flags into definitive AI detection.
-- **Weakly backed by this source:** Generic prose rules outside academic manuscripts.
+- **Unsupported use:** Generic prose rules outside academic manuscripts.
 - **Underused evidence:** Stronger than generic style guidance for academic integrity checks: citation verification, DOI checks, logic consistency, data/figure review, and placeholder/meta residue.
 - **Patterns left on the table:** Placeholder text, phantom references, wrong DOIs, figure-caption mismatch, and too-smooth data should be explicit academic checks.
 

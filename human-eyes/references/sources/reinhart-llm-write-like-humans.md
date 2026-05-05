@@ -26,7 +26,7 @@ Examines grammatical and rhetorical variation in LLM writing. The repo uses it f
 ## Skill-use audit
 - **Good use:** Strongly backs H1 and H12, plus the general need for register-aware structural/rhetorical features.
 - **Misuse / overclaim:** It should not be cited mainly as vocabulary evidence. Its stronger contribution is grammatical/rhetorical style variation and genre mismatch.
-- **Weakly backed by this source:** The direct source does not specifically validate current regex phrases for #3 or #7 without additional mapping.
+- **Unsupported use:** The direct source does not specifically validate current regex phrases for #3 or #7 without additional mapping.
 - **Underused evidence:** Present participial clauses directly support revisiting #3 superficial -ing analyses, but the source frames them as part of an informationally dense style, not simply vague analysis.
 - **Patterns left on the table:** Nominalization density, noun-heavy style, "that" subject clauses, and phrasal coordination could become future structural/rhetorical features.
 

@@ -24,7 +24,7 @@ Technical report for Pangram Text, a transformer-based neural network trained to
 ## Skill-use audit
 - **Good use:** Back H3 detector-framing caution and H4 audit-contract thinking.
 - **Misuse / overclaim:** Do not translate Pangram classifier performance into confidence for human-eyes manual rules.
-- **Weakly backed by this source:** Any specific pattern in the current catalogue.
+- **Unsupported use:** Any specific pattern in the current catalogue.
 - **Underused evidence:** The domain list and synthetic-mirror method are more useful for test-fixture design than for end-user pattern claims.
 - **Patterns left on the table:** The synthetic mirror method may inspire test-fixture design, not end-user pattern claims.
 

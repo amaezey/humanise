@@ -23,7 +23,7 @@ Cultural essay arguing that art depends on human choices and communication with 
 ## Skill-use audit
 - **Good use:** Broad creative-process and audience-aware-voice context.
 - **Misuse / overclaim:** Do not attach this to regex or checklist patterns.
-- **Weakly backed by this source:** Any current pattern.
+- **Unsupported use:** Any current pattern.
 - **Underused evidence:** This belongs in product rationale for audience, intent, and choice, not in the pattern evidence table.
 - **Patterns left on the table:** None directly; this is framing evidence.
 

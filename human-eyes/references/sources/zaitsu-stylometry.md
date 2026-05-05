@@ -26,7 +26,7 @@ Japanese-language study with two parts: stylometric detection potential and huma
 ## Skill-use audit
 - **Good use:** Back H3 detector-framing caution and H1 feature-comparison framing.
 - **Misuse / overclaim:** Do not transfer Japanese-public-comment feature directions to English human-eyes rules without separate evidence.
-- **Weakly backed by this source:** #52 and #53 only as broad feature-family context, not specific thresholds.
+- **Unsupported use:** #52 and #53 only as broad feature-family context, not specific thresholds.
 - **Underused evidence:** The human-study component can support user-facing cautions that surface cues may feel persuasive while still being unreliable for authorship classification.
 - **Patterns left on the table:** Human reliance on superficial phrase/punctuation cues is useful as a warning against user-facing certainty.
 
@@ -34,7 +34,7 @@ Japanese-language study with two parts: stylometric detection potential and huma
 - #52 sentence rhythm variance
 - #53 vocabulary diversity
 - H3 / detector-framing caution
-- punctuation and function-word features (context only)
+- Stylometric feature families: phrase patterns, POS bigrams, function-word unigrams, and punctuation impressions
 
 ## Associated hypotheses
 - H1 calibrated register-distance score

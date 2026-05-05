@@ -27,7 +27,7 @@ One compact paragraph describing what the source is, what it says, and what role
 ## Skill-use audit
 - **Good use:** 
 - **Misuse / overclaim:** 
-- **Weakly backed by this source:** 
+- **Unsupported use:**
 - **Underused evidence:** 
 - **Patterns left on the table:** 
 

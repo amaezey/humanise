@@ -31,7 +31,7 @@ Substack post titled "Tells beyond the em dash" with the subtitle "Did an LLM wr
 ## Skill-use audit
 - **Good use:** Practitioner support for cluster-based manual review of phrase, structure, vocabulary, tone, content, context, and audience tells.
 - **Misuse / overclaim:** Do not treat any one listed tell as determinative; the article itself says models shift, humans can sound robotic, and context decides whether AI assistance matters.
-- **Weakly backed by this source:** Hard detector thresholds or claims about exact model frequencies.
+- **Unsupported use:** Hard detector thresholds or claims about exact model frequencies.
 - **Underused evidence:** The source is especially useful for contextual review guidance: social-baseline shift, read-aloud editing, audience fit, and authenticity over evasion.
 - **Patterns left on the table:** Prompt-restatement residue, apology/guardrail macros, uniform register, over-neat exemplars, social-baseline shift, read-aloud review, and audience-context prompting could become explicit checks or guidance.
 

@@ -25,7 +25,7 @@ Empirical study testing whether high school teachers and students can distinguis
 ## Skill-use audit
 - **Good use:** Back warnings against authorship verdicts and overconfidence in student-writing contexts.
 - **Misuse / overclaim:** Do not cite it for specific rules; the reviewed abstract reports accuracy and judgement limits, not cue validity.
-- **Weakly backed by this source:** Any deterministic student-writing pattern.
+- **Unsupported use:** Any deterministic student-writing pattern.
 - **Underused evidence:** Well-written human student essays being harder to distinguish should be reflected in student-writing false-positive guidance.
 - **Patterns left on the table:** Well-written human student essays being harder to distinguish should inform false-positive cautions.
 

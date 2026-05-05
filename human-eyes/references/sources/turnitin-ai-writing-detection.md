@@ -24,7 +24,7 @@ Turnitin guide explaining the AI Writing Report and its limitations. The guide s
 ## Skill-use audit
 - **Good use:** Back explicit non-verdict wording and human-review requirements.
 - **Misuse / overclaim:** Do not cite Turnitin as pattern evidence.
-- **Weakly backed by this source:** All current prose rules.
+- **Unsupported use:** All current prose rules.
 - **Underused evidence:** Turnitin's "single data point" framing should be borrowed for human-eyes report language.
 - **Patterns left on the table:** None as pattern evidence; "single data point, not a definitive answer" is promoted only as report caveat language.
 

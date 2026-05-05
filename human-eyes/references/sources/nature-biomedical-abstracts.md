@@ -25,7 +25,7 @@ Nature news coverage of Kobak et al.'s biomedical-abstract analysis. The article
 ## Skill-use audit
 - **Good use:** Background/explainer source for biomedical #7 vocabulary drift.
 - **Misuse / overclaim:** Do not use the Nature story as primary evidence when the underlying Kobak source is already available.
-- **Weakly backed by this source:** Any claim about individual-document detection.
+- **Unsupported use:** Any claim about individual-document detection.
 - **Underused evidence:** It should be marked as secondary coverage so the evidence map distinguishes journalism summaries from primary corpus evidence.
 - **Patterns left on the table:** The named words "unparalleled" and "invaluable" may be candidate examples if the underlying paper also supports them.
 

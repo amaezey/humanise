@@ -27,7 +27,7 @@ Classroom-facing pedagogy essay arguing that ChatGPT and other LLM tools cannot 
 ## Skill-use audit
 - **Good use:** Strong source for student-literary-analysis checks and rewrite guidance.
 - **Misuse / overclaim:** Do not generalize every classroom/literary-analysis failure mode to business prose, fiction, or everyday writing.
-- **Weakly backed by this source:** General-purpose AI detection; the source is a pedagogy article based on classroom observation, not a detector validation study.
+- **Unsupported use:** General-purpose AI detection; the source is a pedagogy article based on classroom observation, not a detector validation study.
 - **Underused evidence:** Belcher's "rewrite without accusing authorship" framing should shape classroom-facing remediation language.
 - **Patterns left on the table:** Banal thesis, bloated emptiness, dead-end sentence, noun/referent cycling, abstraction chains, causation inversion, erased interpreter agency, adjective inflation, moralizing defaults, derivative argument, and factual wrongness should be explicit student-writing review prompts.
 

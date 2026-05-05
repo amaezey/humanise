@@ -24,15 +24,15 @@ Explains detector concepts such as perplexity and burstiness. human-eyes uses it
 - The post says statistical signals are only one layer among several upgraded detector indicators.
 
 ## Skill-use audit
-- **Good use:** Supports the general idea behind rhythm/variance features and transparent multi-signal reporting.
+- **Good use:** Supports the general idea behind rhythm, diction-variation, and transparent multi-signal reporting.
 - **Misuse / overclaim:** It is vendor detector architecture, not evidence that human-eyes should output AI probability or detector scores.
-- **Weakly backed by this source:** It does not directly validate any current human-eyes regex pattern.
-- **Underused evidence:** Burstiness aligns with #52 sentence rhythm variance and H1/H2, but should be reframed as document-level variation rather than detector probability.
+- **Unsupported use:** It does not directly validate any current human-eyes regex pattern.
+- **Underused evidence:** Burstiness aligns with #52 sentence rhythm variance and #53 vocabulary/diction diversity, but should be reframed as document-level variation rather than detector probability.
 - **Patterns left on the table:** None as direct pattern evidence; perplexity stays out of scope for the deterministic grader and burstiness-style variation is tracked through structural-metric hypotheses.
 
 ## Matched patterns / rules
 - #52 sentence rhythm variance (conceptual support)
-- #53 vocabulary diversity (adjacent, not directly backed)
+- #53 vocabulary diversity / diction variation as vendor detector-feature framing
 - Overall audit architecture; no direct phrase pattern
 
 ## Associated hypotheses
@@ -41,4 +41,4 @@ Explains detector concepts such as perplexity and burstiness. human-eyes uses it
 
 ## Questions / follow-up
 - Should human-eyes use "variation" language instead of "burstiness" to avoid importing detector framing?
-- Should this source remain architecture context only?
+- Should this source remain architecture background?

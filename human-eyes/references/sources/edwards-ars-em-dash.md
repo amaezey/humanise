@@ -24,7 +24,7 @@ Reports Sam Altman's November 2025 claim that ChatGPT had started following cust
 ## Skill-use audit
 - **Good use:** Back model-drift and custom-instruction sensitivity for #49.
 - **Misuse / overclaim:** Do not cite this as primary first-party OpenAI documentation or as proof that GPT-5.1 suppresses em dashes by default.
-- **Weakly backed by this source:** Any claim that em dashes are obsolete as a cue across all models.
+- **Unsupported use:** Any claim that em dashes are obsolete as a cue across all models.
 - **Underused evidence:** The key value is drift: once users and providers know a tell, prompting and model updates can erase it.
 - **Patterns left on the table:** Add "instruction-following can erase a known tell" to source notes.
 

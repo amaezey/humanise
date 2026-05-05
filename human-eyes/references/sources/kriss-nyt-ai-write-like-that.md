@@ -29,7 +29,7 @@ Style-critical magazine essay arguing that contemporary AI prose is not merely c
 ## Skill-use audit
 - **Good use:** Back literary/style-review examples and disambiguation notes for ghost language, quietness, forced synesthesia, tricolons, em-dash salience, and AI vocabulary drift.
 - **Misuse / overclaim:** Do not cite this as proof that any single cue means AI authorship; Kriss repeatedly shows the cue migration problem and human false-positive risk.
-- **Weakly backed by this source:** Numeric thresholds and model-wide generalizations.
+- **Unsupported use:** Numeric thresholds and model-wide generalizations.
 - **Underused evidence:** The contagion point matters: the same register can appear in human writing because humans copy AI style, so findings need provenance and intent caveats.
 - **Patterns left on the table:** "Not X but Y" contrast, woven/tapestry imagery, AI-style names in fiction, contagion into human speech, and generic profundity could be explicit look-alike or craft notes.
 

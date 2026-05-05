@@ -25,7 +25,7 @@ A writing-teacher field guide that synthesizes around 100 AI-writing micro-patte
 ## Skill-use audit
 - **Good use:** Yes for pattern discovery, taxonomy, and conduit attribution. It is not uniformly strong evidence for severity or detector-style confidence.
 - **Misuse / overclaim:** Treating "Vollmer says" as equivalent to peer-reviewed support would be a misuse. Where Vollmer cites another source, human-eyes should cite the upstream source for the evidence and mention Vollmer only as the route by which it entered the catalogue.
-- **Weakly backed by this source:** Vollmer-only observations such as false profundity, aphoristic closure, emoji headings, title-case headings, and the 30-second diagnostic cluster are useful craft signals but should not receive strong severity without corpus or upstream support.
+- **Unsupported use:** Vollmer-only observations such as false profundity, aphoristic closure, emoji headings, title-case headings, and the 30-second diagnostic cluster are useful craft signals but should not receive strong severity without corpus or upstream support.
 - **Underused evidence:** The local extraction says #5 vague attributions should probably gain Vara, #19 assistant residue should gain Gmelius via Vollmer, #21 sycophantic tone should gain Live Science as confirming coverage, and #41 should cite Walsh, Aranya, Germain, Dhillon, Hastewire, and Bynder for domain-specific branches.
 - **Patterns left on the table:** Inflated verbs, hedge-and-reassure, aphoristic closure, false profundity/universal-generic statements, and citation/provenance oddities are potential additions or subchecks. They should start as advisory/domain-specific candidates, not hard gates.
 

@@ -26,7 +26,7 @@ Robin Sloan's "Writing with the machine" note about experimental machine-learnin
 ## Skill-use audit
 - **Good use:** Back product/process framing for human-AI collaboration and deliberate creative use.
 - **Misuse / overclaim:** Do not cite Sloan as evidence for visible AI-style patterns.
-- **Weakly backed by this source:** Any current pattern claim.
+- **Unsupported use:** Any current pattern claim.
 - **Underused evidence:** Useful counterweight to generic "humanizer" work: AI assistance can be valid when it creates harder, stranger work rather than smoother prose.
 - **Patterns left on the table:** None as pattern evidence; the harder, stranger work principle is promoted only as voice/process guidance.
 

@@ -26,7 +26,7 @@ Cited for assistant flattery and sycophancy risks. Strong support for hard-faili
 ## Skill-use audit
 - **Good use:** Strongly backs #21 sycophantic/servile tone as a real first-party model-behavior risk.
 - **Misuse / overclaim:** It supports conversational assistant behavior, not every friendly phrase in finished prose. Use it for assistant residue and fake affirmation, not general warmth.
-- **Weakly backed by this source:** It does not by itself support all #19 collaborative artifacts such as "let me know" in published text, except insofar as they are assistant-register residue.
+- **Unsupported use:** It does not by itself support all #19 collaborative artifacts such as "let me know" in published text, except insofar as they are assistant-register residue.
 - **Underused evidence:** The source supports process-level evaluation for sycophancy and honesty, not just phrase deletion.
 - **Patterns left on the table:** A future agent-judgement item could flag "disingenuous support" in advisory/review comments, separate from published-prose cleanup.
 

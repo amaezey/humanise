@@ -25,9 +25,9 @@ Practitioner article on detecting LLM writing through linguistic/stylistic recog
 - Statistical approaches: entropy/perplexity, Markov transition analysis, n-gram frequency, MTLD, hapax legomena, AUC, and repetition detection.
 
 ## Skill-use audit
-- **Good use:** Back practitioner descriptions for #4, #22, #49-adjacent typographic artifacts, #52/#53 feature families, citation/provenance anomalies, and platform artifacts.
+- **Good use:** Back practitioner descriptions for #4, #22, #49 typographic artifacts, #52/#53 feature families, citation/provenance anomalies, and platform artifacts.
 - **Misuse / overclaim:** Do not treat Rohrer as empirical validation for thresholds or authorial certainty.
-- **Weakly backed by this source:** Exact severity assignments.
+- **Unsupported use:** Exact severity assignments.
 - **Underused evidence:** Platform artifacts, bad citations, and `utm_source=chatgpt.com` are more concrete than the broad detection framing and could become provenance checks.
 - **Patterns left on the table:** Platform-specific artifacts such as broken citation tokens and `utm_source=chatgpt.com` are concrete checks not fully represented in the current catalogue.
 

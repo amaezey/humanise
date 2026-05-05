@@ -25,7 +25,7 @@ Cited for AI-isms in email, including formulaic openings, placeholders, and busi
 ## Skill-use audit
 - **Good use:** Backs #39 and the email/business branch of #41 as practitioner/domain guidance; can provide examples for #50, #13, #15, #16/#31a, #31, and #43 when those are explicitly email-scoped.
 - **Misuse / overclaim:** It should not be used as general evidence for all prose. It is email-specific and promotional.
-- **Weakly backed by this source:** Claims such as "absence of semicolons" and "very short emails" are not strong enough for general checks without corpus validation.
+- **Unsupported use:** Claims such as "absence of semicolons" and "very short emails" are not strong enough for general checks without corpus validation.
 - **Underused evidence:** "No personalized details", "generic subject lines", and "weak domain understanding" could strengthen email-specific #41 guidance.
 - **Patterns left on the table:** Email-specific checks for generic subject lines, missing personalization, and unsupported business jargon.
 
