@@ -23,7 +23,7 @@ Covers:
 - severity line aggregates agent + auto-detected severities (R2 / R17)
 - both halves clear → full three-line summary, no agent block in default body
 
-Run: python3 dev/evals/test_agent_judgement_render.py
+Run: python3 dev/evals/tests/test_agent_judgement_render.py
 """
 
 import importlib.util

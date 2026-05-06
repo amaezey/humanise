@@ -7,7 +7,7 @@ human-eyes/scripts/contracts/audit-format-v1.json is the authoritative shape and
 loaded for completeness checks (required fields, enums) but the assertions
 below are written explicitly for actionable error messages.
 
-Run: python3 dev/evals/test_audit_contract.py
+Run: python3 dev/evals/tests/test_audit_contract.py
 """
 
 import importlib.util

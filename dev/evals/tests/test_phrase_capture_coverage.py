@@ -14,7 +14,7 @@ test is the gate that catches the class of bug where a regex-only check
 flags but renders as a bare `<glyph> <name>` line with no evidence the
 user can act on.
 
-Run: python3 dev/evals/test_phrase_capture_coverage.py
+Run: python3 dev/evals/tests/test_phrase_capture_coverage.py
 """
 
 from __future__ import annotations

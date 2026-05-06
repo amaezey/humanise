@@ -4,7 +4,7 @@
 Independent of the U7 registry loader. Loads the JSON directly so the
 file's shape can be validated without going through the loader.
 
-Run: python3 dev/evals/test_judgement_yaml.py
+Run: python3 dev/evals/tests/test_judgement_json.py
 """
 
 import json

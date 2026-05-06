@@ -69,7 +69,7 @@ Each hypothesis includes status, source, statement, test, and impact.
 
 ## 5. Editorial gate on the README
 
-**Status:** done — implemented 2026-05-05 as `dev/skill-workspace/latest-performance-report.md` (auto-rewritten by the harness on each run, with a marker-bounded summary block in README.md linking to it). Diverges from the original proposal in that the README still carries a short auto-rewritten summary block rather than being fully torn out — the full report is the separate artefact.
+**Status:** partial — separate performance report implemented 2026-05-05 as `dev/skill-workspace/latest-performance-report.md` (auto-rewritten by the harness on each run, with a marker-bounded summary block in README.md linking to it). The README tear-out and `dev/dashboards/latest-performance.md` artefact from the original statement remain unimplemented.
 
 **Source:** Internal ideation, survivor #2.
 

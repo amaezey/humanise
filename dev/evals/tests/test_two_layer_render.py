@@ -14,7 +14,7 @@ Shape (post-rework):
 Em dashes are forbidden in the audit format itself (the skill flags em
 dash overuse; using them in the audit format would be hypocritical).
 
-Run: python3 dev/evals/test_two_layer_render.py
+Run: python3 dev/evals/tests/test_two_layer_render.py
 """
 
 import importlib.util

@@ -3,7 +3,7 @@
 dev/tools/render_patterns_md.py. Catches drift between the YAML registry
 (authoritative source) and the on-disk markdown (generated transparency view).
 
-Run: python3 dev/evals/test_patterns_md_generator.py
+Run: python3 dev/evals/tests/test_patterns_md_generator.py
 """
 
 import subprocess

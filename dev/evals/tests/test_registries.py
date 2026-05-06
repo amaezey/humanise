@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tests for human-eyes/scripts/registries.py — pattern + judgement registry loaders.
 
-Run: python3 dev/evals/test_registries.py
+Run: python3 dev/evals/tests/test_registries.py
 """
 
 import importlib.util

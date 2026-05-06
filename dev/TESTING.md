@@ -6,11 +6,11 @@ The current testing regime has six layers. Each one catches a different class of
 
 **1. Genre-paired comparative corpus.** Five matched topics, three groups per topic: human originals, AI fresh-writes from matched briefs, AI rewrites of the same human originals. Same topics across all three lets the grader's flag densities be compared in matched register — the load-bearing claim is that humans should trip fewer flags than AI on the same topic. Lives in `dev/evals/corpus.json`.
 
-**2. 18-eval harness.** Runs each eval against the current skill *and* a frozen `dev/skill-workspace/skill-snapshot/` (the pre-rewrite version) so every iteration is a controlled before/after. Driven by `dev/evals/run_skill_creator_iteration.py`. Outputs per-assertion grading, an aggregate benchmark, and an audit-fidelity report.
+**2. 18-eval harness.** Runs each eval against the current skill *and* a frozen `dev/skill-workspace/skill-snapshot/` (the pre-rewrite version) so every iteration is a controlled before/after. Driven by `dev/evals/harness/run_skill_creator_iteration.py`. Outputs per-assertion grading, an aggregate benchmark, and an audit-fidelity report.
 
 **3. Audit-fidelity contract check.** Confirms the audit's structured JSON output matches the schema in `human-eyes/scripts/contracts/audit-format-v1.json`. Catches drift in the contract that the human-readable preview can hide.
 
-**4. Diff-renders regression gate.** `dev/evals/diff_renders.py` re-runs `grade.py` over a fixed corpus and pins every field of the output against a captured baseline. Any change to grader behaviour shows up as an explicit JSON diff. Used to lock down no-op refactors.
+**4. Diff-renders regression gate.** `dev/evals/harness/diff_renders.py` re-runs `grade.py` over a fixed corpus and pins every field of the output against a captured baseline. Any change to grader behaviour shows up as an explicit JSON diff. Used to lock down no-op refactors.
 
 ```bash
 python3 dev/evals/harness/diff_renders.py --verify
@@ -27,7 +27,7 @@ python3 dev/evals/harness/run_grade_sweep.py
 
 Outputs JSON with pass/fail, evidence, severity, depth guidance per check, and `depth_results` showing whether the text passes Balanced and All criteria.
 
-**6. Self-tests for the grader.** `dev/evals/test_grade.py` asserts each check catches known-bad and passes known-clean text — the regression gate for the grader's regex layer. Run after any change to `grade.py` to prevent silent regex breakage.
+**6. Self-tests for the grader.** `dev/evals/tests/test_grade.py` asserts each check catches known-bad and passes known-clean text — the regression gate for the grader's regex layer. Run after any change to `grade.py` to prevent silent regex breakage.
 
 ```bash
 python3 dev/evals/tests/test_grade.py

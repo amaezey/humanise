@@ -8,7 +8,7 @@ Covers U9 of the audit-report redesign plan:
 - byte-equivalence: refactored renderer preserves the legacy text on a fixed
   set of canonical strings (catches accidental edits to vocabulary.json)
 
-Run: python3 dev/evals/test_vocabulary.py
+Run: python3 dev/evals/tests/test_vocabulary.py
 """
 
 import importlib.util
