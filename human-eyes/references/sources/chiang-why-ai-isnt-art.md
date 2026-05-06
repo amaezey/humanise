@@ -18,7 +18,7 @@ Cultural essay arguing that art depends on human choices and communication with 
 
 ## Evidence and claims to extract
 - Reviewed excerpts frame Chiang's core claim: art results from making many choices and functions as communication between artist and audience.
-- Secondary excerpt summarizes his concern that generative AI lowers expectations of writing and treats people as less than creators/apprehenders of meaning.
+- Secondary excerpt summarises his concern that generative AI lowers expectations of writing and treats people as less than creators/apprehenders of meaning.
 
 ## Skill-use audit
 - **Good use:** Broad creative-process and audience-aware-voice context.

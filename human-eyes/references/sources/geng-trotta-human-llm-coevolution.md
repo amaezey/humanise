@@ -9,7 +9,7 @@
 - **Extraction status:** reviewed from saved full-text ACL Anthology PDF snapshot
 
 ## Summary
-Analyzes arXiv abstracts and reports coevolution between LLM outputs and academic authors' behavior. The saved full text says several public ChatGPT-overuse tells dropped after public attention, while other favored words kept increasing, and it identifies declining "is" and "are" frequency as a subtle LLM-impact example.
+Analyses arXiv abstracts and reports coevolution between LLM outputs and academic authors' behaviour. The saved full text says several public ChatGPT-overuse tells dropped after public attention, while other favoured words kept increasing, and it identifies declining "is" and "are" frequency as a subtle LLM-impact example.
 
 ## Main insights
 - The source supports time-sensitive vocabulary drift: once a tell becomes public, users may select around it or edit it out.
@@ -27,7 +27,7 @@ Analyzes arXiv abstracts and reports coevolution between LLM outputs and academi
 - **Misuse / overclaim:** Do not treat it as a stable list of bad words. Its central point is that visible tells can decay or mutate.
 - **Supported scope:** #8 copula avoidance is supported for arXiv-abstract corpus frequency drift, not as a universal sentence-level rule.
 - **Underused evidence:** Public attention can make a tell fade or invert, so each vocabulary source needs corpus date range and extraction date in addition to publication date.
-- **Patterns left on the table:** Add a rule-note concept for "publicly known tells may invert or fade"; use it to prevent stale blacklist behavior.
+- **Patterns left on the table:** Add a rule-note concept for "publicly known tells may invert or fade"; use it to prevent stale blacklist behaviour.
 
 ## Matched patterns / rules
 - #7 AI vocabulary words and phrases
@@ -41,4 +41,4 @@ Analyzes arXiv abstracts and reports coevolution between LLM outputs and academi
 
 ## Questions / follow-up
 - Should rule evidence store the date range of the corpus, not just source publication date?
-- Does the full paper list disfavored words that matter for negative evidence or baseline shifts?
+- Does the full paper list disfavoured words that matter for negative evidence or baseline shifts?

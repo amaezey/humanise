@@ -12,7 +12,7 @@
 The original humanizer skill that human-eyes forked from. It is provenance and implementation lineage rather than evidence for a particular AI-writing pattern.
 
 ## Main insights
-- human-eyes should keep explicit provenance for inherited behavior.
+- human-eyes should keep explicit provenance for inherited behaviour.
 - Pattern evidence should not cite the upstream skill unless the claim is about project history.
 - Upstream itself says it is based on Wikipedia's signs-of-AI-writing guide, so Wikipedia or underlying sources should carry evidentiary weight.
 
@@ -26,7 +26,7 @@ The original humanizer skill that human-eyes forked from. It is provenance and i
 - **Misuse / overclaim:** Do not cite the upstream skill as independent evidence that a pattern is real.
 - **Unsupported use:** All pattern-validity claims unless backed by upstream sources.
 - **Underused evidence:** The inherited 29-pattern list can be used as a migration checklist to mark each rule retained, renamed, split, or removed.
-- **Patterns left on the table:** Compare human-eyes current patterns against upstream 29-pattern list for retained/removed/renamed behavior.
+- **Patterns left on the table:** Compare human-eyes current patterns against upstream 29-pattern list for retained/removed/renamed behaviour.
 
 ## Matched patterns / rules
 - None directly. Foundation/provenance source only.

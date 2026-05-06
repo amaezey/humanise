@@ -13,7 +13,7 @@ Studies how well an open-source LLM can regenerate the syntactic distributions o
 
 ## Main insights
 - Strong support for register/domain-specific structural calibration.
-- The key finding is distributional: regenerated text usually has shifted means, lower standard deviation, and reduced long-tail behavior compared with human originals.
+- The key finding is distributional: regenerated text usually has shifted means, lower standard deviation, and reduced long-tail behaviour compared with human originals.
 - This backs variance/long-tail checks more directly than any phrase or vocabulary list.
 
 ## Evidence and claims to extract
@@ -25,8 +25,8 @@ Studies how well an open-source LLM can regenerate the syntactic distributions o
 - **Good use:** Back #52 sentence-rhythm variance and broader register-aware structural comparison.
 - **Misuse / overclaim:** Do not turn this into a generic "AI sentences are shorter/longer" rule without domain-specific direction and measurement.
 - **Unsupported use:** Any vocabulary, punctuation, or phrase-level pattern.
-- **Underused evidence:** Reduced long-tail behavior is a stronger structural concept than a simple average sentence-length warning.
-- **Patterns left on the table:** Reduced long-tail behavior should be represented as its own structural insight, not folded only into sentence rhythm.
+- **Underused evidence:** Reduced long-tail behaviour is a stronger structural concept than a simple average sentence-length warning.
+- **Patterns left on the table:** Reduced long-tail behaviour should be represented as its own structural insight, not folded only into sentence rhythm.
 
 ## Matched patterns / rules
 - #52 sentence rhythm variance

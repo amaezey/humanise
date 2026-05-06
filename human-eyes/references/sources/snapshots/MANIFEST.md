@@ -7,7 +7,7 @@ Each source card has a saved markdown snapshot under `human-eyes/references/sour
 | Source card | Original URL | Snapshot | Method |
 | --- | --- | --- | --- |
 | [`abdulhai-llms-distort-written-language.md`](../abdulhai-llms-distort-written-language.md) | https://arxiv.org/abs/2603.18161 | [`snapshots/abdulhai-llms-distort-written-language.md`](abdulhai-llms-distort-written-language.md) | Jina Reader URL-to-markdown |
-| [`ai-lifelong-learners-em-dash.md`](../ai-lifelong-learners-em-dash.md) | https://aiforlifelonglearners.substack.com/p/tells-beyond-the-em-dash | [`snapshots/ai-lifelong-learners-em-dash.md`](ai-lifelong-learners-em-dash.md) | Jina Reader URL-to-markdown |
+| [`ai-lifelong-learners-em-dash.md`](../ai-lifelong-learners-em-dash.md) | https://aiforlifelonglearners.substack.com/p/tells-beyond-the-em-dash | [`snapshots/ai-lifelong-learners-em-dash.md`](ai-lifelong-learners-em-dash.md) | Direct transcription from supplied screenshot sequence (2026-05-05) |
 | [`aidetectors-ai-writing-signs.md`](../aidetectors-ai-writing-signs.md) | https://www.aidetectors.io/blog/how-to-tell-if-text-is-ai-written | [`snapshots/aidetectors-ai-writing-signs.md`](aidetectors-ai-writing-signs.md) | Jina Reader URL-to-markdown |
 | [`anthropic-sonnet-prompts.md`](../anthropic-sonnet-prompts.md) | https://platform.claude.com/docs/en/release-notes/system-prompts | [`snapshots/anthropic-sonnet-prompts.md`](anthropic-sonnet-prompts.md) | Jina Reader URL-to-markdown |
 | [`aranya-poetly-ai-poetry.md`](../aranya-poetly-ai-poetry.md) | https://poetly.substack.com/p/poetry-and-artificial-intelligence | [`snapshots/aranya-poetly-ai-poetry.md`](aranya-poetly-ai-poetry.md) | Jina Reader URL-to-markdown |

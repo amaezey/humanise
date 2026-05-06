@@ -9,7 +9,7 @@
 - **Extraction status:** reviewed from saved full-text accepted manuscript snapshot
 
 ## Summary
-Compares ChatGPT-generated and student-written argumentative essays by analyzing engagement markers: how writers relate to readers while advancing positions. The study analyzes 145 essays from each group.
+Compares ChatGPT-generated and student-written argumentative essays by analysing engagement markers: how writers relate to readers while advancing positions. The study analyses 145 essays from each group.
 
 ## Main insights
 - Student essays were significantly richer in quantity and variety of engagement features.

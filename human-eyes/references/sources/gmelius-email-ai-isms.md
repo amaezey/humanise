@@ -27,7 +27,7 @@ Cited for AI-isms in email, including formulaic openings, placeholders, and busi
 - **Misuse / overclaim:** It should not be used as general evidence for all prose. It is email-specific and promotional.
 - **Unsupported use:** Claims such as "absence of semicolons" and "very short emails" are not strong enough for general checks without corpus validation.
 - **Underused evidence:** "No personalized details", "generic subject lines", and "weak domain understanding" could strengthen email-specific #41 guidance.
-- **Patterns left on the table:** Email-specific checks for generic subject lines, missing personalization, and unsupported business jargon.
+- **Patterns left on the table:** Email-specific checks for generic subject lines, missing personalisation, and unsupported business jargon.
 
 ## Matched patterns / rules
 - #13 boldface overuse

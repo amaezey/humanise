@@ -9,18 +9,18 @@
 - **Extraction status:** reviewed from saved full-text arXiv PDF snapshot
 
 ## Summary
-Preregistered literary-style emulation study comparing MFA-trained expert writers with ChatGPT, Claude, and Gemini writing up to 450-word excerpts in the styles of 50 award-winning authors. The saved full text supports reader-preference, style-fidelity, detector-behavior, fine-tuning, and cliche-density findings.
+Preregistered literary-style emulation study comparing MFA-trained expert writers with ChatGPT, Claude, and Gemini writing up to 450-word excerpts in the styles of 50 award-winning authors. The saved full text supports reader-preference, style-fidelity, detector-behaviour, fine-tuning, and cliche-density findings.
 
 ## Main insights
 - Fiction evidence needs a separate path from generic prose rules.
-- MFA readers strongly disfavored in-context AI outputs for both fidelity and quality, while general readers showed no fidelity preference and favored AI quality.
+- MFA readers strongly disfavoured in-context AI outputs for both fidelity and quality, while general readers showed no fidelity preference and favoured AI quality.
 - Fine-tuning changed the result: both MFA and general readers preferred fine-tuned AI outputs, and detectors rarely flagged those outputs as AI-generated.
 - This is evidence that surface detectability and perceived literary quality can diverge sharply.
 
 ## Evidence and claims to extract
 - Study design: blind pairwise evaluations by 28 MFA-trained readers and 516 college-educated general readers.
-- In-context AI results: MFA readers disfavored AI for stylistic fidelity (OR=0.16) and quality (OR=0.13); general readers had no fidelity preference (OR=1.06) and favored AI for quality (OR=1.82).
-- Fine-tuned AI results: MFA readers favored AI for fidelity (OR=8.16) and quality (OR=1.87); general readers favored it more strongly.
+- In-context AI results: MFA readers disfavoured AI for stylistic fidelity (OR=0.16) and quality (OR=0.13); general readers had no fidelity preference (OR=1.06) and favoured AI for quality (OR=1.82).
+- Fine-tuned AI results: MFA readers favoured AI for fidelity (OR=8.16) and quality (OR=1.87); general readers favoured it more strongly.
 - Detector result: fine-tuned outputs were rarely flagged as AI-generated, 3% versus 97% for prompting.
 - Full-text qualitative and mediation material names AI-style problems such as purple prose, cliches, and cliche density.
 

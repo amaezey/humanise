@@ -145,7 +145,7 @@
       "flagged_when": "non_empty_findings",
       "sub_records": {
         "academic": {
-          "description": "Verify citations, DOIs, dates, journals, reference order, figure/data consistency, and whether cited works actually support the claim. Plausible citation format is not evidence. In argumentative academic prose, also watch for reduced engagement markers such as missing questions, reader address, personal asides, or stance-bearing commentary.",
+          "description": "Verify citations, DOIs, dates, journals, reference order, figure/data consistency, and whether cited works actually support the claim. Plausible citation format is not evidence. In argumentative academic prose, also watch for depleted engagement markers such as missing questions, reader address, personal asides, or stance-bearing commentary.",
           "watchlist": [
             "fake, broken, or irrelevant citations",
             "wrong DOI, journal, date, figure, or data reference",

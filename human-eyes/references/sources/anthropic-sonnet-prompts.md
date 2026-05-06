@@ -31,7 +31,7 @@ Cited for model prompt/style background. Current use is model documentation only
 
 ## Matched patterns / rules
 - No direct human-eyes prose-pattern support from the reviewed release-notes index.
-- Model behavior background: first-party prompt release notes can explain why exact prompt dates matter.
+- Model behaviour background: first-party prompt release notes can explain why exact prompt dates matter.
 
 ## Associated hypotheses
 - H8 audience-aware voice

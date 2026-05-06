@@ -9,7 +9,7 @@
 - **Extraction status:** second-pass reviewed from PMC open-access full text on 2026-05-05
 
 ## Summary
-Analyzes biomedical publications for excess vocabulary associated with LLM-assisted writing and provides the dataset bundled in human-eyes. The source supports corpus-level lexical signals, not single-word authorship claims.
+Analyses biomedical publications for excess vocabulary associated with LLM-assisted writing and provides the dataset bundled in human-eyes. The source supports corpus-level lexical signals, not single-word authorship claims.
 
 ## Main insights
 - Use excess vocabulary as density evidence.
