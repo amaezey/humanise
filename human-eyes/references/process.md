@@ -97,11 +97,20 @@ For Rewrite:
 - Do not make a writer more neutral just to sound clean.
 - Do not remove a distinctive device if removing it would flatten the voice;
   disclose the preservation instead.
+- Preserve deliberate punctuation, including em dashes, when it is clearly part
+  of the writer's voice or source formatting. Do not add typos, awkwardness, or
+  anti-AI camouflage to make prose look human.
+- If the source text makes factual, academic, journalistic, or product claims,
+  check whether named sources, citations, dates, links, bylines, and quoted
+  evidence support the claim before rewriting the sentence for style.
 
 For Write:
 - Answer the brief directly.
 - Include concrete sensory, practical, or argumentative detail.
 - Avoid generic essay structure unless the user asked for it.
+- Match audience, intent, and genre. A student essay, academic abstract,
+  marketing email, poem, fiction scene, and news item need different evidence
+  habits and different kinds of specificity.
 
 ## Step E: Re-Grade and Revise
 
@@ -119,3 +128,18 @@ Stop with residual issues only when:
 
 When residual issues remain, name them plainly in the post-check. Do not say
 "none identified" if the grader still reports required failures.
+
+## Report and Detector Caveats
+
+When explaining audit results:
+
+- Say "review cue", "flag", or "finding"; do not say a pattern proves AI
+  authorship.
+- Treat detector pages, vendor scores, and opaque product thresholds as context
+  for uncertainty language, not as evidence for human-eyes rule severity.
+- For short texts, mixed-authorship texts, non-native English, highly polished
+  student writing, and traditional clean business prose, surface the false
+  positive risk plainly.
+- For source-grounded writing, prioritise claim verification: named sources,
+  links, dates, citations, DOIs, figure references, bylines, and disclosure
+  history matter more than whether the paragraph sounds smooth.

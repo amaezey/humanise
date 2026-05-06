@@ -324,3 +324,123 @@ The two assignments most plausibly wrong:
 - If per-flagged-state severity becomes warranted (e.g. structural_monotony's "every section" answer earns `strong_warning` while "some sections share" stays `context_warning`), spec the schema change.
 
 **Impact:** Severity tier assignments move from reasoned-but-untested to corpus-grounded. The severity × depth → action mapping (already shared between auto-detected and agent-assessed via `_action_for_check`) becomes calibrated rather than defaulted. May surface a need for per-flagged-state severity rather than per-item, depending on how cleanly each answer-value separates.
+
+## 21. Low information density and wrong sentence subject
+
+**Status:** open
+
+**Source:** External source cards: Shreya Shankar, Charlie Guo, and Wendy Belcher.
+
+**Statement:** Some AI-shaped prose is fluent but says little because sentences choose the wrong grammatical subject, summarise instead of thinking, or make claims without enough information density. This may belong in agent judgement or rewrite self-checks rather than regex.
+
+**Test:**
+- Collect examples where reviewers call out wrong subject, low information density, or fluency without understanding.
+- Compare human and AI samples in the matched corpus for sentence-level information density and subject choice.
+- Decide whether the useful output is a new agent-judgement item, a #41 student-writing watchlist item, or rewrite-only guidance.
+
+**Impact:** Adds a higher-level quality check that catches polished emptiness without relying on surface vocabulary.
+
+## 22. Long-tail compression and grammatical standardisation
+
+**Status:** open
+
+**Source:** External source cards: Ju, Blix, and Williams; Przystalski et al.; GPTZero burstiness.
+
+**Statement:** LLM prose may compress long-tail syntactic behaviour and reduce variation even when average sentence length looks acceptable. The current sentence-rhythm check may need a richer structural-variation family rather than only variance thresholds.
+
+**Test:**
+- Add measurements for clause shape, phrase-length tails, and sentence-pattern diversity on the matched corpus.
+- Compare those metrics against current #52 sentence-rhythm variance.
+- Check whether long-tail measures separate AI from human prose within register better than the current variance check.
+
+**Impact:** Refines the structural-metric family and may reduce overreliance on crude sentence-length signals.
+
+## 23. Nominalization and noun-heavy style
+
+**Status:** open
+
+**Source:** External source card: Reinhart et al.
+
+**Statement:** Present-participial clauses are only one part of a broader rhetorical-style shift. Nominalization density, noun-heavy phrasing, subject "that" clauses, and phrasal coordination may be more precise future features.
+
+**Test:**
+- Extract candidate features named by Reinhart et al.
+- Measure them on current human and AI samples.
+- Decide whether any feature is strong enough for a programmatic advisory check, or whether the evidence should stay in academic-register notes.
+
+**Impact:** Prevents #3 from carrying more evidence than it actually supports and opens a better grammar-feature path.
+
+## 24. Register-specific vocabulary density
+
+**Status:** open
+
+**Source:** External source cards: Kobak et al.; Kousha and Thelwall; Juzek and Ward; Geng and Trotta; Nature; Grammarly.
+
+**Statement:** AI vocabulary evidence should be repeated, co-occurring, time-sensitive, and register-specific. Flat one-word blacklists should give way to register-aware density, increases and decreases, and source-specific date metadata.
+
+**Test:**
+- Tag vocabulary sources by register, corpus date range, extraction date, and model family where available.
+- Compute vocabulary density by register and by source list.
+- Check whether any word list remains useful once public-tell drift and register are accounted for.
+
+**Impact:** Makes #7 less brittle and reduces stale-blacklist behaviour.
+
+## 25. Model-family versus generic-AI residue
+
+**Status:** open
+
+**Source:** External source cards: Sun et al.; Rudnicka; Merrill/WaPo; Sean Trott.
+
+**Statement:** Some writing signals point to model family, model version, prompt style, or public-tell drift rather than generic AI authorship. The source metadata and future scoring should separate these claims.
+
+**Test:**
+- Add model-family/model-version metadata to source cards and imported examples where available.
+- Identify current rules whose source evidence is model-specific rather than general.
+- Decide whether model-specific evidence should affect user-facing output or remain internal source context.
+
+**Impact:** Prevents generic "AI tell" claims from absorbing model-specific evidence that may drift or invert.
+
+## 26. Vague-change intros separate from contrastive negation
+
+**Status:** open
+
+**Source:** External source cards: Blake Stockton and Matthew Vollmer.
+
+**Statement:** B2B/corporate openers like "something changed" may be a separate rhetorical pattern from contrastive negation and manufactured insight. They deserve separate tracking before being folded into #9 or #50.
+
+**Test:**
+- Collect examples of vague-change openers from source cards and corpus samples.
+- Compare overlap with #9 contrived contrast and #50 formulaic openers.
+- Decide whether this is a new advisory pattern, a #50 phrase expansion, or a register-specific look-alike note.
+
+**Impact:** Keeps corporate-register pattern expansion precise instead of hiding distinct cues inside broad existing rules.
+
+## 27. Performative profundity and aphoristic closure
+
+**Status:** open
+
+**Source:** External source cards: Matthew Vollmer, Sam Kriss, and SEO Engine.
+
+**Statement:** Generic profundity, false profundity, aphoristic closure, and universal-generic statements may be a recurring AI-shaped ending pattern. It should start advisory because sources are practitioner/editorial rather than strong empirical evidence.
+
+**Test:**
+- Collect ending sentences flagged as false profundity or aphoristic closure.
+- Compare with current #24 generic positive conclusions, #44 signposted conclusions, and #47 soft scaffolding.
+- Decide whether there is a distinct user-facing pattern or only look-alike guidance for existing conclusion checks.
+
+**Impact:** Improves endings guidance without overclaiming practitioner sources as hard evidence.
+
+## 28. Originality, clarity, and formality as comparison dimensions
+
+**Status:** open
+
+**Source:** External source card: Russell, Karpinska, and Iyyer.
+
+**Statement:** Human reviewers may judge generated non-fiction through higher-level dimensions such as originality, clarity, and formality. These dimensions are not direct evidence for current patterns, but they may fit a future comparison-engine surface.
+
+**Test:**
+- Map source-backed reviewer dimensions to existing pattern families.
+- Prototype comparison-output language for originality, clarity, and formality without turning them into authorship verdicts.
+- Test whether users understand these as comparative writing dimensions rather than detector scores.
+
+**Impact:** Gives the future comparison engine a source-backed language for higher-level differences between drafts.
