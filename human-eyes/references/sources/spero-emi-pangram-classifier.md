@@ -19,7 +19,7 @@ Technical report for Pangram Text, a transformer-based neural network trained to
 ## Evidence and claims to extract
 - Benchmark: 10 text domains and eight open-/closed-source LLMs.
 - Domains named in abstract: student writing, creative writing, scientific writing, books, encyclopedias, news, email, scientific papers, and short-form Q&A.
-- Reported classifier claims: over 38 times lower error rates than DetectGPT and leading commercial tools; hard negative mining with synthetic mirrors; lower false-positive rates; no nonnative-speaker bias; generalization to unseen domains/models.
+- Reported classifier claims: over 38 times lower error rates than DetectGPT and leading commercial tools; hard negative mining with synthetic mirrors; lower false-positive rates; no nonnative-speaker bias; generalisation to unseen domains/models.
 
 ## Skill-use audit
 - **Good use:** Back H3 detector-framing caution and H4 audit-contract thinking.

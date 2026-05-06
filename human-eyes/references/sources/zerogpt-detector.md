@@ -9,7 +9,7 @@
 - **Extraction status:** second-pass reviewed from ZeroGPT product page/search excerpt
 
 ## Summary
-Commercial/free AI detector page claiming 98.5% accuracy for detecting AI-generated content from ChatGPT, GPT-5, Claude, Gemini, and other models. The page says it analyzes patterns, sentence structure, word choice, and gives percentage scores.
+Commercial/free AI detector page claiming 98.5% accuracy for detecting AI-generated content from ChatGPT, GPT-5, Claude, Gemini, and other models. The page says it analyses patterns, sentence structure, word choice, and gives percentage scores.
 
 ## Main insights
 - Product landscape only; this should not back human-eyes prose rules.

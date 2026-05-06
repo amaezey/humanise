@@ -9,10 +9,10 @@
 - **Extraction status:** second-pass reviewed from Ars Technica article
 
 ## Summary
-Reports Sam Altman's November 2025 claim that ChatGPT had started following custom instructions to avoid em dashes. The article frames this as evidence of the public salience of em dashes as an AI tell and of ongoing instruction-following/model-behavior changes.
+Reports Sam Altman's November 2025 claim that ChatGPT had started following custom instructions to avoid em dashes. The article frames this as evidence of the public salience of em dashes as an AI tell and of ongoing instruction-following/model-behaviour changes.
 
 ## Main insights
-- Em-dash behavior is not stable: provider changes and custom instructions can alter it.
+- Em-dash behaviour is not stable: provider changes and custom instructions can alter it.
 - The article itself notes that humans can overuse em dashes too.
 - This supports model-drift notes for #49 more than it supports a detection rule.
 

@@ -27,7 +27,7 @@ Compares AI and human poetry corpora. human-eyes uses it for poetry-specific man
 - **Good use:** Strongly backs poetry branch of #41 and supports genre-specific agent judgement.
 - **Misuse / overclaim:** Do not generalize rhyme/quatrain/default meter findings to essays, business prose, or fiction.
 - **Unsupported use:** This does not support the general ghost/spectral language rule by itself, though "echo" and "whisper" overlap with #26 in poetry context.
-- **Underused evidence:** First-person plural overuse and form-default behavior could be explicit poetry-watchlist items.
+- **Underused evidence:** First-person plural overuse and form-default behaviour could be explicit poetry-watchlist items.
 - **Patterns left on the table:** Poetry-specific checks for default quatrains, rhyme density, first-person plural clustering, and form-compliance without variation.
 
 ## Matched patterns / rules

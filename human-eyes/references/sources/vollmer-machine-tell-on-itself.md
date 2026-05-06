@@ -19,7 +19,7 @@ A writing-teacher field guide that synthesizes around 100 AI-writing micro-patte
 ## Evidence and claims to extract
 - Direct-source review already exists in `dev/research/vollmer.md`.
 - Vollmer is a conduit source for many upstream claims: Kobak/Juzek for vocabulary, Walsh for poetry, Jiang and Hyland for academic engagement markers, Liang for detector bias, Chiang for false concession, Vara/Preston for abstraction and context loss, Stockton/Shankar/Clarke/Guo for practitioner taxonomies, and several journalism/vendor sources for em dashes and provenance.
-- Vollmer also makes his own diagnostic observations, including inflated verbs, hedge-and-reassure behavior, aphoristic closure, false profundity, curly/smart quotes, emoji headings, title case headings, and a "30-second diagnostic cluster."
+- Vollmer also makes his own diagnostic observations, including inflated verbs, hedge-and-reassure behaviour, aphoristic closure, false profundity, curly/smart quotes, emoji headings, title case headings, and a "30-second diagnostic cluster."
 - The extraction explicitly says source strength varies across peer-reviewed research, journalism, vendor docs, practitioner blogs, and Vollmer's classroom synthesis.
 
 ## Skill-use audit

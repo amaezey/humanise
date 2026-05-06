@@ -38,5 +38,5 @@ Empirical study testing whether high school teachers and students can distinguis
 - H12 genre-aware threshold calibration
 
 ## Questions / follow-up
-- Should student-writing checks emphasize uncertainty more strongly than other genres?
+- Should student-writing checks emphasise uncertainty more strongly than other genres?
 - Does the full paper include the participants' stated cues, and are those cues reliable or merely perceived?

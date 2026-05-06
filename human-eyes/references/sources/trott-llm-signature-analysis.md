@@ -16,7 +16,7 @@ Trott reports an empirical analysis of "signatures" that distinguish a small set
 - The post treats LLM-written text as potentially more homogenized and lower-variance, but it frames that as a hypothesis requiring broader evidence.
 - Trott uses open-source Pythia models to score text rather than relying only on surface word lists.
 - Random forest classifiers using Pythia-derived features perform well on the constrained dataset, including strong accuracy from average surprisal alone and higher accuracy from feature combinations.
-- The author emphasizes limits: small sample, constrained genre, limited models, uncertain generalization, and real false-positive risk.
+- The author emphasises limits: small sample, constrained genre, limited models, uncertain generalisation, and real false-positive risk.
 
 ## Evidence and claims to extract
 - Post title: "Identifying signatures of LLM-generated text."

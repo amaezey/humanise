@@ -10,7 +10,7 @@ Second-pass reviewed: 2026-05-05. All 72 source cards now include source notes, 
 
 ## Evidence tiers
 - **Peer-reviewed / academic empirical:** strongest for pattern evidence, usually still aggregate, register-scoped, or corpus-scoped rather than proof for a single document.
-- **First-party model docs:** useful for model behavior, capability, policy, and version-drift context; not prose-pattern proof unless the document names the behavior directly.
+- **First-party model docs:** useful for model behaviour, capability, policy, and version-drift context; not prose-pattern proof unless the document names the behaviour directly.
 - **Journalism / reported cases:** useful for incidents, public salience, provenance, harms, and social context; weaker for reusable pattern thresholds.
 - **Practitioner / teacher / editor essays:** useful for manual review prompts, genre branches, craft language, and examples; weaker for hard severity or detector claims.
 - **Vendor / detector pages:** useful for product framing, uncertainty UX, and candidate features; weak for pattern validity unless independently corroborated.
@@ -31,7 +31,7 @@ Deep extraction exists for:
 - [Wikipedia: Signs of AI writing](wikipedia-signs-of-ai-writing.md)
 - [Matthew Vollmer: I Asked the Machine to Tell on Itself](vollmer-machine-tell-on-itself.md)
 
-## Academic vocabulary, grammar, behavior, domains, limits, and stylometry
+## Academic vocabulary, grammar, behaviour, domains, limits, and stylometry
 - [Kobak et al.: Delving into LLM-assisted writing in biomedical publications through excess vocabulary](kobak-llm-excess-vocabulary.md)
 - [Juzek and Ward: Why Does ChatGPT Delve So Much?](juzek-ward-delve.md)
 - [Juzek and Ward: Word Overuse and Alignment in Large Language Models](juzek-ward-word-overuse-alignment.md)

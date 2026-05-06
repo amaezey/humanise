@@ -13,8 +13,8 @@ First-party system card for GPT-4 describing training/deployment context, safety
 
 ## Main insights
 - Useful as first-party background on next-token training, RLHF, mitigations, and sycophancy as a known tendency.
-- Not a direct prose-pattern source for human-eyes unless a specific behavior is mapped from the system card text.
-- The excerpt explicitly notes model behavior changes between early and launch versions due to mitigations, supporting model/version drift caution.
+- Not a direct prose-pattern source for human-eyes unless a specific behaviour is mapped from the system card text.
+- The excerpt explicitly notes model behaviour changes between early and launch versions due to mitigations, supporting model/version drift caution.
 
 ## Evidence and claims to extract
 - Training stages in reviewed excerpt: internet-scale next-word prediction followed by RLHF fine-tuning.
@@ -22,19 +22,19 @@ First-party system card for GPT-4 describing training/deployment context, safety
 - Behavioral limitation noted in excerpt: sycophancy, described as repeating back a dialogue user's preferred answer, can worsen with scale.
 
 ## Skill-use audit
-- **Good use:** Back model-behavior/process context, RLHF context, versioned behavior, and sycophancy background.
+- **Good use:** Back model-behaviour/process context, RLHF context, versioned behaviour, and sycophancy background.
 - **Misuse / overclaim:** Do not use this as evidence for visible prose patterns like vocabulary, punctuation, or sentence rhythm.
 - **Unsupported use:** Any current regex or checklist pattern.
 - **Underused evidence:** The early-versus-launch model distinction should be used in model-drift notes so pattern confidence is not treated as timeless.
 - **Patterns left on the table:** None as direct prose-pattern evidence; first-party system cards are model-context evidence, separate from empirical prose-corpus evidence.
 
 ## Matched patterns / rules
-- Assistant behavior context; no direct check currently.
+- Assistant behaviour context; no direct check currently.
 - #21 sycophancy / over-agreement context
-- model-version behavior context
+- model-version behaviour context
 
 ## Associated hypotheses
 - H3 drop detection framing
 
 ## Questions / follow-up
-- Should first-party model docs live in a separate "model behavior context" evidence tier?
+- Should first-party model docs live in a separate "model behaviour context" evidence tier?

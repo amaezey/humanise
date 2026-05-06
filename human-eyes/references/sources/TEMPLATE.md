@@ -4,7 +4,6 @@
 - **Author / owner:** 
 - **Published:** 
 - **Extracted:** 
-- **Model / corpus date range:** 
 - **Source type:** 
 - **Evidence tier:** 
 - **Extraction status:** 

@@ -19,7 +19,7 @@ First-person literary/journalistic account of using GPT-3 in writing, especially
 ## Evidence and claims to extract
 - Vara describes using GPT-3 to write about her sister's death and feeling she could not find words on her own.
 - The saved article reports other writers finding AI language boring and cliche-ridden.
-- It quotes a model-behavior explanation that ChatGPT was tuned to sound corporate, safe, and AP English.
+- It quotes a model-behaviour explanation that ChatGPT was tuned to sound corporate, safe, and AP English.
 - It describes ChatGPT's voice as polite, predictable, inoffensive, and upbeat, contrasting those traits with strong characters, plots, style, and endings.
 
 ## Skill-use audit

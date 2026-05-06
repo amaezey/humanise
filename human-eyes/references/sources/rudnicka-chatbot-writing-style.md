@@ -19,7 +19,7 @@ Scientific American article by linguist Karolina Rudnicka arguing that different
 ## Evidence and claims to extract
 - Method described in article: authorship-style comparison using Delta method and frequent word/trigram differences in ChatGPT and Gemini diabetes texts.
 - Reported distance examples from excerpt: ChatGPT sample closer to ChatGPT dataset than Gemini; Gemini sample closer to Gemini dataset than ChatGPT.
-- Named style contrast: ChatGPT favors formal medical language while Gemini favors simpler accessible phrasing in the diabetes dataset.
+- Named style contrast: ChatGPT favours formal medical language while Gemini favours simpler accessible phrasing in the diabetes dataset.
 
 ## Skill-use audit
 - **Good use:** Back model-drift/model-specific-source notes and warnings against overfitting to one model's style.

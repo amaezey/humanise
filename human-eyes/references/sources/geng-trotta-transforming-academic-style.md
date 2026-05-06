@@ -21,7 +21,7 @@ Academic writing-style transformation paper using arXiv abstracts. The saved ful
 - Corpus: one million arXiv papers submitted from May 2018 to January 2024.
 - Method: statistical analysis of word-frequency changes in abstracts, calibrated and validated on mixed real and ChatGPT-modified abstracts.
 - Main abstract-level claim: LLM-style abstracts are increasingly visible in arXiv abstracts, especially computer science; with a GPT-3.5 "revise the following sentences" baseline, the estimated fraction is approximately 35%.
-- Full-text verification: the PDF reports that "is" and "are" decrease after ChatGPT, with table values showing more than 10% drops in the analyzed arXiv-abstract corpus.
+- Full-text verification: the PDF reports that "is" and "are" decrease after ChatGPT, with table values showing more than 10% drops in the analysed arXiv-abstract corpus.
 
 ## Skill-use audit
 - **Good use:** Backs academic-register style shift, H12 calibration work, and #8 as a corpus-level word-frequency decrease.

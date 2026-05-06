@@ -15,7 +15,7 @@ Substack post titled "Tells beyond the em dash" with the subtitle "Did an LLM wr
 - Stronger support than the preview suggested for #34, #38, #39, #41, and #43.
 - Supports #49 only as a caution against treating em dashes as proof of AI authorship.
 - The article is context-aware: it says LLMs change style with prompting, different models have different default styles, and humans can sound robotic too.
-- The piece emphasizes clusters and abundance rather than single-token detection.
+- The piece emphasises clusters and abundance rather than single-token detection.
 - It is especially useful for practical editing advice: read generated text aloud, know the audience, remove sycophancy, add concrete anecdotes/sensory detail/opinionated statements, and do not fear human em-dash use.
 
 ## Evidence and claims to extract

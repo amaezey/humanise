@@ -12,7 +12,7 @@
 Covers writers changing prose to avoid being accused of using AI. It is an ethics and false-positive source.
 
 ## Main insights
-- Audit language can change user behavior.
+- Audit language can change user behaviour.
 - False positives create pressure toward performative humanity.
 - Supports dropping detector-like framing.
 - Useful as a harm/caution source rather than as style evidence.

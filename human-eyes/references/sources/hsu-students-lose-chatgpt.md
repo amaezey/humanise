@@ -24,7 +24,7 @@ WNYC interview with Hua Hsu about what students lose when they outsource essay w
 - Hsu says student use seems widespread from talking to students, while acknowledging the lack of firm statistics.
 - Hsu describes a student using Claude and ChatGPT for an estimated 90% of the work in a class he did not care about and retaining very little.
 - Hsu says the college process is being short-circuited: pockets of potential magic are going away.
-- The discussion emphasizes education as producing people/citizens, not only workers, and treating AI as a shortcut around difficult thought.
+- The discussion emphasises education as producing people/citizens, not only workers, and treating AI as a shortcut around difficult thought.
 - Caller examples show a related risk on the grading side: AI feedback can make writing feel like busywork when no human reads it.
 
 ## Skill-use audit
